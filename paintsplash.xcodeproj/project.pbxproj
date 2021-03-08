@@ -7,68 +7,68 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AC7C879425F65C4F003AFA53 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7C879325F65C4F003AFA53 /* AppDelegate.swift */; };
-		AC7C879625F65C4F003AFA53 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = AC7C879525F65C4F003AFA53 /* GameScene.sks */; };
-		AC7C879825F65C4F003AFA53 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = AC7C879725F65C4F003AFA53 /* Actions.sks */; };
-		AC7C879A25F65C4F003AFA53 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7C879925F65C4F003AFA53 /* GameScene.swift */; };
-		AC7C879C25F65C4F003AFA53 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7C879B25F65C4F003AFA53 /* GameViewController.swift */; };
-		AC7C879F25F65C4F003AFA53 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AC7C879D25F65C4F003AFA53 /* Main.storyboard */; };
-		AC7C87A125F65C51003AFA53 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC7C87A025F65C51003AFA53 /* Assets.xcassets */; };
-		AC7C87AC25F65C51003AFA53 /* paintsplashTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7C87AB25F65C51003AFA53 /* paintsplashTests.swift */; };
-		AC7C87B725F65C51003AFA53 /* paintsplashUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7C87B625F65C51003AFA53 /* paintsplashUITests.swift */; };
+		ACB3607225F661620016E240 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB3607125F661620016E240 /* AppDelegate.swift */; };
+		ACB3607425F661620016E240 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = ACB3607325F661620016E240 /* GameScene.sks */; };
+		ACB3607625F661620016E240 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = ACB3607525F661620016E240 /* Actions.sks */; };
+		ACB3607825F661620016E240 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB3607725F661620016E240 /* GameScene.swift */; };
+		ACB3607A25F661620016E240 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB3607925F661620016E240 /* GameViewController.swift */; };
+		ACB3607D25F661620016E240 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ACB3607B25F661620016E240 /* Main.storyboard */; };
+		ACB3607F25F661630016E240 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACB3607E25F661630016E240 /* Assets.xcassets */; };
+		ACB3608A25F661630016E240 /* paintsplashTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB3608925F661630016E240 /* paintsplashTests.swift */; };
+		ACB3609525F661630016E240 /* paintsplashUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB3609425F661630016E240 /* paintsplashUITests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		AC7C87A825F65C51003AFA53 /* PBXContainerItemProxy */ = {
+		ACB3608625F661630016E240 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = AC7C878825F65C4F003AFA53 /* Project object */;
+			containerPortal = ACB3606625F661620016E240 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = AC7C878F25F65C4F003AFA53;
+			remoteGlobalIDString = ACB3606D25F661620016E240;
 			remoteInfo = paintsplash;
 		};
-		AC7C87B325F65C51003AFA53 /* PBXContainerItemProxy */ = {
+		ACB3609125F661630016E240 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = AC7C878825F65C4F003AFA53 /* Project object */;
+			containerPortal = ACB3606625F661620016E240 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = AC7C878F25F65C4F003AFA53;
+			remoteGlobalIDString = ACB3606D25F661620016E240;
 			remoteInfo = paintsplash;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		AC7C879025F65C4F003AFA53 /* paintsplash.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = paintsplash.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		AC7C879325F65C4F003AFA53 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		AC7C879525F65C4F003AFA53 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
-		AC7C879725F65C4F003AFA53 /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
-		AC7C879925F65C4F003AFA53 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
-		AC7C879B25F65C4F003AFA53 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
-		AC7C879E25F65C4F003AFA53 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		AC7C87A025F65C51003AFA53 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		AC7C87A225F65C51003AFA53 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		AC7C87A725F65C51003AFA53 /* paintsplashTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = paintsplashTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		AC7C87AB25F65C51003AFA53 /* paintsplashTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = paintsplashTests.swift; sourceTree = "<group>"; };
-		AC7C87AD25F65C51003AFA53 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		AC7C87B225F65C51003AFA53 /* paintsplashUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = paintsplashUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		AC7C87B625F65C51003AFA53 /* paintsplashUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = paintsplashUITests.swift; sourceTree = "<group>"; };
-		AC7C87B825F65C51003AFA53 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		ACB3606E25F661620016E240 /* paintsplash.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = paintsplash.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		ACB3607125F661620016E240 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		ACB3607325F661620016E240 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
+		ACB3607525F661620016E240 /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
+		ACB3607725F661620016E240 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
+		ACB3607925F661620016E240 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		ACB3607C25F661620016E240 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		ACB3607E25F661630016E240 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		ACB3608025F661630016E240 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		ACB3608525F661630016E240 /* paintsplashTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = paintsplashTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		ACB3608925F661630016E240 /* paintsplashTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = paintsplashTests.swift; sourceTree = "<group>"; };
+		ACB3608B25F661630016E240 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		ACB3609025F661630016E240 /* paintsplashUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = paintsplashUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		ACB3609425F661630016E240 /* paintsplashUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = paintsplashUITests.swift; sourceTree = "<group>"; };
+		ACB3609625F661630016E240 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		AC7C878D25F65C4F003AFA53 /* Frameworks */ = {
+		ACB3606B25F661620016E240 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		AC7C87A425F65C51003AFA53 /* Frameworks */ = {
+		ACB3608225F661630016E240 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		AC7C87AF25F65C51003AFA53 /* Frameworks */ = {
+		ACB3608D25F661630016E240 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -78,55 +78,55 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		AC7C878725F65C4F003AFA53 = {
+		ACB3606525F661620016E240 = {
 			isa = PBXGroup;
 			children = (
-				AC7C879225F65C4F003AFA53 /* paintsplash */,
-				AC7C87AA25F65C51003AFA53 /* paintsplashTests */,
-				AC7C87B525F65C51003AFA53 /* paintsplashUITests */,
-				AC7C879125F65C4F003AFA53 /* Products */,
+				ACB3607025F661620016E240 /* paintsplash */,
+				ACB3608825F661630016E240 /* paintsplashTests */,
+				ACB3609325F661630016E240 /* paintsplashUITests */,
+				ACB3606F25F661620016E240 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		AC7C879125F65C4F003AFA53 /* Products */ = {
+		ACB3606F25F661620016E240 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				AC7C879025F65C4F003AFA53 /* paintsplash.app */,
-				AC7C87A725F65C51003AFA53 /* paintsplashTests.xctest */,
-				AC7C87B225F65C51003AFA53 /* paintsplashUITests.xctest */,
+				ACB3606E25F661620016E240 /* paintsplash.app */,
+				ACB3608525F661630016E240 /* paintsplashTests.xctest */,
+				ACB3609025F661630016E240 /* paintsplashUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		AC7C879225F65C4F003AFA53 /* paintsplash */ = {
+		ACB3607025F661620016E240 /* paintsplash */ = {
 			isa = PBXGroup;
 			children = (
-				AC7C879325F65C4F003AFA53 /* AppDelegate.swift */,
-				AC7C879525F65C4F003AFA53 /* GameScene.sks */,
-				AC7C879725F65C4F003AFA53 /* Actions.sks */,
-				AC7C879925F65C4F003AFA53 /* GameScene.swift */,
-				AC7C879B25F65C4F003AFA53 /* GameViewController.swift */,
-				AC7C879D25F65C4F003AFA53 /* Main.storyboard */,
-				AC7C87A025F65C51003AFA53 /* Assets.xcassets */,
-				AC7C87A225F65C51003AFA53 /* Info.plist */,
+				ACB3607125F661620016E240 /* AppDelegate.swift */,
+				ACB3607325F661620016E240 /* GameScene.sks */,
+				ACB3607525F661620016E240 /* Actions.sks */,
+				ACB3607725F661620016E240 /* GameScene.swift */,
+				ACB3607925F661620016E240 /* GameViewController.swift */,
+				ACB3607B25F661620016E240 /* Main.storyboard */,
+				ACB3607E25F661630016E240 /* Assets.xcassets */,
+				ACB3608025F661630016E240 /* Info.plist */,
 			);
 			path = paintsplash;
 			sourceTree = "<group>";
 		};
-		AC7C87AA25F65C51003AFA53 /* paintsplashTests */ = {
+		ACB3608825F661630016E240 /* paintsplashTests */ = {
 			isa = PBXGroup;
 			children = (
-				AC7C87AB25F65C51003AFA53 /* paintsplashTests.swift */,
-				AC7C87AD25F65C51003AFA53 /* Info.plist */,
+				ACB3608925F661630016E240 /* paintsplashTests.swift */,
+				ACB3608B25F661630016E240 /* Info.plist */,
 			);
 			path = paintsplashTests;
 			sourceTree = "<group>";
 		};
-		AC7C87B525F65C51003AFA53 /* paintsplashUITests */ = {
+		ACB3609325F661630016E240 /* paintsplashUITests */ = {
 			isa = PBXGroup;
 			children = (
-				AC7C87B625F65C51003AFA53 /* paintsplashUITests.swift */,
-				AC7C87B825F65C51003AFA53 /* Info.plist */,
+				ACB3609425F661630016E240 /* paintsplashUITests.swift */,
+				ACB3609625F661630016E240 /* Info.plist */,
 			);
 			path = paintsplashUITests;
 			sourceTree = "<group>";
@@ -134,13 +134,13 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		AC7C878F25F65C4F003AFA53 /* paintsplash */ = {
+		ACB3606D25F661620016E240 /* paintsplash */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = AC7C87BB25F65C51003AFA53 /* Build configuration list for PBXNativeTarget "paintsplash" */;
+			buildConfigurationList = ACB3609925F661630016E240 /* Build configuration list for PBXNativeTarget "paintsplash" */;
 			buildPhases = (
-				AC7C878C25F65C4F003AFA53 /* Sources */,
-				AC7C878D25F65C4F003AFA53 /* Frameworks */,
-				AC7C878E25F65C4F003AFA53 /* Resources */,
+				ACB3606A25F661620016E240 /* Sources */,
+				ACB3606B25F661620016E240 /* Frameworks */,
+				ACB3606C25F661620016E240 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -148,68 +148,68 @@
 			);
 			name = paintsplash;
 			productName = paintsplash;
-			productReference = AC7C879025F65C4F003AFA53 /* paintsplash.app */;
+			productReference = ACB3606E25F661620016E240 /* paintsplash.app */;
 			productType = "com.apple.product-type.application";
 		};
-		AC7C87A625F65C51003AFA53 /* paintsplashTests */ = {
+		ACB3608425F661630016E240 /* paintsplashTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = AC7C87BE25F65C51003AFA53 /* Build configuration list for PBXNativeTarget "paintsplashTests" */;
+			buildConfigurationList = ACB3609C25F661630016E240 /* Build configuration list for PBXNativeTarget "paintsplashTests" */;
 			buildPhases = (
-				AC7C87A325F65C51003AFA53 /* Sources */,
-				AC7C87A425F65C51003AFA53 /* Frameworks */,
-				AC7C87A525F65C51003AFA53 /* Resources */,
+				ACB3608125F661630016E240 /* Sources */,
+				ACB3608225F661630016E240 /* Frameworks */,
+				ACB3608325F661630016E240 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				AC7C87A925F65C51003AFA53 /* PBXTargetDependency */,
+				ACB3608725F661630016E240 /* PBXTargetDependency */,
 			);
 			name = paintsplashTests;
 			productName = paintsplashTests;
-			productReference = AC7C87A725F65C51003AFA53 /* paintsplashTests.xctest */;
+			productReference = ACB3608525F661630016E240 /* paintsplashTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		AC7C87B125F65C51003AFA53 /* paintsplashUITests */ = {
+		ACB3608F25F661630016E240 /* paintsplashUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = AC7C87C125F65C51003AFA53 /* Build configuration list for PBXNativeTarget "paintsplashUITests" */;
+			buildConfigurationList = ACB3609F25F661630016E240 /* Build configuration list for PBXNativeTarget "paintsplashUITests" */;
 			buildPhases = (
-				AC7C87AE25F65C51003AFA53 /* Sources */,
-				AC7C87AF25F65C51003AFA53 /* Frameworks */,
-				AC7C87B025F65C51003AFA53 /* Resources */,
+				ACB3608C25F661630016E240 /* Sources */,
+				ACB3608D25F661630016E240 /* Frameworks */,
+				ACB3608E25F661630016E240 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				AC7C87B425F65C51003AFA53 /* PBXTargetDependency */,
+				ACB3609225F661630016E240 /* PBXTargetDependency */,
 			);
 			name = paintsplashUITests;
 			productName = paintsplashUITests;
-			productReference = AC7C87B225F65C51003AFA53 /* paintsplashUITests.xctest */;
+			productReference = ACB3609025F661630016E240 /* paintsplashUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		AC7C878825F65C4F003AFA53 /* Project object */ = {
+		ACB3606625F661620016E240 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1240;
 				LastUpgradeCheck = 1240;
 				TargetAttributes = {
-					AC7C878F25F65C4F003AFA53 = {
+					ACB3606D25F661620016E240 = {
 						CreatedOnToolsVersion = 12.4;
 					};
-					AC7C87A625F65C51003AFA53 = {
+					ACB3608425F661630016E240 = {
 						CreatedOnToolsVersion = 12.4;
-						TestTargetID = AC7C878F25F65C4F003AFA53;
+						TestTargetID = ACB3606D25F661620016E240;
 					};
-					AC7C87B125F65C51003AFA53 = {
+					ACB3608F25F661630016E240 = {
 						CreatedOnToolsVersion = 12.4;
-						TestTargetID = AC7C878F25F65C4F003AFA53;
+						TestTargetID = ACB3606D25F661620016E240;
 					};
 				};
 			};
-			buildConfigurationList = AC7C878B25F65C4F003AFA53 /* Build configuration list for PBXProject "paintsplash" */;
+			buildConfigurationList = ACB3606925F661620016E240 /* Build configuration list for PBXProject "paintsplash" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -217,38 +217,38 @@
 				en,
 				Base,
 			);
-			mainGroup = AC7C878725F65C4F003AFA53;
-			productRefGroup = AC7C879125F65C4F003AFA53 /* Products */;
+			mainGroup = ACB3606525F661620016E240;
+			productRefGroup = ACB3606F25F661620016E240 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				AC7C878F25F65C4F003AFA53 /* paintsplash */,
-				AC7C87A625F65C51003AFA53 /* paintsplashTests */,
-				AC7C87B125F65C51003AFA53 /* paintsplashUITests */,
+				ACB3606D25F661620016E240 /* paintsplash */,
+				ACB3608425F661630016E240 /* paintsplashTests */,
+				ACB3608F25F661630016E240 /* paintsplashUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		AC7C878E25F65C4F003AFA53 /* Resources */ = {
+		ACB3606C25F661620016E240 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AC7C879F25F65C4F003AFA53 /* Main.storyboard in Resources */,
-				AC7C879625F65C4F003AFA53 /* GameScene.sks in Resources */,
-				AC7C87A125F65C51003AFA53 /* Assets.xcassets in Resources */,
-				AC7C879825F65C4F003AFA53 /* Actions.sks in Resources */,
+				ACB3607D25F661620016E240 /* Main.storyboard in Resources */,
+				ACB3607425F661620016E240 /* GameScene.sks in Resources */,
+				ACB3607F25F661630016E240 /* Assets.xcassets in Resources */,
+				ACB3607625F661620016E240 /* Actions.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		AC7C87A525F65C51003AFA53 /* Resources */ = {
+		ACB3608325F661630016E240 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		AC7C87B025F65C51003AFA53 /* Resources */ = {
+		ACB3608E25F661630016E240 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -258,52 +258,52 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		AC7C878C25F65C4F003AFA53 /* Sources */ = {
+		ACB3606A25F661620016E240 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AC7C879A25F65C4F003AFA53 /* GameScene.swift in Sources */,
-				AC7C879C25F65C4F003AFA53 /* GameViewController.swift in Sources */,
-				AC7C879425F65C4F003AFA53 /* AppDelegate.swift in Sources */,
+				ACB3607825F661620016E240 /* GameScene.swift in Sources */,
+				ACB3607A25F661620016E240 /* GameViewController.swift in Sources */,
+				ACB3607225F661620016E240 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		AC7C87A325F65C51003AFA53 /* Sources */ = {
+		ACB3608125F661630016E240 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AC7C87AC25F65C51003AFA53 /* paintsplashTests.swift in Sources */,
+				ACB3608A25F661630016E240 /* paintsplashTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		AC7C87AE25F65C51003AFA53 /* Sources */ = {
+		ACB3608C25F661630016E240 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AC7C87B725F65C51003AFA53 /* paintsplashUITests.swift in Sources */,
+				ACB3609525F661630016E240 /* paintsplashUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		AC7C87A925F65C51003AFA53 /* PBXTargetDependency */ = {
+		ACB3608725F661630016E240 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = AC7C878F25F65C4F003AFA53 /* paintsplash */;
-			targetProxy = AC7C87A825F65C51003AFA53 /* PBXContainerItemProxy */;
+			target = ACB3606D25F661620016E240 /* paintsplash */;
+			targetProxy = ACB3608625F661630016E240 /* PBXContainerItemProxy */;
 		};
-		AC7C87B425F65C51003AFA53 /* PBXTargetDependency */ = {
+		ACB3609225F661630016E240 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = AC7C878F25F65C4F003AFA53 /* paintsplash */;
-			targetProxy = AC7C87B325F65C51003AFA53 /* PBXContainerItemProxy */;
+			target = ACB3606D25F661620016E240 /* paintsplash */;
+			targetProxy = ACB3609125F661630016E240 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		AC7C879D25F65C4F003AFA53 /* Main.storyboard */ = {
+		ACB3607B25F661620016E240 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				AC7C879E25F65C4F003AFA53 /* Base */,
+				ACB3607C25F661620016E240 /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -311,7 +311,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		AC7C87B925F65C51003AFA53 /* Debug */ = {
+		ACB3609725F661630016E240 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -372,7 +372,7 @@
 			};
 			name = Debug;
 		};
-		AC7C87BA25F65C51003AFA53 /* Release */ = {
+		ACB3609825F661630016E240 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -427,7 +427,7 @@
 			};
 			name = Release;
 		};
-		AC7C87BC25F65C51003AFA53 /* Debug */ = {
+		ACB3609A25F661630016E240 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -445,7 +445,7 @@
 			};
 			name = Debug;
 		};
-		AC7C87BD25F65C51003AFA53 /* Release */ = {
+		ACB3609B25F661630016E240 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -463,7 +463,7 @@
 			};
 			name = Release;
 		};
-		AC7C87BF25F65C51003AFA53 /* Debug */ = {
+		ACB3609D25F661630016E240 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -484,7 +484,7 @@
 			};
 			name = Debug;
 		};
-		AC7C87C025F65C51003AFA53 /* Release */ = {
+		ACB3609E25F661630016E240 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -505,7 +505,7 @@
 			};
 			name = Release;
 		};
-		AC7C87C225F65C51003AFA53 /* Debug */ = {
+		ACB360A025F661630016E240 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -524,7 +524,7 @@
 			};
 			name = Debug;
 		};
-		AC7C87C325F65C51003AFA53 /* Release */ = {
+		ACB360A125F661630016E240 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -546,43 +546,43 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		AC7C878B25F65C4F003AFA53 /* Build configuration list for PBXProject "paintsplash" */ = {
+		ACB3606925F661620016E240 /* Build configuration list for PBXProject "paintsplash" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				AC7C87B925F65C51003AFA53 /* Debug */,
-				AC7C87BA25F65C51003AFA53 /* Release */,
+				ACB3609725F661630016E240 /* Debug */,
+				ACB3609825F661630016E240 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		AC7C87BB25F65C51003AFA53 /* Build configuration list for PBXNativeTarget "paintsplash" */ = {
+		ACB3609925F661630016E240 /* Build configuration list for PBXNativeTarget "paintsplash" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				AC7C87BC25F65C51003AFA53 /* Debug */,
-				AC7C87BD25F65C51003AFA53 /* Release */,
+				ACB3609A25F661630016E240 /* Debug */,
+				ACB3609B25F661630016E240 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		AC7C87BE25F65C51003AFA53 /* Build configuration list for PBXNativeTarget "paintsplashTests" */ = {
+		ACB3609C25F661630016E240 /* Build configuration list for PBXNativeTarget "paintsplashTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				AC7C87BF25F65C51003AFA53 /* Debug */,
-				AC7C87C025F65C51003AFA53 /* Release */,
+				ACB3609D25F661630016E240 /* Debug */,
+				ACB3609E25F661630016E240 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		AC7C87C125F65C51003AFA53 /* Build configuration list for PBXNativeTarget "paintsplashUITests" */ = {
+		ACB3609F25F661630016E240 /* Build configuration list for PBXNativeTarget "paintsplashUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				AC7C87C225F65C51003AFA53 /* Debug */,
-				AC7C87C325F65C51003AFA53 /* Release */,
+				ACB360A025F661630016E240 /* Debug */,
+				ACB360A125F661630016E240 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = AC7C878825F65C4F003AFA53 /* Project object */;
+	rootObject = ACB3606625F661620016E240 /* Project object */;
 }
