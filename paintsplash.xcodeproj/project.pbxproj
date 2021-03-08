@@ -16,6 +16,19 @@
 		ACB3607F25F661630016E240 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACB3607E25F661630016E240 /* Assets.xcassets */; };
 		ACB3608A25F661630016E240 /* paintsplashTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB3608925F661630016E240 /* paintsplashTests.swift */; };
 		ACB3609525F661630016E240 /* paintsplashUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB3609425F661630016E240 /* paintsplashUITests.swift */; };
+		ACFD81FA25F667EB009D806B /* Renderable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFD81F925F667EB009D806B /* Renderable.swift */; };
+		ACFD81FF25F670A2009D806B /* Colorable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFD81FE25F670A2009D806B /* Colorable.swift */; };
+		ACFD820425F67113009D806B /* Weapon.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFD820325F67113009D806B /* Weapon.swift */; };
+		ACFD820925F676AB009D806B /* Movable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFD820825F676AB009D806B /* Movable.swift */; };
+		ACFD820F25F6773B009D806B /* Vector2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFD820D25F6773B009D806B /* Vector2D.swift */; };
+		ACFD821025F6773B009D806B /* Vector2D+CoreGraphics.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFD820E25F6773B009D806B /* Vector2D+CoreGraphics.swift */; };
+		ACFD821825F67C32009D806B /* RenderSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFD821725F67C32009D806B /* RenderSystem.swift */; };
+		ACFD821D25F67C49009D806B /* WeaponSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFD821C25F67C49009D806B /* WeaponSystem.swift */; };
+		ACFD822225F67C5B009D806B /* Projectile.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFD822125F67C5B009D806B /* Projectile.swift */; };
+		ACFD822725F67C76009D806B /* PaintColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFD822625F67C76009D806B /* PaintColor.swift */; };
+		ACFD822C25F67C9E009D806B /* Transformable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFD822B25F67C9E009D806B /* Transformable.swift */; };
+		ACFD823125F67CCB009D806B /* ColorMixer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFD823025F67CCB009D806B /* ColorMixer.swift */; };
+		ACFD823625F67D16009D806B /* Collidable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFD823525F67D16009D806B /* Collidable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +64,19 @@
 		ACB3609025F661630016E240 /* paintsplashUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = paintsplashUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACB3609425F661630016E240 /* paintsplashUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = paintsplashUITests.swift; sourceTree = "<group>"; };
 		ACB3609625F661630016E240 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		ACFD81F925F667EB009D806B /* Renderable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Renderable.swift; sourceTree = "<group>"; };
+		ACFD81FE25F670A2009D806B /* Colorable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colorable.swift; sourceTree = "<group>"; };
+		ACFD820325F67113009D806B /* Weapon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weapon.swift; sourceTree = "<group>"; };
+		ACFD820825F676AB009D806B /* Movable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movable.swift; sourceTree = "<group>"; };
+		ACFD820D25F6773B009D806B /* Vector2D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vector2D.swift; sourceTree = "<group>"; };
+		ACFD820E25F6773B009D806B /* Vector2D+CoreGraphics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Vector2D+CoreGraphics.swift"; sourceTree = "<group>"; };
+		ACFD821725F67C32009D806B /* RenderSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderSystem.swift; sourceTree = "<group>"; };
+		ACFD821C25F67C49009D806B /* WeaponSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeaponSystem.swift; sourceTree = "<group>"; };
+		ACFD822125F67C5B009D806B /* Projectile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Projectile.swift; sourceTree = "<group>"; };
+		ACFD822625F67C76009D806B /* PaintColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaintColor.swift; sourceTree = "<group>"; };
+		ACFD822B25F67C9E009D806B /* Transformable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transformable.swift; sourceTree = "<group>"; };
+		ACFD823025F67CCB009D806B /* ColorMixer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorMixer.swift; sourceTree = "<group>"; };
+		ACFD823525F67D16009D806B /* Collidable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collidable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +135,19 @@
 				ACB3607B25F661620016E240 /* Main.storyboard */,
 				ACB3607E25F661630016E240 /* Assets.xcassets */,
 				ACB3608025F661630016E240 /* Info.plist */,
+				ACFD81F925F667EB009D806B /* Renderable.swift */,
+				ACFD81FE25F670A2009D806B /* Colorable.swift */,
+				ACFD823025F67CCB009D806B /* ColorMixer.swift */,
+				ACFD820325F67113009D806B /* Weapon.swift */,
+				ACFD820825F676AB009D806B /* Movable.swift */,
+				ACFD823525F67D16009D806B /* Collidable.swift */,
+				ACFD820D25F6773B009D806B /* Vector2D.swift */,
+				ACFD820E25F6773B009D806B /* Vector2D+CoreGraphics.swift */,
+				ACFD821725F67C32009D806B /* RenderSystem.swift */,
+				ACFD821C25F67C49009D806B /* WeaponSystem.swift */,
+				ACFD822125F67C5B009D806B /* Projectile.swift */,
+				ACFD822625F67C76009D806B /* PaintColor.swift */,
+				ACFD822B25F67C9E009D806B /* Transformable.swift */,
 			);
 			path = paintsplash;
 			sourceTree = "<group>";
@@ -141,6 +180,7 @@
 				ACB3606A25F661620016E240 /* Sources */,
 				ACB3606B25F661620016E240 /* Frameworks */,
 				ACB3606C25F661620016E240 /* Resources */,
+				ACFD823A25F67D47009D806B /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -257,14 +297,48 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		ACFD823A25F67D47009D806B /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "
+";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		ACB3606A25F661620016E240 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ACFD822725F67C76009D806B /* PaintColor.swift in Sources */,
+				ACFD822225F67C5B009D806B /* Projectile.swift in Sources */,
+				ACFD820925F676AB009D806B /* Movable.swift in Sources */,
+				ACFD821025F6773B009D806B /* Vector2D+CoreGraphics.swift in Sources */,
+				ACFD821825F67C32009D806B /* RenderSystem.swift in Sources */,
 				ACB3607825F661620016E240 /* GameScene.swift in Sources */,
+				ACFD823625F67D16009D806B /* Collidable.swift in Sources */,
+				ACFD821D25F67C49009D806B /* WeaponSystem.swift in Sources */,
+				ACFD820F25F6773B009D806B /* Vector2D.swift in Sources */,
+				ACFD823125F67CCB009D806B /* ColorMixer.swift in Sources */,
 				ACB3607A25F661620016E240 /* GameViewController.swift in Sources */,
 				ACB3607225F661620016E240 /* AppDelegate.swift in Sources */,
+				ACFD822C25F67C9E009D806B /* Transformable.swift in Sources */,
+				ACFD81FF25F670A2009D806B /* Colorable.swift in Sources */,
+				ACFD81FA25F667EB009D806B /* Renderable.swift in Sources */,
+				ACFD820425F67113009D806B /* Weapon.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
