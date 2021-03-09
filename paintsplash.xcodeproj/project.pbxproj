@@ -31,6 +31,8 @@
 		ACFD823625F67D16009D806B /* Collidable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFD823525F67D16009D806B /* Collidable.swift */; };
 		D596B16725F7AE4500A5854F /* CollisionSystemImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = D596B16625F7AE4500A5854F /* CollisionSystemImpl.swift */; };
 		D596B16F25F7B21A00A5854F /* TestPhysicsObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = D596B16E25F7B21A00A5854F /* TestPhysicsObject.swift */; };
+		D596B17425F7C0F500A5854F /* UserInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = D596B17325F7C0F500A5854F /* UserInput.swift */; };
+		D596B17925F7C20D00A5854F /* AIBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = D596B17825F7C20D00A5854F /* AIBehaviour.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +83,8 @@
 		ACFD823525F67D16009D806B /* Collidable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collidable.swift; sourceTree = "<group>"; };
 		D596B16625F7AE4500A5854F /* CollisionSystemImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollisionSystemImpl.swift; sourceTree = "<group>"; };
 		D596B16E25F7B21A00A5854F /* TestPhysicsObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestPhysicsObject.swift; sourceTree = "<group>"; };
+		D596B17325F7C0F500A5854F /* UserInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInput.swift; sourceTree = "<group>"; };
+		D596B17825F7C20D00A5854F /* AIBehaviour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIBehaviour.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,6 +158,8 @@
 				ACFD822B25F67C9E009D806B /* Transformable.swift */,
 				D596B16625F7AE4500A5854F /* CollisionSystemImpl.swift */,
 				D596B16E25F7B21A00A5854F /* TestPhysicsObject.swift */,
+				D596B17325F7C0F500A5854F /* UserInput.swift */,
+				D596B17825F7C20D00A5854F /* AIBehaviour.swift */,
 			);
 			path = paintsplash;
 			sourceTree = "<group>";
@@ -343,10 +349,12 @@
 				ACFD823125F67CCB009D806B /* ColorMixer.swift in Sources */,
 				ACB3607A25F661620016E240 /* GameViewController.swift in Sources */,
 				ACB3607225F661620016E240 /* AppDelegate.swift in Sources */,
+				D596B17425F7C0F500A5854F /* UserInput.swift in Sources */,
 				ACFD822C25F67C9E009D806B /* Transformable.swift in Sources */,
 				ACFD81FF25F670A2009D806B /* Colorable.swift in Sources */,
 				ACFD81FA25F667EB009D806B /* Renderable.swift in Sources */,
 				ACFD820425F67113009D806B /* Weapon.swift in Sources */,
+				D596B17925F7C20D00A5854F /* AIBehaviour.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
