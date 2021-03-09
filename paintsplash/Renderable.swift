@@ -8,12 +8,12 @@
 import SpriteKit
 
 protocol Renderable {
-    var node: SKNode { get }
-    func move(to point: CGPoint)
+    var node: SKNode { get set }
+    func move(to point: Vector2D)
 }
 
 extension Renderable {
-    func move(to point: CGPoint) {
-        node.position = point
+    func move(to point: Vector2D) {
+        node.position = CGPoint(point)
     }
 }
