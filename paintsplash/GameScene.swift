@@ -11,7 +11,13 @@ class GameScene: SKScene {
     
     private var label : SKLabelNode?
     private var spinnyNode : SKShapeNode?
-    
+    private var circle1: TestCircle = TestCircle(initialPosition: Vector2D(-250, 0), initialVelocity: Vector2D(1, 0))
+    private var circle2: TestCircle = TestCircle(initialPosition: Vector2D(250, 0), initialVelocity: Vector2D(-1, 0))
+
+    var nodes = [UUID : SKNode]()
+    var bodies = [UUID: SKPhysicsBody]()
+    var collidables = [SKPhysicsBody: Collidable]()
+
     override func didMove(to view: SKView) {        
         // Get label node from scene and store it for use later
         self.label = self.childNode(withName: "//helloLabel") as? SKLabelNode
@@ -20,8 +26,10 @@ class GameScene: SKScene {
             label.run(SKAction.fadeIn(withDuration: 2.0))
         }
 
-        let circle = Circle()
-        add(circle)
+        physicsWorld.contactDelegate = self
+
+        circle1.spawn(renderSystem: self, collisionSystem: self)
+        circle2.spawn(renderSystem: self, collisionSystem: self)
 
         // Create shape node to use during mouse interaction
         let w = (self.size.width + self.size.height) * 0.05
@@ -85,6 +93,11 @@ class GameScene: SKScene {
     
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
+        circle1.move()
+        circle2.move()
+
+        updateRenderable(renderable: circle1)
+        updateRenderable(renderable: circle2)
 
 
     }
@@ -92,18 +105,88 @@ class GameScene: SKScene {
 
 extension GameScene: RenderSystem {
     func add(_ renderable: Renderable) {
-        self.addChild(renderable.node)
+        let skNode = SKSpriteNode(imageNamed: renderable.spriteName)
+
+        skNode.position = CGPoint(renderable.transform.position)
+        skNode.zRotation = CGFloat(renderable.transform.rotation)
+//        skNode.size = CGSize(renderable.transform.scale)
+
+        nodes[renderable.id] = skNode
+        self.addChild(skNode)
     }
 
     func remove(_ renderable: Renderable) {
-        renderable.node.removeFromParent()
+        guard let node = nodes[renderable.id] else {
+            return
+        }
+
+        node.removeFromParent()
+        nodes[renderable.id] = nil
+    }
+
+    func updateRenderable(renderable: Renderable) {
+        let id = renderable.id
+        guard let node = nodes[id] else {
+            return
+        }
+
+        node.position = CGPoint(renderable.transform.position)
     }
 }
 
-class Circle: Renderable {
-    var node: SKNode
+extension GameScene: SKPhysicsContactDelegate, CollisionSystem {
+    func didBegin(_ contact: SKPhysicsContact) {
+        guard let bodyA = collidables[contact.bodyA],
+              let bodyB = collidables[contact.bodyB] else {
+            return
+        }
 
-    init() {
-        self.node = SKShapeNode.init(circleOfRadius: 100)
+        collisionBetween(first: bodyA, second: bodyB)
+    }
+
+    func add(collidable: Collidable) {
+        if let node = nodes[collidable.id] {
+            let physicsBody = collidable.colliderShape.getPhysicsBody()
+            collidables[physicsBody] = collidable
+            bodies[collidable.id] = physicsBody
+            node.physicsBody = physicsBody
+        } else {
+            let skNode = SKSpriteNode()
+            let physicsBody = collidable.colliderShape.getPhysicsBody()
+            skNode.physicsBody = physicsBody
+
+            collidables[physicsBody] = collidable
+            bodies[collidable.id] = physicsBody
+            nodes[collidable.id] = skNode
+        }
+    }
+
+    func remove(collidable: Collidable) {
+        if let node = nodes[collidable.id] {
+            node.physicsBody = nil
+        }
+
+        bodies[collidable.id] = nil
+    }
+
+    func collisionBetween(first: Collidable, second: Collidable) {
+        first.onCollide(otherObject: second)
+        second.onCollide(otherObject: first)
+    }
+}
+
+enum ColliderShape {
+    case circle(radius: Double)
+
+    func getPhysicsBody() -> SKPhysicsBody {
+        switch self {
+        case .circle(let radius):
+            let physicsBody = SKPhysicsBody(circleOfRadius: CGFloat(radius))
+            physicsBody.affectedByGravity = false
+            physicsBody.contactTestBitMask = 0b0001
+            return physicsBody
+        default:
+            return SKPhysicsBody()
+        }
     }
 }

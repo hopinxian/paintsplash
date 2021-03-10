@@ -7,8 +7,8 @@
 
 import SpriteKit
 
-class TestPhysicsObject: SKPhysicsBody, Collidable {
-    func onCollide(otherObject: Collidable) {
-        print("Hit Me!")
-    }
-}
+//class TestPhysicsObject: SKPhysicsBody, Collidable {
+//    func onCollide(otherObject: Collidable) {
+//        print("Hit Me!")
+//    }
+//}

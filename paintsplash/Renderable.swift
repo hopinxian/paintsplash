@@ -4,16 +4,14 @@
 //
 //  Created by Praveen Bala on 8/3/21.
 //
-
 import SpriteKit
 
-protocol Renderable {
-    var node: SKNode { get set }
-    func move(to point: Vector2D)
+protocol RenderSystem {
+    func add(_ renderable: Renderable)
+    func remove(_ renderable: Renderable)
+    func updateRenderable(renderable: Renderable)
 }
 
-extension Renderable {
-    func move(to point: Vector2D) {
-        node.position = CGPoint(point)
-    }
+protocol Renderable: Entity, Transformable {
+    var spriteName: String { get }
 }

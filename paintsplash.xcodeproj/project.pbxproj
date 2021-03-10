@@ -33,6 +33,8 @@
 		D596B16F25F7B21A00A5854F /* TestPhysicsObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = D596B16E25F7B21A00A5854F /* TestPhysicsObject.swift */; };
 		D596B17425F7C0F500A5854F /* UserInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = D596B17325F7C0F500A5854F /* UserInput.swift */; };
 		D596B17925F7C20D00A5854F /* AIBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = D596B17825F7C20D00A5854F /* AIBehaviour.swift */; };
+		D596B18125F8AE8900A5854F /* Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D596B18025F8AE8900A5854F /* Entity.swift */; };
+		D596B18925F8B27400A5854F /* TestCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D596B18825F8B27400A5854F /* TestCircle.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +87,8 @@
 		D596B16E25F7B21A00A5854F /* TestPhysicsObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestPhysicsObject.swift; sourceTree = "<group>"; };
 		D596B17325F7C0F500A5854F /* UserInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInput.swift; sourceTree = "<group>"; };
 		D596B17825F7C20D00A5854F /* AIBehaviour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIBehaviour.swift; sourceTree = "<group>"; };
+		D596B18025F8AE8900A5854F /* Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entity.swift; sourceTree = "<group>"; };
+		D596B18825F8B27400A5854F /* TestCircle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCircle.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,7 +147,10 @@
 				ACB3607B25F661620016E240 /* Main.storyboard */,
 				ACB3607E25F661630016E240 /* Assets.xcassets */,
 				ACB3608025F661630016E240 /* Info.plist */,
+				D596B18825F8B27400A5854F /* TestCircle.swift */,
+				D596B18025F8AE8900A5854F /* Entity.swift */,
 				ACFD81F925F667EB009D806B /* Renderable.swift */,
+				ACFD821725F67C32009D806B /* RenderSystem.swift */,
 				ACFD81FE25F670A2009D806B /* Colorable.swift */,
 				ACFD823025F67CCB009D806B /* ColorMixer.swift */,
 				ACFD820325F67113009D806B /* Weapon.swift */,
@@ -151,7 +158,6 @@
 				ACFD823525F67D16009D806B /* Collidable.swift */,
 				ACFD820D25F6773B009D806B /* Vector2D.swift */,
 				ACFD820E25F6773B009D806B /* Vector2D+CoreGraphics.swift */,
-				ACFD821725F67C32009D806B /* RenderSystem.swift */,
 				ACFD821C25F67C49009D806B /* WeaponSystem.swift */,
 				ACFD822125F67C5B009D806B /* Projectile.swift */,
 				ACFD822625F67C76009D806B /* PaintColor.swift */,
@@ -337,6 +343,7 @@
 			files = (
 				D596B16725F7AE4500A5854F /* CollisionSystemImpl.swift in Sources */,
 				ACFD822725F67C76009D806B /* PaintColor.swift in Sources */,
+				D596B18125F8AE8900A5854F /* Entity.swift in Sources */,
 				ACFD822225F67C5B009D806B /* Projectile.swift in Sources */,
 				ACFD820925F676AB009D806B /* Movable.swift in Sources */,
 				D596B16F25F7B21A00A5854F /* TestPhysicsObject.swift in Sources */,
@@ -355,6 +362,7 @@
 				ACFD81FA25F667EB009D806B /* Renderable.swift in Sources */,
 				ACFD820425F67113009D806B /* Weapon.swift in Sources */,
 				D596B17925F7C20D00A5854F /* AIBehaviour.swift in Sources */,
+				D596B18925F8B27400A5854F /* TestCircle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -11,3 +11,9 @@ protocol Movable: Transformable {
 
     func move()
 }
+
+extension Movable {
+    func move() {
+        move(to: transform.position + velocity)
+    }
+}
