@@ -9,5 +9,5 @@ import Foundation
 protocol Entity: AnyObject {
     var id: UUID { get }
 
-    func spawn()
+    func spawn(renderSystem: RenderSystem, collisionSystem: CollisionSystem)
 }

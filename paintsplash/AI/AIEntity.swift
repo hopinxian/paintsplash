@@ -1,8 +1,8 @@
 //
-//  AIBehaviour.swift
+//  AIEntity.swift
 //  paintsplash
 //
-//  Created by Farrell Nah on 9/3/21.
+//  Created by Farrell Nah on 10/3/21.
 //
 
 protocol AIEntity {
@@ -10,8 +10,4 @@ protocol AIEntity {
 
     func update()
     func changeBehaviour(to behaviour: AIBehaviour)
-}
-
-protocol AIBehaviour {
-    func update()
 }

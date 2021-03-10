@@ -103,90 +103,10 @@ class GameScene: SKScene {
     }
 }
 
-extension GameScene: RenderSystem {
-    func add(_ renderable: Renderable) {
-        let skNode = SKSpriteNode(imageNamed: renderable.spriteName)
 
-        skNode.position = CGPoint(renderable.transform.position)
-        skNode.zRotation = CGFloat(renderable.transform.rotation)
-//        skNode.size = CGSize(renderable.transform.scale)
 
-        nodes[renderable.id] = skNode
-        self.addChild(skNode)
-    }
+extension SKPhysicsBody {
+    static func getPhysicsBody(from colliderShape: ColliderShape) {
 
-    func remove(_ renderable: Renderable) {
-        guard let node = nodes[renderable.id] else {
-            return
-        }
-
-        node.removeFromParent()
-        nodes[renderable.id] = nil
-    }
-
-    func updateRenderable(renderable: Renderable) {
-        let id = renderable.id
-        guard let node = nodes[id] else {
-            return
-        }
-
-        node.position = CGPoint(renderable.transform.position)
-    }
-}
-
-extension GameScene: SKPhysicsContactDelegate, CollisionSystem {
-    func didBegin(_ contact: SKPhysicsContact) {
-        guard let bodyA = collidables[contact.bodyA],
-              let bodyB = collidables[contact.bodyB] else {
-            return
-        }
-
-        collisionBetween(first: bodyA, second: bodyB)
-    }
-
-    func add(collidable: Collidable) {
-        if let node = nodes[collidable.id] {
-            let physicsBody = collidable.colliderShape.getPhysicsBody()
-            collidables[physicsBody] = collidable
-            bodies[collidable.id] = physicsBody
-            node.physicsBody = physicsBody
-        } else {
-            let skNode = SKSpriteNode()
-            let physicsBody = collidable.colliderShape.getPhysicsBody()
-            skNode.physicsBody = physicsBody
-
-            collidables[physicsBody] = collidable
-            bodies[collidable.id] = physicsBody
-            nodes[collidable.id] = skNode
-        }
-    }
-
-    func remove(collidable: Collidable) {
-        if let node = nodes[collidable.id] {
-            node.physicsBody = nil
-        }
-
-        bodies[collidable.id] = nil
-    }
-
-    func collisionBetween(first: Collidable, second: Collidable) {
-        first.onCollide(otherObject: second)
-        second.onCollide(otherObject: first)
-    }
-}
-
-enum ColliderShape {
-    case circle(radius: Double)
-
-    func getPhysicsBody() -> SKPhysicsBody {
-        switch self {
-        case .circle(let radius):
-            let physicsBody = SKPhysicsBody(circleOfRadius: CGFloat(radius))
-            physicsBody.affectedByGravity = false
-            physicsBody.contactTestBitMask = 0b0001
-            return physicsBody
-        default:
-            return SKPhysicsBody()
-        }
     }
 }
