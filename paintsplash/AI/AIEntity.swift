@@ -5,7 +5,7 @@
 //  Created by Farrell Nah on 10/3/21.
 //
 
-protocol AIEntity {
+protocol AIEntity: Entity {
     var currentBehaviour: AIBehaviour { get }
 
     func update()

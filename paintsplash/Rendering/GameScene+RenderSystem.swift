@@ -8,13 +8,15 @@ import SpriteKit
 
 extension GameScene: RenderSystem {
     func add(_ renderable: Renderable) {
-        let skNode = SKSpriteNode(imageNamed: renderable.spriteName)
-
-        skNode.position = CGPoint(renderable.transform.position)
-        skNode.zRotation = CGFloat(renderable.transform.rotation)
+//        let skNode = SKSpriteNode(imageNamed: renderable.spriteName)
+//
+//        skNode.position = CGPoint(renderable.transform.position)
+//        skNode.zRotation = CGFloat(renderable.transform.rotation)
 //        skNode.size = CGSize(renderable.transform.scale)
+        let skNode = renderable.buildNode()
 
         nodes[renderable.id] = skNode
+
         self.addChild(skNode)
     }
 
