@@ -16,4 +16,8 @@ extension Movable {
     func move() {
         move(to: transform.position + velocity)
     }
+
+    var position: Vector2D {
+        self.transform.position
+    }
 }

@@ -43,6 +43,7 @@
 		DC247F5525F9E53C001B814C /* SpawnEnemiesBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC247F5425F9E53C001B814C /* SpawnEnemiesBehaviour.swift */; };
 		DC9D4A4825F92E2C000F07FF /* Enemy.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9D4A4725F92E2C000F07FF /* Enemy.swift */; };
 		DCF1BEF125FA08AC00B56AD4 /* SlimeMove.atlas in Resources */ = {isa = PBXBuildFile; fileRef = DCF1BEF025FA08AC00B56AD4 /* SlimeMove.atlas */; };
+		DCF1BEFA25FA6B6E00B56AD4 /* AIGameInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF1BEF925FA6B6E00B56AD4 /* AIGameInfo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -106,6 +107,7 @@
 		DC9D4A4725F92E2C000F07FF /* Enemy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enemy.swift; sourceTree = "<group>"; };
 		DCF1BEF025FA08AC00B56AD4 /* SlimeMove.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = SlimeMove.atlas; path = ../../../SlimeMove.atlas; sourceTree = "<group>"; };
 		DCF1BEF525FA08BE00B56AD4 /* SlimeMove.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = SlimeMove.atlas; sourceTree = "<group>"; };
+		DCF1BEF925FA6B6E00B56AD4 /* AIGameInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIGameInfo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -257,6 +259,7 @@
 				D596B1C425F8CFEC00A5854F /* AIEntity.swift */,
 				DC247F4F25F9C1CB001B814C /* ApproachPointBehaviour.swift */,
 				DC247F5425F9E53C001B814C /* SpawnEnemiesBehaviour.swift */,
+				DCF1BEF925FA6B6E00B56AD4 /* AIGameInfo.swift */,
 			);
 			path = AI;
 			sourceTree = "<group>";
@@ -449,6 +452,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D596B16725F7AE4500A5854F /* Collidable.swift in Sources */,
+				DCF1BEFA25FA6B6E00B56AD4 /* AIGameInfo.swift in Sources */,
 				ACFD822725F67C76009D806B /* PaintColor.swift in Sources */,
 				D596B18125F8AE8900A5854F /* Entity.swift in Sources */,
 				ACFD822225F67C5B009D806B /* Projectile.swift in Sources */,

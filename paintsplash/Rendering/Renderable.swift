@@ -9,7 +9,7 @@ import SpriteKit
 protocol Renderable: Entity, Transformable {
     var spriteName: String { get }
 
-    var spriteMoveFrames: [SKTexture]? { get }
-
     func buildNode() -> SKNode
+
+    // func updateNode()
 }

@@ -8,7 +8,6 @@
 import SpriteKit
 
 class TestCircle: Entity, Renderable, Transformable, Movable, Collidable {
-    var spriteMoveFrames: [SKTexture]?
 
     func buildNode() -> SKNode {
         let skNode = SKSpriteNode(imageNamed: self.spriteName)
