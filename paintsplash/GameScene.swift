@@ -11,8 +11,12 @@ class GameScene: SKScene {
     
     private var label : SKLabelNode?
     private var spinnyNode : SKShapeNode?
-    private var circle1: TestCircle = TestCircle(initialPosition: Vector2D(-250, 0), initialVelocity: Vector2D(1, 0))
-    private var circle2: TestCircle = TestCircle(initialPosition: Vector2D(250, 0), initialVelocity: Vector2D(-1, 0))
+    // private var circle1: TestCircle = TestCircle(initialPosition: Vector2D(-250, 0), initialVelocity: Vector2D(1, 0))
+    // private var circle2: TestCircle = TestCircle(initialPosition: Vector2D(250, 0), initialVelocity: Vector2D(-1, 0))
+
+    private var enemies: Set<Enemy> = []
+
+    private var currentPlayerPosition: CGPoint = CGPoint(x: 200, y: 200)
 
     var nodes = [UUID : SKNode]()
     var bodies = [UUID: SKPhysicsBody]()
@@ -23,13 +27,17 @@ class GameScene: SKScene {
         self.label = self.childNode(withName: "//helloLabel") as? SKLabelNode
         if let label = self.label {
             label.alpha = 0.0
-            label.run(SKAction.fadeIn(withDuration: 2.0))
+            // label.run(SKAction.fadeIn(withDuration: 2.0))
         }
 
         physicsWorld.contactDelegate = self
 
-        circle1.spawn(renderSystem: self, collisionSystem: self)
-        circle2.spawn(renderSystem: self, collisionSystem: self)
+        // add enemies
+        let enemy = Enemy(initialPosition: Vector2D(50, 50), initialVelocity: Vector2D(-1, 0))
+        self.enemies.insert(enemy)
+        enemy.spawn(renderSystem: self, collisionSystem: self)
+        // circle1.spawn(renderSystem: self, collisionSystem: self)
+        // circle2.spawn(renderSystem: self, collisionSystem: self)
 
         // Create shape node to use during mouse interaction
         let w = (self.size.width + self.size.height) * 0.05
@@ -68,6 +76,8 @@ class GameScene: SKScene {
             n.strokeColor = SKColor.red
             self.addChild(n)
         }
+
+        self.currentPlayerPosition = pos
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -93,12 +103,19 @@ class GameScene: SKScene {
     
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
-        circle1.move()
-        circle2.move()
+//        circle1.move()
+//        circle2.move()
+//
+//        updateRenderable(renderable: circle1)
+//        updateRenderable(renderable: circle2)
 
-        updateRenderable(renderable: circle1)
-        updateRenderable(renderable: circle2)
+        enemies.forEach { enemy in
 
+            enemy.update(aiGameInfo: AIGameInfo(playerPosition: self.currentPlayerPosition,
+                                                numberOfEnemies: self.enemies.count,
+                                                timeInterval: currentTime))
+            updateRenderable(renderable: enemy)
+        }
 
     }
 }

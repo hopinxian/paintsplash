@@ -8,6 +8,16 @@
 import SpriteKit
 
 class TestCircle: Entity, Renderable, Transformable, Movable, Collidable {
+
+    func buildNode() -> SKNode {
+        let skNode = SKSpriteNode(imageNamed: self.spriteName)
+
+        skNode.position = CGPoint(self.transform.position)
+        skNode.zRotation = CGFloat(self.transform.rotation)
+
+        return skNode
+    }
+
     var colliderShape: ColliderShape = .circle(radius: 50)
 
     var id = UUID()
