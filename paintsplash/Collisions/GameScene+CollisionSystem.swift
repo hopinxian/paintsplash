@@ -16,24 +16,24 @@ extension GameScene: SKPhysicsContactDelegate, CollisionSystem {
         collisionBetween(first: bodyA, second: bodyB)
     }
 
-    func add(collidable: Collidable) {
+    func addCollidable(_ collidable: Collidable) {
+        let physicsBody = collidable.colliderShape.getPhysicsBody()
+        physicsBody.contactTestBitMask = collidable.tags.getBitMask()
+
         if let node = nodes[collidable.id] {
-            let physicsBody = collidable.colliderShape.getPhysicsBody()
-            collidables[physicsBody] = collidable
-            bodies[collidable.id] = physicsBody
             node.physicsBody = physicsBody
         } else {
             let skNode = SKSpriteNode()
-            let physicsBody = collidable.colliderShape.getPhysicsBody()
             skNode.physicsBody = physicsBody
 
-            collidables[physicsBody] = collidable
-            bodies[collidable.id] = physicsBody
             nodes[collidable.id] = skNode
         }
+
+        collidables[physicsBody] = collidable
+        bodies[collidable.id] = physicsBody
     }
 
-    func remove(collidable: Collidable) {
+    func removeCollidable(_ collidable: Collidable) {
         if let node = nodes[collidable.id] {
             node.physicsBody = nil
         }

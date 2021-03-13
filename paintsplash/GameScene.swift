@@ -11,8 +11,8 @@ class GameScene: SKScene {
     
     private var label : SKLabelNode?
     private var spinnyNode : SKShapeNode?
-    private var circle1: TestCircle = TestCircle(initialPosition: Vector2D(-250, 0), initialVelocity: Vector2D(1, 0))
-    private var circle2: TestCircle = TestCircle(initialPosition: Vector2D(250, 0), initialVelocity: Vector2D(-1, 0))
+    private var circle1: TestCircle?
+    private var ammoDrop: PaintAmmoDrop?
 
     var nodes = [UUID : SKNode]()
     var bodies = [UUID: SKPhysicsBody]()
@@ -28,8 +28,13 @@ class GameScene: SKScene {
 
         physicsWorld.contactDelegate = self
 
-        circle1.spawn(renderSystem: self, collisionSystem: self)
-        circle2.spawn(renderSystem: self, collisionSystem: self)
+        let playerWeaponSystem = PaintWeaponsSystem(weapons: [PaintGun(), Bucket()], renderSystem: self, collisionSystem: self)
+
+        circle1 = TestCircle(initialPosition: Vector2D(-250, 0), initialVelocity: Vector2D(1, 0), weapons: playerWeaponSystem)
+        ammoDrop = PaintAmmoDrop(color: .blue, position: Vector2D(0, 0))
+
+        circle1?.spawn(renderSystem: self, collisionSystem: self)
+        ammoDrop?.spawn(renderSystem: self, collisionSystem: self)
 
         // Create shape node to use during mouse interaction
         let w = (self.size.width + self.size.height) * 0.05
@@ -93,20 +98,12 @@ class GameScene: SKScene {
     
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
+        guard let circle1 = circle1 else {
+            return
+        }
+
         circle1.move()
-        circle2.move()
 
         updateRenderable(renderable: circle1)
-        updateRenderable(renderable: circle2)
-
-
-    }
-}
-
-
-
-extension SKPhysicsBody {
-    static func getPhysicsBody(from colliderShape: ColliderShape) {
-
     }
 }

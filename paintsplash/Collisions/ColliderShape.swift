@@ -8,17 +8,23 @@ import SpriteKit
 
 enum ColliderShape {
     case circle(radius: Double)
-    case texture(name: String)
+    case rectangle(size: Vector2D)
+    case texture(name: String, size: Vector2D)
 
     func getPhysicsBody() -> SKPhysicsBody {
+        var physicsBody = SKPhysicsBody()
         switch self {
         case .circle(let radius):
-            let physicsBody = SKPhysicsBody(circleOfRadius: CGFloat(radius))
-            physicsBody.affectedByGravity = false
-            physicsBody.contactTestBitMask = 0b0001
-            return physicsBody
-        default:
-            return SKPhysicsBody()
+            physicsBody = SKPhysicsBody(circleOfRadius: CGFloat(radius))
+        case .rectangle(let size):
+            physicsBody = SKPhysicsBody(rectangleOf: CGSize(size))
+        case .texture(let name, let size):
+            physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: name), size: CGSize(size))
         }
+
+        physicsBody.affectedByGravity = false
+//        physicsBody.contactTestBitMask = 0b0001
+        physicsBody.collisionBitMask = 0b0000
+        return physicsBody
     }
 }

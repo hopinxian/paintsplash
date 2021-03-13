@@ -7,7 +7,7 @@
 import SpriteKit
 
 extension GameScene: RenderSystem {
-    func add(_ renderable: Renderable) {
+    func addRenderable(_ renderable: Renderable) {
         let skNode = SKSpriteNode(imageNamed: renderable.spriteName)
 
         skNode.position = CGPoint(renderable.transform.position)
@@ -18,7 +18,7 @@ extension GameScene: RenderSystem {
         self.addChild(skNode)
     }
 
-    func remove(_ renderable: Renderable) {
+    func removeRenderable(_ renderable: Renderable) {
         guard let node = nodes[renderable.id] else {
             return
         }

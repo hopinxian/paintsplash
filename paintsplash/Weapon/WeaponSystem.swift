@@ -5,12 +5,14 @@
 //  Created by Praveen Bala on 8/3/21.
 //
 
-protocol WeaponSystem {
-    var activeWeapon: Weapon { get set }
-    var availableWeapons: [Weapon] { get set }
+protocol MultiWeaponSystem {
+    associatedtype WeaponType: Weapon
 
-    func load(_ projectiles: Projectile ...)
-    func load(to weapon: Weapon, projectiles: Projectile ...)
+    var activeWeapon: WeaponType? { get set }
+    var availableWeapons: [WeaponType] { get set }
+    var carriedBy: Transformable? { get set }
+    func load(_ ammo: [WeaponType.AmmoType])
+    func load(to weapon: WeaponType, ammo: [WeaponType.AmmoType])
     func shoot() -> Bool
-    func switchWeapon(to weapon: Weapon)
+    func switchWeapon(to weapon: WeaponType)
 }
