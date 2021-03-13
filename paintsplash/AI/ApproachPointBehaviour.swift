@@ -11,7 +11,6 @@ struct ApproachPointBehaviour: AIBehaviour {
     func update(aiEntity: AIEntity, aiGameInfo: AIGameInfo) {
 
         // move towards player location
-
         let enemyCurrentPosition = aiEntity.position
         let playerPosition = Vector2D(aiGameInfo.playerPosition)
 

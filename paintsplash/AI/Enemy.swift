@@ -15,7 +15,7 @@ class Enemy: AIEntity, Renderable, Transformable, Collidable {
 
         let numImages = enemyMoveAtlas.textureNames.count
 
-        for i in 0..<numImages {
+        for i in 1...numImages {
             let enemyTexture = "slime-move-\(i).png"
             moveFrames.append(enemyMoveAtlas.textureNamed(enemyTexture))
         }
