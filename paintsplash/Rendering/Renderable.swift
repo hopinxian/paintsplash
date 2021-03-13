@@ -6,10 +6,7 @@
 //
 import SpriteKit
 
-protocol Renderable: Entity, Transformable {
+protocol Renderable: GameEntity, Transformable {
     var spriteName: String { get }
-
-    func buildNode() -> SKNode
-
-    // func updateNode()
+    var currentAnimation: Animation? { get set }
 }

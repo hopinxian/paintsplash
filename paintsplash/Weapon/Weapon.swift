@@ -6,8 +6,10 @@
 //
 
 protocol Weapon {
-    var remainingAmmo: [Projectile] { get set }
-    var canShoot: Bool { get }
-    func load(_ projectiles: Projectile ...)
-    func shoot() -> Projectile
+//    var remainingAmmo: [Projectile] { get set }
+//    var canShoot: Bool { get }
+    associatedtype AmmoType: Ammo
+    func load(_ ammo: [AmmoType])
+    func shoot() -> Projectile?
+    func canShoot() -> Bool
 }

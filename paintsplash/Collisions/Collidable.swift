@@ -10,6 +10,7 @@ import SpriteKit
 
 protocol Collidable: Renderable {
     var colliderShape: ColliderShape { get set }
-    func onCollide(otherObject: Collidable)
+    var tags: Tags { get set }
+    func onCollide(otherObject: Collidable, gameManager: GameManager)
 }
 

@@ -7,34 +7,33 @@
 
 import SpriteKit
 
-class Enemy: AIEntity, Renderable, Transformable, Collidable {
-
-    func buildNode() -> SKNode {
-        let enemyMoveAtlas = SKTextureAtlas(named: "SlimeMove")
-        var moveFrames: [SKTexture] = []
-
-        let numImages = enemyMoveAtlas.textureNames.count
-
-        for i in 1...numImages {
-            let enemyTexture = "slime-move-\(i).png"
-            moveFrames.append(enemyMoveAtlas.textureNamed(enemyTexture))
-        }
-
-        let enemySprite = SKSpriteNode(texture: moveFrames[0])
-
-        let animateAction = SKAction.repeatForever(SKAction.animate(with: moveFrames, timePerFrame: 0.2))
-        enemySprite.run(animateAction, completion: {
-            print("ran animation")
-        })
-
-        enemySprite.position = CGPoint(self.transform.position)
-        enemySprite.zRotation = CGFloat(self.transform.rotation)
-
-        // TODO: find a way for size to be determined dynamically
-        enemySprite.size = CGSize(width: 100, height: 100)
-        
-        return enemySprite
-    }
+class Enemy: InteractiveEntity, AIEntity {
+//    func buildNode() -> SKNode {
+//        let enemyMoveAtlas = SKTextureAtlas(named: "SlimeMove")
+//        var moveFrames: [SKTexture] = []
+//
+//        let numImages = enemyMoveAtlas.textureNames.count
+//
+//        for i in 1...numImages {
+//            let enemyTexture = "slime-move-\(i).png"
+//            moveFrames.append(enemyMoveAtlas.textureNamed(enemyTexture))
+//        }
+//
+//        let enemySprite = SKSpriteNode(texture: moveFrames[0])
+//
+//        let animateAction = SKAction.repeatForever(SKAction.animate(with: moveFrames, timePerFrame: 0.2))
+//        enemySprite.run(animateAction, completion: {
+//            print("ran animation")
+//        })
+//
+//        enemySprite.position = CGPoint(self.transform.position)
+//        enemySprite.zRotation = CGFloat(self.transform.rotation)
+//
+//        // TODO: find a way for size to be determined dynamically
+//        enemySprite.size = CGSize(width: 100, height: 100)
+//
+//        return enemySprite
+//    }
 
     var currentBehaviour: AIBehaviour
 
@@ -42,48 +41,37 @@ class Enemy: AIEntity, Renderable, Transformable, Collidable {
 
     var acceleration: Vector2D
 
-    var transform: Transform
-
-    var spriteName: String = ""
-
-    var id = UUID()
-
-    var colliderShape: ColliderShape = .enemy(radius: 50)
-
     init(initialPosition: Vector2D, initialVelocity: Vector2D) {
-        self.transform = Transform.identity
-        self.transform.position = initialPosition
         self.velocity = initialVelocity
         self.acceleration = Vector2D.zero
 
         self.currentBehaviour = ApproachPointBehaviour()
+
+        var transform = Transform.identity
+        transform.position = initialPosition
+
+        super.init(spriteName: "", colliderShape: .circle(radius: 50), tags: .enemy, transform: transform)
+
+        self.currentAnimation = SlimeAnimations.slimeMove
     }
 
-    func spawn(renderSystem: RenderSystem, collisionSystem: CollisionSystem) {
-        renderSystem.add(self)
-        collisionSystem.add(collidable: self)
-    }
-
-    func onCollide(otherObject: Collidable) {
+    override func onCollide(otherObject: Collidable, gameManager: GameManager) {
         print("enemy hit")
     }
 
-    func update(aiGameInfo: AIGameInfo) {
-        self.currentBehaviour.update(aiEntity: self, aiGameInfo: aiGameInfo)
+    func updateAI(aiGameInfo: AIGameInfo) {
+        self.currentBehaviour.updateAI(aiEntity: self, aiGameInfo: aiGameInfo)
     }
 
     func changeBehaviour(to behaviour: AIBehaviour) {
         self.currentBehaviour = behaviour
     }
 
-}
+    override func update(gameManager: GameManager) {
+        updateAI(aiGameInfo: AIGameInfo(playerPosition: gameManager.currentPlayerPosition,
+                                        numberOfEnemies: gameManager.getEnemies().count))
 
-extension Enemy: Hashable {
-    static func == (lhs: Enemy, rhs: Enemy) -> Bool {
-        lhs.id == rhs.id
+        super.update(gameManager: gameManager)
     }
 
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
-    }
 }

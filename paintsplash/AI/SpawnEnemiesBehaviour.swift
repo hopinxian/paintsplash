@@ -6,7 +6,7 @@
 //
 
 struct SpawnEnemiesBehaviour: AIBehaviour {
-    func update(aiEntity: AIEntity, aiGameInfo: AIGameInfo) {
+    func updateAI(aiEntity: AIEntity, aiGameInfo: AIGameInfo) {
         
     }
 }

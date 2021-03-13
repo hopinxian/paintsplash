@@ -11,12 +11,12 @@ class GameScene: SKScene {
     
     private var label : SKLabelNode?
     private var spinnyNode : SKShapeNode?
-    // private var circle1: TestCircle = TestCircle(initialPosition: Vector2D(-250, 0), initialVelocity: Vector2D(1, 0))
-    // private var circle2: TestCircle = TestCircle(initialPosition: Vector2D(250, 0), initialVelocity: Vector2D(-1, 0))
-
     private var enemies: Set<Enemy> = []
 
-    private var currentPlayerPosition: CGPoint = CGPoint(x: 200, y: 200)
+    private var circle1: TestCircle?
+    private var ammoDrop: PaintAmmoDrop?
+
+    var gameManager: GameManager!
 
     var nodes = [UUID : SKNode]()
     var bodies = [UUID: SKPhysicsBody]()
@@ -32,10 +32,6 @@ class GameScene: SKScene {
 
         physicsWorld.contactDelegate = self
 
-        // add enemies
-        let enemy = Enemy(initialPosition: Vector2D(50, 50), initialVelocity: Vector2D(-1, 0))
-        self.enemies.insert(enemy)
-        enemy.spawn(renderSystem: self, collisionSystem: self)
         // circle1.spawn(renderSystem: self, collisionSystem: self)
         // circle2.spawn(renderSystem: self, collisionSystem: self)
 
@@ -77,7 +73,7 @@ class GameScene: SKScene {
             self.addChild(n)
         }
 
-        self.currentPlayerPosition = pos
+        gameManager?.currentPlayerPosition = Vector2D(pos)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -103,27 +99,7 @@ class GameScene: SKScene {
     
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
-//        circle1.move()
-//        circle2.move()
-//
-//        updateRenderable(renderable: circle1)
-//        updateRenderable(renderable: circle2)
 
-        enemies.forEach { enemy in
-
-            enemy.update(aiGameInfo: AIGameInfo(playerPosition: self.currentPlayerPosition,
-                                                numberOfEnemies: self.enemies.count,
-                                                timeInterval: currentTime))
-            updateRenderable(renderable: enemy)
-        }
-
-    }
-}
-
-
-
-extension SKPhysicsBody {
-    static func getPhysicsBody(from colliderShape: ColliderShape) {
-
+        gameManager?.update()
     }
 }

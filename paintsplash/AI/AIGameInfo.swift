@@ -7,7 +7,7 @@
 import CoreGraphics
 
 struct AIGameInfo {
-    var playerPosition: CGPoint
+    var playerPosition: Vector2D
     var numberOfEnemies: Int
-    var timeInterval: Double
+//    var timeInterval: Double
 }

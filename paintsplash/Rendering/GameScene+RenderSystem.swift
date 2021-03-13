@@ -7,20 +7,15 @@
 import SpriteKit
 
 extension GameScene: RenderSystem {
-    func add(_ renderable: Renderable) {
-//        let skNode = SKSpriteNode(imageNamed: renderable.spriteName)
-//
-//        skNode.position = CGPoint(renderable.transform.position)
-//        skNode.zRotation = CGFloat(renderable.transform.rotation)
-//        skNode.size = CGSize(renderable.transform.scale)
-        let skNode = renderable.buildNode()
+    func addRenderable(_ renderable: Renderable) {
+        let skNode = buildNode(renderable: renderable)
 
         nodes[renderable.id] = skNode
 
         self.addChild(skNode)
     }
 
-    func remove(_ renderable: Renderable) {
+    func removeRenderable(_ renderable: Renderable) {
         guard let node = nodes[renderable.id] else {
             return
         }
@@ -36,5 +31,23 @@ extension GameScene: RenderSystem {
         }
 
         node.position = CGPoint(renderable.transform.position)
+        
     }
+
+    func buildNode(renderable: Renderable) -> SKNode {
+        let node = SKSpriteNode(imageNamed: renderable.spriteName)
+
+        if let animation = renderable.currentAnimation {
+            node.run(animation.getAction(), withKey: animation.name)
+        }
+
+        node.position = CGPoint(renderable.transform.position)
+        node.zRotation = CGFloat(renderable.transform.rotation)
+
+        // TODO: find a way for size to be determined dynamically
+        node.size = CGSize(width: 100, height: 100)
+
+        return node
+    }
+
 }
