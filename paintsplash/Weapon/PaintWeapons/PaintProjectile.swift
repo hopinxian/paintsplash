@@ -6,34 +6,35 @@
 //
 import Foundation
 
-class PaintProjectile: Projectile {
-    var id: UUID = UUID()
+class PaintProjectile: InteractiveEntity, Projectile {
     var radius: Double
-    var colliderShape: ColliderShape
-    var tags = Tags(tags: .playerProjectile)
 
-    var transform: Transform
     var velocity: Vector2D
     var acceleration: Vector2D
 
-    var spriteName: String = "GreenCircle"
-
     init(color: PaintColor, radius: Double, velocity: Vector2D) {
         self.radius = radius
-        self.transform = Transform.identity
-        self.transform.scale = Vector2D(radius * 2, radius * 2)
 
         self.velocity = velocity
         self.acceleration = Vector2D.zero
 
-        self.colliderShape = .circle(radius: radius)
+        var transform = Transform.identity
+        transform.scale = Vector2D(radius * 2, radius * 2)
 
-        print("hello world")
+        super.init(spriteName: "GreenCircle", colliderShape: .circle(radius: radius), tags: .playerProjectile, transform: transform)
     }
-}
 
-extension PaintProjectile: Collidable {
-    func onCollide(otherObject: Collidable) {
-        print("Paint Projectile COllide")
+    override func onCollide(otherObject: Collidable, gameManager: GameManager) {
+        super.onCollide(otherObject: otherObject, gameManager: gameManager)
+        
+        print("Paint Projectile Collide")
+        if otherObject.tags.contains(.player) {
+            print("Player collected ammo")
+        }
+    }
+
+    override func update(gameManager: GameManager) {
+        super.update(gameManager: gameManager)
+        move()
     }
 }

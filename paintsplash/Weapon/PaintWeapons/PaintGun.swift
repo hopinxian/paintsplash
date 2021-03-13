@@ -12,6 +12,7 @@ class PaintGun: PaintWeapon {
     private var currentCoolDown = 0.0
 
     override func load(_ ammo: [PaintAmmo]) {
+        print("loaded")
         for item in ammo {
             ammoStack.push(item)
         }

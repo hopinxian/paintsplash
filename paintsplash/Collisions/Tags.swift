@@ -11,20 +11,20 @@ enum Tag: Int {
     case playerProjectile
     case canvas
     case ammoDrop
-
-    func getContactBitMask() -> UInt32 {
-        return UInt32.max
-    }
 }
 
 struct Tags {
     let tags: Set<Tag>
 
-    init(tags: Tag...) {
+    init() {
+        self.tags = Set<Tag>()
+    }
+
+    init(_ tags: Tag...) {
         self.tags = Set(tags)
     }
 
-    init(tags: Set<Tag>) {
+    init(_ tags: Set<Tag>) {
         self.tags = tags
     }
 

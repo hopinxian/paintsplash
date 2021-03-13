@@ -28,6 +28,7 @@
 		ACFD822C25F67C9E009D806B /* Transformable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFD822B25F67C9E009D806B /* Transformable.swift */; };
 		ACFD823125F67CCB009D806B /* ColorMixer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFD823025F67CCB009D806B /* ColorMixer.swift */; };
 		D55A8AA225FBB4E000BBE210 /* Tags.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55A8AA125FBB4E000BBE210 /* Tags.swift */; };
+		D55A8AAD25FC933A00BBE210 /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55A8AAC25FC933A00BBE210 /* GameManager.swift */; };
 		D583468E25FB8450005C344D /* PaintGun.swift in Sources */ = {isa = PBXBuildFile; fileRef = D583468D25FB8450005C344D /* PaintGun.swift */; };
 		D583469325FB845F005C344D /* Bucket.swift in Sources */ = {isa = PBXBuildFile; fileRef = D583469225FB845F005C344D /* Bucket.swift */; };
 		D583469825FB8477005C344D /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D583469725FB8477005C344D /* Queue.swift */; };
@@ -98,6 +99,7 @@
 		ACFD822B25F67C9E009D806B /* Transformable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transformable.swift; sourceTree = "<group>"; };
 		ACFD823025F67CCB009D806B /* ColorMixer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorMixer.swift; sourceTree = "<group>"; };
 		D55A8AA125FBB4E000BBE210 /* Tags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tags.swift; sourceTree = "<group>"; };
+		D55A8AAC25FC933A00BBE210 /* GameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
 		D583468D25FB8450005C344D /* PaintGun.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaintGun.swift; sourceTree = "<group>"; };
 		D583469225FB845F005C344D /* Bucket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bucket.swift; sourceTree = "<group>"; };
 		D583469725FB8477005C344D /* Queue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
@@ -190,6 +192,7 @@
 				ACB3607E25F661630016E240 /* Assets.xcassets */,
 				ACB3608025F661630016E240 /* Info.plist */,
 				D596B18825F8B27400A5854F /* TestCircle.swift */,
+				D55A8AAC25FC933A00BBE210 /* GameManager.swift */,
 			);
 			path = paintsplash;
 			sourceTree = "<group>";
@@ -502,6 +505,7 @@
 				ACB3607225F661620016E240 /* AppDelegate.swift in Sources */,
 				D583469825FB8477005C344D /* Queue.swift in Sources */,
 				D596B17425F7C0F500A5854F /* UserInput.swift in Sources */,
+				D55A8AAD25FC933A00BBE210 /* GameManager.swift in Sources */,
 				D596B19A25F8CF0800A5854F /* Renderable.swift in Sources */,
 				ACFD822C25F67C9E009D806B /* Transformable.swift in Sources */,
 				D5D9200B25FB955500E70364 /* PaintWeapon.swift in Sources */,

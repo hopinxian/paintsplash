@@ -6,21 +6,20 @@
 //
 
 class PaintWeaponsSystem: MultiWeaponSystem {
-    private let renderSystem: RenderSystem
-    private let collisionSystem: CollisionSystem
+    private let gameManager: GameManager
 
     var activeWeapon: PaintWeapon?
     var availableWeapons: [PaintWeapon]
     var carriedBy: Transformable?
 
-    init(weapons: [PaintWeapon], renderSystem: RenderSystem, collisionSystem: CollisionSystem) {
+    init(weapons: [PaintWeapon], gameManager: GameManager) {
         self.activeWeapon = weapons[0]
         self.availableWeapons = weapons
-        self.renderSystem = renderSystem
-        self.collisionSystem = collisionSystem
+        self.gameManager = gameManager
     }
     
     func load(_ ammo: [PaintAmmo]) {
+        print("system load")
         activeWeapon?.load(ammo)
     }
 
@@ -33,7 +32,7 @@ class PaintWeaponsSystem: MultiWeaponSystem {
     }
 
     func shoot() -> Bool {
-        print("Trying to Shoot")
+//        print("Trying to Shoot")
 
         // Handle shooting here
         guard let projectile = activeWeapon?.shoot(),
@@ -42,7 +41,7 @@ class PaintWeaponsSystem: MultiWeaponSystem {
         }
 
         projectile.move(to: carriedBy.transform.position)
-        projectile.spawn(renderSystem: renderSystem, collisionSystem: collisionSystem)
+        projectile.spawn(gameManager: gameManager)
 
         return true
     }

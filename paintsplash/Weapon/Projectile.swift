@@ -5,6 +5,6 @@
 //  Created by Praveen Bala on 8/3/21.
 //
 
-protocol Projectile: Movable, Collidable {
+protocol Projectile: GameEntity, Movable, Collidable {
 
 }

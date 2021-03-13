@@ -42,7 +42,7 @@ extension GameScene: SKPhysicsContactDelegate, CollisionSystem {
     }
 
     func collisionBetween(first: Collidable, second: Collidable) {
-        first.onCollide(otherObject: second)
-        second.onCollide(otherObject: first)
+        first.onCollide(otherObject: second, gameManager: gameManager)
+        second.onCollide(otherObject: first, gameManager: gameManager)
     }
 }

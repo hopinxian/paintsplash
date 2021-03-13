@@ -7,38 +7,48 @@
 
 import SpriteKit
 
-class TestCircle: Entity, Renderable, Transformable, Movable, Collidable {
-    var colliderShape: ColliderShape = .circle(radius: 50)
-    var tags = Tags(tags: .player)
-
-    var id = UUID()
-    var spriteName = "testCircle"
-
+class TestCircle: InteractiveEntity, Movable {
     var paintWeaponsSystem: PaintWeaponsSystem
-
-    func onCollide(otherObject: Collidable) {
-        print("Hello")
-    }
 
     var velocity: Vector2D
     var acceleration: Vector2D
 
-    var transform: Transform
-
     init(initialPosition: Vector2D, initialVelocity: Vector2D, weapons: PaintWeaponsSystem) {
-        self.transform = Transform.identity
-        self.transform.position = initialPosition
         self.velocity = initialVelocity
         self.acceleration = Vector2D.zero
         self.paintWeaponsSystem = weapons
         
-        Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(shoot), userInfo: nil, repeats: true)
+
+        var transform = Transform.identity
+        transform.position = initialPosition
+
+        super.init(spriteName: "RedCircle", colliderShape: .circle(radius: 50), tags: .player, transform: transform)
+
         self.paintWeaponsSystem.load([PaintAmmo(color: .blue), PaintAmmo(color: .red)])
+
+        Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(shoot), userInfo: nil, repeats: true)
 
         weapons.carriedBy = self
     }
 
     @objc func shoot() {
         paintWeaponsSystem.shoot()
+    }
+
+    override func update(gameManager: GameManager) {
+        super.update(gameManager: gameManager)
+        move()
+    }
+
+    override func onCollide(otherObject: Collidable, gameManager: GameManager) {
+        super.onCollide(otherObject: otherObject, gameManager: gameManager)
+        if otherObject.tags.contains(.ammoDrop) {
+            guard let ammoDrop = otherObject as? PaintAmmoDrop else {
+                return
+            }
+            let ammo = ammoDrop.getAmmoObject()
+
+            paintWeaponsSystem.load([ammo])
+        }
     }
 }

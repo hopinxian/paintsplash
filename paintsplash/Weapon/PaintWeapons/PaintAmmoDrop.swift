@@ -6,27 +6,25 @@
 //
 import Foundation
 
-class PaintAmmoDrop: Renderable, Collidable {
-    var id: UUID = UUID()
-
-    var transform: Transform
-
-    var spriteName: String = "BlueCircle"
-
-    var colliderShape: ColliderShape
-    var tags = Tags(tags: .ammoDrop)
-
+class PaintAmmoDrop: InteractiveEntity, AmmoDrop {
     let size: Vector2D = Vector2D(50, 50)
+    let color: PaintColor
 
     init(color: PaintColor, position: Vector2D) {
-        self.transform = Transform(position: position, rotation: 0.0, scale: size)
-        self.colliderShape = .rectangle(size: size)
+        self.color = color
+        
+        let transform = Transform(position: position, rotation: 0.0, scale: size)
+        super.init(spriteName: "BlueCircle", colliderShape: .rectangle(size: size), tags: .ammoDrop, transform: transform)
     }
 
-    func onCollide(otherObject: Collidable) {
-        print("AmmoDrop Collide")
+    override func onCollide(otherObject: Collidable, gameManager: GameManager) {
         if otherObject.tags.contains(.player) {
             print("Player Collected Ammo")
+            destroy(gameManager: gameManager)
         }
+    }
+
+    func getAmmoObject() -> PaintAmmo {
+        PaintAmmo(color: color)
     }
 }
