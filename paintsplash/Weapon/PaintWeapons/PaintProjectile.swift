@@ -34,7 +34,7 @@ class PaintProjectile: InteractiveEntity, Projectile {
     }
 
     override func update(gameManager: GameManager) {
-        super.update(gameManager: gameManager)
         move()
+        super.update(gameManager: gameManager)
     }
 }

@@ -34,5 +34,6 @@ extension GameScene: RenderSystem {
         }
 
         node.position = CGPoint(renderable.transform.position)
+        
     }
 }
