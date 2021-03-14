@@ -5,9 +5,9 @@
 //  Created by Farrell Nah on 10/3/21.
 //
 
-protocol AIEntity {
+protocol AIEntity: GameEntity, Movable {
     var currentBehaviour: AIBehaviour { get }
 
-    func update()
+    func updateAI(aiGameInfo: AIGameInfo)
     func changeBehaviour(to behaviour: AIBehaviour)
 }

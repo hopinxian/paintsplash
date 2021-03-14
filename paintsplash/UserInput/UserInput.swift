@@ -10,7 +10,7 @@ protocol UserInput {
 
     func shoot(in direction: Vector2D)
 
-    func changeWeapon(to: Weapon)
+//    func changeWeapon(to: Weapon)
 
     func pause()
 
