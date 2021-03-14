@@ -64,6 +64,9 @@
 		DC247F5025F9C1CB001B814C /* ApproachPointBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC247F4F25F9C1CB001B814C /* ApproachPointBehaviour.swift */; };
 		DC247F5525F9E53C001B814C /* SpawnEnemiesBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC247F5425F9E53C001B814C /* SpawnEnemiesBehaviour.swift */; };
 		DC9D4A4825F92E2C000F07FF /* Enemy.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9D4A4725F92E2C000F07FF /* Enemy.swift */; };
+		DCB72DB225FE13B300B183E0 /* GameManagerAISystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCB72DB125FE13B300B183E0 /* GameManagerAISystem.swift */; };
+		DCB72DBA25FE18B100B183E0 /* AIEntityState.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCB72DB925FE18B100B183E0 /* AIEntityState.swift */; };
+		DCB72DBF25FE196B00B183E0 /* AIEntityDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCB72DBE25FE196B00B183E0 /* AIEntityDelegate.swift */; };
 		DCF1BEFA25FA6B6E00B56AD4 /* AIGameInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF1BEF925FA6B6E00B56AD4 /* AIGameInfo.swift */; };
 /* End PBXBuildFile section */
 
@@ -148,6 +151,9 @@
 		DC247F4F25F9C1CB001B814C /* ApproachPointBehaviour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApproachPointBehaviour.swift; sourceTree = "<group>"; };
 		DC247F5425F9E53C001B814C /* SpawnEnemiesBehaviour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpawnEnemiesBehaviour.swift; sourceTree = "<group>"; };
 		DC9D4A4725F92E2C000F07FF /* Enemy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enemy.swift; sourceTree = "<group>"; };
+		DCB72DB125FE13B300B183E0 /* GameManagerAISystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameManagerAISystem.swift; sourceTree = "<group>"; };
+		DCB72DB925FE18B100B183E0 /* AIEntityState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIEntityState.swift; sourceTree = "<group>"; };
+		DCB72DBE25FE196B00B183E0 /* AIEntityDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIEntityDelegate.swift; sourceTree = "<group>"; };
 		DCF1BEF925FA6B6E00B56AD4 /* AIGameInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIGameInfo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -308,13 +314,14 @@
 		D596B1C325F8CFD900A5854F /* AI */ = {
 			isa = PBXGroup;
 			children = (
-				DC9D4A4725F92E2C000F07FF /* Enemy.swift */,
-				D596B17825F7C20D00A5854F /* AIBehaviour.swift */,
-				D596B1C425F8CFEC00A5854F /* AIEntity.swift */,
-				DC247F4F25F9C1CB001B814C /* ApproachPointBehaviour.swift */,
-				DC247F5425F9E53C001B814C /* SpawnEnemiesBehaviour.swift */,
-				DCF1BEF925FA6B6E00B56AD4 /* AIGameInfo.swift */,
+				DCB72DC325FE1A3900B183E0 /* Behaviours */,
+				DCB72DB125FE13B300B183E0 /* GameManagerAISystem.swift */,
+				DCB72DBE25FE196B00B183E0 /* AIEntityDelegate.swift */,
 				DC16B41E25FDE64C00C58670 /* AISystem.swift */,
+				D596B1C425F8CFEC00A5854F /* AIEntity.swift */,
+				DC9D4A4725F92E2C000F07FF /* Enemy.swift */,
+				DCF1BEF925FA6B6E00B56AD4 /* AIGameInfo.swift */,
+				DCB72DB925FE18B100B183E0 /* AIEntityState.swift */,
 			);
 			path = AI;
 			sourceTree = "<group>";
@@ -364,6 +371,16 @@
 				D5D9201325FB9ACB00E70364 /* PaintAmmoDrop.swift */,
 			);
 			path = PaintWeapons;
+			sourceTree = "<group>";
+		};
+		DCB72DC325FE1A3900B183E0 /* Behaviours */ = {
+			isa = PBXGroup;
+			children = (
+				D596B17825F7C20D00A5854F /* AIBehaviour.swift */,
+				DC247F4F25F9C1CB001B814C /* ApproachPointBehaviour.swift */,
+				DC247F5425F9E53C001B814C /* SpawnEnemiesBehaviour.swift */,
+			);
+			path = Behaviours;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -561,9 +578,12 @@
 				D596B19A25F8CF0800A5854F /* Renderable.swift in Sources */,
 				ACFD822C25F67C9E009D806B /* Transformable.swift in Sources */,
 				D5D9200B25FB955500E70364 /* PaintWeapon.swift in Sources */,
+				DCB72DBF25FE196B00B183E0 /* AIEntityDelegate.swift in Sources */,
 				D596B1AE25F8CF5B00A5854F /* ColliderShape.swift in Sources */,
 				D5D9201425FB9ACB00E70364 /* PaintAmmoDrop.swift in Sources */,
 				ACFD81FF25F670A2009D806B /* Colorable.swift in Sources */,
+				DCB72DB225FE13B300B183E0 /* GameManagerAISystem.swift in Sources */,
+				DCB72DBA25FE18B100B183E0 /* AIEntityState.swift in Sources */,
 				ACFD81FA25F667EB009D806B /* RenderSystem.swift in Sources */,
 				D596B19425F8CEBE00A5854F /* GameScene+RenderSystem.swift in Sources */,
 				ACFD820425F67113009D806B /* Weapon.swift in Sources */,

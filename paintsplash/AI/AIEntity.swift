@@ -14,6 +14,8 @@ class AIEntity: InteractiveEntity, Movable {
 
     var currentBehaviour: AIBehaviour = ApproachPointBehaviour()
 
+    var state: AIEntityState = .idle
+
     init(initialPosition: Vector2D, initialVelocity: Vector2D, radius: Double) {
         self.velocity = initialVelocity
         self.acceleration = Vector2D.zero
