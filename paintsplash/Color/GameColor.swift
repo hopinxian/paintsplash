@@ -13,10 +13,10 @@ protocol GameColor: Equatable {
     /// Returns the resulting color from mixing this color with the given colors.
     /// Returns nothing if there is no existing color result.
     func mix(with color: [Self]) -> Self?
-    
+
     /// Checks if this color contains the given color.
     func contains(color: Self) -> Bool
-    
+
     /// Returns an array of colors which this color contains.
     func getSubColors() -> [Self]
 }
