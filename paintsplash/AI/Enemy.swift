@@ -7,31 +7,17 @@
 
 import SpriteKit
 
-class Enemy: InteractiveEntity, AIEntity {
-    var defaultSpeed: Double = 1.0
-
-    var currentBehaviour: AIBehaviour
-
-    var velocity: Vector2D
-
-    var acceleration: Vector2D
+class Enemy: AIEntity {
 
     var isHit: Bool = false
 
-    var hasDied: Bool = false
-
     init(initialPosition: Vector2D, initialVelocity: Vector2D) {
-        self.velocity = initialVelocity
-        self.acceleration = Vector2D.zero
-
+        super.init(initialPosition: initialPosition, initialVelocity: initialVelocity, radius: 50)
         self.currentBehaviour = ApproachPointBehaviour()
-
-        var transform = Transform.identity
-        transform.position = initialPosition
-
-        super.init(spriteName: "", colliderShape: .circle(radius: 50), tags: .enemy, transform: transform)
-
+        
         self.currentAnimation = SlimeAnimations.slimeMoveRight
+
+        self.defaultSpeed = 1.0
     }
 
     override func onCollide(otherObject: Collidable, gameManager: GameManager) {
@@ -62,14 +48,6 @@ class Enemy: InteractiveEntity, AIEntity {
         } else if (velocity.x < 0) {
             currentAnimation = SlimeAnimations.slimeMoveLeft
         }
-    }
-
-    func changeBehaviour(to behaviour: AIBehaviour) {
-        self.currentBehaviour = behaviour
-    }
-
-    func updateAI(aiGameInfo: AIGameInfo) {
-        currentBehaviour.updateAI(aiEntity: self, aiGameInfo: aiGameInfo)
     }
 
     override func update(gameManager: GameManager) {
