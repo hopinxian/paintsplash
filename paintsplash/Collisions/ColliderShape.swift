@@ -24,7 +24,8 @@ enum ColliderShape {
         case .enemy(let radius):
             let physicsBody = SKPhysicsBody(circleOfRadius: CGFloat(radius))
             physicsBody.affectedByGravity = false
-            physicsBody.contactTestBitMask = 0b0010
+            physicsBody.categoryBitMask = 0b0001
+            physicsBody.collisionBitMask = 0b0010
             return physicsBody
         default:
             return SKPhysicsBody()

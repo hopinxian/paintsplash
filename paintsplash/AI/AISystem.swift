@@ -7,7 +7,7 @@
 protocol AISystem {
     var AIEntities: Set<AIEntity> { get set }
 
-    func updateAIEntities(aiGameInfo: AIGameInfo)
+    func updateAIEntities()
 
     func add(aiEntity: AIEntity)
 

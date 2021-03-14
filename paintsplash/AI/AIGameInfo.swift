@@ -9,5 +9,5 @@ import CoreGraphics
 struct AIGameInfo {
     var playerPosition: Vector2D
     var numberOfEnemies: Int
-//    var timeInterval: Double
+    var aiSystem: AISystem?
 }

@@ -15,7 +15,10 @@ struct Animation {
     func getAction() -> SKAction {
         let animationAtlas = SKTextureAtlas(named: atlasName)
 
-        let animationFrames: [SKTexture] = animationAtlas.textureNames.map({
+        // Sorting ensures that animation images are in the correct order
+        let sortedTextures = animationAtlas.textureNames.sorted()
+
+        let animationFrames: [SKTexture] = sortedTextures.map({
             animationAtlas.textureNamed($0)
         })
 

@@ -60,13 +60,7 @@ class Enemy: AIEntity {
     }
 
     override func update(gameManager: GameManager) {
-        updateAI(
-            aiGameInfo: AIGameInfo(
-                playerPosition: gameManager.currentPlayerPosition,
-                numberOfEnemies: gameManager.getEnemies().count
-            )
-        )
-
+        // TODO: refactor?
         if self.state != .hit && self.state != .die {
             setState()
         }

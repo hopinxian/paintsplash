@@ -14,8 +14,13 @@ class GameManagerAISystem: AISystem {
         self.gameManager = gameManager
     }
 
-    func updateAIEntities(aiGameInfo: AIGameInfo) {
-
+    func updateAIEntities() {
+        AIEntities.forEach { entity in
+            entity.currentBehaviour.updateAI(aiEntity: entity,
+                                             aiGameInfo: AIGameInfo(playerPosition: gameManager.currentPlayerPosition,
+                                                                    numberOfEnemies: AIEntities.count,
+                                                                    aiSystem: self))
+        }
     }
 
     func add(aiEntity: AIEntity) {
@@ -23,6 +28,8 @@ class GameManagerAISystem: AISystem {
 
         aiEntity.spawn(gameManager: gameManager)
         aiEntity.delegate = self
+
+        aiEntity.delegate?.didEntityUpdateState(aiEntity: aiEntity)
     }
 
     func remove(aiEntity: AIEntity) {
@@ -39,6 +46,11 @@ class GameManagerAISystem: AISystem {
         self.add(aiEntity: enemy)
     }
 
+    func addEnemySpawner(at position: Vector2D) {
+        let enemySpawner = EnemySpawner(initialPosition: position, initialVelocity: .zero)
+        self.add(aiEntity: enemySpawner)
+    }
+
 }
 
 extension GameManagerAISystem: AIEntityDelegate {
@@ -47,6 +59,7 @@ extension GameManagerAISystem: AIEntityDelegate {
     }
 
     func didEntityUpdateState(aiEntity: AIEntity) {
+        print("entity updated state")
         aiEntity.currentAnimation = aiEntity.getAnimationFromState()
         gameManager.getRenderSystem().updateRenderableAnimation(aiEntity)
     }

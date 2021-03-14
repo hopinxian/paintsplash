@@ -11,4 +11,5 @@ enum AIEntityState {
     case hit
     case afterHit
     case die
+    case spawning
 }

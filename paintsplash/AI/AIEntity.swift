@@ -34,7 +34,7 @@ class AIEntity: InteractiveEntity, Movable {
         var transform = Transform.identity
         transform.position = initialPosition
 
-        super.init(spriteName: "", colliderShape: .circle(radius: radius), tags: .enemy, transform: transform)
+        super.init(spriteName: "", colliderShape: .enemy(radius: radius), tags: .enemy, transform: transform)
     }
 
     func changeBehaviour(to behaviour: AIBehaviour) {
@@ -59,6 +59,8 @@ class AIEntity: InteractiveEntity, Movable {
             return SlimeAnimations.slimeHit
         case .die:
             return SlimeAnimations.slimeDie
+        default:
+            return SlimeAnimations.slimeIdle
         }
     }
 }
