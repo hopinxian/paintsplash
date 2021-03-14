@@ -6,7 +6,7 @@
 //
 import Foundation
 
-class PaintAmmoDrop: InteractiveEntity, AmmoDrop {
+class PaintAmmoDrop: InteractiveEntity, AmmoDrop, Colorable {
     let size: Vector2D = Vector2D(50, 50)
     let color: PaintColor
 

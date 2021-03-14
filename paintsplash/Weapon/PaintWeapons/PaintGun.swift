@@ -16,6 +16,10 @@ class PaintGun: PaintWeapon {
         for item in ammo {
             ammoStack.push(item)
         }
+        /*
+         Paintgun needs to implement the specifics of the stack
+         else it would be difficult to do the mixing within it
+         */
     }
 
     override func shoot() -> Projectile? {

@@ -10,5 +10,5 @@
  */
 protocol Colorable {
     associatedtype ColorType: GameColor
-    var color: ColorType { get set }
+    var color: ColorType { get }
 }

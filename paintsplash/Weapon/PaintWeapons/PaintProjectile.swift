@@ -6,14 +6,16 @@
 //
 import Foundation
 
-class PaintProjectile: InteractiveEntity, Projectile {
+class PaintProjectile: InteractiveEntity, Projectile, Colorable {
     var radius: Double
 
+    var color: PaintColor
     var velocity: Vector2D
     var acceleration: Vector2D
 
     init(color: PaintColor, radius: Double, velocity: Vector2D) {
         self.radius = radius
+        self.color = color
 
         self.velocity = velocity
         self.acceleration = Vector2D.zero
@@ -30,6 +32,19 @@ class PaintProjectile: InteractiveEntity, Projectile {
         print("Paint Projectile Collide")
         if otherObject.tags.contains(.player) {
             print("Player collected ammo")
+        }
+        if otherObject.tags.contains(.enemy) {
+            /*
+             If color is same, inflict damage
+             Cant retrieve color information from other object
+             suggest adding identifier information to collidable to allow retrieval from game manager
+             object = gamemanager.get(otherobject.identifier)
+             if object as? colorable { get color }
+             */
+            let otherColor = PaintColor.blue
+            if self.color == otherColor {
+                print("inflict damage")
+            }
         }
     }
 

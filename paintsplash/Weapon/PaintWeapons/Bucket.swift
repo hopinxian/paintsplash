@@ -15,6 +15,10 @@ class Bucket: PaintWeapon {
         for item in ammo {
             ammoQueue.enqueue(item)
         }
+        /**
+         Bucket needs to implement the specifics of the queue
+         else it wld be difficult to perform the mixing of the paint within the bucket
+         */
     }
 
     override func shoot() -> Projectile? {

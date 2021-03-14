@@ -7,12 +7,14 @@
 
 import SpriteKit
 
-class Enemy: InteractiveEntity, AIEntity {
+class Enemy: InteractiveEntity, AIEntity, Colorable {
     var currentBehaviour: AIBehaviour
 
     var velocity: Vector2D
 
     var acceleration: Vector2D
+
+    var color: PaintColor = PaintColor.blue
 
     init(initialPosition: Vector2D, initialVelocity: Vector2D) {
         self.velocity = initialVelocity
