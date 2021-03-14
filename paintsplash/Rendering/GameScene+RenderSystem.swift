@@ -31,7 +31,14 @@ extension GameScene: RenderSystem {
         }
 
         node.position = CGPoint(renderable.transform.position)
-        
+
+        guard let animation = renderable.currentAnimation,
+              node.action(forKey: animation.name) == nil else {
+            return
+        }
+
+        node.removeAllActions()
+        node.run(animation.getAction(), withKey: animation.name)
     }
 
     func buildNode(renderable: Renderable) -> SKNode {

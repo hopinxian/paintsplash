@@ -9,12 +9,15 @@ import CoreGraphics
 
 struct ApproachPointBehaviour: AIBehaviour {
     func updateAI(aiEntity: AIEntity, aiGameInfo: AIGameInfo) {
-
         // move towards player location
         let enemyCurrentPosition = aiEntity.position
         let playerPosition = aiGameInfo.playerPosition
 
         var newVelocity = playerPosition - enemyCurrentPosition
+
+        guard Vector2D.magnitude(of: newVelocity) > 1 else {
+            return
+        }
 
         // TODO: change speed based on velocity, change velocity based on speed?
         let currentSpeed = aiEntity.velocity.magnitude
@@ -30,5 +33,4 @@ struct ApproachPointBehaviour: AIBehaviour {
         aiEntity.velocity = newVelocity
         aiEntity.move()
     }
-
 }

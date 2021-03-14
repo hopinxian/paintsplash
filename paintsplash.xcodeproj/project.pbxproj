@@ -54,10 +54,12 @@
 		D5DC908C25FCBE790038DF71 /* Transform.swift in Sources */ = {isa = PBXBuildFile; fileRef = D596B1CE25F8D01800A5854F /* Transform.swift */; };
 		D5DC909125FCC4210038DF71 /* Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5DC909025FCC4210038DF71 /* Animation.swift */; };
 		D5DC909625FCC62F0038DF71 /* SlimeAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5DC909525FCC62F0038DF71 /* SlimeAnimations.swift */; };
+		D5DC90A125FCE3B80038DF71 /* SlimeGraphics.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5DC90A025FCE3B80038DF71 /* SlimeGraphics.swift */; };
+		D5DC90AA25FCE5280038DF71 /* SlimeMoveLeft.atlas in Resources */ = {isa = PBXBuildFile; fileRef = D5DC90A825FCE5280038DF71 /* SlimeMoveLeft.atlas */; };
+		D5DC90AB25FCE5280038DF71 /* SlimeMoveRight.atlas in Resources */ = {isa = PBXBuildFile; fileRef = D5DC90A925FCE5280038DF71 /* SlimeMoveRight.atlas */; };
 		DC247F5025F9C1CB001B814C /* ApproachPointBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC247F4F25F9C1CB001B814C /* ApproachPointBehaviour.swift */; };
 		DC247F5525F9E53C001B814C /* SpawnEnemiesBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC247F5425F9E53C001B814C /* SpawnEnemiesBehaviour.swift */; };
 		DC9D4A4825F92E2C000F07FF /* Enemy.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9D4A4725F92E2C000F07FF /* Enemy.swift */; };
-		DCD03F1A25FCB955002C83F8 /* SlimeMove.atlas in Resources */ = {isa = PBXBuildFile; fileRef = DCD03F1925FCB955002C83F8 /* SlimeMove.atlas */; };
 		DCF1BEFA25FA6B6E00B56AD4 /* AIGameInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF1BEF925FA6B6E00B56AD4 /* AIGameInfo.swift */; };
 /* End PBXBuildFile section */
 
@@ -132,10 +134,12 @@
 		D5D9201325FB9ACB00E70364 /* PaintAmmoDrop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaintAmmoDrop.swift; sourceTree = "<group>"; };
 		D5DC909025FCC4210038DF71 /* Animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animation.swift; sourceTree = "<group>"; };
 		D5DC909525FCC62F0038DF71 /* SlimeAnimations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlimeAnimations.swift; sourceTree = "<group>"; };
+		D5DC90A025FCE3B80038DF71 /* SlimeGraphics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlimeGraphics.swift; sourceTree = "<group>"; };
+		D5DC90A825FCE5280038DF71 /* SlimeMoveLeft.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = SlimeMoveLeft.atlas; sourceTree = "<group>"; };
+		D5DC90A925FCE5280038DF71 /* SlimeMoveRight.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = SlimeMoveRight.atlas; sourceTree = "<group>"; };
 		DC247F4F25F9C1CB001B814C /* ApproachPointBehaviour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApproachPointBehaviour.swift; sourceTree = "<group>"; };
 		DC247F5425F9E53C001B814C /* SpawnEnemiesBehaviour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpawnEnemiesBehaviour.swift; sourceTree = "<group>"; };
 		DC9D4A4725F92E2C000F07FF /* Enemy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enemy.swift; sourceTree = "<group>"; };
-		DCD03F1925FCB955002C83F8 /* SlimeMove.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = SlimeMove.atlas; sourceTree = "<group>"; };
 		DCF1BEF925FA6B6E00B56AD4 /* AIGameInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIGameInfo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -232,12 +236,14 @@
 		D596B19825F8CEF500A5854F /* Rendering */ = {
 			isa = PBXGroup;
 			children = (
-				DCD03F1925FCB955002C83F8 /* SlimeMove.atlas */,
+				D5DC90A825FCE5280038DF71 /* SlimeMoveLeft.atlas */,
+				D5DC90A925FCE5280038DF71 /* SlimeMoveRight.atlas */,
 				D596B19325F8CEBE00A5854F /* GameScene+RenderSystem.swift */,
 				D596B19925F8CF0800A5854F /* Renderable.swift */,
 				ACFD81F925F667EB009D806B /* RenderSystem.swift */,
 				D5DC909025FCC4210038DF71 /* Animation.swift */,
 				D5DC909525FCC62F0038DF71 /* SlimeAnimations.swift */,
+				D5DC90A025FCE3B80038DF71 /* SlimeGraphics.swift */,
 			);
 			path = Rendering;
 			sourceTree = "<group>";
@@ -452,10 +458,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D5DC90AB25FCE5280038DF71 /* SlimeMoveRight.atlas in Resources */,
 				ACB3607D25F661620016E240 /* Main.storyboard in Resources */,
-				DCD03F1A25FCB955002C83F8 /* SlimeMove.atlas in Resources */,
 				ACB3607425F661620016E240 /* GameScene.sks in Resources */,
 				ACB3607F25F661630016E240 /* Assets.xcassets in Resources */,
+				D5DC90AA25FCE5280038DF71 /* SlimeMoveLeft.atlas in Resources */,
 				ACB3607625F661620016E240 /* Actions.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -533,6 +540,7 @@
 				ACB3607225F661620016E240 /* AppDelegate.swift in Sources */,
 				D583469825FB8477005C344D /* Queue.swift in Sources */,
 				D596B17425F7C0F500A5854F /* UserInput.swift in Sources */,
+				D5DC90A125FCE3B80038DF71 /* SlimeGraphics.swift in Sources */,
 				D55A8AAD25FC933A00BBE210 /* GameManager.swift in Sources */,
 				D596B19A25F8CF0800A5854F /* Renderable.swift in Sources */,
 				ACFD822C25F67C9E009D806B /* Transformable.swift in Sources */,

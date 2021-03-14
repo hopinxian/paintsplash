@@ -43,12 +43,13 @@ class TestCircle: InteractiveEntity, Movable {
     override func onCollide(otherObject: Collidable, gameManager: GameManager) {
         super.onCollide(otherObject: otherObject, gameManager: gameManager)
         if otherObject.tags.contains(.ammoDrop) {
-            guard let ammoDrop = otherObject as? PaintAmmoDrop else {
-                return
+            switch otherObject {
+            case let ammoDrop as PaintAmmoDrop:
+                let ammo = ammoDrop.getAmmoObject()
+                paintWeaponsSystem.load([ammo])
+            default:
+                break
             }
-            let ammo = ammoDrop.getAmmoObject()
-
-            paintWeaponsSystem.load([ammo])
         }
     }
 }

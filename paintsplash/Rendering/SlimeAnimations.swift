@@ -6,6 +6,7 @@
 //
 
 struct SlimeAnimations {
-    static let slimeMove = Animation(atlasName: "SlimeMove", name: "slimeMove")
+    static let slimeMoveRight = Animation(atlasName: "SlimeMoveRight", name: "slimeMoveRight")
+    static let slimeMoveLeft = Animation(atlasName: "SlimeMoveLeft", name: "slimeMoveLeft")
     static let slimeIdle = Animation(atlasName: "SlimeIdle", name: "slimeIdle")
 }
