@@ -32,6 +32,10 @@ class GameManager {
         entities.compactMap({ $0 as? Enemy })
     }
 
+    func removeAIEntity(aiEntity: AIEntity) {
+        aiSystem?.remove(aiEntity: aiEntity)
+    }
+
     func addObject(_ object: GameEntity) {
         entities.insert(object)
     }

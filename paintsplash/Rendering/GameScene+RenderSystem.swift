@@ -24,15 +24,32 @@ extension GameScene: RenderSystem {
         nodes[renderable.id] = nil
     }
 
-    func updateRenderable(renderable: Renderable) {
+    func fadeRemoveRenderable(_ renderable: Renderable, duration: Double) {
+        guard let node = nodes[renderable.id] else {
+            return
+        }
+
+        let fadeOutAction = SKAction.fadeOut(withDuration: duration)
+
+        node.run(fadeOutAction, completion: {
+            node.removeFromParent()
+            self.nodes[renderable.id] = nil
+        })
+    }
+
+    func updateRenderable(_ renderable: Renderable) {
         let id = renderable.id
         guard let node = nodes[id] else {
             return
         }
 
         node.position = CGPoint(renderable.transform.position)
+    }
 
-        guard let animation = renderable.currentAnimation,
+    func updateRenderableAnimation(_ renderable: Renderable) {
+        let id = renderable.id
+        guard let node = nodes[id],
+              let animation = renderable.currentAnimation,
               node.action(forKey: animation.name) == nil else {
             return
         }

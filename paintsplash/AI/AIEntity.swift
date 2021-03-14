@@ -6,6 +6,7 @@
 //
 
 class AIEntity: InteractiveEntity, Movable {
+
     var velocity: Vector2D
 
     var acceleration: Vector2D
@@ -14,7 +15,17 @@ class AIEntity: InteractiveEntity, Movable {
 
     var currentBehaviour: AIBehaviour = ApproachPointBehaviour()
 
-    var state: AIEntityState = .idle
+    weak var delegate: AIEntityDelegate?
+
+    var state: AIEntityState = .idle {
+        didSet {
+            if oldValue == state {
+                return
+            }
+            // Update animation since state has changed
+            self.delegate?.didEntityUpdateState(aiEntity: self)
+        }
+    }
 
     init(initialPosition: Vector2D, initialVelocity: Vector2D, radius: Double) {
         self.velocity = initialVelocity
@@ -32,5 +43,22 @@ class AIEntity: InteractiveEntity, Movable {
 
     func updateAI(aiGameInfo: AIGameInfo) {
         currentBehaviour.updateAI(aiEntity: self, aiGameInfo: aiGameInfo)
+    }
+
+    func getAnimationFromState() -> Animation {
+        switch self.state {
+        case .idle:
+            return SlimeAnimations.slimeIdle
+        case .moveLeft:
+            return SlimeAnimations.slimeMoveLeft
+        case .moveRight:
+            return SlimeAnimations.slimeMoveRight
+        case .hit:
+            return SlimeAnimations.slimeHit
+        case .afterHit:
+            return SlimeAnimations.slimeHit
+        case .die:
+            return SlimeAnimations.slimeDie
+        }
     }
 }

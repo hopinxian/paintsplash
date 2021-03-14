@@ -9,5 +9,6 @@ enum AIEntityState {
     case moveRight
     case idle
     case hit
+    case afterHit
     case die
 }

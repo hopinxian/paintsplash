@@ -14,9 +14,11 @@ class GameEntity {
     func spawn(gameManager: GameManager) {
         gameManager.addObject(self)
     }
+
     func destroy(gameManager: GameManager) {
         gameManager.removeObject(self)
     }
+
     func update(gameManager: GameManager) {
 //        print("Updating object \(id)")
     }
@@ -67,7 +69,13 @@ class InteractiveEntity: GameEntity, Renderable, Collidable {
 
     override func update(gameManager: GameManager) {
         super.update(gameManager: gameManager)
-        gameManager.getRenderSystem().updateRenderable(renderable: self)
+        gameManager.getRenderSystem().updateRenderable(self)
+    }
+
+    func fadeDestroy(gameManager: GameManager, duration: Double) {
+        super.destroy(gameManager: gameManager)
+        gameManager.getRenderSystem().fadeRemoveRenderable(self, duration: duration)
+        gameManager.getCollisionSystem().removeCollidable(self)
     }
 }
 

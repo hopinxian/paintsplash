@@ -7,46 +7,55 @@
 
 import SpriteKit
 
+let hitDuration: Double = 0.25
+
 class Enemy: AIEntity {
 
     var isHit: Bool = false
 
+    var hitsToDie: Int = 2
+
     init(initialPosition: Vector2D, initialVelocity: Vector2D) {
         super.init(initialPosition: initialPosition, initialVelocity: initialVelocity, radius: 50)
         self.currentBehaviour = ApproachPointBehaviour()
-        
-        self.currentAnimation = SlimeAnimations.slimeMoveRight
 
         self.defaultSpeed = 1.0
     }
 
     override func onCollide(otherObject: Collidable, gameManager: GameManager) {
-        print("enemy hit")
+        // TODO: check to make sure that collision is "valid"
+        self.hitsToDie -= 1
 
-        self.isHit = true
+        if self.hitsToDie <= 0 {
+            self.state = .die
 
-        // TODO: set hit duration dynamically?
+            gameManager.removeAIEntity(aiEntity: self)
+
+            return
+        }
+
+        self.state = .hit
+
+        // TODO: set hit duration dynamically based on what it collided with?
         // TODO: change direction of hit animation?
-        Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(resetHit),
+        Timer.scheduledTimer(timeInterval: hitDuration, target: self, selector: #selector(resetHit),
                              userInfo: nil, repeats: false)
     }
 
     @objc func resetHit() {
-        self.isHit = false
+        self.state = .afterHit
     }
 
-    func setAnimation() {
-        if self.isHit {
-            currentAnimation = SlimeAnimations.slimeHit
-            return
-        }
-
+    func setState() {
         if velocity.magnitude == 0 {
-            currentAnimation = SlimeAnimations.slimeIdle
+            self.state = .idle
+            // currentAnimation = SlimeAnimations.slimeIdle
         } else if (velocity.x > 0) {
-            currentAnimation = SlimeAnimations.slimeMoveRight
+            self.state = .moveRight
+            // currentAnimation = SlimeAnimations.slimeMoveRight
         } else if (velocity.x < 0) {
-            currentAnimation = SlimeAnimations.slimeMoveLeft
+            self.state = .moveLeft
+            // currentAnimation = SlimeAnimations.slimeMoveLeft
         }
     }
 
@@ -58,7 +67,9 @@ class Enemy: AIEntity {
             )
         )
 
-        setAnimation()
+        if self.state != .hit && self.state != .die {
+            setState()
+        }
 
         super.update(gameManager: gameManager)
     }
