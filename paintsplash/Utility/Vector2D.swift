@@ -65,6 +65,10 @@ struct Vector2D {
         Vector2D(vector.x / amount, vector.y / amount)
     }
 
+    static func /= (left: inout Vector2D, right: Double) {
+        left = left / right
+    }
+
     static func += (left: inout Vector2D, right: Double) {
         left = left / right
     }

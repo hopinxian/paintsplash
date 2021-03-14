@@ -13,6 +13,11 @@ class GameManager {
     init(gameScene: GameScene) {
         self.gameScene = gameScene
 
+        // add player
+        let player = Player(initialPosition: Vector2D(50, 50), initialVelocity: Vector2D(-1, 0))
+        entities.insert(player)
+        player.spawn(gameManager: self)
+
         // add enemies
         let enemy = Enemy(initialPosition: Vector2D(50, 50), initialVelocity: Vector2D(-1, 0))
         entities.insert(enemy)
