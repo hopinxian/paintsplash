@@ -7,6 +7,8 @@
 import Foundation
 
 class PaintProjectile: InteractiveEntity, Projectile {
+    var defaultSpeed: Double = 1.0
+
     var radius: Double
 
     var velocity: Vector2D

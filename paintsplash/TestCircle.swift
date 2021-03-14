@@ -8,6 +8,8 @@
 import SpriteKit
 
 class TestCircle: InteractiveEntity, Movable {
+    var defaultSpeed: Double = 1.0
+
     var paintWeaponsSystem: PaintWeaponsSystem
 
     var velocity: Vector2D

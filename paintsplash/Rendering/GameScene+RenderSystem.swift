@@ -39,6 +39,7 @@ extension GameScene: RenderSystem {
 
         node.removeAllActions()
         node.run(animation.getAction(), withKey: animation.name)
+        print("changed animation")
     }
 
     func buildNode(renderable: Renderable) -> SKNode {

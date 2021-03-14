@@ -15,18 +15,11 @@ struct ApproachPointBehaviour: AIBehaviour {
 
         var newVelocity = playerPosition - enemyCurrentPosition
 
-        guard Vector2D.magnitude(of: newVelocity) > 1 else {
-            return
-        }
-
         // TODO: change speed based on velocity, change velocity based on speed?
-        let currentSpeed = aiEntity.velocity.magnitude
         let newSpeed = newVelocity.magnitude
-
-        if newSpeed == 0 {
-            print("new speed == 0")
-        } else {
-            let scaleFactor = currentSpeed / newSpeed
+        
+        if newSpeed >= 0.5 {
+            let scaleFactor = aiEntity.defaultSpeed / newSpeed
             newVelocity *= scaleFactor
         }
 

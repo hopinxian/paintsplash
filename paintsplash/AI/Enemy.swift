@@ -8,11 +8,17 @@
 import SpriteKit
 
 class Enemy: InteractiveEntity, AIEntity {
+    var defaultSpeed: Double = 1.0
+
     var currentBehaviour: AIBehaviour
 
     var velocity: Vector2D
 
     var acceleration: Vector2D
+
+    var isHit: Bool = false
+
+    var hasDied: Bool = false
 
     init(initialPosition: Vector2D, initialVelocity: Vector2D) {
         self.velocity = initialVelocity
@@ -30,6 +36,32 @@ class Enemy: InteractiveEntity, AIEntity {
 
     override func onCollide(otherObject: Collidable, gameManager: GameManager) {
         print("enemy hit")
+
+        self.isHit = true
+
+        // TODO: set hit duration dynamically?
+        // TODO: change direction of hit animation?
+        Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(resetHit),
+                             userInfo: nil, repeats: false)
+    }
+
+    @objc func resetHit() {
+        self.isHit = false
+    }
+
+    func setAnimation() {
+        if self.isHit {
+            currentAnimation = SlimeAnimations.slimeHit
+            return
+        }
+
+        if velocity.magnitude == 0 {
+            currentAnimation = SlimeAnimations.slimeIdle
+        } else if (velocity.x > 0) {
+            currentAnimation = SlimeAnimations.slimeMoveRight
+        } else if (velocity.x < 0) {
+            currentAnimation = SlimeAnimations.slimeMoveLeft
+        }
     }
 
     func changeBehaviour(to behaviour: AIBehaviour) {
@@ -48,11 +80,7 @@ class Enemy: InteractiveEntity, AIEntity {
             )
         )
 
-        if (velocity.x >= 0) {
-            currentAnimation = SlimeAnimations.slimeMoveRight
-        } else if (velocity.x < 0) {
-            currentAnimation = SlimeAnimations.slimeMoveLeft
-        }
+        setAnimation()
 
         super.update(gameManager: gameManager)
     }

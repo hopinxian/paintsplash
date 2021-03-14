@@ -10,6 +10,7 @@ struct Animation {
     let atlasName: String
     let name: String
     let animationSpeed: Double = 0.2
+    let isRepeating: Bool
 
     func getAction() -> SKAction {
         let animationAtlas = SKTextureAtlas(named: atlasName)
@@ -18,6 +19,13 @@ struct Animation {
             animationAtlas.textureNamed($0)
         })
 
-        return SKAction.repeatForever(SKAction.animate(with: animationFrames, timePerFrame: animationSpeed))
+        let oneTimeAnimation = SKAction.animate(with: animationFrames, timePerFrame: animationSpeed)
+
+        if !isRepeating {
+            return oneTimeAnimation
+        }
+
+        return SKAction.repeatForever(oneTimeAnimation)
     }
+
 }
