@@ -8,13 +8,28 @@
 class GameManager {
     var gameScene: GameScene
     var entities = Set<GameEntity>()
-    var currentPlayerPosition = Vector2D(200, 200)
+
+    var currentPlayerPosition: Vector2D {
+        player.position
+    }
+
+    var currentPlayerVelocity: Vector2D {
+        get {
+            player.velocity
+        }
+        set {   
+            player.velocity = newValue
+            print(player.velocity)
+        }
+    }
+
+    private var player: Player
 
     init(gameScene: GameScene) {
         self.gameScene = gameScene
 
         // add player
-        let player = Player(initialPosition: Vector2D(50, 50), initialVelocity: Vector2D(-1, 0))
+        player = Player(initialPosition: Vector2D(50, 50), initialVelocity: Vector2D(-1, 0))
         entities.insert(player)
         player.spawn(gameManager: self)
 

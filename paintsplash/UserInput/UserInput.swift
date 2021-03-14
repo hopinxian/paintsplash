@@ -54,20 +54,19 @@ class Player: InteractiveEntity, Movable {
         super.init(spriteName: "", colliderShape: .circle(radius: 50), tags: .player, transform: transform)
 
         self.currentAnimation = SlimeAnimations.slimeMoveRight
-
-        moveTimer()
     }
 
     private func moveTimer() {
-        Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
-            self.velocity = Vector2D.up * 50
-            self.move()
-            self.velocity = Vector2D.zero
-        }
+//        Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
+//            self.velocity = Vector2D.up * 50
+//            self.move()
+//            self.velocity = Vector2D.zero
+//        }
     }
 
     override func update(gameManager: GameManager) {
-        gameManager.currentPlayerPosition = transform.position
+        move()
+//        gameManager.currentPlayerPosition = transform.position
         super.update(gameManager: gameManager)
     }
 }

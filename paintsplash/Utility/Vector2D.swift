@@ -17,6 +17,10 @@ struct Vector2D {
         Vector2D.distanceBetween(self, Vector2D.zero)
     }
 
+    var unitVector: Vector2D {
+        self / magnitude
+    }
+
     static let zero = Vector2D(0, 0)
     static let right = Vector2D(1, 0)
     static let left = Vector2D(-1, 0)
