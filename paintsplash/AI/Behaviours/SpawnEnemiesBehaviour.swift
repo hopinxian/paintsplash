@@ -30,8 +30,8 @@ class SpawnEnemiesBehaviour: AIBehaviour {
 
         let spawnPosition = aiEntity.position
 
-        // aiEntity.state = .spawning
-        // Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(resetSpawnState), userInfo: aiEntity, repeats: false)
+         aiEntity.state = .spawning
+         Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(resetSpawnState), userInfo: aiEntity, repeats: false)
 
 
         for _ in 0..<spawnQuantity {
