@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		AC11904925FE7B7B00601CB9 /* JoystickMovement.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC11904825FE7B7B00601CB9 /* JoystickMovement.swift */; };
+		8402D28225FDFD0300493DDE /* GameColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8402D28125FDFD0300493DDE /* GameColor.swift */; };
+		8402D28A25FE083C00493DDE /* TestColorEnemy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8402D28925FE083C00493DDE /* TestColorEnemy.swift */; };
+		8402D28F25FE0BDB00493DDE /* ColorMixer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8402D28E25FE0BDB00493DDE /* ColorMixer.swift */; };
+		8402D29725FE106800493DDE /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8402D29625FE106800493DDE /* Math.swift */; };
+		840A889225FF13A100A07596 /* PaintColor+UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840A889125FF13A100A07596 /* PaintColor+UIColor.swift */; };
+		84AA629E25FDD3BD00048012 /* BaseColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AA629D25FDD3BD00048012 /* BaseColor.swift */; };
 		ACB3607225F661620016E240 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB3607125F661620016E240 /* AppDelegate.swift */; };
 		ACB3607425F661620016E240 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = ACB3607325F661620016E240 /* GameScene.sks */; };
 		ACB3607625F661620016E240 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = ACB3607525F661620016E240 /* Actions.sks */; };
@@ -27,7 +33,6 @@
 		ACFD822225F67C5B009D806B /* Projectile.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFD822125F67C5B009D806B /* Projectile.swift */; };
 		ACFD822725F67C76009D806B /* PaintColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFD822625F67C76009D806B /* PaintColor.swift */; };
 		ACFD822C25F67C9E009D806B /* Transformable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFD822B25F67C9E009D806B /* Transformable.swift */; };
-		ACFD823125F67CCB009D806B /* ColorMixer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFD823025F67CCB009D806B /* ColorMixer.swift */; };
 		D55A8AA225FBB4E000BBE210 /* Tags.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55A8AA125FBB4E000BBE210 /* Tags.swift */; };
 		D55A8AAD25FC933A00BBE210 /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55A8AAC25FC933A00BBE210 /* GameManager.swift */; };
 		D583468E25FB8450005C344D /* PaintGun.swift in Sources */ = {isa = PBXBuildFile; fileRef = D583468D25FB8450005C344D /* PaintGun.swift */; };
@@ -94,6 +99,12 @@
 
 /* Begin PBXFileReference section */
 		AC11904825FE7B7B00601CB9 /* JoystickMovement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoystickMovement.swift; sourceTree = "<group>"; };
+		8402D28125FDFD0300493DDE /* GameColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameColor.swift; sourceTree = "<group>"; };
+		8402D28925FE083C00493DDE /* TestColorEnemy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestColorEnemy.swift; sourceTree = "<group>"; };
+		8402D28E25FE0BDB00493DDE /* ColorMixer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorMixer.swift; sourceTree = "<group>"; };
+		8402D29625FE106800493DDE /* Math.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Math.swift; sourceTree = "<group>"; };
+		840A889125FF13A100A07596 /* PaintColor+UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PaintColor+UIColor.swift"; sourceTree = "<group>"; };
+		84AA629D25FDD3BD00048012 /* BaseColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseColor.swift; sourceTree = "<group>"; };
 		ACB3606E25F661620016E240 /* paintsplash.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = paintsplash.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACB3607125F661620016E240 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ACB3607325F661620016E240 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -119,7 +130,6 @@
 		ACFD822125F67C5B009D806B /* Projectile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Projectile.swift; sourceTree = "<group>"; };
 		ACFD822625F67C76009D806B /* PaintColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaintColor.swift; sourceTree = "<group>"; };
 		ACFD822B25F67C9E009D806B /* Transformable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transformable.swift; sourceTree = "<group>"; };
-		ACFD823025F67CCB009D806B /* ColorMixer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorMixer.swift; sourceTree = "<group>"; };
 		D55A8AA125FBB4E000BBE210 /* Tags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tags.swift; sourceTree = "<group>"; };
 		D55A8AAC25FC933A00BBE210 /* GameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
 		D583468D25FB8450005C344D /* PaintGun.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaintGun.swift; sourceTree = "<group>"; };
@@ -267,6 +277,9 @@
 				D596B19925F8CF0800A5854F /* Renderable.swift */,
 				ACFD81F925F667EB009D806B /* RenderSystem.swift */,
 				D5DC909025FCC4210038DF71 /* Animation.swift */,
+				D5DC909525FCC62F0038DF71 /* SlimeAnimations.swift */,
+				840A889125FF13A100A07596 /* PaintColor+UIColor.swift */,
+				D5DC90A025FCE3B80038DF71 /* SlimeGraphics.swift */,
 			);
 			path = Rendering;
 			sourceTree = "<group>";
@@ -287,8 +300,11 @@
 			isa = PBXGroup;
 			children = (
 				ACFD81FE25F670A2009D806B /* Colorable.swift */,
-				ACFD823025F67CCB009D806B /* ColorMixer.swift */,
+				8402D28125FDFD0300493DDE /* GameColor.swift */,
+				84AA629D25FDD3BD00048012 /* BaseColor.swift */,
 				ACFD822625F67C76009D806B /* PaintColor.swift */,
+				8402D28E25FE0BDB00493DDE /* ColorMixer.swift */,
+				8402D28925FE083C00493DDE /* TestColorEnemy.swift */,
 			);
 			path = Color;
 			sourceTree = "<group>";
@@ -301,6 +317,7 @@
 				D583469725FB8477005C344D /* Queue.swift */,
 				D583469C25FB8493005C344D /* Stack.swift */,
 				D58346A125FB856D005C344D /* LinkedList.swift */,
+				8402D29625FE106800493DDE /* Math.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -424,7 +441,7 @@
 				ACB3606A25F661620016E240 /* Sources */,
 				ACB3606B25F661620016E240 /* Frameworks */,
 				ACB3606C25F661620016E240 /* Resources */,
-				ACFD823A25F67D47009D806B /* ShellScript */,
+				84BCB8E425FE4A0800E948B3 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -549,7 +566,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		ACFD823A25F67D47009D806B /* ShellScript */ = {
+		84BCB8E425FE4A0800E948B3 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -564,8 +581,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "
-";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -586,6 +602,7 @@
 				DC9D4A4825F92E2C000F07FF /* Enemy.swift in Sources */,
 				D58346A225FB856D005C344D /* LinkedList.swift in Sources */,
 				D5D9200625FB8EEE00E70364 /* PaintWeaponsSystem.swift in Sources */,
+				8402D29725FE106800493DDE /* Math.swift in Sources */,
 				D5DC909625FCC62F0038DF71 /* SlimeAnimations.swift in Sources */,
 				D583469325FB845F005C344D /* Bucket.swift in Sources */,
 				ACFD820925F676AB009D806B /* Movable.swift in Sources */,
@@ -600,21 +617,24 @@
 				ACFD821D25F67C49009D806B /* WeaponSystem.swift in Sources */,
 				D58346AC25FB8636005C344D /* PaintAmmo.swift in Sources */,
 				D58346B125FB8653005C344D /* Ammo.swift in Sources */,
+				8402D28F25FE0BDB00493DDE /* ColorMixer.swift in Sources */,
 				D5DC909125FCC4210038DF71 /* Animation.swift in Sources */,
 				ACFD820F25F6773B009D806B /* Vector2D.swift in Sources */,
-				ACFD823125F67CCB009D806B /* ColorMixer.swift in Sources */,
 				ACB3607A25F661620016E240 /* GameViewController.swift in Sources */,
 				D583469D25FB8493005C344D /* Stack.swift in Sources */,
 				AC11904925FE7B7B00601CB9 /* JoystickMovement.swift in Sources */,
+				8402D28A25FE083C00493DDE /* TestColorEnemy.swift in Sources */,
 				ACB3607225F661620016E240 /* AppDelegate.swift in Sources */,
 				D583469825FB8477005C344D /* Queue.swift in Sources */,
 				D596B17425F7C0F500A5854F /* UserInput.swift in Sources */,
 				D5DC90A125FCE3B80038DF71 /* SlimeGraphics.swift in Sources */,
+				8402D28225FDFD0300493DDE /* GameColor.swift in Sources */,
 				D55A8AAD25FC933A00BBE210 /* GameManager.swift in Sources */,
 				D596B19A25F8CF0800A5854F /* Renderable.swift in Sources */,
 				ACFD822C25F67C9E009D806B /* Transformable.swift in Sources */,
 				D5D9200B25FB955500E70364 /* PaintWeapon.swift in Sources */,
 				DCB72DBF25FE196B00B183E0 /* AIEntityDelegate.swift in Sources */,
+				84AA629E25FDD3BD00048012 /* BaseColor.swift in Sources */,
 				D596B1AE25F8CF5B00A5854F /* ColliderShape.swift in Sources */,
 				D5D9201425FB9ACB00E70364 /* PaintAmmoDrop.swift in Sources */,
 				ACFD81FF25F670A2009D806B /* Colorable.swift in Sources */,
@@ -624,6 +644,7 @@
 				D596B19425F8CEBE00A5854F /* GameScene+RenderSystem.swift in Sources */,
 				ACFD820425F67113009D806B /* Weapon.swift in Sources */,
 				D596B17925F7C20D00A5854F /* AIBehaviour.swift in Sources */,
+				840A889225FF13A100A07596 /* PaintColor+UIColor.swift in Sources */,
 				D58346A725FB8616005C344D /* PaintProjectile.swift in Sources */,
 				D596B1A625F8CF3800A5854F /* GameScene+CollisionSystem.swift in Sources */,
 				D596B18925F8B27400A5854F /* TestCircle.swift in Sources */,
@@ -795,7 +816,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5Q6AP63883;
 				INFOPLIST_FILE = paintsplash/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -813,7 +836,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5Q6AP63883;
 				INFOPLIST_FILE = paintsplash/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -831,8 +856,9 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5Q6AP63883;
 				INFOPLIST_FILE = paintsplashTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -852,8 +878,9 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5Q6AP63883;
 				INFOPLIST_FILE = paintsplashTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -872,7 +899,9 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5Q6AP63883;
 				INFOPLIST_FILE = paintsplashUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -891,7 +920,9 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5Q6AP63883;
 				INFOPLIST_FILE = paintsplashUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
