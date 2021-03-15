@@ -17,6 +17,10 @@ struct Vector2D {
         Vector2D.distanceBetween(self, Vector2D.zero)
     }
 
+    var unitVector: Vector2D {
+        self / magnitude
+    }
+
     static let zero = Vector2D(0, 0)
     static let right = Vector2D(1, 0)
     static let left = Vector2D(-1, 0)
@@ -63,6 +67,10 @@ struct Vector2D {
 
     static func / (_ vector: Vector2D, _ amount: Double) -> Vector2D {
         Vector2D(vector.x / amount, vector.y / amount)
+    }
+
+    static func /= (left: inout Vector2D, right: Double) {
+        left = left / right
     }
 
     static func += (left: inout Vector2D, right: Double) {

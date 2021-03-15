@@ -8,17 +8,44 @@
 class GameManager {
     var gameScene: GameScene
     var entities = Set<GameEntity>()
-    var currentPlayerPosition = Vector2D(200, 200)
+
+    var currentPlayerPosition: Vector2D {
+        player.position
+    }
+
+    var currentPlayerVelocity: Vector2D {
+        get {
+            player.velocity
+        }
+        set {   
+            player.velocity = newValue
+            print(player.velocity)
+        }
+    }
+
+    private var player: Player
 
     var aiSystem: GameManagerAISystem?
 
     init(gameScene: GameScene) {
         self.gameScene = gameScene
 
+        player = Player(initialPosition: Vector2D(50, 50), initialVelocity: Vector2D(-1, 0))
+        entities.insert(player)
+
         self.aiSystem = GameManagerAISystem(gameManager: self)
 
         self.aiSystem?.addEnemy(at: Vector2D(50, 50))
         self.aiSystem?.addEnemySpawner(at: Vector2D(200, 50))
+
+        // add player
+
+        player.spawn(gameManager: self)
+
+//        // add enemies
+//        let enemy = Enemy(initialPosition: Vector2D(50, 50), initialVelocity: Vector2D(-1, 0))
+//        entities.insert(enemy)
+//        enemy.spawn(gameManager: self)
     }
 
     func getRenderSystem() -> RenderSystem {

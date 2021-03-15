@@ -47,6 +47,20 @@ class GameScene: SKScene {
                                               SKAction.fadeOut(withDuration: 0.5),
                                               SKAction.removeFromParent()]))
         }
+
+        let joystick = JoystickMovement()
+
+        joystick.position = CGPoint(x: self.size.width / -2 + 100, y: -200)
+
+        joystick.setHandler(for: .moving) { displacement in
+            self.gameManager.currentPlayerVelocity = displacement.unitVector
+        }
+
+        joystick.setHandler(for: .end) { _ in
+            self.gameManager.currentPlayerVelocity = Vector2D.zero
+        }
+
+        addChild(joystick)
     }
     
     
@@ -73,7 +87,7 @@ class GameScene: SKScene {
             self.addChild(n)
         }
 
-        gameManager?.currentPlayerPosition = Vector2D(pos)
+//        gameManager?.currentPlayerPosition = Vector2D(pos)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
