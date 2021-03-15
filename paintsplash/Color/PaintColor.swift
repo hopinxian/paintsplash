@@ -11,7 +11,7 @@
  Paint colors are different if and only if their composition of
  base colors are different.
  */
-enum PaintColor: CaseIterable, GameColor {
+enum PaintColor: String, CaseIterable, GameColor {
     case red
     case blue
     case yellow

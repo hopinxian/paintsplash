@@ -7,6 +7,7 @@
 import SpriteKit
 
 protocol Renderable: GameEntity, Transformable {
+    var renderColor: PaintColor? {get}
     var spriteName: String { get }
     var currentAnimation: Animation? { get set }
 }

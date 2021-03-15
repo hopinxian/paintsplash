@@ -13,6 +13,10 @@ class PaintProjectile: InteractiveEntity, Projectile, Colorable {
     var velocity: Vector2D
     var acceleration: Vector2D
 
+    override var renderColor: PaintColor? {
+        return color
+    }
+    
     init(color: PaintColor, radius: Double, velocity: Vector2D) {
         self.radius = radius
         self.color = color
@@ -31,7 +35,7 @@ class PaintProjectile: InteractiveEntity, Projectile, Colorable {
         
         print("Paint Projectile Collide")
         if otherObject.tags.contains(.player) {
-            print("Player collected ammo")
+            print("Paint Projectile hit player")
         }
         if otherObject.tags.contains(.enemy) {
             /*

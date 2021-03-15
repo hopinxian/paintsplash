@@ -40,6 +40,10 @@ class InteractiveEntity: GameEntity, Renderable, Collidable {
 
     var tags: Tags
 
+    var renderColor: PaintColor? {
+        return nil
+    }
+    
     func onCollide(otherObject: Collidable, gameManager: GameManager) {
 
     }

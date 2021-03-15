@@ -16,6 +16,10 @@ class Enemy: InteractiveEntity, AIEntity, Colorable {
 
     var color: PaintColor = PaintColor.blue
 
+    override var renderColor: PaintColor? {
+        return color
+    }
+    
     init(initialPosition: Vector2D, initialVelocity: Vector2D) {
         self.velocity = initialVelocity
         self.acceleration = Vector2D.zero
