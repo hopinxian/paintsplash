@@ -38,14 +38,14 @@ class GameManager {
         self.aiSystem?.addEnemy(at: Vector2D(50, 50))
         self.aiSystem?.addEnemySpawner(at: Vector2D(200, 50))
 
-        // add player
+        setupGame()
+    }
 
+    func setupGame() {
         player.spawn(gameManager: self)
 
-//        // add enemies
-//        let enemy = Enemy(initialPosition: Vector2D(50, 50), initialVelocity: Vector2D(-1, 0))
-//        entities.insert(enemy)
-//        enemy.spawn(gameManager: self)
+        let joystick = Joystick(position: Vector2D(Double(150) / -2 + 100, -200))
+        joystick.spawn(gameManager: self)
     }
 
     func getRenderSystem() -> RenderSystem {

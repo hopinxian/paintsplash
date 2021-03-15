@@ -13,7 +13,7 @@
 		8402D29725FE106800493DDE /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8402D29625FE106800493DDE /* Math.swift */; };
 		840A889225FF13A100A07596 /* PaintColor+UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840A889125FF13A100A07596 /* PaintColor+UIColor.swift */; };
 		84AA629E25FDD3BD00048012 /* BaseColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AA629D25FDD3BD00048012 /* BaseColor.swift */; };
-		AC11904925FE7B7B00601CB9 /* JoystickMovement.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC11904825FE7B7B00601CB9 /* JoystickMovement.swift */; };
+		AC11904925FE7B7B00601CB9 /* Joystick.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC11904825FE7B7B00601CB9 /* Joystick.swift */; };
 		ACB3607225F661620016E240 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB3607125F661620016E240 /* AppDelegate.swift */; };
 		ACB3607425F661620016E240 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = ACB3607325F661620016E240 /* GameScene.sks */; };
 		ACB3607625F661620016E240 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = ACB3607525F661620016E240 /* Actions.sks */; };
@@ -35,6 +35,12 @@
 		ACFD822C25F67C9E009D806B /* Transformable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFD822B25F67C9E009D806B /* Transformable.swift */; };
 		D55A8AA225FBB4E000BBE210 /* Tags.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55A8AA125FBB4E000BBE210 /* Tags.swift */; };
 		D55A8AAD25FC933A00BBE210 /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55A8AAC25FC933A00BBE210 /* GameManager.swift */; };
+		D55EEB4B25FF8B6500ADC70B /* GameScene+UserInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55EEB4A25FF8B6500ADC70B /* GameScene+UserInput.swift */; };
+		D55EEB5325FF98DD00ADC70B /* Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55EEB5225FF98DD00ADC70B /* Animation.swift */; };
+		D55EEB5E25FF9C6600ADC70B /* PlayerHasMovedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55EEB5D25FF9C6600ADC70B /* PlayerHasMovedEvent.swift */; };
+		D55EEB6325FF9C9C00ADC70B /* PlayerHasMovedEventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55EEB6225FF9C9C00ADC70B /* PlayerHasMovedEventManager.swift */; };
+		D55EEB6B25FF9D7D00ADC70B /* ProcessedInputEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55EEB6A25FF9D7D00ADC70B /* ProcessedInputEvent.swift */; };
+		D55EEB7325FF9D8F00ADC70B /* ProcessedInputEventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55EEB7225FF9D8F00ADC70B /* ProcessedInputEventManager.swift */; };
 		D583468E25FB8450005C344D /* PaintGun.swift in Sources */ = {isa = PBXBuildFile; fileRef = D583468D25FB8450005C344D /* PaintGun.swift */; };
 		D583469325FB845F005C344D /* Bucket.swift in Sources */ = {isa = PBXBuildFile; fileRef = D583469225FB845F005C344D /* Bucket.swift */; };
 		D583469825FB8477005C344D /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D583469725FB8477005C344D /* Queue.swift */; };
@@ -58,7 +64,7 @@
 		D5D9200B25FB955500E70364 /* PaintWeapon.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D9200A25FB955500E70364 /* PaintWeapon.swift */; };
 		D5D9201425FB9ACB00E70364 /* PaintAmmoDrop.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D9201325FB9ACB00E70364 /* PaintAmmoDrop.swift */; };
 		D5DC908C25FCBE790038DF71 /* Transform.swift in Sources */ = {isa = PBXBuildFile; fileRef = D596B1CE25F8D01800A5854F /* Transform.swift */; };
-		D5DC909125FCC4210038DF71 /* Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5DC909025FCC4210038DF71 /* Animation.swift */; };
+		D5DC909125FCC4210038DF71 /* AtlasAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5DC909025FCC4210038DF71 /* AtlasAnimation.swift */; };
 		D5DC90AA25FCE5280038DF71 /* SlimeMoveLeft.atlas in Resources */ = {isa = PBXBuildFile; fileRef = D5DC90A825FCE5280038DF71 /* SlimeMoveLeft.atlas */; };
 		D5DC90AB25FCE5280038DF71 /* SlimeMoveRight.atlas in Resources */ = {isa = PBXBuildFile; fileRef = D5DC90A925FCE5280038DF71 /* SlimeMoveRight.atlas */; };
 		DC0EE89125FE4C2300CBF414 /* EnemySpawner.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0EE89025FE4C2300CBF414 /* EnemySpawner.swift */; };
@@ -73,8 +79,8 @@
 		DC247F5525F9E53C001B814C /* SpawnEnemiesBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC247F5425F9E53C001B814C /* SpawnEnemiesBehaviour.swift */; };
 		DC6BD6A725FF46D100A33861 /* SlimeAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC6BD6A625FF46D100A33861 /* SlimeAnimations.swift */; };
 		DC7B421925FF63350069B422 /* EventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7B420D25FF63350069B422 /* EventManager.swift */; };
-		DC7B421A25FF63350069B422 /* InputEventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7B420F25FF63350069B422 /* InputEventManager.swift */; };
-		DC7B421B25FF63350069B422 /* InputEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7B421025FF63350069B422 /* InputEvent.swift */; };
+		DC7B421A25FF63350069B422 /* TouchInputEventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7B420F25FF63350069B422 /* TouchInputEventManager.swift */; };
+		DC7B421B25FF63350069B422 /* TouchInputEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7B421025FF63350069B422 /* TouchInputEvent.swift */; };
 		DC7B421C25FF63350069B422 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7B421125FF63350069B422 /* Event.swift */; };
 		DC7B421D25FF63350069B422 /* EntityMovementEventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7B421325FF63350069B422 /* EntityMovementEventManager.swift */; };
 		DC7B421E25FF63350069B422 /* EventMovementSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7B421425FF63350069B422 /* EventMovementSystem.swift */; };
@@ -112,7 +118,7 @@
 		8402D29625FE106800493DDE /* Math.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Math.swift; sourceTree = "<group>"; };
 		840A889125FF13A100A07596 /* PaintColor+UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PaintColor+UIColor.swift"; sourceTree = "<group>"; };
 		84AA629D25FDD3BD00048012 /* BaseColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseColor.swift; sourceTree = "<group>"; };
-		AC11904825FE7B7B00601CB9 /* JoystickMovement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoystickMovement.swift; sourceTree = "<group>"; };
+		AC11904825FE7B7B00601CB9 /* Joystick.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Joystick.swift; sourceTree = "<group>"; };
 		ACB3606E25F661620016E240 /* paintsplash.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = paintsplash.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACB3607125F661620016E240 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ACB3607325F661620016E240 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -140,6 +146,12 @@
 		ACFD822B25F67C9E009D806B /* Transformable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transformable.swift; sourceTree = "<group>"; };
 		D55A8AA125FBB4E000BBE210 /* Tags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tags.swift; sourceTree = "<group>"; };
 		D55A8AAC25FC933A00BBE210 /* GameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
+		D55EEB4A25FF8B6500ADC70B /* GameScene+UserInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameScene+UserInput.swift"; sourceTree = "<group>"; };
+		D55EEB5225FF98DD00ADC70B /* Animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animation.swift; sourceTree = "<group>"; };
+		D55EEB5D25FF9C6600ADC70B /* PlayerHasMovedEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerHasMovedEvent.swift; sourceTree = "<group>"; };
+		D55EEB6225FF9C9C00ADC70B /* PlayerHasMovedEventManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerHasMovedEventManager.swift; sourceTree = "<group>"; };
+		D55EEB6A25FF9D7D00ADC70B /* ProcessedInputEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessedInputEvent.swift; sourceTree = "<group>"; };
+		D55EEB7225FF9D8F00ADC70B /* ProcessedInputEventManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessedInputEventManager.swift; sourceTree = "<group>"; };
 		D583468D25FB8450005C344D /* PaintGun.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaintGun.swift; sourceTree = "<group>"; };
 		D583469225FB845F005C344D /* Bucket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bucket.swift; sourceTree = "<group>"; };
 		D583469725FB8477005C344D /* Queue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
@@ -163,7 +175,7 @@
 		D5D9200525FB8EEE00E70364 /* PaintWeaponsSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaintWeaponsSystem.swift; sourceTree = "<group>"; };
 		D5D9200A25FB955500E70364 /* PaintWeapon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaintWeapon.swift; sourceTree = "<group>"; };
 		D5D9201325FB9ACB00E70364 /* PaintAmmoDrop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaintAmmoDrop.swift; sourceTree = "<group>"; };
-		D5DC909025FCC4210038DF71 /* Animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animation.swift; sourceTree = "<group>"; };
+		D5DC909025FCC4210038DF71 /* AtlasAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AtlasAnimation.swift; sourceTree = "<group>"; };
 		D5DC90A825FCE5280038DF71 /* SlimeMoveLeft.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = SlimeMoveLeft.atlas; sourceTree = "<group>"; };
 		D5DC90A925FCE5280038DF71 /* SlimeMoveRight.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = SlimeMoveRight.atlas; sourceTree = "<group>"; };
 		DC0EE89025FE4C2300CBF414 /* EnemySpawner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemySpawner.swift; sourceTree = "<group>"; };
@@ -178,8 +190,8 @@
 		DC247F5425F9E53C001B814C /* SpawnEnemiesBehaviour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpawnEnemiesBehaviour.swift; sourceTree = "<group>"; };
 		DC6BD6A625FF46D100A33861 /* SlimeAnimations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlimeAnimations.swift; sourceTree = "<group>"; };
 		DC7B420D25FF63350069B422 /* EventManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventManager.swift; sourceTree = "<group>"; };
-		DC7B420F25FF63350069B422 /* InputEventManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputEventManager.swift; sourceTree = "<group>"; };
-		DC7B421025FF63350069B422 /* InputEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputEvent.swift; sourceTree = "<group>"; };
+		DC7B420F25FF63350069B422 /* TouchInputEventManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchInputEventManager.swift; sourceTree = "<group>"; };
+		DC7B421025FF63350069B422 /* TouchInputEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchInputEvent.swift; sourceTree = "<group>"; };
 		DC7B421125FF63350069B422 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		DC7B421325FF63350069B422 /* EntityMovementEventManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntityMovementEventManager.swift; sourceTree = "<group>"; };
 		DC7B421425FF63350069B422 /* EventMovementSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventMovementSystem.swift; sourceTree = "<group>"; };
@@ -256,7 +268,7 @@
 				ACB3607325F661620016E240 /* GameScene.sks */,
 				ACB3607525F661620016E240 /* Actions.sks */,
 				ACB3607725F661620016E240 /* GameScene.swift */,
-				AC11904825FE7B7B00601CB9 /* JoystickMovement.swift */,
+				AC11904825FE7B7B00601CB9 /* Joystick.swift */,
 				ACB3607925F661620016E240 /* GameViewController.swift */,
 				ACB3607B25F661620016E240 /* Main.storyboard */,
 				ACB3607E25F661630016E240 /* Assets.xcassets */,
@@ -293,8 +305,9 @@
 				D596B19325F8CEBE00A5854F /* GameScene+RenderSystem.swift */,
 				D596B19925F8CF0800A5854F /* Renderable.swift */,
 				ACFD81F925F667EB009D806B /* RenderSystem.swift */,
-				D5DC909025FCC4210038DF71 /* Animation.swift */,
+				D5DC909025FCC4210038DF71 /* AtlasAnimation.swift */,
 				840A889125FF13A100A07596 /* PaintColor+UIColor.swift */,
+				D55EEB5225FF98DD00ADC70B /* Animation.swift */,
 			);
 			path = Rendering;
 			sourceTree = "<group>";
@@ -369,6 +382,7 @@
 			isa = PBXGroup;
 			children = (
 				D596B17325F7C0F500A5854F /* UserInput.swift */,
+				D55EEB4A25FF8B6500ADC70B /* GameScene+UserInput.swift */,
 			);
 			path = UserInput;
 			sourceTree = "<group>";
@@ -444,6 +458,10 @@
 				DC7B421225FF63350069B422 /* EntityMovementEvents */,
 				DC7B421525FF63350069B422 /* CollisionEvents */,
 				DC7B421825FF63350069B422 /* EventSystem.swift */,
+				D55EEB5D25FF9C6600ADC70B /* PlayerHasMovedEvent.swift */,
+				D55EEB6225FF9C9C00ADC70B /* PlayerHasMovedEventManager.swift */,
+				D55EEB6A25FF9D7D00ADC70B /* ProcessedInputEvent.swift */,
+				D55EEB7225FF9D8F00ADC70B /* ProcessedInputEventManager.swift */,
 			);
 			path = Events;
 			sourceTree = "<group>";
@@ -451,8 +469,8 @@
 		DC7B420E25FF63350069B422 /* InputEvents */ = {
 			isa = PBXGroup;
 			children = (
-				DC7B420F25FF63350069B422 /* InputEventManager.swift */,
-				DC7B421025FF63350069B422 /* InputEvent.swift */,
+				DC7B420F25FF63350069B422 /* TouchInputEventManager.swift */,
+				DC7B421025FF63350069B422 /* TouchInputEvent.swift */,
 			);
 			path = InputEvents;
 			sourceTree = "<group>";
@@ -670,18 +688,21 @@
 				DC16B41F25FDE64C00C58670 /* AISystem.swift in Sources */,
 				D583468E25FB8450005C344D /* PaintGun.swift in Sources */,
 				DC6BD6A725FF46D100A33861 /* SlimeAnimations.swift in Sources */,
+				D55EEB6325FF9C9C00ADC70B /* PlayerHasMovedEventManager.swift in Sources */,
 				D596B1C525F8CFEC00A5854F /* AIEntity.swift in Sources */,
 				ACFD821D25F67C49009D806B /* WeaponSystem.swift in Sources */,
 				D58346AC25FB8636005C344D /* PaintAmmo.swift in Sources */,
 				D58346B125FB8653005C344D /* Ammo.swift in Sources */,
 				8402D28F25FE0BDB00493DDE /* ColorMixer.swift in Sources */,
-				D5DC909125FCC4210038DF71 /* Animation.swift in Sources */,
+				D5DC909125FCC4210038DF71 /* AtlasAnimation.swift in Sources */,
 				ACFD820F25F6773B009D806B /* Vector2D.swift in Sources */,
 				DC7B421F25FF63350069B422 /* CollisionEventManager.swift in Sources */,
 				ACB3607A25F661620016E240 /* GameViewController.swift in Sources */,
+				D55EEB5325FF98DD00ADC70B /* Animation.swift in Sources */,
 				D583469D25FB8493005C344D /* Stack.swift in Sources */,
 				DC7B421925FF63350069B422 /* EventManager.swift in Sources */,
-				AC11904925FE7B7B00601CB9 /* JoystickMovement.swift in Sources */,
+				AC11904925FE7B7B00601CB9 /* Joystick.swift in Sources */,
+				D55EEB5E25FF9C6600ADC70B /* PlayerHasMovedEvent.swift in Sources */,
 				8402D28A25FE083C00493DDE /* TestColorEnemy.swift in Sources */,
 				ACB3607225F661620016E240 /* AppDelegate.swift in Sources */,
 				D583469825FB8477005C344D /* Queue.swift in Sources */,
@@ -689,10 +710,10 @@
 				8402D28225FDFD0300493DDE /* GameColor.swift in Sources */,
 				D55A8AAD25FC933A00BBE210 /* GameManager.swift in Sources */,
 				D596B19A25F8CF0800A5854F /* Renderable.swift in Sources */,
-				DC7B421B25FF63350069B422 /* InputEvent.swift in Sources */,
+				DC7B421B25FF63350069B422 /* TouchInputEvent.swift in Sources */,
 				ACFD822C25F67C9E009D806B /* Transformable.swift in Sources */,
 				DC7B421E25FF63350069B422 /* EventMovementSystem.swift in Sources */,
-				DC7B421A25FF63350069B422 /* InputEventManager.swift in Sources */,
+				DC7B421A25FF63350069B422 /* TouchInputEventManager.swift in Sources */,
 				D5D9200B25FB955500E70364 /* PaintWeapon.swift in Sources */,
 				DCB72DBF25FE196B00B183E0 /* AIEntityDelegate.swift in Sources */,
 				84AA629E25FDD3BD00048012 /* BaseColor.swift in Sources */,
@@ -701,8 +722,11 @@
 				ACFD81FF25F670A2009D806B /* Colorable.swift in Sources */,
 				DCB72DB225FE13B300B183E0 /* GameManagerAISystem.swift in Sources */,
 				DCB72DBA25FE18B100B183E0 /* AIEntityState.swift in Sources */,
+				D55EEB4B25FF8B6500ADC70B /* GameScene+UserInput.swift in Sources */,
 				DC7B421C25FF63350069B422 /* Event.swift in Sources */,
+				D55EEB6B25FF9D7D00ADC70B /* ProcessedInputEvent.swift in Sources */,
 				ACFD81FA25F667EB009D806B /* RenderSystem.swift in Sources */,
+				D55EEB7325FF9D8F00ADC70B /* ProcessedInputEventManager.swift in Sources */,
 				D596B19425F8CEBE00A5854F /* GameScene+RenderSystem.swift in Sources */,
 				ACFD820425F67113009D806B /* Weapon.swift in Sources */,
 				D596B17925F7C20D00A5854F /* AIBehaviour.swift in Sources */,

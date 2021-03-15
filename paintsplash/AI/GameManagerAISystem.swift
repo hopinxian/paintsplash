@@ -55,11 +55,10 @@ class GameManagerAISystem: AISystem {
 
 extension GameManagerAISystem: AIEntityDelegate {
     func didEntityMove(aiEntity: AIEntity) {
-        print("entity moved")
+        //TODO
     }
 
     func didEntityUpdateState(aiEntity: AIEntity) {
-        print("entity updated state")
         aiEntity.currentAnimation = aiEntity.getAnimationFromState()
         gameManager.getRenderSystem().updateRenderableAnimation(aiEntity)
     }

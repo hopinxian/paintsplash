@@ -6,8 +6,8 @@
 //
 
 struct SpawnerAnimations {
-    static let spawnerIdle = Animation(atlasName: "SpawnerIdle", name: "spawnerIdle", isRepeating: true)
-    static let spawnerSpawn = Animation(atlasName: "SpawnerSpawn", name: "spawnerSpawn", isRepeating: false)
-    static let spawnerDie = Animation(atlasName: "SpawnerDie", name: "spawnerDie", isRepeating: false)
-    static let spawnerHit = Animation(atlasName: "SpawnerHit", name: "spawnerHit", isRepeating: true)
+    static let spawnerIdle = AtlasAnimation(atlasName: "SpawnerIdle", name: "spawnerIdle", animationDuration: 1.2, isRepeating: true)
+    static let spawnerSpawn = AtlasAnimation(atlasName: "SpawnerSpawn", name: "spawnerSpawn", animationDuration: 1.2, isRepeating: false)
+    static let spawnerDie = AtlasAnimation(atlasName: "SpawnerDie", name: "spawnerDie", animationDuration: 1.2, isRepeating: false)
+    static let spawnerHit = AtlasAnimation(atlasName: "SpawnerHit", name: "spawnerHit", animationDuration: 1.2, isRepeating: true)
 }

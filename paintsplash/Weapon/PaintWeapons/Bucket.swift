@@ -33,17 +33,8 @@ class Bucket: PaintWeapon {
     private var ammoQueue = [PaintAmmo]()
     
     override func load(_ ammos: [PaintAmmo]) {
-        for ammo in ammoQueue {
-            print("Queue Content: " + ammo.color.rawValue)
-        }
-        for ammo in ammos {
-            print("Load " + ammo.color.rawValue)
-        }
         for ammo in ammos {
             load(ammo)
-        }
-        for ammo in ammoQueue {
-            print("Queue Content: " + ammo.color.rawValue)
         }
     }
     

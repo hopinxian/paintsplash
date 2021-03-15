@@ -9,8 +9,6 @@ import Foundation
 class GameEntity {
     var id: UUID = UUID()
 
-//    func spawn(renderSystem: RenderSystem, collisionSystem: CollisionSystem)
-//    func destroy(renderSystem: RenderSystem, collisionSystem: CollisionSystem)
     func spawn(gameManager: GameManager) {
         gameManager.addObject(self)
     }
@@ -37,6 +35,7 @@ extension GameEntity: Hashable {
 class InteractiveEntity: GameEntity, Renderable, Collidable {
     var spriteName: String
     var currentAnimation: Animation?
+    var zPosition: Int = 0
 
     var colliderShape: ColliderShape
 
@@ -57,6 +56,7 @@ class InteractiveEntity: GameEntity, Renderable, Collidable {
         self.colliderShape = colliderShape
         self.tags = Tags(Set(tags))
         self.transform = transform
+        super.init()
     }
 
     override func spawn(gameManager: GameManager) {
@@ -82,25 +82,3 @@ class InteractiveEntity: GameEntity, Renderable, Collidable {
         gameManager.getCollisionSystem().removeCollidable(self)
     }
 }
-
-//extension GameEntity where Self: Renderable & Collidable {
-////    func spawn(renderSystem: RenderSystem, collisionSystem: CollisionSystem) {
-////        renderSystem.addRenderable(self)
-////        collisionSystem.addCollidable(self)
-////    }
-////
-////    func destroy(renderSystem: RenderSystem, collisionSystem: CollisionSystem) {
-////        renderSystem.removeRenderable(self)
-////        collisionSystem.removeCollidable(self)
-////    }
-//
-//    func spawn(gameManager: GameManager) {
-//        gameManager.getRenderSystem().addRenderable(self)
-//        gameManager.getCollisionSystem().addCollidable(self)
-//    }
-//
-//    func destroy(gameManager: GameManager) {
-//        gameManager.getRenderSystem().removeRenderable(self)
-//        gameManager.getCollisionSystem().removeCollidable(self)
-//    }
-//}

@@ -32,7 +32,6 @@ class PaintWeaponsSystem: MultiWeaponSystem {
     }
 
     func shoot() -> Bool {
-//        print("Trying to Shoot")
 
         // Handle shooting here
         guard let projectile = activeWeapon?.shoot(),

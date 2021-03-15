@@ -6,9 +6,9 @@
 //  Created by Farrell Nah on 13/3/21.
 //
 struct SlimeAnimations {
-    static let slimeMoveRight = Animation(atlasName: "SlimeMoveRight", name: "slimeMoveRight", isRepeating: true)
-    static let slimeMoveLeft = Animation(atlasName: "SlimeMoveLeft", name: "slimeMoveLeft", isRepeating: true)
-    static let slimeIdle = Animation(atlasName: "SlimeIdle", name: "slimeIdle", isRepeating: true)
-    static let slimeDie = Animation(atlasName: "SlimeDie", name: "slimeDie", isRepeating: false)
-    static let slimeHit = Animation(atlasName: "SlimeHit", name: "slimeHit", isRepeating: true)
+    static let slimeMoveRight = AtlasAnimation(atlasName: "SlimeMoveRight", name: "slimeMoveRight", animationDuration: 1.2, isRepeating: true)
+    static let slimeMoveLeft = AtlasAnimation(atlasName: "SlimeMoveLeft", name: "slimeMoveLeft", animationDuration: 1.2, isRepeating: true)
+    static let slimeIdle = AtlasAnimation(atlasName: "SlimeIdle", name: "slimeIdle", animationDuration: 1.2, isRepeating: true)
+    static let slimeDie = AtlasAnimation(atlasName: "SlimeDie", name: "slimeDie", animationDuration: 1.2, isRepeating: false)
+    static let slimeHit = AtlasAnimation(atlasName: "SlimeHit", name: "slimeHit", animationDuration: 1.2, isRepeating: true)
 }

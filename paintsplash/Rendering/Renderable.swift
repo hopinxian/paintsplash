@@ -10,4 +10,17 @@ protocol Renderable: GameEntity, Transformable {
     var renderColor: PaintColor? {get}
     var spriteName: String { get }
     var currentAnimation: Animation? { get set }
+    var zPosition: Int { get set }
+}
+
+extension Renderable {
+    var zPosition: Int {
+        get {
+            0
+        }
+
+        set {
+            zPosition = newValue
+        }
+    }
 }

@@ -35,7 +35,6 @@ class PaintProjectile: InteractiveEntity, Projectile {
     override func onCollide(otherObject: Collidable, gameManager: GameManager) {
         super.onCollide(otherObject: otherObject, gameManager: gameManager)
         
-        print("Paint Projectile Collide")
         if otherObject.tags.contains(.player) {
             print("Paint Projectile hit player")
         }

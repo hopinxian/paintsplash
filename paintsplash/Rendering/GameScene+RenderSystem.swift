@@ -56,7 +56,6 @@ extension GameScene: RenderSystem {
 
         node.removeAllActions()
         node.run(animation.getAction(), withKey: animation.name)
-        print("changed animation")
     }
 
     func buildNode(renderable: Renderable) -> SKNode {
@@ -69,8 +68,8 @@ extension GameScene: RenderSystem {
         
         // TODO: find a way for size to be determined dynamically
         let nodeSize = CGSize(width: 100, height: 100)
-        let node = SKSpriteNode(color: uiColor, size: nodeSize)
-//        let node = SKSpriteNode(imageNamed: renderable.spriteName)
+//        let node = SKSpriteNode(color: uiColor, size: nodeSize)
+        let node = SKSpriteNode(imageNamed: renderable.spriteName)
 
         if let animation = renderable.currentAnimation {
             node.run(animation.getAction(), withKey: animation.name)
@@ -78,6 +77,7 @@ extension GameScene: RenderSystem {
 
         node.position = CGPoint(renderable.transform.position)
         node.zRotation = CGFloat(renderable.transform.rotation)
+        node.zPosition = CGFloat(renderable.zPosition)
             
         return node
     }
