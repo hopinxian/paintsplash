@@ -1,10 +1,10 @@
+
 //
 //  SlimeAnimations.swift
 //  paintsplash
 //
 //  Created by Farrell Nah on 13/3/21.
 //
-
 struct SlimeAnimations {
     static let slimeMoveRight = Animation(atlasName: "SlimeMoveRight", name: "slimeMoveRight", isRepeating: true)
     static let slimeMoveLeft = Animation(atlasName: "SlimeMoveLeft", name: "slimeMoveLeft", isRepeating: true)
