@@ -9,7 +9,7 @@
  `GameColor` represents a color that can mix with other colors
  and contain other colors.
  */
-protocol GameColor: Equatable {
+protocol GameColor {
     /// Returns the resulting color from mixing this color with the given colors.
     /// Returns nothing if there is no existing color result.
     func mix(with color: [Self]) -> Self?

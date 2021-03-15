@@ -6,5 +6,6 @@
 //
 
 struct CollisionEvent: Event {
-
+    var object1: Collidable
+    var object2: Collidable
 }

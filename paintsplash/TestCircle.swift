@@ -56,7 +56,7 @@ class TestCircle: InteractiveEntity, Movable {
                 let ammo = ammoDrop.getAmmoObject()
                 paintWeaponsSystem.load([ammo])
             default:
-                break
+                fatalError("Ammo Drop not conforming to AmmoDrop protocol")
             }
         }
     }
