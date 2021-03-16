@@ -32,14 +32,6 @@ class SpawnEnemiesBehaviour: AIBehaviour {
                               userInfo: aiEntity, repeats: false)
 
         self.lastSpawnDate = Date()
-
-//        guard let aiSystem = aiGameInfo.aiSystem else {
-//            return
-//        }
-//
-//        let enemy = Enemy(initialPosition: aiEntity.position, initialVelocity: Vector2D(-1, 0))
-//        aiSystem.add(aiEntity: enemy)
-
     }
 
     @objc func spawnEnemy(timer: Timer) {
@@ -49,11 +41,10 @@ class SpawnEnemiesBehaviour: AIBehaviour {
         }
 
         let spawnPosition = entity.position
-        print("spawn position:", spawnPosition)
 
+        let spawnEntityEvent = SpawnAIEntityEvent(spawnEntityType: .enemy(location: spawnPosition))
         for _ in 0..<spawnQuantity {
-            let spawnEnemyEvent = SpawnAIEntityEvent(spawnEntityType: .enemy(location: spawnPosition))
-            EventSystem.spawnAIEntityEvent.post(event: spawnEnemyEvent)
+            EventSystem.spawnAIEntityEvent.post(event: spawnEntityEvent)
         }
 
         entity.state = .idle

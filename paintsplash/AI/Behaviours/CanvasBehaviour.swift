@@ -8,5 +8,7 @@
 struct CanvasBehaviour: AIBehaviour {
     func updateAI(aiEntity: AIEntity, aiGameInfo: AIGameInfo) {
         aiEntity.move()
+
+        // TODO: check exit screen
     }
 }

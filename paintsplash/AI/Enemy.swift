@@ -74,4 +74,23 @@ class Enemy: AIEntity {
         super.update(gameManager: gameManager)
     }
 
+    override func getAnimationFromState() -> Animation {
+        switch self.state {
+        case .idle:
+            return SlimeAnimations.slimeIdle
+        case .moveLeft:
+            return SlimeAnimations.slimeMoveLeft
+        case .moveRight:
+            return SlimeAnimations.slimeMoveRight
+        case .hit:
+            return SlimeAnimations.slimeHit
+        case .afterHit:
+            return SlimeAnimations.slimeHit
+        case .die:
+            return SlimeAnimations.slimeDie
+        default:
+            return SlimeAnimations.slimeIdle
+        }
+    }
+
 }

@@ -53,8 +53,8 @@ class GameManagerAISystem: AISystem {
         self.add(aiEntity: enemySpawner)
     }
 
-    func addCanvas() {
-        let canvas = Canvas(initialPosition: Vector2D(-300, 200))
+    func addCanvas(at position: Vector2D, velocity: Vector2D) {
+        let canvas = Canvas(initialPosition: position, velocity: velocity)
         self.add(aiEntity: canvas)
     }
 
@@ -62,8 +62,8 @@ class GameManagerAISystem: AISystem {
         switch event.spawnEntityType {
         case .enemy(let location):
             addEnemy(at: location)
-        default:
-            print("spawn ai entity")
+        case .canvas(let location, let velocity):
+            addCanvas(at: location, velocity: velocity)
         }
     }
 

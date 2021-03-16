@@ -8,12 +8,13 @@
 import Foundation
 
 class Canvas: AIEntity {
-    init(initialPosition: Vector2D) {
-        super.init(initialPosition: initialPosition, initialVelocity: Vector2D(0.2, 0),
+    // TODO: canvases of dynamic size
+    init(initialPosition: Vector2D, velocity: Vector2D) {
+        super.init(initialPosition: initialPosition, initialVelocity: velocity,
                    width: 50, height: 50)
         self.currentBehaviour = CanvasBehaviour()
 
-        self.defaultSpeed = 1
+        self.defaultSpeed = velocity.magnitude
     }
 
     override func getAnimationFromState() -> Animation {
