@@ -9,23 +9,38 @@ import SpriteKit
 
 let hitDuration: Double = 0.25
 
-class Enemy: AIEntity {
+class Enemy: AIEntity, Colorable {
 
     var isHit: Bool = false
 
     var hitsToDie: Int = 2
 
-    var color: PaintColor = PaintColor.blue
-
-    init(initialPosition: Vector2D, initialVelocity: Vector2D) {
-        super.init(initialPosition: initialPosition, initialVelocity: initialVelocity, radius: 50)
+    var color: PaintColor
+    
+    init(initialPosition: Vector2D, initialVelocity: Vector2D, color: PaintColor) {
+        let spriteName = "slime" + "-" + color.rawValue
+        self.color = color
+        super.init(initialPosition: initialPosition, initialVelocity: initialVelocity, radius: 50, spriteName: spriteName)
         self.currentBehaviour = ApproachPointBehaviour()
-
+        
         self.defaultSpeed = 1.0
     }
 
     override func onCollide(otherObject: Collidable, gameManager: GameManager) {
-        // TODO: check to make sure that collision is "valid"
+        guard otherObject.tags.contains(.playerProjectile) else {
+            return
+        }
+        
+        switch otherObject {
+        case let projectile as PaintProjectile:
+            if projectile.color != self.color {
+                return
+            }
+        default:
+            fatalError("Projectile not conforming to projectile protocol")
+        }
+
+        
         self.hitsToDie -= 1
 
         if self.hitsToDie <= 0 {

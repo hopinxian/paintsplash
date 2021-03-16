@@ -6,7 +6,7 @@
 //
 import Foundation
 
-class PaintProjectile: InteractiveEntity, Projectile {
+class PaintProjectile: InteractiveEntity, Projectile, Colorable {
     var defaultSpeed: Double = 1.0
 
     var radius: Double
@@ -29,24 +29,10 @@ class PaintProjectile: InteractiveEntity, Projectile {
     }
 
     override func onCollide(otherObject: Collidable, gameManager: GameManager) {
-        super.onCollide(otherObject: otherObject, gameManager: gameManager)
-        
-        if otherObject.tags.contains(.player) {
-            print("Paint Projectile hit player")
+        guard otherObject.tags.contains(.enemy) else {
+            return
         }
-        if otherObject.tags.contains(.enemy) {
-            /*
-             If color is same, inflict damage
-             Cant retrieve color information from other object
-             suggest adding identifier information to collidable to allow retrieval from game manager
-             object = gamemanager.get(otherobject.identifier)
-             if object as? colorable { get color }
-             */
-            let otherColor = PaintColor.blue
-            if self.color == otherColor {
-                print("inflict damage")
-            }
-        }
+        destroy(gameManager: gameManager)
     }
 
     override func update(gameManager: GameManager) {

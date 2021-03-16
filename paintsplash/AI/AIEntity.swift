@@ -27,14 +27,14 @@ class AIEntity: InteractiveEntity, Movable {
         }
     }
 
-    init(initialPosition: Vector2D, initialVelocity: Vector2D, radius: Double) {
+    init(initialPosition: Vector2D, initialVelocity: Vector2D, radius: Double, spriteName: String) {
         self.velocity = initialVelocity
         self.acceleration = Vector2D.zero
 
         var transform = Transform.identity
         transform.position = initialPosition
 
-        super.init(spriteName: "", colliderShape: .enemy(radius: radius), tags: .enemy, transform: transform)
+        super.init(spriteName: spriteName, colliderShape: .enemy(radius: radius), tags: .enemy, transform: transform)
     }
 
     func changeBehaviour(to behaviour: AIBehaviour) {

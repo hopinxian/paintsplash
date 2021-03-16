@@ -9,7 +9,4 @@ protocol Ammo {
 
 }
 
-protocol AmmoDrop: Ammo {
-    associatedtype AmmoType
-    func getAmmoObject() -> AmmoType
-}
+

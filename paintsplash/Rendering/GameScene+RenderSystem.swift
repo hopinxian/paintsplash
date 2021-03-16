@@ -44,6 +44,8 @@ extension GameScene: RenderSystem {
         }
 
         node.position = CGPoint(renderable.transform.position)
+        node.zRotation = CGFloat(renderable.transform.rotation)
+        node.zPosition = CGFloat(renderable.zPosition)
     }
 
     func updateRenderableAnimation(_ renderable: Renderable) {

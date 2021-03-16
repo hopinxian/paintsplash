@@ -41,13 +41,13 @@ class GameManagerAISystem: AISystem {
         
     }
 
-    func addEnemy(at position: Vector2D) {
-        let enemy = Enemy(initialPosition: Vector2D(50, 50), initialVelocity: Vector2D(-1, 0))
+    func addEnemy(at position: Vector2D, with color: PaintColor) {
+        let enemy = Enemy(initialPosition: Vector2D(50, 50), initialVelocity: Vector2D(-1, 0), color: color)
         self.add(aiEntity: enemy)
     }
 
-    func addEnemySpawner(at position: Vector2D) {
-        let enemySpawner = EnemySpawner(initialPosition: position, initialVelocity: .zero)
+    func addEnemySpawner(at position: Vector2D, with color: PaintColor) {
+        let enemySpawner = EnemySpawner(initialPosition: position, initialVelocity: .zero, color: color)
         self.add(aiEntity: enemySpawner)
     }
 
