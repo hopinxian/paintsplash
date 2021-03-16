@@ -11,5 +11,5 @@ class EventSystem {
     static let entityMovementEvent = EntityMovementEvent()
     static let playerHasMovedEvent = PlayerHasMovedEventManager()
     static let processedInputEvent = ProcessedInputEventManager()
-    static let changeAnimationEvent = ChangeAnimationEventManager()
+    static let changeViewEvent = ChangeViewEventManager()
 }

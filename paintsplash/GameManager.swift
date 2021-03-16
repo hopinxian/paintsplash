@@ -17,7 +17,7 @@ class GameManager {
         get {
             player.velocity
         }
-        set {   
+        set {
             player.velocity = newValue
             print(player.velocity)
         }
@@ -39,10 +39,7 @@ class GameManager {
         self.aiSystem?.addEnemySpawner(at: Vector2D(200, 50))
 
         setupGame()
-
-        EventSystem.changeAnimationEvent.subscribe { event in
-            self.getRenderSystem().updateRenderableAnimation(event.renderable)
-        }
+        setupViewChangeListener()
     }
 
     func setupGame() {
@@ -50,6 +47,15 @@ class GameManager {
 
         let joystick = Joystick(position: Vector2D(Double(150) / -2 + 100, -200))
         joystick.spawn(gameManager: self)
+    }
+
+    private func setupViewChangeListener() {
+        EventSystem.changeViewEvent.subscribe { event in
+            switch event.changeViewEventType {
+            case .changeAnimation(let renderable):
+                self.getRenderSystem().updateRenderableAnimation(renderable)
+            }
+        }
     }
 
     func getRenderSystem() -> RenderSystem {

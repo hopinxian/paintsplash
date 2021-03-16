@@ -42,7 +42,8 @@ class InteractiveEntity: GameEntity, Renderable, Collidable {
                 return
             }
 
-            EventSystem.changeAnimationEvent.post(event: ChangeAnimationEvent(renderable: self))
+            let event = ChangeViewEvent(changeViewEventType: .changeAnimation(renderable: self))
+            EventSystem.changeViewEvent.post(event: event)
         }
     }
 

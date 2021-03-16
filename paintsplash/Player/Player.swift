@@ -22,7 +22,7 @@ class Player: InteractiveEntity, Movable, PlayableCharacter {
 
         super.init(spriteName: "", colliderShape: .circle(radius: 50), tags: .player, transform: transform)
 
-        self.currentAnimation = SlimeAnimations.slimeMoveRight
+        self.currentAnimation = PlayerAnimations.playerBrushIdleLeft
 
         EventSystem.processedInputEvent.subscribe(listener: onReceiveInput)
     }
