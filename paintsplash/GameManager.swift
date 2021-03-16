@@ -44,6 +44,10 @@ class GameManager {
     func setupGame() {
         player.spawn(gameManager: self)
 
+        EventSystem.playerHasMovedEvent.subscribe { _ in
+            self.getRenderSystem().updateRenderableAnimation(self.player)
+        }
+
         let joystick = Joystick(position: Vector2D(Double(150) / -2 + 100, -200))
         joystick.spawn(gameManager: self)
     }
