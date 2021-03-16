@@ -11,7 +11,7 @@
  */
 class ColorMixer {
 
-    private var mapping: [[BaseColor: Int]:PaintColor]
+    private var mapping: [ColorMakeup: PaintColor]
 
     /// Constructs a mixer containing default mixing rules for paint color.
     init() {
@@ -23,30 +23,28 @@ class ColorMixer {
     private func setDefaultMixRules() {
         mapping = [:]
         for color in PaintColor.allCases {
-            mapping[color.baseColors] = color
+            mapping[color.makeup] = color
         }
         for color in PaintColor.lightColors {
-            var base = color.baseColors
-            base[BaseColor.white, default: 0] += 1
-            mapping[base] = PaintColor.white
+            var makeup = color.makeup + ColorMakeup.white
+            makeup.simplify()
+            mapping[makeup] = PaintColor.white
         }
     }
     
     /// Mixes the given colors and returns the new color.
     /// Returns nothing if no valid color is produced from the mix.
     func mix(colors: [PaintColor]) -> PaintColor? {
-        var base: [BaseColor: Int] = [:]
-        for color in colors {
-            base.merge(color.baseColors) {
-                current, other in current + other
-            }
+        guard !colors.isEmpty else {
+            return nil
         }
-
-        // Reduce the values of the dictionary to lowest possible
-        let values = [Int](base.values)
-        let gcd = Math.getGCD(numbers: values)
-        base = base.mapValues{ $0 / gcd }
         
-        return mapping[base]
+        var makeup = colors[0].makeup
+        for i in 1..<colors.count {
+            makeup += colors[i].makeup
+        }
+        makeup.simplify()
+        
+        return mapping[makeup]
     }
 }
