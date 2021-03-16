@@ -36,31 +36,31 @@ enum PaintColor: String, CaseIterable {
         var makeup: ColorMakeup
         switch self {
         case .red:
-            makeup = ColorMakeup.red
+            makeup = .red
         case .blue:
-            makeup = ColorMakeup.blue
+            makeup = .blue
         case .yellow:
-            makeup = ColorMakeup.yellow
+            makeup = .yellow
         case .white:
-            makeup = ColorMakeup.white
+            makeup = .white
         case .green:
-            makeup = ColorMakeup.blue + ColorMakeup.yellow
+            makeup = .blue + .yellow
         case .purple:
-            makeup = ColorMakeup.blue + ColorMakeup.red
+            makeup = .blue + .red
         case .orange:
-            makeup = ColorMakeup.yellow + ColorMakeup.red
+            makeup = .yellow + .red
         case .lightred:
-            makeup = ColorMakeup.white + ColorMakeup.red
+            makeup = .white + .red
         case .lightblue:
-            makeup = ColorMakeup.white + ColorMakeup.blue
+            makeup = .white + .blue
         case .lightyellow:
-            makeup = ColorMakeup.white + ColorMakeup.yellow
+            makeup = .white + .yellow
         case .lightgreen:
-            makeup = PaintColor.green.makeup + ColorMakeup.white
+            makeup = PaintColor.green.makeup + .white
         case .lightpurple:
-            makeup = PaintColor.purple.makeup + ColorMakeup.white
+            makeup = PaintColor.purple.makeup + .white
         case .lightorange:
-            makeup = PaintColor.orange.makeup + ColorMakeup.white
+            makeup = PaintColor.orange.makeup + .white
         }
         makeup.simplify()
         return makeup

@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		8402D28F25FE0BDB00493DDE /* ColorMixer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8402D28E25FE0BDB00493DDE /* ColorMixer.swift */; };
 		8402D29725FE106800493DDE /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8402D29625FE106800493DDE /* Math.swift */; };
+		840A4D6E2600E3F600B3D091 /* PaintGunTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840A4D6D2600E3F600B3D091 /* PaintGunTests.swift */; };
+		840A4D762600E41600B3D091 /* BucketTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840A4D752600E41600B3D091 /* BucketTests.swift */; };
+		840A4D7B2600E65500B3D091 /* AmmoHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840A4D7A2600E65500B3D091 /* AmmoHelper.swift */; };
+		840A4D932600F07C00B3D091 /* Projectile+getColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840A4D922600F07C00B3D091 /* Projectile+getColor.swift */; };
 		840A889225FF13A100A07596 /* PaintColor+UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840A889125FF13A100A07596 /* PaintColor+UIColor.swift */; };
 		844EAEB32600A6BB00FF0C07 /* ColorMakeup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844EAEB22600A6BB00FF0C07 /* ColorMakeup.swift */; };
 		AC11904925FE7B7B00601CB9 /* Joystick.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC11904825FE7B7B00601CB9 /* Joystick.swift */; };
@@ -112,6 +116,10 @@
 /* Begin PBXFileReference section */
 		8402D28E25FE0BDB00493DDE /* ColorMixer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorMixer.swift; sourceTree = "<group>"; };
 		8402D29625FE106800493DDE /* Math.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Math.swift; sourceTree = "<group>"; };
+		840A4D6D2600E3F600B3D091 /* PaintGunTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaintGunTests.swift; sourceTree = "<group>"; };
+		840A4D752600E41600B3D091 /* BucketTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketTests.swift; sourceTree = "<group>"; };
+		840A4D7A2600E65500B3D091 /* AmmoHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmmoHelper.swift; sourceTree = "<group>"; };
+		840A4D922600F07C00B3D091 /* Projectile+getColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Projectile+getColor.swift"; sourceTree = "<group>"; };
 		840A889125FF13A100A07596 /* PaintColor+UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PaintColor+UIColor.swift"; sourceTree = "<group>"; };
 		844EAEB22600A6BB00FF0C07 /* ColorMakeup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorMakeup.swift; sourceTree = "<group>"; };
 		AC11904825FE7B7B00601CB9 /* Joystick.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Joystick.swift; sourceTree = "<group>"; };
@@ -226,6 +234,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		840A4D7F2600EA4F00B3D091 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				840A4D7A2600E65500B3D091 /* AmmoHelper.swift */,
+				840A4D922600F07C00B3D091 /* Projectile+getColor.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 		ACB3606525F661620016E240 = {
 			isa = PBXGroup;
 			children = (
@@ -279,6 +296,9 @@
 			isa = PBXGroup;
 			children = (
 				ACB3608925F661630016E240 /* paintsplashTests.swift */,
+				840A4D6D2600E3F600B3D091 /* PaintGunTests.swift */,
+				840A4D752600E41600B3D091 /* BucketTests.swift */,
+				840A4D7F2600EA4F00B3D091 /* Utilities */,
 				ACB3608B25F661630016E240 /* Info.plist */,
 			);
 			path = paintsplashTests;
@@ -734,6 +754,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				ACB3608A25F661630016E240 /* paintsplashTests.swift in Sources */,
+				840A4D6E2600E3F600B3D091 /* PaintGunTests.swift in Sources */,
+				840A4D932600F07C00B3D091 /* Projectile+getColor.swift in Sources */,
+				840A4D7B2600E65500B3D091 /* AmmoHelper.swift in Sources */,
+				840A4D762600E41600B3D091 /* BucketTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -26,18 +26,26 @@ class PaintGun: PaintWeapon {
     
     private func mix() {
         let size = ammoStack.count
+        guard size > 1 else {
+            return
+        }
         
-        // mixes two units every time
-        for i in 1..<size {
-            let firstColor = ammoStack[size - i].color
-            let secondColor = ammoStack[size - i - 1].color
-            if let result = firstColor.mix(with: [secondColor]) {
-                ammoStack[size - i].color = result
-                ammoStack[size - i - 1].color = result
+        // mixes until no two adjacent units of color are mixable
+        
+        var i = size - 1
+        while i != 0 {
+            let colorA = ammoStack[i].color
+            let colorB = ammoStack[i - 1].color
+            if let result = colorA.mix(with: [colorB]),
+               (result != colorA || result != colorB) {
+                ammoStack[i].color = result
+                ammoStack[i - 1].color = result
+                i = min(i + 1, size - 1)
             } else {
-                break
+                i -= 1
             }
         }
+        
         assert(checkRepresentation())
     }
     
@@ -63,7 +71,7 @@ class PaintGun: PaintWeapon {
             let colorA = ammoStack[i].color
             let colorB = ammoStack[i + 1].color
             let mix = colorA.mix(with: [colorB])
-            if mix != nil && mix != colorA {
+            if mix != nil && mix != colorA && mix != colorB {
                 return false
             }
         }

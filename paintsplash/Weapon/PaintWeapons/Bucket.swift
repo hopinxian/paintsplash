@@ -27,16 +27,23 @@ class Bucket: PaintWeapon {
     
     private func mix() {
         let size = ammoQueue.count
+        guard size > 1 else {
+            return
+        }
         
-        // mixes two units every time
-        for i in 1..<size {
-            let firstColor = ammoQueue[size - i].color
-            let secondColor = ammoQueue[size - i - 1].color
-            if let result = firstColor.mix(with: [secondColor]) {
-                ammoQueue[size - i].color = result
-                ammoQueue[size - i - 1].color = result
+        // mixes until no two adjacent units of color are mixable
+        
+        var i = size - 1
+        while i != 0 {
+            let colorA = ammoQueue[i].color
+            let colorB = ammoQueue[i - 1].color
+            if let result = colorA.mix(with: [colorB]),
+               (result != colorA || result != colorB) {
+                ammoQueue[i].color = result
+                ammoQueue[i - 1].color = result
+                i = min(i + 1, size - 1)
             } else {
-                break
+                i -= 1
             }
         }
         assert(checkRepresentation())
@@ -65,7 +72,7 @@ class Bucket: PaintWeapon {
             let colorA = ammoQueue[i].color
             let colorB = ammoQueue[i + 1].color
             let mix = colorA.mix(with: [colorB])
-            if mix != nil && mix != colorA {
+            if mix != nil && mix != colorA && mix != colorB {
                 return false
             }
         }
