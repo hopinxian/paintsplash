@@ -40,7 +40,7 @@ class TestCircle: InteractiveEntity, Movable {
     }
 
     @objc func shoot() {
-        paintWeaponsSystem.shoot()
+        _ = paintWeaponsSystem.shoot()
     }
 
     override func update(gameManager: GameManager) {
