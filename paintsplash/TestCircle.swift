@@ -17,10 +17,6 @@ class TestCircle: InteractiveEntity, Movable {
 
     var color: PaintColor
     
-    override var renderColor: PaintColor? {
-        return color
-    }
-    
     init(initialPosition: Vector2D, initialVelocity: Vector2D, weapons: PaintWeaponsSystem) {
         self.velocity = initialVelocity
         self.acceleration = Vector2D.zero

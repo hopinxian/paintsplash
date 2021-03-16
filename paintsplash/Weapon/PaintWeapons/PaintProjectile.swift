@@ -15,10 +15,6 @@ class PaintProjectile: InteractiveEntity, Projectile {
     var velocity: Vector2D
     var acceleration: Vector2D
 
-    override var renderColor: PaintColor? {
-        return color
-    }
-    
     init(color: PaintColor, radius: Double, velocity: Vector2D) {
         self.radius = radius
         self.color = color

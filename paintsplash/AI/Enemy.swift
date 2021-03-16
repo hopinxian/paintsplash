@@ -17,10 +17,6 @@ class Enemy: AIEntity {
 
     var color: PaintColor = PaintColor.blue
 
-    override var renderColor: PaintColor? {
-        return color
-    }
-    
     init(initialPosition: Vector2D, initialVelocity: Vector2D) {
         super.init(initialPosition: initialPosition, initialVelocity: initialVelocity, radius: 50)
         self.currentBehaviour = ApproachPointBehaviour()

@@ -10,8 +10,6 @@ import SpriteKit
 class Joystick: GameEntity, Renderable {
     var zPosition: Int
 
-    var renderColor: PaintColor?
-
     var spriteName: String
 
     var currentAnimation: Animation?
@@ -34,7 +32,6 @@ class Joystick: GameEntity, Renderable {
     }
 
     init(position: Vector2D) {
-        renderColor = nil
         spriteName = "joystick-background"
         currentAnimation = nil
         transform = Transform.identity
@@ -106,8 +103,6 @@ class Joystick: GameEntity, Renderable {
 class JoystickForeground: GameEntity, Renderable {
     var zPosition: Int
 
-    var renderColor: PaintColor?
-
     var spriteName: String
 
     var currentAnimation: Animation?
@@ -116,7 +111,6 @@ class JoystickForeground: GameEntity, Renderable {
 
     init(position: Vector2D, zPosition: Int) {
         self.zPosition = zPosition
-        renderColor = nil
         spriteName = "joystick-foreground"
         currentAnimation = nil
         transform = Transform.identity
