@@ -6,29 +6,9 @@
 //
 
 class Bucket: PaintWeapon {
-//    private var ammoQueue = Queue<PaintAmmo>()
 
     private let maxCoolDown = 100.0
     private var currentCoolDown = 0.0
-
-//    override func load(_ ammo: [PaintAmmo]) {
-//        for item in ammo {
-//            ammoQueue.enqueue(item)
-//        }
-//        /**
-//         Bucket needs to implement the specifics of the queue
-//         else it wld be difficult to perform the mixing of the paint within the bucket
-//         */
-//    }
-//
-//    override func shoot() -> Projectile? {
-//        guard let ammo = ammoQueue.dequeue(),
-//              canShoot() else {
-//            return nil
-//        }
-//
-//        return PaintProjectile(color: ammo.color, radius: 50.0, velocity: Vector2D(3, 0))
-//    }
     
     private var ammoQueue = [PaintAmmo]()
     
@@ -36,28 +16,30 @@ class Bucket: PaintWeapon {
         for ammo in ammos {
             load(ammo)
         }
+        assert(checkRepresentation())
     }
     
-    private func load(_ ammo: PaintAmmo) {
+    func load(_ ammo: PaintAmmo) {
         ammoQueue.append(ammo)
         mix()
+        assert(checkRepresentation())
     }
     
     private func mix() {
-        let count = ammoQueue.count
+        let size = ammoQueue.count
         
         // mixes two units every time
-        for i in 1..<count {
-            let firstColor = ammoQueue[count - i].color
-            let secondColor = ammoQueue[count - i - 1].color
+        for i in 1..<size {
+            let firstColor = ammoQueue[size - i].color
+            let secondColor = ammoQueue[size - i - 1].color
             if let result = firstColor.mix(with: [secondColor]) {
-                ammoQueue[count - i].color = result
-                ammoQueue[count - i - 1].color = result
+                ammoQueue[size - i].color = result
+                ammoQueue[size - i - 1].color = result
             } else {
                 break
             }
         }
-
+        assert(checkRepresentation())
     }
 
     override func shoot() -> Projectile? {
@@ -65,11 +47,28 @@ class Bucket: PaintWeapon {
             return nil
         }
         let ammo = ammoQueue.removeFirst()
-        
+        assert(checkRepresentation())
         return PaintProjectile(color: ammo.color, radius: 50.0, velocity: Vector2D(3, 0))
     }
     
     override func canShoot() -> Bool {
         currentCoolDown == 0
+    }
+    
+    /// Checks that no further mixing of paint within the weapon is possible
+    private func checkRepresentation() -> Bool {
+        guard ammoQueue.count > 1 else {
+            return true
+        }
+        
+        for i in 0..<ammoQueue.count - 1 {
+            let colorA = ammoQueue[i].color
+            let colorB = ammoQueue[i + 1].color
+            let mix = colorA.mix(with: [colorB])
+            if mix != nil && mix != colorA {
+                return false
+            }
+        }
+        return true
     }
 }
