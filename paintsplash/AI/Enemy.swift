@@ -13,7 +13,7 @@ class Enemy: AIEntity {
 
     var isHit: Bool = false
 
-    var hitsToDie: Int = 2
+    var hitsToDie: Int = 1
 
     var color: PaintColor = PaintColor.blue
 

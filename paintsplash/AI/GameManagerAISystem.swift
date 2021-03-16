@@ -12,6 +12,8 @@ class GameManagerAISystem: AISystem {
 
     init(gameManager: GameManager) {
         self.gameManager = gameManager
+
+        EventSystem.spawnAIEntityEvent.subscribe(listener: onSpawnAIEntity)
     }
 
     func updateAIEntities() {
@@ -42,13 +44,27 @@ class GameManagerAISystem: AISystem {
     }
 
     func addEnemy(at position: Vector2D) {
-        let enemy = Enemy(initialPosition: Vector2D(50, 50), initialVelocity: Vector2D(-1, 0))
+        let enemy = Enemy(initialPosition: position, initialVelocity: Vector2D(-1, 0))
         self.add(aiEntity: enemy)
     }
 
     func addEnemySpawner(at position: Vector2D) {
         let enemySpawner = EnemySpawner(initialPosition: position, initialVelocity: .zero)
         self.add(aiEntity: enemySpawner)
+    }
+
+    func addCanvas() {
+        let canvas = Canvas(initialPosition: Vector2D(-300, 200))
+        self.add(aiEntity: canvas)
+    }
+
+    func onSpawnAIEntity(event: SpawnAIEntityEvent) {
+        switch event.spawnEntityType {
+        case .enemy(let location):
+            addEnemy(at: location)
+        default:
+            print("spawn ai entity")
+        }
     }
 
 }
