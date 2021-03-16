@@ -35,13 +35,16 @@
 		ACB3607F25F661630016E240 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACB3607E25F661630016E240 /* Assets.xcassets */; };
 		ACB3608A25F661630016E240 /* paintsplashTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB3608925F661630016E240 /* paintsplashTests.swift */; };
 		ACB3609525F661630016E240 /* paintsplashUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB3609425F661630016E240 /* paintsplashUITests.swift */; };
+		ACC154E626012D860000775C /* AttackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC154E526012D860000775C /* AttackButton.swift */; };
+		ACC154F126012F560000775C /* PlayerActionEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC154F026012F560000775C /* PlayerActionEvent.swift */; };
+		ACC154F626012F640000775C /* PlayerActionEventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC154F526012F640000775C /* PlayerActionEventManager.swift */; };
 		ACFD81FA25F667EB009D806B /* RenderSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFD81F925F667EB009D806B /* RenderSystem.swift */; };
 		ACFD81FF25F670A2009D806B /* Colorable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFD81FE25F670A2009D806B /* Colorable.swift */; };
 		ACFD820425F67113009D806B /* Weapon.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFD820325F67113009D806B /* Weapon.swift */; };
 		ACFD820925F676AB009D806B /* Movable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFD820825F676AB009D806B /* Movable.swift */; };
 		ACFD820F25F6773B009D806B /* Vector2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFD820D25F6773B009D806B /* Vector2D.swift */; };
 		ACFD821025F6773B009D806B /* Vector2D+CoreGraphics.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFD820E25F6773B009D806B /* Vector2D+CoreGraphics.swift */; };
-		ACFD821D25F67C49009D806B /* WeaponSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFD821C25F67C49009D806B /* WeaponSystem.swift */; };
+		ACFD821D25F67C49009D806B /* MultiWeaponSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFD821C25F67C49009D806B /* MultiWeaponSystem.swift */; };
 		ACFD822225F67C5B009D806B /* Projectile.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFD822125F67C5B009D806B /* Projectile.swift */; };
 		ACFD822725F67C76009D806B /* PaintColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFD822625F67C76009D806B /* PaintColor.swift */; };
 		ACFD822C25F67C9E009D806B /* Transformable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFD822B25F67C9E009D806B /* Transformable.swift */; };
@@ -49,8 +52,6 @@
 		D55A8AAD25FC933A00BBE210 /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55A8AAC25FC933A00BBE210 /* GameManager.swift */; };
 		D55EEB4B25FF8B6500ADC70B /* GameScene+UserInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55EEB4A25FF8B6500ADC70B /* GameScene+UserInput.swift */; };
 		D55EEB5325FF98DD00ADC70B /* Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55EEB5225FF98DD00ADC70B /* Animation.swift */; };
-		D55EEB5E25FF9C6600ADC70B /* PlayerHasMovedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55EEB5D25FF9C6600ADC70B /* PlayerHasMovedEvent.swift */; };
-		D55EEB6325FF9C9C00ADC70B /* PlayerHasMovedEventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55EEB6225FF9C9C00ADC70B /* PlayerHasMovedEventManager.swift */; };
 		D55EEB6B25FF9D7D00ADC70B /* ProcessedInputEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55EEB6A25FF9D7D00ADC70B /* ProcessedInputEvent.swift */; };
 		D55EEB7325FF9D8F00ADC70B /* ProcessedInputEventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55EEB7225FF9D8F00ADC70B /* ProcessedInputEventManager.swift */; };
 		D583468E25FB8450005C344D /* PaintGun.swift in Sources */ = {isa = PBXBuildFile; fileRef = D583468D25FB8450005C344D /* PaintGun.swift */; };
@@ -158,13 +159,16 @@
 		ACB3609025F661630016E240 /* paintsplashUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = paintsplashUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACB3609425F661630016E240 /* paintsplashUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = paintsplashUITests.swift; sourceTree = "<group>"; };
 		ACB3609625F661630016E240 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		ACC154E526012D860000775C /* AttackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttackButton.swift; sourceTree = "<group>"; };
+		ACC154F026012F560000775C /* PlayerActionEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerActionEvent.swift; sourceTree = "<group>"; };
+		ACC154F526012F640000775C /* PlayerActionEventManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerActionEventManager.swift; sourceTree = "<group>"; };
 		ACFD81F925F667EB009D806B /* RenderSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderSystem.swift; sourceTree = "<group>"; };
 		ACFD81FE25F670A2009D806B /* Colorable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colorable.swift; sourceTree = "<group>"; };
 		ACFD820325F67113009D806B /* Weapon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weapon.swift; sourceTree = "<group>"; };
 		ACFD820825F676AB009D806B /* Movable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movable.swift; sourceTree = "<group>"; };
 		ACFD820D25F6773B009D806B /* Vector2D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vector2D.swift; sourceTree = "<group>"; };
 		ACFD820E25F6773B009D806B /* Vector2D+CoreGraphics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Vector2D+CoreGraphics.swift"; sourceTree = "<group>"; };
-		ACFD821C25F67C49009D806B /* WeaponSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeaponSystem.swift; sourceTree = "<group>"; };
+		ACFD821C25F67C49009D806B /* MultiWeaponSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiWeaponSystem.swift; sourceTree = "<group>"; };
 		ACFD822125F67C5B009D806B /* Projectile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Projectile.swift; sourceTree = "<group>"; };
 		ACFD822625F67C76009D806B /* PaintColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaintColor.swift; sourceTree = "<group>"; };
 		ACFD822B25F67C9E009D806B /* Transformable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transformable.swift; sourceTree = "<group>"; };
@@ -172,8 +176,6 @@
 		D55A8AAC25FC933A00BBE210 /* GameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
 		D55EEB4A25FF8B6500ADC70B /* GameScene+UserInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameScene+UserInput.swift"; sourceTree = "<group>"; };
 		D55EEB5225FF98DD00ADC70B /* Animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animation.swift; sourceTree = "<group>"; };
-		D55EEB5D25FF9C6600ADC70B /* PlayerHasMovedEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerHasMovedEvent.swift; sourceTree = "<group>"; };
-		D55EEB6225FF9C9C00ADC70B /* PlayerHasMovedEventManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerHasMovedEventManager.swift; sourceTree = "<group>"; };
 		D55EEB6A25FF9D7D00ADC70B /* ProcessedInputEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessedInputEvent.swift; sourceTree = "<group>"; };
 		D55EEB7225FF9D8F00ADC70B /* ProcessedInputEventManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessedInputEventManager.swift; sourceTree = "<group>"; };
 		D583468D25FB8450005C344D /* PaintGun.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaintGun.swift; sourceTree = "<group>"; };
@@ -318,6 +320,7 @@
 				ACB3607525F661620016E240 /* Actions.sks */,
 				ACB3607725F661620016E240 /* GameScene.swift */,
 				AC11904825FE7B7B00601CB9 /* Joystick.swift */,
+				ACC154E526012D860000775C /* AttackButton.swift */,
 				ACB3607925F661620016E240 /* GameViewController.swift */,
 				ACB3607B25F661620016E240 /* Main.storyboard */,
 				ACB3607E25F661630016E240 /* Assets.xcassets */,
@@ -406,7 +409,7 @@
 				D5D9201225FB9A3D00E70364 /* PaintWeapons */,
 				ACFD822125F67C5B009D806B /* Projectile.swift */,
 				ACFD820325F67113009D806B /* Weapon.swift */,
-				ACFD821C25F67C49009D806B /* WeaponSystem.swift */,
+				ACFD821C25F67C49009D806B /* MultiWeaponSystem.swift */,
 				D58346B025FB8653005C344D /* Ammo.swift */,
 			);
 			path = Weapon;
@@ -508,12 +511,12 @@
 				DC7B421225FF63350069B422 /* EntityMovementEvents */,
 				DC7B421525FF63350069B422 /* CollisionEvents */,
 				DC7B421825FF63350069B422 /* EventSystem.swift */,
-				D55EEB5D25FF9C6600ADC70B /* PlayerHasMovedEvent.swift */,
-				D55EEB6225FF9C9C00ADC70B /* PlayerHasMovedEventManager.swift */,
 				D55EEB6A25FF9D7D00ADC70B /* ProcessedInputEvent.swift */,
 				D55EEB7225FF9D8F00ADC70B /* ProcessedInputEventManager.swift */,
 				AC069591260123C4007982DE /* ChangeViewEvent.swift */,
 				AC069596260123CE007982DE /* ChangeViewEventManager.swift */,
+				ACC154F026012F560000775C /* PlayerActionEvent.swift */,
+				ACC154F526012F640000775C /* PlayerActionEventManager.swift */,
 			);
 			path = Events;
 			sourceTree = "<group>";
@@ -738,6 +741,7 @@
 				D583469325FB845F005C344D /* Bucket.swift in Sources */,
 				DC7B422125FF63350069B422 /* EventSystem.swift in Sources */,
 				ACFD820925F676AB009D806B /* Movable.swift in Sources */,
+				ACC154F626012F640000775C /* PlayerActionEventManager.swift in Sources */,
 				D596B1B625F8CF7400A5854F /* CollisionSystem.swift in Sources */,
 				D5DC908C25FCBE790038DF71 /* Transform.swift in Sources */,
 				ACFD821025F6773B009D806B /* Vector2D+CoreGraphics.swift in Sources */,
@@ -747,10 +751,9 @@
 				DC16B41F25FDE64C00C58670 /* AISystem.swift in Sources */,
 				D583468E25FB8450005C344D /* PaintGun.swift in Sources */,
 				DC6BD6A725FF46D100A33861 /* SlimeAnimations.swift in Sources */,
-				D55EEB6325FF9C9C00ADC70B /* PlayerHasMovedEventManager.swift in Sources */,
 				AC5F0B712601112C00E28D49 /* PlayerAnimations.swift in Sources */,
 				D596B1C525F8CFEC00A5854F /* AIEntity.swift in Sources */,
-				ACFD821D25F67C49009D806B /* WeaponSystem.swift in Sources */,
+				ACFD821D25F67C49009D806B /* MultiWeaponSystem.swift in Sources */,
 				D58346AC25FB8636005C344D /* PaintAmmo.swift in Sources */,
 				D58346B125FB8653005C344D /* Ammo.swift in Sources */,
 				8402D28F25FE0BDB00493DDE /* ColorMixer.swift in Sources */,
@@ -762,7 +765,6 @@
 				D583469D25FB8493005C344D /* Stack.swift in Sources */,
 				DC7B421925FF63350069B422 /* EventManager.swift in Sources */,
 				AC11904925FE7B7B00601CB9 /* Joystick.swift in Sources */,
-				D55EEB5E25FF9C6600ADC70B /* PlayerHasMovedEvent.swift in Sources */,
 				8402D28A25FE083C00493DDE /* TestColorEnemy.swift in Sources */,
 				ACB3607225F661620016E240 /* AppDelegate.swift in Sources */,
 				D583469825FB8477005C344D /* Queue.swift in Sources */,
@@ -783,9 +785,11 @@
 				D5D9201425FB9ACB00E70364 /* PaintAmmoDrop.swift in Sources */,
 				ACFD81FF25F670A2009D806B /* Colorable.swift in Sources */,
 				DCB72DB225FE13B300B183E0 /* GameManagerAISystem.swift in Sources */,
+				ACC154E626012D860000775C /* AttackButton.swift in Sources */,
 				AC06958D26012037007982DE /* PlayableCharacter.swift in Sources */,
 				DCB72DBA25FE18B100B183E0 /* AIEntityState.swift in Sources */,
 				D55EEB4B25FF8B6500ADC70B /* GameScene+UserInput.swift in Sources */,
+				ACC154F126012F560000775C /* PlayerActionEvent.swift in Sources */,
 				DC7B421C25FF63350069B422 /* Event.swift in Sources */,
 				D55EEB6B25FF9D7D00ADC70B /* ProcessedInputEvent.swift in Sources */,
 				ACFD81FA25F667EB009D806B /* RenderSystem.swift in Sources */,

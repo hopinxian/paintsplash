@@ -5,8 +5,6 @@
 //  Created by Praveen Bala on 15/3/21.
 //
 
-import SpriteKit
-
 class Joystick: GameEntity, Renderable {
     var zPosition: Int
 

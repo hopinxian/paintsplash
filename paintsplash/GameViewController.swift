@@ -12,7 +12,7 @@ class GameViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         if let view = self.view as! SKView? {
             // Load the SKScene from 'GameScene.sks'
             guard let gameScene = SKScene(fileNamed: "GameScene") as? GameScene else {
@@ -36,9 +36,22 @@ class GameViewController: UIViewController {
             circle1.spawn(gameManager: gameManager)
             ammoDrop.spawn(gameManager: gameManager)
 
+            EventSystem.playerActionEvent.subscribe { event in
+                switch event.playerActionEventType {
+                case .attack:
+                    let bullet = TestCircle(
+                        initialPosition: gameManager.currentPlayerPosition,
+                        initialVelocity: Vector2D.left,
+                        weapons: playerWeaponSystem
+                    )
+                    bullet.spawn(gameManager: gameManager)
+                default:
+                    break
+                }
+            }
 
             view.ignoresSiblingOrder = true
-            
+
             view.showsFPS = true
             view.showsNodeCount = true
         }

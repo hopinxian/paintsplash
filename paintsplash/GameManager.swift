@@ -19,7 +19,6 @@ class GameManager {
         }
         set {
             player.velocity = newValue
-            print(player.velocity)
         }
     }
 
@@ -47,6 +46,9 @@ class GameManager {
 
         let joystick = Joystick(position: Vector2D(Double(150) / -2 + 100, -200))
         joystick.spawn(gameManager: self)
+
+        let attackButton = AttackButton(position: Vector2D(Double(150) / 2 + 100, -200))
+        attackButton.spawn(gameManager: self)
     }
 
     private func setupViewChangeListener() {

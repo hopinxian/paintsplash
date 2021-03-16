@@ -6,7 +6,6 @@
 //
 
 class Player: InteractiveEntity, Movable, PlayableCharacter {
-
     var velocity: Vector2D
     var acceleration: Vector2D
     var defaultSpeed: Double = 1.0
@@ -37,7 +36,8 @@ class Player: InteractiveEntity, Movable, PlayableCharacter {
         switch event.processedInputType {
         case .playerMovement(let direction):
             velocity = direction
-            EventSystem.playerHasMovedEvent.post(event: PlayerHasMovedEvent(location: position))
+            let event = PlayerActionEvent(playerActionEventType: .movement(location: position))
+            EventSystem.playerActionEvent.post(event: event)
         default:
             break
         }
