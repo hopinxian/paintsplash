@@ -14,6 +14,8 @@
 		840A889225FF13A100A07596 /* PaintColor+UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840A889125FF13A100A07596 /* PaintColor+UIColor.swift */; };
 		84AA629E25FDD3BD00048012 /* BaseColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AA629D25FDD3BD00048012 /* BaseColor.swift */; };
 		AC06958D26012037007982DE /* PlayableCharacter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC06958C26012037007982DE /* PlayableCharacter.swift */; };
+		AC069592260123C4007982DE /* ChangeAnimationEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC069591260123C4007982DE /* ChangeAnimationEvent.swift */; };
+		AC069597260123CE007982DE /* ChangeAnimationEventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC069596260123CE007982DE /* ChangeAnimationEventManager.swift */; };
 		AC11904925FE7B7B00601CB9 /* Joystick.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC11904825FE7B7B00601CB9 /* Joystick.swift */; };
 		AC5F0B68260110A300E28D49 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F0B67260110A300E28D49 /* Player.swift */; };
 		AC5F0B712601112C00E28D49 /* PlayerAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F0B702601112C00E28D49 /* PlayerAnimations.swift */; };
@@ -129,6 +131,8 @@
 		840A889125FF13A100A07596 /* PaintColor+UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PaintColor+UIColor.swift"; sourceTree = "<group>"; };
 		84AA629D25FDD3BD00048012 /* BaseColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseColor.swift; sourceTree = "<group>"; };
 		AC06958C26012037007982DE /* PlayableCharacter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayableCharacter.swift; sourceTree = "<group>"; };
+		AC069591260123C4007982DE /* ChangeAnimationEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeAnimationEvent.swift; sourceTree = "<group>"; };
+		AC069596260123CE007982DE /* ChangeAnimationEventManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeAnimationEventManager.swift; sourceTree = "<group>"; };
 		AC11904825FE7B7B00601CB9 /* Joystick.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Joystick.swift; sourceTree = "<group>"; };
 		AC5F0B67260110A300E28D49 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		AC5F0B702601112C00E28D49 /* PlayerAnimations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerAnimations.swift; sourceTree = "<group>"; };
@@ -508,6 +512,8 @@
 				D55EEB6225FF9C9C00ADC70B /* PlayerHasMovedEventManager.swift */,
 				D55EEB6A25FF9D7D00ADC70B /* ProcessedInputEvent.swift */,
 				D55EEB7225FF9D8F00ADC70B /* ProcessedInputEventManager.swift */,
+				AC069591260123C4007982DE /* ChangeAnimationEvent.swift */,
+				AC069596260123CE007982DE /* ChangeAnimationEventManager.swift */,
 			);
 			path = Events;
 			sourceTree = "<group>";
@@ -726,6 +732,7 @@
 				DC247F5525F9E53C001B814C /* SpawnEnemiesBehaviour.swift in Sources */,
 				DC9D4A4825F92E2C000F07FF /* Enemy.swift in Sources */,
 				D58346A225FB856D005C344D /* LinkedList.swift in Sources */,
+				AC069592260123C4007982DE /* ChangeAnimationEvent.swift in Sources */,
 				D5D9200625FB8EEE00E70364 /* PaintWeaponsSystem.swift in Sources */,
 				8402D29725FE106800493DDE /* Math.swift in Sources */,
 				D583469325FB845F005C344D /* Bucket.swift in Sources */,
@@ -764,6 +771,7 @@
 				D55A8AAD25FC933A00BBE210 /* GameManager.swift in Sources */,
 				D596B19A25F8CF0800A5854F /* Renderable.swift in Sources */,
 				DC7B421B25FF63350069B422 /* TouchInputEvent.swift in Sources */,
+				AC069597260123CE007982DE /* ChangeAnimationEventManager.swift in Sources */,
 				ACFD822C25F67C9E009D806B /* Transformable.swift in Sources */,
 				DC7B421E25FF63350069B422 /* EventMovementSystem.swift in Sources */,
 				DC7B421A25FF63350069B422 /* TouchInputEventManager.swift in Sources */,

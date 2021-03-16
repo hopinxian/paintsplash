@@ -39,14 +39,14 @@ class GameManager {
         self.aiSystem?.addEnemySpawner(at: Vector2D(200, 50))
 
         setupGame()
+
+        EventSystem.changeAnimationEvent.subscribe { event in
+            self.getRenderSystem().updateRenderableAnimation(event.renderable)
+        }
     }
 
     func setupGame() {
         player.spawn(gameManager: self)
-
-        EventSystem.playerHasMovedEvent.subscribe { _ in
-            self.getRenderSystem().updateRenderableAnimation(self.player)
-        }
 
         let joystick = Joystick(position: Vector2D(Double(150) / -2 + 100, -200))
         joystick.spawn(gameManager: self)
