@@ -35,7 +35,7 @@ class Player: InteractiveEntity, Movable {
 
         super.init(spriteName: "", colliderShape: .circle(radius: 50), tags: .player, transform: transform)
 
-        self.currentAnimation = SlimeAnimations.slimeMoveRight
+        self.currentAnimation = SlimeAnimations.slimeMoveRightGray
 
         EventSystem.processedInputEvent.subscribe(listener: onReceiveInput)
     }

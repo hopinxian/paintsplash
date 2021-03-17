@@ -48,19 +48,19 @@ class AIEntity: InteractiveEntity, Movable {
     func getAnimationFromState() -> Animation {
         switch self.state {
         case .idle:
-            return SlimeAnimations.slimeIdle
+            return SlimeAnimations.slimeIdleGray
         case .moveLeft:
-            return SlimeAnimations.slimeMoveLeft
+            return SlimeAnimations.slimeMoveLeftGray
         case .moveRight:
-            return SlimeAnimations.slimeMoveRight
+            return SlimeAnimations.slimeMoveRightGray
         case .hit:
-            return SlimeAnimations.slimeHit
+            return SlimeAnimations.slimeHitGray
         case .afterHit:
-            return SlimeAnimations.slimeHit
+            return SlimeAnimations.slimeHitGray
         case .die:
-            return SlimeAnimations.slimeDie
+            return SlimeAnimations.slimeDieGray
         default:
-            return SlimeAnimations.slimeIdle
+            return SlimeAnimations.slimeIdleGray
         }
     }
 }

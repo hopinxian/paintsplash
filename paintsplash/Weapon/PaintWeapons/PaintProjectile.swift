@@ -25,7 +25,7 @@ class PaintProjectile: InteractiveEntity, Projectile, Colorable {
         var transform = Transform.identity
         transform.scale = Vector2D(radius * 2, radius * 2)
 
-        super.init(spriteName: "GreenCircle", colliderShape: .circle(radius: radius), tags: .playerProjectile, transform: transform)
+        super.init(spriteName: "Projectile", colliderShape: .circle(radius: radius), tags: .playerProjectile, transform: transform)
     }
 
     override func onCollide(otherObject: Collidable, gameManager: GameManager) {

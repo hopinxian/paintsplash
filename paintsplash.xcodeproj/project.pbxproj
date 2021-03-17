@@ -14,6 +14,13 @@
 		840A4D7B2600E65500B3D091 /* AmmoHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840A4D7A2600E65500B3D091 /* AmmoHelper.swift */; };
 		840A4D932600F07C00B3D091 /* Projectile+getColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840A4D922600F07C00B3D091 /* Projectile+getColor.swift */; };
 		840A4DA0260104FD00B3D091 /* InteractiveEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840A4D9F260104FD00B3D091 /* InteractiveEntity.swift */; };
+		84132AD82601A96C00F5B490 /* PaintColor+UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84132AD72601A96C00F5B490 /* PaintColor+UIColor.swift */; };
+		84132ADD2601B09100F5B490 /* SlimeIdleGray.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 84132ADC2601B09100F5B490 /* SlimeIdleGray.atlas */; };
+		84132AE82601B37200F5B490 /* SlimeIdle.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 84132AE72601B37200F5B490 /* SlimeIdle.atlas */; };
+		84132AED2601B56500F5B490 /* SlimeMoveLeftGray.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 84132AEC2601B56500F5B490 /* SlimeMoveLeftGray.atlas */; };
+		84132B022601B94300F5B490 /* SlimeDieGray.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 84132B002601B94300F5B490 /* SlimeDieGray.atlas */; };
+		84132B032601B94300F5B490 /* SlimeHitGray.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 84132B012601B94300F5B490 /* SlimeHitGray.atlas */; };
+		84132B082601B95900F5B490 /* SlimeMoveRightGray.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 84132B072601B95900F5B490 /* SlimeMoveRightGray.atlas */; };
 		844EAEB32600A6BB00FF0C07 /* ColorMakeup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844EAEB22600A6BB00FF0C07 /* ColorMakeup.swift */; };
 		84C0822B260116F8004BE096 /* AmmoDrop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C0822A260116F8004BE096 /* AmmoDrop.swift */; };
 		AC11904925FE7B7B00601CB9 /* Joystick.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC11904825FE7B7B00601CB9 /* Joystick.swift */; };
@@ -77,7 +84,6 @@
 		DC16B41F25FDE64C00C58670 /* AISystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC16B41E25FDE64C00C58670 /* AISystem.swift */; };
 		DC16B42425FDE88800C58670 /* SlimeDie.atlas in Resources */ = {isa = PBXBuildFile; fileRef = DC16B42325FDE88800C58670 /* SlimeDie.atlas */; };
 		DC16B42925FDE89200C58670 /* SlimeHit.atlas in Resources */ = {isa = PBXBuildFile; fileRef = DC16B42825FDE89200C58670 /* SlimeHit.atlas */; };
-		DC16B42E25FDEE6200C58670 /* SlimeIdle.atlas in Resources */ = {isa = PBXBuildFile; fileRef = DC16B42D25FDEE6200C58670 /* SlimeIdle.atlas */; };
 		DC247F5025F9C1CB001B814C /* ApproachPointBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC247F4F25F9C1CB001B814C /* ApproachPointBehaviour.swift */; };
 		DC247F5525F9E53C001B814C /* SpawnEnemiesBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC247F5425F9E53C001B814C /* SpawnEnemiesBehaviour.swift */; };
 		DC6BD6A725FF46D100A33861 /* SlimeAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC6BD6A625FF46D100A33861 /* SlimeAnimations.swift */; };
@@ -122,6 +128,13 @@
 		840A4D7A2600E65500B3D091 /* AmmoHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmmoHelper.swift; sourceTree = "<group>"; };
 		840A4D922600F07C00B3D091 /* Projectile+getColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Projectile+getColor.swift"; sourceTree = "<group>"; };
 		840A4D9F260104FD00B3D091 /* InteractiveEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InteractiveEntity.swift; sourceTree = "<group>"; };
+		84132AD72601A96C00F5B490 /* PaintColor+UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PaintColor+UIColor.swift"; sourceTree = "<group>"; };
+		84132ADC2601B09100F5B490 /* SlimeIdleGray.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = SlimeIdleGray.atlas; sourceTree = "<group>"; };
+		84132AE72601B37200F5B490 /* SlimeIdle.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = SlimeIdle.atlas; sourceTree = "<group>"; };
+		84132AEC2601B56500F5B490 /* SlimeMoveLeftGray.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = SlimeMoveLeftGray.atlas; sourceTree = "<group>"; };
+		84132B002601B94300F5B490 /* SlimeDieGray.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = SlimeDieGray.atlas; sourceTree = "<group>"; };
+		84132B012601B94300F5B490 /* SlimeHitGray.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = SlimeHitGray.atlas; sourceTree = "<group>"; };
+		84132B072601B95900F5B490 /* SlimeMoveRightGray.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = SlimeMoveRightGray.atlas; sourceTree = "<group>"; };
 		844EAEB22600A6BB00FF0C07 /* ColorMakeup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorMakeup.swift; sourceTree = "<group>"; };
 		84C0822A260116F8004BE096 /* AmmoDrop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmmoDrop.swift; sourceTree = "<group>"; };
 		AC11904825FE7B7B00601CB9 /* Joystick.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Joystick.swift; sourceTree = "<group>"; };
@@ -191,7 +204,6 @@
 		DC16B41E25FDE64C00C58670 /* AISystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AISystem.swift; sourceTree = "<group>"; };
 		DC16B42325FDE88800C58670 /* SlimeDie.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = SlimeDie.atlas; sourceTree = "<group>"; };
 		DC16B42825FDE89200C58670 /* SlimeHit.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = SlimeHit.atlas; sourceTree = "<group>"; };
-		DC16B42D25FDEE6200C58670 /* SlimeIdle.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = SlimeIdle.atlas; sourceTree = "<group>"; };
 		DC247F4F25F9C1CB001B814C /* ApproachPointBehaviour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApproachPointBehaviour.swift; sourceTree = "<group>"; };
 		DC247F5425F9E53C001B814C /* SpawnEnemiesBehaviour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpawnEnemiesBehaviour.swift; sourceTree = "<group>"; };
 		DC6BD6A625FF46D100A33861 /* SlimeAnimations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlimeAnimations.swift; sourceTree = "<group>"; };
@@ -341,6 +353,7 @@
 				D596B19325F8CEBE00A5854F /* GameScene+RenderSystem.swift */,
 				D596B19925F8CF0800A5854F /* Renderable.swift */,
 				ACFD81F925F667EB009D806B /* RenderSystem.swift */,
+				84132AD72601A96C00F5B490 /* PaintColor+UIColor.swift */,
 				D5DC909025FCC4210038DF71 /* AtlasAnimation.swift */,
 				D55EEB5225FF98DD00ADC70B /* Animation.swift */,
 			);
@@ -464,12 +477,17 @@
 		DC0EE89B25FE4E1D00CBF414 /* Slime */ = {
 			isa = PBXGroup;
 			children = (
-				DC16B42D25FDEE6200C58670 /* SlimeIdle.atlas */,
+				84132B072601B95900F5B490 /* SlimeMoveRightGray.atlas */,
+				84132B002601B94300F5B490 /* SlimeDieGray.atlas */,
+				84132B012601B94300F5B490 /* SlimeHitGray.atlas */,
+				84132AEC2601B56500F5B490 /* SlimeMoveLeftGray.atlas */,
+				84132AE72601B37200F5B490 /* SlimeIdle.atlas */,
 				DC16B42825FDE89200C58670 /* SlimeHit.atlas */,
 				DC16B42325FDE88800C58670 /* SlimeDie.atlas */,
 				D5DC90A825FCE5280038DF71 /* SlimeMoveLeft.atlas */,
 				D5DC90A925FCE5280038DF71 /* SlimeMoveRight.atlas */,
 				DC6BD6A625FF46D100A33861 /* SlimeAnimations.swift */,
+				84132ADC2601B09100F5B490 /* SlimeIdleGray.atlas */,
 			);
 			path = Slime;
 			sourceTree = "<group>";
@@ -642,13 +660,18 @@
 			files = (
 				DC16B42925FDE89200C58670 /* SlimeHit.atlas in Resources */,
 				DC0EE8A825FE650200CBF414 /* SpawnerSpawn.atlas in Resources */,
+				84132B022601B94300F5B490 /* SlimeDieGray.atlas in Resources */,
+				84132AE82601B37200F5B490 /* SlimeIdle.atlas in Resources */,
+				84132B032601B94300F5B490 /* SlimeHitGray.atlas in Resources */,
 				D5DC90AB25FCE5280038DF71 /* SlimeMoveRight.atlas in Resources */,
-				DC16B42E25FDEE6200C58670 /* SlimeIdle.atlas in Resources */,
+				84132AED2601B56500F5B490 /* SlimeMoveLeftGray.atlas in Resources */,
 				ACB3607D25F661620016E240 /* Main.storyboard in Resources */,
 				DC0EE8A725FE650200CBF414 /* SpawnerIdle.atlas in Resources */,
 				ACB3607425F661620016E240 /* GameScene.sks in Resources */,
 				ACB3607F25F661630016E240 /* Assets.xcassets in Resources */,
 				D5DC90AA25FCE5280038DF71 /* SlimeMoveLeft.atlas in Resources */,
+				84132ADD2601B09100F5B490 /* SlimeIdleGray.atlas in Resources */,
+				84132B082601B95900F5B490 /* SlimeMoveRightGray.atlas in Resources */,
 				DC16B42425FDE88800C58670 /* SlimeDie.atlas in Resources */,
 				ACB3607625F661620016E240 /* Actions.sks in Resources */,
 			);
@@ -757,6 +780,7 @@
 				DCB72DBA25FE18B100B183E0 /* AIEntityState.swift in Sources */,
 				D55EEB4B25FF8B6500ADC70B /* GameScene+UserInput.swift in Sources */,
 				DC7B421C25FF63350069B422 /* Event.swift in Sources */,
+				84132AD82601A96C00F5B490 /* PaintColor+UIColor.swift in Sources */,
 				D55EEB6B25FF9D7D00ADC70B /* ProcessedInputEvent.swift in Sources */,
 				ACFD81FA25F667EB009D806B /* RenderSystem.swift in Sources */,
 				D55EEB7325FF9D8F00ADC70B /* ProcessedInputEventManager.swift in Sources */,

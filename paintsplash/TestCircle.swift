@@ -7,7 +7,7 @@
 
 import SpriteKit
 
-class TestCircle: InteractiveEntity, Movable {
+class TestCircle: InteractiveEntity, Movable, Colorable {
     var defaultSpeed: Double = 1.0
 
     var paintWeaponsSystem: PaintWeaponsSystem
@@ -22,7 +22,7 @@ class TestCircle: InteractiveEntity, Movable {
         self.acceleration = Vector2D.zero
         self.paintWeaponsSystem = weapons
         
-        self.color = PaintColor.red
+        self.color = PaintColor.blue
         var transform = Transform.identity
         transform.position = initialPosition
 

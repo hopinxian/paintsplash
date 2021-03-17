@@ -63,7 +63,16 @@ extension GameScene: RenderSystem {
     func buildNode(renderable: Renderable) -> SKNode {
         // TODO: find a way for size to be determined dynamically
         let node = SKSpriteNode(imageNamed: renderable.spriteName)
-
+    
+        switch renderable {
+        case let colorInfo as Colorable:
+            node.color = colorInfo.color.uiColor
+            node.colorBlendFactor = 1
+            print(renderable.spriteName + " has color info " + colorInfo.color.rawValue)
+        default:
+            print("")
+        }
+        
         if let animation = renderable.currentAnimation {
             node.run(animation.getAction(), withKey: animation.name)
         }

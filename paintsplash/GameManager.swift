@@ -29,14 +29,14 @@ class GameManager {
 
     init(gameScene: GameScene) {
         self.gameScene = gameScene
-
-        player = Player(initialPosition: Vector2D(50, 50), initialVelocity: Vector2D(-1, 0))
+        
+        player = Player(initialPosition: Vector2D(200, 200), initialVelocity: Vector2D(-1, 0))
         entities.insert(player)
 
         self.aiSystem = GameManagerAISystem(gameManager: self)
 
-        self.aiSystem?.addEnemy(at: Vector2D(50, 50), with: PaintColor.blue)
-        self.aiSystem?.addEnemySpawner(at: Vector2D(200, 50), with: PaintColor.blue)
+        self.aiSystem?.addEnemy(at: Vector2D(50, 50), with: PaintColor.orange)
+        self.aiSystem?.addEnemySpawner(at: Vector2D(200, 50), with: PaintColor.lightpurple)
 
         setupGame()
     }
