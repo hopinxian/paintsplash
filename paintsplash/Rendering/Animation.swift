@@ -11,3 +11,9 @@ protocol Animation {
     var animationDuration: Double { get }
     func getAction() -> SKAction
 }
+
+extension Animation {
+    func equal(to other: Animation) -> Bool {
+        self.name == other.name
+    }
+}

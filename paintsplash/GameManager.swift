@@ -17,9 +17,8 @@ class GameManager {
         get {
             player.velocity
         }
-        set {   
+        set {
             player.velocity = newValue
-            print(player.velocity)
         }
     }
 
@@ -36,6 +35,7 @@ class GameManager {
         EventSystem.entityChangeEvents.removeEntityEvent.subscribe(listener: onRemoveEntity)
 
         setupGame()
+        setupViewChangeListener()
     }
 
     func setupGame() {
@@ -66,6 +66,18 @@ class GameManager {
 
         self.aiSystem?.addEnemy(at: Vector2D(50, 50))
         self.aiSystem?.addEnemySpawner(at: Vector2D(200, 50))
+
+        let attackButton = AttackButton(position: Vector2D(Double(150) / 2 + 100, -200))
+        attackButton.spawn(gameManager: self)
+    }
+
+    private func setupViewChangeListener() {
+        EventSystem.changeViewEvent.subscribe { event in
+            switch event.changeViewEventType {
+            case .changeAnimation(let renderable):
+                self.getRenderSystem().updateRenderableAnimation(renderable)
+            }
+        }
     }
 
     func getRenderSystem() -> RenderSystem {

@@ -12,7 +12,7 @@ class GameViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         if let view = self.view as! SKView? {
             // Load the SKScene from 'GameScene.sks'
             guard let gameScene = SKScene(fileNamed: "GameScene") as? GameScene else {
@@ -29,7 +29,7 @@ class GameViewController: UIViewController {
             gameScene.gameManager = gameManager
 
             view.ignoresSiblingOrder = true
-            
+
             view.showsFPS = true
             view.showsNodeCount = true
         }

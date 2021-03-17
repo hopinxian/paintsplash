@@ -34,7 +34,20 @@ extension GameEntity: Hashable {
 
 class InteractiveEntity: GameEntity, Renderable, Collidable {
     var spriteName: String
-    var currentAnimation: Animation?
+    var currentAnimation: Animation? {
+        didSet {
+            guard let new = currentAnimation,
+                  let old = oldValue,
+                  !new.equal(to: old) else {
+                return
+            }
+
+            let event = ChangeViewEvent(changeViewEventType: .changeAnimation(renderable: self))
+            EventSystem.changeViewEvent.post(event: event)
+        }
+    }
+
+    private var animationHasChanged = false
     var zPosition: Int = 0
 
     var colliderShape: ColliderShape

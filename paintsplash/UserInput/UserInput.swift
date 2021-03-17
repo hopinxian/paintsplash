@@ -15,7 +15,3 @@ protocol UserInput {
 
     func touchUp(atPoint pos : CGPoint)
 }
-
-protocol InputSystem {
-
-}
