@@ -6,10 +6,13 @@
 //
 
 protocol Ammo {
-
+//    var type: AmmoType { get }
 }
 
-protocol AmmoDrop: Ammo {
-    associatedtype AmmoType
-    func getAmmoObject() -> AmmoType
+enum AmmoType {
+    case paint
+}
+
+protocol AmmoDrop {
+    func getAmmoObject() -> Ammo
 }

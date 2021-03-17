@@ -6,6 +6,6 @@
 //
 
 struct PlayerAmmoUpdateEvent: Event {
-    var weapon: PaintWeapon
-    var ammo: [PaintAmmo]
+    var weapon: Weapon
+    var ammo: [Ammo]
 }

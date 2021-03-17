@@ -39,7 +39,7 @@ class GameManager {
     }
 
     func setupGame() {
-        let ammoDrop = PaintAmmoDrop(color: .blue, position: Vector2D(0, 0))
+        let ammoDrop = PaintAmmoDrop(color: .white, position: Vector2D(0, 0))
 
         ammoDrop.spawn(gameManager: self)
         player.spawn(gameManager: self)

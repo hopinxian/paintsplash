@@ -26,8 +26,11 @@ class Player: InteractiveEntity, Movable {
         super.init(spriteName: "", colliderShape: .circle(radius: 50), tags: .player, transform: transform)
 
         self.currentAnimation = SlimeAnimations.slimeMoveRight
+        self.paintWeaponsSystem.load(to: Bucket.self, ammo: [PaintAmmo(color: .blue), PaintAmmo(color: .red), PaintAmmo(color: .yellow)])
 
         self.paintWeaponsSystem.load([PaintAmmo(color: .blue), PaintAmmo(color: .red), PaintAmmo(color: .yellow)])
+        self.paintWeaponsSystem.switchWeapon(to: Bucket.self)
+//        self.paintWeaponsSystem.load([PaintAmmo(color: .blue), PaintAmmo(color: .red), PaintAmmo(color: .yellow)])
         Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(shoot), userInfo: nil, repeats: true)
 
         paintWeaponsSystem.carriedBy = self

@@ -6,25 +6,26 @@
 //
 
 class PaintWeaponsSystem: MultiWeaponSystem {
-    var activeWeapon: PaintWeapon?
-    var availableWeapons: [PaintWeapon]
+    var activeWeapon: Weapon?
+    var availableWeapons: [Weapon]
     var carriedBy: Transformable?
 
-    init(weapons: [PaintWeapon]) {
+    init(weapons: [Weapon]) {
         self.activeWeapon = weapons[0]
         self.availableWeapons = weapons
     }
     
-    func load(_ ammo: [PaintAmmo]) {
+    func load(_ ammo: [Ammo]) {
         guard let weapon = activeWeapon else {
             return
         }
+        
         weapon.load(ammo)
         EventSystem.playerAmmoUpdateEvent.post(event: PlayerAmmoUpdateEvent(weapon: weapon, ammo: weapon.getAmmo()))
     }
 
-    func load(to weapon: PaintWeapon, ammo: [PaintAmmo]) {
-        guard availableWeapons.contains(where: { $0 === weapon }) else {
+    func load<T: Weapon>(to weaponType: T.Type, ammo: [Ammo]) {
+        guard let weapon = availableWeapons.compactMap({ $0 as? T }).first else {
             return
         }
 
@@ -50,16 +51,16 @@ class PaintWeaponsSystem: MultiWeaponSystem {
         return true
     }
 
-    func switchWeapon(to weapon: PaintWeapon) {
-        guard availableWeapons.contains(where: { $0 === weapon }) else {
+    func switchWeapon<T: Weapon>(to weapon: T.Type) {
+        guard let weapon = availableWeapons.compactMap({ $0 as? T }).first else {
             return
         }
 
         activeWeapon = weapon
     }
 
-    func getAmmo() -> [(PaintWeapon, [PaintAmmo])] {
-        var ammoList = [(PaintWeapon, [PaintAmmo])]()
+    func getAmmo() -> [(Weapon, [Ammo])] {
+        var ammoList = [(Weapon, [Ammo])]()
         for weapon in availableWeapons {
             ammoList.append((weapon, weapon.getAmmo()))
         }

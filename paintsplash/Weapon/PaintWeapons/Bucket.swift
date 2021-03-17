@@ -5,7 +5,7 @@
 //  Created by Farrell Nah on 12/3/21.
 //
 
-class Bucket: PaintWeapon {
+class Bucket: Weapon {
 //    private var ammoQueue = Queue<PaintAmmo>()
 
     private let maxCoolDown = 100.0
@@ -32,9 +32,11 @@ class Bucket: PaintWeapon {
     
     private var ammoQueue = [PaintAmmo]()
     
-    override func load(_ ammos: [PaintAmmo]) {
+    func load(_ ammos: [Ammo]) {
         for ammo in ammos {
-            load(ammo)
+            if let paintAmmo = ammo as? PaintAmmo {
+                load(paintAmmo)
+            }
         }
     }
     
@@ -60,7 +62,7 @@ class Bucket: PaintWeapon {
 
     }
 
-    override func shoot() -> Projectile? {
+    func shoot() -> Projectile? {
         guard !ammoQueue.isEmpty && canShoot() else {
             return nil
         }
@@ -69,7 +71,11 @@ class Bucket: PaintWeapon {
         return PaintProjectile(color: ammo.color, radius: 25.0, velocity: Vector2D(3, 0))
     }
     
-    override func canShoot() -> Bool {
+    func canShoot() -> Bool {
         currentCoolDown == 0
+    }
+
+    func getAmmo() -> [Ammo] {
+        ammoQueue
     }
 }

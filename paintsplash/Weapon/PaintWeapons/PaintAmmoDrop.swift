@@ -28,7 +28,7 @@ class PaintAmmoDrop: InteractiveEntity, AmmoDrop, Colorable {
         }
     }
 
-    func getAmmoObject() -> PaintAmmo {
+    func getAmmoObject() -> Ammo {
         PaintAmmo(color: color)
     }
 }

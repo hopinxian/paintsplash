@@ -5,7 +5,7 @@
 //  Created by Farrell Nah on 12/3/21.
 //
 
-class PaintGun: PaintWeapon {
+class PaintGun: Weapon {
 //    private var ammoStack = Stack<PaintAmmo>()
 
     private let maxCoolDown = 100.0
@@ -13,9 +13,11 @@ class PaintGun: PaintWeapon {
 
     private var ammoStack = [PaintAmmo]()
     
-    override func load(_ ammos: [PaintAmmo]) {
+    func load(_ ammos: [Ammo]) {
         for ammo in ammos {
-            load(ammo)
+            if let paintAmmo = ammo as? PaintAmmo {
+                load(paintAmmo)
+            }
         }
     }
     
@@ -34,13 +36,14 @@ class PaintGun: PaintWeapon {
             if let result = firstColor.mix(with: [secondColor]) {
                 ammoStack[count - i].color = result
                 ammoStack[count - i - 1].color = result
+                print("mixed")
             } else {
                 break
             }
         }
     }
     
-    override func shoot() -> Projectile? {
+    func shoot() -> Projectile? {
         guard let ammo = ammoStack.popLast(), canShoot() else {
             return nil
         }
@@ -48,11 +51,11 @@ class PaintGun: PaintWeapon {
         return PaintProjectile(color: ammo.color, radius: 25.0, velocity: Vector2D(3, 0))
     }
     
-    override func canShoot() -> Bool {
+    func canShoot() -> Bool {
         currentCoolDown == 0
     }
 
-    override func getAmmo() -> [PaintAmmo] {
+    func getAmmo() -> [Ammo] {
         ammoStack
     }
 }

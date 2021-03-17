@@ -7,6 +7,7 @@
 
 struct PaintAmmo: Ammo, Colorable {
     var color: PaintColor
+    var type: AmmoType = .paint
 
     init(color: PaintColor) {
         self.color = color

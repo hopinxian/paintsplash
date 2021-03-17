@@ -29,13 +29,13 @@ class PaintBucketAmmoDisplay: GameEntity, Renderable {
         self.weaponData = weaponData
         super.init()
 
-        populate(with: weaponData.getAmmo())
+        populate(with: weaponData.getAmmo().compactMap({ $0 as? PaintAmmo }))
         EventSystem.playerAmmoUpdateEvent.subscribe(listener: onAmmoUpdate)
     }
 
     private func onAmmoUpdate(event: PlayerAmmoUpdateEvent) {
         if event.weapon is Bucket {
-            populate(with: event.ammo)
+            populate(with: event.ammo.compactMap({ $0 as? PaintAmmo }))
         }
     }
 

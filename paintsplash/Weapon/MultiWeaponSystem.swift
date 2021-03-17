@@ -6,14 +6,12 @@
 //
 
 protocol MultiWeaponSystem {
-    associatedtype WeaponType: Weapon
-
-    var activeWeapon: WeaponType? { get set }
-    var availableWeapons: [WeaponType] { get set }
+    var activeWeapon: Weapon? { get set }
+    var availableWeapons: [Weapon] { get set }
     var carriedBy: Transformable? { get set }
-    func load(_ ammo: [WeaponType.AmmoType])
-    func load(to weapon: WeaponType, ammo: [WeaponType.AmmoType])
+    func load(_ ammo: [Ammo])
+    func load<T: Weapon>(to weaponType: T.Type, ammo: [Ammo])
     func shoot() -> Bool
-    func switchWeapon(to weapon: WeaponType)
-    func getAmmo() -> [(WeaponType, [WeaponType.AmmoType])]
+    func switchWeapon<T: Weapon>(to weapon: T.Type)
+    func getAmmo() -> [(Weapon, [Ammo])]
 }
