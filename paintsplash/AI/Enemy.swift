@@ -20,7 +20,7 @@ class Enemy: AIEntity, Colorable {
     init(initialPosition: Vector2D, initialVelocity: Vector2D, color: PaintColor) {
         let spriteName = "slime" + "-" + color.rawValue
         self.color = color
-        super.init(initialPosition: initialPosition, initialVelocity: initialVelocity, radius: 50, spriteName: spriteName)
+        super.init(initialPosition: initialPosition, initialVelocity: initialVelocity, radius: 50)
         self.currentBehaviour = ApproachPointBehaviour()
         
         self.defaultSpeed = 1.0

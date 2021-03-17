@@ -5,34 +5,36 @@
 //  Created by Farrell Nah on 12/3/21.
 //
 
-class Bucket: PaintWeapon {
+class Bucket: Weapon {
 
     private let maxCoolDown = 100.0
     private var currentCoolDown = 0.0
-    
+
     private var ammoQueue = [PaintAmmo]()
-    
-    override func load(_ ammos: [PaintAmmo]) {
+
+    func load(_ ammos: [Ammo]) {
         for ammo in ammos {
-            load(ammo)
+            if let paintAmmo = ammo as? PaintAmmo {
+                load(paintAmmo)
+            }
         }
         assert(checkRepresentation())
     }
-    
+
     func load(_ ammo: PaintAmmo) {
         ammoQueue.append(ammo)
         mix()
         assert(checkRepresentation())
     }
-    
+
     private func mix() {
         let size = ammoQueue.count
         guard size > 1 else {
             return
         }
-        
+
         // mixes until no two adjacent units of color are mixable
-        
+
         var i = size - 1
         while i != 0 {
             let colorA = ammoQueue[i].color
@@ -49,25 +51,31 @@ class Bucket: PaintWeapon {
         assert(checkRepresentation())
     }
 
-    override func shoot() -> Projectile? {
+    func shoot() -> Projectile? {
         guard !ammoQueue.isEmpty && canShoot() else {
             return nil
         }
         let ammo = ammoQueue.removeFirst()
+
         assert(checkRepresentation())
-        return PaintProjectile(color: ammo.color, radius: 50.0, velocity: Vector2D(3, 0))
+        return PaintProjectile(color: ammo.color, radius: 25.0, velocity: Vector2D(3, 0))
     }
-    
-    override func canShoot() -> Bool {
+
+    func canShoot() -> Bool {
         currentCoolDown == 0
     }
-    
+
+
+    func getAmmo() -> [Ammo] {
+        ammoQueue
+    }
+
     /// Checks that no further mixing of paint within the weapon is possible
     private func checkRepresentation() -> Bool {
         guard ammoQueue.count > 1 else {
             return true
         }
-        
+
         for i in 0..<ammoQueue.count - 1 {
             let colorA = ammoQueue[i].color
             let colorB = ammoQueue[i + 1].color
