@@ -24,7 +24,7 @@ class Player: InteractiveEntity, Movable, PlayableCharacter {
         transform.position = initialPosition
         paintWeaponsSystem = PaintWeaponsSystem(weapons: [PaintGun(), Bucket()])
 
-        super.init(spriteName: "", colliderShape: .circle(radius: 50), tags: .player, transform: transform)
+        super.init(spriteName: "Player", colliderShape: .circle(radius: 50), tags: .player, transform: transform)
 
         self.currentAnimation = PlayerAnimations.playerBrushIdleLeft
         self.paintWeaponsSystem.load(to: Bucket.self, ammo: [PaintAmmo(color: .blue), PaintAmmo(color: .red), PaintAmmo(color: .yellow)])
@@ -39,7 +39,7 @@ class Player: InteractiveEntity, Movable, PlayableCharacter {
     }
 
     @objc func shoot() {
-        paintWeaponsSystem.shoot()
+        _ = paintWeaponsSystem.shoot()
     }
 
     override func update(gameManager: GameManager) {

@@ -6,8 +6,6 @@
 //
 
 class PaintGunAmmoDisplay: GameEntity, Renderable {
-    var renderColor: PaintColor?
-
     var spriteName: String
 
     var currentAnimation: Animation?
@@ -19,7 +17,6 @@ class PaintGunAmmoDisplay: GameEntity, Renderable {
     var weaponData: PaintGun
 
     init(weaponData: PaintGun) {
-        renderColor = nil
         spriteName = "WhiteSquare"
         transform = Transform(
             position: Vector2D(200, -200),

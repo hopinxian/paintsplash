@@ -53,14 +53,4 @@ class PaintGunTests: XCTestCase {
         XCTAssertEqual(paintgun.shoot()?.getColor(), PaintColor.purple)
         XCTAssertNil(paintgun.shoot()?.getColor())
     }
-    
-    func testLoad_twoWhite() {
-        let paintgun = PaintGun()
-        paintgun.load([AmmoHelper.red, AmmoHelper.red, AmmoHelper.yellow, AmmoHelper.blue, AmmoHelper.orange, AmmoHelper.white, AmmoHelper.purple, AmmoHelper.white])
-        paintgun.load([AmmoHelper.white])
-        for _ in 0..<9 {
-            XCTAssertEqual(paintgun.shoot()?.getColor(), PaintColor.white)
-        }
-        XCTAssertNil(paintgun.shoot()?.getColor())
-    }
 }

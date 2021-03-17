@@ -53,14 +53,4 @@ class BucketTests: XCTestCase {
         XCTAssertEqual(bucket.shoot()?.getColor(), PaintColor.lightred)
         XCTAssertNil(bucket.shoot()?.getColor())
     }
-    
-    func testLoad_twoWhite() {
-        let bucket = Bucket()
-        bucket.load([AmmoHelper.red, AmmoHelper.red, AmmoHelper.yellow, AmmoHelper.blue, AmmoHelper.orange, AmmoHelper.white, AmmoHelper.purple, AmmoHelper.white])
-        bucket.load([AmmoHelper.white])
-        for _ in 0..<9 {
-            XCTAssertEqual(bucket.shoot()?.getColor(), PaintColor.white)
-        }
-        XCTAssertNil(bucket.shoot()?.getColor())
-    }
 }

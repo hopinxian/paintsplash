@@ -12,11 +12,13 @@ class SpawnEnemiesBehaviour: AIBehaviour {
     var spawnQuantity: Int
 
     var lastSpawnDate: Date
+    
+    var sourceColor: PaintColor
 
-    init(spawnInterval: Double, spawnQuantity: Int) {
+    init(spawnInterval: Double, spawnQuantity: Int, source: PaintColor) {
         self.spawnInterval = spawnInterval
         self.spawnQuantity = spawnQuantity
-
+        self.sourceColor = source
         self.lastSpawnDate = Date()
     }
 
@@ -42,8 +44,12 @@ class SpawnEnemiesBehaviour: AIBehaviour {
 
         let spawnPosition = entity.position
 
-        let spawnEntityEvent = SpawnAIEntityEvent(spawnEntityType: .enemy(location: spawnPosition))
+        let subColors = sourceColor.getSubColors()
         for _ in 0..<spawnQuantity {
+            guard let randomColor = subColors.randomElement() else {
+                fatalError("Subcolors should never be empty.")
+            }
+            let spawnEntityEvent = SpawnAIEntityEvent(spawnEntityType: .enemy(location: spawnPosition, color: randomColor))
             EventSystem.spawnAIEntityEvent.post(event: spawnEntityEvent)
         }
 

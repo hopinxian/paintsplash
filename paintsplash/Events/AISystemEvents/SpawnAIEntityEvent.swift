@@ -9,7 +9,6 @@ struct SpawnAIEntityEvent: Event {
 }
 
 enum SpawnEntityType {
-    // TODO: add colour to enemy
-    case enemy(location: Vector2D)
+    case enemy(location: Vector2D, color: PaintColor)
     case canvas(location: Vector2D, velocity: Vector2D)
 }

@@ -6,8 +6,6 @@
 //
 
 class PaintBucketAmmoDisplay: GameEntity, Renderable {
-    var renderColor: PaintColor?
-
     var spriteName: String
 
     var currentAnimation: Animation?
@@ -19,7 +17,6 @@ class PaintBucketAmmoDisplay: GameEntity, Renderable {
     var weaponData: Bucket
 
     init(weaponData: Bucket) {
-        renderColor = nil
         spriteName = "WhiteSquare"
         transform = Transform(
             position: Vector2D(300, -200),

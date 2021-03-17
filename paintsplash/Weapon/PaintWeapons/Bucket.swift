@@ -18,37 +18,25 @@ class Bucket: Weapon {
                 load(paintAmmo)
             }
         }
-        assert(checkRepresentation())
     }
 
     func load(_ ammo: PaintAmmo) {
         ammoQueue.append(ammo)
         mix()
-        assert(checkRepresentation())
     }
 
+    /// Mixes the last two colors in the queue
     private func mix() {
         let size = ammoQueue.count
         guard size > 1 else {
             return
         }
-
-        // mixes until no two adjacent units of color are mixable
-
-        var i = size - 1
-        while i != 0 {
-            let colorA = ammoQueue[i].color
-            let colorB = ammoQueue[i - 1].color
-            if let result = colorA.mix(with: [colorB]),
-               (result != colorA || result != colorB) {
-                ammoQueue[i].color = result
-                ammoQueue[i - 1].color = result
-                i = min(i + 1, size - 1)
-            } else {
-                i -= 1
-            }
+        let colorA = ammoQueue[size - 1].color
+        let colorB = ammoQueue[size - 2].color
+        if let result = colorA.mix(with: [colorB]) {
+            ammoQueue[size - 1].color = result
+            ammoQueue[size - 2].color = result
         }
-        assert(checkRepresentation())
     }
 
     func shoot() -> Projectile? {
@@ -57,7 +45,6 @@ class Bucket: Weapon {
         }
         let ammo = ammoQueue.removeFirst()
 
-        assert(checkRepresentation())
         return PaintProjectile(color: ammo.color, radius: 25.0, velocity: Vector2D(3, 0))
     }
 
@@ -68,22 +55,5 @@ class Bucket: Weapon {
 
     func getAmmo() -> [Ammo] {
         ammoQueue
-    }
-
-    /// Checks that no further mixing of paint within the weapon is possible
-    private func checkRepresentation() -> Bool {
-        guard ammoQueue.count > 1 else {
-            return true
-        }
-
-        for i in 0..<ammoQueue.count - 1 {
-            let colorA = ammoQueue[i].color
-            let colorB = ammoQueue[i + 1].color
-            let mix = colorA.mix(with: [colorB])
-            if mix != nil && mix != colorA && mix != colorB {
-                return false
-            }
-        }
-        return true
     }
 }

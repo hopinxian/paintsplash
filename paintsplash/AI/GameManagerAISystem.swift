@@ -43,13 +43,13 @@ class GameManagerAISystem: AISystem {
         
     }
 
-    func addEnemy(at position: Vector2D) {
-        let enemy = Enemy(initialPosition: position, initialVelocity: Vector2D(-1, 0), color: .blue)
+    func addEnemy(at position: Vector2D, with color: PaintColor) {
+        let enemy = Enemy(initialPosition: position, initialVelocity: Vector2D(-1, 0), color: color)
         self.add(aiEntity: enemy)
     }
 
-    func addEnemySpawner(at position: Vector2D) {
-        let enemySpawner = EnemySpawner(initialPosition: position, initialVelocity: .zero, color: .blue)
+    func addEnemySpawner(at position: Vector2D, with color: PaintColor) {
+        let enemySpawner = EnemySpawner(initialPosition: position, initialVelocity: .zero, color: color)
         self.add(aiEntity: enemySpawner)
     }
 
@@ -61,8 +61,8 @@ class GameManagerAISystem: AISystem {
     func onSpawnAIEntity(event: SpawnAIEntityEvent) {
         print("rec")
         switch event.spawnEntityType {
-        case .enemy(let location):
-            addEnemy(at: location)
+        case .enemy(let location, let color):
+            addEnemy(at: location, with: color)
         case .canvas(let location, let velocity):
             addCanvas(at: location, velocity: velocity)
         }

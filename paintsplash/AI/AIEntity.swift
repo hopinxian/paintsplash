@@ -27,24 +27,24 @@ class AIEntity: InteractiveEntity, Movable {
         }
     }
 
-    init(initialPosition: Vector2D, initialVelocity: Vector2D, radius: Double) {
+    init(spriteName: String, initialPosition: Vector2D, initialVelocity: Vector2D, radius: Double) {
         self.velocity = initialVelocity
         self.acceleration = Vector2D.zero
 
         var transform = Transform.standard
         transform.position = initialPosition
 
-        super.init(spriteName: "", colliderShape: .enemy(radius: radius), tags: .enemy, transform: transform)
+        super.init(spriteName: spriteName, colliderShape: .enemy(radius: radius), tags: .enemy, transform: transform)
     }
 
-    init(initialPosition: Vector2D, initialVelocity: Vector2D, width: Double, height: Double) {
+    init(spriteName: String, initialPosition: Vector2D, initialVelocity: Vector2D, width: Double, height: Double) {
         self.velocity = initialVelocity
         self.acceleration = Vector2D.zero
 
         var transform = Transform.standard
         transform.position = initialPosition
 
-        super.init(spriteName: "", colliderShape: .rectEnemy(width: width, height: height),
+        super.init(spriteName: spriteName, colliderShape: .rectEnemy(width: width, height: height),
                    tags: .enemy, transform: transform)
     }
 

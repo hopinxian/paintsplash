@@ -44,9 +44,14 @@ class GameManager {
     }
 
     func setupGame() {
-        let ammoDrop = PaintAmmoDrop(color: .white, position: Vector2D(0, 0))
+        let ammoDrop = PaintAmmoDrop(color: .red, position: Vector2D(0, 0))
 
         ammoDrop.spawn(gameManager: self)
+        
+        let ammoDrop2 = PaintAmmoDrop(color: .yellow, position: Vector2D(50, 50))
+        
+        ammoDrop2.spawn(gameManager: self)
+        
         player.spawn(gameManager: self)
 
 
@@ -72,8 +77,8 @@ class GameManager {
 
         self.aiSystem = GameManagerAISystem(gameManager: self)
 
-        self.aiSystem?.addEnemy(at: Vector2D(50, 50))
-        self.aiSystem?.addEnemySpawner(at: Vector2D(200, 50))
+        self.aiSystem?.addEnemy(at: Vector2D(50, 50), with: .yellow)
+        self.aiSystem?.addEnemySpawner(at: Vector2D(200, 50), with: .red)
 
         let canvasSpawner = CanvasSpawner(initialPosition: Vector2D(-200, 150),
                 canvasVelocity: Vector2D(0.2, 0))

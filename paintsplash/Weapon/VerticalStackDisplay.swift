@@ -6,8 +6,6 @@
 //
 
 class VerticalStackDisplay: GameEntity, Renderable {
-    var renderColor: PaintColor?
-
     var spriteName: String
 
     var currentAnimation: Animation?

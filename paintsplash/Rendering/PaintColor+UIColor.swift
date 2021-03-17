@@ -49,9 +49,9 @@ extension UIColor {
         var alpha: CGFloat = 0
         
         getRed(&red, green: &green, blue: &blue, alpha: &alpha)
-        red = max(0, min(1, value + red))
-        blue = max(0, min(1, value + blue))
-        green = max(0, min(1, value + green))
+        red = max(0, min(1, (1 + value) * red))
+        blue = max(0, min(1, (1 + value) * blue))
+        green = max(0, min(1, (1 + value) * green))
 
         let color = UIColor(red: red, green: green, blue: blue, alpha: alpha)
         return color

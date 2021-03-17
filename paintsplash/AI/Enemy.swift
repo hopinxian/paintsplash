@@ -18,9 +18,9 @@ class Enemy: AIEntity, Colorable {
     var color: PaintColor
     
     init(initialPosition: Vector2D, initialVelocity: Vector2D, color: PaintColor) {
-        let spriteName = "slime" + "-" + color.rawValue
         self.color = color
-        super.init(initialPosition: initialPosition, initialVelocity: initialVelocity, radius: 50)
+        let spriteName = "slime" + "-" + color.rawValue
+        super.init(spriteName: spriteName, initialPosition: initialPosition, initialVelocity: initialVelocity, radius: 50)
         self.currentBehaviour = ApproachPointBehaviour()
         
         self.defaultSpeed = 1.0
@@ -90,19 +90,19 @@ class Enemy: AIEntity, Colorable {
     override func getAnimationFromState() -> Animation {
         switch self.state {
         case .idle:
-            return SlimeAnimations.slimeIdle
+            return SlimeAnimations.slimeIdleGray
         case .moveLeft:
-            return SlimeAnimations.slimeMoveLeft
+            return SlimeAnimations.slimeMoveLeftGray
         case .moveRight:
-            return SlimeAnimations.slimeMoveRight
+            return SlimeAnimations.slimeMoveRightGray
         case .hit:
-            return SlimeAnimations.slimeHit
+            return SlimeAnimations.slimeHitGray
         case .afterHit:
-            return SlimeAnimations.slimeHit
+            return SlimeAnimations.slimeHitGray
         case .die:
-            return SlimeAnimations.slimeDie
+            return SlimeAnimations.slimeDieGray
         default:
-            return SlimeAnimations.slimeIdle
+            return SlimeAnimations.slimeIdleGray
         }
     }
 

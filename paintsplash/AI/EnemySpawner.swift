@@ -10,10 +10,10 @@ class EnemySpawner: AIEntity, Colorable {
     var color: PaintColor
     
     init(initialPosition: Vector2D, initialVelocity: Vector2D, color: PaintColor) {
-        let spriteName = "spawner" + "-" + color.rawValue
         self.color = color
-        super.init(initialPosition: initialPosition, initialVelocity: initialVelocity, radius: 50)
-        self.currentBehaviour = SpawnEnemiesBehaviour(spawnInterval: 3, spawnQuantity: 1)
+        let spriteName = "spawner" + "-" + color.rawValue
+        super.init(spriteName: spriteName, initialPosition: initialPosition, initialVelocity: initialVelocity, radius: 50)
+        self.currentBehaviour = SpawnEnemiesBehaviour(spawnInterval: 3, spawnQuantity: 1, source: color)
         self.defaultSpeed = 0
     }
 

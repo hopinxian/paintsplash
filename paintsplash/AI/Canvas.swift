@@ -10,7 +10,7 @@ import Foundation
 class Canvas: AIEntity {
     // TODO: canvases of dynamic size
     init(initialPosition: Vector2D, velocity: Vector2D) {
-        super.init(initialPosition: initialPosition, initialVelocity: velocity,
+        super.init(spriteName: "canvas-spawner", initialPosition: initialPosition, initialVelocity: velocity,
                    width: 50, height: 50)
         self.currentBehaviour = CanvasBehaviour()
 
@@ -30,7 +30,7 @@ class Canvas: AIEntity {
 
     override func onCollide(otherObject: Collidable, gameManager: GameManager) {
         switch otherObject {
-        case let ammoDrop as PaintAmmoDrop:
+        case _ as PaintAmmoDrop:
             // add colour to canvas
             print("collidateed with ammo")
         default:

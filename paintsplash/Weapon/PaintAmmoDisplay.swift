@@ -8,8 +8,6 @@
 class PaintAmmoDisplay: GameEntity, Renderable, Colorable {
     var color: PaintColor
 
-    var renderColor: PaintColor?
-
     var spriteName: String
 
     var currentAnimation: Animation?
@@ -21,7 +19,7 @@ class PaintAmmoDisplay: GameEntity, Renderable, Colorable {
     init(color: PaintColor, position: Vector2D, zPosition: Int) {
         self.color = color
         self.zPosition = zPosition
-        spriteName = "BlackSquare"
+        spriteName = "WhiteSquare"
         currentAnimation = nil
         transform = Transform(position: position, rotation: 0.0, size: Vector2D(50, 25))
         super.init()
