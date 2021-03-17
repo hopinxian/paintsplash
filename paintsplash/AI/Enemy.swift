@@ -13,7 +13,7 @@ class Enemy: AIEntity {
 
     var isHit: Bool = false
 
-    var hitsToDie: Int = 2
+    var hitsToDie: Int = 1
 
     var color: PaintColor = PaintColor.blue
 
@@ -35,7 +35,9 @@ class Enemy: AIEntity {
         if self.hitsToDie <= 0 {
             self.state = .die
 
-            gameManager.removeAIEntity(aiEntity: self)
+            // gameManager.removeAIEntity(aiEntity: self)
+            let event = DespawnAIEntityEvent(entityToDespawn: self)
+            EventSystem.despawnAIEntityEvent.post(event: event)
 
             return
         }
@@ -72,6 +74,25 @@ class Enemy: AIEntity {
         }
 
         super.update(gameManager: gameManager)
+    }
+
+    override func getAnimationFromState() -> Animation {
+        switch self.state {
+        case .idle:
+            return SlimeAnimations.slimeIdle
+        case .moveLeft:
+            return SlimeAnimations.slimeMoveLeft
+        case .moveRight:
+            return SlimeAnimations.slimeMoveRight
+        case .hit:
+            return SlimeAnimations.slimeHit
+        case .afterHit:
+            return SlimeAnimations.slimeHit
+        case .die:
+            return SlimeAnimations.slimeDie
+        default:
+            return SlimeAnimations.slimeIdle
+        }
     }
 
 }

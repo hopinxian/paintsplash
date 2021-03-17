@@ -14,4 +14,6 @@ class EventSystem {
     static let processedInputEvents = ProcessedInputEventManager()
     static let playerAmmoUpdateEvent = PlayerAmmoUpdateEventManager()
     static let entityChangeEvents = EntityChangeEventManager()
+    static let spawnAIEntityEvent = SpawnAIEntityEventManager()
+    static let despawnAIEntityEvent = DespawnAIEntityEventManager()
 }

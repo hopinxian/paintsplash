@@ -12,14 +12,16 @@ class GameManagerAISystem: AISystem {
 
     init(gameManager: GameManager) {
         self.gameManager = gameManager
+
+        EventSystem.spawnAIEntityEvent.subscribe(listener: onSpawnAIEntity)
+        EventSystem.despawnAIEntityEvent.subscribe(listener: onDespawnAIEntity)
     }
 
     func updateAIEntities() {
         AIEntities.forEach { entity in
             entity.currentBehaviour.updateAI(aiEntity: entity,
                                              aiGameInfo: AIGameInfo(playerPosition: gameManager.currentPlayerPosition,
-                                                                    numberOfEnemies: AIEntities.count,
-                                                                    aiSystem: self))
+                                                                    numberOfEnemies: AIEntities.count))
         }
     }
 
@@ -42,13 +44,32 @@ class GameManagerAISystem: AISystem {
     }
 
     func addEnemy(at position: Vector2D) {
-        let enemy = Enemy(initialPosition: Vector2D(50, 50), initialVelocity: Vector2D(-1, 0))
+        let enemy = Enemy(initialPosition: position, initialVelocity: Vector2D(-1, 0))
         self.add(aiEntity: enemy)
     }
 
     func addEnemySpawner(at position: Vector2D) {
         let enemySpawner = EnemySpawner(initialPosition: position, initialVelocity: .zero)
         self.add(aiEntity: enemySpawner)
+    }
+
+    func addCanvas(at position: Vector2D, velocity: Vector2D) {
+        let canvas = Canvas(initialPosition: position, velocity: velocity)
+        self.add(aiEntity: canvas)
+    }
+
+    func onSpawnAIEntity(event: SpawnAIEntityEvent) {
+        print("rec")
+        switch event.spawnEntityType {
+        case .enemy(let location):
+            addEnemy(at: location)
+        case .canvas(let location, let velocity):
+            addCanvas(at: location, velocity: velocity)
+        }
+    }
+
+    func onDespawnAIEntity(event: DespawnAIEntityEvent) {
+        event.entityToDespawn.fadeDestroy(gameManager: self.gameManager, duration: 1)
     }
 
 }

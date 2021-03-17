@@ -23,30 +23,30 @@ class SpawnEnemiesBehaviour: AIBehaviour {
     func updateAI(aiEntity: AIEntity, aiGameInfo: AIGameInfo) {
         let timeSinceLastSpawn = Date().timeIntervalSince(lastSpawnDate)
 
-        guard timeSinceLastSpawn >= spawnInterval,
-              let aiSystem = aiGameInfo.aiSystem else {
+        guard timeSinceLastSpawn >= spawnInterval else {
             return
         }
 
-        let spawnPosition = aiEntity.position
-
-         aiEntity.state = .spawning
-         Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(resetSpawnState), userInfo: aiEntity, repeats: false)
-
-
-        for _ in 0..<spawnQuantity {
-            let enemy = Enemy(initialPosition: spawnPosition, initialVelocity: Vector2D(-1, 0))
-            aiSystem.add(aiEntity: enemy)
-        }
+        aiEntity.state = .spawning
+        Timer.scheduledTimer(timeInterval: 1.2, target: self, selector: #selector(spawnEnemy),
+                              userInfo: aiEntity, repeats: false)
 
         self.lastSpawnDate = Date()
     }
 
-    @objc func resetSpawnState(timer: Timer) {
+    @objc func spawnEnemy(timer: Timer) {
         guard let entity = timer.userInfo as? AIEntity,
               entity.state != .hit else {
             return
         }
+
+        let spawnPosition = entity.position
+
+        let spawnEntityEvent = SpawnAIEntityEvent(spawnEntityType: .enemy(location: spawnPosition))
+        for _ in 0..<spawnQuantity {
+            EventSystem.spawnAIEntityEvent.post(event: spawnEntityEvent)
+        }
+
         entity.state = .idle
     }
 }

@@ -37,6 +37,17 @@ class AIEntity: InteractiveEntity, Movable {
         super.init(spriteName: "", colliderShape: .enemy(radius: radius), tags: .enemy, transform: transform)
     }
 
+    init(initialPosition: Vector2D, initialVelocity: Vector2D, width: Double, height: Double) {
+        self.velocity = initialVelocity
+        self.acceleration = Vector2D.zero
+
+        var transform = Transform.standard
+        transform.position = initialPosition
+
+        super.init(spriteName: "", colliderShape: .rectEnemy(width: width, height: height),
+                   tags: .enemy, transform: transform)
+    }
+
     func changeBehaviour(to behaviour: AIBehaviour) {
         self.currentBehaviour = behaviour
     }
@@ -45,22 +56,7 @@ class AIEntity: InteractiveEntity, Movable {
         currentBehaviour.updateAI(aiEntity: self, aiGameInfo: aiGameInfo)
     }
 
-    func getAnimationFromState() -> Animation {
-        switch self.state {
-        case .idle:
-            return SlimeAnimations.slimeIdle
-        case .moveLeft:
-            return SlimeAnimations.slimeMoveLeft
-        case .moveRight:
-            return SlimeAnimations.slimeMoveRight
-        case .hit:
-            return SlimeAnimations.slimeHit
-        case .afterHit:
-            return SlimeAnimations.slimeHit
-        case .die:
-            return SlimeAnimations.slimeDie
-        default:
-            return SlimeAnimations.slimeIdle
-        }
+    func getAnimationFromState() -> Animation? {
+        nil
     }
 }
