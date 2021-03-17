@@ -17,7 +17,6 @@
 		AC069592260123C4007982DE /* ChangeViewEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC069591260123C4007982DE /* ChangeViewEvent.swift */; };
 		AC069597260123CE007982DE /* ChangeViewEventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC069596260123CE007982DE /* ChangeViewEventManager.swift */; };
 		AC11904925FE7B7B00601CB9 /* Joystick.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC11904825FE7B7B00601CB9 /* Joystick.swift */; };
-		AC5F0B68260110A300E28D49 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F0B67260110A300E28D49 /* Player.swift */; };
 		AC5F0B712601112C00E28D49 /* PlayerAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F0B702601112C00E28D49 /* PlayerAnimations.swift */; };
 		AC5F0B7C2601130500E28D49 /* PlayerBrushIdleLeft.atlas in Resources */ = {isa = PBXBuildFile; fileRef = AC5F0B762601130400E28D49 /* PlayerBrushIdleLeft.atlas */; };
 		AC5F0B7D2601130500E28D49 /* PlayerBrushWalkLeft.atlas in Resources */ = {isa = PBXBuildFile; fileRef = AC5F0B772601130400E28D49 /* PlayerBrushWalkLeft.atlas */; };
@@ -145,7 +144,6 @@
 		AC069591260123C4007982DE /* ChangeViewEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeViewEvent.swift; sourceTree = "<group>"; };
 		AC069596260123CE007982DE /* ChangeViewEventManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeViewEventManager.swift; sourceTree = "<group>"; };
 		AC11904825FE7B7B00601CB9 /* Joystick.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Joystick.swift; sourceTree = "<group>"; };
-		AC5F0B67260110A300E28D49 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		AC5F0B702601112C00E28D49 /* PlayerAnimations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerAnimations.swift; sourceTree = "<group>"; };
 		AC5F0B762601130400E28D49 /* PlayerBrushIdleLeft.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = PlayerBrushIdleLeft.atlas; sourceTree = "<group>"; };
 		AC5F0B772601130400E28D49 /* PlayerBrushWalkLeft.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = PlayerBrushWalkLeft.atlas; sourceTree = "<group>"; };
@@ -279,7 +277,6 @@
 		AC5F0B6C260110B200E28D49 /* Player */ = {
 			isa = PBXGroup;
 			children = (
-				AC5F0B67260110A300E28D49 /* Player.swift */,
 				AC5F0B85260113F800E28D49 /* PlayerState.swift */,
 				AC06958C26012037007982DE /* PlayableCharacter.swift */,
 			);
@@ -801,7 +798,7 @@
 				DC7B421925FF63350069B422 /* EventManager.swift in Sources */,
 				AC11904925FE7B7B00601CB9 /* Joystick.swift in Sources */,
 				D598F55F2601C03600D7CACB /* PaintBucketAmmoDisplay.swift in Sources */,
-				D55EEB5E25FF9C6600ADC70B /* PlayerHasMovedEvent.swift in Sources */,
+				D55EEB5E25FF9C6600ADC70B,
 				8402D28A25FE083C00493DDE /* TestColorEnemy.swift in Sources */,
 				ACB3607225F661620016E240 /* AppDelegate.swift in Sources */,
 				D55EEBA82600929500ADC70B /* EntityChangeEventManager.swift in Sources */,
@@ -835,7 +832,6 @@
 				D55EEB6B25FF9D7D00ADC70B /* ProcessedInputEvent.swift in Sources */,
 				ACFD81FA25F667EB009D806B /* RenderSystem.swift in Sources */,
 				D55EEB7325FF9D8F00ADC70B /* ProcessedInputEventManager.swift in Sources */,
-				AC5F0B68260110A300E28D49 /* Player.swift in Sources */,
 				D596B19425F8CEBE00A5854F /* GameScene+RenderSystem.swift in Sources */,
 				ACFD820425F67113009D806B /* Weapon.swift in Sources */,
 				D596B17925F7C20D00A5854F /* AIBehaviour.swift in Sources */,

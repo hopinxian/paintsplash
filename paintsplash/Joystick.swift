@@ -42,7 +42,9 @@ class Joystick: GameEntity, Renderable {
 
         super.init()
 
-        EventSystem.inputEvents.subscribe(listener: onTouch)
+        EventSystem.inputEvents.touchDownEvent.subscribe(listener: onTouchDown)
+        EventSystem.inputEvents.touchMovedEvent.subscribe(listener: onTouchMoved)
+        EventSystem.inputEvents.touchUpEvent.subscribe(listener: onTouchUp)
     }
 
     override func spawn(gameManager: GameManager) {
@@ -57,31 +59,19 @@ class Joystick: GameEntity, Renderable {
         super.update(gameManager: gameManager)
     }
 
-    func onTouch(inputEvent: TouchInputEvent) {
-        switch inputEvent {
-        case let touchDownEvent as TouchDownEvent:
-            onTouchDown(location: touchDownEvent.location)
-        case let touchUpEvent as TouchUpEvent:
-            onTouchUp(location: touchUpEvent.location)
-        case let touchMovedEvent as TouchMovedEvent:
-            onTouchMoved(location: touchMovedEvent.location)
-        default:
-            break
-        }
-    }
-
-    func onTouchDown(location: Vector2D) {
-        if Vector2D.magnitude(of: location - transform.position) < backgroundRadius {
+    func onTouchDown(event: TouchDownEvent) {
+        print("touchdown")
+        if Vector2D.magnitude(of: event.location - transform.position) < backgroundRadius {
             tracking = true
         }
     }
 
-    func onTouchMoved(location: Vector2D) {
+    func onTouchMoved(event: TouchMovedEvent) {
         guard tracking else {
             return
         }
 
-        var newLocation = location
+        var newLocation = event.location
         let displacement = newLocation - transform.position
 
         if displacement.magnitude > backgroundRadius {
@@ -95,7 +85,7 @@ class Joystick: GameEntity, Renderable {
         EventSystem.processedInputEvents.playerMoveEvent.post(event: event)
     }
 
-    func onTouchUp(location: Vector2D) {
+    func onTouchUp(event: TouchUpEvent) {
         tracking = false
         foregroundNode.move(to: transform.position)
         let event = PlayerMoveEvent(direction: Vector2D.zero)

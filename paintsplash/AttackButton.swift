@@ -24,15 +24,16 @@ class AttackButton: GameEntity, Renderable {
 
     init(position: Vector2D) {
         renderColor = nil
-        spriteName = "joystick-background"
+        spriteName = "joystick-foreground"
         currentAnimation = nil
-        transform = Transform.identity
+        transform = Transform.standard
         transform.position = position
         zPosition = 0
 
         super.init()
 
-        EventSystem.inputEvents.subscribe(listener: onTouch)
+        EventSystem.inputEvents.touchDownEvent.subscribe(listener: onTouchDown)
+        EventSystem.inputEvents.touchUpEvent.subscribe(listener: onTouchUp)
     }
 
     override func spawn(gameManager: GameManager) {
@@ -45,24 +46,13 @@ class AttackButton: GameEntity, Renderable {
         super.update(gameManager: gameManager)
     }
 
-    func onTouch(inputEvent: TouchInputEvent) {
-        switch inputEvent.inputState {
-        case .touchDown(let location):
-            onTouchDown(location: location)
-        case .touchUp(let location):
-            onTouchUp(location: location)
-        default:
-            break
-        }
-    }
-
-    func onTouchDown(location: Vector2D) {
-        if Vector2D.magnitude(of: location - transform.position) < radius {
+    func onTouchDown(event: TouchDownEvent) {
+        if Vector2D.magnitude(of: event.location - transform.position) < radius {
             tracking = true
         }
     }
 
-    func onTouchUp(location: Vector2D) {
+    func onTouchUp(event: TouchUpEvent) {
         guard tracking else {
             return
         }

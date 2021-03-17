@@ -9,17 +9,17 @@ import SpriteKit
 extension GameScene: UserInput {
     func touchDown(atPoint pos : CGPoint) {
         let event = TouchDownEvent(location: Vector2D(pos))
-        EventSystem.inputEvents.post(event: event)
+        EventSystem.inputEvents.touchDownEvent.post(event: event)
     }
 
     func touchMoved(toPoint pos : CGPoint) {
         let event = TouchMovedEvent(location: Vector2D(pos))
-        EventSystem.inputEvents.post(event: event)
+        EventSystem.inputEvents.touchMovedEvent.post(event: event)
     }
 
     func touchUp(atPoint pos : CGPoint) {
         let event = TouchUpEvent(location: Vector2D(pos))
-        EventSystem.inputEvents.post(event: event)
+        EventSystem.inputEvents.touchUpEvent.post(event: event)
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

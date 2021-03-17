@@ -5,7 +5,7 @@
 //  Created by Praveen Bala on 17/3/21.
 //
 
-class ChangeViewEventManager: EventManager {
-    var listeners = [((ChangeViewEvent) -> Void)?]()
+class ChangeViewEventManager: EventManager<ChangeViewEvent> {
+
 }
 

@@ -62,13 +62,14 @@ class GameManager {
         let joystick = Joystick(position: Vector2D(Double(150) / -2 + 100, -200))
         joystick.spawn(gameManager: self)
 
+        let attackButton = AttackButton(position: Vector2D(Double(150) / 2 + 100, -200))
+        attackButton.spawn(gameManager: self)
+
         self.aiSystem = GameManagerAISystem(gameManager: self)
 
         self.aiSystem?.addEnemy(at: Vector2D(50, 50))
         self.aiSystem?.addEnemySpawner(at: Vector2D(200, 50))
 
-        let attackButton = AttackButton(position: Vector2D(Double(150) / 2 + 100, -200))
-        attackButton.spawn(gameManager: self)
     }
 
     private func setupViewChangeListener() {

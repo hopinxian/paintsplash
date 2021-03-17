@@ -7,12 +7,13 @@
 
 import Foundation
 
-class Player: InteractiveEntity, Movable {
+class Player: InteractiveEntity, Movable, PlayableCharacter {
 
     var velocity: Vector2D
     var acceleration: Vector2D
     var defaultSpeed: Double = 1.0
 
+    private var state: PlayerState = .idleLeft
     var paintWeaponsSystem: PaintWeaponsSystem
 
     init(initialPosition: Vector2D, initialVelocity: Vector2D) {
@@ -25,7 +26,7 @@ class Player: InteractiveEntity, Movable {
 
         super.init(spriteName: "", colliderShape: .circle(radius: 50), tags: .player, transform: transform)
 
-        self.currentAnimation = SlimeAnimations.slimeMoveRight
+        self.currentAnimation = PlayerAnimations.playerBrushIdleLeft
         self.paintWeaponsSystem.load(to: Bucket.self, ammo: [PaintAmmo(color: .blue), PaintAmmo(color: .red), PaintAmmo(color: .yellow)])
 
         self.paintWeaponsSystem.load([PaintAmmo(color: .blue), PaintAmmo(color: .red), PaintAmmo(color: .yellow)])
@@ -43,6 +44,7 @@ class Player: InteractiveEntity, Movable {
 
     override func update(gameManager: GameManager) {
         move()
+        setState()
         super.update(gameManager: gameManager)
     }
 
@@ -60,6 +62,26 @@ class Player: InteractiveEntity, Movable {
             default:
                 fatalError("Ammo Drop not conforming to AmmoDrop protocol")
             }
+        }
+    }
+
+
+    func setState() {
+        switch (state, velocity) {
+        case (.moveLeft, let velocity) where velocity.magnitude == 0:
+            self.state = .idleLeft
+            currentAnimation = PlayerAnimations.playerBrushIdleLeft
+        case (.moveRight, let velocity) where velocity.magnitude == 0:
+            self.state = .idleRight
+            currentAnimation = PlayerAnimations.playerBrushIdleRight
+        case (_, let velocity) where velocity.x < 0:
+            self.state = .moveLeft
+            currentAnimation = PlayerAnimations.playerBrushWalkLeft
+        case (_, let velocity) where velocity.x > 0:
+            self.state = .moveRight
+            currentAnimation = PlayerAnimations.playerBrushWalkRight
+        default:
+            break
         }
     }
 }
