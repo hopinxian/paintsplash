@@ -7,7 +7,7 @@
 
 import SpriteKit
 
-class TestCircle: InteractiveEntity, Movable {
+class TestCircle: InteractiveEntity, Movable, Colorable {
     var defaultSpeed: Double = 1.0
 
     var paintWeaponsSystem: PaintWeaponsSystem
@@ -16,11 +16,7 @@ class TestCircle: InteractiveEntity, Movable {
     var acceleration: Vector2D
 
     var color: PaintColor
-    
-    override var renderColor: PaintColor? {
-        return color
-    }
-    
+
     init(initialPosition: Vector2D, initialVelocity: Vector2D, weapons: PaintWeaponsSystem) {
         self.velocity = initialVelocity
         self.acceleration = Vector2D.zero
@@ -40,7 +36,7 @@ class TestCircle: InteractiveEntity, Movable {
     }
 
     @objc func shoot() {
-        paintWeaponsSystem.shoot()
+        _ = paintWeaponsSystem.shoot()
     }
 
     override func update(gameManager: GameManager) {

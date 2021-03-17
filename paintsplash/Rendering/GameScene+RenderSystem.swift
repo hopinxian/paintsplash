@@ -44,6 +44,8 @@ extension GameScene: RenderSystem {
         }
 
         node.position = CGPoint(renderable.transform.position)
+        node.zRotation = CGFloat(renderable.transform.rotation)
+        node.zPosition = CGFloat(renderable.zPosition)
     }
 
     func updateRenderableAnimation(_ renderable: Renderable) {
@@ -58,17 +60,18 @@ extension GameScene: RenderSystem {
         node.run(animation.getAction(), withKey: animation.name)
     }
 
-
-
     func buildNode(renderable: Renderable) -> SKNode {
-        let uiColor: UIColor
-        if let color = renderable.renderColor {
-            uiColor = color.uiColor
-        } else {
-            uiColor = .black
-        }
-        
+        // TODO: find a way for size to be determined dynamically
         let node = SKSpriteNode(imageNamed: renderable.spriteName)
+
+        switch renderable {
+        case let colorInfo as Colorable:
+            node.color = colorInfo.color.uiColor
+            node.colorBlendFactor = 1
+            print(renderable.spriteName + " has color info " + colorInfo.color.rawValue)
+        default:
+            print("")
+        }
 
         if let animation = renderable.currentAnimation {
             node.run(animation.getAction(), withKey: animation.name)
@@ -79,7 +82,7 @@ extension GameScene: RenderSystem {
         node.zRotation = CGFloat(renderable.transform.rotation)
         node.zPosition = CGFloat(renderable.zPosition)
         node.size = CGSize(renderable.transform.size * logicalToDisplayViewAdapter.sizeScaleToScreen)
-            
+
         return node
     }
 

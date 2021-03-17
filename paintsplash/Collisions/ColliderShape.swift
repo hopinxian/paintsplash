@@ -30,8 +30,6 @@ enum ColliderShape {
             physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: width, height: height))
             physicsBody.affectedByGravity = false
             physicsBody.categoryBitMask = 0b0001
-        default:
-            return SKPhysicsBody()
         }
 
         physicsBody.affectedByGravity = false

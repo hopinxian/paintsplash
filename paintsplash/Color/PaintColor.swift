@@ -11,7 +11,7 @@
  Paint colors are different if and only if their composition of
  base colors are different.
  */
-enum PaintColor: String, CaseIterable, GameColor {
+enum PaintColor: String, CaseIterable {
     case red
     case blue
     case yellow
@@ -28,58 +28,58 @@ enum PaintColor: String, CaseIterable, GameColor {
 
     private static let mixer = ColorMixer()
 
+    /// An array of all light colors
     static let lightColors = [lightred, lightblue, lightgreen, lightyellow, lightpurple, lightorange]
 
-    /// Decomposes the paint colors into a composition of base colors.
-    /// Returns a dictionary that maps every base color to a quantity of it that is within the paint color.
-    var baseColors: [BaseColor: Int] {
+    /// Returns the makeup of the color as a composition of base colors.
+    var makeup: ColorMakeup {
+        var makeup: ColorMakeup
         switch self {
         case .red:
-            return [BaseColor.red: 1]
+            makeup = .red
         case .blue:
-            return [BaseColor.blue: 1]
+            makeup = .blue
         case .yellow:
-            return [BaseColor.yellow: 1]
+            makeup = .yellow
         case .white:
-            return [BaseColor.white: 1]
+            makeup = .white
         case .green:
-            return [BaseColor.blue: 1, BaseColor.yellow: 1]
+            makeup = .blue + .yellow
         case .purple:
-            return [BaseColor.blue: 1, BaseColor.red: 1]
+            makeup = .blue + .red
         case .orange:
-            return [BaseColor.red: 1, BaseColor.yellow: 1]
+            makeup = .yellow + .red
         case .lightred:
-            return [BaseColor.white: 1, BaseColor.red: 1]
+            makeup = .white + .red
         case .lightblue:
-            return [BaseColor.white: 1, BaseColor.blue: 1]
+            makeup = .white + .blue
         case .lightyellow:
-            return [BaseColor.white: 1, BaseColor.yellow: 1]
+            makeup = .white + .yellow
         case .lightgreen:
-            return [BaseColor.white: 1, BaseColor.yellow: 1, BaseColor.blue: 1]
+            makeup = PaintColor.green.makeup + .white
         case .lightpurple:
-            return [BaseColor.white: 1, BaseColor.blue: 1, BaseColor.red: 1]
+            makeup = PaintColor.purple.makeup + .white
         case .lightorange:
-            return [BaseColor.white: 1, BaseColor.red: 1, BaseColor.yellow: 1]
+            makeup = PaintColor.orange.makeup + .white
         }
+        makeup.simplify()
+        return makeup
     }
 
+    /// Returns the result of mixing all the given colors.
+    /// Returns nothing if there is no valid color from the mixture.
     func mix(with colors: [PaintColor]) -> PaintColor? {
         var mix = colors
         mix.append(self)
         return PaintColor.mixer.mix(colors: mix)
     }
 
+    /// Returns true if this color contains the given color.
     func contains(color other: PaintColor) -> Bool {
-        let selfBase = self.baseColors
-        let otherBase = other.baseColors.mapValues { -$0 }
-        let difference = selfBase.merging(otherBase) {
-            this, other in this + other
-        }
-
-        let isContain = difference.values.allSatisfy { $0 >= 0 }
-        return isContain
+        return self.makeup.contains(other.makeup)
     }
 
+    /// Returns an array of colors which this color contains.
     func getSubColors() -> [PaintColor] {
         let subColors = PaintColor.allCases.filter { self.contains(color: $0) }
         return subColors

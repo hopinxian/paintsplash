@@ -5,77 +5,77 @@
 //  Created by Farrell Nah on 12/3/21.
 //
 
-class Bucket: Weapon {
-//    private var ammoQueue = Queue<PaintAmmo>()
+class Bucket: PaintWeapon {
 
     private let maxCoolDown = 100.0
     private var currentCoolDown = 0.0
-
-//    override func load(_ ammo: [PaintAmmo]) {
-//        for item in ammo {
-//            ammoQueue.enqueue(item)
-//        }
-//        /**
-//         Bucket needs to implement the specifics of the queue
-//         else it wld be difficult to perform the mixing of the paint within the bucket
-//         */
-//    }
-//
-//    override func shoot() -> Projectile? {
-//        guard let ammo = ammoQueue.dequeue(),
-//              canShoot() else {
-//            return nil
-//        }
-//
-//        return PaintProjectile(color: ammo.color, radius: 50.0, velocity: Vector2D(3, 0))
-//    }
     
     private var ammoQueue = [PaintAmmo]()
     
-    func load(_ ammos: [Ammo]) {
+    override func load(_ ammos: [PaintAmmo]) {
         for ammo in ammos {
-            if let paintAmmo = ammo as? PaintAmmo {
-                load(paintAmmo)
-            }
+            load(ammo)
         }
+        assert(checkRepresentation())
     }
     
-    private func load(_ ammo: PaintAmmo) {
+    func load(_ ammo: PaintAmmo) {
         ammoQueue.append(ammo)
         mix()
+        assert(checkRepresentation())
     }
     
     private func mix() {
-        let count = ammoQueue.count
+        let size = ammoQueue.count
+        guard size > 1 else {
+            return
+        }
         
-        // mixes two units every time
-        for i in 1..<count {
-            let firstColor = ammoQueue[count - i].color
-            let secondColor = ammoQueue[count - i - 1].color
-            if let result = firstColor.mix(with: [secondColor]) {
-                ammoQueue[count - i].color = result
-                ammoQueue[count - i - 1].color = result
+        // mixes until no two adjacent units of color are mixable
+        
+        var i = size - 1
+        while i != 0 {
+            let colorA = ammoQueue[i].color
+            let colorB = ammoQueue[i - 1].color
+            if let result = colorA.mix(with: [colorB]),
+               (result != colorA || result != colorB) {
+                ammoQueue[i].color = result
+                ammoQueue[i - 1].color = result
+                i = min(i + 1, size - 1)
             } else {
-                break
+                i -= 1
             }
         }
-
+        assert(checkRepresentation())
     }
 
-    func shoot() -> Projectile? {
+    override func shoot() -> Projectile? {
         guard !ammoQueue.isEmpty && canShoot() else {
             return nil
         }
         let ammo = ammoQueue.removeFirst()
-        
-        return PaintProjectile(color: ammo.color, radius: 25.0, velocity: Vector2D(3, 0))
+        assert(checkRepresentation())
+        return PaintProjectile(color: ammo.color, radius: 50.0, velocity: Vector2D(3, 0))
     }
     
-    func canShoot() -> Bool {
+    override func canShoot() -> Bool {
         currentCoolDown == 0
     }
-
-    func getAmmo() -> [Ammo] {
-        ammoQueue
+    
+    /// Checks that no further mixing of paint within the weapon is possible
+    private func checkRepresentation() -> Bool {
+        guard ammoQueue.count > 1 else {
+            return true
+        }
+        
+        for i in 0..<ammoQueue.count - 1 {
+            let colorA = ammoQueue[i].color
+            let colorB = ammoQueue[i + 1].color
+            let mix = colorA.mix(with: [colorB])
+            if mix != nil && mix != colorA && mix != colorB {
+                return false
+            }
+        }
+        return true
     }
 }

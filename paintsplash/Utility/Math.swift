@@ -19,13 +19,12 @@ struct Math {
             gcd = getGCD(gcd, numbers[i])
         }
 
-        assert(gcd > 0)
         return gcd
     }
 
-    /// Returns the greatest common divisor between the given positive integers.
+    /// Returns the greatest common divisor between the given non-negative integers.
     static func getGCD(_ lhs: Int, _ rhs: Int) -> Int {
-        assert(lhs > 0 && rhs > 0)
+        assert(lhs >= 0 && rhs >= 0)
 
         var big = max(lhs, rhs)
         var small = min(lhs, rhs)
@@ -35,7 +34,6 @@ struct Math {
             small = temp
         }
 
-        assert(big > 0)
         return big
     }
 }

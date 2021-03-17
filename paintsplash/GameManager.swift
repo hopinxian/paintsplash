@@ -34,7 +34,12 @@ class GameManager {
         EventSystem.entityChangeEvents.addEntityEvent.subscribe(listener: onAddEntity)
         EventSystem.entityChangeEvents.removeEntityEvent.subscribe(listener: onRemoveEntity)
 
+        let canvasSpawner = CanvasSpawner(initialPosition: Vector2D(-200, 150),
+                canvasVelocity: Vector2D(0.2, 0))
+        self.aiSystem?.add(aiEntity: canvasSpawner)
+
         setupGame()
+        setupViewChangeListener()
         setupViewChangeListener()
     }
 
