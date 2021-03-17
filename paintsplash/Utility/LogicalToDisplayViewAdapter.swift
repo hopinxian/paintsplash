@@ -28,16 +28,16 @@ struct LogicalToDisplayViewAdapter {
         Vector2D(1 / modelToScreen.x, 1 / modelToScreen.y)
     }
 
-    var sizeScaleToDesired: Double {
+    var sizeScaleToScreen: Double {
         min(modelToScreen.x, modelToScreen.y)
     }
 
-    var sizeScaleToLogical: Double {
+    var sizeScaleToModel: Double {
         min(1 / modelToScreen.x, 1 / modelToScreen.y)
     }
 
-    func modelPointToScreen(_ point: Vector2D) -> Vector2D {
-        Vector2D(point.x * modelToScreen.x, point.y * modelToScreen.y)
+    func modelPointToScreen(_ point: Vector2D) -> CGPoint {
+        CGPoint(x: point.x * modelToScreen.x, y: point.y * modelToScreen.y)
     }
 
     func screenPointToModel(_ point: Vector2D) -> Vector2D {

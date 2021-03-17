@@ -16,6 +16,8 @@ class GameScene: SKScene {
     private var circle1: TestCircle?
     private var ammoDrop: PaintAmmoDrop?
 
+    var logicalToDisplayViewAdapter: LogicalToDisplayViewAdapter!
+
     var gameManager: GameManager!
 
     var nodes = [UUID : SKNode]()
@@ -48,7 +50,7 @@ class GameScene: SKScene {
                                               SKAction.removeFromParent()]))
         }
 
-        let logicalToDisplayViewAdapter = LogicalToDisplayViewAdapter(modelSize: Vector2D(2000, 2000), screenSize: Vector2D(UIScreen.main.bounds.maxX, UIScreen.main.bounds.maxY))
+        logicalToDisplayViewAdapter = LogicalToDisplayViewAdapter(modelSize: Vector2D(2000, 2000), screenSize: Vector2D(UIScreen.main.bounds.maxX, UIScreen.main.bounds.maxY))
 
 //        let joystick = JoystickMovement()
 
