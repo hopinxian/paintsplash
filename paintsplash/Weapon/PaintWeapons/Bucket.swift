@@ -66,7 +66,7 @@ class Bucket: PaintWeapon {
         }
         let ammo = ammoQueue.removeFirst()
         
-        return PaintProjectile(color: ammo.color, radius: 50.0, velocity: Vector2D(3, 0))
+        return PaintProjectile(color: ammo.color, radius: 25.0, velocity: Vector2D(3, 0))
     }
     
     override func canShoot() -> Bool {

@@ -26,8 +26,8 @@ class PaintProjectile: InteractiveEntity, Projectile {
         self.velocity = velocity
         self.acceleration = Vector2D.zero
 
-        var transform = Transform.identity
-        transform.scale = Vector2D(radius * 2, radius * 2)
+        var transform = Transform.standard
+        transform.size = Vector2D(radius * 2, radius * 2)
 
         super.init(spriteName: "GreenCircle", colliderShape: .circle(radius: radius), tags: .playerProjectile, transform: transform)
     }

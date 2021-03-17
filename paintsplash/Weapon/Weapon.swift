@@ -12,4 +12,5 @@ protocol Weapon {
     func load(_ ammo: [AmmoType])
     func shoot() -> Projectile?
     func canShoot() -> Bool
+    func getAmmo() -> [AmmoType]
 }

@@ -31,7 +31,7 @@ class AIEntity: InteractiveEntity, Movable {
         self.velocity = initialVelocity
         self.acceleration = Vector2D.zero
 
-        var transform = Transform.identity
+        var transform = Transform.standard
         transform.position = initialPosition
 
         super.init(spriteName: "", colliderShape: .enemy(radius: radius), tags: .enemy, transform: transform)

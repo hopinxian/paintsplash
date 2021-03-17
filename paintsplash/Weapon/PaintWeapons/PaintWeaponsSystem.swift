@@ -6,21 +6,21 @@
 //
 
 class PaintWeaponsSystem: MultiWeaponSystem {
-    private let gameManager: GameManager
-
     var activeWeapon: PaintWeapon?
     var availableWeapons: [PaintWeapon]
     var carriedBy: Transformable?
 
-    init(weapons: [PaintWeapon], gameManager: GameManager) {
+    init(weapons: [PaintWeapon]) {
         self.activeWeapon = weapons[0]
         self.availableWeapons = weapons
-        self.gameManager = gameManager
     }
     
     func load(_ ammo: [PaintAmmo]) {
-        print("system load")
-        activeWeapon?.load(ammo)
+        guard let weapon = activeWeapon else {
+            return
+        }
+        weapon.load(ammo)
+        EventSystem.playerAmmoUpdateEvent.post(event: PlayerAmmoUpdateEvent(weapon: weapon, ammo: weapon.getAmmo()))
     }
 
     func load(to weapon: PaintWeapon, ammo: [PaintAmmo]) {
@@ -29,18 +29,23 @@ class PaintWeaponsSystem: MultiWeaponSystem {
         }
 
         weapon.load(ammo)
+        EventSystem.playerAmmoUpdateEvent.post(event: PlayerAmmoUpdateEvent(weapon: weapon, ammo: weapon.getAmmo()))
     }
 
     func shoot() -> Bool {
 
         // Handle shooting here
-        guard let projectile = activeWeapon?.shoot(),
+        guard let weapon = activeWeapon,
+              let projectile = weapon.shoot(),
               let carriedBy = carriedBy else {
             return false
         }
 
         projectile.move(to: carriedBy.transform.position)
-        projectile.spawn(gameManager: gameManager)
+
+        EventSystem.addEntityEvent.post(event: AddEntityEvent(entity: projectile))
+        EventSystem.playerAmmoUpdateEvent.post(event: PlayerAmmoUpdateEvent(weapon: weapon, ammo: weapon.getAmmo()))
+        //        projectile.spawn(gameManager: gameManager)
 
         return true
     }
@@ -53,4 +58,11 @@ class PaintWeaponsSystem: MultiWeaponSystem {
         activeWeapon = weapon
     }
 
+    func getAmmo() -> [(PaintWeapon, [PaintAmmo])] {
+        var ammoList = [(PaintWeapon, [PaintAmmo])]()
+        for weapon in availableWeapons {
+            ammoList.append((weapon, weapon.getAmmo()))
+        }
+        return ammoList
+    }
 }

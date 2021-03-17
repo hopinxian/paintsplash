@@ -27,7 +27,7 @@ class TestCircle: InteractiveEntity, Movable {
         self.paintWeaponsSystem = weapons
         
         self.color = PaintColor.red
-        var transform = Transform.identity
+        var transform = Transform.standard
         transform.position = initialPosition
 
         super.init(spriteName: "RedCircle", colliderShape: .circle(radius: 50), tags: .player, transform: transform)

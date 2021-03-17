@@ -28,15 +28,6 @@ class GameViewController: UIViewController {
             let gameManager = GameManager(gameScene: gameScene)
             gameScene.gameManager = gameManager
 
-            let playerWeaponSystem = PaintWeaponsSystem(weapons: [PaintGun(), Bucket()], gameManager: gameManager)
-
-            let circle1 = TestCircle(initialPosition: Vector2D(-250, 0), initialVelocity: Vector2D(1, 0), weapons: playerWeaponSystem)
-            let ammoDrop = PaintAmmoDrop(color: .blue, position: Vector2D(0, 0))
-
-            circle1.spawn(gameManager: gameManager)
-            ammoDrop.spawn(gameManager: gameManager)
-
-
             view.ignoresSiblingOrder = true
             
             view.showsFPS = true

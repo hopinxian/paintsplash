@@ -26,8 +26,8 @@ extension Transformable {
         transform.rotation = newAngle
     }
 
-    func scale(to newScale: Vector2D) {
-        transform.scale = newScale
+    func scale(to newSize: Vector2D) {
+        transform.size = newSize
     }
 
     func transform(to newTransform: Transform) {

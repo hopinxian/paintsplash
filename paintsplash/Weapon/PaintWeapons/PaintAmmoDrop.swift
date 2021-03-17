@@ -17,7 +17,7 @@ class PaintAmmoDrop: InteractiveEntity, AmmoDrop, Colorable {
     init(color: PaintColor, position: Vector2D) {
         self.color = color
         
-        let transform = Transform(position: position, rotation: 0.0, scale: size)
+        let transform = Transform(position: position, rotation: 0.0, size: size)
         super.init(spriteName: "BlueCircle", colliderShape: .rectangle(size: size), tags: .ammoDrop, transform: transform)
     }
 

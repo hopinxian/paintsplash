@@ -15,4 +15,5 @@ protocol MultiWeaponSystem {
     func load(to weapon: WeaponType, ammo: [WeaponType.AmmoType])
     func shoot() -> Bool
     func switchWeapon(to weapon: WeaponType)
+    func getAmmo() -> [(WeaponType, [WeaponType.AmmoType])]
 }

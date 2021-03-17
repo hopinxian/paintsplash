@@ -78,6 +78,7 @@ extension GameScene: RenderSystem {
         node.position = CGPoint(renderable.transform.position)
         node.zRotation = CGFloat(renderable.transform.rotation)
         node.zPosition = CGFloat(renderable.zPosition)
+        node.size = CGSize(renderable.transform.size)
             
         return node
     }

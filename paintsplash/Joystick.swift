@@ -37,7 +37,7 @@ class Joystick: GameEntity, Renderable {
         renderColor = nil
         spriteName = "joystick-background"
         currentAnimation = nil
-        transform = Transform.identity
+        transform = Transform.standard
         transform.position = position
         zPosition = 0
         foregroundNode = JoystickForeground(position: position, zPosition: zPosition + 100)
@@ -119,8 +119,7 @@ class JoystickForeground: GameEntity, Renderable {
         renderColor = nil
         spriteName = "joystick-foreground"
         currentAnimation = nil
-        transform = Transform.identity
-        transform.position = position
+        transform = Transform(position: position, rotation: 0.0, size: Vector2D(42, 42))
         super.init()
     }
 

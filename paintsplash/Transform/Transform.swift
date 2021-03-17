@@ -8,7 +8,8 @@
 struct Transform {
     var position: Vector2D
     var rotation: Double
-    var scale: Vector2D
+    var size: Vector2D
 
-    static let identity = Transform(position: Vector2D.zero, rotation: 0.0, scale: Vector2D(1, 1))
+    static let identity = Transform(position: Vector2D.zero, rotation: 0.0, size: Vector2D(1, 1))
+    static let standard = Transform(position: Vector2D.zero, rotation: 0.0, size: Vector2D(128, 128))
 }

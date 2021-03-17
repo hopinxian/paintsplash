@@ -19,4 +19,8 @@ class PaintWeapon: Weapon {
     func canShoot() -> Bool {
         true
     }
+
+    func getAmmo() -> [PaintAmmo] {
+        []
+    }
 }
