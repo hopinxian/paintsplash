@@ -94,6 +94,9 @@
 		DC7B421F25FF63350069B422 /* CollisionEventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7B421625FF63350069B422 /* CollisionEventManager.swift */; };
 		DC7B422025FF63350069B422 /* CollisionEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7B421725FF63350069B422 /* CollisionEvent.swift */; };
 		DC7B422125FF63350069B422 /* EventSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7B421825FF63350069B422 /* EventSystem.swift */; };
+		DC94351726019EA1001046BB /* CanvasRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC94351626019EA1001046BB /* CanvasRequest.swift */; };
+		DC94351F2601A0D0001046BB /* DespawnAIEntityEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC94351E2601A0D0001046BB /* DespawnAIEntityEvent.swift */; };
+		DC9435242601A0DA001046BB /* DespawnAIEntityEventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9435232601A0DA001046BB /* DespawnAIEntityEventManager.swift */; };
 		DC9BAACB26010EFE0011B26E /* SpawnCanvasBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9BAACA26010EFE0011B26E /* SpawnCanvasBehaviour.swift */; };
 		DC9D4A4825F92E2C000F07FF /* Enemy.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9D4A4725F92E2C000F07FF /* Enemy.swift */; };
 		DCB72DB225FE13B300B183E0 /* GameManagerAISystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCB72DB125FE13B300B183E0 /* GameManagerAISystem.swift */; };
@@ -213,6 +216,9 @@
 		DC7B421625FF63350069B422 /* CollisionEventManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollisionEventManager.swift; sourceTree = "<group>"; };
 		DC7B421725FF63350069B422 /* CollisionEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollisionEvent.swift; sourceTree = "<group>"; };
 		DC7B421825FF63350069B422 /* EventSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventSystem.swift; sourceTree = "<group>"; };
+		DC94351626019EA1001046BB /* CanvasRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasRequest.swift; sourceTree = "<group>"; };
+		DC94351E2601A0D0001046BB /* DespawnAIEntityEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DespawnAIEntityEvent.swift; sourceTree = "<group>"; };
+		DC9435232601A0DA001046BB /* DespawnAIEntityEventManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DespawnAIEntityEventManager.swift; sourceTree = "<group>"; };
 		DC9BAACA26010EFE0011B26E /* SpawnCanvasBehaviour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpawnCanvasBehaviour.swift; sourceTree = "<group>"; };
 		DC9D4A4725F92E2C000F07FF /* Enemy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enemy.swift; sourceTree = "<group>"; };
 		DCB72DB125FE13B300B183E0 /* GameManagerAISystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameManagerAISystem.swift; sourceTree = "<group>"; };
@@ -393,6 +399,7 @@
 				DC0EE89025FE4C2300CBF414 /* EnemySpawner.swift */,
 				DC24030D2600845100550E1E /* Canvas.swift */,
 				DC24033C2600FEFE00550E1E /* CanvasSpawner.swift */,
+				DC94351626019EA1001046BB /* CanvasRequest.swift */,
 			);
 			path = AI;
 			sourceTree = "<group>";
@@ -482,6 +489,8 @@
 			children = (
 				DC24032E2600E13200550E1E /* SpawnAIEntityEvent.swift */,
 				DC2403372600E1FB00550E1E /* SpawnAIEntityEventManager.swift */,
+				DC94351E2601A0D0001046BB /* DespawnAIEntityEvent.swift */,
+				DC9435232601A0DA001046BB /* DespawnAIEntityEventManager.swift */,
 			);
 			path = AISystemEvents;
 			sourceTree = "<group>";
@@ -707,6 +716,7 @@
 				DC0EE8A125FE4E8B00CBF414 /* SpawnerAnimations.swift in Sources */,
 				DC0EE89125FE4C2300CBF414 /* EnemySpawner.swift in Sources */,
 				DCF1BEFA25FA6B6E00B56AD4 /* AIGameInfo.swift in Sources */,
+				DC9435242601A0DA001046BB /* DespawnAIEntityEventManager.swift in Sources */,
 				ACFD822725F67C76009D806B /* PaintColor.swift in Sources */,
 				D596B18125F8AE8900A5854F /* Entity.swift in Sources */,
 				ACFD822225F67C5B009D806B /* Projectile.swift in Sources */,
@@ -756,8 +766,10 @@
 				D596B17425F7C0F500A5854F /* UserInput.swift in Sources */,
 				8402D28225FDFD0300493DDE /* GameColor.swift in Sources */,
 				DC24032F2600E13200550E1E /* SpawnAIEntityEvent.swift in Sources */,
+				DC94351F2601A0D0001046BB /* DespawnAIEntityEvent.swift in Sources */,
 				D55A8AAD25FC933A00BBE210 /* GameManager.swift in Sources */,
 				D596B19A25F8CF0800A5854F /* Renderable.swift in Sources */,
+				DC94351726019EA1001046BB /* CanvasRequest.swift in Sources */,
 				DC7B421B25FF63350069B422 /* TouchInputEvent.swift in Sources */,
 				ACFD822C25F67C9E009D806B /* Transformable.swift in Sources */,
 				DC7B421E25FF63350069B422 /* EventMovementSystem.swift in Sources */,

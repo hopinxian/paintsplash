@@ -12,4 +12,5 @@ class EventSystem {
     static let playerHasMovedEvent = PlayerHasMovedEventManager()
     static let processedInputEvent = ProcessedInputEventManager()
     static let spawnAIEntityEvent = SpawnAIEntityEventManager()
+    static let despawnAIEntityEvent = DespawnAIEntityEventManager()
 }

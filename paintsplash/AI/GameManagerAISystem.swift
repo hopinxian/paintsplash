@@ -14,14 +14,14 @@ class GameManagerAISystem: AISystem {
         self.gameManager = gameManager
 
         EventSystem.spawnAIEntityEvent.subscribe(listener: onSpawnAIEntity)
+        EventSystem.despawnAIEntityEvent.subscribe(listener: onDespawnAIEntity)
     }
 
     func updateAIEntities() {
         AIEntities.forEach { entity in
             entity.currentBehaviour.updateAI(aiEntity: entity,
                                              aiGameInfo: AIGameInfo(playerPosition: gameManager.currentPlayerPosition,
-                                                                    numberOfEnemies: AIEntities.count,
-                                                                    aiSystem: self))
+                                                                    numberOfEnemies: AIEntities.count))
         }
     }
 
@@ -65,6 +65,10 @@ class GameManagerAISystem: AISystem {
         case .canvas(let location, let velocity):
             addCanvas(at: location, velocity: velocity)
         }
+    }
+
+    func onDespawnAIEntity(event: DespawnAIEntityEvent) {
+        event.entityToDespawn.fadeDestroy(gameManager: self.gameManager, duration: 1)
     }
 
 }

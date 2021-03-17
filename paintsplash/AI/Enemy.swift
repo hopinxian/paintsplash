@@ -35,7 +35,9 @@ class Enemy: AIEntity {
         if self.hitsToDie <= 0 {
             self.state = .die
 
-            gameManager.removeAIEntity(aiEntity: self)
+            // gameManager.removeAIEntity(aiEntity: self)
+            let event = DespawnAIEntityEvent(entityToDespawn: self)
+            EventSystem.despawnAIEntityEvent.post(event: event)
 
             return
         }

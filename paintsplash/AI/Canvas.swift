@@ -25,4 +25,15 @@ class Canvas: AIEntity {
             return CanvasAnimations.canvasIdle
         }
     }
+
+    override func onCollide(otherObject: Collidable, gameManager: GameManager) {
+        switch otherObject {
+        case let ammoDrop as PaintAmmoDrop:
+            // add colour to canvas
+            print("collidateed with ammo")
+        default:
+            print("invalid collision type")
+        }
+
+    }
 }

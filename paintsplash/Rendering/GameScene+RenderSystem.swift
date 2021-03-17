@@ -58,6 +58,8 @@ extension GameScene: RenderSystem {
         node.run(animation.getAction(), withKey: animation.name)
     }
 
+
+
     func buildNode(renderable: Renderable) -> SKNode {
         let uiColor: UIColor
         if let color = renderable.renderColor {
