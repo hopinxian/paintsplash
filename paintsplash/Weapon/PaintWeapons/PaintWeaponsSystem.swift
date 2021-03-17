@@ -43,7 +43,7 @@ class PaintWeaponsSystem: MultiWeaponSystem {
 
         projectile.move(to: carriedBy.transform.position)
 
-        EventSystem.addEntityEvent.post(event: AddEntityEvent(entity: projectile))
+        EventSystem.entityChangeEvents.addEntityEvent.post(event: AddEntityEvent(entity: projectile))
         EventSystem.playerAmmoUpdateEvent.post(event: PlayerAmmoUpdateEvent(weapon: weapon, ammo: weapon.getAmmo()))
         //        projectile.spawn(gameManager: gameManager)
 

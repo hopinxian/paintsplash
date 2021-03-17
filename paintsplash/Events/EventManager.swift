@@ -5,15 +5,9 @@
 //  Created by Farrell Nah on 15/3/21.
 //
 
-protocol EventManager: AnyObject {
-    associatedtype EventType: Event
-    var listeners: [((EventType) -> Void)?] { get set }
+class EventManager<EventType: Event> {
+    var listeners = [((EventType) -> Void)?]()
 
-    func subscribe(listener: @escaping (EventType) -> Void)
-    func post(event: EventType)
-}
-
-extension EventManager {
     func subscribe(listener: @escaping (EventType) -> Void) {
         listeners.append(listener)
     }

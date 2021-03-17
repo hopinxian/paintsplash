@@ -5,11 +5,22 @@
 //  Created by Farrell Nah on 15/3/21.
 //
 
-struct ProcessedInputEvent: Event {
-    let processedInputType: ProcessedInputType
+class ProcessedInputEvent: Event {
+
 }
 
-enum ProcessedInputType {
-    case playerMovement(direction: Vector2D)
-    case playerShoot(direction: Vector2D)
+class PlayerMoveEvent: ProcessedInputEvent {
+    let direction: Vector2D
+
+    init(direction: Vector2D) {
+        self.direction = direction
+    }
+}
+
+class PlayerShootEvent: ProcessedInputEvent {
+    let direction: Vector2D
+
+    init(direction: Vector2D) {
+        self.direction = direction
+    }
 }

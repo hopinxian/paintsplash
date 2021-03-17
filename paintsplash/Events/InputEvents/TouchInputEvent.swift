@@ -5,12 +5,22 @@
 //  Created by Farrell Nah on 15/3/21.
 //
 
-struct TouchInputEvent: Event {
-    let inputState: TouchInputState
+class TouchInputEvent: Event {
+    let location: Vector2D
+
+    init(location: Vector2D) {
+        self.location = location
+    }
 }
 
-enum TouchInputState {
-    case touchUp(location: Vector2D)
-    case touchDown(location: Vector2D)
-    case touchMoved(location: Vector2D)
+class TouchUpEvent: TouchInputEvent {
+
+}
+
+class TouchDownEvent: TouchInputEvent {
+
+}
+
+class TouchMovedEvent: TouchInputEvent {
+
 }

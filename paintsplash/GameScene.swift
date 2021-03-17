@@ -48,6 +48,8 @@ class GameScene: SKScene {
                                               SKAction.removeFromParent()]))
         }
 
+        let logicalToDisplayViewAdapter = LogicalToDisplayViewAdapter(modelSize: Vector2D(2000, 2000), screenSize: Vector2D(UIScreen.main.bounds.maxX, UIScreen.main.bounds.maxY))
+
 //        let joystick = JoystickMovement()
 
 //        joystick.position = CGPoint(x: self.size.width / -2 + 100, y: -200)

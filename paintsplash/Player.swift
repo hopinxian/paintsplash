@@ -31,7 +31,7 @@ class Player: InteractiveEntity, Movable {
         Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(shoot), userInfo: nil, repeats: true)
 
         paintWeaponsSystem.carriedBy = self
-        EventSystem.processedInputEvent.subscribe(listener: onReceiveInput)
+        EventSystem.processedInputEvents.playerMoveEvent.subscribe(listener: onMove)
     }
 
     @objc func shoot() {
@@ -43,13 +43,8 @@ class Player: InteractiveEntity, Movable {
         super.update(gameManager: gameManager)
     }
 
-    func onReceiveInput(event: ProcessedInputEvent) {
-        switch event.processedInputType {
-        case .playerMovement(let direction):
-            velocity = direction
-        default:
-            break
-        }
+    func onMove(event: PlayerMoveEvent) {
+        velocity = event.direction
     }
 
     override func onCollide(otherObject: Collidable, gameManager: GameManager) {

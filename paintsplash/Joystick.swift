@@ -60,13 +60,15 @@ class Joystick: GameEntity, Renderable {
     }
 
     func onTouch(inputEvent: TouchInputEvent) {
-        switch inputEvent.inputState {
-        case .touchDown(let location):
-            onTouchDown(location: location)
-        case .touchUp(let location):
-            onTouchUp(location: location)
-        case .touchMoved(let location):
-            onTouchMoved(location: location)
+        switch inputEvent {
+        case let touchDownEvent as TouchDownEvent:
+            onTouchDown(location: touchDownEvent.location)
+        case let touchUpEvent as TouchUpEvent:
+            onTouchUp(location: touchUpEvent.location)
+        case let touchMovedEvent as TouchMovedEvent:
+            onTouchMoved(location: touchMovedEvent.location)
+        default:
+            break
         }
     }
 
@@ -91,15 +93,15 @@ class Joystick: GameEntity, Renderable {
 
         foregroundNode.move(to: newLocation)
 
-        let event = ProcessedInputEvent(processedInputType: .playerMovement(direction: displacement.unitVector))
-        EventSystem.processedInputEvent.post(event: event)
+        let event = PlayerMoveEvent(direction: displacement.unitVector)
+        EventSystem.processedInputEvents.playerMoveEvent.post(event: event)
     }
 
     func onTouchUp(location: Vector2D) {
         tracking = false
         foregroundNode.move(to: transform.position)
-        let event = ProcessedInputEvent(processedInputType: .playerMovement(direction: Vector2D.zero))
-        EventSystem.processedInputEvent.post(event: event)
+        let event = PlayerMoveEvent(direction: Vector2D.zero)
+        EventSystem.processedInputEvents.playerMoveEvent.post(event: event)
     }
 }
 

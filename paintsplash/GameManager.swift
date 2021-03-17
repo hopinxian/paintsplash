@@ -32,8 +32,8 @@ class GameManager {
 
         player = Player(initialPosition: Vector2D(-250, 0), initialVelocity: Vector2D(1, 0))
 
-        EventSystem.addEntityEvent.subscribe(listener: onAddEntity)
-        EventSystem.removeEntityEvent.subscribe(listener: onRemoveEntity)
+        EventSystem.entityChangeEvents.addEntityEvent.subscribe(listener: onAddEntity)
+        EventSystem.entityChangeEvents.removeEntityEvent.subscribe(listener: onRemoveEntity)
 
         setupGame()
     }

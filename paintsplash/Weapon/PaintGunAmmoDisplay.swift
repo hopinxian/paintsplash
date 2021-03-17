@@ -39,7 +39,7 @@ class PaintGunAmmoDisplay: GameEntity, Renderable {
 
     func populate(with ammo: [PaintAmmo]) {
         for display in ammoDisplay {
-            EventSystem.removeEntityEvent.post(event: RemoveEntityEvent(entity: display))
+            EventSystem.entityChangeEvents.removeEntityEvent.post(event: RemoveEntityEvent(entity: display))
         }
 
         ammoDisplay = []
@@ -48,7 +48,7 @@ class PaintGunAmmoDisplay: GameEntity, Renderable {
         for ammoData in ammo {
             let newDisplay = PaintAmmoDisplay(color: ammoData.color, position: nextPosition, zPosition: zPosition + 1)
             ammoDisplay.append(newDisplay)
-            EventSystem.addEntityEvent.post(event: AddEntityEvent(entity: newDisplay))
+            EventSystem.entityChangeEvents.addEntityEvent.post(event: AddEntityEvent(entity: newDisplay))
             nextPosition += Vector2D(0, newDisplay.transform.size.y + 10)
         }
 

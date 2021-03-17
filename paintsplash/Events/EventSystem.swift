@@ -10,8 +10,7 @@ class EventSystem {
     static let inputEvents = TouchInputEventManager()
     static let entityMovementEvent = EntityMovementEvent()
     static let playerHasMovedEvent = PlayerHasMovedEventManager()
-    static let processedInputEvent = ProcessedInputEventManager()
+    static let processedInputEvents = ProcessedInputEventManager()
     static let playerAmmoUpdateEvent = PlayerAmmoUpdateEventManager()
-    static let addEntityEvent = AddEntityEventManager()
-    static let removeEntityEvent = RemoveEntityEventManager()
+    static let entityChangeEvents = EntityChangeEventManager()
 }
