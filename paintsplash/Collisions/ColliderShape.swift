@@ -12,17 +12,17 @@ enum ColliderShape {
     case rectangle(size: Vector2D)
     case texture(name: String, size: Vector2D)
 
-    func getPhysicsBody() -> SKPhysicsBody {
+    func getPhysicsBody(_ viewAdapter: LogicalToDisplayViewAdapter) -> SKPhysicsBody {
         var physicsBody = SKPhysicsBody()
         switch self {
         case .circle(let radius):
-            physicsBody = SKPhysicsBody(circleOfRadius: CGFloat(radius))
+            physicsBody = SKPhysicsBody(circleOfRadius: CGFloat(radius * viewAdapter.sizeScaleToScreen))
         case .rectangle(let size):
-            physicsBody = SKPhysicsBody(rectangleOf: CGSize(size))
+            physicsBody = SKPhysicsBody(rectangleOf: CGSize(size * viewAdapter.sizeScaleToScreen))
         case .texture(let name, let size):
-            physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: name), size: CGSize(size))
+            physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: name), size: CGSize(size * viewAdapter.sizeScaleToScreen))
         case .enemy(let radius):
-            let physicsBody = SKPhysicsBody(circleOfRadius: CGFloat(radius))
+            let physicsBody = SKPhysicsBody(circleOfRadius: CGFloat(radius * viewAdapter.sizeScaleToScreen))
             physicsBody.affectedByGravity = false
             physicsBody.categoryBitMask = 0b0001
         default:

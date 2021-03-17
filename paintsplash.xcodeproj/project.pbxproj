@@ -69,6 +69,7 @@
 		D596B1B625F8CF7400A5854F /* CollisionSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D596B1B525F8CF7400A5854F /* CollisionSystem.swift */; };
 		D596B1C525F8CFEC00A5854F /* AIEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D596B1C425F8CFEC00A5854F /* AIEntity.swift */; };
 		D598F53D26019E7300D7CACB /* LogicalToDisplayViewAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D598F53C26019E7300D7CACB /* LogicalToDisplayViewAdapter.swift */; };
+		D598F55F2601C03600D7CACB /* PaintBucketAmmoDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D598F55E2601C03600D7CACB /* PaintBucketAmmoDisplay.swift */; };
 		D5D9200625FB8EEE00E70364 /* PaintWeaponsSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D9200525FB8EEE00E70364 /* PaintWeaponsSystem.swift */; };
 		D5D9200B25FB955500E70364 /* PaintWeapon.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D9200A25FB955500E70364 /* PaintWeapon.swift */; };
 		D5D9201425FB9ACB00E70364 /* PaintAmmoDrop.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D9201325FB9ACB00E70364 /* PaintAmmoDrop.swift */; };
@@ -190,6 +191,7 @@
 		D596B1C425F8CFEC00A5854F /* AIEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIEntity.swift; sourceTree = "<group>"; };
 		D596B1CE25F8D01800A5854F /* Transform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transform.swift; sourceTree = "<group>"; };
 		D598F53C26019E7300D7CACB /* LogicalToDisplayViewAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogicalToDisplayViewAdapter.swift; sourceTree = "<group>"; };
+		D598F55E2601C03600D7CACB /* PaintBucketAmmoDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaintBucketAmmoDisplay.swift; sourceTree = "<group>"; };
 		D5D9200525FB8EEE00E70364 /* PaintWeaponsSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaintWeaponsSystem.swift; sourceTree = "<group>"; };
 		D5D9200A25FB955500E70364 /* PaintWeapon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaintWeapon.swift; sourceTree = "<group>"; };
 		D5D9201325FB9ACB00E70364 /* PaintAmmoDrop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaintAmmoDrop.swift; sourceTree = "<group>"; };
@@ -379,6 +381,7 @@
 				ACFD821C25F67C49009D806B /* MultiWeaponSystem.swift */,
 				D58346B025FB8653005C344D /* Ammo.swift */,
 				D55EEB7D260089C200ADC70B /* PaintGunAmmoDisplay.swift */,
+				D598F55E2601C03600D7CACB /* PaintBucketAmmoDisplay.swift */,
 				D55EEB8526008AAE00ADC70B /* PaintAmmoDisplay.swift */,
 				D55EEBAC260096FB00ADC70B /* VerticalStackDisplay.swift */,
 			);
@@ -734,6 +737,7 @@
 				D583469D25FB8493005C344D /* Stack.swift in Sources */,
 				DC7B421925FF63350069B422 /* EventManager.swift in Sources */,
 				AC11904925FE7B7B00601CB9 /* Joystick.swift in Sources */,
+				D598F55F2601C03600D7CACB /* PaintBucketAmmoDisplay.swift in Sources */,
 				D55EEB5E25FF9C6600ADC70B /* PlayerHasMovedEvent.swift in Sources */,
 				8402D28A25FE083C00493DDE /* TestColorEnemy.swift in Sources */,
 				ACB3607225F661620016E240 /* AppDelegate.swift in Sources */,

@@ -44,8 +44,20 @@ class GameManager {
         ammoDrop.spawn(gameManager: self)
         player.spawn(gameManager: self)
 
-        let paintGunUI = PaintGunAmmoDisplay(weaponData: player.paintWeaponsSystem.activeWeapon as! PaintGun)
+
+        guard let paintGun = player.paintWeaponsSystem.availableWeapons.compactMap({ $0 as? PaintGun }).first else {
+            fatalError("PaintGun not setup properly")
+        }
+
+        let paintGunUI = PaintGunAmmoDisplay(weaponData: paintGun)
         paintGunUI.spawn(gameManager: self)
+
+        guard let paintBucket = player.paintWeaponsSystem.availableWeapons.compactMap({ $0 as? Bucket }).first else {
+            fatalError("PaintBucket not setup properly")
+        }
+
+        let paintBucketUI = PaintBucketAmmoDisplay(weaponData: paintBucket)
+        paintBucketUI.spawn(gameManager: self)
 
         let joystick = Joystick(position: Vector2D(Double(150) / -2 + 100, -200))
         joystick.spawn(gameManager: self)

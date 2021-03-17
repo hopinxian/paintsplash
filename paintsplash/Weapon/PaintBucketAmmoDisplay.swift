@@ -1,11 +1,11 @@
 //
-//  WeaponAmmoDisplay.swift
+//  PaintBucketAmmoDisplay.swift
 //  paintsplash
 //
-//  Created by Farrell Nah on 16/3/21.
+//  Created by Farrell Nah on 17/3/21.
 //
 
-class PaintGunAmmoDisplay: GameEntity, Renderable {
+class PaintBucketAmmoDisplay: GameEntity, Renderable {
     var renderColor: PaintColor?
 
     var spriteName: String
@@ -16,13 +16,13 @@ class PaintGunAmmoDisplay: GameEntity, Renderable {
 
     var ammoDisplay = [PaintAmmoDisplay]()
 
-    var weaponData: PaintGun
+    var weaponData: Bucket
 
-    init(weaponData: PaintGun) {
+    init(weaponData: Bucket) {
         renderColor = nil
         spriteName = "WhiteSquare"
         transform = Transform(
-            position: Vector2D(200, -200),
+            position: Vector2D(300, -200),
             rotation: 0.0,
             size: Vector2D(60, 200)
         )
@@ -34,7 +34,7 @@ class PaintGunAmmoDisplay: GameEntity, Renderable {
     }
 
     private func onAmmoUpdate(event: PlayerAmmoUpdateEvent) {
-        if event.weapon is PaintGun {
+        if event.weapon is Bucket {
             populate(with: event.ammo)
         }
     }
@@ -72,3 +72,4 @@ class PaintGunAmmoDisplay: GameEntity, Renderable {
         super.spawn(gameManager: gameManager)
     }
 }
+

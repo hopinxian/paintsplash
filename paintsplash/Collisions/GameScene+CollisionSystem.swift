@@ -17,7 +17,7 @@ extension GameScene: SKPhysicsContactDelegate, CollisionSystem {
     }
 
     func addCollidable(_ collidable: Collidable) {
-        let physicsBody = collidable.colliderShape.getPhysicsBody()
+        let physicsBody = collidable.colliderShape.getPhysicsBody(logicalToDisplayViewAdapter)
         physicsBody.contactTestBitMask = collidable.tags.getBitMask()
 
         if let node = nodes[collidable.id] {
