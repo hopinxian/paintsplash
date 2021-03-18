@@ -32,12 +32,22 @@ extension Renderable {
 
     func animate(animation: Animation, interupt: Bool, callBack: (() -> Void)?) {
 //        currentAnimation = animation
+        var processedAnimation = animation
+        if let callback = callBack {
+            processedAnimation = CallbackAnimation(
+                name: animation.name,
+                animationDuration: animation.animationDuration,
+                animation: animation,
+                completionCallback: callback
+            )
+        }
+
         EventSystem
             .changeViewEvent
             .changeAnimationEvent.post(
                 event: ChangeAnimationEvent(
                     renderable: self,
-                    animation: animation,
+                    animation: processedAnimation,
                     interrupt: interupt
                 )
             )

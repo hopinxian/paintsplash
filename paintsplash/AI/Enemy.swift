@@ -119,9 +119,11 @@ class Enemy: AIEntity, Colorable, Health {
 //    }
 
     override func destroy(gameManager: GameManager) {
+        print("destroy")
         gameManager.removeObject(self)
         gameManager.getCollisionSystem().removeCollidable(self)
-        animate(animation: SlimeAnimations.slimeDie, interupt: true) {
+        animate(animation: SlimeAnimations.slimeDieGray, interupt: true) {
+            print("die")
             gameManager.getRenderSystem().removeRenderable(self)
         }
     }
