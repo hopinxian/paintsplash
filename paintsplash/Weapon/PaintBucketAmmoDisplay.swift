@@ -28,6 +28,7 @@ class PaintBucketAmmoDisplay: GameEntity, Renderable {
 
         populate(with: weaponData.getAmmo().compactMap({ $0 as? PaintAmmo }))
         EventSystem.playerAmmoUpdateEvent.subscribe(listener: onAmmoUpdate)
+        EventSystem.inputEvents.touchDownEvent.subscribe(listener: touchDown)
     }
 
     private func onAmmoUpdate(event: PlayerAmmoUpdateEvent) {
@@ -67,6 +68,16 @@ class PaintBucketAmmoDisplay: GameEntity, Renderable {
     override func update(gameManager: GameManager) {
         gameManager.getRenderSystem().updateRenderable(self)
         super.spawn(gameManager: gameManager)
+    }
+
+    func touchDown(event: TouchDownEvent) {
+        let location = event.location
+
+        if abs(transform.position.x - location.x) < transform.size.x / 2 &&
+            abs(transform.position.y - location.y) < transform.size.y / 2{
+            let event = PlayerChangeWeaponEvent(newWeapon: Bucket.self)
+            EventSystem.processedInputEvents.playerChangeWeaponEvent.post(event: event)
+        }
     }
 }
 

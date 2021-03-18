@@ -28,6 +28,7 @@ class PaintGunAmmoDisplay: GameEntity, Renderable {
 
         populate(with: weaponData.getAmmo().compactMap({ $0 as? PaintAmmo }))
         EventSystem.playerAmmoUpdateEvent.subscribe(listener: onAmmoUpdate)
+        EventSystem.inputEvents.touchDownEvent.subscribe(listener: touchDown)
     }
 
     private func onAmmoUpdate(event: PlayerAmmoUpdateEvent) {
@@ -67,5 +68,15 @@ class PaintGunAmmoDisplay: GameEntity, Renderable {
     override func update(gameManager: GameManager) {
         gameManager.getRenderSystem().updateRenderable(self)
         super.spawn(gameManager: gameManager)
+    }
+
+    func touchDown(event: TouchDownEvent) {
+        let location = event.location
+
+        if abs(transform.position.x - location.x) < transform.size.x &&
+            abs(transform.position.y - location.y) < transform.size.y {
+            let event = PlayerChangeWeaponEvent(newWeapon: PaintGun.self)
+            EventSystem.processedInputEvents.playerChangeWeaponEvent.post(event: event)
+        }
     }
 }

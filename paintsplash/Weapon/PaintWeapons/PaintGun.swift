@@ -37,11 +37,12 @@ class PaintGun: Weapon {
         }
     }
 
-    func shoot() -> Projectile? {
+    func shoot(in direction: Vector2D) -> Projectile? {
         guard let ammo = ammoStack.popLast(), canShoot() else {
             return nil
         }
-        return PaintProjectile(color: ammo.color, radius: 50.0, velocity: Vector2D(1, 0))
+        print("paintgun fired in direction \(direction)")
+        return PaintProjectile(color: ammo.color, radius: 50.0, velocity: direction)
     }
 
     func canShoot() -> Bool {
