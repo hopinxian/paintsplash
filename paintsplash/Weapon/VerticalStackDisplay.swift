@@ -22,24 +22,25 @@ class VerticalStackDisplay: GameEntity, Renderable {
         super.init()
     }
 
-    func insert(at index: Int) {
-        
+//    func insert(at index: Int) {
+//
+//    }
+//
+//    func remove(at index: Int) {
+//
+//    }
+
+    func insertTop(element: Renderable) {
+        stackItems.insert(element, at: 0)
+        rerender()
     }
 
-    func remove(at index: Int) {
-
+    func insertBottom(element: Renderable) {
+        stackItems.append(element)
+        rerender()
     }
 
-    func insertTop() {
-
-    }
-
-    func insertBottom() {
-
-    }
-
-    func removeTop() {
-
+    func removeTop(element: Renderable) {
     }
 
     func removeBottom() {

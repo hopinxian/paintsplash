@@ -8,6 +8,8 @@
 import Foundation
 
 class Canvas: AIEntity {
+    private(set) var colors: Set<PaintColor> = []
+
     // TODO: canvases of dynamic size
     init(initialPosition: Vector2D, velocity: Vector2D) {
         super.init(spriteName: "canvas", initialPosition: initialPosition, initialVelocity: velocity,
@@ -28,10 +30,13 @@ class Canvas: AIEntity {
 
     override func onCollide(otherObject: Collidable) {
         switch otherObject {
-        case _ as PaintAmmoDrop:
-            // add colour to canvas
-            
+        case let ammo as PaintAmmoDrop:
+            let color = ammo.color
+            self.colors.insert(color)
+
             // post notification to alert system about colours on the current canvas
+            let canvasHitEvent = CanvasHitEvent(canvas: self)
+            EventSystem.canvasHitEvent.post(event: canvasHitEvent)
             
             print("collided with ammo")
         default:

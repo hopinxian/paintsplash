@@ -104,6 +104,8 @@
 		D5DC909125FCC4210038DF71 /* AtlasAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5DC909025FCC4210038DF71 /* AtlasAnimation.swift */; };
 		D5DC90AA25FCE5280038DF71 /* SlimeMoveLeft.atlas in Resources */ = {isa = PBXBuildFile; fileRef = D5DC90A825FCE5280038DF71 /* SlimeMoveLeft.atlas */; };
 		D5DC90AB25FCE5280038DF71 /* SlimeMoveRight.atlas in Resources */ = {isa = PBXBuildFile; fileRef = D5DC90A925FCE5280038DF71 /* SlimeMoveRight.atlas */; };
+		DC0C02D42603B84400656E49 /* CanvasHitEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0C02D32603B84400656E49 /* CanvasHitEvent.swift */; };
+		DC0C02E12603B94200656E49 /* CanvasHitEventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0C02E02603B94200656E49 /* CanvasHitEventManager.swift */; };
 		DC0EE89125FE4C2300CBF414 /* EnemySpawner.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0EE89025FE4C2300CBF414 /* EnemySpawner.swift */; };
 		DC0EE8A125FE4E8B00CBF414 /* SpawnerAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0EE8A025FE4E8B00CBF414 /* SpawnerAnimations.swift */; };
 		DC0EE8A725FE650200CBF414 /* SpawnerIdle.atlas in Resources */ = {isa = PBXBuildFile; fileRef = DC0EE8A525FE650200CBF414 /* SpawnerIdle.atlas */; };
@@ -265,6 +267,8 @@
 		D5DC909025FCC4210038DF71 /* AtlasAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AtlasAnimation.swift; sourceTree = "<group>"; };
 		D5DC90A825FCE5280038DF71 /* SlimeMoveLeft.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = SlimeMoveLeft.atlas; sourceTree = "<group>"; };
 		D5DC90A925FCE5280038DF71 /* SlimeMoveRight.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = SlimeMoveRight.atlas; sourceTree = "<group>"; };
+		DC0C02D32603B84400656E49 /* CanvasHitEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasHitEvent.swift; sourceTree = "<group>"; };
+		DC0C02E02603B94200656E49 /* CanvasHitEventManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasHitEventManager.swift; sourceTree = "<group>"; };
 		DC0EE89025FE4C2300CBF414 /* EnemySpawner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemySpawner.swift; sourceTree = "<group>"; };
 		DC0EE8A025FE4E8B00CBF414 /* SpawnerAnimations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpawnerAnimations.swift; sourceTree = "<group>"; };
 		DC0EE8A525FE650200CBF414 /* SpawnerIdle.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = SpawnerIdle.atlas; sourceTree = "<group>"; };
@@ -611,6 +615,15 @@
 			path = PaintWeapons;
 			sourceTree = "<group>";
 		};
+		DC0C02D22603B83100656E49 /* CanvasEvents */ = {
+			isa = PBXGroup;
+			children = (
+				DC0C02D32603B84400656E49 /* CanvasHitEvent.swift */,
+				DC0C02E02603B94200656E49 /* CanvasHitEventManager.swift */,
+			);
+			path = CanvasEvents;
+			sourceTree = "<group>";
+		};
 		DC0EE89B25FE4E1D00CBF414 /* Slime */ = {
 			isa = PBXGroup;
 			children = (
@@ -682,6 +695,7 @@
 		DC7B420C25FF63350069B422 /* Events */ = {
 			isa = PBXGroup;
 			children = (
+				DC0C02D22603B83100656E49 /* CanvasEvents */,
 				846D4FC12602401E0079720F /* PlayerHasMovedEvent */,
 				AC097E052601FFE4000951B0 /* ProcessedInputEvent */,
 				DC7B420D25FF63350069B422 /* EventManager.swift */,
@@ -937,6 +951,7 @@
 				DC240309260082A800550E1E /* CanvasBehaviour.swift in Sources */,
 				D583469325FB845F005C344D /* Bucket.swift in Sources */,
 				DC7B422125FF63350069B422 /* EventSystem.swift in Sources */,
+				DC0C02E12603B94200656E49 /* CanvasHitEventManager.swift in Sources */,
 				ACFD820925F676AB009D806B /* Movable.swift in Sources */,
 				DC6874CF260362C800CF89E4 /* CanvasRequestManager.swift in Sources */,
 				ACC154F626012F640000775C /* PlayerActionEventManager.swift in Sources */,
@@ -997,6 +1012,7 @@
 				DCB72DBF25FE196B00B183E0 /* AIEntityDelegate.swift in Sources */,
 				AC5F0B86260113F800E28D49 /* PlayerState.swift in Sources */,
 				D596B1AE25F8CF5B00A5854F /* ColliderShape.swift in Sources */,
+				DC0C02D42603B84400656E49 /* CanvasHitEvent.swift in Sources */,
 				D55EEB9026008CB600ADC70B /* PlayerAmmoUpdateEventManager.swift in Sources */,
 				D5D9201425FB9ACB00E70364 /* PaintAmmoDrop.swift in Sources */,
 				ACFD81FF25F670A2009D806B /* Colorable.swift in Sources */,

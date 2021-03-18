@@ -6,12 +6,12 @@
 //
 
 class CanvasRequest {
-    var requiredColours: Set<PaintColor>
+    var requiredColors: Set<PaintColor>
 
     var reward: Int
 
-    init(requiredColours: Set<PaintColor>, reward: Int) {
-        self.requiredColours = requiredColours
+    init(requiredColors: Set<PaintColor>, reward: Int) {
+        self.requiredColors = requiredColors
         self.reward = reward
     }
 }
