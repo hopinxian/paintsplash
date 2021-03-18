@@ -43,12 +43,12 @@ class PaintGunAmmoDisplay: GameEntity, Renderable {
 
         ammoDisplay = []
 
-        var nextPosition = transform.position - Vector2D(0, (transform.size.y / 2) - 70)
+        var nextPosition = transform.position - Vector2D(0, (transform.size.y / 2) - 20)
         for ammoData in ammo {
             let newDisplay = PaintAmmoDisplay(color: ammoData.color, position: nextPosition, zPosition: zPosition + 1)
             ammoDisplay.append(newDisplay)
             EventSystem.entityChangeEvents.addEntityEvent.post(event: AddEntityEvent(entity: newDisplay))
-            nextPosition += Vector2D(0, newDisplay.transform.size.y + 1)
+            nextPosition += Vector2D(0, newDisplay.transform.size.y + 20)
         }
 
         print(ammoDisplay.count)
