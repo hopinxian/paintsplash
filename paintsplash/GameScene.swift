@@ -17,6 +17,9 @@ class GameScene: SKScene {
     private var ammoDrop: PaintAmmoDrop?
 
     var spaceConverter: SpaceConverter!
+
+    private var currentLevel: Level?
+
     var gameManager: GameManager!
 
     var nodes = [UUID : SKNode]()
@@ -36,6 +39,8 @@ class GameScene: SKScene {
         let w = (self.size.width + self.size.height) * 0.05
 
         spaceConverter = SpaceConverter(modelSize: Vector2D(2000, 2000), screenSize: Vector2D(UIScreen.main.bounds.maxX, UIScreen.main.bounds.maxY))
+        currentLevel = Level.defaultLevel
+        currentLevel?.run()
 
         EventSystem.changeViewEvent.subscribe(listener: onChangeViewEvent)
     }
@@ -44,5 +49,6 @@ class GameScene: SKScene {
         // Called before each frame is rendered
 
         gameManager?.update()
+        currentLevel?.update()
     }
 }
