@@ -16,6 +16,8 @@ class GameScene: SKScene {
     private var circle1: TestCircle?
     private var ammoDrop: PaintAmmoDrop?
 
+    private var currentLevel: Level?
+    
     var logicalToDisplayViewAdapter: LogicalToDisplayViewAdapter!
 
     var gameManager: GameManager!
@@ -50,6 +52,9 @@ class GameScene: SKScene {
                                               SKAction.removeFromParent()]))
         }
 
+        currentLevel = Level.defaultLevel
+        currentLevel?.run()
+        
         logicalToDisplayViewAdapter = LogicalToDisplayViewAdapter(modelSize: Vector2D(2000, 2000), screenSize: Vector2D(UIScreen.main.bounds.maxX, UIScreen.main.bounds.maxY))
 
 //        let joystick = JoystickMovement()
@@ -71,5 +76,6 @@ class GameScene: SKScene {
         // Called before each frame is rendered
 
         gameManager?.update()
+        currentLevel?.update()
     }
 }

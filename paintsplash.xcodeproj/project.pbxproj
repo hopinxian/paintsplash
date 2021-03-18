@@ -10,6 +10,8 @@
 		8402D28F25FE0BDB00493DDE /* ColorMixer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8402D28E25FE0BDB00493DDE /* ColorMixer.swift */; };
 		8402D29725FE106800493DDE /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8402D29625FE106800493DDE /* Math.swift */; };
 		840A889225FF13A100A07596 /* PaintColor+UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840A889125FF13A100A07596 /* PaintColor+UIColor.swift */; };
+		8416DAED260335A800926D01 /* Level.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8416DAEC260335A800926D01 /* Level.swift */; };
+		8416DAF22603378300926D01 /* LevelSpawnEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8416DAF12603378300926D01 /* LevelSpawnEvent.swift */; };
 		846D4FB226023F300079720F /* PaintGunTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846D4FAD26023F2F0079720F /* PaintGunTests.swift */; };
 		846D4FB326023F300079720F /* BucketTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846D4FAE26023F2F0079720F /* BucketTests.swift */; };
 		846D4FB426023F300079720F /* Projectile+getColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846D4FB026023F2F0079720F /* Projectile+getColor.swift */; };
@@ -160,6 +162,8 @@
 		8402D28E25FE0BDB00493DDE /* ColorMixer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorMixer.swift; sourceTree = "<group>"; };
 		8402D29625FE106800493DDE /* Math.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Math.swift; sourceTree = "<group>"; };
 		840A889125FF13A100A07596 /* PaintColor+UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PaintColor+UIColor.swift"; sourceTree = "<group>"; };
+		8416DAEC260335A800926D01 /* Level.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level.swift; sourceTree = "<group>"; };
+		8416DAF12603378300926D01 /* LevelSpawnEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelSpawnEvent.swift; sourceTree = "<group>"; };
 		846D4FAD26023F2F0079720F /* PaintGunTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaintGunTests.swift; sourceTree = "<group>"; };
 		846D4FAE26023F2F0079720F /* BucketTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BucketTests.swift; sourceTree = "<group>"; };
 		846D4FB026023F2F0079720F /* Projectile+getColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Projectile+getColor.swift"; sourceTree = "<group>"; };
@@ -320,6 +324,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8416DAEB2603358800926D01 /* Level */ = {
+			isa = PBXGroup;
+			children = (
+				8416DAEC260335A800926D01 /* Level.swift */,
+				8416DAF12603378300926D01 /* LevelSpawnEvent.swift */,
+			);
+			path = Level;
+			sourceTree = "<group>";
+		};
 		846D4FAF26023F2F0079720F /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
@@ -394,6 +407,7 @@
 		ACB3607025F661620016E240 /* paintsplash */ = {
 			isa = PBXGroup;
 			children = (
+				8416DAEB2603358800926D01 /* Level */,
 				AC5F0B6C260110B200E28D49 /* Player */,
 				DC7B420C25FF63350069B422 /* Events */,
 				D596B1D725F8D02E00A5854F /* Movable */,
@@ -866,6 +880,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8416DAED260335A800926D01 /* Level.swift in Sources */,
 				D596B16725F7AE4500A5854F /* Collidable.swift in Sources */,
 				DC0EE8A125FE4E8B00CBF414 /* SpawnerAnimations.swift in Sources */,
 				DC0EE89125FE4C2300CBF414 /* EnemySpawner.swift in Sources */,
@@ -952,6 +967,7 @@
 				DCB72DB225FE13B300B183E0 /* GameManagerAISystem.swift in Sources */,
 				AC06958D26012037007982DE /* PlayableCharacter.swift in Sources */,
 				DCB72DBA25FE18B100B183E0 /* AIEntityState.swift in Sources */,
+				8416DAF22603378300926D01 /* LevelSpawnEvent.swift in Sources */,
 				D55EEB7E260089C200ADC70B /* PaintGunAmmoDisplay.swift in Sources */,
 				D55EEB4B25FF8B6500ADC70B /* GameScene+UserInput.swift in Sources */,
 				ACC154F126012F560000775C /* PlayerActionEvent.swift in Sources */,
