@@ -33,11 +33,11 @@ class PaintWeaponsSystem: MultiWeaponSystem {
         EventSystem.playerAmmoUpdateEvent.post(event: PlayerAmmoUpdateEvent(weapon: weapon, ammo: weapon.getAmmo()))
     }
 
-    func shoot() -> Bool {
+    func shoot(in direction: Vector2D) -> Bool {
 
         // Handle shooting here
         guard let weapon = activeWeapon,
-              let projectile = weapon.shoot(),
+              let projectile = weapon.shoot(in: direction),
               let carriedBy = carriedBy else {
             return false
         }

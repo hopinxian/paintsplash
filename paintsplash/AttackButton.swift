@@ -59,7 +59,7 @@ class AttackButton: GameEntity, Renderable {
 
         tracking = false
         print("SHOOT")
-        let event = PlayerActionEvent(playerActionEventType: .attack)
-        EventSystem.playerActionEvent.post(event: event)
+        let event = PlayerShootEvent(direction: Vector2D.up)
+        EventSystem.processedInputEvents.playerShootEvent.post(event: event)
     }
 }

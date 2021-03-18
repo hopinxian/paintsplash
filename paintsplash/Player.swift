@@ -30,18 +30,26 @@ class Player: InteractiveEntity, Movable, PlayableCharacter, Health {
     }
 
 
-    var velocity: Vector2D
+    var velocity: Vector2D {
+        didSet {
+            if velocity.magnitude > 0 {
+                lastDirection = Vector2D.normalize(velocity)
+            }
+        }
+    }
     var acceleration: Vector2D
     var defaultSpeed: Double = 1.0
 
     private var state: PlayerState = .idleLeft
     var paintWeaponsSystem: PaintWeaponsSystem
+    private var lastDirection: Vector2D
 
     private let moveSpeed = 10.0
 
     init(initialPosition: Vector2D, initialVelocity: Vector2D) {
         self.velocity = Vector2D.zero
         self.acceleration = Vector2D.zero
+        self.lastDirection = Vector2D.left
 
         var transform = Transform.standard
         transform.position = initialPosition
@@ -55,14 +63,13 @@ class Player: InteractiveEntity, Movable, PlayableCharacter, Health {
         self.paintWeaponsSystem.load([PaintAmmo(color: .blue), PaintAmmo(color: .red), PaintAmmo(color: .yellow)])
         self.paintWeaponsSystem.switchWeapon(to: Bucket.self)
 
-        Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(shoot), userInfo: nil, repeats: true)
-
         paintWeaponsSystem.carriedBy = self
         EventSystem.processedInputEvents.playerMoveEvent.subscribe(listener: onMove)
+        EventSystem.processedInputEvents.playerShootEvent.subscribe(listener: onShoot)
     }
 
     @objc func shoot() {
-        _ = paintWeaponsSystem.shoot()
+        _ = paintWeaponsSystem.shoot(in: lastDirection)
     }
 
     override func update(gameManager: GameManager) {
@@ -73,6 +80,10 @@ class Player: InteractiveEntity, Movable, PlayableCharacter, Health {
 
     func onMove(event: PlayerMoveEvent) {
         velocity = event.direction * moveSpeed
+    }
+
+    func onShoot(event: PlayerShootEvent) {
+        shoot()
     }
 
     override func onCollide(otherObject: Collidable) {

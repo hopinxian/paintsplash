@@ -11,7 +11,7 @@ protocol MultiWeaponSystem {
     var carriedBy: Transformable? { get set }
     func load(_ ammo: [Ammo])
     func load<T: Weapon>(to weaponType: T.Type, ammo: [Ammo])
-    func shoot() -> Bool
+    func shoot(in direction: Vector2D) -> Bool
     func switchWeapon<T: Weapon>(to weapon: T.Type)
     func getAmmo() -> [(Weapon, [Ammo])]
 }
