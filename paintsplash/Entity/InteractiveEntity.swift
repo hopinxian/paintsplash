@@ -16,7 +16,7 @@ class InteractiveEntity: GameEntity, Collidable {
     
     var tags: Tags
     
-    func onCollide(otherObject: Collidable, gameManager: GameManager) {
+    func onCollide(otherObject: Collidable) {
         
     }
     

@@ -93,15 +93,15 @@ class GameManager {
         gameScene
     }
 
-    func getEnemies() -> [Enemy] {
+    private func getEnemies() -> [Enemy] {
         entities.compactMap({ $0 as? Enemy })
     }
 
-    func removeAIEntity(aiEntity: AIEntity) {
+    private func removeAIEntity(aiEntity: AIEntity) {
         aiSystem?.remove(aiEntity: aiEntity)
     }
 
-    func onAddEntity(event: AddEntityEvent) {
+    private func onAddEntity(event: AddEntityEvent) {
         event.entity.spawn(gameManager: self)
     }
 
@@ -109,7 +109,7 @@ class GameManager {
         entities.insert(object)
     }
 
-    func onRemoveEntity(event: RemoveEntityEvent) {
+    private func onRemoveEntity(event: RemoveEntityEvent) {
         event.entity.destroy(gameManager: self)
     }
 

@@ -29,11 +29,11 @@ class PaintProjectile: InteractiveEntity, Projectile, Colorable {
         super.init(spriteName: spriteName, colliderShape: .circle(radius: radius), tags: .playerProjectile, transform: transform)
     }
 
-    override func onCollide(otherObject: Collidable, gameManager: GameManager) {
+    override func onCollide(otherObject: Collidable) {
         guard otherObject.tags.contains(.enemy) else {
             return
         }
-        destroy(gameManager: gameManager)
+        EventSystem.entityChangeEvents.removeEntityEvent.post(event: RemoveEntityEvent(entity: self))
     }
 
     override func update(gameManager: GameManager) {

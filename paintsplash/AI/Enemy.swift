@@ -26,7 +26,7 @@ class Enemy: AIEntity, Colorable, Health {
         self.defaultSpeed = 1.0
     }
 
-    override func onCollide(otherObject: Collidable, gameManager: GameManager) {
+    override func onCollide(otherObject: Collidable) {
         
         guard otherObject.tags.contains(.playerProjectile) else {
             return

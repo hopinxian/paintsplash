@@ -73,8 +73,8 @@ class Player: InteractiveEntity, Movable, PlayableCharacter, Health {
         velocity = event.direction
     }
 
-    override func onCollide(otherObject: Collidable, gameManager: GameManager) {
-        super.onCollide(otherObject: otherObject, gameManager: gameManager)
+    override func onCollide(otherObject: Collidable) {
+        super.onCollide(otherObject: otherObject)
         if otherObject.tags.contains(.ammoDrop) {
             switch otherObject {
             case let ammoDrop as PaintAmmoDrop:
@@ -86,7 +86,7 @@ class Player: InteractiveEntity, Movable, PlayableCharacter, Health {
         }
 
         if otherObject.tags.contains(.enemy) {
-            guard let enemy = otherObject as? Enemy else {
+            guard otherObject is Enemy else {
                 fatalError("Enemy does not conform to enemy")
             }
 

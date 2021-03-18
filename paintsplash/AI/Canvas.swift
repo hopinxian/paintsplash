@@ -28,7 +28,7 @@ class Canvas: AIEntity {
         }
     }
 
-    override func onCollide(otherObject: Collidable, gameManager: GameManager) {
+    override func onCollide(otherObject: Collidable) {
         switch otherObject {
         case _ as PaintAmmoDrop:
             // add colour to canvas

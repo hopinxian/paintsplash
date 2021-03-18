@@ -28,7 +28,7 @@ class EnemySpawner: AIEntity, Colorable {
         }
     }
 
-    override func onCollide(otherObject: Collidable, gameManager: GameManager) {
+    override func onCollide(otherObject: Collidable) {
         guard otherObject.tags.contains(.playerProjectile) else {
             return
         }

@@ -17,10 +17,10 @@ class PaintAmmoDrop: InteractiveEntity, AmmoDrop, Colorable {
         super.init(spriteName: "AmmoDrop", colliderShape: .rectangle(size: size), tags: .ammoDrop, transform: transform)
     }
 
-    override func onCollide(otherObject: Collidable, gameManager: GameManager) {
+    override func onCollide(otherObject: Collidable) {
         if otherObject.tags.contains(.player) {
             print("Player Collected Ammo")
-            destroy(gameManager: gameManager)
+            EventSystem.entityChangeEvents.removeEntityEvent.post(event: RemoveEntityEvent(entity: self))
         }
     }
 
