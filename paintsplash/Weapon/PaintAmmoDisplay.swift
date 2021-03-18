@@ -10,7 +10,7 @@ class PaintAmmoDisplay: GameEntity, Renderable, Colorable {
 
     var spriteName: String
 
-    var currentAnimation: Animation?
+    var defaultAnimation: Animation?
 
     var transform: Transform
 
@@ -20,7 +20,7 @@ class PaintAmmoDisplay: GameEntity, Renderable, Colorable {
         self.color = color
         self.zPosition = zPosition
         spriteName = "WhiteSquare"
-        currentAnimation = nil
+        defaultAnimation = nil
         transform = Transform(position: position, rotation: 0.0, size: Vector2D(50, 25))
         super.init()
     }

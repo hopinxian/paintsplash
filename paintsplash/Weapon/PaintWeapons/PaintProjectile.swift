@@ -15,25 +15,27 @@ class PaintProjectile: InteractiveEntity, Projectile, Colorable {
     var velocity: Vector2D
     var acceleration: Vector2D
 
+    private let moveSpeed = 15.0
+
     init(color: PaintColor, radius: Double, velocity: Vector2D) {
         self.radius = radius
         self.color = color
 
-        self.velocity = velocity
+        self.velocity = Vector2D.normalize(velocity) * moveSpeed
         self.acceleration = Vector2D.zero
 
         var transform = Transform.standard
         transform.size = Vector2D(radius * 2, radius * 2)
-        let spriteName = "projectile-" + color.rawValue
+        let spriteName = "Projectile"
 
         super.init(spriteName: spriteName, colliderShape: .circle(radius: radius), tags: .playerProjectile, transform: transform)
     }
 
-    override func onCollide(otherObject: Collidable, gameManager: GameManager) {
+    override func onCollide(otherObject: Collidable) {
         guard otherObject.tags.contains(.enemy) else {
             return
         }
-        destroy(gameManager: gameManager)
+        EventSystem.entityChangeEvents.removeEntityEvent.post(event: RemoveEntityEvent(entity: self))
     }
 
     override func update(gameManager: GameManager) {

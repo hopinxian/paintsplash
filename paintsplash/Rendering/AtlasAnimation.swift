@@ -27,21 +27,53 @@ struct AtlasAnimation: Animation {
 
         let animationSpeed = animationDuration / Double(animationFrames.count)
 
-        let oneTimeAnimation = SKAction.animate(with: animationFrames, timePerFrame: animationSpeed)
+        let action = SKAction.animate(with: animationFrames, timePerFrame: animationSpeed)
 
-        if !isRepeating {
-            return oneTimeAnimation
+        if isRepeating {
+            return SKAction.repeatForever(action)
+        } else {
+            return action
         }
-
-        return SKAction.repeatForever(oneTimeAnimation)
     }
 }
 
 struct FadeOutAnimation: Animation {
     let name: String
     let animationDuration: Double
+    var completionCallback: (() -> Void)? = nil
 
     func getAction() -> SKAction {
         SKAction.fadeOut(withDuration: animationDuration)
+    }
+}
+
+struct CompoundAnimation: Animation {
+    let name: String
+    let animationDuration: Double = 0
+    let animations: [Animation]
+
+    func getAction() -> SKAction {
+        SKAction.group(animations.compactMap({ $0.getAction() }))
+    }
+}
+
+struct SequenceAnimation: Animation {
+    let name: String
+    let animationDuration: Double = 0
+    let animations: [Animation]
+
+    func getAction() -> SKAction {
+        SKAction.sequence(animations.compactMap({ $0.getAction() }))
+    }
+}
+
+struct CallbackAnimation: Animation {
+    let name: String
+    let animationDuration: Double
+    let animation: Animation
+    var completionCallback: (() -> Void)
+
+    func getAction() -> SKAction {
+        SKAction.sequence([animation.getAction(), SKAction.run(completionCallback)])
     }
 }

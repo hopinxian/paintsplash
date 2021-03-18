@@ -8,11 +8,12 @@ protocol RenderSystem {
     func addRenderable(_ renderable: Renderable)
     func removeRenderable(_ renderable: Renderable)
 
-    func fadeRemoveRenderable(_ renderable: Renderable, duration: Double)
+//    func fadeRemoveRenderable(_ renderable: Renderable, duration: Double)
 
     func updateRenderable(_ renderable: Renderable)
 
-    func updateRenderableAnimation(_ renderable: Renderable)
+//    func updateRenderableAnimation(_ renderable: Renderable)
+    func animateRenderable(renderable: Renderable, animation: Animation, interrupt: Bool)
 
     func addSubview(_ renderable: Renderable, subviewInfo: RenderInfo)
 }

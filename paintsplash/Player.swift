@@ -7,7 +7,28 @@
 
 import Foundation
 
-class Player: InteractiveEntity, Movable, PlayableCharacter {
+class Player: InteractiveEntity, Movable, PlayableCharacter, Health {
+    var currentHealth: Int = 3
+
+    var maxHealth: Int = 3
+
+    func heal(amount: Int) {
+        currentHealth += amount
+        if currentHealth > maxHealth {
+            currentHealth = maxHealth
+        }
+    }
+
+    func takeDamage(amount: Int) {
+        currentHealth -= amount
+        if currentHealth <= 0 {
+            currentHealth = 0
+            self.state = .die
+            //Die
+            print("I am die")
+        }
+    }
+
 
     var velocity: Vector2D
     var acceleration: Vector2D
@@ -15,6 +36,8 @@ class Player: InteractiveEntity, Movable, PlayableCharacter {
 
     private var state: PlayerState = .idleLeft
     var paintWeaponsSystem: PaintWeaponsSystem
+
+    private let moveSpeed = 10.0
 
     init(initialPosition: Vector2D, initialVelocity: Vector2D) {
         self.velocity = Vector2D.zero
@@ -26,12 +49,12 @@ class Player: InteractiveEntity, Movable, PlayableCharacter {
 
         super.init(spriteName: "Player", colliderShape: .circle(radius: 50), tags: .player, transform: transform)
 
-        self.currentAnimation = PlayerAnimations.playerBrushIdleLeft
+        self.defaultAnimation = PlayerAnimations.playerBrushIdleLeft
         self.paintWeaponsSystem.load(to: Bucket.self, ammo: [PaintAmmo(color: .blue), PaintAmmo(color: .red), PaintAmmo(color: .yellow)])
 
         self.paintWeaponsSystem.load([PaintAmmo(color: .blue), PaintAmmo(color: .red), PaintAmmo(color: .yellow)])
         self.paintWeaponsSystem.switchWeapon(to: Bucket.self)
-//        self.paintWeaponsSystem.load([PaintAmmo(color: .blue), PaintAmmo(color: .red), PaintAmmo(color: .yellow)])
+
         Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(shoot), userInfo: nil, repeats: true)
 
         paintWeaponsSystem.carriedBy = self
@@ -49,11 +72,11 @@ class Player: InteractiveEntity, Movable, PlayableCharacter {
     }
 
     func onMove(event: PlayerMoveEvent) {
-        velocity = event.direction
+        velocity = event.direction * moveSpeed
     }
 
-    override func onCollide(otherObject: Collidable, gameManager: GameManager) {
-        super.onCollide(otherObject: otherObject, gameManager: gameManager)
+    override func onCollide(otherObject: Collidable) {
+        super.onCollide(otherObject: otherObject)
         if otherObject.tags.contains(.ammoDrop) {
             switch otherObject {
             case let ammoDrop as PaintAmmoDrop:
@@ -63,6 +86,15 @@ class Player: InteractiveEntity, Movable, PlayableCharacter {
                 fatalError("Ammo Drop not conforming to AmmoDrop protocol")
             }
         }
+
+        if otherObject.tags.contains(.enemy) {
+            guard otherObject is Enemy else {
+                print(otherObject)
+                fatalError("Enemy does not conform to enemy")
+            }
+
+            takeDamage(amount: 1)
+        }
     }
 
 
@@ -70,16 +102,19 @@ class Player: InteractiveEntity, Movable, PlayableCharacter {
         switch (state, velocity) {
         case (.moveLeft, let velocity) where velocity.magnitude == 0:
             self.state = .idleLeft
-            currentAnimation = PlayerAnimations.playerBrushIdleLeft
+            animate(animation: PlayerAnimations.playerBrushIdleLeft, interupt: true)
         case (.moveRight, let velocity) where velocity.magnitude == 0:
             self.state = .idleRight
-            currentAnimation = PlayerAnimations.playerBrushIdleRight
-        case (_, let velocity) where velocity.x < 0:
+            animate(animation: PlayerAnimations.playerBrushIdleRight, interupt: true)
+        case (let state, let velocity) where state != .moveLeft && velocity.x < 0:
             self.state = .moveLeft
-            currentAnimation = PlayerAnimations.playerBrushWalkLeft
-        case (_, let velocity) where velocity.x > 0:
+            animate(animation: PlayerAnimations.playerBrushWalkLeft, interupt: true)
+        case (let state, let velocity) where state != .moveRight && velocity.x > 0:
             self.state = .moveRight
-            currentAnimation = PlayerAnimations.playerBrushWalkRight
+            animate(animation: PlayerAnimations.playerBrushWalkRight, interupt: true)
+        case (.die, _):
+            self.state = .die
+            animate(animation: PlayerAnimations.playerDie, interupt: true)
         default:
             break
         }

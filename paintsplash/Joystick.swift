@@ -10,14 +10,14 @@ class Joystick: GameEntity, Renderable {
 
     var spriteName: String
 
-    var currentAnimation: Animation?
+    var defaultAnimation: Animation?
 
     var transform: Transform
 
     private let foregroundNode: JoystickForeground
 
-    private let backgroundDiameter: Double = 100
-    private let handleDiameter: Double = 50
+    private let backgroundDiameter: Double = 200
+    private let handleDiameter: Double = 150
 
     private var tracking = false
 
@@ -31,11 +31,11 @@ class Joystick: GameEntity, Renderable {
 
     init(position: Vector2D) {
         spriteName = "joystick-background"
-        currentAnimation = nil
+        defaultAnimation = nil
         transform = Transform.standard
         transform.position = position
         zPosition = 0
-        foregroundNode = JoystickForeground(position: position, zPosition: zPosition + 100)
+        foregroundNode = JoystickForeground(position: position, zPosition: zPosition + 1)
 
         super.init()
 
@@ -95,14 +95,14 @@ class JoystickForeground: GameEntity, Renderable {
 
     var spriteName: String
 
-    var currentAnimation: Animation?
+    var defaultAnimation: Animation?
 
     var transform: Transform
 
     init(position: Vector2D, zPosition: Int) {
         self.zPosition = zPosition
         spriteName = "joystick-foreground"
-        currentAnimation = nil
+        defaultAnimation = nil
         transform = Transform(position: position, rotation: 0.0, size: Vector2D(42, 42))
         super.init()
     }

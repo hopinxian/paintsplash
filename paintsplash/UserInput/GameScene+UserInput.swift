@@ -8,17 +8,20 @@ import SpriteKit
 
 extension GameScene: UserInput {
     func touchDown(atPoint pos : CGPoint) {
-        let event = TouchDownEvent(location: Vector2D(pos))
+        let convertedPos = spaceConverter.screenToModel(pos)
+        let event = TouchDownEvent(location: convertedPos)
         EventSystem.inputEvents.touchDownEvent.post(event: event)
     }
 
     func touchMoved(toPoint pos : CGPoint) {
-        let event = TouchMovedEvent(location: Vector2D(pos))
+        let convertedPos = spaceConverter.screenToModel(pos)
+        let event = TouchMovedEvent(location: convertedPos)
         EventSystem.inputEvents.touchMovedEvent.post(event: event)
     }
 
     func touchUp(atPoint pos : CGPoint) {
-        let event = TouchUpEvent(location: Vector2D(pos))
+        let convertedPos = spaceConverter.screenToModel(pos)
+        let event = TouchUpEvent(location: convertedPos)
         EventSystem.inputEvents.touchUpEvent.post(event: event)
     }
 

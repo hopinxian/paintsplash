@@ -12,6 +12,10 @@ extension GameScene: RenderSystem {
 
         nodes[renderable.id] = skNode
 
+        if let animation = renderable.defaultAnimation {
+            animateRenderable(renderable: renderable, animation: animation, interrupt: true)
+        }
+
         self.addChild(skNode)
     }
 
@@ -24,35 +28,21 @@ extension GameScene: RenderSystem {
         nodes[renderable.id] = nil
     }
 
-    func fadeRemoveRenderable(_ renderable: Renderable, duration: Double) {
-        guard let node = nodes[renderable.id] else {
-            return
-        }
-
-        let fadeOutAction = SKAction.fadeOut(withDuration: duration)
-
-        node.run(fadeOutAction, completion: {
-            node.removeFromParent()
-            self.nodes[renderable.id] = nil
-        })
-    }
-
     func updateRenderable(_ renderable: Renderable) {
         let id = renderable.id
         guard let node = nodes[id] else {
             return
         }
 
-        node.position = CGPoint(renderable.transform.position)
+        node.position = spaceConverter.modelToScreen(renderable.transform.position)
         node.zRotation = CGFloat(renderable.transform.rotation)
         node.zPosition = CGFloat(renderable.zPosition)
     }
 
-    func updateRenderableAnimation(_ renderable: Renderable) {
+    func animateRenderable(renderable: Renderable, animation: Animation, interrupt: Bool) {
         let id = renderable.id
         guard let node = nodes[id],
-              let animation = renderable.currentAnimation,
-              node.action(forKey: animation.name) == nil else {
+              interrupt || !node.hasActions() else {
             return
         }
 
@@ -87,17 +77,24 @@ extension GameScene: RenderSystem {
             print("")
         }
 
-        if let animation = renderable.currentAnimation {
-            node.run(animation.getAction(), withKey: animation.name)
-        }
-
-        node.position = CGPoint(renderable.transform.position)
-        // node.position = logicalToDisplayViewAdapter.modelPointToScreen(renderable.transform.position)
+        node.position = spaceConverter.modelToScreen(renderable.transform.position)
         node.zRotation = CGFloat(renderable.transform.rotation)
         node.zPosition = CGFloat(renderable.zPosition)
-        node.size = CGSize(renderable.transform.size * logicalToDisplayViewAdapter.sizeScaleToScreen)
+        node.size = spaceConverter.modelToScreen(renderable.transform.size)
 
         return node
     }
 
+    func onChangeViewEvent(event: ChangeViewEvent) {
+        switch event {
+        case let changeAnimationEvent as ChangeAnimationEvent:
+            animateRenderable(
+                renderable: changeAnimationEvent.renderable,
+                animation: changeAnimationEvent.animation,
+                interrupt: changeAnimationEvent.interrupt
+            )
+        default:
+            break
+        }
+    }
 }

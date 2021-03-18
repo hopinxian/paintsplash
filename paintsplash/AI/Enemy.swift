@@ -9,70 +9,48 @@ import SpriteKit
 
 let hitDuration: Double = 0.25
 
-class Enemy: AIEntity, Colorable {
-
+class Enemy: AIEntity, Colorable, Health {
     var isHit: Bool = false
 
-    var hitsToDie: Int = 1
+    var currentHealth: Int = 1
+    var maxHealth: Int = 1
 
     var color: PaintColor
     
     init(initialPosition: Vector2D, initialVelocity: Vector2D, color: PaintColor) {
         self.color = color
-        let spriteName = "slime" + "-" + color.rawValue
+        let spriteName = "Slime"
         super.init(spriteName: spriteName, initialPosition: initialPosition, initialVelocity: initialVelocity, radius: 50)
         self.currentBehaviour = ApproachPointBehaviour()
         
         self.defaultSpeed = 1.0
     }
 
-    override func onCollide(otherObject: Collidable, gameManager: GameManager) {
+    override func onCollide(otherObject: Collidable) {
+        
         guard otherObject.tags.contains(.playerProjectile) else {
             return
         }
         
         switch otherObject {
         case let projectile as PaintProjectile:
-            if projectile.color != self.color {
-                return
+            if self.color.contains(color: projectile.color) {
+                takeDamage(amount: 1)
             }
         default:
             fatalError("Projectile not conforming to projectile protocol")
         }
 
-        
-        self.hitsToDie -= 1
-
-        if self.hitsToDie <= 0 {
-            self.state = .die
-
-            // gameManager.removeAIEntity(aiEntity: self)
-            let event = DespawnAIEntityEvent(entityToDespawn: self)
-            EventSystem.despawnAIEntityEvent.post(event: event)
-
-            return
-        }
-
-        self.state = .hit
-
-        // TODO: set hit duration dynamically based on what it collided with?
-        // TODO: change direction of hit animation?
-        Timer.scheduledTimer(timeInterval: hitDuration, target: self, selector: #selector(resetHit),
-                             userInfo: nil, repeats: false)
-    }
-
-    @objc func resetHit() {
-        self.state = .afterHit
     }
 
     func setState() {
-        if velocity.magnitude == 0 {
+        if velocity.magnitude == 0 && self.state != .idle {
             self.state = .idle
             // currentAnimation = SlimeAnimations.slimeIdle
-        } else if (velocity.x > 0) {
+        } else if (velocity.x > 0) && self.state != .moveRight {
             self.state = .moveRight
             // currentAnimation = SlimeAnimations.slimeMoveRight
-        } else if (velocity.x < 0) {
+        } else if (velocity.x < 0) && self.state != .moveLeft{
             self.state = .moveLeft
             // currentAnimation = SlimeAnimations.slimeMoveLeft
         }
@@ -106,4 +84,47 @@ class Enemy: AIEntity, Colorable {
         }
     }
 
+    func heal(amount: Int) {
+        currentHealth += amount
+
+        if currentHealth > maxHealth {
+            currentHealth = maxHealth
+        }
+    }
+
+    func takeDamage(amount: Int) {
+        currentHealth -=  amount
+
+        if currentHealth <= 0 {
+            currentHealth = 0
+            self.state = .die
+
+            // gameManager.removeAIEntity(aiEntity: self)
+            let event = DespawnAIEntityEvent(entityToDespawn: self)
+            EventSystem.despawnAIEntityEvent.post(event: event)
+
+            return
+        }
+
+        self.state = .hit
+
+        // TODO: set hit duration dynamically based on what it collided with?
+        // TODO: change direction of hit animation?
+//        Timer.scheduledTimer(timeInterval: hitDuration, target: self, selector: #selector(resetHit),
+//                             userInfo: nil, repeats: false)
+    }
+
+//    @objc func resetHit() {
+//        self.state = .afterHit
+//    }
+
+    override func destroy(gameManager: GameManager) {
+        print("destroy")
+        gameManager.removeObject(self)
+        gameManager.getCollisionSystem().removeCollidable(self)
+        animate(animation: SlimeAnimations.slimeDieGray, interupt: true) {
+            print("die")
+            gameManager.getRenderSystem().removeRenderable(self)
+        }
+    }
 }

@@ -12,7 +12,7 @@ class AttackButton: GameEntity, Renderable {
 
     var spriteName: String
 
-    var currentAnimation: Animation?
+    var defaultAnimation: Animation?
 
     var transform: Transform
 
@@ -25,7 +25,7 @@ class AttackButton: GameEntity, Renderable {
     init(position: Vector2D) {
         renderColor = nil
         spriteName = "joystick-foreground"
-        currentAnimation = nil
+        defaultAnimation = nil
         transform = Transform.standard
         transform.position = position
         zPosition = 0

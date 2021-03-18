@@ -7,18 +7,7 @@
 
 class InteractiveEntity: GameEntity, Collidable {
     var spriteName: String
-    var currentAnimation: Animation? {
-        didSet {
-            guard let new = currentAnimation,
-                  let old = oldValue,
-                  !new.equal(to: old) else {
-                return
-            }
-
-            let event = ChangeViewEvent(changeViewEventType: .changeAnimation(renderable: self))
-            EventSystem.changeViewEvent.post(event: event)
-        }
-    }
+    var defaultAnimation: Animation?
 
     private var animationHasChanged = false
     var zPosition: Int = 0
@@ -27,7 +16,7 @@ class InteractiveEntity: GameEntity, Collidable {
     
     var tags: Tags
     
-    func onCollide(otherObject: Collidable, gameManager: GameManager) {
+    func onCollide(otherObject: Collidable) {
         
     }
     
@@ -56,11 +45,5 @@ class InteractiveEntity: GameEntity, Collidable {
     override func update(gameManager: GameManager) {
         super.update(gameManager: gameManager)
         gameManager.getRenderSystem().updateRenderable(self)
-    }
-    
-    func fadeDestroy(gameManager: GameManager, duration: Double) {
-        super.destroy(gameManager: gameManager)
-        gameManager.getRenderSystem().fadeRemoveRenderable(self, duration: duration)
-        gameManager.getCollisionSystem().removeCollidable(self)
     }
 }

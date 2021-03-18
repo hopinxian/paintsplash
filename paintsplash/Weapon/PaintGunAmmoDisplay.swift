@@ -8,7 +8,7 @@
 class PaintGunAmmoDisplay: GameEntity, Renderable {
     var spriteName: String
 
-    var currentAnimation: Animation?
+    var defaultAnimation: Animation?
 
     var transform: Transform
 
@@ -19,7 +19,7 @@ class PaintGunAmmoDisplay: GameEntity, Renderable {
     init(weaponData: PaintGun) {
         spriteName = "WhiteSquare"
         transform = Transform(
-            position: Vector2D(200, -200),
+            position: Vector2D(300, -500),
             rotation: 0.0,
             size: Vector2D(60, 200)
         )
@@ -43,12 +43,12 @@ class PaintGunAmmoDisplay: GameEntity, Renderable {
 
         ammoDisplay = []
 
-        var nextPosition = transform.position - Vector2D(0, (transform.size.y / 2) - 70)
+        var nextPosition = transform.position - Vector2D(0, (transform.size.y / 2) - 20)
         for ammoData in ammo {
             let newDisplay = PaintAmmoDisplay(color: ammoData.color, position: nextPosition, zPosition: zPosition + 1)
             ammoDisplay.append(newDisplay)
             EventSystem.entityChangeEvents.addEntityEvent.post(event: AddEntityEvent(entity: newDisplay))
-            nextPosition += Vector2D(0, newDisplay.transform.size.y + 1)
+            nextPosition += Vector2D(0, newDisplay.transform.size.y + 20)
         }
 
         print(ammoDisplay.count)
