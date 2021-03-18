@@ -9,11 +9,11 @@ import SpriteKit
 
 let hitDuration: Double = 0.25
 
-class Enemy: AIEntity, Colorable {
-
+class Enemy: AIEntity, Colorable, Health {
     var isHit: Bool = false
 
-    var hitsToDie: Int = 1
+    var currentHealth: Int = 1
+    var maxHealth: Int = 1
 
     var color: PaintColor
     
@@ -27,42 +27,20 @@ class Enemy: AIEntity, Colorable {
     }
 
     override func onCollide(otherObject: Collidable, gameManager: GameManager) {
+        
         guard otherObject.tags.contains(.playerProjectile) else {
             return
         }
         
         switch otherObject {
         case let projectile as PaintProjectile:
-            if projectile.color != self.color {
-                return
+            if self.color.contains(color: projectile.color) {
+                takeDamage(amount: 1)
             }
         default:
             fatalError("Projectile not conforming to projectile protocol")
         }
 
-        
-        self.hitsToDie -= 1
-
-        if self.hitsToDie <= 0 {
-            self.state = .die
-
-            // gameManager.removeAIEntity(aiEntity: self)
-            let event = DespawnAIEntityEvent(entityToDespawn: self)
-            EventSystem.despawnAIEntityEvent.post(event: event)
-
-            return
-        }
-
-        self.state = .hit
-
-        // TODO: set hit duration dynamically based on what it collided with?
-        // TODO: change direction of hit animation?
-        Timer.scheduledTimer(timeInterval: hitDuration, target: self, selector: #selector(resetHit),
-                             userInfo: nil, repeats: false)
-    }
-
-    @objc func resetHit() {
-        self.state = .afterHit
     }
 
     func setState() {
@@ -106,4 +84,41 @@ class Enemy: AIEntity, Colorable {
         }
     }
 
+    func heal(amount: Int) {
+        currentHealth += amount
+
+        if currentHealth > maxHealth {
+            currentHealth = maxHealth
+        }
+    }
+
+    func takeDamage(amount: Int) {
+        currentHealth -=  amount
+
+        if currentHealth <= 0 {
+            currentHealth = 0
+            self.state = .die
+
+            // gameManager.removeAIEntity(aiEntity: self)
+            let event = DespawnAIEntityEvent(entityToDespawn: self)
+            EventSystem.despawnAIEntityEvent.post(event: event)
+
+            return
+        }
+
+        self.state = .hit
+
+        // TODO: set hit duration dynamically based on what it collided with?
+        // TODO: change direction of hit animation?
+        Timer.scheduledTimer(timeInterval: hitDuration, target: self, selector: #selector(resetHit),
+                             userInfo: nil, repeats: false)
+    }
+
+    @objc func resetHit() {
+        self.state = .afterHit
+    }
+
+    override func destroy(gameManager: GameManager) {
+        print("Destroy")
+    }
 }

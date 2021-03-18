@@ -12,4 +12,5 @@ enum PlayerState {
     case idleRight
     case attackLeft
     case attackRight
+    case die
 }

@@ -17,4 +17,7 @@ struct PlayerAnimations {
     // Walk
     static let playerBrushWalkLeft = AtlasAnimation(atlasName: "PlayerBrushWalkLeft", name: "playerBrushWalkLeft", animationDuration: 1.2, isRepeating: true)
     static let playerBrushWalkRight = AtlasAnimation(atlasName: "PlayerBrushWalkRight", name: "playerBrushWalkRight", animationDuration: 1.2, isRepeating: true)
+
+    // Death
+    static let playerDie = AtlasAnimation(atlasName: "SlimeDie", name: "slimeDie", animationDuration: 1.2, isRepeating: false)
 }

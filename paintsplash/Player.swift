@@ -7,7 +7,28 @@
 
 import Foundation
 
-class Player: InteractiveEntity, Movable, PlayableCharacter {
+class Player: InteractiveEntity, Movable, PlayableCharacter, Health {
+    var currentHealth: Int = 3
+
+    var maxHealth: Int = 3
+
+    func heal(amount: Int) {
+        currentHealth += amount
+        if currentHealth > maxHealth {
+            currentHealth = maxHealth
+        }
+    }
+
+    func takeDamage(amount: Int) {
+        currentHealth -= amount
+        if currentHealth <= 0 {
+            currentHealth = 0
+            self.state = .die
+            //Die
+            print("I am die")
+        }
+    }
+
 
     var velocity: Vector2D
     var acceleration: Vector2D
@@ -27,11 +48,11 @@ class Player: InteractiveEntity, Movable, PlayableCharacter {
         super.init(spriteName: "Player", colliderShape: .circle(radius: 50), tags: .player, transform: transform)
 
         self.currentAnimation = PlayerAnimations.playerBrushIdleLeft
-        self.paintWeaponsSystem.load(to: Bucket.self, ammo: [PaintAmmo(color: .blue), PaintAmmo(color: .red), PaintAmmo(color: .yellow)])
+        self.paintWeaponsSystem.load(to: Bucket.self, ammo: [PaintAmmo(color: .red), PaintAmmo(color: .red), PaintAmmo(color: .yellow)])
 
         self.paintWeaponsSystem.load([PaintAmmo(color: .blue), PaintAmmo(color: .red), PaintAmmo(color: .yellow)])
         self.paintWeaponsSystem.switchWeapon(to: Bucket.self)
-//        self.paintWeaponsSystem.load([PaintAmmo(color: .blue), PaintAmmo(color: .red), PaintAmmo(color: .yellow)])
+
         Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(shoot), userInfo: nil, repeats: true)
 
         paintWeaponsSystem.carriedBy = self
@@ -63,6 +84,14 @@ class Player: InteractiveEntity, Movable, PlayableCharacter {
                 fatalError("Ammo Drop not conforming to AmmoDrop protocol")
             }
         }
+
+        if otherObject.tags.contains(.enemy) {
+            guard let enemy = otherObject as? Enemy else {
+                fatalError("Enemy does not conform to enemy")
+            }
+
+            takeDamage(amount: 1)
+        }
     }
 
 
@@ -80,6 +109,8 @@ class Player: InteractiveEntity, Movable, PlayableCharacter {
         case (_, let velocity) where velocity.x > 0:
             self.state = .moveRight
             currentAnimation = PlayerAnimations.playerBrushWalkRight
+        case (.die, _):
+            currentAnimation = PlayerAnimations.playerDie
         default:
             break
         }
