@@ -68,10 +68,6 @@ class Player: InteractiveEntity, Movable, PlayableCharacter, Health {
         EventSystem.processedInputEvents.playerShootEvent.subscribe(listener: onShoot)
     }
 
-    @objc func shoot() {
-        _ = paintWeaponsSystem.shoot(in: lastDirection)
-    }
-
     override func update(gameManager: GameManager) {
         move()
         setState()
@@ -83,7 +79,26 @@ class Player: InteractiveEntity, Movable, PlayableCharacter, Health {
     }
 
     func onShoot(event: PlayerShootEvent) {
-        shoot()
+        // todo: remove direction in playershoot event?
+        guard paintWeaponsSystem.shoot(in: lastDirection) else {
+            return
+        }
+
+        let animation = lastDirection.x < 0
+            ? PlayerAnimations.playerBrushAttackLeft
+            : PlayerAnimations.playerBrushAttackRight
+
+        currentAnimation = animation
+
+        let resetAnimation = lastDirection.x < 0
+            ? PlayerAnimations.playerBrushIdleLeft
+            : PlayerAnimations.playerBrushIdleRight
+
+        DispatchQueue.global().asyncAfter(deadline: .now() + animation.animationDuration) {
+            if self.currentAnimation?.equal(to: animation) != nil {
+                self.currentAnimation = resetAnimation
+            }
+        }
     }
 
     override func onCollide(otherObject: Collidable) {
