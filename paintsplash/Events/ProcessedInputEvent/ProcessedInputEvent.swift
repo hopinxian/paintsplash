@@ -6,7 +6,6 @@
 //
 
 class ProcessedInputEvent: Event {
-
 }
 
 class PlayerMoveEvent: ProcessedInputEvent {

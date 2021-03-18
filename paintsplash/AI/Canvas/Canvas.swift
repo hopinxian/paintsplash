@@ -10,13 +10,11 @@ import Foundation
 class Canvas: AIEntity {
     // TODO: canvases of dynamic size
     init(initialPosition: Vector2D, velocity: Vector2D) {
-        super.init(spriteName: "canvas-spawner", initialPosition: initialPosition, initialVelocity: velocity,
+        super.init(spriteName: "canvas", initialPosition: initialPosition, initialVelocity: velocity,
                    width: 50, height: 50)
         self.currentBehaviour = CanvasBehaviour()
 
         self.defaultSpeed = velocity.magnitude
-
-        print("spawn!!!")
     }
 
     override func getAnimationFromState() -> Animation {
@@ -32,7 +30,10 @@ class Canvas: AIEntity {
         switch otherObject {
         case _ as PaintAmmoDrop:
             // add colour to canvas
-            print("collidateed with ammo")
+            
+            // post notification to alert system about colours on the current canvas
+            
+            print("collided with ammo")
         default:
             print("invalid collision type")
         }

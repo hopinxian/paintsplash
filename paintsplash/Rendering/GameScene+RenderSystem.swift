@@ -60,6 +60,20 @@ extension GameScene: RenderSystem {
         node.run(animation.getAction(), withKey: animation.name)
     }
 
+    func addSubview(_ renderable: Renderable, subviewInfo: RenderInfo) {
+        let id = renderable.id
+        guard let node = nodes[id] else {
+            return
+        }
+        let subview = SKSpriteNode(imageNamed: subviewInfo.spriteName)
+        subview.position = CGPoint(subviewInfo.position)
+        subview.size = CGSize(width: subviewInfo.width, height: subviewInfo.height)
+        subview.zPosition = CGFloat(renderable.zPosition + 1)
+
+        node.addChild(subview)
+        print("added subview")
+    }
+
     func buildNode(renderable: Renderable) -> SKNode {
         // TODO: find a way for size to be determined dynamically
         let node = SKSpriteNode(imageNamed: renderable.spriteName)
@@ -77,8 +91,8 @@ extension GameScene: RenderSystem {
             node.run(animation.getAction(), withKey: animation.name)
         }
 
-//        node.position = CGPoint(renderable.transform.position)
-        node.position = logicalToDisplayViewAdapter.modelPointToScreen(renderable.transform.position)
+        node.position = CGPoint(renderable.transform.position)
+        // node.position = logicalToDisplayViewAdapter.modelPointToScreen(renderable.transform.position)
         node.zRotation = CGFloat(renderable.transform.rotation)
         node.zPosition = CGFloat(renderable.zPosition)
         node.size = CGSize(renderable.transform.size * logicalToDisplayViewAdapter.sizeScaleToScreen)

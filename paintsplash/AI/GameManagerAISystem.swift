@@ -59,7 +59,6 @@ class GameManagerAISystem: AISystem {
     }
 
     func onSpawnAIEntity(event: SpawnAIEntityEvent) {
-        print("rec")
         switch event.spawnEntityType {
         case .enemy(let location, let color):
             addEnemy(at: location, with: color)
@@ -80,6 +79,7 @@ extension GameManagerAISystem: AIEntityDelegate {
     }
 
     func didEntityUpdateState(aiEntity: AIEntity) {
+        // TODO: replace animation update event
         aiEntity.currentAnimation = aiEntity.getAnimationFromState()
         gameManager.getRenderSystem().updateRenderableAnimation(aiEntity)
     }

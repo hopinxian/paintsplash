@@ -23,7 +23,7 @@ class VerticalStackDisplay: GameEntity, Renderable {
     }
 
     func insert(at index: Int) {
-
+        
     }
 
     func remove(at index: Int) {
@@ -54,5 +54,9 @@ class VerticalStackDisplay: GameEntity, Renderable {
         for item in stackItems {
             
         }
+    }
+
+    override func spawn(gameManager: GameManager) {
+        
     }
 }

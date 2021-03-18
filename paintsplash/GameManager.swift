@@ -40,7 +40,6 @@ class GameManager {
 
         setupGame()
         setupViewChangeListener()
-        setupViewChangeListener()
     }
 
     func setupGame() {
@@ -74,6 +73,11 @@ class GameManager {
 
         let attackButton = AttackButton(position: Vector2D(Double(150) / 2 + 100, -200))
         attackButton.spawn(gameManager: self)
+
+        let canvasRequestUI = VerticalStackDisplay(position: Vector2D(-300, 0),
+                                                   size: Vector2D(200, 500),
+                                                   backgroundSprite: "WhiteSquare")
+        canvasRequestUI.spawn(gameManager: self)
 
         self.aiSystem = GameManagerAISystem(gameManager: self)
 
