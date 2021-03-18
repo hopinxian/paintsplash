@@ -39,8 +39,6 @@ class GameManager {
         self.aiSystem?.add(aiEntity: canvasSpawner)
 
         setupGame()
-        setupViewChangeListener()
-        setupViewChangeListener()
     }
 
     func setupGame() {
@@ -85,15 +83,6 @@ class GameManager {
         self.aiSystem?.add(aiEntity: canvasSpawner)
 
 
-    }
-
-    private func setupViewChangeListener() {
-        EventSystem.changeViewEvent.subscribe { event in
-            switch event.changeViewEventType {
-            case .changeAnimation(let renderable):
-                self.getRenderSystem().updateRenderableAnimation(renderable)
-            }
-        }
     }
 
     func getRenderSystem() -> RenderSystem {

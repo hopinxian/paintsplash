@@ -5,10 +5,21 @@
 //  Created by Praveen Bala on 17/3/21.
 //
 
-struct ChangeViewEvent: Event {
-    let changeViewEventType: ChangeViewEventType
+class ChangeViewEvent: Event {
+    let renderable: Renderable
+
+    init(renderable: Renderable) {
+        self.renderable = renderable
+    }
 }
 
-enum ChangeViewEventType {
-    case changeAnimation(renderable: Renderable)
+class ChangeAnimationEvent: ChangeViewEvent {
+    let animation: Animation
+    let interrupt: Bool
+
+    init(renderable: Renderable, animation: Animation, interrupt: Bool) {
+        self.animation = animation
+        self.interrupt = interrupt
+        super.init(renderable: renderable)
+    }
 }

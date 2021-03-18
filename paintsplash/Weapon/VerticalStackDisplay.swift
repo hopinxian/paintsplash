@@ -8,7 +8,7 @@
 class VerticalStackDisplay: GameEntity, Renderable {
     var spriteName: String
 
-    var currentAnimation: Animation?
+    var defaultAnimation: Animation?
 
     var transform: Transform
 
@@ -17,7 +17,7 @@ class VerticalStackDisplay: GameEntity, Renderable {
     init(position: Vector2D, size: Vector2D, backgroundSprite: String) {
         self.spriteName = backgroundSprite
         self.transform = Transform(position: position, rotation: 0.0, size: size)
-        self.currentAnimation = nil
+        self.defaultAnimation = nil
         self.stackItems = []
         super.init()
     }

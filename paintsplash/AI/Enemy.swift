@@ -44,13 +44,13 @@ class Enemy: AIEntity, Colorable, Health {
     }
 
     func setState() {
-        if velocity.magnitude == 0 {
+        if velocity.magnitude == 0 && self.state != .idle {
             self.state = .idle
             // currentAnimation = SlimeAnimations.slimeIdle
-        } else if (velocity.x > 0) {
+        } else if (velocity.x > 0) && self.state != .moveRight {
             self.state = .moveRight
             // currentAnimation = SlimeAnimations.slimeMoveRight
-        } else if (velocity.x < 0) {
+        } else if (velocity.x < 0) && self.state != .moveLeft{
             self.state = .moveLeft
             // currentAnimation = SlimeAnimations.slimeMoveLeft
         }
@@ -110,15 +110,19 @@ class Enemy: AIEntity, Colorable, Health {
 
         // TODO: set hit duration dynamically based on what it collided with?
         // TODO: change direction of hit animation?
-        Timer.scheduledTimer(timeInterval: hitDuration, target: self, selector: #selector(resetHit),
-                             userInfo: nil, repeats: false)
+//        Timer.scheduledTimer(timeInterval: hitDuration, target: self, selector: #selector(resetHit),
+//                             userInfo: nil, repeats: false)
     }
 
-    @objc func resetHit() {
-        self.state = .afterHit
-    }
+//    @objc func resetHit() {
+//        self.state = .afterHit
+//    }
 
     override func destroy(gameManager: GameManager) {
-        print("Destroy")
+        gameManager.removeObject(self)
+        gameManager.getCollisionSystem().removeCollidable(self)
+        animate(animation: SlimeAnimations.slimeDie, interupt: true) {
+            gameManager.getRenderSystem().removeRenderable(self)
+        }
     }
 }

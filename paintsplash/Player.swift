@@ -47,8 +47,8 @@ class Player: InteractiveEntity, Movable, PlayableCharacter, Health {
 
         super.init(spriteName: "Player", colliderShape: .circle(radius: 50), tags: .player, transform: transform)
 
-        self.currentAnimation = PlayerAnimations.playerBrushIdleLeft
-        self.paintWeaponsSystem.load(to: Bucket.self, ammo: [PaintAmmo(color: .red), PaintAmmo(color: .red), PaintAmmo(color: .yellow)])
+        self.defaultAnimation = PlayerAnimations.playerBrushIdleLeft
+        self.paintWeaponsSystem.load(to: Bucket.self, ammo: [PaintAmmo(color: .blue), PaintAmmo(color: .red), PaintAmmo(color: .yellow)])
 
         self.paintWeaponsSystem.load([PaintAmmo(color: .blue), PaintAmmo(color: .red), PaintAmmo(color: .yellow)])
         self.paintWeaponsSystem.switchWeapon(to: Bucket.self)
@@ -99,18 +99,19 @@ class Player: InteractiveEntity, Movable, PlayableCharacter, Health {
         switch (state, velocity) {
         case (.moveLeft, let velocity) where velocity.magnitude == 0:
             self.state = .idleLeft
-            currentAnimation = PlayerAnimations.playerBrushIdleLeft
+            animate(animation: PlayerAnimations.playerBrushIdleLeft, interupt: true)
         case (.moveRight, let velocity) where velocity.magnitude == 0:
             self.state = .idleRight
-            currentAnimation = PlayerAnimations.playerBrushIdleRight
-        case (_, let velocity) where velocity.x < 0:
+            animate(animation: PlayerAnimations.playerBrushIdleRight, interupt: true)
+        case (let state, let velocity) where state != .moveLeft && velocity.x < 0:
             self.state = .moveLeft
-            currentAnimation = PlayerAnimations.playerBrushWalkLeft
-        case (_, let velocity) where velocity.x > 0:
+            animate(animation: PlayerAnimations.playerBrushWalkLeft, interupt: true)
+        case (let state, let velocity) where state != .moveRight && velocity.x > 0:
             self.state = .moveRight
-            currentAnimation = PlayerAnimations.playerBrushWalkRight
+            animate(animation: PlayerAnimations.playerBrushWalkRight, interupt: true)
         case (.die, _):
-            currentAnimation = PlayerAnimations.playerDie
+            self.state = .die
+            animate(animation: PlayerAnimations.playerDie, interupt: true)
         default:
             break
         }

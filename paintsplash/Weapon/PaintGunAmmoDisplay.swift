@@ -8,7 +8,7 @@
 class PaintGunAmmoDisplay: GameEntity, Renderable {
     var spriteName: String
 
-    var currentAnimation: Animation?
+    var defaultAnimation: Animation?
 
     var transform: Transform
 

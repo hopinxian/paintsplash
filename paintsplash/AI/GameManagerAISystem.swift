@@ -36,11 +36,11 @@ class GameManagerAISystem: AISystem {
 
     func remove(aiEntity: AIEntity) {
         // TODO: set fade duration
-        aiEntity.fadeDestroy(gameManager: gameManager, duration: 1.0)
+//        aiEntity.fadeDestroy(gameManager: gameManager, duration: 1.0)
     }
 
     func update(aiEntity: AIEntity) {
-        
+
     }
 
     func addEnemy(at position: Vector2D, with color: PaintColor) {
@@ -69,7 +69,8 @@ class GameManagerAISystem: AISystem {
     }
 
     func onDespawnAIEntity(event: DespawnAIEntityEvent) {
-        event.entityToDespawn.fadeDestroy(gameManager: self.gameManager, duration: 1)
+//        event.entityToDespawn.fadeDestroy(gameManager: self.gameManager, duration: 1)
+        event.entityToDespawn.destroy(gameManager: gameManager)
     }
 
 }
@@ -80,8 +81,10 @@ extension GameManagerAISystem: AIEntityDelegate {
     }
 
     func didEntityUpdateState(aiEntity: AIEntity) {
-        aiEntity.currentAnimation = aiEntity.getAnimationFromState()
-        gameManager.getRenderSystem().updateRenderableAnimation(aiEntity)
+        if let newAnimation = aiEntity.getAnimationFromState() {
+            aiEntity.animate(animation: newAnimation, interupt: true)
+        }
+//        gameManager.getRenderSystem().updateRenderableAnimation(aiEntity)
     }
 
 }

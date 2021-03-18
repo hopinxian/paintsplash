@@ -8,7 +8,7 @@
 class PaintBucketAmmoDisplay: GameEntity, Renderable {
     var spriteName: String
 
-    var currentAnimation: Animation?
+    var defaultAnimation: Animation?
 
     var transform: Transform
 
