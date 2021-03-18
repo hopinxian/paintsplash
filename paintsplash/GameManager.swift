@@ -33,11 +33,7 @@ class GameManager {
 
         EventSystem.entityChangeEvents.addEntityEvent.subscribe(listener: onAddEntity)
         EventSystem.entityChangeEvents.removeEntityEvent.subscribe(listener: onRemoveEntity)
-
-        let canvasSpawner = CanvasSpawner(initialPosition: Vector2D(-200, 150),
-                canvasVelocity: Vector2D(0.2, 0))
-        self.aiSystem?.add(aiEntity: canvasSpawner)
-
+        
         setupGame()
     }
 
@@ -78,9 +74,9 @@ class GameManager {
         self.aiSystem?.addEnemy(at: Vector2D(50, 50), with: .yellow)
         self.aiSystem?.addEnemySpawner(at: Vector2D(200, 50), with: .red)
         
-        let canvasSpawner = CanvasSpawner(initialPosition: Vector2D(-800, 500),
-                canvasVelocity: Vector2D(0.2, 0))
-        self.aiSystem?.add(aiEntity: canvasSpawner)
+//        let canvasSpawner = CanvasSpawner(initialPosition: Vector2D(-800, 500),
+//                canvasVelocity: Vector2D(0.2, 0))
+//        self.aiSystem?.add(aiEntity: canvasSpawner)
     }
 
     func getRenderSystem() -> RenderSystem {

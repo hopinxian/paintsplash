@@ -66,6 +66,7 @@ class Player: InteractiveEntity, Movable, PlayableCharacter, Health {
         paintWeaponsSystem.carriedBy = self
         EventSystem.processedInputEvents.playerMoveEvent.subscribe(listener: onMove)
         EventSystem.processedInputEvents.playerShootEvent.subscribe(listener: onShoot)
+        EventSystem.processedInputEvents.playerChangeWeaponEvent.subscribe(listener: onWeaponChange)
     }
 
     override func update(gameManager: GameManager) {
@@ -92,10 +93,19 @@ class Player: InteractiveEntity, Movable, PlayableCharacter, Health {
             ? PlayerAnimations.playerBrushIdleLeft
             : PlayerAnimations.playerBrushIdleRight
 
-        print("here at animate")
         animate(animation: animation, interupt: true) {
-            print("done")
             self.animate(animation: resetAnimation, interupt: true)
+        }
+    }
+
+    func onWeaponChange(event: PlayerChangeWeaponEvent) {
+        switch event.newWeapon {
+        case is Bucket.Type:
+            paintWeaponsSystem.switchWeapon(to: Bucket.self)
+        case is PaintGun.Type:
+            paintWeaponsSystem.switchWeapon(to: PaintGun.self)
+        default:
+            break
         }
     }
 
