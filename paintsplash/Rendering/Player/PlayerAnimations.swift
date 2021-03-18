@@ -7,8 +7,8 @@
 
 struct PlayerAnimations {
     // Attack
-    static let playerBrushAttackLeft = AtlasAnimation(atlasName: "PlayerBrushAttackLeft", name: "playerBrushAttackLeft", animationDuration: 1.2, isRepeating: true)
-    static let playerBrushAttackRight = AtlasAnimation(atlasName: "PlayerBrushAttackRight", name: "playerBrushAttackRight", animationDuration: 1.2, isRepeating: true)
+    static let playerBrushAttackLeft = AtlasAnimation(atlasName: "PlayerBrushAttackLeft", name: "playerBrushAttackLeft", animationDuration: 1.2, isRepeating: false)
+    static let playerBrushAttackRight = AtlasAnimation(atlasName: "PlayerBrushAttackRight", name: "playerBrushAttackRight", animationDuration: 1.2, isRepeating: false)
 
     // Idle
     static let playerBrushIdleLeft = AtlasAnimation(atlasName: "PlayerBrushIdleLeft", name: "playerBrushIdleLeft", animationDuration: 1.2, isRepeating: true)

@@ -88,16 +88,14 @@ class Player: InteractiveEntity, Movable, PlayableCharacter, Health {
             ? PlayerAnimations.playerBrushAttackLeft
             : PlayerAnimations.playerBrushAttackRight
 
-        currentAnimation = animation
-
         let resetAnimation = lastDirection.x < 0
             ? PlayerAnimations.playerBrushIdleLeft
             : PlayerAnimations.playerBrushIdleRight
 
-        DispatchQueue.global().asyncAfter(deadline: .now() + animation.animationDuration) {
-            if self.currentAnimation?.equal(to: animation) != nil {
-                self.currentAnimation = resetAnimation
-            }
+        print("here at animate")
+        animate(animation: animation, interupt: true) {
+            print("done")
+            self.animate(animation: resetAnimation, interupt: true)
         }
     }
 
