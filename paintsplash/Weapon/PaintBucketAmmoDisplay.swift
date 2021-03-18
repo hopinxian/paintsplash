@@ -19,7 +19,7 @@ class PaintBucketAmmoDisplay: GameEntity, Renderable {
     init(weaponData: Bucket) {
         spriteName = "WhiteSquare"
         transform = Transform(
-            position: Vector2D(300, -200),
+            position: Vector2D(400, -500),
             rotation: 0.0,
             size: Vector2D(60, 200)
         )

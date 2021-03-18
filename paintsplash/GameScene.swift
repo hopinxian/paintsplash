@@ -16,8 +16,7 @@ class GameScene: SKScene {
     private var circle1: TestCircle?
     private var ammoDrop: PaintAmmoDrop?
 
-    var logicalToDisplayViewAdapter: LogicalToDisplayViewAdapter!
-
+    var spaceConverter: SpaceConverter!
     var gameManager: GameManager!
 
     var nodes = [UUID : SKNode]()
@@ -34,13 +33,9 @@ class GameScene: SKScene {
 
         physicsWorld.contactDelegate = self
 
-        // circle1.spawn(renderSystem: self, collisionSystem: self)
-        // circle2.spawn(renderSystem: self, collisionSystem: self)
-
-        // Create shape node to use during mouse interaction
         let w = (self.size.width + self.size.height) * 0.05
 
-        logicalToDisplayViewAdapter = LogicalToDisplayViewAdapter(modelSize: Vector2D(2000, 2000), screenSize: Vector2D(UIScreen.main.bounds.maxX, UIScreen.main.bounds.maxY))
+        spaceConverter = SpaceConverter(modelSize: Vector2D(2000, 2000), screenSize: Vector2D(UIScreen.main.bounds.maxX, UIScreen.main.bounds.maxY))
 
         EventSystem.changeViewEvent.subscribe(listener: onChangeViewEvent)
     }

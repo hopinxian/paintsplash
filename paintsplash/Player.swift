@@ -37,6 +37,8 @@ class Player: InteractiveEntity, Movable, PlayableCharacter, Health {
     private var state: PlayerState = .idleLeft
     var paintWeaponsSystem: PaintWeaponsSystem
 
+    private let moveSpeed = 10.0
+
     init(initialPosition: Vector2D, initialVelocity: Vector2D) {
         self.velocity = Vector2D.zero
         self.acceleration = Vector2D.zero
@@ -70,7 +72,7 @@ class Player: InteractiveEntity, Movable, PlayableCharacter, Health {
     }
 
     func onMove(event: PlayerMoveEvent) {
-        velocity = event.direction
+        velocity = event.direction * moveSpeed
     }
 
     override func onCollide(otherObject: Collidable) {

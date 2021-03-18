@@ -16,8 +16,8 @@ class Joystick: GameEntity, Renderable {
 
     private let foregroundNode: JoystickForeground
 
-    private let backgroundDiameter: Double = 100
-    private let handleDiameter: Double = 50
+    private let backgroundDiameter: Double = 200
+    private let handleDiameter: Double = 150
 
     private var tracking = false
 
@@ -35,7 +35,7 @@ class Joystick: GameEntity, Renderable {
         transform = Transform.standard
         transform.position = position
         zPosition = 0
-        foregroundNode = JoystickForeground(position: position, zPosition: zPosition + 100)
+        foregroundNode = JoystickForeground(position: position, zPosition: zPosition + 1)
 
         super.init()
 

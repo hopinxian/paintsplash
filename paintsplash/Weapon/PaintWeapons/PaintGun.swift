@@ -41,7 +41,7 @@ class PaintGun: Weapon {
         guard let ammo = ammoStack.popLast(), canShoot() else {
             return nil
         }
-        return PaintProjectile(color: ammo.color, radius: 50.0, velocity: Vector2D(3, 0))
+        return PaintProjectile(color: ammo.color, radius: 50.0, velocity: Vector2D(1, 0))
     }
 
     func canShoot() -> Bool {

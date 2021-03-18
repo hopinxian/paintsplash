@@ -93,7 +93,7 @@
 		D596B1AE25F8CF5B00A5854F /* ColliderShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = D596B1AD25F8CF5B00A5854F /* ColliderShape.swift */; };
 		D596B1B625F8CF7400A5854F /* CollisionSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D596B1B525F8CF7400A5854F /* CollisionSystem.swift */; };
 		D596B1C525F8CFEC00A5854F /* AIEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D596B1C425F8CFEC00A5854F /* AIEntity.swift */; };
-		D598F53D26019E7300D7CACB /* LogicalToDisplayViewAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D598F53C26019E7300D7CACB /* LogicalToDisplayViewAdapter.swift */; };
+		D598F53D26019E7300D7CACB /* SpaceConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D598F53C26019E7300D7CACB /* SpaceConverter.swift */; };
 		D598F55F2601C03600D7CACB /* PaintBucketAmmoDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D598F55E2601C03600D7CACB /* PaintBucketAmmoDisplay.swift */; };
 		D5D9200625FB8EEE00E70364 /* PaintWeaponsSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D9200525FB8EEE00E70364 /* PaintWeaponsSystem.swift */; };
 		D5D9200B25FB955500E70364 /* PaintWeapon.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D9200A25FB955500E70364 /* PaintWeapon.swift */; };
@@ -251,7 +251,7 @@
 		D596B1B525F8CF7400A5854F /* CollisionSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollisionSystem.swift; sourceTree = "<group>"; };
 		D596B1C425F8CFEC00A5854F /* AIEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIEntity.swift; sourceTree = "<group>"; };
 		D596B1CE25F8D01800A5854F /* Transform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transform.swift; sourceTree = "<group>"; };
-		D598F53C26019E7300D7CACB /* LogicalToDisplayViewAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogicalToDisplayViewAdapter.swift; sourceTree = "<group>"; };
+		D598F53C26019E7300D7CACB /* SpaceConverter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpaceConverter.swift; sourceTree = "<group>"; };
 		D598F55E2601C03600D7CACB /* PaintBucketAmmoDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaintBucketAmmoDisplay.swift; sourceTree = "<group>"; };
 		D5D9200525FB8EEE00E70364 /* PaintWeaponsSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaintWeaponsSystem.swift; sourceTree = "<group>"; };
 		D5D9200A25FB955500E70364 /* PaintWeapon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaintWeapon.swift; sourceTree = "<group>"; };
@@ -498,7 +498,7 @@
 		D596B1BE25F8CF9700A5854F /* Utility */ = {
 			isa = PBXGroup;
 			children = (
-				D598F53C26019E7300D7CACB /* LogicalToDisplayViewAdapter.swift */,
+				D598F53C26019E7300D7CACB /* SpaceConverter.swift */,
 				ACFD820D25F6773B009D806B /* Vector2D.swift */,
 				ACFD820E25F6773B009D806B /* Vector2D+CoreGraphics.swift */,
 				D583469725FB8477005C344D /* Queue.swift */,
@@ -892,7 +892,7 @@
 				D55EEB9B26008FB600ADC70B /* Player.swift in Sources */,
 				D50A0779260346C000822D67 /* Health.swift in Sources */,
 				D58346A225FB856D005C344D /* LinkedList.swift in Sources */,
-				D598F53D26019E7300D7CACB /* LogicalToDisplayViewAdapter.swift in Sources */,
+				D598F53D26019E7300D7CACB /* SpaceConverter.swift in Sources */,
 				AC069592260123C4007982DE /* ChangeViewEvent.swift in Sources */,
 				AC097E082601FFE4000951B0 /* ProcessedInputEvent.swift in Sources */,
 				D5D9200625FB8EEE00E70364 /* PaintWeaponsSystem.swift in Sources */,

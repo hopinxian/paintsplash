@@ -18,6 +18,11 @@ extension Vector2D {
         self.x = Double(x)
         self.y = Double(y)
     }
+
+    init(_ cgSize: CGSize) {
+        self.x = Double(cgSize.width)
+        self.y = Double(cgSize.height)
+    }
 }
 
 extension CGPoint {

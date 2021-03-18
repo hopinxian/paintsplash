@@ -46,10 +46,4 @@ class InteractiveEntity: GameEntity, Collidable {
         super.update(gameManager: gameManager)
         gameManager.getRenderSystem().updateRenderable(self)
     }
-    
-//    func fadeDestroy(gameManager: GameManager, duration: Double) {
-//        super.destroy(gameManager: gameManager)
-//        gameManager.getRenderSystem().fadeRemoveRenderable(self, duration: duration)
-//        gameManager.getCollisionSystem().removeCollidable(self)
-//    }
 }

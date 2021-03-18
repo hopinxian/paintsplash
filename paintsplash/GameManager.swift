@@ -67,10 +67,10 @@ class GameManager {
         let paintBucketUI = PaintBucketAmmoDisplay(weaponData: paintBucket)
         paintBucketUI.spawn(gameManager: self)
 
-        let joystick = Joystick(position: Vector2D(Double(150) / -2 + 100, -200))
+        let joystick = Joystick(position: Vector2D(-700, -500))
         joystick.spawn(gameManager: self)
 
-        let attackButton = AttackButton(position: Vector2D(Double(150) / 2 + 100, -200))
+        let attackButton = AttackButton(position: Vector2D(700, -500))
         attackButton.spawn(gameManager: self)
 
         self.aiSystem = GameManagerAISystem(gameManager: self)
@@ -78,7 +78,7 @@ class GameManager {
         self.aiSystem?.addEnemy(at: Vector2D(50, 50), with: .yellow)
         self.aiSystem?.addEnemySpawner(at: Vector2D(200, 50), with: .red)
 
-        let canvasSpawner = CanvasSpawner(initialPosition: Vector2D(-200, 150),
+        let canvasSpawner = CanvasSpawner(initialPosition: Vector2D(-800, 500),
                 canvasVelocity: Vector2D(0.2, 0))
         self.aiSystem?.add(aiEntity: canvasSpawner)
 

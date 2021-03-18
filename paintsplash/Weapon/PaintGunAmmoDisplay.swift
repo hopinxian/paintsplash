@@ -19,7 +19,7 @@ class PaintGunAmmoDisplay: GameEntity, Renderable {
     init(weaponData: PaintGun) {
         spriteName = "WhiteSquare"
         transform = Transform(
-            position: Vector2D(200, -200),
+            position: Vector2D(300, -500),
             rotation: 0.0,
             size: Vector2D(60, 200)
         )

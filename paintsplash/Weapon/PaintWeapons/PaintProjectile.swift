@@ -15,11 +15,13 @@ class PaintProjectile: InteractiveEntity, Projectile, Colorable {
     var velocity: Vector2D
     var acceleration: Vector2D
 
+    private let moveSpeed = 15.0
+
     init(color: PaintColor, radius: Double, velocity: Vector2D) {
         self.radius = radius
         self.color = color
 
-        self.velocity = velocity
+        self.velocity = Vector2D.normalize(velocity) * moveSpeed
         self.acceleration = Vector2D.zero
 
         var transform = Transform.standard
