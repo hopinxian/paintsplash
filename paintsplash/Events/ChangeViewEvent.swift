@@ -23,3 +23,12 @@ class ChangeAnimationEvent: ChangeViewEvent {
         super.init(renderable: renderable)
     }
 }
+
+class AddSubviewEvent: ChangeViewEvent {
+    let subviewRenderInfo: RenderInfo
+
+    init(renderable: Renderable, renderInfo: RenderInfo) {
+        self.subviewRenderInfo = renderInfo
+        super.init(renderable: renderable)
+    }
+}

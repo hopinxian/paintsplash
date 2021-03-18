@@ -15,5 +15,5 @@ protocol RenderSystem {
 //    func updateRenderableAnimation(_ renderable: Renderable)
     func animateRenderable(renderable: Renderable, animation: Animation, interrupt: Bool)
 
-    func addSubview(_ renderable: Renderable, subviewInfo: RenderInfo)
+    func addSubview(renderable: Renderable, subviewInfo: RenderInfo)
 }

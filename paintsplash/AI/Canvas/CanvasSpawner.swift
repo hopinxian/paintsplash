@@ -15,6 +15,6 @@ class CanvasSpawner: AIEntity {
 
         // TODO: determine spawn interval by canvas size, speed of movement
         self.currentBehaviour = SpawnCanvasBehaviour(spawnInterval: 10,
-                                                     canvasVelocity: Vector2D(0.1, 0))
+                                                     canvasVelocity: Vector2D(0.2, 0))
     }
 }

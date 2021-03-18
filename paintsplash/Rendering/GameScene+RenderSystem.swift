@@ -50,7 +50,7 @@ extension GameScene: RenderSystem {
         node.run(animation.getAction(), withKey: animation.name)
     }
 
-    func addSubview(_ renderable: Renderable, subviewInfo: RenderInfo) {
+    func addSubview(renderable: Renderable, subviewInfo: RenderInfo) {
         let id = renderable.id
         guard let node = nodes[id] else {
             return
@@ -93,6 +93,9 @@ extension GameScene: RenderSystem {
                 animation: changeAnimationEvent.animation,
                 interrupt: changeAnimationEvent.interrupt
             )
+        case let addSubviewEvent as AddSubviewEvent:
+            addSubview(renderable: addSubviewEvent.renderable,
+                       subviewInfo: addSubviewEvent.subviewRenderInfo)
         default:
             break
         }
