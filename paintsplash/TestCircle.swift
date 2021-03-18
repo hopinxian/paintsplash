@@ -36,7 +36,7 @@ class TestCircle: InteractiveEntity, Movable, Colorable {
     }
 
     @objc func shoot() {
-        _ = paintWeaponsSystem.shoot()
+        _ = paintWeaponsSystem.shoot(in: velocity)
     }
 
     override func update(gameManager: GameManager) {

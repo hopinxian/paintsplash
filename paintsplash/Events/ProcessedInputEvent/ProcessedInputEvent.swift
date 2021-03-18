@@ -23,3 +23,11 @@ class PlayerShootEvent: ProcessedInputEvent {
         self.direction = direction
     }
 }
+
+class PlayerChangeWeaponEvent: ProcessedInputEvent {
+    let newWeapon: Weapon.Type
+
+    init(newWeapon: Weapon.Type) {
+        self.newWeapon = newWeapon
+    }
+}

@@ -39,13 +39,13 @@ class Bucket: Weapon {
         }
     }
 
-    func shoot() -> Projectile? {
+    func shoot(in direction: Vector2D) -> Projectile? {
         guard !ammoQueue.isEmpty && canShoot() else {
             return nil
         }
         let ammo = ammoQueue.removeFirst()
 
-        return PaintProjectile(color: ammo.color, radius: 25.0, velocity: Vector2D(1, 0))
+        return PaintProjectile(color: ammo.color, radius: 25.0, velocity: direction)
     }
 
     func canShoot() -> Bool {

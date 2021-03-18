@@ -30,18 +30,26 @@ class Player: InteractiveEntity, Movable, PlayableCharacter, Health {
     }
 
 
-    var velocity: Vector2D
+    var velocity: Vector2D {
+        didSet {
+            if velocity.magnitude > 0 {
+                lastDirection = Vector2D.normalize(velocity)
+            }
+        }
+    }
     var acceleration: Vector2D
     var defaultSpeed: Double = 1.0
 
     private var state: PlayerState = .idleLeft
     var paintWeaponsSystem: PaintWeaponsSystem
+    private var lastDirection: Vector2D
 
     private let moveSpeed = 10.0
 
     init(initialPosition: Vector2D, initialVelocity: Vector2D) {
         self.velocity = Vector2D.zero
         self.acceleration = Vector2D.zero
+        self.lastDirection = Vector2D.left
 
         var transform = Transform.standard
         transform.position = initialPosition
@@ -55,14 +63,10 @@ class Player: InteractiveEntity, Movable, PlayableCharacter, Health {
         self.paintWeaponsSystem.load([PaintAmmo(color: .blue), PaintAmmo(color: .red), PaintAmmo(color: .yellow)])
         self.paintWeaponsSystem.switchWeapon(to: Bucket.self)
 
-        Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(shoot), userInfo: nil, repeats: true)
-
         paintWeaponsSystem.carriedBy = self
         EventSystem.processedInputEvents.playerMoveEvent.subscribe(listener: onMove)
-    }
-
-    @objc func shoot() {
-        _ = paintWeaponsSystem.shoot()
+        EventSystem.processedInputEvents.playerShootEvent.subscribe(listener: onShoot)
+        EventSystem.processedInputEvents.playerChangeWeaponEvent.subscribe(listener: onWeaponChange)
     }
 
     override func update(gameManager: GameManager) {
@@ -73,6 +77,36 @@ class Player: InteractiveEntity, Movable, PlayableCharacter, Health {
 
     func onMove(event: PlayerMoveEvent) {
         velocity = event.direction * moveSpeed
+    }
+
+    func onShoot(event: PlayerShootEvent) {
+        // todo: remove direction in playershoot event?
+        guard paintWeaponsSystem.shoot(in: lastDirection) else {
+            return
+        }
+
+        let animation = lastDirection.x < 0
+            ? PlayerAnimations.playerBrushAttackLeft
+            : PlayerAnimations.playerBrushAttackRight
+
+        let resetAnimation = lastDirection.x < 0
+            ? PlayerAnimations.playerBrushIdleLeft
+            : PlayerAnimations.playerBrushIdleRight
+
+        animate(animation: animation, interupt: true) {
+            self.animate(animation: resetAnimation, interupt: true)
+        }
+    }
+
+    func onWeaponChange(event: PlayerChangeWeaponEvent) {
+        switch event.newWeapon {
+        case is Bucket.Type:
+            paintWeaponsSystem.switchWeapon(to: Bucket.self)
+        case is PaintGun.Type:
+            paintWeaponsSystem.switchWeapon(to: PaintGun.self)
+        default:
+            break
+        }
     }
 
     override func onCollide(otherObject: Collidable) {
