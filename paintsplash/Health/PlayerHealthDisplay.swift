@@ -29,7 +29,9 @@ class PlayerHealthDisplay: GameEntity, Transformable {
     }
 
     private func updateViews(health: Int) {
-        let healthDisplays = stride(from: 0, to: health, by: 1).map({ _ in HeartDisplay(position: Vector2D.zero, zPosition: 0) })
+        let normalizedHealth = health >= 0 ? health : 0
+
+        let healthDisplays = stride(from: 0, to: normalizedHealth, by: 1).map({ _ in HeartDisplay(position: Vector2D.zero, zPosition: 0) })
         healthDisplayView.changeItems(to: healthDisplays)
     }
 
