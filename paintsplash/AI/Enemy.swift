@@ -20,25 +20,26 @@ class Enemy: AIEntity, Colorable, Health {
     init(initialPosition: Vector2D, initialVelocity: Vector2D, color: PaintColor) {
         self.color = color
         let spriteName = "Slime"
-        super.init(spriteName: spriteName, initialPosition: initialPosition, initialVelocity: initialVelocity, radius: 50)
+        super.init(spriteName: spriteName, initialPosition: initialPosition, initialVelocity: initialVelocity, radius: 50, tags: [.enemy])
         self.currentBehaviour = ApproachPointBehaviour()
         
         self.defaultSpeed = 1.0
     }
 
     override func onCollide(otherObject: Collidable) {
-        
-        guard otherObject.tags.contains(.playerProjectile) else {
-            return
-        }
-        
-        switch otherObject {
-        case let projectile as PaintProjectile:
-            if self.color.contains(color: projectile.color) {
-                takeDamage(amount: 1)
+        if otherObject.tags.contains(.playerProjectile) {
+            switch otherObject {
+            case let projectile as PaintProjectile:
+                if self.color.contains(color: projectile.color) {
+                    takeDamage(amount: 1)
+                }
+            default:
+                fatalError("Projectile not conforming to projectile protocol")
             }
-        default:
-            fatalError("Projectile not conforming to projectile protocol")
+        }
+
+        if otherObject.tags.contains(.player) {
+            die()
         }
 
     }
@@ -97,33 +98,27 @@ class Enemy: AIEntity, Colorable, Health {
 
         if currentHealth <= 0 {
             currentHealth = 0
-            self.state = .die
-
-            // gameManager.removeAIEntity(aiEntity: self)
-            let event = DespawnAIEntityEvent(entityToDespawn: self)
-            EventSystem.despawnAIEntityEvent.post(event: event)
+            die()
 
             return
         }
 
         self.state = .hit
-
-        // TODO: set hit duration dynamically based on what it collided with?
-        // TODO: change direction of hit animation?
-//        Timer.scheduledTimer(timeInterval: hitDuration, target: self, selector: #selector(resetHit),
-//                             userInfo: nil, repeats: false)
     }
 
-//    @objc func resetHit() {
-//        self.state = .afterHit
-//    }
+    private func die() {
+        self.state = .die
+
+        // gameManager.removeAIEntity(aiEntity: self)
+        let event = DespawnAIEntityEvent(entityToDespawn: self)
+        EventSystem.despawnAIEntityEvent.post(event: event)
+    }
+
 
     override func destroy(gameManager: GameManager) {
-        print("destroy")
         gameManager.removeObject(self)
         gameManager.getCollisionSystem().removeCollidable(self)
         animate(animation: SlimeAnimations.slimeDieGray, interupt: true) {
-            print("die")
             gameManager.getRenderSystem().removeRenderable(self)
         }
     }

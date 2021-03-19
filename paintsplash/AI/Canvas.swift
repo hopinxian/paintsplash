@@ -11,7 +11,7 @@ class Canvas: AIEntity {
     // TODO: canvases of dynamic size
     init(initialPosition: Vector2D, velocity: Vector2D) {
         super.init(spriteName: "canvas-spawner", initialPosition: initialPosition, initialVelocity: velocity,
-                   width: 50, height: 50)
+                   width: 50, height: 50, tags: [])
         self.currentBehaviour = CanvasBehaviour()
 
         self.defaultSpeed = velocity.magnitude

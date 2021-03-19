@@ -22,7 +22,7 @@ class InteractiveEntity: GameEntity, Collidable {
     
     var transform: Transform
     
-    init(spriteName: String, colliderShape: ColliderShape, tags: Tag..., transform: Transform) {
+    init(spriteName: String, colliderShape: ColliderShape, tags: [Tag], transform: Transform) {
         self.spriteName = spriteName
         self.colliderShape = colliderShape
         self.tags = Tags(Set(tags))

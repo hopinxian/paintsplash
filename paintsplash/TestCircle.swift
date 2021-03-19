@@ -26,7 +26,7 @@ class TestCircle: InteractiveEntity, Movable, Colorable {
         var transform = Transform.standard
         transform.position = initialPosition
 
-        super.init(spriteName: "RedCircle", colliderShape: .circle(radius: 50), tags: .player, transform: transform)
+        super.init(spriteName: "RedCircle", colliderShape: .circle(radius: 50), tags: [.player], transform: transform)
 
         self.paintWeaponsSystem.load([PaintAmmo(color: .blue), PaintAmmo(color: .red), PaintAmmo(color: .yellow)])
 

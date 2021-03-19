@@ -14,7 +14,7 @@ class PaintAmmoDrop: InteractiveEntity, AmmoDrop, Colorable {
         self.color = color
         
         let transform = Transform(position: position, rotation: 0.0, size: size)
-        super.init(spriteName: "AmmoDrop", colliderShape: .rectangle(size: size), tags: .ammoDrop, transform: transform)
+        super.init(spriteName: "AmmoDrop", colliderShape: .rectangle(size: size), tags: [.ammoDrop], transform: transform)
     }
 
     override func onCollide(otherObject: Collidable) {

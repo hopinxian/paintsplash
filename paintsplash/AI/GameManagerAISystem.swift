@@ -35,7 +35,7 @@ class GameManagerAISystem: AISystem {
     }
 
     func remove(aiEntity: AIEntity) {
-
+        self.AIEntities.remove(aiEntity)
     }
 
     func update(aiEntity: AIEntity) {
@@ -68,6 +68,7 @@ class GameManagerAISystem: AISystem {
     }
 
     func onDespawnAIEntity(event: DespawnAIEntityEvent) {
+        remove(aiEntity: event.entityToDespawn)
         event.entityToDespawn.destroy(gameManager: gameManager)
     }
 
