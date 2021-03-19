@@ -6,8 +6,7 @@
 //
 
 protocol Weapon: AnyObject {
-//    var remainingAmmo: [Projectile] { get set }
-//    var canShoot: Bool { get }
+    var capacity: Int { get set }
     func load(_ ammo: [Ammo])
     func shoot(in direction: Vector2D) -> Projectile?
     func canShoot() -> Bool

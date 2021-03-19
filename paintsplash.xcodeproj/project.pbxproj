@@ -72,6 +72,8 @@
 		D50A0779260346C000822D67 /* Health.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50A0778260346C000822D67 /* Health.swift */; };
 		D50A07EC260499E900822D67 /* PlayerHealthDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50A07EB260499E900822D67 /* PlayerHealthDisplay.swift */; };
 		D50A07F126049A3A00822D67 /* HeartDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50A07F026049A3A00822D67 /* HeartDisplay.swift */; };
+		D50A07FF2604A9A800822D67 /* UIEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50A07FE2604A9A800822D67 /* UIEntity.swift */; };
+		D50A08432604E26400822D67 /* HorizontalStackDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50A08422604E26400822D67 /* HorizontalStackDisplay.swift */; };
 		D55A8AA225FBB4E000BBE210 /* Tags.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55A8AA125FBB4E000BBE210 /* Tags.swift */; };
 		D55A8AAD25FC933A00BBE210 /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55A8AAC25FC933A00BBE210 /* GameManager.swift */; };
 		D55EEB4B25FF8B6500ADC70B /* GameScene+UserInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55EEB4A25FF8B6500ADC70B /* GameScene+UserInput.swift */; };
@@ -238,6 +240,8 @@
 		D50A0778260346C000822D67 /* Health.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Health.swift; sourceTree = "<group>"; };
 		D50A07EB260499E900822D67 /* PlayerHealthDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerHealthDisplay.swift; sourceTree = "<group>"; };
 		D50A07F026049A3A00822D67 /* HeartDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartDisplay.swift; sourceTree = "<group>"; };
+		D50A07FE2604A9A800822D67 /* UIEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIEntity.swift; sourceTree = "<group>"; };
+		D50A08422604E26400822D67 /* HorizontalStackDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalStackDisplay.swift; sourceTree = "<group>"; };
 		D55A8AA125FBB4E000BBE210 /* Tags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tags.swift; sourceTree = "<group>"; };
 		D55A8AAC25FC933A00BBE210 /* GameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
 		D55EEB4A25FF8B6500ADC70B /* GameScene+UserInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameScene+UserInput.swift"; sourceTree = "<group>"; };
@@ -564,6 +568,7 @@
 				D598F55E2601C03600D7CACB /* PaintBucketAmmoDisplay.swift */,
 				D55EEB8526008AAE00ADC70B /* PaintAmmoDisplay.swift */,
 				D55EEBAC260096FB00ADC70B /* VerticalStackDisplay.swift */,
+				D50A08422604E26400822D67 /* HorizontalStackDisplay.swift */,
 			);
 			path = Weapon;
 			sourceTree = "<group>";
@@ -610,6 +615,7 @@
 			children = (
 				AC097DFF2601FFDB000951B0 /* GameEntity.swift */,
 				AC097DFE2601FFDB000951B0 /* InteractiveEntity.swift */,
+				D50A07FE2604A9A800822D67 /* UIEntity.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -976,6 +982,7 @@
 				ACFD820F25F6773B009D806B /* Vector2D.swift in Sources */,
 				DC7B421F25FF63350069B422 /* CollisionEventManager.swift in Sources */,
 				ACB3607A25F661620016E240 /* GameViewController.swift in Sources */,
+				D50A08432604E26400822D67 /* HorizontalStackDisplay.swift in Sources */,
 				D55EEB5325FF98DD00ADC70B /* Animation.swift in Sources */,
 				D583469D25FB8493005C344D /* Stack.swift in Sources */,
 				DC7B421925FF63350069B422 /* EventManager.swift in Sources */,
@@ -1018,6 +1025,7 @@
 				D55EEB7E260089C200ADC70B /* PaintGunAmmoDisplay.swift in Sources */,
 				D55EEB4B25FF8B6500ADC70B /* GameScene+UserInput.swift in Sources */,
 				ACC154F126012F560000775C /* PlayerActionEvent.swift in Sources */,
+				D50A07FF2604A9A800822D67 /* UIEntity.swift in Sources */,
 				DC7B421C25FF63350069B422 /* Event.swift in Sources */,
 				ACFD81FA25F667EB009D806B /* RenderSystem.swift in Sources */,
 				D596B19425F8CEBE00A5854F /* GameScene+RenderSystem.swift in Sources */,

@@ -16,8 +16,8 @@ class PaintAmmoDisplay: GameEntity, Renderable, Colorable {
 
     var zPosition: Int
     
-    init(color: PaintColor, position: Vector2D, zPosition: Int) {
-        self.color = color
+    init(paintAmmo: PaintAmmo, position: Vector2D, zPosition: Int) {
+        self.color = paintAmmo.color
         self.zPosition = zPosition
         spriteName = "WhiteSquare"
         defaultAnimation = nil

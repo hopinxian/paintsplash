@@ -5,74 +5,49 @@
 //  Created by Farrell Nah on 16/3/21.
 //
 
-class PaintGunAmmoDisplay: GameEntity, Renderable {
-    var spriteName: String
-
-    var defaultAnimation: Animation?
-
+class PaintGunAmmoDisplay: GameEntity, Transformable {
     var transform: Transform
-
-    var ammoDisplay = [PaintAmmoDisplay]()
-
+    var ammoDisplayView: VerticalStackDisplay<PaintAmmoDisplay>
     var weaponData: PaintGun
 
     init(weaponData: PaintGun) {
-        spriteName = "WhiteSquare"
         transform = Transform(
             position: Vector2D(300, -500),
             rotation: 0.0,
             size: Vector2D(60, 200)
         )
+        let displayView = VerticalStackDisplay<PaintAmmoDisplay>(transform: transform, backgroundSprite: "WhiteSquare")
+        self.ammoDisplayView = displayView
+
+        EventSystem.entityChangeEvents.addEntityEvent.post(event: AddEntityEvent(entity: displayView))
+
         self.weaponData = weaponData
         super.init()
 
-        populate(with: weaponData.getAmmo().compactMap({ $0 as? PaintAmmo }))
+        updateAmmoDisplay(ammo: weaponData.getAmmo().compactMap({ $0 as? PaintAmmo }))
         EventSystem.playerAmmoUpdateEvent.subscribe(listener: onAmmoUpdate)
         EventSystem.inputEvents.touchDownEvent.subscribe(listener: touchDown)
     }
 
     private func onAmmoUpdate(event: PlayerAmmoUpdateEvent) {
         if event.weapon is PaintGun {
-            populate(with: event.ammo.compactMap({ $0 as? PaintAmmo }))
+            updateAmmoDisplay(ammo: event.ammo.compactMap({ $0 as? PaintAmmo }))
         }
     }
 
-    func populate(with ammo: [PaintAmmo]) {
-        for display in ammoDisplay {
-            EventSystem.entityChangeEvents.removeEntityEvent.post(event: RemoveEntityEvent(entity: display))
-        }
+    private func updateAmmoDisplay(ammo: [PaintAmmo]) {
+        let ammoDisplays = ammo
+            .compactMap({ PaintAmmoDisplay(
+                            paintAmmo: $0,
+                            position: Vector2D.zero,
+                            zPosition: 0)
+            })
 
-        ammoDisplay = []
-
-        var nextPosition = transform.position - Vector2D(0, (transform.size.y / 2) - 20)
-        for ammoData in ammo {
-            let newDisplay = PaintAmmoDisplay(color: ammoData.color, position: nextPosition, zPosition: zPosition + 1)
-            ammoDisplay.append(newDisplay)
-            EventSystem.entityChangeEvents.addEntityEvent.post(event: AddEntityEvent(entity: newDisplay))
-            nextPosition += Vector2D(0, newDisplay.transform.size.y + 20)
-        }
-
-        print(ammoDisplay.count)
-    }
-
-    override func spawn(gameManager: GameManager) {
-        gameManager.getRenderSystem().addRenderable(self)
-        super.spawn(gameManager: gameManager)
-    }
-
-    override func destroy(gameManager: GameManager) {
-        gameManager.getRenderSystem().removeRenderable(self)
-        super.destroy(gameManager: gameManager)
-    }
-
-    override func update(gameManager: GameManager) {
-        gameManager.getRenderSystem().updateRenderable(self)
-        super.spawn(gameManager: gameManager)
+        ammoDisplayView.changeItems(to: ammoDisplays)
     }
 
     func touchDown(event: TouchDownEvent) {
         let location = event.location
-
         if abs(transform.position.x - location.x) < transform.size.x &&
             abs(transform.position.y - location.y) < transform.size.y {
             let event = PlayerChangeWeaponEvent(newWeapon: PaintGun.self)

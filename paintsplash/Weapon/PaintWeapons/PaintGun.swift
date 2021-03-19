@@ -5,6 +5,7 @@
 //  Created by Farrell Nah on 12/3/21.
 //
 class PaintGun: Weapon {
+    var capacity: Int = 4
     private let maxCoolDown = 100.0
     private var currentCoolDown = 0.0
 

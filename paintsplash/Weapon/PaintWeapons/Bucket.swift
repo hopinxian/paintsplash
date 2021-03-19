@@ -6,7 +6,7 @@
 //
 
 class Bucket: Weapon {
-
+    var capacity: Int = 4
     private let maxCoolDown = 100.0
     private var currentCoolDown = 0.0
 

@@ -37,6 +37,7 @@ extension GameScene: RenderSystem {
         node.position = spaceConverter.modelToScreen(renderable.transform.position)
         node.zRotation = CGFloat(renderable.transform.rotation)
         node.zPosition = CGFloat(renderable.zPosition)
+//        node.size = spaceConverter.modelToScreen(renderable.transform.size)
     }
 
     func animateRenderable(renderable: Renderable, animation: Animation, interrupt: Bool) {

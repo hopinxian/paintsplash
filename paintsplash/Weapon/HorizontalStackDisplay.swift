@@ -1,11 +1,11 @@
 //
-//  VerticalStackDisplay.swift
+//  HorizontalStackDisplay.swift
 //  paintsplash
 //
-//  Created by Farrell Nah on 16/3/21.
+//  Created by Farrell Nah on 19/3/21.
 //
 
-class VerticalStackDisplay<ItemType: Renderable>: GameEntity, Renderable {
+class HorizontalStackDisplay<ItemType: Renderable>: GameEntity, Renderable {
     var spriteName: String
     var defaultAnimation: Animation?
     var transform: Transform
@@ -13,7 +13,7 @@ class VerticalStackDisplay<ItemType: Renderable>: GameEntity, Renderable {
 
     let seperation: Double
     let leftPadding: Double
-    let rightPadding: Double
+    let topPadding: Double
     let bottomPadding: Double
 
     init(
@@ -21,7 +21,7 @@ class VerticalStackDisplay<ItemType: Renderable>: GameEntity, Renderable {
         backgroundSprite: String,
         seperation: Double = 20.0,
         leftPadding: Double = 10.0,
-        rightPadding: Double = 10.0,
+        topPadding: Double = 10.0,
         bottomPadding: Double = 10.0
         ) {
         self.spriteName = backgroundSprite
@@ -30,7 +30,7 @@ class VerticalStackDisplay<ItemType: Renderable>: GameEntity, Renderable {
         self.items = []
         self.seperation = seperation
         self.leftPadding = leftPadding
-        self.rightPadding = rightPadding
+        self.topPadding = topPadding
         self.bottomPadding = bottomPadding
         super.init()
     }
@@ -87,12 +87,12 @@ class VerticalStackDisplay<ItemType: Renderable>: GameEntity, Renderable {
         guard let firstItem = items.first else {
             return
         }
-        var nextPosition = transform.position + Vector2D(leftPadding - rightPadding, -(transform.size.y / 2) + (firstItem.transform.size.y / 2) + bottomPadding)
+        var nextPosition = transform.position + Vector2D(-(transform.size.x / 2) + (firstItem.transform.size.x / 2) + leftPadding, bottomPadding - topPadding)
         for item in items {
             item.move(to: nextPosition)
             item.zPosition = zPosition + 1
             EventSystem.entityChangeEvents.addEntityEvent.post(event: AddEntityEvent(entity: item))
-            nextPosition += Vector2D(0, item.transform.size.y + seperation)
+            nextPosition += Vector2D(item.transform.size.x + seperation, 0)
         }
     }
 

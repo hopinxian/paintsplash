@@ -66,7 +66,7 @@ class GameManager {
         let attackButton = AttackButton(position: Vector2D(700, -500))
         attackButton.spawn(gameManager: self)
 
-        let playerHealthUI = PlayerHealthDisplay(startingHealth: player.currentHealth, maxHealth: player.maxHealth)
+        let playerHealthUI = PlayerHealthDisplay(startingHealth: player.currentHealth)
         playerHealthUI.spawn(gameManager: self)
 
         self.aiSystem = GameManagerAISystem(gameManager: self)
