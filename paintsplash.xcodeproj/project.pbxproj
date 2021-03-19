@@ -65,6 +65,8 @@
 		ACFD822725F67C76009D806B /* PaintColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFD822625F67C76009D806B /* PaintColor.swift */; };
 		ACFD822C25F67C9E009D806B /* Transformable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFD822B25F67C9E009D806B /* Transformable.swift */; };
 		D50A0779260346C000822D67 /* Health.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50A0778260346C000822D67 /* Health.swift */; };
+		D50A07EC260499E900822D67 /* PlayerHealthDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50A07EB260499E900822D67 /* PlayerHealthDisplay.swift */; };
+		D50A07F126049A3A00822D67 /* HeartDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50A07F026049A3A00822D67 /* HeartDisplay.swift */; };
 		D55A8AA225FBB4E000BBE210 /* Tags.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55A8AA125FBB4E000BBE210 /* Tags.swift */; };
 		D55A8AAD25FC933A00BBE210 /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55A8AAC25FC933A00BBE210 /* GameManager.swift */; };
 		D55EEB4B25FF8B6500ADC70B /* GameScene+UserInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55EEB4A25FF8B6500ADC70B /* GameScene+UserInput.swift */; };
@@ -224,6 +226,8 @@
 		ACFD822625F67C76009D806B /* PaintColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaintColor.swift; sourceTree = "<group>"; };
 		ACFD822B25F67C9E009D806B /* Transformable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transformable.swift; sourceTree = "<group>"; };
 		D50A0778260346C000822D67 /* Health.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Health.swift; sourceTree = "<group>"; };
+		D50A07EB260499E900822D67 /* PlayerHealthDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerHealthDisplay.swift; sourceTree = "<group>"; };
+		D50A07F026049A3A00822D67 /* HeartDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartDisplay.swift; sourceTree = "<group>"; };
 		D55A8AA125FBB4E000BBE210 /* Tags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tags.swift; sourceTree = "<group>"; };
 		D55A8AAC25FC933A00BBE210 /* GameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
 		D55EEB4A25FF8B6500ADC70B /* GameScene+UserInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameScene+UserInput.swift"; sourceTree = "<group>"; };
@@ -465,6 +469,8 @@
 			isa = PBXGroup;
 			children = (
 				D50A0778260346C000822D67 /* Health.swift */,
+				D50A07EB260499E900822D67 /* PlayerHealthDisplay.swift */,
+				D50A07F026049A3A00822D67 /* HeartDisplay.swift */,
 			);
 			path = Health;
 			sourceTree = "<group>";
@@ -942,6 +948,7 @@
 				8402D28F25FE0BDB00493DDE /* ColorMixer.swift in Sources */,
 				D5DC909125FCC4210038DF71 /* AtlasAnimation.swift in Sources */,
 				DC2403382600E1FB00550E1E /* SpawnAIEntityEventManager.swift in Sources */,
+				D50A07EC260499E900822D67 /* PlayerHealthDisplay.swift in Sources */,
 				ACFD820F25F6773B009D806B /* Vector2D.swift in Sources */,
 				DC7B421F25FF63350069B422 /* CollisionEventManager.swift in Sources */,
 				ACB3607A25F661620016E240 /* GameViewController.swift in Sources */,
@@ -967,6 +974,7 @@
 				DC7B421B25FF63350069B422 /* TouchInputEvent.swift in Sources */,
 				AC069597260123CE007982DE /* ChangeViewEventManager.swift in Sources */,
 				ACFD822C25F67C9E009D806B /* Transformable.swift in Sources */,
+				D50A07F126049A3A00822D67 /* HeartDisplay.swift in Sources */,
 				DC7B421E25FF63350069B422 /* EventMovementSystem.swift in Sources */,
 				DC7B421A25FF63350069B422 /* TouchInputEventManager.swift in Sources */,
 				D5D9200B25FB955500E70364 /* PaintWeapon.swift in Sources */,

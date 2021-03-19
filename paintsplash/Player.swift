@@ -134,6 +134,9 @@ class Player: InteractiveEntity, Movable, PlayableCharacter, Health {
 
     func heal(amount: Int) {
         currentHealth += amount
+
+        EventSystem.playerActionEvent.playerHealthUpdateEvent.post(event: PlayerHealthUpdateEvent(newHealth: currentHealth))
+
         if currentHealth > maxHealth {
             currentHealth = maxHealth
         }
@@ -141,6 +144,9 @@ class Player: InteractiveEntity, Movable, PlayableCharacter, Health {
 
     func takeDamage(amount: Int) {
         currentHealth -= amount
+
+        EventSystem.playerActionEvent.playerHealthUpdateEvent.post(event: PlayerHealthUpdateEvent(newHealth: currentHealth))
+
         if currentHealth <= 0 {
             currentHealth = 0
             die()
