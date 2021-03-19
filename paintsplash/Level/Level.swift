@@ -20,6 +20,7 @@ class Level {
     var loopStartTime: Date!
     var nextSpawnEvent: Int = 0
     var currentLoop = 1
+    var score = LevelScore()
 
     private static let maxX: Double = Double(UIScreen.main.bounds.width / 3)
     private static let maxY: Double = Double(UIScreen.main.bounds.height / 3)
@@ -32,6 +33,8 @@ class Level {
         if spawnEvents.isEmpty {
             return
         }
+        score.reset()
+        score.freeze = false
         isRunning = true
         spawnEvents.sort()
         currentLoop = 1
@@ -80,10 +83,12 @@ class Level {
     
     func stop() {
         isRunning = false
+        score.freeze = true
     }
     
     func continueSpawn() {
         isRunning = true
+        score.freeze = false
     }
         
     func addSpawnEvent(_ event: LevelSpawnEvent) {

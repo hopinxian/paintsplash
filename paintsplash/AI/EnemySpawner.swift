@@ -5,7 +5,10 @@
 //  Created by Cynthia Lee on 14/3/21.
 //
 
-class EnemySpawner: AIEntity, Colorable {
+class EnemySpawner: AIEntity, Colorable, Health {
+    var currentHealth: Int = 1
+    
+    var maxHealth: Int = 1
     
     var color: PaintColor
     
@@ -35,13 +38,12 @@ class EnemySpawner: AIEntity, Colorable {
         
         switch otherObject {
         case let projectile as PaintProjectile:
-            if projectile.color != self.color {
-                return
+            if self.color.contains(color: projectile.color) {
+                takeDamage(amount: 1)
             }
         default:
             fatalError("Projectile not conforming to projectile protocol")
         }
-        // TODO: response to being hit by a projectile of correct color
     }
 
     override func update(gameManager: GameManager) {
@@ -54,5 +56,33 @@ class EnemySpawner: AIEntity, Colorable {
 
         super.update(gameManager: gameManager)
     }
+    
+    func heal(amount: Int) {
+        currentHealth += amount
+        if currentHealth > maxHealth {
+            currentHealth = maxHealth
+        }
+    }
+    
+    func takeDamage(amount: Int) {
+        currentHealth -= amount
+        
+        if currentHealth <= 0 {
+            currentHealth = 0
+            self.state = .die
+            
+            let event = DespawnAIEntityEvent(entityToDespawn: self)
+            EventSystem.despawnAIEntityEvent.post(event: event)
+            EventSystem.scoreEvent.post(event: ScoreEvent(value: Points.enemySpawnerKill))
+            
+            return
+        }
+        
+        self.state = .hit
+    }
 
+    override func destroy(gameManager: GameManager) {
+        gameManager.removeObject(self)
+        gameManager.getCollisionSystem().removeCollidable(self)
+    }
 }

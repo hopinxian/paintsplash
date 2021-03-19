@@ -102,6 +102,7 @@ class Enemy: AIEntity, Colorable, Health {
             // gameManager.removeAIEntity(aiEntity: self)
             let event = DespawnAIEntityEvent(entityToDespawn: self)
             EventSystem.despawnAIEntityEvent.post(event: event)
+            EventSystem.scoreEvent.post(event: ScoreEvent(value: Points.enemyKill))
 
             return
         }
@@ -119,7 +120,6 @@ class Enemy: AIEntity, Colorable, Health {
 //    }
 
     override func destroy(gameManager: GameManager) {
-        print("destroy")
         gameManager.removeObject(self)
         gameManager.getCollisionSystem().removeCollidable(self)
         animate(animation: SlimeAnimations.slimeDieGray, interupt: true) {
