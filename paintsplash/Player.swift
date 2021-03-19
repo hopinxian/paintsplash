@@ -42,7 +42,6 @@ class Player: InteractiveEntity, Movable, PlayableCharacter, Health {
         self.paintWeaponsSystem.load(to: Bucket.self, ammo: [PaintAmmo(color: .red), PaintAmmo(color: .red), PaintAmmo(color: .red)])
 
         self.paintWeaponsSystem.load([PaintAmmo(color: .blue), PaintAmmo(color: .red), PaintAmmo(color: .yellow)])
-        self.paintWeaponsSystem.switchWeapon(to: Bucket.self)
 
         paintWeaponsSystem.carriedBy = self
         EventSystem.processedInputEvents.playerMoveEvent.subscribe(listener: onMove)

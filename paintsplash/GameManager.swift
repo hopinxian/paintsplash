@@ -60,6 +60,8 @@ class GameManager {
         let paintBucketUI = PaintBucketAmmoDisplay(weaponData: paintBucket)
         paintBucketUI.spawn(gameManager: self)
 
+        player.paintWeaponsSystem.switchWeapon(to: Bucket.self)
+
         let joystick = Joystick(position: Vector2D(-700, -500))
         joystick.spawn(gameManager: self)
 
