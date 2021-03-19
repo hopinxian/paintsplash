@@ -24,13 +24,22 @@ class PaintBucketAmmoDisplay: GameEntity, Transformable {
         super.init()
 
         updateAmmoDisplay(ammo: weaponData.getAmmo().compactMap({ $0 as? PaintAmmo }))
-        EventSystem.playerAmmoUpdateEvent.subscribe(listener: onAmmoUpdate)
+        EventSystem.playerActionEvent.playerAmmoUpdateEvent.subscribe(listener: onAmmoUpdate)
+        EventSystem.playerActionEvent.playerChangedWeaponEvent.subscribe(listener: onChangeWeapon)
         EventSystem.inputEvents.touchDownEvent.subscribe(listener: touchDown)
     }
 
     private func onAmmoUpdate(event: PlayerAmmoUpdateEvent) {
         if event.weapon is Bucket {
             updateAmmoDisplay(ammo: event.ammo.compactMap({ $0 as? PaintAmmo }))
+        }
+    }
+
+    private func onChangeWeapon(event: PlayerChangedWeaponEvent) {
+        if type(of: event.weapon) == type(of: weaponData) {
+            ammoDisplayView.animate(animation: WeaponAnimations.selectWeapon, interupt: true)
+        } else {
+            ammoDisplayView.animate(animation: WeaponAnimations.unselectWeapon, interupt: true)
         }
     }
 
@@ -49,7 +58,7 @@ class PaintBucketAmmoDisplay: GameEntity, Transformable {
         let location = event.location
         if abs(transform.position.x - location.x) < transform.size.x &&
             abs(transform.position.y - location.y) < transform.size.y {
-            let event = PlayerChangeWeaponEvent(newWeapon: PaintGun.self)
+            let event = PlayerChangeWeaponEvent(newWeapon: Bucket.self)
             EventSystem.processedInputEvents.playerChangeWeaponEvent.post(event: event)
         }
     }

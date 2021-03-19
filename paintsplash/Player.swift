@@ -96,7 +96,9 @@ class Player: InteractiveEntity, Movable, PlayableCharacter, Health {
             switch otherObject {
             case let ammoDrop as PaintAmmoDrop:
                 let ammo = ammoDrop.getAmmoObject()
-                paintWeaponsSystem.load([ammo])
+                if paintWeaponsSystem.canLoad([ammo]) {
+                    paintWeaponsSystem.load([ammo])
+                }
             default:
                 fatalError("Ammo Drop not conforming to AmmoDrop protocol")
             }

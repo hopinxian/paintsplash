@@ -11,4 +11,5 @@ protocol Weapon: AnyObject {
     func shoot(in direction: Vector2D) -> Projectile?
     func canShoot() -> Bool
     func getAmmo() -> [Ammo]
+    func canLoad(_ ammo: [Ammo]) -> Bool
 }

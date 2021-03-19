@@ -28,3 +28,21 @@ class PlayerHealthUpdateEvent: PlayerActionEvent {
         self.newHealth = newHealth
     }
 }
+
+class PlayerAmmoUpdateEvent: PlayerActionEvent {
+    let weapon: Weapon
+    let ammo: [Ammo]
+
+    init(weapon: Weapon, ammo: [Ammo]) {
+        self.weapon = weapon
+        self.ammo = ammo
+    }
+}
+
+class PlayerChangedWeaponEvent: PlayerActionEvent {
+    let weapon: Weapon
+
+    init(weapon: Weapon) {
+        self.weapon = weapon
+    }
+}

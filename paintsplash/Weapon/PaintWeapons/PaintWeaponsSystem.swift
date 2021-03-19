@@ -21,7 +21,7 @@ class PaintWeaponsSystem: MultiWeaponSystem {
         }
         
         weapon.load(ammo)
-        EventSystem.playerAmmoUpdateEvent.post(event: PlayerAmmoUpdateEvent(weapon: weapon, ammo: weapon.getAmmo()))
+        EventSystem.playerActionEvent.playerAmmoUpdateEvent.post(event: PlayerAmmoUpdateEvent(weapon: weapon, ammo: weapon.getAmmo()))
     }
 
     func load<T: Weapon>(to weaponType: T.Type, ammo: [Ammo]) {
@@ -30,7 +30,7 @@ class PaintWeaponsSystem: MultiWeaponSystem {
         }
 
         weapon.load(ammo)
-        EventSystem.playerAmmoUpdateEvent.post(event: PlayerAmmoUpdateEvent(weapon: weapon, ammo: weapon.getAmmo()))
+        EventSystem.playerActionEvent.playerAmmoUpdateEvent.post(event: PlayerAmmoUpdateEvent(weapon: weapon, ammo: weapon.getAmmo()))
     }
 
     func shoot(in direction: Vector2D) -> Bool {
@@ -45,7 +45,7 @@ class PaintWeaponsSystem: MultiWeaponSystem {
         projectile.move(to: carriedBy.transform.position)
 
         EventSystem.entityChangeEvents.addEntityEvent.post(event: AddEntityEvent(entity: projectile))
-        EventSystem.playerAmmoUpdateEvent.post(event: PlayerAmmoUpdateEvent(weapon: weapon, ammo: weapon.getAmmo()))
+        EventSystem.playerActionEvent.playerAmmoUpdateEvent.post(event: PlayerAmmoUpdateEvent(weapon: weapon, ammo: weapon.getAmmo()))
         //        projectile.spawn(gameManager: gameManager)
 
         return true
@@ -57,6 +57,7 @@ class PaintWeaponsSystem: MultiWeaponSystem {
         }
 
         activeWeapon = weapon
+        EventSystem.playerActionEvent.playerChangedWeaponEvent.post(event: PlayerChangedWeaponEvent(weapon: weapon))
     }
 
     func getAmmo() -> [(Weapon, [Ammo])] {
@@ -65,5 +66,9 @@ class PaintWeaponsSystem: MultiWeaponSystem {
             ammoList.append((weapon, weapon.getAmmo()))
         }
         return ammoList
+    }
+
+    func canLoad(_ ammo: [Ammo]) -> Bool {
+        activeWeapon?.canLoad(ammo) ?? false
     }
 }

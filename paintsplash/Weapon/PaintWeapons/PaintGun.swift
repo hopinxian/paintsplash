@@ -6,6 +6,7 @@
 //
 class PaintGun: Weapon {
     var capacity: Int = 4
+
     private let maxCoolDown = 100.0
     private var currentCoolDown = 0.0
 
@@ -23,7 +24,7 @@ class PaintGun: Weapon {
         guard ammoStack.count < capacity else {
             return
         }
-        
+
         ammoStack.append(ammo)
         mix()
     }
@@ -56,5 +57,9 @@ class PaintGun: Weapon {
 
     func getAmmo() -> [Ammo] {
         ammoStack
+    }
+
+    func canLoad(_ ammo: [Ammo]) -> Bool {
+        ammoStack.count < capacity
     }
 }

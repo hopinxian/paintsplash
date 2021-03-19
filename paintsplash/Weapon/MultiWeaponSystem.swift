@@ -14,4 +14,5 @@ protocol MultiWeaponSystem {
     func shoot(in direction: Vector2D) -> Bool
     func switchWeapon<T: Weapon>(to weapon: T.Type)
     func getAmmo() -> [(Weapon, [Ammo])]
+    func canLoad(_ ammo: [Ammo]) -> Bool
 }

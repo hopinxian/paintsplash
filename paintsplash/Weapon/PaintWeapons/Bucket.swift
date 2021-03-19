@@ -60,4 +60,8 @@ class Bucket: Weapon {
     func getAmmo() -> [Ammo] {
         ammoQueue
     }
+
+    func canLoad(_ ammo: [Ammo]) -> Bool {
+        ammoQueue.count < capacity
+    }
 }

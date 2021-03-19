@@ -19,7 +19,14 @@ class PaintAmmoDrop: InteractiveEntity, AmmoDrop, Colorable {
 
     override func onCollide(otherObject: Collidable) {
         if otherObject.tags.contains(.player) {
-            EventSystem.entityChangeEvents.removeEntityEvent.post(event: RemoveEntityEvent(entity: self))
+            switch otherObject {
+            case let player as Player:
+                if player.paintWeaponsSystem.canLoad([getAmmoObject()]) {
+                    EventSystem.entityChangeEvents.removeEntityEvent.post(event: RemoveEntityEvent(entity: self))
+                }
+            default:
+                fatalError("Player does not conform to Player")
+            }
         }
     }
 
