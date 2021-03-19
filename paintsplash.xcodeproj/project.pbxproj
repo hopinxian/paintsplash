@@ -695,7 +695,6 @@
 		DC7B420C25FF63350069B422 /* Events */ = {
 			isa = PBXGroup;
 			children = (
-				DC0C02D22603B83100656E49 /* CanvasEvents */,
 				846D4FC12602401E0079720F /* PlayerHasMovedEvent */,
 				AC097E052601FFE4000951B0 /* ProcessedInputEvent */,
 				DC7B420D25FF63350069B422 /* EventManager.swift */,
@@ -712,6 +711,7 @@
 				AC069596260123CE007982DE /* ChangeViewEventManager.swift */,
 				ACC154F026012F560000775C /* PlayerActionEvent.swift */,
 				ACC154F526012F640000775C /* PlayerActionEventManager.swift */,
+				DC0C02D22603B83100656E49 /* CanvasEvents */,
 				DC2403332600E1D400550E1E /* AISystemEvents */,
 			);
 			path = Events;

@@ -9,9 +9,9 @@ class Canvas: AIEntity {
     private(set) var colors: Set<PaintColor> = []
 
     // TODO: canvases of dynamic size
-    init(initialPosition: Vector2D, velocity: Vector2D) {
+    init(initialPosition: Vector2D, velocity: Vector2D, size: Vector2D) {
         super.init(spriteName: "canvas", initialPosition: initialPosition, initialVelocity: velocity,
-                   width: 200, height: 200)
+                   width: size.x, height: size.y)
 
         print("width: \(self.transform.size.x), height: \(self.transform.size.y)")
 
@@ -46,7 +46,6 @@ class Canvas: AIEntity {
         default:
             print("invalid collision type")
         }
-
     }
 
     func getPaintBlobRenderInfo(color: PaintColor) -> RenderInfo {
@@ -71,7 +70,7 @@ class Canvas: AIEntity {
                           width: width,
                           height: height,
                           color: color,
-                          colorBlend: 1.0,
+                          colorBlend: 0.8,
                           rotation: rotation,
                           cropInParent: true)
     }

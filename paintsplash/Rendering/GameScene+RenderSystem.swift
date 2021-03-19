@@ -68,7 +68,7 @@ extension GameScene: RenderSystem {
         if subviewInfo.cropInParent {
             let cropNode = SKCropNode()
 
-            let shapeNode = SKShapeNode(rectOf: CGSize(width: 128, height: 128))
+            let shapeNode = SKShapeNode(rectOf: CGSize(width: 50, height: 50))
             shapeNode.fillColor = .black
 
             cropNode.maskNode = shapeNode

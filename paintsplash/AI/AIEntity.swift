@@ -34,6 +34,9 @@ class AIEntity: InteractiveEntity, Movable {
         var transform = Transform.standard
         transform.position = initialPosition
 
+        let diameter = 2 * radius
+        transform.size = Vector2D(diameter, diameter)
+
         super.init(spriteName: spriteName, colliderShape: .enemy(radius: radius), tags: .enemy, transform: transform)
     }
 
@@ -43,6 +46,7 @@ class AIEntity: InteractiveEntity, Movable {
 
         var transform = Transform.standard
         transform.position = initialPosition
+        transform.size = Vector2D(width, height)
 
         super.init(spriteName: spriteName, colliderShape: .rectEnemy(width: width, height: height),
                    tags: .enemy, transform: transform)

@@ -76,11 +76,12 @@ class GameManager {
 
         self.aiSystem = GameManagerAISystem(gameManager: self)
 
-        // self.aiSystem?.addEnemy(at: Vector2D(50, 50), with: .yellow)
         // self.aiSystem?.addEnemySpawner(at: Vector2D(200, 50), with: .red)
         
-        let canvasSpawner = CanvasSpawner(initialPosition: Vector2D(-800, 500),
-                canvasVelocity: Vector2D(0.2, 0))
+        let canvasSpawner = CanvasSpawner(initialPosition: Vector2D(-1100, 500),
+                                          canvasVelocity: Vector2D(0.4, 0),
+                                          canvasSize: Vector2D(200, 200),
+                                          spawnInterval: 10)
         self.aiSystem?.add(aiEntity: canvasSpawner)
     }
 

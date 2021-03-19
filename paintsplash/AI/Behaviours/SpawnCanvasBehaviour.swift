@@ -13,11 +13,14 @@ class SpawnCanvasBehaviour: AIBehaviour {
 
     var canvasVelocity: Vector2D
 
-    init(spawnInterval: Double, canvasVelocity: Vector2D) {
+    var canvasSize: Vector2D
+
+    init(spawnInterval: Double, canvasVelocity: Vector2D, canvasSize: Vector2D) {
         self.spawnInterval = spawnInterval
-        self.lastSpawnDate = Date()
+        self.lastSpawnDate = Date() - self.spawnInterval
 
         self.canvasVelocity = canvasVelocity
+        self.canvasSize = canvasSize
     }
 
     func updateAI(aiEntity: AIEntity, aiGameInfo: AIGameInfo) {
@@ -29,9 +32,14 @@ class SpawnCanvasBehaviour: AIBehaviour {
 
         print(aiEntity.position)
         let spawnCanvasEvent = SpawnAIEntityEvent(spawnEntityType: .canvas(location: aiEntity.position,
-                                                                           velocity: canvasVelocity))
+                                                                           velocity: canvasVelocity,
+                                                                           size: canvasSize))
         EventSystem.spawnAIEntityEvent.post(event: spawnCanvasEvent)
         self.lastSpawnDate = Date()
+    }
+
+    func spawnCanvas() {
+
     }
 }
 
