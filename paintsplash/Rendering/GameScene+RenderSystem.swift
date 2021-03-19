@@ -51,10 +51,44 @@ extension GameScene: RenderSystem {
         node.run(animation.getAction(), withKey: animation.name)
     }
 
+    func addSubview(renderable: Renderable, subviewInfo: RenderInfo) {
+        let id = renderable.id
+        guard let node = nodes[id] else {
+            return
+        }
+
+        // Create a child node with specifications
+        let subview = SKSpriteNode(imageNamed: subviewInfo.spriteName)
+        subview.position = CGPoint(subviewInfo.position)
+        subview.size = CGSize(width: subviewInfo.width, height: subviewInfo.height)
+        subview.zPosition = CGFloat(renderable.zPosition + 1)
+        subview.color = subviewInfo.color.uiColor
+        subview.colorBlendFactor = CGFloat(subviewInfo.colorBlend)
+        subview.zRotation = CGFloat(subviewInfo.rotation)
+
+        if subviewInfo.cropInParent {
+            let cropNode = SKCropNode()
+
+            let convertedSize: CGSize = spaceConverter.modelToScreen(renderable.transform.size)
+            let shapeNode = SKShapeNode(rectOf: convertedSize)
+            shapeNode.fillColor = .black
+
+            cropNode.maskNode = shapeNode
+            cropNode.position = .zero
+            cropNode.zPosition = CGFloat(renderable.zPosition + 1)
+            cropNode.addChild(subview)
+
+            node.addChild(cropNode)
+        } else {
+            node.addChild(subview)
+        }
+    }
+
     func buildNode(renderable: Renderable) -> SKNode {
         // TODO: find a way for size to be determined dynamically
         let node = SKSpriteNode(imageNamed: renderable.spriteName)
 
+        // TODO: separate this into a colorize function?
         switch renderable {
         case let colorInfo as Colorable:
             node.color = colorInfo.color.uiColor
@@ -80,6 +114,9 @@ extension GameScene: RenderSystem {
                 animation: changeAnimationEvent.animation,
                 interrupt: changeAnimationEvent.interrupt
             )
+        case let addSubviewEvent as AddSubviewEvent:
+            addSubview(renderable: addSubviewEvent.renderable,
+                       subviewInfo: addSubviewEvent.subviewRenderInfo)
         default:
             break
         }

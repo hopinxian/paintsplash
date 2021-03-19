@@ -104,6 +104,10 @@ class Player: InteractiveEntity, Movable, PlayableCharacter, Health {
         }
 
         if otherObject.tags.contains(.enemy) {
+            // TODO: ensure that enemy collide with enemy spawner/other objects is ok
+//            guard otherObject is Enemy else {
+//                print(otherObject)
+//                fatalError("Enemy does not conform to enemy")
             switch otherObject {
             case _ as Enemy:
                 takeDamage(amount: 1)

@@ -72,6 +72,15 @@ class GameManager {
         playerHealthUI.spawn(gameManager: self)
 
         self.aiSystem = GameManagerAISystem(gameManager: self)
+
+        // self.aiSystem?.addEnemySpawner(at: Vector2D(200, 50), with: .red)
+        
+        let canvasSpawner = CanvasSpawner(initialPosition: Vector2D(-1100, 500),
+                                          canvasVelocity: Vector2D(0.4, 0),
+                                          canvasSize: Vector2D(200, 200),
+                                          spawnInterval: 10)
+        self.aiSystem?.add(aiEntity: canvasSpawner)
+
     }
 
     func getRenderSystem() -> RenderSystem {

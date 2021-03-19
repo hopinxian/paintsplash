@@ -69,8 +69,8 @@ class Level {
         case .ammoDrop(let location, let color):
             let ammoDrop = PaintAmmoDrop(color: getColor(color: color), position: getLocation(location: location))
             ammoDrop.spawn(gameManager: gameManager)
-        case .canvasSpawner(let location, let velocity):
-            let event = SpawnAIEntityEvent(spawnEntityType: .canvasSpawner(location: getLocation(location: location), velocity: getVelocity(velocity: velocity)))
+        case .canvasSpawner(let location, let velocity, let canvasSize, let spawnInterval):
+            let event = SpawnAIEntityEvent(spawnEntityType: .canvasSpawner(location: getLocation(location: location), velocity: getVelocity(velocity: velocity), size: canvasSize, spawnInterval: spawnInterval))
             EventSystem.spawnAIEntityEvent.post(event: event)
         case .enemy(let location, let color):
             let event = SpawnAIEntityEvent(spawnEntityType: .enemy(location: getLocation(location: location), color: getColor(color: color)))

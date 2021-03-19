@@ -36,6 +36,16 @@ class GameScene: SKScene {
 
         spaceConverter = SpaceConverter(modelSize: Vector2D(2000, 2000), screenSize: Vector2D(UIScreen.main.bounds.maxX, UIScreen.main.bounds.maxY))
 
+        let background = SKSpriteNode(imageNamed: "background")
+        background.zPosition = -1
+        background.size = spaceConverter.modelToScreen(Vector2D(2000, 2000))
+
+        self.addChild(background)
+        
+//        currentLevel = Level.defaultLevel
+//        currentLevel?.run()
+
+
         EventSystem.changeViewEvent.subscribe(listener: onChangeViewEvent)
     }
     

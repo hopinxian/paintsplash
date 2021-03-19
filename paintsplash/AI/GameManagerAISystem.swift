@@ -52,27 +52,27 @@ class GameManagerAISystem: AISystem {
         self.add(aiEntity: enemySpawner)
     }
 
-    func addCanvas(at position: Vector2D, velocity: Vector2D) {
-        let canvas = Canvas(initialPosition: position, velocity: velocity)
+    func addCanvas(at position: Vector2D, velocity: Vector2D, size: Vector2D) {
+        let canvas = Canvas(initialPosition: position, velocity: velocity, size: size)
         self.add(aiEntity: canvas)
     }
     
-    func addCanvasSpawner(at position: Vector2D, velocity: Vector2D) {
-        let canvasSpawner = CanvasSpawner(initialPosition: position, canvasVelocity: velocity)
+    func addCanvasSpawner(at position: Vector2D, velocity: Vector2D, canvasSize: Vector2D, spawnInterval: Double) {
+        let canvasSpawner = CanvasSpawner(initialPosition: position, canvasVelocity: velocity,
+                                          canvasSize: canvasSize, spawnInterval: spawnInterval)
         self.add(aiEntity: canvasSpawner)
     }
 
     func onSpawnAIEntity(event: SpawnAIEntityEvent) {
-        print("rec")
         switch event.spawnEntityType {
         case .enemy(let location, let color):
             addEnemy(at: location, with: color)
-        case .canvas(let location, let velocity):
-            addCanvas(at: location, velocity: velocity)
+        case .canvas(let location, let velocity, let size):
+            addCanvas(at: location, velocity: velocity, size: size)
         case .enemySpawner(let location, let color):
             addEnemySpawner(at: location, with: color)
-        case .canvasSpawner(let location, let velocity):
-            addCanvasSpawner(at: location, velocity: velocity)
+        case .canvasSpawner(let location, let velocity, let size, let spawnInterval):
+            addCanvasSpawner(at: location, velocity: velocity, canvasSize: size, spawnInterval: spawnInterval)
         }
     }
 

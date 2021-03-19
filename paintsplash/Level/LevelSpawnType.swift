@@ -9,7 +9,7 @@ import UIKit
 
 enum LevelSpawnType: Equatable {
     case enemy(location: Vector2D?, color: PaintColor?)
-    case canvasSpawner(location: Vector2D?, velocity: Vector2D?)
+    case canvasSpawner(location: Vector2D?, velocity: Vector2D?, canvasSize: Vector2D, spawnInterval: Double = 10)
     case enemySpawner(location: Vector2D?, color: PaintColor?)
     case ammoDrop(location: Vector2D?, color: PaintColor?)
 }
