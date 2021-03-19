@@ -26,6 +26,7 @@
 		846D4FD9260241670079720F /* SlimeIdleGray.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 846D4FD4260241670079720F /* SlimeIdleGray.atlas */; };
 		846D4FDA260241670079720F /* SlimeMoveLeftGray.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 846D4FD5260241670079720F /* SlimeMoveLeftGray.atlas */; };
 		846D4FE22602429F0079720F /* PlayerHasMovedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846D4FE12602429F0079720F /* PlayerHasMovedEvent.swift */; };
+		848D5B9B26045F6C002DF3B5 /* LevelSpawnType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848D5B9A26045F6C002DF3B5 /* LevelSpawnType.swift */; };
 		AC06958D26012037007982DE /* PlayableCharacter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC06958C26012037007982DE /* PlayableCharacter.swift */; };
 		AC069592260123C4007982DE /* ChangeViewEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC069591260123C4007982DE /* ChangeViewEvent.swift */; };
 		AC069597260123CE007982DE /* ChangeViewEventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC069596260123CE007982DE /* ChangeViewEventManager.swift */; };
@@ -179,6 +180,7 @@
 		846D4FD4260241670079720F /* SlimeIdleGray.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = SlimeIdleGray.atlas; sourceTree = "<group>"; };
 		846D4FD5260241670079720F /* SlimeMoveLeftGray.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = SlimeMoveLeftGray.atlas; sourceTree = "<group>"; };
 		846D4FE12602429F0079720F /* PlayerHasMovedEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerHasMovedEvent.swift; sourceTree = "<group>"; };
+		848D5B9A26045F6C002DF3B5 /* LevelSpawnType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelSpawnType.swift; sourceTree = "<group>"; };
 		AC06958C26012037007982DE /* PlayableCharacter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayableCharacter.swift; sourceTree = "<group>"; };
 		AC069591260123C4007982DE /* ChangeViewEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeViewEvent.swift; sourceTree = "<group>"; };
 		AC069596260123CE007982DE /* ChangeViewEventManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeViewEventManager.swift; sourceTree = "<group>"; };
@@ -331,6 +333,7 @@
 			children = (
 				8416DAEC260335A800926D01 /* Level.swift */,
 				8416DAF12603378300926D01 /* LevelSpawnEvent.swift */,
+				848D5B9A26045F6C002DF3B5 /* LevelSpawnType.swift */,
 			);
 			path = Level;
 			sourceTree = "<group>";
@@ -961,6 +964,7 @@
 				DC94351F2601A0D0001046BB /* DespawnAIEntityEvent.swift in Sources */,
 				AC097E092601FFE4000951B0 /* ProcessedInputEventManager.swift in Sources */,
 				846D4FE22602429F0079720F /* PlayerHasMovedEvent.swift in Sources */,
+				848D5B9B26045F6C002DF3B5 /* LevelSpawnType.swift in Sources */,
 				D55A8AAD25FC933A00BBE210 /* GameManager.swift in Sources */,
 				D596B19A25F8CF0800A5854F /* Renderable.swift in Sources */,
 				DC94351726019EA1001046BB /* CanvasRequest.swift in Sources */,

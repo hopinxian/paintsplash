@@ -19,7 +19,6 @@ class PaintAmmoDrop: InteractiveEntity, AmmoDrop, Colorable {
 
     override func onCollide(otherObject: Collidable) {
         if otherObject.tags.contains(.player) {
-            print("Player Collected Ammo")
             EventSystem.entityChangeEvents.removeEntityEvent.post(event: RemoveEntityEvent(entity: self))
         }
     }
