@@ -21,6 +21,10 @@ class Bucket: Weapon {
     }
 
     func load(_ ammo: PaintAmmo) {
+        guard ammoQueue.count < capacity else {
+            return
+        }
+
         ammoQueue.append(ammo)
         mix()
     }

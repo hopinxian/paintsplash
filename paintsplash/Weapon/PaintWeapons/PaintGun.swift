@@ -20,6 +20,10 @@ class PaintGun: Weapon {
     }
 
     func load(_ ammo: PaintAmmo) {
+        guard ammoStack.count < capacity else {
+            return
+        }
+        
         ammoStack.append(ammo)
         mix()
     }
