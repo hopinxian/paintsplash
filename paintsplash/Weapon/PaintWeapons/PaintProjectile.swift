@@ -35,7 +35,25 @@ class PaintProjectile: InteractiveEntity, Projectile, Colorable {
         guard otherObject.tags.contains(.enemy) else {
             return
         }
-        EventSystem.entityChangeEvents.removeEntityEvent.post(event: RemoveEntityEvent(entity: self))
+        var destroy: Bool = false
+        switch otherObject {
+        case let enemy as Enemy:
+            if self.color.contains(color: enemy.color) {
+                destroy = true
+            }
+        case let enemy as EnemySpawner:
+            if self.color.contains(color: enemy.color) {
+                destroy = true
+            }
+        case _ as Canvas:
+            destroy = true
+        default:
+            destroy = false
+        }
+        
+        if destroy {
+            EventSystem.entityChangeEvents.removeEntityEvent.post(event: RemoveEntityEvent(entity: self))
+        }
     }
 
     override func update(gameManager: GameManager) {

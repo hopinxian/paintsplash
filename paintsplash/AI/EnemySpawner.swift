@@ -6,7 +6,6 @@
 //
 
 class EnemySpawner: AIEntity, Colorable, Health {
-    
     var color: PaintColor
 
     var currentHealth: Int = 3
@@ -85,5 +84,4 @@ class EnemySpawner: AIEntity, Colorable, Health {
             gameManager.getRenderSystem().removeRenderable(self)
         }
     }
-
 }

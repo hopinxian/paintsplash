@@ -42,7 +42,7 @@ class PaintGun: Weapon {
             return nil
         }
         print("paintgun fired in direction \(direction)")
-        return PaintProjectile(color: ammo.color, radius: 50.0, velocity: direction)
+        return PaintProjectile(color: ammo.color, radius: 25.0, velocity: direction)
     }
 
     func canShoot() -> Bool {

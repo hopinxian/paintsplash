@@ -99,7 +99,6 @@ class Enemy: AIEntity, Colorable, Health {
         if currentHealth <= 0 {
             currentHealth = 0
             die()
-
             return
         }
 
@@ -112,6 +111,7 @@ class Enemy: AIEntity, Colorable, Health {
         // gameManager.removeAIEntity(aiEntity: self)
         let event = DespawnAIEntityEvent(entityToDespawn: self)
         EventSystem.despawnAIEntityEvent.post(event: event)
+        EventSystem.scoreEvent.post(event: ScoreEvent(value: Points.enemyKill))
     }
 
 
