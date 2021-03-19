@@ -14,12 +14,13 @@ class LevelScore: GameEntity, Renderable {
     
     var score = 0
     var freeze: Bool = true
-    
+    var zPosition: Int
+
     override init() {
         transform = Transform(position: Vector2D.zero, rotation: 0, size: Vector2D(100, 50))
+        zPosition = Constants.ZPOSITION_UI_ELEMENT
         super.init()
         EventSystem.scoreEvent.subscribe(listener: onScoreEvent)
-
     }
     
     func onScoreEvent(event: ScoreEvent) {

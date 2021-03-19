@@ -15,6 +15,7 @@ class HorizontalStackDisplay<ItemType: Renderable>: GameEntity, Renderable {
     let leftPadding: Double
     let topPadding: Double
     let bottomPadding: Double
+    var zPosition: Int
 
     init(
         transform: Transform,
@@ -32,6 +33,7 @@ class HorizontalStackDisplay<ItemType: Renderable>: GameEntity, Renderable {
         self.leftPadding = leftPadding
         self.topPadding = topPadding
         self.bottomPadding = bottomPadding
+        self.zPosition = Constants.ZPOSITION_UI_ELEMENT
         super.init()
     }
 

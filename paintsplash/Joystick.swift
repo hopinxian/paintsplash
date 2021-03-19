@@ -34,7 +34,7 @@ class Joystick: GameEntity, Renderable {
         defaultAnimation = nil
         transform = Transform.standard
         transform.position = position
-        zPosition = 0
+        zPosition = Constants.ZPOSITION_UI_ELEMENT
         foregroundNode = JoystickForeground(position: position, zPosition: zPosition + 1)
 
         super.init()

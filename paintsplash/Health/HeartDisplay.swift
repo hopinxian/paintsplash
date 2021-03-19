@@ -15,7 +15,7 @@ class HeartDisplay: GameEntity, Renderable {
     var zPosition: Int
 
     init(position: Vector2D, zPosition: Int) {
-        self.zPosition = zPosition
+        self.zPosition = Constants.ZPOSITION_UI_ELEMENT
         spriteName = "heart"
         defaultAnimation = nil
         transform = Transform(position: position, rotation: 0.0, size: Vector2D(50, 50))

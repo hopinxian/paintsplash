@@ -15,7 +15,7 @@ class Canvas: AIEntity {
 
         print("width: \(self.transform.size.x), height: \(self.transform.size.y)")
 
-        self.zPosition = 1000
+        self.zPosition = Constants.ZPOSITION_UI_ELEMENT
 
         self.currentBehaviour = CanvasBehaviour()
 

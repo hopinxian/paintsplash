@@ -10,7 +10,7 @@ class InteractiveEntity: GameEntity, Collidable {
     var defaultAnimation: Animation?
 
     private var animationHasChanged = false
-    var zPosition: Int = 0
+    var zPosition: Int = Constants.ZPOSITION_PLAYER
     
     var colliderShape: ColliderShape
     

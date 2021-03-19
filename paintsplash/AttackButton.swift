@@ -28,7 +28,7 @@ class AttackButton: GameEntity, Renderable {
         defaultAnimation = nil
         transform = Transform.standard
         transform.position = position
-        zPosition = 0
+        zPosition = Constants.ZPOSITION_UI_ELEMENT
 
         super.init()
 

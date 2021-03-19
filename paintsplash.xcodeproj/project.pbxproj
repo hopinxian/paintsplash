@@ -39,6 +39,7 @@
 		AC097E082601FFE4000951B0 /* ProcessedInputEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC097E062601FFE4000951B0 /* ProcessedInputEvent.swift */; };
 		AC097E092601FFE4000951B0 /* ProcessedInputEventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC097E072601FFE4000951B0 /* ProcessedInputEventManager.swift */; };
 		AC097E1126020005000951B0 /* ColorMakeup.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC097E1026020005000951B0 /* ColorMakeup.swift */; };
+		AC0A184D26052AF800A1338C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC0A184C26052AF800A1338C /* Constants.swift */; };
 		AC11904925FE7B7B00601CB9 /* Joystick.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC11904825FE7B7B00601CB9 /* Joystick.swift */; };
 		AC5F0B712601112C00E28D49 /* PlayerAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F0B702601112C00E28D49 /* PlayerAnimations.swift */; };
 		AC5F0B7C2601130500E28D49 /* PlayerBrushIdleLeft.atlas in Resources */ = {isa = PBXBuildFile; fileRef = AC5F0B762601130400E28D49 /* PlayerBrushIdleLeft.atlas */; };
@@ -206,6 +207,7 @@
 		AC097E062601FFE4000951B0 /* ProcessedInputEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProcessedInputEvent.swift; sourceTree = "<group>"; };
 		AC097E072601FFE4000951B0 /* ProcessedInputEventManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProcessedInputEventManager.swift; sourceTree = "<group>"; };
 		AC097E1026020005000951B0 /* ColorMakeup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorMakeup.swift; sourceTree = "<group>"; };
+		AC0A184C26052AF800A1338C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		AC11904825FE7B7B00601CB9 /* Joystick.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Joystick.swift; sourceTree = "<group>"; };
 		AC5F0B702601112C00E28D49 /* PlayerAnimations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerAnimations.swift; sourceTree = "<group>"; };
 		AC5F0B762601130400E28D49 /* PlayerBrushIdleLeft.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = PlayerBrushIdleLeft.atlas; sourceTree = "<group>"; };
@@ -476,6 +478,7 @@
 				D596B18825F8B27400A5854F /* TestCircle.swift */,
 				D55A8AAC25FC933A00BBE210 /* GameManager.swift */,
 				D55EEB9A26008FB600ADC70B /* Player.swift */,
+				AC0A184C26052AF800A1338C /* Constants.swift */,
 			);
 			path = paintsplash;
 			sourceTree = "<group>";
@@ -698,13 +701,6 @@
 			path = Spawner;
 			sourceTree = "<group>";
 		};
-		DC21B86F2603A21A00041F06 /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		DC2403122600D65900550E1E /* Canvas */ = {
 			isa = PBXGroup;
 			children = (
@@ -728,7 +724,6 @@
 		DC6874D3260362D100CF89E4 /* Canvas */ = {
 			isa = PBXGroup;
 			children = (
-				DC21B86F2603A21A00041F06 /* View */,
 				DC6874CE260362C800CF89E4 /* CanvasRequestManager.swift */,
 				DC94351626019EA1001046BB /* CanvasRequest.swift */,
 				DC24033C2600FEFE00550E1E /* CanvasSpawner.swift */,
@@ -991,6 +986,7 @@
 				D58346A225FB856D005C344D /* LinkedList.swift in Sources */,
 				D598F53D26019E7300D7CACB /* SpaceConverter.swift in Sources */,
 				AC069592260123C4007982DE /* ChangeViewEvent.swift in Sources */,
+				AC0A184D26052AF800A1338C /* Constants.swift in Sources */,
 				AC097E082601FFE4000951B0 /* ProcessedInputEvent.swift in Sources */,
 				D5D9200625FB8EEE00E70364 /* PaintWeaponsSystem.swift in Sources */,
 				8402D29725FE106800493DDE /* Math.swift in Sources */,

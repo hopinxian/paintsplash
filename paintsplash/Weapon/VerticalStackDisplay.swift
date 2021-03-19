@@ -11,6 +11,8 @@ class VerticalStackDisplay<ItemType: Renderable>: GameEntity, Renderable {
     var transform: Transform
     var items: [ItemType]
 
+    var zPosition: Int
+
     let seperation: Double
     let leftPadding: Double
     let rightPadding: Double
@@ -32,6 +34,7 @@ class VerticalStackDisplay<ItemType: Renderable>: GameEntity, Renderable {
         self.leftPadding = leftPadding
         self.rightPadding = rightPadding
         self.bottomPadding = bottomPadding
+        self.zPosition = Constants.ZPOSITION_UI_ELEMENT
         super.init()
     }
 

@@ -16,16 +16,6 @@ protocol Renderable: GameEntity, Transformable {
 }
 
 extension Renderable {
-    var zPosition: Int {
-        get {
-            0
-        }
-
-        set {
-            zPosition = newValue
-        }
-    }
-
     func animate(animation: Animation, interupt: Bool) {
         animate(animation: animation, interupt: interupt, callBack: nil)
     }

@@ -50,7 +50,7 @@ class PaintGunAmmoDisplay: GameEntity, Transformable {
             .compactMap({ PaintAmmoDisplay(
                             paintAmmo: $0,
                             position: Vector2D.zero,
-                            zPosition: 0)
+                zPosition: Constants.ZPOSITION_UI_ELEMENT + 1)
             })
 
         ammoDisplayView.changeItems(to: ammoDisplays)
