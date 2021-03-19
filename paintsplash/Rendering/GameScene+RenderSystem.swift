@@ -55,19 +55,38 @@ extension GameScene: RenderSystem {
         guard let node = nodes[id] else {
             return
         }
+
+        // Create a child node with specifications
         let subview = SKSpriteNode(imageNamed: subviewInfo.spriteName)
         subview.position = CGPoint(subviewInfo.position)
         subview.size = CGSize(width: subviewInfo.width, height: subviewInfo.height)
         subview.zPosition = CGFloat(renderable.zPosition + 1)
+        subview.color = subviewInfo.color.uiColor
+        subview.colorBlendFactor = CGFloat(subviewInfo.colorBlend)
+        subview.zRotation = CGFloat(subviewInfo.rotation)
 
-        node.addChild(subview)
-        print("added subview")
+        if subviewInfo.cropInParent {
+            let cropNode = SKCropNode()
+
+            let shapeNode = SKShapeNode(rectOf: CGSize(width: 128, height: 128))
+            shapeNode.fillColor = .black
+
+            cropNode.maskNode = shapeNode
+            cropNode.position = .zero
+            cropNode.zPosition = CGFloat(renderable.zPosition + 1)
+            cropNode.addChild(subview)
+
+            node.addChild(cropNode)
+        } else {
+            node.addChild(subview)
+        }
     }
 
     func buildNode(renderable: Renderable) -> SKNode {
         // TODO: find a way for size to be determined dynamically
         let node = SKSpriteNode(imageNamed: renderable.spriteName)
 
+        // TODO: separate this into a colorize function?
         switch renderable {
         case let colorInfo as Colorable:
             node.color = colorInfo.color.uiColor

@@ -11,7 +11,10 @@ class Canvas: AIEntity {
     // TODO: canvases of dynamic size
     init(initialPosition: Vector2D, velocity: Vector2D) {
         super.init(spriteName: "canvas", initialPosition: initialPosition, initialVelocity: velocity,
-                   width: 50, height: 50)
+                   width: 200, height: 200)
+
+        print("width: \(self.transform.size.x), height: \(self.transform.size.y)")
+
         self.currentBehaviour = CanvasBehaviour()
 
         self.defaultSpeed = velocity.magnitude
@@ -29,8 +32,6 @@ class Canvas: AIEntity {
     override func onCollide(otherObject: Collidable) {
         switch otherObject {
         case let ammo as PaintProjectile:
-            print("collided with ammo")
-
             let color = ammo.color
             self.colors.insert(color)
 
@@ -52,13 +53,26 @@ class Canvas: AIEntity {
         let canvasWidth = self.transform.size.x
         let canvasHeight = self.transform.size.y
 
-        let width = Double.random(in: canvasWidth/5..<canvasWidth)
-        let height = Double.random(in: canvasHeight/5..<canvasHeight)
+        let width = Double.random(in: canvasWidth/5..<canvasWidth/2)
+        let height = Double.random(in: canvasHeight/5..<canvasHeight/2)
 
         let posX = Double.random(in: -(canvasWidth/4)..<(canvasWidth/4))
         let posY = Double.random(in: -(canvasHeight/4)..<(canvasHeight/4))
         let blobPos = Vector2D(posX, posY)
 
-        return RenderInfo(spriteName: "BlueCircle", position: blobPos, width: width, height: height)
+        let rotation = Double.random(in: 0..<(Double.pi * 2))
+
+        print("canvas width: \(canvasWidth), canvas height \(canvasHeight)")
+        print("blob width: \(width), blob height: \(height)")
+        print("blob location: \(posX), \(posY)")
+
+        return RenderInfo(spriteName: "paint-splash-1",
+                          position: blobPos,
+                          width: width,
+                          height: height,
+                          color: color,
+                          colorBlend: 1.0,
+                          rotation: rotation,
+                          cropInParent: true)
     }
 }

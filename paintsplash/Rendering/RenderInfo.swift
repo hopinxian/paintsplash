@@ -10,4 +10,8 @@ struct RenderInfo {
     var position: Vector2D
     var width: Double
     var height: Double
+    var color: PaintColor
+    var colorBlend: Double
+    var rotation: Double
+    var cropInParent: Bool
 }
