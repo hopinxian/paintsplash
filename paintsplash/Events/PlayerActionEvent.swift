@@ -5,11 +5,26 @@
 //  Created by Praveen Bala on 17/3/21.
 //
 
-struct PlayerActionEvent: Event {
-    let playerActionEventType: PlayerActionEventType
+class PlayerActionEvent: Event {
+
 }
 
-enum PlayerActionEventType {
-    case movement(location: Vector2D)
-    case attack
+class PlayerMovementEvent: PlayerActionEvent {
+    let location: Vector2D
+
+    init(location: Vector2D) {
+        self.location = location
+    }
+}
+
+class PlayerAttackEvent: PlayerActionEvent {
+
+}
+
+class PlayerHealthUpdateEvent: PlayerActionEvent {
+    let newHealth: Int
+
+    init(newHealth: Int) {
+        self.newHealth = newHealth
+    }
 }

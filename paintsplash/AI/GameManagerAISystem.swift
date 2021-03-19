@@ -35,7 +35,7 @@ class GameManagerAISystem: AISystem {
     }
 
     func remove(aiEntity: AIEntity) {
-
+        self.AIEntities.remove(aiEntity)
     }
 
     func update(aiEntity: AIEntity) {
@@ -56,6 +56,12 @@ class GameManagerAISystem: AISystem {
         let canvas = Canvas(initialPosition: position, velocity: velocity, size: size)
         self.add(aiEntity: canvas)
     }
+    
+    func addCanvasSpawner(at position: Vector2D, velocity: Vector2D, canvasSize: Vector2D, spawnInterval: Double) {
+        let canvasSpawner = CanvasSpawner(initialPosition: position, canvasVelocity: velocity,
+                                          canvasSize: canvasSize, spawnInterval: spawnInterval)
+        self.add(aiEntity: canvasSpawner)
+    }
 
     func onSpawnAIEntity(event: SpawnAIEntityEvent) {
         switch event.spawnEntityType {
@@ -63,10 +69,15 @@ class GameManagerAISystem: AISystem {
             addEnemy(at: location, with: color)
         case .canvas(let location, let velocity, let size):
             addCanvas(at: location, velocity: velocity, size: size)
+        case .enemySpawner(let location, let color):
+            addEnemySpawner(at: location, with: color)
+        case .canvasSpawner(let location, let velocity, let size, let spawnInterval):
+            addCanvasSpawner(at: location, velocity: velocity, canvasSize: size, spawnInterval: spawnInterval)
         }
     }
 
     func onDespawnAIEntity(event: DespawnAIEntityEvent) {
+        remove(aiEntity: event.entityToDespawn)
         event.entityToDespawn.destroy(gameManager: gameManager)
     }
 

@@ -36,6 +36,8 @@ class SpawnCanvasBehaviour: AIBehaviour {
                                                                            size: canvasSize))
         EventSystem.spawnAIEntityEvent.post(event: spawnCanvasEvent)
         self.lastSpawnDate = Date()
+
+        print("spawned")
     }
 
     func spawnCanvas() {

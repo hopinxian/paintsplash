@@ -28,14 +28,32 @@ class PaintProjectile: InteractiveEntity, Projectile, Colorable {
         transform.size = Vector2D(radius * 2, radius * 2)
         let spriteName = "Projectile"
 
-        super.init(spriteName: spriteName, colliderShape: .circle(radius: radius), tags: .playerProjectile, transform: transform)
+        super.init(spriteName: spriteName, colliderShape: .circle(radius: radius), tags: [.playerProjectile], transform: transform)
     }
 
     override func onCollide(otherObject: Collidable) {
         guard otherObject.tags.contains(.enemy) else {
             return
         }
-        EventSystem.entityChangeEvents.removeEntityEvent.post(event: RemoveEntityEvent(entity: self))
+        var destroy: Bool = false
+        switch otherObject {
+        case let enemy as Enemy:
+            if self.color.contains(color: enemy.color) {
+                destroy = true
+            }
+        case let enemy as EnemySpawner:
+            if self.color.contains(color: enemy.color) {
+                destroy = true
+            }
+        case _ as Canvas:
+            destroy = true
+        default:
+            destroy = false
+        }
+        
+        if destroy {
+            EventSystem.entityChangeEvents.removeEntityEvent.post(event: RemoveEntityEvent(entity: self))
+        }
     }
 
     override func update(gameManager: GameManager) {

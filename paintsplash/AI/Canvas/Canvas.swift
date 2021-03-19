@@ -11,9 +11,11 @@ class Canvas: AIEntity {
     // TODO: canvases of dynamic size
     init(initialPosition: Vector2D, velocity: Vector2D, size: Vector2D) {
         super.init(spriteName: "canvas", initialPosition: initialPosition, initialVelocity: velocity,
-                   width: size.x, height: size.y)
+                   width: size.x, height: size.y, tags: [.canvas])
 
         print("width: \(self.transform.size.x), height: \(self.transform.size.y)")
+
+        self.zPosition = 1000
 
         self.currentBehaviour = CanvasBehaviour()
 

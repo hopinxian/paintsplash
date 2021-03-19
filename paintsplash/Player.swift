@@ -9,26 +9,7 @@ import Foundation
 
 class Player: InteractiveEntity, Movable, PlayableCharacter, Health {
     var currentHealth: Int = 3
-
     var maxHealth: Int = 3
-
-    func heal(amount: Int) {
-        currentHealth += amount
-        if currentHealth > maxHealth {
-            currentHealth = maxHealth
-        }
-    }
-
-    func takeDamage(amount: Int) {
-        currentHealth -= amount
-        if currentHealth <= 0 {
-            currentHealth = 0
-            self.state = .die
-            //Die
-            print("I am die")
-        }
-    }
-
 
     var velocity: Vector2D {
         didSet {
@@ -55,10 +36,10 @@ class Player: InteractiveEntity, Movable, PlayableCharacter, Health {
         transform.position = initialPosition
         paintWeaponsSystem = PaintWeaponsSystem(weapons: [PaintGun(), Bucket()])
 
-        super.init(spriteName: "Player", colliderShape: .circle(radius: 50), tags: .player, transform: transform)
+        super.init(spriteName: "Player", colliderShape: .circle(radius: 50), tags: [.player], transform: transform)
 
         self.defaultAnimation = PlayerAnimations.playerBrushIdleLeft
-        self.paintWeaponsSystem.load(to: Bucket.self, ammo: [PaintAmmo(color: .blue), PaintAmmo(color: .red), PaintAmmo(color: .yellow)])
+        self.paintWeaponsSystem.load(to: Bucket.self, ammo: [PaintAmmo(color: .red), PaintAmmo(color: .red), PaintAmmo(color: .red)])
 
         self.paintWeaponsSystem.load([PaintAmmo(color: .blue), PaintAmmo(color: .red), PaintAmmo(color: .yellow)])
         self.paintWeaponsSystem.switchWeapon(to: Bucket.self)
@@ -123,12 +104,15 @@ class Player: InteractiveEntity, Movable, PlayableCharacter, Health {
 
         if otherObject.tags.contains(.enemy) {
             // TODO: ensure that enemy collide with enemy spawner/other objects is ok
-            guard otherObject is Enemy else {
-                print(otherObject)
-                fatalError("Enemy does not conform to enemy")
+//            guard otherObject is Enemy else {
+//                print(otherObject)
+//                fatalError("Enemy does not conform to enemy")
+            switch otherObject {
+            case _ as Enemy:
+                takeDamage(amount: 1)
+            default:
+                fatalError("Enemy does not conform to any enemy type")
             }
-
-            takeDamage(amount: 1)
         }
     }
 
@@ -147,11 +131,45 @@ class Player: InteractiveEntity, Movable, PlayableCharacter, Health {
         case (let state, let velocity) where state != .moveRight && velocity.x > 0:
             self.state = .moveRight
             animate(animation: PlayerAnimations.playerBrushWalkRight, interupt: true)
-        case (.die, _):
-            self.state = .die
-            animate(animation: PlayerAnimations.playerDie, interupt: true)
         default:
             break
+        }
+    }
+
+    func heal(amount: Int) {
+        currentHealth += amount
+
+        EventSystem.playerActionEvent.playerHealthUpdateEvent.post(event: PlayerHealthUpdateEvent(newHealth: currentHealth))
+
+        if currentHealth > maxHealth {
+            currentHealth = maxHealth
+        }
+    }
+
+    func takeDamage(amount: Int) {
+        currentHealth -= amount
+
+        EventSystem.playerActionEvent.playerHealthUpdateEvent.post(event: PlayerHealthUpdateEvent(newHealth: currentHealth))
+
+        if currentHealth <= 0 {
+            currentHealth = 0
+            die()
+        }
+    }
+
+    private func die() {
+        self.state = .die
+
+        // gameManager.removeAIEntity(aiEntity: self)
+        let event = RemoveEntityEvent(entity: self)
+        EventSystem.entityChangeEvents.removeEntityEvent.post(event: event)
+    }
+
+    override func destroy(gameManager: GameManager) {
+        gameManager.removeObject(self)
+        gameManager.getCollisionSystem().removeCollidable(self)
+        animate(animation: SlimeAnimations.slimeDieGray, interupt: true) {
+            gameManager.getRenderSystem().removeRenderable(self)
         }
     }
 }

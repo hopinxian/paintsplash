@@ -9,6 +9,8 @@ class GameManager {
     var gameScene: GameScene
     var entities = Set<GameEntity>()
 
+    private var currentLevel: Level?
+    
     var currentPlayerPosition: Vector2D {
         player.position
     }
@@ -38,13 +40,8 @@ class GameManager {
     }
 
     func setupGame() {
-        let ammoDrop = PaintAmmoDrop(color: .red, position: Vector2D(0, 0))
-
-        ammoDrop.spawn(gameManager: self)
-        
-        let ammoDrop2 = PaintAmmoDrop(color: .yellow, position: Vector2D(50, 50))
-        
-        ammoDrop2.spawn(gameManager: self)
+        currentLevel = Level.getDefaultLevel(gameManager: self)
+        currentLevel?.run()
         
         player.spawn(gameManager: self)
 
@@ -69,11 +66,6 @@ class GameManager {
         let attackButton = AttackButton(position: Vector2D(700, -500))
         attackButton.spawn(gameManager: self)
 
-        let canvasRequestUI = VerticalStackDisplay(position: Vector2D(-300, 0),
-                                                   size: Vector2D(200, 500),
-                                                   backgroundSprite: "WhiteSquare")
-        canvasRequestUI.spawn(gameManager: self)
-
         self.aiSystem = GameManagerAISystem(gameManager: self)
 
         // self.aiSystem?.addEnemySpawner(at: Vector2D(200, 50), with: .red)
@@ -83,6 +75,9 @@ class GameManager {
                                           canvasSize: Vector2D(200, 200),
                                           spawnInterval: 10)
         self.aiSystem?.add(aiEntity: canvasSpawner)
+
+        let playerHealthUI = PlayerHealthDisplay(startingHealth: player.currentHealth, maxHealth: player.maxHealth)
+        playerHealthUI.spawn(gameManager: self)
     }
 
     func getRenderSystem() -> RenderSystem {
@@ -118,6 +113,7 @@ class GameManager {
     }
 
     func update() {
+        currentLevel?.update()
         for entity in entities {
             entity.update(gameManager: self)
         }

@@ -5,27 +5,36 @@
 //  Created by Ho Pin Xian on 18/3/21.
 //
 
+import UIKit
 import Foundation
 
 class Level {
     var spawnEvents: [LevelSpawnEvent] = []
     
-    // add state info
     var repeatLimit: Int?
-    //var difficultyLevel: Int = 1
-    //var difficultyScaling: Double = 1
-    var bufferBetweenLoop = 2.0 // in seconds
+    var bufferBetweenLoop = 5.0 // in seconds
+    var gameManager: GameManager
     
     /// Runtime information
     var isRunning: Bool = false
     var loopStartTime: Date!
     var nextSpawnEvent: Int = 0
     var currentLoop = 1
-        
+    var score = LevelScore()
+
+    private static let maxX: Double = Double(UIScreen.main.bounds.width / 3)
+    private static let maxY: Double = Double(UIScreen.main.bounds.height / 3)
+    
+    init(gameManager: GameManager) {
+        self.gameManager = gameManager
+    }
+    
     func run() {
         if spawnEvents.isEmpty {
             return
         }
+        score.reset()
+        score.freeze = false
         isRunning = true
         spawnEvents.sort()
         currentLoop = 1
@@ -40,8 +49,7 @@ class Level {
         
         var timeSinceLoopStart = Date().timeIntervalSince(loopStartTime)
         while (timeSinceLoopStart >= spawnEvents[nextSpawnEvent].time) {
-            let event = spawnEvents[nextSpawnEvent].constructEvent()
-            EventSystem.spawnAIEntityEvent.post(event: event)
+            execute(spawnEvents[nextSpawnEvent])
             nextSpawnEvent += 1
             if nextSpawnEvent == spawnEvents.count {
                 currentLoop += 1
@@ -56,12 +64,31 @@ class Level {
         }
     }
         
+    func execute(_ spawnObject: LevelSpawnEvent) {
+        switch spawnObject.spawnObject {
+        case .ammoDrop(let location, let color):
+            let ammoDrop = PaintAmmoDrop(color: getColor(color: color), position: getLocation(location: location))
+            ammoDrop.spawn(gameManager: gameManager)
+        case .canvasSpawner(let location, let velocity, let canvasSize, let spawnInterval):
+            let event = SpawnAIEntityEvent(spawnEntityType: .canvasSpawner(location: getLocation(location: location), velocity: getVelocity(velocity: velocity), size: canvasSize, spawnInterval: spawnInterval))
+            EventSystem.spawnAIEntityEvent.post(event: event)
+        case .enemy(let location, let color):
+            let event = SpawnAIEntityEvent(spawnEntityType: .enemy(location: getLocation(location: location), color: getColor(color: color)))
+            EventSystem.spawnAIEntityEvent.post(event: event)
+        case .enemySpawner(let location, let color):
+            let event = SpawnAIEntityEvent(spawnEntityType: .enemySpawner(location: getLocation(location: location), color: getColor(color: color)))
+            EventSystem.spawnAIEntityEvent.post(event: event)
+        }
+    }
+    
     func stop() {
         isRunning = false
+        score.freeze = true
     }
     
     func continueSpawn() {
         isRunning = true
+        score.freeze = false
     }
         
     func addSpawnEvent(_ event: LevelSpawnEvent) {
@@ -82,7 +109,7 @@ class Level {
     func append(level: Level) {
         let delay = spawnEvents.map{$0.time}.max() ?? bufferBetweenLoop
         for event in level.spawnEvents {
-            let delayedEvent = LevelSpawnEvent(time: event.time + delay, color: event.color, location: event.location)
+            let delayedEvent = LevelSpawnEvent(time: event.time + delay, spawnObject: event.spawnObject)
             spawnEvents.append(delayedEvent)
         }
     }
@@ -99,10 +126,32 @@ class Level {
         }
     }
     
-    static var defaultLevel: Level {
-        let level = Level()
-        let event = LevelSpawnEvent(time: 2, color: nil, location: nil)
+    func getLocation(location: Vector2D?) -> Vector2D {
+        let randomX = Double.random(in: -Self.maxX..<Self.maxX)
+        let randomY = Double.random(in: -Self.maxY..<Self.maxY)
+        let location = location ?? Vector2D(randomX, randomY)
+        return location
+    }
+    
+    func getColor(color: PaintColor?) -> PaintColor {
+        let color = color ?? PaintColor.allCases.shuffled()[0]
+        return color
+    }
+    
+    func getVelocity(velocity: Vector2D?) -> Vector2D {
+        let velocity = velocity ?? Vector2D(0.2, 0)
+        return velocity
+    }
+    
+    static func getDefaultLevel(gameManager: GameManager) -> Level {
+        let level = Level(gameManager: gameManager)
+        let spawnObject = LevelSpawnType.enemy(location: nil, color: nil)
+        let event = LevelSpawnEvent(time: 2, spawnObject: spawnObject)
         level.addSpawnEvent(event)
+        let drop = LevelSpawnType.ammoDrop(location: nil, color: nil)
+        let dropEvent = LevelSpawnEvent(time: 2, spawnObject: drop)
+        level.addSpawnEvent(dropEvent)
+        level.addSpawnEvent(dropEvent)
         return level
     }
 }
