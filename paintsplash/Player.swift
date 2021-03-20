@@ -27,11 +27,15 @@ class Player: GameEntity {
 
     private let moveSpeed = 10.0
 
+    let renderComponent: RenderComponent
+
     init(initialPosition: Vector2D, initialVelocity: Vector2D) {
         addComponent(TransformComponent(position: initialPosition, rotation: 0.0, size: Vector2D(128, 128)))
         addComponent(MoveableComponent(velocity: initialVelocity, acceleration: Vector2D.zero, defaultSpeed: moveSpeed))
         addComponent(HealthComponent(currentHealth: currentHealth, maxHealth: maxHealth))
-        addComponent(RenderComponent(spriteName: "Player", defaultAnimation: PlayerAnimations.playerBrushIdleLeft, zPosition: 0))
+        self.renderComponent = RenderComponent(spriteName: "Player", defaultAnimation: PlayerAnimations.playerBrushIdleLeft, zPosition: 0)
+        addComponent(renderComponent)
+
         addComponent(CollisionComponent(colliderShape: .circle(radius: 50), tags: [.player], onCollide: onCollide))
         addComponent(MultiWeaponComponent(weapons: [PaintGun(), Bucket()]))
 
@@ -70,7 +74,7 @@ class Player: GameEntity {
             ? PlayerAnimations.playerBrushIdleLeft
             : PlayerAnimations.playerBrushIdleRight
 
-        animate(animation: animation, interupt: true) {
+        renderComponent.animate(animation: animation, interupt: true) {
             self.animate(animation: resetAnimation, interupt: true)
         }
     }
@@ -118,16 +122,16 @@ class Player: GameEntity {
         switch (state, velocity) {
         case (.moveLeft, let velocity) where velocity.magnitude == 0:
             self.state = .idleLeft
-            animate(animation: PlayerAnimations.playerBrushIdleLeft, interupt: true)
+            renderComponent.animate(animation: PlayerAnimations.playerBrushIdleLeft, interupt: true)
         case (.moveRight, let velocity) where velocity.magnitude == 0:
             self.state = .idleRight
-            animate(animation: PlayerAnimations.playerBrushIdleRight, interupt: true)
+            renderComponent.animate(animation: PlayerAnimations.playerBrushIdleRight, interupt: true)
         case (let state, let velocity) where state != .moveLeft && velocity.x < 0:
             self.state = .moveLeft
-            animate(animation: PlayerAnimations.playerBrushWalkLeft, interupt: true)
+            renderComponent.animate(animation: PlayerAnimations.playerBrushWalkLeft, interupt: true)
         case (let state, let velocity) where state != .moveRight && velocity.x > 0:
             self.state = .moveRight
-            animate(animation: PlayerAnimations.playerBrushWalkRight, interupt: true)
+            renderComponent.animate(animation: PlayerAnimations.playerBrushWalkRight, interupt: true)
         default:
             break
         }
@@ -165,7 +169,7 @@ class Player: GameEntity {
     override func destroy(gameManager: GameManager) {
         gameManager.removeObject(self)
         gameManager.getCollisionSystem().removeCollidable(self)
-        animate(animation: SlimeAnimations.slimeDieGray, interupt: true) {
+        renderComponent.animate(animation: SlimeAnimations.slimeDieGray, interupt: true) {
             gameManager.getRenderSystem().removeRenderable(self)
         }
     }

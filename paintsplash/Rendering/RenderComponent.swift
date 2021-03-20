@@ -67,14 +67,22 @@ class RenderComponent: Component {
         self.defaultAnimation = defaultAnimation
         self.zPosition = zPosition
     }
-//
-//    func animate(animation: Animation, interupt: Bool) {
-//
-//    }
-//
-//    func animate(animation: Animation, interupt: Bool, callBack: (() -> Void)?) {
-//
-//    }
+}
+
+class AnimationComponent: Component {
+    var currentAnimation: Animation?
+    var animationToPlay: Animation?
+
+
+    func animate(animation: Animation, interupt: Bool) {
+        if !currentAnimation.active || interupt {
+            animationToPlay = animation
+        }
+    }
+
+    func animate(animation: Animation, interupt: Bool, callBack: (() -> Void)?) {
+
+    }
 }
 
 class CollisionComponent: Component {
