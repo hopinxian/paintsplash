@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Player: InteractiveEntity, Movable, PlayableCharacter, Health {
+class Player: GameEntity {
     var currentHealth: Int = 3
     var maxHealth: Int = 3
 
@@ -28,22 +28,19 @@ class Player: InteractiveEntity, Movable, PlayableCharacter, Health {
     private let moveSpeed = 10.0
 
     init(initialPosition: Vector2D, initialVelocity: Vector2D) {
-        self.velocity = Vector2D.zero
-        self.acceleration = Vector2D.zero
+        addComponent(TransformComponent(position: initialPosition, rotation: 0.0, size: Vector2D(128, 128)))
+        addComponent(MoveableComponent(velocity: initialVelocity, acceleration: Vector2D.zero, defaultSpeed: moveSpeed))
+        addComponent(HealthComponent(currentHealth: currentHealth, maxHealth: maxHealth))
+        addComponent(RenderComponent(spriteName: "Player", defaultAnimation: PlayerAnimations.playerBrushIdleLeft, zPosition: 0))
+        addComponent(CollisionComponent(colliderShape: .circle(radius: 50), tags: [.player], onCollide: onCollide))
+        addComponent(MultiWeaponComponent(weapons: [PaintGun(), Bucket()]))
+
         self.lastDirection = Vector2D.left
 
-        var transform = Transform.standard
-        transform.position = initialPosition
-        paintWeaponsSystem = PaintWeaponsSystem(weapons: [PaintGun(), Bucket()])
-
-        super.init(spriteName: "Player", colliderShape: .circle(radius: 50), tags: [.player], transform: transform)
-
-        self.defaultAnimation = PlayerAnimations.playerBrushIdleLeft
         self.paintWeaponsSystem.load(to: Bucket.self, ammo: [PaintAmmo(color: .red), PaintAmmo(color: .red), PaintAmmo(color: .red)])
 
         self.paintWeaponsSystem.load([PaintAmmo(color: .blue), PaintAmmo(color: .red), PaintAmmo(color: .yellow)])
 
-        paintWeaponsSystem.carriedBy = self
         EventSystem.processedInputEvents.playerMoveEvent.subscribe(listener: onMove)
         EventSystem.processedInputEvents.playerShootEvent.subscribe(listener: onShoot)
         EventSystem.processedInputEvents.playerChangeWeaponEvent.subscribe(listener: onWeaponChange)
@@ -89,8 +86,7 @@ class Player: InteractiveEntity, Movable, PlayableCharacter, Health {
         }
     }
 
-    override func onCollide(otherObject: Collidable) {
-        super.onCollide(otherObject: otherObject)
+    func onCollide(otherObject: Collidable) {
         if otherObject.tags.contains(.ammoDrop) {
             switch otherObject {
             case let ammoDrop as PaintAmmoDrop:

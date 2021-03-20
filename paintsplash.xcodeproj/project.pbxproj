@@ -76,6 +76,8 @@
 		D50A07FF2604A9A800822D67 /* UIEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50A07FE2604A9A800822D67 /* UIEntity.swift */; };
 		D50A08432604E26400822D67 /* HorizontalStackDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50A08422604E26400822D67 /* HorizontalStackDisplay.swift */; };
 		D50A08592604F52E00822D67 /* WeaponAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50A08582604F52E00822D67 /* WeaponAnimations.swift */; };
+		D50A087C2605AEBC00822D67 /* RenderComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50A087B2605AEBC00822D67 /* RenderComponent.swift */; };
+		D50A08892605C86800822D67 /* AIState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50A08882605C86800822D67 /* AIState.swift */; };
 		D55A8AA225FBB4E000BBE210 /* Tags.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55A8AA125FBB4E000BBE210 /* Tags.swift */; };
 		D55A8AAD25FC933A00BBE210 /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55A8AAC25FC933A00BBE210 /* GameManager.swift */; };
 		D55EEB4B25FF8B6500ADC70B /* GameScene+UserInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55EEB4A25FF8B6500ADC70B /* GameScene+UserInput.swift */; };
@@ -250,6 +252,8 @@
 		D50A07FE2604A9A800822D67 /* UIEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIEntity.swift; sourceTree = "<group>"; };
 		D50A08422604E26400822D67 /* HorizontalStackDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalStackDisplay.swift; sourceTree = "<group>"; };
 		D50A08582604F52E00822D67 /* WeaponAnimations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeaponAnimations.swift; sourceTree = "<group>"; };
+		D50A087B2605AEBC00822D67 /* RenderComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderComponent.swift; sourceTree = "<group>"; };
+		D50A08882605C86800822D67 /* AIState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIState.swift; sourceTree = "<group>"; };
 		D55A8AA125FBB4E000BBE210 /* Tags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tags.swift; sourceTree = "<group>"; };
 		D55A8AAC25FC933A00BBE210 /* GameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
 		D55EEB4A25FF8B6500ADC70B /* GameScene+UserInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameScene+UserInput.swift"; sourceTree = "<group>"; };
@@ -537,6 +541,7 @@
 				840A889125FF13A100A07596 /* PaintColor+UIColor.swift */,
 				D55EEB5225FF98DD00ADC70B /* Animation.swift */,
 				DC6874C92602790900CF89E4 /* RenderInfo.swift */,
+				D50A087B2605AEBC00822D67 /* RenderComponent.swift */,
 			);
 			path = Rendering;
 			sourceTree = "<group>";
@@ -609,6 +614,7 @@
 				DC9D4A4725F92E2C000F07FF /* Enemy.swift */,
 				DC0EE89025FE4C2300CBF414 /* EnemySpawner.swift */,
 				DC6874D3260362D100CF89E4 /* Canvas */,
+				D50A08882605C86800822D67 /* AIState.swift */,
 			);
 			path = AI;
 			sourceTree = "<group>";
@@ -979,6 +985,7 @@
 				ACFD822225F67C5B009D806B /* Projectile.swift in Sources */,
 				DC247F5025F9C1CB001B814C /* ApproachPointBehaviour.swift in Sources */,
 				DC7B422025FF63350069B422 /* CollisionEvent.swift in Sources */,
+				D50A087C2605AEBC00822D67 /* RenderComponent.swift in Sources */,
 				DC247F5525F9E53C001B814C /* SpawnEnemiesBehaviour.swift in Sources */,
 				DC9D4A4825F92E2C000F07FF /* Enemy.swift in Sources */,
 				D55EEB9B26008FB600ADC70B /* Player.swift in Sources */,
@@ -1040,6 +1047,7 @@
 				ACB3607225F661620016E240 /* AppDelegate.swift in Sources */,
 				D55EEBA82600929500ADC70B /* EntityChangeEventManager.swift in Sources */,
 				DC6874CA2602790900CF89E4 /* RenderInfo.swift in Sources */,
+				D50A08892605C86800822D67 /* AIState.swift in Sources */,
 				842B5CE42604882F00FCF7BD /* ScoreEvent.swift in Sources */,
 				D583469825FB8477005C344D /* Queue.swift in Sources */,
 				D596B17425F7C0F500A5854F /* UserInput.swift in Sources */,

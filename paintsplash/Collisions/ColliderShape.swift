@@ -13,21 +13,21 @@ enum ColliderShape {
     case rectangle(size: Vector2D)
     case texture(name: String, size: Vector2D)
 
-    func getPhysicsBody(_ spaceConverter: SpaceConverter) -> SKPhysicsBody {
+    func getPhysicsBody() -> SKPhysicsBody {
         var physicsBody = SKPhysicsBody()
         switch self {
         case .circle(let radius):
-            physicsBody = SKPhysicsBody(circleOfRadius: spaceConverter.modelToScreen(radius))
+            physicsBody = SKPhysicsBody(circleOfRadius: SpaceConverter.modelToScreen(radius))
         case .rectangle(let size):
-            physicsBody = SKPhysicsBody(rectangleOf: spaceConverter.modelToScreen(size))
+            physicsBody = SKPhysicsBody(rectangleOf: SpaceConverter.modelToScreen(size))
         case .texture(let name, let size):
-            physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: name), size: spaceConverter.modelToScreen(size))
+            physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: name), size: SpaceConverter.modelToScreen(size))
         case .enemy(let radius):
-            physicsBody = SKPhysicsBody(circleOfRadius: spaceConverter.modelToScreen(radius))
+            physicsBody = SKPhysicsBody(circleOfRadius: SpaceConverter.modelToScreen(radius))
             physicsBody.affectedByGravity = false
             physicsBody.categoryBitMask = 0b0001
         case .rectEnemy(let width, let height):
-            physicsBody = SKPhysicsBody(rectangleOf: spaceConverter.modelToScreen(Vector2D(width, height)))
+            physicsBody = SKPhysicsBody(rectangleOf: SpaceConverter.modelToScreen(Vector2D(width, height)))
             physicsBody.categoryBitMask = 0b0001
         }
 

@@ -5,14 +5,18 @@
 //  Created by Cynthia Lee on 14/3/21.
 //
 protocol AISystem {
-    var AIEntities: Set<AIEntity> { get set }
 
-    func updateAIEntities()
+}
 
-    func add(aiEntity: AIEntity)
+class NewAISystem: AISystem {
+    func updateAIEntities(_ entities: [AIComponent]) {
+        for data in entities {
+            updateAIEntity(data)
+        }
+    }
 
-    func remove(aiEntity: AIEntity)
-
-    func update(aiEntity: AIEntity)
+    func updateAIEntity(_ data: AIComponent) {
+        data.behaviour.updateAI(aiEntity: data.entity, aiGameInfo: ?)
+    }
 }
 

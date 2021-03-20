@@ -6,7 +6,8 @@
 //
 
 class GameManager {
-    var gameScene: GameScene
+    let collisionSystem: CollisionSystem
+    let renderSystem: RenderSystem
     var entities = Set<GameEntity>()
 
     private var currentLevel: Level?
@@ -28,8 +29,9 @@ class GameManager {
 
     var aiSystem: GameManagerAISystem?
 
-    init(gameScene: GameScene) {
-        self.gameScene = gameScene
+    init(renderSystem: RenderSystem, collisionSystem: CollisionSystem) {
+        self.renderSystem = renderSystem
+        self.collisionSystem = collisionSystem
 
         player = Player(initialPosition: Vector2D(-250, 0), initialVelocity: Vector2D(1, 0))
 
@@ -83,14 +85,6 @@ class GameManager {
 
     }
 
-    func getRenderSystem() -> RenderSystem {
-        gameScene
-    }
-
-    func getCollisionSystem() -> CollisionSystem {
-        gameScene
-    }
-
     private func getEnemies() -> [Enemy] {
         entities.compactMap({ $0 as? Enemy })
     }
@@ -117,9 +111,8 @@ class GameManager {
 
     func update() {
         currentLevel?.update()
-        for entity in entities {
-            entity.update(gameManager: self)
-        }
+
+        renderSystem.updateRenderableEntities(entities.compactMap({ $0.getComponent(type: RenderComponent.self) }))
 
         aiSystem?.updateAIEntities()
     }

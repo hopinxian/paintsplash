@@ -69,7 +69,7 @@ extension GameScene: RenderSystem {
         if subviewInfo.cropInParent {
             let cropNode = SKCropNode()
 
-            let convertedSize: CGSize = spaceConverter.modelToScreen(renderable.transform.size)
+            let convertedSize: CGSize = SpaceConverter.modelToScreen(renderable.transform.size)
             let shapeNode = SKShapeNode(rectOf: convertedSize)
             shapeNode.fillColor = .black
 
@@ -98,10 +98,10 @@ extension GameScene: RenderSystem {
             print("")
         }
 
-        node.position = spaceConverter.modelToScreen(renderable.transform.position)
+        node.position = SpaceConverter.modelToScreen(renderable.transform.position)
         node.zRotation = CGFloat(renderable.transform.rotation)
         node.zPosition = CGFloat(renderable.zPosition)
-        node.size = spaceConverter.modelToScreen(renderable.transform.size)
+        node.size = SpaceConverter.modelToScreen(renderable.transform.size)
 
         return node
     }

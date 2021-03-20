@@ -5,20 +5,10 @@
 //  Created by Farrell Nah on 19/3/21.
 //
 
-class HeartDisplay: GameEntity, Renderable {
-    var spriteName: String
-
-    var defaultAnimation: Animation?
-
-    var transform: Transform
-
-    var zPosition: Int
-
+class HeartDisplay: GameEntity {
     init(position: Vector2D, zPosition: Int) {
-        self.zPosition = Constants.ZPOSITION_UI_ELEMENT
-        spriteName = "heart"
-        defaultAnimation = nil
-        transform = Transform(position: position, rotation: 0.0, size: Vector2D(50, 50))
+        addComponent(TransformComponent(position: position, rotation: 0.0, size: Vector2D(50, 50)))
+        addComponent(RenderComponent(spriteName: "heart", defaultAnimation: nil, zPosition: Constants.ZPOSITION_UI_ELEMENT))
         super.init()
     }
 
