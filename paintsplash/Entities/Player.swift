@@ -146,7 +146,7 @@ class Player: GameEntity, AIEntity, Transformable, Renderable, Animatable, Colli
     }
 
     override func update() {
-        print(aiComponent.currentState)
+        // print(aiComponent.currentState)
     }
 }
 
