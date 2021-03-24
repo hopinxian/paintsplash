@@ -41,10 +41,9 @@ class TransformComponent: Component {
 
 class BoundedTransformComponent: TransformComponent {
     override var position: Vector2D {
-        willSet {
-            print("willset")
-            if !bounds.inset(by: size / 2).contains(newValue) {
-                position = bounds.inset(by: size / 2).clamp(point: newValue)
+        didSet {
+            if !bounds.inset(by: size / 2).contains(position) {
+                position = oldValue
             }
         }
     }

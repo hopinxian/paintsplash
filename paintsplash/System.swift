@@ -6,14 +6,7 @@
 //
 
 protocol System {
-    func updateEntities(_ entities: [GameEntity])
-    func updateEntity(_ entity: GameEntity)
-}
-
-extension System {
-    func updateEntities(_ entities: [GameEntity]) {
-        for entity in entities {
-            updateEntity(entity)
-        }
-    }
+    func addEntity(_ entity: GameEntity)
+    func removeEntity(_ entity: GameEntity)
+    func updateEntities()
 }

@@ -7,8 +7,6 @@
 import SpriteKit
 
 protocol CollisionSystem: System {
-    func addCollidableEntity(_ entity: GameEntity)
-    func removeCollidableEntity(_ entity: GameEntity)
     func collisionBetweenEntity(first: Collidable, second: Collidable)
 }
 
@@ -21,7 +19,7 @@ class SKCollisionSystem: CollisionSystem {
 
     func updateEntity(_ entity: GameEntity) {}
 
-    func addCollidableEntity(_ entity: GameEntity) {
+    func addEntity(_ entity: GameEntity) {
         guard let data = entity as? Collidable else {
             return
         }
@@ -39,7 +37,7 @@ class SKCollisionSystem: CollisionSystem {
         node?.physicsBody = physicsBody
     }
 
-    func removeCollidableEntity(_ entity: GameEntity) {
+    func removeEntity(_ entity: GameEntity) {
         guard let data = entity as? Collidable else {
             return
         }
@@ -54,6 +52,8 @@ class SKCollisionSystem: CollisionSystem {
         first.onCollide(with: second)
         second.onCollide(with: first)
     }
+
+    func updateEntities() {}
 }
 
 class SKCollisionDetector: NSObject, SKPhysicsContactDelegate {

@@ -9,9 +9,6 @@ import SpriteKit
 
 protocol RenderSystem: System {
     var renderables: [GameEntity: Renderable] { get set }
-    func addEntity(_ entity: GameEntity)
-    func removeEntity(_ entity: GameEntity)
-    func updateEntities()
     func updateEntity(_ entity: GameEntity, _ renderable: Renderable)
 }
 
@@ -45,18 +42,7 @@ class SKRenderSystem: RenderSystem {
         renderables[entity] = nil
     }
 
-    func updateEntity(_ entity: GameEntity) {
-        guard let renderable = entity as? Renderable,
-              let node = nodeEntityMap[entity] else {
-            return
-        }
-
-        let transformComponent = renderable.transformComponent
-        node.position = SpaceConverter.modelToScreen(transformComponent.position)
-        node.zRotation = CGFloat(transformComponent.rotation)
-    }
-
-    func buildNode(for renderable: Renderable) -> SKNode {
+    private func buildNode(for renderable: Renderable) -> SKNode {
         SKNodeFactory.getSKNode(from: renderable)
     }
 
@@ -83,21 +69,36 @@ class SKRenderSystem: RenderSystem {
 }
 
 protocol AnimationSystem: System {
-
+    var animatables: [GameEntity: Animatable] { get set }
 }
 
 class SKAnimationSystem: AnimationSystem {
+    var animatables = [GameEntity: Animatable]()
     let renderSystem: SKRenderSystem
 
     init(renderSystem: SKRenderSystem) {
         self.renderSystem = renderSystem
     }
 
-    func updateEntity(_ entity: GameEntity) {
+    func addEntity(_ entity: GameEntity) {
         guard let animatable = entity as? Animatable else {
             return
         }
 
+        animatables[entity] = animatable
+    }
+
+    func removeEntity(_ entity: GameEntity) {
+        animatables[entity] = nil
+    }
+
+    func updateEntities() {
+        for (entity, animatable) in animatables {
+            updateEntity(entity, animatable)
+        }
+    }
+
+    func updateEntity(_ entity: GameEntity, _ animatable: Animatable) {
         let animationComponent = animatable.animationComponent
 
         guard let node = renderSystem.getNodeEntityMap()[entity],

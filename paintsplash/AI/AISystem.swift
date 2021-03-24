@@ -26,9 +26,6 @@ protocol AIEntity: GameEntity {
 
 protocol AISystem: System {
     var aiEntities: [GameEntity: AIEntity] { get set }
-    func add(_ entity: GameEntity)
-    func remove(_ entity: GameEntity)
-    func updateEntities()
     func updateEntity(_ entity: GameEntity, _ aiEntity: AIEntity)
 }
 
@@ -50,7 +47,7 @@ class GameAISystem: AISystem {
         aiGameInfo.playerPosition = event.location
     }
 
-    func add(_ entity: GameEntity) {
+    func addEntity(_ entity: GameEntity) {
         guard let aiEntity = entity as? AIEntity else {
             return
         }
@@ -58,21 +55,8 @@ class GameAISystem: AISystem {
         aiEntities[entity] = aiEntity
     }
 
-    func remove(_ entity: GameEntity) {
+    func removeEntity(_ entity: GameEntity) {
         aiEntities[entity] = nil
-    }
-
-    func updateEntity(_ entity: GameEntity) {
-        guard let aiEntity = entity as? AIEntity else {
-            return
-        }
-
-        let behaviour = aiEntity.aiComponent.getCurrentBehaviour(aiEntity: aiEntity)
-        behaviour.updateAI(aiEntity: aiEntity, aiGameInfo: aiGameInfo)
-
-        if let newState = aiEntity.aiComponent.currentState.getStateTransition(aiEntity: aiEntity) {
-            aiEntity.aiComponent.currentState = newState
-        }
     }
 
     func updateEntities() {

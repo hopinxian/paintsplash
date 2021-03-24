@@ -143,8 +143,10 @@ class GameScene: SKScene, GameManager {
     func addObject(_ object: GameEntity) {
         entities.insert(object)
         renderSystem.addEntity(object)
-        aiSystem.add(object)
-        collisionSystem.addCollidableEntity(object)
+        aiSystem.addEntity(object)
+        collisionSystem.addEntity(object)
+        movementSystem.addEntity(object)
+        animationSystem.addEntity(object)
     }
 
     private func onRemoveEntity(event: RemoveEntityEvent) {
@@ -154,20 +156,18 @@ class GameScene: SKScene, GameManager {
     func removeObject(_ object: GameEntity) {
         entities.remove(object)
         renderSystem.removeEntity(object)
-        aiSystem.remove(object)
-        collisionSystem.removeCollidableEntity(object)
+        aiSystem.removeEntity(object)
+        collisionSystem.removeEntity(object)
     }
 
     func update() {
         currentLevel?.update()
         let entityList = Array(entities)
-//        aiSystem.updateEntities(entityList)
-//        renderSystem.updateEntities(entityList)
         aiSystem.updateEntities()
         renderSystem.updateEntities()
-        animationSystem.updateEntities(entityList)
-        collisionSystem.updateEntities(entityList)
-        movementSystem.updateEntities(entityList)
+        animationSystem.updateEntities()
+        collisionSystem.updateEntities()
+        movementSystem.updateEntities()
         entityList.forEach({ $0.update() })
     }
 }
