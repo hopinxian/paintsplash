@@ -136,6 +136,8 @@
 		D5C56911260AC3D8009E5BD9 /* DoNothingBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C56910260AC3D8009E5BD9 /* DoNothingBehaviour.swift */; };
 		D5C5691D260AE5BF009E5BD9 /* BehaviourSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C5691C260AE5BF009E5BD9 /* BehaviourSequence.swift */; };
 		D5C56921260AE677009E5BD9 /* UpdateAnimationBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C56920260AE677009E5BD9 /* UpdateAnimationBehaviour.swift */; };
+		D5C5692A260B7EBB009E5BD9 /* ShootProjectileBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C56929260B7EBB009E5BD9 /* ShootProjectileBehaviour.swift */; };
+		D5C5692E260B81C1009E5BD9 /* DieBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C5692D260B81C1009E5BD9 /* DieBehaviour.swift */; };
 		D5D9200625FB8EEE00E70364 /* PaintWeaponsSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D9200525FB8EEE00E70364 /* PaintWeaponsSystem.swift */; };
 		D5D9201425FB9ACB00E70364 /* PaintAmmoDrop.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D9201325FB9ACB00E70364 /* PaintAmmoDrop.swift */; };
 		D5DC908C25FCBE790038DF71 /* Transform.swift in Sources */ = {isa = PBXBuildFile; fileRef = D596B1CE25F8D01800A5854F /* Transform.swift */; };
@@ -345,6 +347,8 @@
 		D5C5691C260AE5BF009E5BD9 /* BehaviourSequence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BehaviourSequence.swift; sourceTree = "<group>"; };
 		D5C56920260AE677009E5BD9 /* UpdateAnimationBehaviour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateAnimationBehaviour.swift; sourceTree = "<group>"; };
 		D5C56924260B25F8009E5BD9 /* SpawnerDie.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = SpawnerDie.atlas; sourceTree = "<group>"; };
+		D5C56929260B7EBB009E5BD9 /* ShootProjectileBehaviour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShootProjectileBehaviour.swift; sourceTree = "<group>"; };
+		D5C5692D260B81C1009E5BD9 /* DieBehaviour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DieBehaviour.swift; sourceTree = "<group>"; };
 		D5D9200525FB8EEE00E70364 /* PaintWeaponsSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaintWeaponsSystem.swift; sourceTree = "<group>"; };
 		D5D9201325FB9ACB00E70364 /* PaintAmmoDrop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaintAmmoDrop.swift; sourceTree = "<group>"; };
 		D5DC909025FCC4210038DF71 /* AtlasAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AtlasAnimation.swift; sourceTree = "<group>"; };
@@ -1041,6 +1045,8 @@
 				D5C56910260AC3D8009E5BD9 /* DoNothingBehaviour.swift */,
 				D5C5691C260AE5BF009E5BD9 /* BehaviourSequence.swift */,
 				D5C56920260AE677009E5BD9 /* UpdateAnimationBehaviour.swift */,
+				D5C56929260B7EBB009E5BD9 /* ShootProjectileBehaviour.swift */,
+				D5C5692D260B81C1009E5BD9 /* DieBehaviour.swift */,
 			);
 			path = Behaviours;
 			sourceTree = "<group>";
@@ -1197,6 +1203,7 @@
 				DC9435242601A0DA001046BB /* DespawnAIEntityEventManager.swift in Sources */,
 				846D4FBA26023F770079720F /* AttackButton.swift in Sources */,
 				ACFD822725F67C76009D806B /* PaintColor.swift in Sources */,
+				D5C5692E260B81C1009E5BD9 /* DieBehaviour.swift in Sources */,
 				DC08DA51260511B9000F4F90 /* CanvasEndEvent.swift in Sources */,
 				ACFD822225F67C5B009D806B /* Projectile.swift in Sources */,
 				DC247F5025F9C1CB001B814C /* ChasePlayerBehaviour.swift in Sources */,
@@ -1271,6 +1278,7 @@
 				DC24033D2600FEFE00550E1E /* CanvasSpawner.swift in Sources */,
 				D5500C062608E7E200E21BF1 /* System.swift in Sources */,
 				ACB3607225F661620016E240 /* AppDelegate.swift in Sources */,
+				D5C5692A260B7EBB009E5BD9 /* ShootProjectileBehaviour.swift in Sources */,
 				D55EEBA82600929500ADC70B /* EntityChangeEventManager.swift in Sources */,
 				D5553D5D2606297700C1862E /* FadeOutAnimation.swift in Sources */,
 				DC6874CA2602790900CF89E4 /* RenderInfo.swift in Sources */,

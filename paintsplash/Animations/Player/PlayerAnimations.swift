@@ -18,19 +18,19 @@ struct PlayerAnimations {
     // Idle
     static let playerBrushIdleLeft =
         AtlasAnimation(atlasName: "PlayerBrushIdleLeft", name: "playerBrushIdleLeft",
-                       animationDuration: 1.2, isRepeating: true)
+                       animationDuration: 1.2, isRepeating: false)
 
     static let playerBrushIdleRight =
         AtlasAnimation(atlasName: "PlayerBrushIdleRight", name: "layerBrushIdleRight",
-                       animationDuration: 1.2, isRepeating: true)
+                       animationDuration: 1.2, isRepeating: false)
 
     // Walk
     static let playerBrushWalkLeft =
         AtlasAnimation(atlasName: "PlayerBrushWalkLeft", name: "playerBrushWalkLeft",
-                       animationDuration: 1.2, isRepeating: true)
+                       animationDuration: 1.2, isRepeating: false)
     static let playerBrushWalkRight =
         AtlasAnimation(atlasName: "PlayerBrushWalkRight", name: "playerBrushWalkRight",
-                       animationDuration: 1.2, isRepeating: true)
+                       animationDuration: 1.2, isRepeating: false)
 
     // Death
     static let playerDie = AtlasAnimation(atlasName: "PlayerDie", name: "playerDie",

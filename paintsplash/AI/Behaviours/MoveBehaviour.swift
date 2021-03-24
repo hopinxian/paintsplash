@@ -6,11 +6,11 @@
 //
 
 struct MoveBehaviour: AIBehaviour {
-    let velocity: Vector2D
+    let direction: Vector2D
     let speed: Double
 
-    init(velocity: Vector2D, speed: Double) {
-        self.velocity = velocity
+    init(direction: Vector2D, speed: Double) {
+        self.direction = direction
         self.speed = speed
     }
 
@@ -19,6 +19,7 @@ struct MoveBehaviour: AIBehaviour {
             fatalError("AIEntity does not conform to the required protocols for CanvasBehaviour")
         }
 
-        movable.moveableComponent.direction = Vector2D.normalize(velocity) * speed
+        movable.moveableComponent.direction = direction
+        movable.moveableComponent.speed = speed
     }
 }

@@ -7,10 +7,9 @@
 
 import Foundation
 
-class Player: GameEntity, Transformable, Renderable, Animatable, Collidable, Movable, Health {
-    private var state: PlayerState = .idleLeft
+class Player: GameEntity, AIEntity, Transformable, Renderable, Animatable, Collidable, Movable, Health {
     var paintWeaponsSystem: PaintWeaponsSystem
-    private var lastDirection: Vector2D = Vector2D.zero
+    var lastDirection = Vector2D.zero
 
     private let moveSpeed = 10.0
 
@@ -21,6 +20,7 @@ class Player: GameEntity, Transformable, Renderable, Animatable, Collidable, Mov
     let moveableComponent: MoveableComponent
     let collisionComponent: CollisionComponent
     let multiWeaponComponent: MultiWeaponComponent
+    let aiComponent: AIComponent
 
     init(initialPosition: Vector2D) {
         self.transformComponent = BoundedTransformComponent(
@@ -48,6 +48,8 @@ class Player: GameEntity, Transformable, Renderable, Animatable, Collidable, Mov
             colliderShape: .circle(radius: 50),
             tags: [.player]
         )
+
+        self.aiComponent = AIComponent(defaultState: PlayerState.Idle())
 
         self.multiWeaponComponent = MultiWeaponComponent(weapons: [PaintGun(), Bucket()])
         self.paintWeaponsSystem = PaintWeaponsSystem(weapons: [PaintGun(), Bucket()])
@@ -78,27 +80,11 @@ class Player: GameEntity, Transformable, Renderable, Animatable, Collidable, Mov
         lastDirection = event.direction.magnitude == 0 ? lastDirection : event.direction
         moveableComponent.direction = event.direction
         EventSystem.playerActionEvent.playerMovementEvent.post(event: PlayerMovementEvent(location: transformComponent.position))
+        aiComponent.currentState = PlayerState.Move()
     }
 
     func onShoot(event: PlayerShootEvent) {
-        // todo: remove direction in playershoot event?
-        guard paintWeaponsSystem.shoot(in: lastDirection) else {
-            return
-        }
-
-        let animation = lastDirection.x <= 0
-            ? PlayerAnimations.playerBrushAttackLeft
-            : PlayerAnimations.playerBrushAttackRight
-
-        let resetAnimation = lastDirection.x < 0
-            ? PlayerAnimations.playerBrushIdleLeft
-            : PlayerAnimations.playerBrushIdleRight
-
-        animationComponent.animate(animation: animation, interupt: true) {
-            self.animationComponent.animate(animation: resetAnimation, interupt: true)
-        }
-
-        EventSystem.audioEvent.playSoundEffectEvent.post(event: PlaySoundEffectEvent(effect: SoundEffect.attack))
+        aiComponent.currentState = PlayerState.Attack()
     }
 
     func onWeaponChange(event: PlayerChangeWeaponEvent) {
@@ -107,25 +93,6 @@ class Player: GameEntity, Transformable, Renderable, Animatable, Collidable, Mov
             paintWeaponsSystem.switchWeapon(to: Bucket.self)
         case is PaintGun.Type:
             paintWeaponsSystem.switchWeapon(to: PaintGun.self)
-        default:
-            break
-        }
-    }
-
-    func setState() {
-        switch (state, moveableComponent.direction) {
-        case (.moveLeft, let velocity) where velocity.magnitude == 0:
-            self.state = .idleLeft
-            animationComponent.animate(animation: PlayerAnimations.playerBrushIdleLeft, interupt: true)
-        case (.moveRight, let velocity) where velocity.magnitude == 0:
-            self.state = .idleRight
-            animationComponent.animate(animation: PlayerAnimations.playerBrushIdleRight, interupt: true)
-        case (let state, let velocity) where state != .moveLeft && velocity.x < 0:
-            self.state = .moveLeft
-            animationComponent.animate(animation: PlayerAnimations.playerBrushWalkLeft, interupt: true)
-        case (let state, let velocity) where state != .moveRight && velocity.x > 0:
-            self.state = .moveRight
-            animationComponent.animate(animation: PlayerAnimations.playerBrushWalkRight, interupt: true)
         default:
             break
         }
@@ -148,9 +115,7 @@ class Player: GameEntity, Transformable, Renderable, Animatable, Collidable, Mov
     }
 
     private func die() {
-        self.state = .die
-        destroy()
-//        animationComponent.animate(animation: PlayerAnimations.playerDie, interupt: true, callBack: { self.destroy() })
+        aiComponent.currentState = PlayerState.Die()
     }
 
     func onCollide(with: Collidable) {
@@ -181,9 +146,99 @@ class Player: GameEntity, Transformable, Renderable, Animatable, Collidable, Mov
     }
 
     override func update() {
-        setState()
-        print(state)
-        print(animationComponent.animationIsPlaying)
-        print(animationComponent.currentAnimation)
+        print(aiComponent.currentState)
+    }
+}
+
+enum PlayerState {}
+
+extension PlayerState {
+    struct Idle: AIState {
+        func getStateTransition(aiEntity: AIEntity) -> AIState? {
+            guard let movable = aiEntity as? Movable else {
+                return nil
+            }
+
+            if movable.moveableComponent.direction.magnitude > 0 {
+                return Move()
+            }
+
+            return nil
+        }
+
+        func getBehaviour(aiEntity: AIEntity) -> AIBehaviour {
+            guard let movable = aiEntity as? Movable else {
+                return DoNothingBehaviour()
+            }
+
+            let updateAnimationBehaviour = movable.moveableComponent.direction.x > 0 ?
+                UpdateAnimationBehaviour(animation: PlayerAnimations.playerBrushIdleRight, interupt: false) :
+                UpdateAnimationBehaviour(animation: PlayerAnimations.playerBrushIdleLeft, interupt: false)
+
+            return BehaviourSequence(behaviours: [DoNothingBehaviour(), updateAnimationBehaviour])
+        }
+    }
+
+    struct Attack: AIState {
+        func getStateTransition(aiEntity: AIEntity) -> AIState? {
+            Idle()
+        }
+
+        func getBehaviour(aiEntity: AIEntity) -> AIBehaviour {
+            guard let movable = aiEntity as? Movable else {
+                return DoNothingBehaviour()
+            }
+
+            let updateAnimationBehaviour = movable.moveableComponent.direction.x > 0 ?
+                UpdateAnimationBehaviour(animation: PlayerAnimations.playerBrushAttackRight, interupt: false) :
+                UpdateAnimationBehaviour(animation: PlayerAnimations.playerBrushAttackLeft, interupt: false)
+
+            return BehaviourSequence(behaviours: [ShootProjectileBehaviour(), updateAnimationBehaviour])
+        }
+    }
+
+    struct Move: AIState {
+        func getStateTransition(aiEntity: AIEntity) -> AIState? {
+            guard let movable = aiEntity as? Movable else {
+                return nil
+            }
+
+            if movable.moveableComponent.direction.magnitude <= 0 {
+                return Idle()
+            }
+
+            return nil
+        }
+
+        func getBehaviour(aiEntity: AIEntity) -> AIBehaviour {
+            guard let movable = aiEntity as? Movable else {
+                return DoNothingBehaviour()
+            }
+
+            let updateAnimationBehaviour = movable.moveableComponent.direction.x > 0 ?
+                UpdateAnimationBehaviour(animation: PlayerAnimations.playerBrushWalkRight, interupt: false) :
+                UpdateAnimationBehaviour(animation: PlayerAnimations.playerBrushWalkLeft, interupt: false)
+
+            let movableComponent = movable.moveableComponent
+            return BehaviourSequence(
+                behaviours: [
+                    MoveBehaviour(
+                        direction: movableComponent.direction,
+                        speed: movableComponent.speed
+                    ),
+                    updateAnimationBehaviour
+                ]
+            )
+        }
+    }
+
+    struct Die: AIState {
+        func getStateTransition(aiEntity: AIEntity) -> AIState? {
+            nil
+        }
+
+        func getBehaviour(aiEntity: AIEntity) -> AIBehaviour {
+            BehaviourSequence(behaviours: [DieBehaviour(), UpdateAnimationBehaviour(animation: PlayerAnimations.playerDie, interupt: true)])
+        }
     }
 }

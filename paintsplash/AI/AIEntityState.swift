@@ -118,22 +118,16 @@ extension EnemyState {
 
         func getBehaviour(aiEntity: AIEntity) -> AIBehaviour {
             if let movable = aiEntity as? Movable {
-                print(movable.moveableComponent.direction.x)
-                if movable.moveableComponent.direction.x > 0 {
-                    return BehaviourSequence(
-                        behaviours: [
-                            ChasePlayerBehaviour(),
-                            UpdateAnimationBehaviour(animation: SlimeAnimations.slimeMoveRightGray, interupt: false)
-                        ]
-                    )
-                } else {
-                    return BehaviourSequence(
-                        behaviours: [
-                            ChasePlayerBehaviour(),
-                            UpdateAnimationBehaviour(animation: SlimeAnimations.slimeMoveLeftGray, interupt: false)
-                        ]
-                    )
-                }
+                let updateAnimationBehaviour = movable.moveableComponent.direction.x > 0 ?
+                    UpdateAnimationBehaviour(animation: SlimeAnimations.slimeMoveRightGray, interupt: false) :
+                    UpdateAnimationBehaviour(animation: SlimeAnimations.slimeMoveLeftGray, interupt: false)
+
+                return BehaviourSequence(
+                    behaviours: [
+                        ChasePlayerBehaviour(),
+                        updateAnimationBehaviour
+                    ]
+                )
             } else {
                 return ChasePlayerBehaviour()
             }
@@ -150,7 +144,7 @@ extension CanvasState {
         }
 
         func getBehaviour(aiEntity: AIEntity) -> AIBehaviour {
-            MoveBehaviour(velocity: Vector2D(1, 0), speed: 1)
+            MoveBehaviour(direction: Vector2D(1, 0), speed: 1)
         }
     }
 }
