@@ -15,6 +15,7 @@ class EventSystem {
     static let entityChangeEvents = EntityChangeEventManager()
     static let spawnAIEntityEvent = SpawnAIEntityEventManager()
     static let despawnAIEntityEvent = DespawnAIEntityEventManager()
-    static let canvasHitEvent = CanvasHitEventManager()
+    static let canvasEvent = CanvasEventManager()
     static let scoreEvent = ScoreEventManager()
+    static let audioEvent = AudioEventManager()
 }

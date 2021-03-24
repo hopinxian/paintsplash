@@ -10,47 +10,53 @@ import XCTest
 
 class PaintGunTests: XCTestCase {
 
+    let direction = Vector2D.zero
+
     func testLoad_loadThreeAmmo() {
         let paintgun = PaintGun()
-        paintgun.load(AmmoHelper.red)
-        paintgun.load(AmmoHelper.blue)
-        paintgun.load(AmmoHelper.blue)
-        
-        XCTAssertEqual(paintgun.shoot()?.getColor(), PaintColor.blue)
-        XCTAssertEqual(paintgun.shoot()?.getColor(), PaintColor.purple)
-        XCTAssertEqual(paintgun.shoot()?.getColor(), PaintColor.purple)
-        XCTAssertNil(paintgun.shoot()?.getColor())
+        let loadAmmo = [AmmoHelper.red, AmmoHelper.blue, AmmoHelper.blue]
+        for ammo in loadAmmo {
+            paintgun.load(ammo)
+        }
+
+        let expectedColor = [PaintColor.blue, PaintColor.purple, PaintColor.purple]
+        for color in expectedColor {
+            XCTAssertEqual(paintgun.shoot(in: direction)?.getColor(), color)
+        }
+        XCTAssertNil(paintgun.shoot(in: direction)?.getColor())
     }
-    
+
     func testLoad_loadOneAmmo() {
         let paintgun = PaintGun()
         paintgun.load(AmmoHelper.red)
-        
-        XCTAssertEqual(paintgun.shoot()?.getColor(), PaintColor.red)
-        XCTAssertNil(paintgun.shoot()?.getColor())
+
+        XCTAssertEqual(paintgun.shoot(in: direction)?.getColor(), PaintColor.red)
+        XCTAssertNil(paintgun.shoot(in: direction)?.getColor())
     }
-    
+
     func testLoad_loadMultipleAmmo() {
         let paintgun = PaintGun()
-        paintgun.load([AmmoHelper.red, AmmoHelper.red, AmmoHelper.yellow, AmmoHelper.blue, AmmoHelper.orange, AmmoHelper.white, AmmoHelper.purple, AmmoHelper.white])
-        
-        XCTAssertEqual(paintgun.shoot()?.getColor(), PaintColor.lightpurple)
-        XCTAssertEqual(paintgun.shoot()?.getColor(), PaintColor.lightpurple)
-        XCTAssertEqual(paintgun.shoot()?.getColor(), PaintColor.lightorange)
-        XCTAssertEqual(paintgun.shoot()?.getColor(), PaintColor.lightorange)
-        XCTAssertEqual(paintgun.shoot()?.getColor(), PaintColor.blue)
-        XCTAssertEqual(paintgun.shoot()?.getColor(), PaintColor.orange)
-        XCTAssertEqual(paintgun.shoot()?.getColor(), PaintColor.orange)
-        XCTAssertEqual(paintgun.shoot()?.getColor(), PaintColor.red)
-        XCTAssertNil(paintgun.shoot()?.getColor())
-        
+        paintgun.load([AmmoHelper.red,
+                       AmmoHelper.red,
+                       AmmoHelper.yellow,
+                       AmmoHelper.blue,
+                       AmmoHelper.orange,
+                       AmmoHelper.white,
+                       AmmoHelper.purple,
+                       AmmoHelper.white])
+        var expectedColor = [PaintColor.blue, PaintColor.orange, PaintColor.orange, PaintColor.red]
+
+        for color in expectedColor {
+            XCTAssertEqual(paintgun.shoot(in: direction)?.getColor(), color)
+        }
+        XCTAssertNil(paintgun.shoot(in: direction)?.getColor())
+
         paintgun.load([AmmoHelper.purple, AmmoHelper.orange, AmmoHelper.green, AmmoHelper.red, AmmoHelper.white])
-        
-        XCTAssertEqual(paintgun.shoot()?.getColor(), PaintColor.lightred)
-        XCTAssertEqual(paintgun.shoot()?.getColor(), PaintColor.lightred)
-        XCTAssertEqual(paintgun.shoot()?.getColor(), PaintColor.green)
-        XCTAssertEqual(paintgun.shoot()?.getColor(), PaintColor.orange)
-        XCTAssertEqual(paintgun.shoot()?.getColor(), PaintColor.purple)
-        XCTAssertNil(paintgun.shoot()?.getColor())
+
+        expectedColor = [PaintColor.red, PaintColor.green, PaintColor.orange, PaintColor.purple]
+        for color in expectedColor {
+            XCTAssertEqual(paintgun.shoot(in: direction)?.getColor(), color)
+        }
+        XCTAssertNil(paintgun.shoot(in: direction)?.getColor())
     }
 }

@@ -4,12 +4,143 @@
 //
 //  Created by Cynthia Lee on 14/3/21.
 //
-enum AIEntityState {
-    case moveLeft
-    case moveRight
-    case idle
-    case hit
-    case afterHit
-    case die
-    case spawning
+import Foundation
+
+protocol AIState {
+    func getStateTransition(aiEntity: AIEntity) -> AIState?
+    func getBehaviour(aiEntity: AIEntity) -> AIBehaviour
+}
+
+protocol AIStateManager {
+    var currentState: AIState { get set }
+    func transitionState(aiEntity: AIEntity)
+}
+
+enum EnemySpawnerState {}
+
+extension EnemySpawnerState {
+    struct Idle: AIState {
+        let idleTime: Double
+        private let startTime: Date
+
+        init(idleTime: Double) {
+            self.idleTime = idleTime
+            self.startTime = Date()
+        }
+
+        func getStateTransition(aiEntity: AIEntity) -> AIState? {
+            let timeSinceStart = Date().timeIntervalSince(startTime)
+            if timeSinceStart > idleTime {
+                return Spawning()
+            }
+            return nil
+        }
+
+        func getBehaviour(aiEntity: AIEntity) -> AIBehaviour {
+            BehaviourSequence(behaviours: [DoNothingBehaviour(), UpdateAnimationBehaviour(animation: SpawnerAnimations.spawnerIdle, interupt: false)])
+        }
+    }
+
+    struct Spawning: AIState {
+        var completed = false
+
+        func getStateTransition(aiEntity: AIEntity) -> AIState? {
+            Idle(idleTime: 3)
+        }
+
+        func getBehaviour(aiEntity: AIEntity) -> AIBehaviour {
+            BehaviourSequence(
+                behaviours: [
+                    SpawnEnemyBehaviour(spawnQuantity: 1),
+                    UpdateAnimationBehaviour(animation: SpawnerAnimations.spawnerSpawn, interupt: true)
+                ]
+            )
+        }
+    }
+}
+
+enum CanvasSpawnerState {}
+
+extension CanvasSpawnerState {
+    struct Idle: AIState {
+        let idleTime: Double
+        private let startTime: Date
+
+        init(idleTime: Double) {
+            self.idleTime = idleTime
+            self.startTime = Date()
+        }
+
+        func getStateTransition(aiEntity: AIEntity) -> AIState? {
+            let timeSinceStart = Date().timeIntervalSince(startTime)
+            if timeSinceStart > idleTime {
+                return Spawning()
+            }
+            return nil
+        }
+
+        func getBehaviour(aiEntity: AIEntity) -> AIBehaviour {
+            DoNothingBehaviour()
+        }
+    }
+
+    struct Spawning: AIState {
+        var completed = false
+
+        func getStateTransition(aiEntity: AIEntity) -> AIState? {
+            Idle(idleTime: 10)
+        }
+
+        func getBehaviour(aiEntity: AIEntity) -> AIBehaviour {
+            return SpawnCanvasBehaviour()
+        }
+    }
+}
+
+enum EnemyState {}
+
+extension EnemyState {
+    struct Idle: AIState {
+        func getStateTransition(aiEntity: AIEntity) -> AIState? {
+            Chasing()
+        }
+
+        func getBehaviour(aiEntity: AIEntity) -> AIBehaviour {
+            BehaviourSequence(behaviours: [DoNothingBehaviour(), UpdateAnimationBehaviour(animation: SlimeAnimations.slimeIdleGray, interupt: false)])
+
+        }
+    }
+
+    struct Chasing: AIState {
+        func getStateTransition(aiEntity: AIEntity) -> AIState? {
+            nil
+        }
+
+        func getBehaviour(aiEntity: AIEntity) -> AIBehaviour {
+            if let movable = aiEntity as? Movable {
+                print(movable.moveableComponent.direction.x)
+                if movable.moveableComponent.direction.x > 0 {
+                    return BehaviourSequence(behaviours: [ChasePlayerBehaviour(), UpdateAnimationBehaviour(animation: SlimeAnimations.slimeMoveRightGray, interupt: false)])
+                } else {
+                    return BehaviourSequence(behaviours: [ChasePlayerBehaviour(), UpdateAnimationBehaviour(animation: SlimeAnimations.slimeMoveLeftGray, interupt: false)])
+                }
+            } else {
+                return ChasePlayerBehaviour()
+            }
+        }
+    }
+}
+
+enum CanvasState {}
+
+extension CanvasState {
+    struct Moving: AIState {
+        func getStateTransition(aiEntity: AIEntity) -> AIState? {
+            nil
+        }
+
+        func getBehaviour(aiEntity: AIEntity) -> AIBehaviour {
+            MoveBehaviour(velocity: Vector2D(1, 0), speed: 1)
+        }
+    }
 }

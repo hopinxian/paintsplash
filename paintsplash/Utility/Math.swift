@@ -15,8 +15,8 @@ struct Math {
         assert(!numbers.isEmpty)
 
         var gcd = numbers[0]
-        for i in 1..<numbers.count {
-            gcd = getGCD(gcd, numbers[i])
+        for index in 1..<numbers.count {
+            gcd = getGCD(gcd, numbers[index])
         }
 
         return gcd

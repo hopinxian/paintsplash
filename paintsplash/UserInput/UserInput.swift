@@ -9,9 +9,9 @@ import Foundation
 import CoreGraphics
 
 protocol UserInput {
-    func touchDown(atPoint pos : CGPoint)
+    func touchDown(atPoint pos: CGPoint)
 
-    func touchMoved(toPoint pos : CGPoint)
+    func touchMoved(toPoint pos: CGPoint)
 
-    func touchUp(atPoint pos : CGPoint)
+    func touchUp(atPoint pos: CGPoint)
 }

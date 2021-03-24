@@ -11,6 +11,7 @@ enum Tag: Int {
     case playerProjectile
     case canvas
     case ammoDrop
+    case wall
 }
 
 struct Tags {

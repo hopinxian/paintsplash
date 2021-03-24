@@ -10,7 +10,8 @@ struct SpawnAIEntityEvent: Event, Equatable {
 
 enum SpawnEntityType: Equatable {
     case enemy(location: Vector2D, color: PaintColor)
-    case canvas(location: Vector2D, velocity: Vector2D, size: Vector2D)
+    case canvas(location: Vector2D, velocity: Vector2D, size: Vector2D, endX: Double)
     case enemySpawner(location: Vector2D, color: PaintColor)
-    case canvasSpawner(location: Vector2D, velocity: Vector2D, size: Vector2D, spawnInterval: Double)
+    case canvasSpawner(location: Vector2D, velocity: Vector2D, size: Vector2D,
+                       spawnInterval: Double, endX: Double)
 }

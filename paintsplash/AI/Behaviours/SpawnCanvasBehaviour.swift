@@ -7,41 +7,15 @@
 import Foundation
 
 class SpawnCanvasBehaviour: AIBehaviour {
-    var spawnInterval: Double
-
-    var lastSpawnDate: Date
-
-    var canvasVelocity: Vector2D
-
-    var canvasSize: Vector2D
-
-    init(spawnInterval: Double, canvasVelocity: Vector2D, canvasSize: Vector2D) {
-        self.spawnInterval = spawnInterval
-        self.lastSpawnDate = Date() - self.spawnInterval
-
-        self.canvasVelocity = canvasVelocity
-        self.canvasSize = canvasSize
-    }
-
     func updateAI(aiEntity: AIEntity, aiGameInfo: AIGameInfo) {
-        let timeSinceLastSpawn = Date().timeIntervalSince(lastSpawnDate)
-
-        guard timeSinceLastSpawn >= spawnInterval else {
-            return
+        guard let transformable = aiEntity as? Transformable else {
+            fatalError("AIEntity does not conform to the required protocols for SpawnEnemyBehaviour")
         }
 
-        print(aiEntity.position)
-        let spawnCanvasEvent = SpawnAIEntityEvent(spawnEntityType: .canvas(location: aiEntity.position,
-                                                                           velocity: canvasVelocity,
-                                                                           size: canvasSize))
-        EventSystem.spawnAIEntityEvent.post(event: spawnCanvasEvent)
-        self.lastSpawnDate = Date()
+        let spawnPosition = transformable.transformComponent.position
 
-        print("spawned")
-    }
-
-    func spawnCanvas() {
+        let canvas = Canvas(initialPosition: spawnPosition, direction: Vector2D(1, 0), size: Constants.CANVAS_SPAWNER_SIZE)
+        canvas.spawn()
 
     }
 }
-

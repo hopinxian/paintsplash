@@ -76,12 +76,11 @@ enum PaintColor: String, CaseIterable {
 
     /// Returns true if this color contains the given color.
     func contains(color other: PaintColor) -> Bool {
-        return self.makeup.contains(other.makeup)
+        self.makeup.contains(other.makeup)
     }
 
     /// Returns an array of colors which this color contains.
     func getSubColors() -> [PaintColor] {
-        let subColors = PaintColor.allCases.filter { self.contains(color: $0) }
-        return subColors
+        PaintColor.allCases.filter { self.contains(color: $0) }
     }
 }

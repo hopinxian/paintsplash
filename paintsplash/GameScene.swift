@@ -7,40 +7,176 @@
 
 import SpriteKit
 
-class GameScene: SKScene {
-    
-    private var label : SKLabelNode?
-    private var spinnyNode : SKShapeNode?
-    private var enemies: Set<Enemy> = []
+class GameScene: SKScene, GameManager {
+    var entities = Set<GameEntity>()
 
-    var gameManager: GameManager!
+    var currentLevel: Level?
 
-    var nodes = [UUID : SKNode]()
-    var bodies = [UUID: SKPhysicsBody]()
-    var collidables = [SKPhysicsBody: Collidable]()
+    var aiSystem: AISystem!
+    var audioManager: AudioSystem!
+    var renderSystem: RenderSystem!
+    var animationSystem: AnimationSystem!
+    var collisionSystem: CollisionSystem!
+    var movementSystem: MovementSystem!
+
+    private var collisionDetector: SKCollisionDetector!
+
+    var player: Player!
 
     override func didMove(to view: SKView) {
         // Get label node from scene and store it for use later
-        SpaceConverter.modelSize = Vector2D(2000, 2000)
+        isAccessibilityElement = false
+
+        SpaceConverter.modelSize = Constants.MODEL_WORLD_SIZE
         SpaceConverter.screenSize = Vector2D(self.size.width, self.size.height)
-        physicsWorld.contactDelegate = self
 
-        let background = SKSpriteNode(imageNamed: "background")
+        let background = SKSpriteNode(imageNamed: "floor")
         background.zPosition = CGFloat(Constants.ZPOSITION_FLOOR)
-        background.size = SpaceConverter.modelToScreen(Vector2D(2000, 2000))
-
+        background.size = SpaceConverter.modelToScreen(Constants.MODEL_WORLD_SIZE)
         self.addChild(background)
-        
-//        currentLevel = Level.defaultLevel
-//        currentLevel?.run()
 
+        EventSystem.entityChangeEvents.addEntityEvent.subscribe(listener: onAddEntity)
+        EventSystem.entityChangeEvents.removeEntityEvent.subscribe(listener: onRemoveEntity)
 
-        EventSystem.changeViewEvent.subscribe(listener: onChangeViewEvent)
+        setupGame()
     }
-    
+
+    func setupGame() {
+        setUpSystems()
+        setUpEntities()
+        setUpUI()
+        setUpAudio()
+    }
+
+    func setUpSystems() {
+        let skRenderSystem = SKRenderSystem(scene: self)
+        self.renderSystem = skRenderSystem
+
+        let skCollisionSystem = SKCollisionSystem(renderSystem: skRenderSystem)
+        self.collisionSystem = skCollisionSystem
+
+        self.collisionDetector = SKCollisionDetector(renderSystem: skRenderSystem, collisionSystem: skCollisionSystem)
+        physicsWorld.contactDelegate = collisionDetector
+
+        self.animationSystem = SKAnimationSystem(renderSystem: skRenderSystem)
+
+        self.aiSystem = GameAISystem()
+
+        self.audioManager = AudioManager()
+
+        self.movementSystem = FrameMovementSystem()
+    }
+
+    func setUpEntities() {
+        player = Player(initialPosition: Vector2D.zero)
+        player.spawn()
+
+        let canvasSpawner = CanvasSpawner(initialPosition: Constants.CANVAS_SPAWNER_POSITION, canvasVelocity: Vector2D(0.4, 0), spawnInterval: 10)
+        canvasSpawner.spawn()
+
+        let canvasManager = CanvasRequestManager()
+        canvasManager.spawn()
+
+        let canvasEndMarker = CanvasEndMarker(size: Constants.CANVAS_END_MARKER_SIZE,
+                                              position: Constants.CANVAS_END_MARKER_POSITION)
+        canvasEndMarker.spawn()
+
+        currentLevel = Level.getDefaultLevel(gameManager: self, canvasManager: canvasManager)
+        currentLevel?.run()
+    }
+
+    func setUpAudio() {
+        self.audioManager.playMusic(Music.backgroundMusic)
+    }
+
+    func setUpUI() {
+        guard let paintGun = player.paintWeaponsSystem.availableWeapons.compactMap({ $0 as? PaintGun }).first else {
+            fatalError("PaintGun not setup properly")
+        }
+
+        let paintGunUI = PaintGunAmmoDisplay(weaponData: paintGun)
+        paintGunUI.spawn()
+        paintGunUI.ammoDisplayView.animationComponent.animate(animation: WeaponAnimations.selectWeapon, interupt: true)
+
+        guard let paintBucket = player.paintWeaponsSystem.availableWeapons.compactMap({ $0 as? Bucket }).first else {
+            fatalError("PaintBucket not setup properly")
+        }
+
+        let paintBucketUI = PaintBucketAmmoDisplay(weaponData: paintBucket)
+        paintBucketUI.spawn()
+        paintBucketUI.ammoDisplayView.animationComponent.animate(animation: WeaponAnimations.unselectWeapon, interupt: true)
+
+        let joystick = Joystick()
+        joystick.spawn()
+
+        let attackButton = AttackButton()
+        attackButton.spawn()
+
+        let playerHealthUI = PlayerHealthDisplay(startingHealth: player.healthComponent.currentHealth)
+        playerHealthUI.spawn()
+
+        let bottombar = UIBar(
+            position: Constants.BOTTOM_BAR_POSITION,
+            size: Constants.BOTTOM_BAR_SIZE,
+            spritename: Constants.BOTTOM_BAR_SPRITE
+        )
+        bottombar.spawn()
+
+        let topBar = UIBar(
+            position: Constants.TOP_BAR_POSITION,
+            size: Constants.TOP_BAR_SIZE,
+            spritename: Constants.TOP_BAR_SPRITE
+        )
+        topBar.spawn()
+    }
+
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
 
-        gameManager?.update()
+        update()
     }
+
+    private func onAddEntity(event: AddEntityEvent) {
+        addObject(event.entity)
+    }
+
+    func addObject(_ object: GameEntity) {
+        entities.insert(object)
+        renderSystem.addEntity(object)
+        aiSystem.add(object)
+        collisionSystem.addCollidableEntity(object)
+    }
+
+    private func onRemoveEntity(event: RemoveEntityEvent) {
+        removeObject(event.entity)
+    }
+
+    func removeObject(_ object: GameEntity) {
+        entities.remove(object)
+        renderSystem.removeEntity(object)
+        aiSystem.remove(object)
+        collisionSystem.removeCollidableEntity(object)
+    }
+
+    func update() {
+        currentLevel?.update()
+        let entityList = Array(entities)
+        aiSystem.updateEntities(entityList)
+        renderSystem.updateEntities(entityList)
+        animationSystem.updateEntities(entityList)
+        collisionSystem.updateEntities(entityList)
+        movementSystem.updateEntities(entityList)
+        entityList.forEach({ $0.update() })
+    }
+}
+
+extension SKNode: UIAccessibilityIdentification {
+   public var accessibilityIdentifier: String? {
+       get {
+           super.accessibilityLabel
+       }
+       set(accessibilityIdentifier) {
+           super.accessibilityLabel = accessibilityIdentifier
+       }
+   }
 }

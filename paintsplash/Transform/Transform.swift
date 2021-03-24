@@ -5,7 +5,7 @@
 //  Created by Farrell Nah on 10/3/21.
 //
 
-struct Transform {
+struct Transform: Equatable {
     var position: Vector2D
     var rotation: Double
     var size: Vector2D

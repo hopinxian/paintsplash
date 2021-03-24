@@ -8,14 +8,14 @@
 import CoreGraphics
 
 struct SpaceConverter {
-    static var modelSize: Vector2D = Vector2D.zero
-    static var screenSize: Vector2D = Vector2D.zero
+    static var modelSize = Vector2D.zero
+    static var screenSize = Vector2D.zero
     static var scaleFactor: Double {
         screenSize.y / modelSize.y
     }
 
     static func modelToScreen(_ model: Vector2D) -> CGPoint {
-        return CGPoint(model * scaleFactor)
+        CGPoint(model * scaleFactor)
     }
 
     static func modelToScreen(_ model: Vector2D) -> CGSize {
@@ -37,5 +37,4 @@ struct SpaceConverter {
     static func screenToModel(_ screen: CGFloat) -> Double {
         Double(screen) / scaleFactor
     }
-    
 }

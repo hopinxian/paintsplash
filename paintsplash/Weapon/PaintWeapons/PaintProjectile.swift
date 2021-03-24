@@ -6,37 +6,35 @@
 //
 import Foundation
 
-class PaintProjectile: InteractiveEntity, Projectile, Colorable {
-    var defaultSpeed: Double = 1.0
-
-    var radius: Double
+class PaintProjectile: GameEntity, Projectile, Renderable, Colorable {
+    let transformComponent: TransformComponent
+    let moveableComponent: MoveableComponent
+    let collisionComponent: CollisionComponent
+    let renderComponent: RenderComponent
 
     var color: PaintColor
-    var velocity: Vector2D
-    var acceleration: Vector2D
 
     private let moveSpeed = 15.0
 
-    init(color: PaintColor, radius: Double, velocity: Vector2D) {
-        self.radius = radius
+    init(color: PaintColor, radius: Double, direction: Vector2D) {
+        self.transformComponent = BoundedTransformComponent(position: Vector2D.zero, rotation: 0.0, size: Vector2D(radius * 2, radius * 2), bounds: Constants.PROJECTILE_MOVEMENT_BOUNDS)
+        self.moveableComponent = MoveableComponent(direction: direction, speed: moveSpeed)
+        self.collisionComponent = CollisionComponent(colliderShape: .circle(radius: radius), tags: [.playerProjectile])
+        self.renderComponent = RenderComponent(renderType: .sprite(spriteName: "Projectile"), zPosition: Constants.ZPOSITION_PROJECTILE)
         self.color = color
 
-        self.velocity = Vector2D.normalize(velocity) * moveSpeed
-        self.acceleration = Vector2D.zero
+        super.init()
 
-        var transform = Transform.standard
-        transform.size = Vector2D(radius * 2, radius * 2)
-        let spriteName = "Projectile"
+        addComponent(transformComponent)
+        addComponent(moveableComponent)
+        addComponent(collisionComponent)
+        addComponent(renderComponent)
 
-        super.init(spriteName: spriteName, colliderShape: .circle(radius: radius), tags: [.playerProjectile], transform: transform)
     }
 
-    override func onCollide(otherObject: Collidable) {
-        guard otherObject.tags.contains(.enemy) else {
-            return
-        }
+    func onCollide(with: Collidable) {
         var destroy: Bool = false
-        switch otherObject {
+        switch with {
         case let enemy as Enemy:
             if self.color.contains(color: enemy.color) {
                 destroy = true
@@ -50,14 +48,9 @@ class PaintProjectile: InteractiveEntity, Projectile, Colorable {
         default:
             destroy = false
         }
-        
+
         if destroy {
             EventSystem.entityChangeEvents.removeEntityEvent.post(event: RemoveEntityEvent(entity: self))
         }
-    }
-
-    override func update(gameManager: GameManager) {
-        move()
-        super.update(gameManager: gameManager)
     }
 }

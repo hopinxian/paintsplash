@@ -6,10 +6,5 @@
 //
 
 protocol Health {
-    var currentHealth: Int { get }
-    var maxHealth: Int { get }
-
-    func heal(amount: Int)
-
-    func takeDamage(amount: Int)
+    var healthComponent: HealthComponent { get }
 }

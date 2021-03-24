@@ -15,7 +15,6 @@ struct AmmoHelper {
     static let purple = PaintAmmo(color: .purple)
     static let green = PaintAmmo(color: .green)
     static let white = PaintAmmo(color: .white)
-    
     static let lightRed = PaintAmmo(color: .lightred)
     static let lightYellow = PaintAmmo(color: .lightyellow)
     static let lightBlue = PaintAmmo(color: .lightblue)

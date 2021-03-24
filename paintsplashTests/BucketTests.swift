@@ -10,47 +10,53 @@ import XCTest
 
 class BucketTests: XCTestCase {
 
+    let direction = Vector2D.zero
+
     func testLoad_loadThreeAmmo() {
         let bucket = Bucket()
-        bucket.load(AmmoHelper.red)
-        bucket.load(AmmoHelper.blue)
-        bucket.load(AmmoHelper.blue)
+        let loadAmmo = [AmmoHelper.red, AmmoHelper.blue, AmmoHelper.blue]
+        for ammo in loadAmmo {
+            bucket.load(ammo)
+        }
 
-        XCTAssertEqual(bucket.shoot()?.getColor(), PaintColor.purple)
-        XCTAssertEqual(bucket.shoot()?.getColor(), PaintColor.purple)
-        XCTAssertEqual(bucket.shoot()?.getColor(), PaintColor.blue)
-        XCTAssertNil(bucket.shoot()?.getColor())
+        let expectedColor = [PaintColor.purple, PaintColor.purple, PaintColor.blue]
+        for color in expectedColor {
+            XCTAssertEqual(bucket.shoot(in: direction)?.getColor(), color)
+        }
+        XCTAssertNil(bucket.shoot(in: direction)?.getColor())
     }
-    
+
     func testLoad_loadOneAmmo() {
         let bucket = Bucket()
         bucket.load(AmmoHelper.red)
-        
-        XCTAssertEqual(bucket.shoot()?.getColor(), PaintColor.red)
-        XCTAssertNil(bucket.shoot()?.getColor())
+
+        XCTAssertEqual(bucket.shoot(in: direction)?.getColor(), PaintColor.red)
+        XCTAssertNil(bucket.shoot(in: direction)?.getColor())
     }
-    
+
     func testLoad_loadMultipleAmmo() {
         let bucket = Bucket()
-        bucket.load([AmmoHelper.red, AmmoHelper.red, AmmoHelper.yellow, AmmoHelper.blue, AmmoHelper.orange, AmmoHelper.white, AmmoHelper.purple, AmmoHelper.white])
-        
-        XCTAssertEqual(bucket.shoot()?.getColor(), PaintColor.red)
-        XCTAssertEqual(bucket.shoot()?.getColor(), PaintColor.orange)
-        XCTAssertEqual(bucket.shoot()?.getColor(), PaintColor.orange)
-        XCTAssertEqual(bucket.shoot()?.getColor(), PaintColor.blue)
-        XCTAssertEqual(bucket.shoot()?.getColor(), PaintColor.lightorange)
-        XCTAssertEqual(bucket.shoot()?.getColor(), PaintColor.lightorange)
-        XCTAssertEqual(bucket.shoot()?.getColor(), PaintColor.lightpurple)
-        XCTAssertEqual(bucket.shoot()?.getColor(), PaintColor.lightpurple)
-        XCTAssertNil(bucket.shoot()?.getColor())
-        
+        bucket.load([AmmoHelper.red,
+                     AmmoHelper.red,
+                     AmmoHelper.yellow,
+                     AmmoHelper.blue,
+                     AmmoHelper.orange,
+                     AmmoHelper.white,
+                     AmmoHelper.purple,
+                     AmmoHelper.white])
+
+        var expectedColor = [PaintColor.red, PaintColor.orange, PaintColor.orange, PaintColor.blue]
+        for color in expectedColor {
+            XCTAssertEqual(bucket.shoot(in: direction)?.getColor(), color)
+        }
+        XCTAssertNil(bucket.shoot(in: direction)?.getColor())
+
         bucket.load([AmmoHelper.purple, AmmoHelper.orange, AmmoHelper.green, AmmoHelper.red, AmmoHelper.white])
-        
-        XCTAssertEqual(bucket.shoot()?.getColor(), PaintColor.purple)
-        XCTAssertEqual(bucket.shoot()?.getColor(), PaintColor.orange)
-        XCTAssertEqual(bucket.shoot()?.getColor(), PaintColor.green)
-        XCTAssertEqual(bucket.shoot()?.getColor(), PaintColor.lightred)
-        XCTAssertEqual(bucket.shoot()?.getColor(), PaintColor.lightred)
-        XCTAssertNil(bucket.shoot()?.getColor())
+
+        expectedColor = [PaintColor.purple, PaintColor.orange, PaintColor.green, PaintColor.red]
+        for color in expectedColor {
+            XCTAssertEqual(bucket.shoot(in: direction)?.getColor(), color)
+        }
+        XCTAssertNil(bucket.shoot(in: direction)?.getColor())
     }
 }

@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "foreground.png",
+      "filename" : "joystick-foreground.png",
       "idiom" : "universal",
       "scale" : "1x"
     },

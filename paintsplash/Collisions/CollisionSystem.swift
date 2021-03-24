@@ -6,53 +6,80 @@
 //
 import SpriteKit
 
-protocol CollisionSystem {
-    func addCollidableEntity(_ collidable: CollisionComponent)
-    func removeCollidableEntity(_ collidable: CollisionComponent)
-    func collisionBetweenEntity(first: CollisionComponent, second: CollisionComponent)
+protocol CollisionSystem: System {
+    func addCollidableEntity(_ entity: GameEntity)
+    func removeCollidableEntity(_ entity: GameEntity)
+    func collisionBetweenEntity(first: Collidable, second: Collidable)
 }
 
-class NewCollisionSystem: CollisionSystem {
-    var nodes = [UUID : SKNode]()
-    var bodies = [UUID: SKPhysicsBody]()
-    var collidables = [SKPhysicsBody: CollisionComponent]()
+class SKCollisionSystem: CollisionSystem {
+    var renderSystem: SKRenderSystem
 
-    func addCollidableEntity(_ data: CollisionComponent) {
-        let physicsBody = data.colliderShape.getPhysicsBody()
-        physicsBody.contactTestBitMask = data.tags.getBitMask()
-
-        if let node = nodes[data.entity.id] {
-            node.physicsBody = physicsBody
-        } else {
-            let skNode = SKNode()
-            skNode.physicsBody = physicsBody
-
-            nodes[data.entity.id] = skNode
-        }
-
-        collidables[physicsBody] = data
-        bodies[data.entity.id] = physicsBody
+    init(renderSystem: SKRenderSystem) {
+        self.renderSystem = renderSystem
     }
 
-    func removeCollidableEntity(_ data: CollisionComponent) {
-        if let node = nodes[data.entity.id] {
-            node.physicsBody = nil
-        }
+    func updateEntity(_ entity: GameEntity) {}
 
-        bodies[data.entity.id] = nil
-    }
-
-    func detectCollision(_ contact: SKPhysicsContact) {
-        guard let bodyA = collidables[contact.bodyA],
-              let bodyB = collidables[contact.bodyB] else {
+    func addCollidableEntity(_ entity: GameEntity) {
+        guard let data = entity as? Collidable else {
             return
         }
 
-        collisionBetweenEntity(first: bodyA, second: bodyB)
+        let physicsBody = data.collisionComponent.colliderShape.getPhysicsBody()
+        physicsBody.contactTestBitMask = data.collisionComponent.tags.getBitMask()
+
+        let nodeEntityMap = renderSystem.getNodeEntityMap()
+
+        if nodeEntityMap[data] == nil {
+            renderSystem.addEntity(entity)
+        }
+
+        let node = nodeEntityMap[data]
+        node?.physicsBody = physicsBody
     }
 
-    func collisionBetweenEntity(first: CollisionComponent, second: CollisionComponent) {
-        first.onCollide(second)
-        second.onCollide(first)
+    func removeCollidableEntity(_ entity: GameEntity) {
+        guard let data = entity as? Collidable else {
+            return
+        }
+
+        let nodeEntityMap = renderSystem.getNodeEntityMap()
+        if let node = nodeEntityMap[data] {
+            node.physicsBody = nil
+        }
+    }
+
+    func collisionBetweenEntity(first: Collidable, second: Collidable) {
+        first.onCollide(with: second)
+        second.onCollide(with: first)
     }
 }
+
+class SKCollisionDetector: NSObject, SKPhysicsContactDelegate {
+    let renderSystem: SKRenderSystem
+    let collisionSystem: SKCollisionSystem
+
+    init(renderSystem: SKRenderSystem, collisionSystem: SKCollisionSystem) {
+        self.renderSystem = renderSystem
+        self.collisionSystem = collisionSystem
+    }
+
+    func didBegin(_ contact: SKPhysicsContact) {
+        let nodeEntityMap = renderSystem.getNodeEntityMap()
+        guard let nodeA = contact.bodyA.node,
+              let nodeB = contact.bodyB.node else {
+            return
+        }
+
+        guard let collidableA = nodeEntityMap[nodeA] as? Collidable,
+              collidableA.collisionComponent.active,
+              let collidableB = nodeEntityMap[nodeB] as? Collidable,
+              collidableB.collisionComponent.active else {
+            return
+        }
+
+        collisionSystem.collisionBetweenEntity(first: collidableA, second: collidableB)
+    }
+}
+

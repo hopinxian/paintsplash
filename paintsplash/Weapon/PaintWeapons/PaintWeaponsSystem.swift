@@ -14,14 +14,16 @@ class PaintWeaponsSystem: MultiWeaponSystem {
         self.activeWeapon = weapons[0]
         self.availableWeapons = weapons
     }
-    
+
     func load(_ ammo: [Ammo]) {
         guard let weapon = activeWeapon else {
             return
         }
-        
+
         weapon.load(ammo)
-        EventSystem.playerActionEvent.playerAmmoUpdateEvent.post(event: PlayerAmmoUpdateEvent(weapon: weapon, ammo: weapon.getAmmo()))
+        EventSystem.playerActionEvent.playerAmmoUpdateEvent.post(
+            event: PlayerAmmoUpdateEvent(weapon: weapon, ammo: weapon.getAmmo())
+        )
     }
 
     func load<T: Weapon>(to weaponType: T.Type, ammo: [Ammo]) {
@@ -30,23 +32,26 @@ class PaintWeaponsSystem: MultiWeaponSystem {
         }
 
         weapon.load(ammo)
-        EventSystem.playerActionEvent.playerAmmoUpdateEvent.post(event: PlayerAmmoUpdateEvent(weapon: weapon, ammo: weapon.getAmmo()))
+        EventSystem.playerActionEvent.playerAmmoUpdateEvent.post(
+            event: PlayerAmmoUpdateEvent(weapon: weapon, ammo: weapon.getAmmo())
+        )
     }
 
     func shoot(in direction: Vector2D) -> Bool {
 
         // Handle shooting here
         guard let weapon = activeWeapon,
-              let projectile = weapon.shoot(in: direction),
-              let carriedBy = carriedBy else {
+            let projectile = weapon.shoot(in: direction),
+            let carriedBy = carriedBy else {
             return false
         }
 
-        projectile.move(to: carriedBy.transform.position)
+        projectile.transformComponent.position = carriedBy.transformComponent.position
+        projectile.spawn()
 
-        EventSystem.entityChangeEvents.addEntityEvent.post(event: AddEntityEvent(entity: projectile))
-        EventSystem.playerActionEvent.playerAmmoUpdateEvent.post(event: PlayerAmmoUpdateEvent(weapon: weapon, ammo: weapon.getAmmo()))
-        //        projectile.spawn(gameManager: gameManager)
+        EventSystem.playerActionEvent.playerAmmoUpdateEvent.post(
+            event: PlayerAmmoUpdateEvent(weapon: weapon, ammo: weapon.getAmmo())
+        )
 
         return true
     }

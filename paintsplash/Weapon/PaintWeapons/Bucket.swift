@@ -49,13 +49,12 @@ class Bucket: Weapon {
         }
         let ammo = ammoQueue.removeFirst()
 
-        return PaintProjectile(color: ammo.color, radius: 25.0, velocity: direction)
+        return PaintProjectile(color: ammo.color, radius: 75, direction: Vector2D.zero)
     }
 
     func canShoot() -> Bool {
         currentCoolDown == 0
     }
-
 
     func getAmmo() -> [Ammo] {
         ammoQueue

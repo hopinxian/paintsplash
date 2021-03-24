@@ -95,6 +95,9 @@ struct Vector2D {
 
     static func normalize(_ vector: Vector2D) -> Vector2D {
         let magnitude = distanceBetween(vector, Vector2D.zero)
+        if magnitude == 0 {
+            return Vector2D.zero
+        }
         return vector / magnitude
     }
 
@@ -142,11 +145,24 @@ struct Vector2D {
 
         return Vector2D(x, y)
     }
+
+    static func clamped(vector: Vector2D, minX: Double?, maxX: Double?,
+                        minY: Double?, maxY: Double?) -> Vector2D {
+        var newX = vector.x
+        var newY = vector.y
+
+        newX = min(maxX ?? newX, newX)
+        newX = max(minX ?? newX, newX)
+        newY = min(maxY ?? newY, newY)
+        newY = max(minY ?? newY, newY)
+
+        return Vector2D(newX, newY)
+    }
 }
 
 extension Vector2D: Hashable {
     static func == (lhs: Vector2D, rhs: Vector2D) -> Bool {
-        fabs(lhs.x - rhs.x) < 0.0000001 && fabs(lhs.y - rhs.y) < 0.0000001
+        fabs(lhs.x - rhs.x) < 0.000_000_1 && fabs(lhs.y - rhs.y) < 0.000_000_1
     }
 
     func hash(into hasher: inout Hasher) {

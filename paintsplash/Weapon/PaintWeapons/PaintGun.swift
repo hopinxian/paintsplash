@@ -28,7 +28,7 @@ class PaintGun: Weapon {
         ammoStack.append(ammo)
         mix()
     }
-    
+
     /// Mixes the last two colors in the stack
     private func mix() {
         let size = ammoStack.count
@@ -47,8 +47,7 @@ class PaintGun: Weapon {
         guard let ammo = ammoStack.popLast(), canShoot() else {
             return nil
         }
-        print("paintgun fired in direction \(direction)")
-        return PaintProjectile(color: ammo.color, radius: 25.0, velocity: direction)
+        return PaintProjectile(color: ammo.color, radius: 25.0, direction: direction)
     }
 
     func canShoot() -> Bool {

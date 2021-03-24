@@ -13,6 +13,7 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // swiftlint:disable force_cast
         if let view = self.view as! SKView? {
             // Load the SKScene from 'GameScene.sks'
             guard let gameScene = SKScene(fileNamed: "GameScene") as? GameScene else {
@@ -23,10 +24,8 @@ class GameViewController: UIViewController {
             gameScene.scaleMode = .aspectFill
 
             // Present the scene
+            gameScene.size = view.bounds.size
             view.presentScene(gameScene)
-
-            let gameManager = GameManager(gameScene: gameScene)
-            gameScene.gameManager = gameManager
 
             view.ignoresSiblingOrder = true
 
@@ -36,7 +35,7 @@ class GameViewController: UIViewController {
     }
 
     override var shouldAutorotate: Bool {
-        return true
+        true
     }
 
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
@@ -48,6 +47,6 @@ class GameViewController: UIViewController {
     }
 
     override var prefersStatusBarHidden: Bool {
-        return true
+        true
     }
 }
