@@ -8,11 +8,15 @@
 import SpriteKit
 
 protocol RenderSystem: System {
+    var renderables: [GameEntity: Renderable] { get set }
     func addEntity(_ entity: GameEntity)
     func removeEntity(_ entity: GameEntity)
+    func updateEntities()
+    func updateEntity(_ entity: GameEntity, _ renderable: Renderable)
 }
 
 class SKRenderSystem: RenderSystem {
+    var renderables = [GameEntity : Renderable]()
     private let scene: GameScene
     private var nodeEntityMap = BidirectionalMap<GameEntity, SKNode>()
 
@@ -24,6 +28,7 @@ class SKRenderSystem: RenderSystem {
         var node = SKNode()
         if let renderable = entity as? Renderable {
             node = buildNode(for: renderable)
+            renderables[entity] = renderable
         }
 
         scene.addChild(node)
@@ -37,6 +42,7 @@ class SKRenderSystem: RenderSystem {
 
         node.removeFromParent()
         nodeEntityMap[entity] = nil
+        renderables[entity] = nil
     }
 
     func updateEntity(_ entity: GameEntity) {
@@ -56,6 +62,22 @@ class SKRenderSystem: RenderSystem {
 
     func getNodeEntityMap() -> BidirectionalMap<GameEntity, SKNode> {
         nodeEntityMap
+    }
+
+    func updateEntities() {
+        for (entity, renderable) in renderables {
+            updateEntity(entity, renderable)
+        }
+    }
+
+    func updateEntity(_ entity: GameEntity, _ renderable: Renderable) {
+        guard let node = nodeEntityMap[entity] else {
+            return
+        }
+
+        let transformComponent = renderable.transformComponent
+        node.position = SpaceConverter.modelToScreen(transformComponent.position)
+        node.zRotation = CGFloat(transformComponent.rotation)
     }
 
 }

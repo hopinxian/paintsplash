@@ -11,7 +11,11 @@ class PaintBucketAmmoDisplay: GameEntity, Transformable {
     var weaponData: Bucket
 
     init(weaponData: Bucket) {
-        self.transformComponent = TransformComponent(position: Constants.PAINT_BUCKET_AMMO_DISPLAY_POSITION, rotation: 0.0, size: Constants.PAINT_BUCKET_AMMO_DISPLAY_SIZE)
+        self.transformComponent = TransformComponent(
+            position: Constants.PAINT_BUCKET_AMMO_DISPLAY_POSITION,
+            rotation: 0.0,
+            size: Constants.PAINT_BUCKET_AMMO_DISPLAY_SIZE
+        )
 
         let displayView = VerticalStack<PaintAmmoDisplay>(
             position: transformComponent.position,

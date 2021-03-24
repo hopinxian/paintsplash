@@ -12,7 +12,11 @@ class PaintGunAmmoDisplay: GameEntity, Transformable {
     var weaponData: PaintGun
 
     init(weaponData: PaintGun) {
-        self.transformComponent = TransformComponent(position: Constants.PAINT_GUN_AMMO_DISPLAY_POSITION, rotation: 0.0, size: Constants.PAINT_GUN_AMMO_DISPLAY_SIZE)
+        self.transformComponent = TransformComponent(
+            position: Constants.PAINT_GUN_AMMO_DISPLAY_POSITION,
+            rotation: 0.0,
+            size: Constants.PAINT_GUN_AMMO_DISPLAY_SIZE
+        )
 
         let displayView = VerticalStack<PaintAmmoDisplay>(
             position: transformComponent.position,

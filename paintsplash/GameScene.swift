@@ -161,8 +161,10 @@ class GameScene: SKScene, GameManager {
     func update() {
         currentLevel?.update()
         let entityList = Array(entities)
-        aiSystem.updateEntities(entityList)
-        renderSystem.updateEntities(entityList)
+//        aiSystem.updateEntities(entityList)
+//        renderSystem.updateEntities(entityList)
+        aiSystem.updateEntities()
+        renderSystem.updateEntities()
         animationSystem.updateEntities(entityList)
         collisionSystem.updateEntities(entityList)
         movementSystem.updateEntities(entityList)

@@ -17,7 +17,12 @@ class PaintProjectile: GameEntity, Projectile, Renderable, Colorable {
     private let moveSpeed = 15.0
 
     init(color: PaintColor, radius: Double, direction: Vector2D) {
-        self.transformComponent = BoundedTransformComponent(position: Vector2D.zero, rotation: 0.0, size: Vector2D(radius * 2, radius * 2), bounds: Constants.PROJECTILE_MOVEMENT_BOUNDS)
+        self.transformComponent = BoundedTransformComponent(
+            position: Vector2D.zero, 
+            rotation: 0.0, 
+            size: Vector2D(radius * 2, radius * 2), 
+            bounds: Constants.PROJECTILE_MOVEMENT_BOUNDS
+        )
         self.moveableComponent = MoveableComponent(direction: direction, speed: moveSpeed)
         self.collisionComponent = CollisionComponent(colliderShape: .circle(radius: radius), tags: [.playerProjectile])
         self.renderComponent = RenderComponent(renderType: .sprite(spriteName: "Projectile"), zPosition: Constants.ZPOSITION_PROJECTILE)

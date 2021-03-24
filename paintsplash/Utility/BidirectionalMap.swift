@@ -25,7 +25,7 @@ class BidirectionalMap<F: Hashable, T: Hashable> {
         set { _backward = newValue; _forward = nil }
     }
 
-    init(_ dict: [F: T] = [:]) { forward = dict  }
+    init(_ dict: [F: T] = [:]) { forward = dict }
 
     init(_ values: [(F, T)]) { forward = [F: T](uniqueKeysWithValues: values) }
 
@@ -35,7 +35,7 @@ class BidirectionalMap<F: Hashable, T: Hashable> {
     }
 
     subscript(_ key: F) -> T? {
-        get { return forward[key]  }
+        get { return forward[key] }
         set { forward[key]  = newValue }
     }
 
@@ -45,7 +45,7 @@ class BidirectionalMap<F: Hashable, T: Hashable> {
     }
 
     subscript(from key: F) -> T? {
-        get { return forward[key]  }
+        get { return forward[key] }
         set { forward[key]  = newValue }
     }
 

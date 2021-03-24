@@ -42,6 +42,7 @@ class TransformComponent: Component {
 class BoundedTransformComponent: TransformComponent {
     override var position: Vector2D {
         willSet {
+            print("willset")
             if !bounds.inset(by: size / 2).contains(newValue) {
                 position = bounds.inset(by: size / 2).clamp(point: newValue)
             }
@@ -77,10 +78,15 @@ class AnimationComponent: Component {
 
     func animate(animation: Animation, interupt: Bool, callBack: (() -> Void)?) {
         if !animationIsPlaying || interupt {
-            animationToPlay = CallbackAnimation(name: animation.name, animationDuration: animation.animationDuration, animation: animation, completionCallback: { [weak self] in
-                self?.animationIsPlaying = false
-                callBack?()
-            })
+            animationToPlay = CallbackAnimation(
+                name: animation.name,
+                animationDuration: animation.animationDuration,
+                animation: animation,
+                completionCallback: { [weak self] in
+                    self?.animationIsPlaying = false
+                    callBack?()
+                }
+            )
         }
     }
 }
@@ -144,6 +150,14 @@ class AIComponent: Component {
 
     init(defaultState: AIState) {
         self.currentState = defaultState
+    }
+
+    func getCurrentBehaviour(aiEntity: AIEntity) -> AIBehaviour {
+        currentState.getBehaviour(aiEntity: aiEntity)
+    }
+
+    func getNextState(aiEntity: AIEntity) -> AIState? {
+        currentState.getStateTransition(aiEntity: aiEntity)
     }
 }
 

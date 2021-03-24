@@ -97,6 +97,8 @@ class Player: GameEntity, Transformable, Renderable, Animatable, Collidable, Mov
         animationComponent.animate(animation: animation, interupt: true) {
             self.animationComponent.animate(animation: resetAnimation, interupt: true)
         }
+
+        EventSystem.audioEvent.playSoundEffectEvent.post(event: PlaySoundEffectEvent(effect: SoundEffect.attack))
     }
 
     func onWeaponChange(event: PlayerChangeWeaponEvent) {

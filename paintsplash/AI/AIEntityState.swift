@@ -120,9 +120,19 @@ extension EnemyState {
             if let movable = aiEntity as? Movable {
                 print(movable.moveableComponent.direction.x)
                 if movable.moveableComponent.direction.x > 0 {
-                    return BehaviourSequence(behaviours: [ChasePlayerBehaviour(), UpdateAnimationBehaviour(animation: SlimeAnimations.slimeMoveRightGray, interupt: false)])
+                    return BehaviourSequence(
+                        behaviours: [
+                            ChasePlayerBehaviour(),
+                            UpdateAnimationBehaviour(animation: SlimeAnimations.slimeMoveRightGray, interupt: false)
+                        ]
+                    )
                 } else {
-                    return BehaviourSequence(behaviours: [ChasePlayerBehaviour(), UpdateAnimationBehaviour(animation: SlimeAnimations.slimeMoveLeftGray, interupt: false)])
+                    return BehaviourSequence(
+                        behaviours: [
+                            ChasePlayerBehaviour(),
+                            UpdateAnimationBehaviour(animation: SlimeAnimations.slimeMoveLeftGray, interupt: false)
+                        ]
+                    )
                 }
             } else {
                 return ChasePlayerBehaviour()

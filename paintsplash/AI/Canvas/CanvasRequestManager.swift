@@ -17,7 +17,12 @@ class CanvasRequestManager: GameEntity, Transformable {
     override init() {
         self.transformComponent = TransformComponent(position: Vector2D(-300, -600), rotation: 0.0, size: Vector2D(700, 200))
 
-        let displayView = HorizontalStack<CanvasRequest>(position: transformComponent.position, size: transformComponent.size, backgroundSprite: "CanvasRequestManager", leftPadding: 40)
+        let displayView = HorizontalStack<CanvasRequest>(
+            position: transformComponent.position,
+            size: transformComponent.size,
+            backgroundSprite: "CanvasRequestManager",
+            leftPadding: 40
+        )
 
         displayView.zPosition = Constants.ZPOSITION_UI_ELEMENT
         self.requestsDisplayView = displayView
