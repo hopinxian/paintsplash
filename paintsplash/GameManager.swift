@@ -10,7 +10,7 @@ protocol GameManager {
 
     var currentLevel: Level? { get set }
 
-    var aiSystem: AISystem! { get }
+    var aiSystem: StateManagerSystem! { get }
     var audioManager: AudioSystem! { get }
     var renderSystem: RenderSystem! { get }
     var animationSystem: AnimationSystem! { get }

@@ -5,8 +5,8 @@
 //  Created by Cynthia Lee on 14/3/21.
 //
 
-class EnemySpawner: GameEntity, AIEntity, Transformable, Renderable, Animatable, Collidable, Colorable, Health {
-    var aiComponent: AIComponent
+class EnemySpawner: GameEntity, StatefulEntity, Transformable, Renderable, Animatable, Collidable, Colorable, Health {
+    var stateComponent: StateComponent
     var renderComponent: RenderComponent
     var transformComponent: TransformComponent
     var collisionComponent: CollisionComponent
@@ -17,22 +17,27 @@ class EnemySpawner: GameEntity, AIEntity, Transformable, Renderable, Animatable,
 
     init(initialPosition: Vector2D, color: PaintColor) {
 
-        self.renderComponent = RenderComponent(renderType: .sprite(spriteName: "Spawner"), zPosition: Constants.ZPOSITION_PLAYER)
-        self.transformComponent = TransformComponent(position: initialPosition, rotation: 0, size: Vector2D(100, 100))
+        self.renderComponent = RenderComponent(
+            renderType: .sprite(spriteName: "Spawner"),
+            zPosition: Constants.ZPOSITION_PLAYER
+        )
+
+        self.transformComponent = TransformComponent(
+            position: initialPosition,
+            rotation: 0,
+            size: Vector2D(100, 100)
+        )
+
         self.healthComponent = HealthComponent(currentHealth: 3, maxHealth: 3)
         self.collisionComponent = CollisionComponent(colliderShape: .circle(radius: 50), tags: [])
-        self.aiComponent = AIComponent(defaultState: EnemySpawnerState.Idle(idleTime: 3))
+        self.stateComponent = StateComponent()
         self.animationComponent = AnimationComponent()
 
         self.color = color
 
         super.init()
 
-        addComponent(renderComponent)
-        addComponent(transformComponent)
-        addComponent(healthComponent)
-        addComponent(collisionComponent)
-        addComponent(aiComponent)
+        self.stateComponent.currentState = EnemySpawnerState.Idle(spawner: self, idleTime: 3)
     }
 
     func onCollide(with: Collidable) {

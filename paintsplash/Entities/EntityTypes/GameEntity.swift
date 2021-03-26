@@ -7,25 +7,13 @@
 import Foundation
 
 class GameEntity {
-    var id: UUID = UUID()
+    var id = UUID()
     var components = [Component]()
 
     init() {
         for component in components {
             component.entity = self
         }
-    }
-
-    func getComponent<ComponentType: Component>(type: ComponentType.Type) -> ComponentType? {
-        components.compactMap({ $0 as? ComponentType }).first
-    }
-
-    func getAllComponents<ComponentType: Component>(type: ComponentType.Type) -> [ComponentType] {
-        components.compactMap({ $0 as? ComponentType })
-    }
-
-    func addComponent<Type: Component>(_ component: Type) {
-        components.append(component)
     }
 
     func spawn() {
@@ -37,7 +25,7 @@ class GameEntity {
     }
 
     func update() {
-        
+        // Do nothing by default
     }
 }
 

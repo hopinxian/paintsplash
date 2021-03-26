@@ -2,15 +2,16 @@
 //  PlayerState.swift
 //  paintsplash
 //
-//  Created by Praveen Bala on 17/3/21.
+//  Created by Farrell Nah on 25/3/21.
 //
+protocol StateType {
 
-//enum PlayerState {
-//    case moveLeft
-//    case moveRight
-//    case idleLeft
-//    case idleRight
-//    case attackLeft
-//    case attackRight
-//    case die
-//}
+}
+
+class PlayerState: State {
+    var player: Player!
+
+    init(player: Player?) {
+        self.player = player
+    }
+}
