@@ -16,7 +16,11 @@ class PlayerHealthDisplay: GameEntity, Transformable {
             rotation: 0.0,
             size: Constants.HEALTH_DISPLAY_SIZE
         )
-        self.transformComponent = TransformComponent(position: Constants.HEALTH_DISPLAY_POSITION, rotation: 0, size: Constants.HEALTH_DISPLAY_SIZE)
+        self.transformComponent = TransformComponent(
+            position: Constants.HEALTH_DISPLAY_POSITION,
+            rotation: 0,
+            size: Constants.HEALTH_DISPLAY_SIZE
+        )
 
         let displayView = HorizontalStack<HeartDisplay>(
             position: transformComponent.position,
@@ -25,8 +29,9 @@ class PlayerHealthDisplay: GameEntity, Transformable {
         )
 
         self.healthDisplayView = displayView
+
         super.init()
-        addComponent(transformComponent)
+
         EventSystem.entityChangeEvents.addEntityEvent.post(event: AddEntityEvent(entity: displayView))
         EventSystem.playerActionEvent.playerHealthUpdateEvent.subscribe(listener: onHealthUpdate)
         updateViews(health: startingHealth)

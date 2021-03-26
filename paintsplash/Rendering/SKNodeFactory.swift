@@ -41,7 +41,7 @@ class SKNodeFactory {
     }
 
     private static func buildLabelNode(text: String) -> SKLabelNode {
-        return SKLabelNode(text: text)
+        SKLabelNode(text: text)
     }
 
     private static func colorize(_ renderableEntity: Renderable) -> (color: UIColor, blendFactor: CGFloat)? {

@@ -6,7 +6,7 @@
 //
 import Foundation
 
-class SpawnEnemyBehaviour: AIBehaviour {
+class SpawnEnemyBehaviour: StateBehaviour {
     let spawnQuantity: Int
     private var complete = false
 
@@ -14,7 +14,7 @@ class SpawnEnemyBehaviour: AIBehaviour {
         self.spawnQuantity = spawnQuantity
     }
 
-    func updateAI(aiEntity: AIEntity, aiGameInfo: AIGameInfo) {
+    func updateAI(aiEntity: StatefulEntity, aiGameInfo: AIGameInfo) {
         guard !complete,
               let transformable = aiEntity as? Transformable,
               let colorable = aiEntity as? Colorable else {

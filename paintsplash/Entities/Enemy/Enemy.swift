@@ -9,13 +9,13 @@ import SpriteKit
 
 let hitDuration: Double = 0.25
 
-class Enemy: GameEntity, AIEntity, Renderable, Animatable, Collidable, Movable, Colorable, Health {
+class Enemy: GameEntity, StatefulEntity, Renderable, Animatable, Collidable, Movable, Colorable, Health {
     let renderComponent: RenderComponent
     let transformComponent: TransformComponent
     let collisionComponent: CollisionComponent
     let moveableComponent: MoveableComponent
     let healthComponent: HealthComponent
-    let aiComponent: AIComponent
+    let stateComponent: StateComponent
     let animationComponent: AnimationComponent
 
     private(set) var color: PaintColor
@@ -25,24 +25,30 @@ class Enemy: GameEntity, AIEntity, Renderable, Animatable, Collidable, Movable, 
 
     init(initialPosition: Vector2D, color: PaintColor) {
         self.color = color
-        self.renderComponent = RenderComponent(renderType: .sprite(spriteName: "Slime"), zPosition: Constants.ZPOSITION_PLAYER)
-        self.transformComponent = TransformComponent(position: initialPosition, rotation: 0, size: Vector2D(100, 100))
+        self.renderComponent = RenderComponent(
+            renderType: .sprite(spriteName: "Slime"),
+            zPosition: Constants.ZPOSITION_PLAYER
+        )
+
+        self.transformComponent = TransformComponent(
+            position: initialPosition,
+            rotation: 0,
+            size: Vector2D(100, 100)
+        )
+
         self.healthComponent = HealthComponent(currentHealth: 1, maxHealth: 1)
-        self.collisionComponent = CollisionComponent(colliderShape: .circle(radius: 50), tags: [.enemy])
+        self.collisionComponent = CollisionComponent(
+            colliderShape: .circle(radius: 50),
+            tags: [.enemy]
+        )
+
         self.moveableComponent = MoveableComponent(direction: Vector2D.zero, speed: moveSpeed)
-        self.aiComponent = AIComponent()
+        self.stateComponent = StateComponent()
         self.animationComponent = AnimationComponent()
 
         super.init()
 
-        self.aiComponent.currentState = EnemyState.Idle(enemy: self)
-
-        addComponent(renderComponent)
-        addComponent(transformComponent)
-        addComponent(healthComponent)
-        addComponent(collisionComponent)
-        addComponent(moveableComponent)
-        addComponent(animationComponent)
+        self.stateComponent.currentState = EnemyState.Idle(enemy: self)
     }
 
     func onCollide(with: Collidable) {
@@ -80,7 +86,7 @@ class Enemy: GameEntity, AIEntity, Renderable, Animatable, Collidable, Movable, 
     private func die() {
         moveableComponent.speed = 0
         collisionComponent.active = false
-        animationComponent.animate(animation: SlimeAnimations.slimeDieGray, interupt: true, callBack: { self.destroy() })
+        stateComponent.currentState = EnemyState.Die(enemy: self)
 
         EventSystem.scoreEvent.post(event: ScoreEvent(value: Points.enemyKill))
     }

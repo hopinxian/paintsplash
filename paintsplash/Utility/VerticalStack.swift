@@ -20,9 +20,9 @@ class VerticalStack<ItemType: Renderable>: GameEntity, Renderable, Animatable {
 
     init(
         position: Vector2D,
-        rotation: Double = 0.0,
         size: Vector2D,
         backgroundSprite: String,
+        rotation: Double = 0.0,
         seperation: Double = 20.0,
         leftPadding: Double = 10.0,
         rightPadding: Double = 10.0,
@@ -35,18 +35,12 @@ class VerticalStack<ItemType: Renderable>: GameEntity, Renderable, Animatable {
         self.bottomPadding = bottomPadding
         self.zPosition = Constants.ZPOSITION_UI_ELEMENT
 
-
         let renderType = RenderType.sprite(spriteName: backgroundSprite)
         self.transformComponent = TransformComponent(position: position, rotation: rotation, size: size)
         self.renderComponent = RenderComponent(renderType: renderType, zPosition: zPosition)
         self.animationComponent = AnimationComponent()
 
         super.init()
-
-        addComponent(renderComponent)
-        addComponent(transformComponent)
-        addComponent(animationComponent)
-
     }
 
     func insert(item: ItemType, at index: Int) {

@@ -30,7 +30,6 @@ class PaintGunAmmoDisplay: GameEntity, Transformable {
         self.weaponData = weaponData
         super.init()
 
-        addComponent(transformComponent)
         updateAmmoDisplay(ammo: weaponData.getAmmo().compactMap({ $0 as? PaintAmmo }))
 
         EventSystem.playerActionEvent.playerAmmoUpdateEvent.subscribe(listener: onAmmoUpdate)

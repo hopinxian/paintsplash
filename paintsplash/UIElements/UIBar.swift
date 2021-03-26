@@ -15,8 +15,5 @@ class UIBar: GameEntity, Renderable {
         self.renderComponent = RenderComponent(renderType: renderType, zPosition: Constants.ZPOSITION_WALLS)
         self.transformComponent = TransformComponent(position: position, rotation: 0.0, size: size)
         super.init()
-
-        addComponent(transformComponent)
-        addComponent(renderComponent)
     }
 }

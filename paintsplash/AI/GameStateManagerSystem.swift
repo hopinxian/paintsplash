@@ -1,36 +1,12 @@
 //
-//  AISystem.swift
+//  GameAISystem.swift
 //  paintsplash
 //
-//  Created by Cynthia Lee on 14/3/21.
+//  Created by Farrell Nah on 26/3/21.
 //
-//protocol AISystem {
-//
-//}
-//
-//class NewAISystem: AISystem {
-//    func updateAIEntities(_ entities: [AIComponent]) {
-//        for data in entities {
-//            updateAIEntity(data)
-//        }
-//    }
-//
-//    func updateAIEntity(_ data: AIComponent) {
-//        data.behaviour.updateAI(aiEntity: data.entity, aiGameInfo: ?)
-//    }
-//}
 
-protocol AIEntity: GameEntity {
-    var aiComponent: AIComponent { get }
-}
-
-protocol AISystem: System {
-    var aiEntities: [GameEntity: AIEntity] { get set }
-    func updateEntity(_ entity: GameEntity, _ aiEntity: AIEntity)
-}
-
-class GameAISystem: AISystem {
-    var aiEntities = [GameEntity: AIEntity]()
+class GameStateManagerSystem: StateManagerSystem {
+    var aiEntities = [GameEntity: StatefulEntity]()
     var aiGameInfo: AIGameInfo
 
     init() {
@@ -48,7 +24,7 @@ class GameAISystem: AISystem {
     }
 
     func addEntity(_ entity: GameEntity) {
-        guard let aiEntity = entity as? AIEntity else {
+        guard let aiEntity = entity as? StatefulEntity else {
             return
         }
 
@@ -65,8 +41,8 @@ class GameAISystem: AISystem {
         }
     }
 
-    func updateEntity(_ entity: GameEntity, _ aiEntity: AIEntity) {
-        let aiComponent = aiEntity.aiComponent
+    func updateEntity(_ entity: GameEntity, _ aiEntity: StatefulEntity) {
+        let aiComponent = aiEntity.stateComponent
         if let newState = aiComponent.getNextState() {
             aiComponent.currentState = newState
         } else {

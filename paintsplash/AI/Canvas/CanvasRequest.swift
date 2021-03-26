@@ -31,9 +31,6 @@ class CanvasRequest: GameEntity, Renderable, Transformable {
         )
 
         super.init()
-        
-        addComponent(transformComponent)
-        addComponent(renderComponent)
     }
 
     func paintRequiredColours() {

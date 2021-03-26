@@ -5,7 +5,7 @@
 //  Created by Ho Pin Xian on 25/3/21.
 //
 
-class EnemyCommand: SpawnCommand {
+class SpawnEnemyCommand: SpawnCommand {
     var location: Vector2D?
     var color: PaintColor?
 

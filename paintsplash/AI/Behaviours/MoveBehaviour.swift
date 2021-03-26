@@ -5,7 +5,7 @@
 //  Created by Cynthia Lee on 16/3/21.
 //
 
-struct MoveBehaviour: AIBehaviour {
+struct MoveBehaviour: StateBehaviour {
     let direction: Vector2D
     let speed: Double
 
@@ -14,7 +14,7 @@ struct MoveBehaviour: AIBehaviour {
         self.speed = speed
     }
 
-    func updateAI(aiEntity: AIEntity, aiGameInfo: AIGameInfo) {
+    func updateAI(aiEntity: StatefulEntity, aiGameInfo: AIGameInfo) {
         guard let movable = aiEntity as? Movable else {
             fatalError("AIEntity does not conform to the required protocols for CanvasBehaviour")
         }

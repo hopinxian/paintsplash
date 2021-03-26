@@ -21,9 +21,9 @@ class HorizontalStack<ItemType: Renderable>: GameEntity, Renderable, Animatable 
 
     init(
         position: Vector2D,
-        rotation: Double = 0.0,
         size: Vector2D,
         backgroundSprite: String,
+        rotation: Double = 0.0,
         seperation: Double = 20.0,
         leftPadding: Double = 25.0,
         topPadding: Double = 10.0,
@@ -43,10 +43,6 @@ class HorizontalStack<ItemType: Renderable>: GameEntity, Renderable, Animatable 
         self.animationComponent = AnimationComponent()
 
         super.init()
-
-        addComponent(transformComponent)
-        addComponent(renderComponent)
-        addComponent(animationComponent)
     }
 
     func insert(item: ItemType, at index: Int) {

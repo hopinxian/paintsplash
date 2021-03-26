@@ -8,8 +8,3 @@ protocol HasWeapon {
     var weaponComponent: WeaponComponent { get }
     var transformComponent: TransformComponent { get }
 }
-
-protocol HasMultiWeapon {
-    var multiWeaponComponent: MultiWeaponComponent { get }
-    var transformComponent: TransformComponent { get }
-}

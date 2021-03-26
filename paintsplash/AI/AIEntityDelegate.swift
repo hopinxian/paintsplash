@@ -6,5 +6,5 @@
 //
 
 protocol AIEntityDelegate: AnyObject {
-    func didEntityUpdateState(aiEntity: AIEntity)
+    func didEntityUpdateState(aiEntity: StatefulEntity)
 }

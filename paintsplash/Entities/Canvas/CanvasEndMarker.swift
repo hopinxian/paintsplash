@@ -14,9 +14,5 @@ class CanvasEndMarker: GameEntity, Renderable {
         self.transformComponent = TransformComponent(position: position, rotation: 0.0, size: size)
 
         super.init()
-
-        addComponent(renderComponent)
-        addComponent(transformComponent)
-
     }
 }

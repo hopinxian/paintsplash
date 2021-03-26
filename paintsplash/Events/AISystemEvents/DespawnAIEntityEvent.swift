@@ -6,5 +6,5 @@
 //
 
 struct DespawnAIEntityEvent: Event {
-    let entityToDespawn: AIEntity
+    let entityToDespawn: StatefulEntity
 }
