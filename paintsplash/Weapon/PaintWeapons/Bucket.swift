@@ -7,6 +7,7 @@
 
 class Bucket: Weapon {
     var capacity: Int = 4
+    var carriedBy: Transformable?
     private let maxCoolDown = 100.0
     private var currentCoolDown = 0.0
 
@@ -53,7 +54,7 @@ class Bucket: Weapon {
     }
 
     func canShoot() -> Bool {
-        currentCoolDown == 0
+        currentCoolDown == 0 && !ammoQueue.isEmpty
     }
 
     func getAmmo() -> [Ammo] {

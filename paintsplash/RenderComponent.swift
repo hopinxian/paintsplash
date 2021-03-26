@@ -132,14 +132,136 @@ class MoveableComponent: Component {
         self.speed = speed
     }
 }
+//
+//class PlayerWeapons: MultiWeaponComponent {
+//    override func load(_ ammo: [Ammo]) {
+//        super.load(ammo)
+//        EventSystem.playerActionEvent.playerAmmoUpdateEvent.post(
+//            event: PlayerAmmoUpdateEvent(weapon: activeWeapon, ammo: activeWeapon.getAmmo())
+//        )
+//    }
+//
+//    override func load<T>(to weaponType: T.Type, ammo: [Ammo]) where T : Weapon {
+//        super.load(to: T.self, ammo: ammo)
+//        guard let weapon = availableWeapons.compactMap({ $0 as? T }).first else {
+//            return
+//        }
+//        EventSystem.playerActionEvent.playerAmmoUpdateEvent.post(
+//            event: PlayerAmmoUpdateEvent(weapon: weapon, ammo: weapon.getAmmo())
+//        )
+//    }
+//
+//    override func shoot(in direction: Vector2D) -> Projectile? {
+//        EventSystem.playerActionEvent.playerAmmoUpdateEvent.post(
+//            event: PlayerAmmoUpdateEvent(weapon: activeWeapon, ammo: activeWeapon.getAmmo())
+//        )
+//        return super.shoot(in: direction)
+//    }
+//
+//    override func switchWeapon<T: Weapon>(to weapon: T.Type) -> Weapon? {
+//        if let weapon = super.switchWeapon(to: T.self) {
+//            EventSystem.playerActionEvent.playerChangedWeaponEvent.post(event: PlayerChangedWeaponEvent(weapon: weapon))
+//            return weapon
+//        }
+//        return nil
+//    }
+//}
 
-class MultiWeaponComponent: Component {
-    var activeWeapon: Weapon?
+class MultiWeaponComponent: WeaponComponent {
+    var activeWeapon: Weapon
     var availableWeapons: [Weapon]
+    override var carriedBy: Transformable? {
+        didSet {
+            for weapon in availableWeapons {
+                weapon.carriedBy = carriedBy
+            }
+        }
+    }
 
     init(weapons: [Weapon]) {
         self.activeWeapon = weapons[0]
         self.availableWeapons = weapons
+        super.init(capacity: activeWeapon.capacity)
+    }
+
+    override func load(_ ammo: [Ammo]) {
+        activeWeapon.load(ammo)
+    }
+
+    func load<T: Weapon>(to weaponType: T.Type, ammo: [Ammo]) {
+        guard let weapon = availableWeapons.compactMap({ $0 as? T }).first else {
+            return
+        }
+
+        weapon.load(ammo)
+    }
+
+    override func shoot(in direction: Vector2D) -> Projectile? {
+        // Handle shooting here
+        guard let projectile = activeWeapon.shoot(in: direction),
+            let carriedBy = carriedBy else {
+            return nil
+        }
+
+        projectile.transformComponent.position = carriedBy.transformComponent.position
+        projectile.spawn()
+
+        return projectile
+    }
+
+    func switchWeapon<T: Weapon>(to weapon: T.Type) -> Weapon? {
+        guard let weapon = availableWeapons.compactMap({ $0 as? T }).first else {
+            return nil
+        }
+
+        activeWeapon = weapon
+        capacity = weapon.capacity
+        return activeWeapon
+    }
+
+    override func canShoot() -> Bool {
+        activeWeapon.canShoot()
+    }
+
+    override func getAmmo() -> [Ammo] {
+        activeWeapon.getAmmo()
+    }
+
+    func getAmmo() -> [(Weapon, [Ammo])] {
+        var ammoList = [(Weapon, [Ammo])]()
+        for weapon in availableWeapons {
+            ammoList.append((weapon, weapon.getAmmo()))
+        }
+        return ammoList
+    }
+
+    override func canLoad(_ ammo: [Ammo]) -> Bool {
+        activeWeapon.canLoad(ammo)
+    }
+}
+
+class WeaponComponent: Component, Weapon {
+    var capacity: Int
+    var carriedBy: Transformable?
+
+    init(capacity: Int) {
+        self.capacity = capacity
+    }
+
+    func load(_ ammo: [Ammo]) {
+
+    }
+    func shoot(in direction: Vector2D) -> Projectile? {
+        nil
+    }
+    func canShoot() -> Bool {
+        false
+    }
+    func getAmmo() -> [Ammo] {
+        []
+    }
+    func canLoad(_ ammo: [Ammo]) -> Bool {
+        false
     }
 }
 

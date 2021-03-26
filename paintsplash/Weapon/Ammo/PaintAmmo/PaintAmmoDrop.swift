@@ -30,7 +30,7 @@ class PaintAmmoDrop: GameEntity, Renderable, Collidable, AmmoDrop, Colorable {
         if with.collisionComponent.tags.contains(.player) {
             switch with {
             case let player as Player:
-                if player.paintWeaponsSystem.canLoad([getAmmoObject()]) {
+                if player.multiWeaponComponent.canLoad([getAmmoObject()]) {
                     EventSystem.entityChangeEvents.removeEntityEvent.post(event: RemoveEntityEvent(entity: self))
                 }
             default:

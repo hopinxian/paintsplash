@@ -42,36 +42,54 @@ class PlayerState: AIState {
     }
 
     class Attack: PlayerState {
+        var shootComplete = false
+        var animationComplete = false
         override func onEnterState() {
-            if player.moveableComponent.direction.x > 0 {
-                player.animationComponent.animate(animation: PlayerAnimations.playerBrushAttackRight, interupt: true)
-            } else {
-                player.animationComponent.animate(animation: PlayerAnimations.playerBrushAttackLeft, interupt: true)
+            if player.multiWeaponComponent.canShoot() {
+                if player.lastDirection.x > 0 {
+                    player.animationComponent.animate(
+                        animation: PlayerAnimations.playerBrushAttackRight,
+                        interupt: true,
+                        callBack: { self.animationComplete = true }
+                    )
+                } else {
+                    player.animationComponent.animate(
+                        animation: PlayerAnimations.playerBrushAttackLeft,
+                        interupt: true,
+                        callBack: { self.animationComplete = true }
+                    )
+                }
             }
         }
 
         override func getStateTransition() -> AIState? {
-            if player.moveableComponent.direction.x > 0 {
-                return Move(player: player)
-            } else {
-                return Idle(player: player)
+            if shootComplete && animationComplete {
+                if player.moveableComponent.direction.x > 0 {
+                    return Move(player: player)
+                } else {
+                    return Idle(player: player)
+                }
             }
+
+            return nil
         }
 
         override func getBehaviour() -> AIBehaviour {
-            ShootProjectileBehaviour()
+            if !shootComplete {
+                shootComplete = true
+                return ShootProjectileBehaviour()
+            }
+            return DoNothingBehaviour()
         }
     }
 
     class Move: PlayerState {
         override func onEnterState() {
-            print("hello")
             if player.moveableComponent.direction.x > 0 {
                 player.animationComponent.animate(animation: PlayerAnimations.playerBrushWalkRight, interupt: true)
             } else {
                 player.animationComponent.animate(animation: PlayerAnimations.playerBrushWalkLeft, interupt: true)
             }
-            player.lastDirection = player.moveableComponent.direction
         }
 
         override func getStateTransition() -> AIState? {

@@ -90,7 +90,7 @@ class GameScene: SKScene, GameManager {
     }
 
     func setUpUI() {
-        guard let paintGun = player.paintWeaponsSystem.availableWeapons.compactMap({ $0 as? PaintGun }).first else {
+        guard let paintGun = player.multiWeaponComponent.availableWeapons.compactMap({ $0 as? PaintGun }).first else {
             fatalError("PaintGun not setup properly")
         }
 
@@ -98,7 +98,7 @@ class GameScene: SKScene, GameManager {
         paintGunUI.spawn()
         paintGunUI.ammoDisplayView.animationComponent.animate(animation: WeaponAnimations.selectWeapon, interupt: true)
 
-        guard let paintBucket = player.paintWeaponsSystem.availableWeapons.compactMap({ $0 as? Bucket }).first else {
+        guard let paintBucket = player.multiWeaponComponent.availableWeapons.compactMap({ $0 as? Bucket }).first else {
             fatalError("PaintBucket not setup properly")
         }
 

@@ -14,9 +14,13 @@ class ShootProjectileBehaviour: AIBehaviour {
             return
         }
 
-        _ = player.paintWeaponsSystem.shoot(in: player.lastDirection)
-
+        print(player.multiWeaponComponent.activeWeapon.getAmmo())
+        _ = player.multiWeaponComponent.shoot(in: player.lastDirection)
+        
         EventSystem.audioEvent.playSoundEffectEvent.post(event: PlaySoundEffectEvent(effect: SoundEffect.attack))
+        EventSystem.playerActionEvent.playerAmmoUpdateEvent.post(
+            event: PlayerAmmoUpdateEvent(weapon: player.multiWeaponComponent.activeWeapon, ammo: player.multiWeaponComponent.activeWeapon.getAmmo())
+        )
 
         completed = true
     }

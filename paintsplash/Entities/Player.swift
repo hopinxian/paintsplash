@@ -7,8 +7,8 @@
 
 import Foundation
 
-class Player: GameEntity, AIEntity, Transformable, Renderable, Animatable, Collidable, Movable, Health {
-    var paintWeaponsSystem: PaintWeaponsSystem
+class Player: GameEntity, AIEntity, Transformable, Renderable, Animatable, Collidable, Movable, Health, HasMultiWeapon {
+
     var lastDirection = Vector2D.zero
 
     private let moveSpeed = 10.0
@@ -19,8 +19,8 @@ class Player: GameEntity, AIEntity, Transformable, Renderable, Animatable, Colli
     let healthComponent: HealthComponent
     let moveableComponent: MoveableComponent
     let collisionComponent: CollisionComponent
-    let multiWeaponComponent: MultiWeaponComponent
     let aiComponent: AIComponent
+    let multiWeaponComponent: MultiWeaponComponent
 
     init(initialPosition: Vector2D) {
         self.transformComponent = BoundedTransformComponent(
@@ -51,10 +51,8 @@ class Player: GameEntity, AIEntity, Transformable, Renderable, Animatable, Colli
 
         self.lastDirection = Vector2D.left
 
-        self.multiWeaponComponent = MultiWeaponComponent(weapons: [PaintGun(), Bucket()])
-        self.paintWeaponsSystem = PaintWeaponsSystem(weapons: [PaintGun(), Bucket()])
-
         self.aiComponent = AIComponent()
+        self.multiWeaponComponent = MultiWeaponComponent(weapons: [PaintGun(), Bucket()])
 
         super.init()
 
@@ -68,10 +66,10 @@ class Player: GameEntity, AIEntity, Transformable, Renderable, Animatable, Colli
 
         self.aiComponent.currentState = PlayerState.Idle(player: self)
 
-        self.paintWeaponsSystem.carriedBy = self
-        self.paintWeaponsSystem.load(to: Bucket.self, ammo: [PaintAmmo(color: .red), PaintAmmo(color: .red), PaintAmmo(color: .red)])
+        self.multiWeaponComponent.carriedBy = self
+        self.multiWeaponComponent.load(to: Bucket.self, ammo: [PaintAmmo(color: .red), PaintAmmo(color: .red), PaintAmmo(color: .red)])
 
-        self.paintWeaponsSystem.load([PaintAmmo(color: .blue), PaintAmmo(color: .red), PaintAmmo(color: .yellow)])
+        self.multiWeaponComponent.load([PaintAmmo(color: .blue), PaintAmmo(color: .red), PaintAmmo(color: .yellow)])
 
         EventSystem.processedInputEvents.playerMoveEvent.subscribe(listener: onMove)
         EventSystem.processedInputEvents.playerShootEvent.subscribe(listener: onShoot)
@@ -80,6 +78,7 @@ class Player: GameEntity, AIEntity, Transformable, Renderable, Animatable, Colli
 
     func onMove(event: PlayerMoveEvent) {
         moveableComponent.direction = event.direction
+        lastDirection = event.direction.magnitude == 0 ? lastDirection : event.direction
         EventSystem.playerActionEvent.playerMovementEvent.post(event: PlayerMovementEvent(location: transformComponent.position))
     }
 
@@ -90,12 +89,14 @@ class Player: GameEntity, AIEntity, Transformable, Renderable, Animatable, Colli
     func onWeaponChange(event: PlayerChangeWeaponEvent) {
         switch event.newWeapon {
         case is Bucket.Type:
-            paintWeaponsSystem.switchWeapon(to: Bucket.self)
+            _ = multiWeaponComponent.switchWeapon(to: Bucket.self)
         case is PaintGun.Type:
-            paintWeaponsSystem.switchWeapon(to: PaintGun.self)
+            _ = multiWeaponComponent.switchWeapon(to: PaintGun.self)
         default:
             break
         }
+
+        EventSystem.playerActionEvent.playerChangedWeaponEvent.post(event: PlayerChangedWeaponEvent(weapon: multiWeaponComponent.activeWeapon))
     }
 
     func heal(amount: Int) {
@@ -110,12 +111,8 @@ class Player: GameEntity, AIEntity, Transformable, Renderable, Animatable, Colli
         EventSystem.playerActionEvent.playerHealthUpdateEvent.post(event: PlayerHealthUpdateEvent(newHealth: healthComponent.currentHealth))
 
         if healthComponent.currentHealth <= 0 {
-            die()
+            aiComponent.currentState = PlayerState.Die(player: self)
         }
-    }
-
-    private func die() {
-        aiComponent.currentState = PlayerState.Die(player: self)
     }
 
     func onCollide(with: Collidable) {
@@ -123,8 +120,10 @@ class Player: GameEntity, AIEntity, Transformable, Renderable, Animatable, Colli
             switch with {
             case let ammoDrop as PaintAmmoDrop:
                 let ammo = ammoDrop.getAmmoObject()
-                if paintWeaponsSystem.canLoad([ammo]) {
-                    paintWeaponsSystem.load([ammo])
+                if multiWeaponComponent.canLoad([ammo]) {
+                    multiWeaponComponent.load([ammo])
+                    EventSystem.playerActionEvent.playerAmmoUpdateEvent.post(
+                        event: PlayerAmmoUpdateEvent(weapon: multiWeaponComponent.activeWeapon, ammo: multiWeaponComponent.activeWeapon.getAmmo()))
                 }
             default:
                 fatalError("Ammo Drop not conforming to AmmoDrop protocol")
@@ -143,9 +142,5 @@ class Player: GameEntity, AIEntity, Transformable, Renderable, Animatable, Colli
                 fatalError("Enemy does not conform to any enemy type")
             }
         }
-    }
-
-    override func update() {
-        print(aiComponent.currentState)
     }
 }
