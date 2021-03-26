@@ -15,6 +15,11 @@ class HorizontalStack<ItemType: Renderable>: GameEntity, Renderable, Animatable 
     let bottomPadding: Double
     var zPosition: Int
 
+//    var startX: Double
+//    var startY: Double
+//    var nextPosition: Vector2D
+    private var startPosition: Vector2D
+
     let transformComponent: TransformComponent
     let renderComponent: RenderComponent
     let animationComponent: AnimationComponent
@@ -42,6 +47,11 @@ class HorizontalStack<ItemType: Renderable>: GameEntity, Renderable, Animatable 
         self.renderComponent = RenderComponent(renderType: renderType, zPosition: zPosition)
         self.animationComponent = AnimationComponent()
 
+        let startX = leftPadding - (transformComponent.size.x / 2)
+        let startY = bottomPadding - topPadding
+
+        self.startPosition = transformComponent.position + Vector2D(startX, startY)
+
         super.init()
 
         addComponent(transformComponent)
@@ -56,15 +66,36 @@ class HorizontalStack<ItemType: Renderable>: GameEntity, Renderable, Animatable 
     }
 
     func remove(at index: Int) {
-        clearViews()
+        // clearViews()
+        let item = items[index]
+        let width = item.transformComponent.size.x
+
+        shiftItemsLeft(from: index + 1, to: items.count - 1, xDistance: width)
+
         items.remove(at: index)
-        renderViews()
+        EventSystem.entityChangeEvents.removeEntityEvent.post(event: RemoveEntityEvent(entity: item))
+        // renderViews()
     }
 
     func insertTop(item: ItemType) {
-        clearViews()
+        // clearViews()
+        var nextPosition = startPosition
+
+        // if first item exists, change next position
+        if let firstItem = items.last {
+            let x = firstItem.transformComponent.position.x + seperation + item.transformComponent.size.x
+            nextPosition = Vector2D(x, startPosition.y)
+        }
+
         items.append(item)
-        renderViews()
+
+        // get position to add stuff
+        item.transformComponent.position = nextPosition
+        item.renderComponent.zPosition = zPosition + 1
+        EventSystem.entityChangeEvents.addEntityEvent.post(event: AddEntityEvent(entity: item))
+
+        // nextPosition += Vector2D(item.transformComponent.size.x + seperation, 0)
+        // renderViews()
     }
 
     func insertBottom(item: ItemType) {
@@ -83,6 +114,18 @@ class HorizontalStack<ItemType: Renderable>: GameEntity, Renderable, Animatable 
         clearViews()
         items.removeFirst()
         renderViews()
+    }
+
+    private func shiftItemsLeft(from: Int, to: Int, xDistance: Double) {
+        for (index, item) in items.enumerated() {
+            if index >= from && index <= to {
+                item.transformComponent.position -= Vector2D(xDistance + seperation, 0)
+            }
+        }
+    }
+
+    private func shiftItemsRight(from: Int, to: Int, xDistance: Double) {
+
     }
 
     func changeItems(to newItems: [ItemType]) {

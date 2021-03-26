@@ -76,8 +76,14 @@ class Enemy: GameEntity, AIEntity, Renderable, Animatable, Collidable, Movable, 
     private func die() {
         moveableComponent.speed = 0
         collisionComponent.active = false
-        animationComponent.animate(animation: SlimeAnimations.slimeDieGray, interupt: true, callBack: { self.destroy() })
+        animationComponent.animate(animation: SlimeAnimations.slimeDieGray, interupt: true,
+                                   callBack: { self.destroy() })
 
         EventSystem.scoreEvent.post(event: ScoreEvent(value: Points.enemyKill))
+    }
+
+    // TODO: figure out if and why this isn't being called
+    deinit {
+        print("removed enemy")
     }
 }

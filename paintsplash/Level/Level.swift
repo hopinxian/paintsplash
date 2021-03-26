@@ -34,6 +34,10 @@ class Level {
     init(gameManager: GameManager, canvasManager: CanvasRequestManager) {
         self.gameManager = gameManager
         self.canvasRequestManager = canvasManager
+
+        // TODO: comment out
+        canvasRequestManager.addRequest(colors: [.yellow])
+
         score = LevelScore(gameManager: gameManager)
     }
 

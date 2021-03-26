@@ -37,7 +37,9 @@ extension EnemySpawnerState {
         }
 
         func getBehaviour(aiEntity: AIEntity) -> AIBehaviour {
-            BehaviourSequence(behaviours: [DoNothingBehaviour(), UpdateAnimationBehaviour(animation: SpawnerAnimations.spawnerIdle, interupt: false)])
+            BehaviourSequence(behaviours: [DoNothingBehaviour(),
+                                           UpdateAnimationBehaviour(animation: SpawnerAnimations.spawnerIdle,
+                                                                    interupt: false)])
         }
     }
 
@@ -139,6 +141,8 @@ enum CanvasState {}
 
 extension CanvasState {
     struct Moving: AIState {
+        var endX: Double?
+
         func getStateTransition(aiEntity: AIEntity) -> AIState? {
             nil
         }

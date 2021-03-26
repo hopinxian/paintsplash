@@ -158,6 +158,8 @@ class GameScene: SKScene, GameManager {
         renderSystem.removeEntity(object)
         aiSystem.removeEntity(object)
         collisionSystem.removeEntity(object)
+        movementSystem.removeEntity(object)
+        animationSystem.removeEntity(object)
     }
 
     func update() {
