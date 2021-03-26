@@ -9,7 +9,7 @@ class CanvasRequestManager: GameEntity, Transformable {
     var transformComponent: TransformComponent
 
     private(set) var requestsDisplayView: HorizontalStack<CanvasRequest>
-    private(set) var maxRequests: Int = 1
+    private(set) var maxRequests: Int = 4
     var requests: [CanvasRequest] {
         requestsDisplayView.items
     }
@@ -25,7 +25,7 @@ class CanvasRequestManager: GameEntity, Transformable {
             position: transformComponent.position,
             size: transformComponent.size,
             backgroundSprite: "CanvasRequestManager",
-            leftPadding: 40
+            leftPadding: 120
         )
 
         displayView.zPosition = Constants.ZPOSITION_UI_ELEMENT
@@ -42,7 +42,7 @@ class CanvasRequestManager: GameEntity, Transformable {
             return
         }
 
-        requestsDisplayView.insertBottom(item: canvasRequest)
+        requestsDisplayView.insertTop(item: canvasRequest)
 
         // Should only paint colours after being added to render system
         canvasRequest.paintRequiredColours()
@@ -65,8 +65,10 @@ class CanvasRequestManager: GameEntity, Transformable {
 
             requestsDisplayView.remove(at: index)
 
-            let removeCanvasEvent = DespawnAIEntityEvent(entityToDespawn: canvas)
-            EventSystem.despawnAIEntityEvent.post(event: removeCanvasEvent)
+            // TODO: fade canvas
+            canvas.destroy()
+//            let removeCanvasEvent = DespawnAIEntityEvent(entityToDespawn: canvas)
+//            EventSystem.despawnAIEntityEvent.post(event: removeCanvasEvent)
 
             break
         }
