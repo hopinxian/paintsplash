@@ -12,7 +12,7 @@ class GameScene: SKScene, GameManager {
 
     var currentLevel: Level?
 
-    var aiSystem: AISystem!
+    var aiSystem: StateManagerSystem!
     var audioManager: AudioSystem!
     var renderSystem: RenderSystem!
     var animationSystem: AnimationSystem!
@@ -60,7 +60,7 @@ class GameScene: SKScene, GameManager {
 
         self.animationSystem = SKAnimationSystem(renderSystem: skRenderSystem)
 
-        self.aiSystem = GameAISystem()
+        self.aiSystem = GameStateManagerSystem()
 
         self.audioManager = AudioManager()
 
@@ -71,7 +71,11 @@ class GameScene: SKScene, GameManager {
         player = Player(initialPosition: Vector2D.zero)
         player.spawn()
 
-        let canvasSpawner = CanvasSpawner(initialPosition: Constants.CANVAS_SPAWNER_POSITION, canvasVelocity: Vector2D(0.4, 0), spawnInterval: 10)
+        let canvasSpawner = CanvasSpawner(
+            initialPosition: Constants.CANVAS_SPAWNER_POSITION,
+            canvasVelocity: Vector2D(0.4, 0),
+            spawnInterval: 10
+        )
         canvasSpawner.spawn()
 
         let canvasManager = CanvasRequestManager()
@@ -90,7 +94,7 @@ class GameScene: SKScene, GameManager {
     }
 
     func setUpUI() {
-        guard let paintGun = player.paintWeaponsSystem.availableWeapons.compactMap({ $0 as? PaintGun }).first else {
+        guard let paintGun = player.multiWeaponComponent.availableWeapons.compactMap({ $0 as? PaintGun }).first else {
             fatalError("PaintGun not setup properly")
         }
 
@@ -98,13 +102,16 @@ class GameScene: SKScene, GameManager {
         paintGunUI.spawn()
         paintGunUI.ammoDisplayView.animationComponent.animate(animation: WeaponAnimations.selectWeapon, interupt: true)
 
-        guard let paintBucket = player.paintWeaponsSystem.availableWeapons.compactMap({ $0 as? Bucket }).first else {
+        guard let paintBucket = player.multiWeaponComponent.availableWeapons.compactMap({ $0 as? Bucket }).first else {
             fatalError("PaintBucket not setup properly")
         }
 
         let paintBucketUI = PaintBucketAmmoDisplay(weaponData: paintBucket)
         paintBucketUI.spawn()
-        paintBucketUI.ammoDisplayView.animationComponent.animate(animation: WeaponAnimations.unselectWeapon, interupt: true)
+        paintBucketUI.ammoDisplayView.animationComponent.animate(
+            animation: WeaponAnimations.unselectWeapon,
+            interupt: true
+        )
 
         let joystick = Joystick()
         joystick.spawn()

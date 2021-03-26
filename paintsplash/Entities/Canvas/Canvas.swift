@@ -5,8 +5,8 @@
 //  Created by Cynthia Lee on 16/3/21.
 //
 
-class Canvas: GameEntity, AIEntity, Renderable, Collidable, Transformable, Movable {
-    var aiComponent: AIComponent
+class Canvas: GameEntity, StatefulEntity, Renderable, Collidable, Transformable, Movable {
+    var stateComponent: StateComponent
     var renderComponent: RenderComponent
     var transformComponent: TransformComponent
     var collisionComponent: CollisionComponent
@@ -16,20 +16,25 @@ class Canvas: GameEntity, AIEntity, Renderable, Collidable, Transformable, Movab
     private let moveSpeed = 1.0
 
     init(initialPosition: Vector2D, direction: Vector2D, size: Vector2D) {
-        self.aiComponent = AIComponent(defaultState: CanvasState.Moving())
-        self.renderComponent = RenderComponent(renderType: .sprite(spriteName: "canvas"),
-                                               zPosition: Constants.ZPOSITION_UI_ELEMENT)
+        self.stateComponent = StateComponent()
+
+        self.renderComponent = RenderComponent(
+            renderType: .sprite(spriteName: "canvas"),
+            zPosition: Constants.ZPOSITION_UI_ELEMENT
+        )
+
         self.transformComponent = TransformComponent(position: initialPosition, rotation: 0, size: size)
-        self.collisionComponent = CollisionComponent(colliderShape: .rectangle(size: size), tags: [.canvas])
+
+        self.collisionComponent = CollisionComponent(
+            colliderShape: .rectangle(size: size),
+            tags: [.canvas]
+        )
+
         self.moveableComponent = MoveableComponent(direction: direction, speed: moveSpeed)
 
         super.init()
 
-        addComponent(aiComponent)
-        addComponent(renderComponent)
-        addComponent(transformComponent)
-        addComponent(collisionComponent)
-        addComponent(moveableComponent)
+        self.stateComponent.currentState = CanvasState.Moving(canvas: self)
     }
 
     func onCollide(with: Collidable) {

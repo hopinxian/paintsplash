@@ -17,12 +17,19 @@ class AttackButton: GameEntity, Renderable {
     override init() {
         let renderType = RenderType.sprite(spriteName: Constants.ATTACK_BUTTON_SPRITE)
 
-        self.renderComponent = RenderComponent(renderType: renderType, zPosition: Constants.ZPOSITION_UI_ELEMENT)
-        self.transformComponent = TransformComponent(position: Constants.ATTACK_BUTTON_POSITION, rotation: 0, size: Constants.ATTACK_BUTTON_SIZE)
+        self.renderComponent = RenderComponent(
+            renderType: renderType,
+            zPosition: Constants.ZPOSITION_UI_ELEMENT
+        )
+
+        self.transformComponent = TransformComponent(
+            position: Constants.ATTACK_BUTTON_POSITION,
+            rotation: 0,
+            size: Constants.ATTACK_BUTTON_SIZE
+        )
 
         super.init()
 
-        addComponent(renderComponent)
         EventSystem.inputEvents.touchDownEvent.subscribe(listener: onTouchDown)
         EventSystem.inputEvents.touchUpEvent.subscribe(listener: onTouchUp)
     }

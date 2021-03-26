@@ -8,13 +8,13 @@
 struct SlimeAnimations {
     static let slimeMoveRightGray =
         AtlasAnimation(atlasName: "SlimeMoveRightGray", name: "slimeMoveRightGray",
-                       animationDuration: 0.8, isRepeating: false)
+                       animationDuration: 0.8, isRepeating: true)
     static let slimeMoveLeftGray =
         AtlasAnimation(atlasName: "SlimeMoveLeftGray", name: "slimeMoveLeftGray",
-                       animationDuration: 0.8, isRepeating: false)
+                       animationDuration: 0.8, isRepeating: true)
     static let slimeIdleGray =
         AtlasAnimation(atlasName: "SlimeIdleGray", name: "slimeIdleGray",
-                       animationDuration: 0.8, isRepeating: false)
+                       animationDuration: 0.8, isRepeating: true)
     static let slimeDieGray = CompoundAnimation(
         name: "slideDieGray",
         animations: [

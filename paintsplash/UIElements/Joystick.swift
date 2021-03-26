@@ -24,8 +24,16 @@ class Joystick: GameEntity, Renderable {
     override init() {
         let renderType = RenderType.sprite(spriteName: Constants.JOYSTICK_SPRITE)
 
-        self.transformComponent = TransformComponent(position: Constants.JOYSTICK_POSITION, rotation: 0, size: Constants.JOYSTICK_SIZE)
-        self.renderComponent = RenderComponent(renderType: renderType, zPosition: Constants.ZPOSITION_UI_ELEMENT)
+        self.transformComponent = TransformComponent(
+            position: Constants.JOYSTICK_POSITION,
+            rotation: 0,
+            size: Constants.JOYSTICK_SIZE
+        )
+
+        self.renderComponent = RenderComponent(
+            renderType: renderType,
+            zPosition: Constants.ZPOSITION_UI_ELEMENT
+        )
 
         foregroundNode = JoystickForeground(
             position: Constants.JOYSTICK_POSITION,
@@ -35,7 +43,6 @@ class Joystick: GameEntity, Renderable {
 
         super.init()
 
-        addComponent(transformComponent)
         EventSystem.inputEvents.touchDownEvent.subscribe(listener: onTouchDown)
         EventSystem.inputEvents.touchMovedEvent.subscribe(listener: onTouchMoved)
         EventSystem.inputEvents.touchUpEvent.subscribe(listener: onTouchUp)
@@ -95,8 +102,5 @@ class JoystickForeground: GameEntity, Renderable {
         self.transformComponent = TransformComponent(position: position, rotation: 0, size: size)
 
         super.init()
-        addComponent((transformComponent))
-        addComponent(renderComponent)
-
     }
 }

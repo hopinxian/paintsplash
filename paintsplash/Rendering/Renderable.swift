@@ -10,7 +10,3 @@ protocol Renderable: GameEntity {
     var renderComponent: RenderComponent { get }
     var transformComponent: TransformComponent { get }
 }
-
-protocol Animatable: GameEntity {
-    var animationComponent: AnimationComponent { get }
-}

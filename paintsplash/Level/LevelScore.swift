@@ -17,15 +17,21 @@ class LevelScore: GameEntity, Renderable {
     init(gameManager: GameManager) {
         let renderType = RenderType.label(text: "Level Score: \(score)")
 
-        self.renderComponent = RenderComponent(renderType: renderType, zPosition: Constants.ZPOSITION_UI_ELEMENT)
-        self.transformComponent = TransformComponent(position: Vector2D(-300, -495), rotation: 0, size: Vector2D(90, 50))
+        self.renderComponent = RenderComponent(
+            renderType: renderType,
+            zPosition: Constants.ZPOSITION_UI_ELEMENT
+        )
+
+        self.transformComponent = TransformComponent(
+            position: Vector2D(-300, -495),
+            rotation: 0,
+            size: Vector2D(90, 50)
+        )
 
         self.gameManager = gameManager
 
         super.init()
 
-        addComponent(transformComponent)
-        addComponent(renderComponent)
         EventSystem.scoreEvent.subscribe(listener: onScoreEvent)
         self.spawn()
     }

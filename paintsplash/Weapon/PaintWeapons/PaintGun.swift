@@ -4,15 +4,17 @@
 //
 //  Created by Farrell Nah on 12/3/21.
 //
-class PaintGun: Weapon {
-    var capacity: Int = 4
-
+class PaintGun: WeaponComponent {
     private let maxCoolDown = 100.0
     private var currentCoolDown = 0.0
 
     private var ammoStack = [PaintAmmo]()
 
-    func load(_ ammos: [Ammo]) {
+    init() {
+        super.init(capacity: 4)
+    }
+
+    override func load(_ ammos: [Ammo]) {
         for ammo in ammos {
             if let paintAmmo = ammo as? PaintAmmo {
                 load(paintAmmo)
@@ -20,7 +22,7 @@ class PaintGun: Weapon {
         }
     }
 
-    func load(_ ammo: PaintAmmo) {
+    private func load(_ ammo: PaintAmmo) {
         guard ammoStack.count < capacity else {
             return
         }
@@ -43,22 +45,25 @@ class PaintGun: Weapon {
         }
     }
 
-    func shoot(in direction: Vector2D) -> Projectile? {
-        guard let ammo = ammoStack.popLast(), canShoot() else {
+    override func shoot(in direction: Vector2D) -> Projectile? {
+        guard canShoot(),
+              let ammo = ammoStack.popLast() else {
             return nil
         }
         return PaintProjectile(color: ammo.color, radius: 25.0, direction: direction)
     }
 
-    func canShoot() -> Bool {
-        currentCoolDown == 0
+    override func canShoot() -> Bool {
+        let result = currentCoolDown == 0 && !ammoStack.isEmpty
+        print(result)
+        return result
     }
 
-    func getAmmo() -> [Ammo] {
+    override func getAmmo() -> [Ammo] {
         ammoStack
     }
 
-    func canLoad(_ ammo: [Ammo]) -> Bool {
+    override func canLoad(_ ammo: [Ammo]) -> Bool {
         ammoStack.count < capacity
     }
 }
