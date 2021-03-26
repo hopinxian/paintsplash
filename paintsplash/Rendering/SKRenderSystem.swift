@@ -13,6 +13,8 @@ class SKRenderSystem: RenderSystem {
 
     init(scene: GameScene) {
         self.scene = scene
+
+        EventSystem.changeViewEvent.subscribe(listener: onChangeView)
     }
 
     func addEntity(_ entity: GameEntity) {
@@ -59,5 +61,16 @@ class SKRenderSystem: RenderSystem {
         node.position = SpaceConverter.modelToScreen(transformComponent.position)
         node.zRotation = CGFloat(transformComponent.rotation)
     }
+
+    func onChangeView(event: ChangeViewEvent) {
+        switch event {
+        case let addSubviewEvent as AddSubviewEvent:
+            addSubviewToEntity(addSubviewEvent.renderable,
+                               subviewInfo: addSubviewEvent.subviewRenderInfo)
+        default:
+            break
+        }
+    }
+
 
 }
