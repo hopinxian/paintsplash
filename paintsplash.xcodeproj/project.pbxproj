@@ -138,6 +138,7 @@
 		D5C56921260AE677009E5BD9 /* UpdateAnimationBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C56920260AE677009E5BD9 /* UpdateAnimationBehaviour.swift */; };
 		D5C5692A260B7EBB009E5BD9 /* ShootProjectileBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C56929260B7EBB009E5BD9 /* ShootProjectileBehaviour.swift */; };
 		D5C5692E260B81C1009E5BD9 /* DieBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C5692D260B81C1009E5BD9 /* DieBehaviour.swift */; };
+		D5C56932260CD7D2009E5BD9 /* PlayerState1.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C56931260CD7D2009E5BD9 /* PlayerState1.swift */; };
 		D5D9200625FB8EEE00E70364 /* PaintWeaponsSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D9200525FB8EEE00E70364 /* PaintWeaponsSystem.swift */; };
 		D5D9201425FB9ACB00E70364 /* PaintAmmoDrop.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D9201325FB9ACB00E70364 /* PaintAmmoDrop.swift */; };
 		D5DC908C25FCBE790038DF71 /* Transform.swift in Sources */ = {isa = PBXBuildFile; fileRef = D596B1CE25F8D01800A5854F /* Transform.swift */; };
@@ -349,6 +350,7 @@
 		D5C56924260B25F8009E5BD9 /* SpawnerDie.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = SpawnerDie.atlas; sourceTree = "<group>"; };
 		D5C56929260B7EBB009E5BD9 /* ShootProjectileBehaviour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShootProjectileBehaviour.swift; sourceTree = "<group>"; };
 		D5C5692D260B81C1009E5BD9 /* DieBehaviour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DieBehaviour.swift; sourceTree = "<group>"; };
+		D5C56931260CD7D2009E5BD9 /* PlayerState1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerState1.swift; sourceTree = "<group>"; };
 		D5D9200525FB8EEE00E70364 /* PaintWeaponsSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaintWeaponsSystem.swift; sourceTree = "<group>"; };
 		D5D9201325FB9ACB00E70364 /* PaintAmmoDrop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaintAmmoDrop.swift; sourceTree = "<group>"; };
 		D5DC909025FCC4210038DF71 /* AtlasAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AtlasAnimation.swift; sourceTree = "<group>"; };
@@ -863,6 +865,7 @@
 				DC16B41E25FDE64C00C58670 /* AISystem.swift */,
 				DCF1BEF925FA6B6E00B56AD4 /* AIGameInfo.swift */,
 				DCB72DB925FE18B100B183E0 /* AIEntityState.swift */,
+				D5C56931260CD7D2009E5BD9 /* PlayerState1.swift */,
 				DC6874D3260362D100CF89E4 /* Canvas */,
 			);
 			path = AI;
@@ -1307,6 +1310,7 @@
 				DCB72DBF25FE196B00B183E0 /* AIEntityDelegate.swift in Sources */,
 				AC5F0B86260113F800E28D49 /* PlayerState.swift in Sources */,
 				D596B1AE25F8CF5B00A5854F /* ColliderShape.swift in Sources */,
+				D5C56932260CD7D2009E5BD9 /* PlayerState1.swift in Sources */,
 				DC0C02D42603B84400656E49 /* CanvasEvent.swift in Sources */,
 				D5D9201425FB9ACB00E70364 /* PaintAmmoDrop.swift in Sources */,
 				ACFD81FF25F670A2009D806B /* Colorable.swift in Sources */,

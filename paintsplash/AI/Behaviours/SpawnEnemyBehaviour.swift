@@ -8,13 +8,15 @@ import Foundation
 
 class SpawnEnemyBehaviour: AIBehaviour {
     let spawnQuantity: Int
+    private var complete = false
 
     init(spawnQuantity: Int) {
         self.spawnQuantity = spawnQuantity
     }
 
     func updateAI(aiEntity: AIEntity, aiGameInfo: AIGameInfo) {
-        guard let transformable = aiEntity as? Transformable,
+        guard !complete,
+              let transformable = aiEntity as? Transformable,
               let colorable = aiEntity as? Colorable else {
             fatalError("AIEntity does not conform to the required protocols for SpawnEnemyBehaviour")
         }
@@ -30,5 +32,7 @@ class SpawnEnemyBehaviour: AIBehaviour {
             let enemy = Enemy(initialPosition: spawnPosition, color: randomColor)
             enemy.spawn()
         }
+
+        complete = true
     }
 }

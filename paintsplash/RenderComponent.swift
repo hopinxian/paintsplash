@@ -143,20 +143,28 @@ class MultiWeaponComponent: Component {
     }
 }
 
+class NoState: AIState {
+
+}
+
 class AIComponent: Component {
-    var currentState: AIState
-    var isStateLocked: Bool = false
-
-    init(defaultState: AIState) {
-        self.currentState = defaultState
+    var currentState: AIState {
+        didSet {
+            oldValue.onLeaveState()
+            currentState.onEnterState()
+        }
     }
 
-    func getCurrentBehaviour(aiEntity: AIEntity) -> AIBehaviour {
-        currentState.getBehaviour(aiEntity: aiEntity)
+    override init() {
+        self.currentState = NoState()
     }
 
-    func getNextState(aiEntity: AIEntity) -> AIState? {
-        currentState.getStateTransition(aiEntity: aiEntity)
+    func getCurrentBehaviour() -> AIBehaviour {
+        currentState.getBehaviour()
+    }
+
+    func getNextState() -> AIState? {
+        currentState.getStateTransition()
     }
 }
 

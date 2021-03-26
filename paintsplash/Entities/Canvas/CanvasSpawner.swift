@@ -14,9 +14,11 @@ class CanvasSpawner: GameEntity, AIEntity, Transformable {
     init(initialPosition: Vector2D, canvasVelocity: Vector2D, spawnInterval: Double) {
         self.spawnInterval = spawnInterval
         self.transformComponent = TransformComponent(position: initialPosition, rotation: 0, size: Constants.CANVAS_SPAWNER_SIZE)
-        self.aiComponent = AIComponent(defaultState: CanvasSpawnerState.Idle(idleTime: 1))
+        self.aiComponent = AIComponent()
 
         super.init()
+
+        self.aiComponent.currentState = CanvasSpawnerState.Idle(spawner: self, idleTime: 1)
 
         addComponent(transformComponent)
         addComponent(aiComponent)

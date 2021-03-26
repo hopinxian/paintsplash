@@ -67,12 +67,12 @@ class GameAISystem: AISystem {
 
     func updateEntity(_ entity: GameEntity, _ aiEntity: AIEntity) {
         let aiComponent = aiEntity.aiComponent
-        let behaviour = aiComponent.getCurrentBehaviour(aiEntity: aiEntity)
-
-        behaviour.updateAI(aiEntity: aiEntity, aiGameInfo: aiGameInfo)
-
-        if let newState = aiComponent.getNextState(aiEntity: aiEntity) {
+        if let newState = aiComponent.getNextState() {
             aiComponent.currentState = newState
+        } else {
+            aiComponent.currentState.onStayState()
         }
+        let behaviour = aiComponent.getCurrentBehaviour()
+        behaviour.updateAI(aiEntity: aiEntity, aiGameInfo: aiGameInfo)
     }
 }

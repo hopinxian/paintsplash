@@ -21,6 +21,8 @@ class Enemy: GameEntity, AIEntity, Renderable, Animatable, Collidable, Movable, 
     private(set) var color: PaintColor
     private let moveSpeed = 1.0
 
+    var lastDirection = Vector2D.zero
+
     init(initialPosition: Vector2D, color: PaintColor) {
         self.color = color
         self.renderComponent = RenderComponent(renderType: .sprite(spriteName: "Slime"), zPosition: Constants.ZPOSITION_PLAYER)
@@ -28,10 +30,12 @@ class Enemy: GameEntity, AIEntity, Renderable, Animatable, Collidable, Movable, 
         self.healthComponent = HealthComponent(currentHealth: 1, maxHealth: 1)
         self.collisionComponent = CollisionComponent(colliderShape: .circle(radius: 50), tags: [.enemy])
         self.moveableComponent = MoveableComponent(direction: Vector2D.zero, speed: moveSpeed)
-        self.aiComponent = AIComponent(defaultState: EnemyState.Idle())
+        self.aiComponent = AIComponent()
         self.animationComponent = AnimationComponent()
 
         super.init()
+
+        self.aiComponent.currentState = EnemyState.Idle(enemy: self)
 
         addComponent(renderComponent)
         addComponent(transformComponent)

@@ -6,9 +6,22 @@
 //
 import Foundation
 
-protocol AIState {
-    func getStateTransition(aiEntity: AIEntity) -> AIState?
-    func getBehaviour(aiEntity: AIEntity) -> AIBehaviour
+class AIState {
+    func getStateTransition() -> AIState? {
+         nil
+    }
+    func getBehaviour() -> AIBehaviour {
+        DoNothingBehaviour()
+    }
+    func onEnterState() {
+
+    }
+    func onLeaveState() {
+
+    }
+    func onStayState() {
+
+    }
 }
 
 protocol AIStateManager {
@@ -16,39 +29,83 @@ protocol AIStateManager {
     func transitionState(aiEntity: AIEntity)
 }
 
-enum EnemySpawnerState {}
+class EnemySpawnerState: AIState {
+    let spawner: EnemySpawner
 
-extension EnemySpawnerState {
-    struct Idle: AIState {
+    init(spawner: EnemySpawner) {
+        self.spawner = spawner
+    }
+
+    class Idle: EnemySpawnerState {
         let idleTime: Double
         private let startTime: Date
 
-        init(idleTime: Double) {
+        init(spawner: EnemySpawner, idleTime: Double) {
             self.idleTime = idleTime
             self.startTime = Date()
+            super.init(spawner: spawner)
         }
 
-        func getStateTransition(aiEntity: AIEntity) -> AIState? {
+        override func onEnterState() {
+            spawner.animationComponent.animate(animation: SpawnerAnimations.spawnerIdle, interupt: false)
+        }
+
+        override func getStateTransition() -> AIState? {
             let timeSinceStart = Date().timeIntervalSince(startTime)
             if timeSinceStart > idleTime {
-                return Spawning()
+                return Spawning(spawner: spawner)
             }
             return nil
         }
+    }
 
-        func getBehaviour(aiEntity: AIEntity) -> AIBehaviour {
-            BehaviourSequence(behaviours: [DoNothingBehaviour(), UpdateAnimationBehaviour(animation: SpawnerAnimations.spawnerIdle, interupt: false)])
+    class Spawning: EnemySpawnerState {
+        private var complete = false
+
+        override func onEnterState() {
+            spawner.animationComponent.animate(
+                animation: SpawnerAnimations.spawnerSpawn,
+                interupt: true,
+                callBack: {
+                    self.spawner.aiComponent.currentState = Idle(spawner: self.spawner, idleTime: 3.0)
+
+                }
+            )
+        }
+
+        override func getBehaviour() -> AIBehaviour {
+            if !complete {
+                complete = true
+                return SpawnEnemyBehaviour(spawnQuantity: 1)
+            }
+
+            return DoNothingBehaviour()
         }
     }
 
-    struct Spawning: AIState {
-        var completed = false
+    class Hit: EnemySpawnerState {
+        override func onEnterState() {
+            spawner.animationComponent.animate(
+                animation: SpawnerAnimations.spawnerHit,
+                interupt: true,
+                callBack: {
+                    self.spawner.aiComponent.currentState = Idle(spawner: self.spawner, idleTime: 3.0)
 
-        func getStateTransition(aiEntity: AIEntity) -> AIState? {
-            Idle(idleTime: 3)
+                }
+            )
+        }
+    }
+
+    class Die: EnemySpawnerState {
+        override func onEnterState() {
+            spawner.animationComponent.animate(animation: SpawnerAnimations.spawnerSpawn, interupt: true, callBack: { self.spawner.destroy() })
         }
 
-        func getBehaviour(aiEntity: AIEntity) -> AIBehaviour {
+        override func getStateTransition() -> AIState? {
+            Idle(spawner: spawner, idleTime: 3)
+        }
+
+        override func getBehaviour() -> AIBehaviour {
             BehaviourSequence(
                 behaviours: [
                     SpawnEnemyBehaviour(spawnQuantity: 1),
@@ -59,90 +116,106 @@ extension EnemySpawnerState {
     }
 }
 
-enum CanvasSpawnerState {}
+class CanvasSpawnerState: AIState {
+    let spawner: CanvasSpawner
 
-extension CanvasSpawnerState {
-    struct Idle: AIState {
+    init(spawner: CanvasSpawner) {
+        self.spawner = spawner
+    }
+
+    class Idle: CanvasSpawnerState {
         let idleTime: Double
         private let startTime: Date
 
-        init(idleTime: Double) {
+        init(spawner: CanvasSpawner, idleTime: Double) {
             self.idleTime = idleTime
             self.startTime = Date()
+            super.init(spawner: spawner)
         }
 
-        func getStateTransition(aiEntity: AIEntity) -> AIState? {
+        override func getStateTransition() -> AIState? {
             let timeSinceStart = Date().timeIntervalSince(startTime)
             if timeSinceStart > idleTime {
-                return Spawning()
+                return Spawning(spawner: spawner)
             }
             return nil
         }
-
-        func getBehaviour(aiEntity: AIEntity) -> AIBehaviour {
-            DoNothingBehaviour()
-        }
     }
 
-    struct Spawning: AIState {
-        var completed = false
+    class Spawning: CanvasSpawnerState {
+        private var complete = false
 
-        func getStateTransition(aiEntity: AIEntity) -> AIState? {
-            Idle(idleTime: 10)
+        override func getStateTransition() -> AIState? {
+            Idle(spawner: spawner, idleTime: 10)
         }
 
-        func getBehaviour(aiEntity: AIEntity) -> AIBehaviour {
-            return SpawnCanvasBehaviour()
-        }
-    }
-}
-
-enum EnemyState {}
-
-extension EnemyState {
-    struct Idle: AIState {
-        func getStateTransition(aiEntity: AIEntity) -> AIState? {
-            Chasing()
-        }
-
-        func getBehaviour(aiEntity: AIEntity) -> AIBehaviour {
-            BehaviourSequence(behaviours: [DoNothingBehaviour(), UpdateAnimationBehaviour(animation: SlimeAnimations.slimeIdleGray, interupt: false)])
-
-        }
-    }
-
-    struct Chasing: AIState {
-        func getStateTransition(aiEntity: AIEntity) -> AIState? {
-            nil
-        }
-
-        func getBehaviour(aiEntity: AIEntity) -> AIBehaviour {
-            if let movable = aiEntity as? Movable {
-                let updateAnimationBehaviour = movable.moveableComponent.direction.x > 0 ?
-                    UpdateAnimationBehaviour(animation: SlimeAnimations.slimeMoveRightGray, interupt: false) :
-                    UpdateAnimationBehaviour(animation: SlimeAnimations.slimeMoveLeftGray, interupt: false)
-
-                return BehaviourSequence(
-                    behaviours: [
-                        ChasePlayerBehaviour(),
-                        updateAnimationBehaviour
-                    ]
-                )
-            } else {
-                return ChasePlayerBehaviour()
+        override func getBehaviour() -> AIBehaviour {
+            if !complete {
+                complete = true
+                return SpawnCanvasBehaviour()
             }
+
+            return DoNothingBehaviour()
         }
     }
 }
 
-enum CanvasState {}
+class EnemyState: AIState {
+    let enemy: Enemy
 
-extension CanvasState {
-    struct Moving: AIState {
-        func getStateTransition(aiEntity: AIEntity) -> AIState? {
-            nil
+    init(enemy: Enemy) {
+        self.enemy = enemy
+    }
+
+    class Idle: EnemyState {
+        override func onEnterState() {
+            enemy.animationComponent.animate(animation: SlimeAnimations.slimeIdleGray, interupt: true)
         }
 
+        override func getStateTransition() -> AIState? {
+            Chasing(enemy: enemy)
+        }
+    }
+
+    class Chasing: EnemyState {
+        override func onEnterState() {
+            if enemy.moveableComponent.direction.x > 0 {
+                enemy.animationComponent.animate(animation: SlimeAnimations.slimeMoveRightGray, interupt: true)
+            } else {
+                enemy.animationComponent.animate(animation: SlimeAnimations.slimeMoveLeftGray, interupt: true)
+            }
+
+            enemy.lastDirection = enemy.moveableComponent.direction
+        }
+
+        override func getStateTransition() -> AIState? {
+            if enemy.lastDirection.x * enemy.moveableComponent.direction.x <= 0 {
+                return Chasing(enemy: enemy)
+            }
+
+            return nil
+        }
+
+        override func getBehaviour() -> AIBehaviour {
+            ChasePlayerBehaviour()
+        }
+    }
+
+    class Die: EnemyState {
+        override func onEnterState() {
+            enemy.animationComponent.animate(animation: SlimeAnimations.slimeDieGray, interupt: true, callBack: { self.enemy.destroy() })
+        }
+    }
+}
+
+class CanvasState: AIState {
+    let canvas: Canvas
+
+    init(canvas: Canvas) {
+        self.canvas = canvas
+    }
+
+    class Moving: CanvasState {
         func getBehaviour(aiEntity: AIEntity) -> AIBehaviour {
             MoveBehaviour(direction: Vector2D(1, 0), speed: 1)
         }

@@ -16,13 +16,15 @@ class Canvas: GameEntity, AIEntity, Renderable, Collidable, Transformable, Movab
     private let moveSpeed = 1.0
 
     init(initialPosition: Vector2D, direction: Vector2D, size: Vector2D) {
-        self.aiComponent = AIComponent(defaultState: CanvasState.Moving())
+        self.aiComponent = AIComponent()
         self.renderComponent = RenderComponent(renderType: .sprite(spriteName: "canvas"), zPosition: Constants.ZPOSITION_UI_ELEMENT)
         self.transformComponent = TransformComponent(position: initialPosition, rotation: 0, size: size)
         self.collisionComponent = CollisionComponent(colliderShape: .rectangle(size: size), tags: [.canvas])
         self.moveableComponent = MoveableComponent(direction: direction, speed: moveSpeed)
 
         super.init()
+
+        self.aiComponent.currentState = CanvasState.Moving(canvas: self)
 
         addComponent(aiComponent)
         addComponent(renderComponent)

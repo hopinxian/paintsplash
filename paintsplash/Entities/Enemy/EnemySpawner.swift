@@ -21,12 +21,14 @@ class EnemySpawner: GameEntity, AIEntity, Transformable, Renderable, Animatable,
         self.transformComponent = TransformComponent(position: initialPosition, rotation: 0, size: Vector2D(100, 100))
         self.healthComponent = HealthComponent(currentHealth: 3, maxHealth: 3)
         self.collisionComponent = CollisionComponent(colliderShape: .circle(radius: 50), tags: [])
-        self.aiComponent = AIComponent(defaultState: EnemySpawnerState.Idle(idleTime: 3))
+        self.aiComponent = AIComponent()
         self.animationComponent = AnimationComponent()
 
         self.color = color
 
         super.init()
+
+        self.aiComponent.currentState = EnemySpawnerState.Idle(spawner: self, idleTime: 3)
 
         addComponent(renderComponent)
         addComponent(transformComponent)
