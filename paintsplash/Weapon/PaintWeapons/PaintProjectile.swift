@@ -25,6 +25,7 @@ class PaintProjectile: GameEntity, Projectile, Renderable, Colorable {
         )
 
         self.moveableComponent = MoveableComponent(direction: direction, speed: moveSpeed)
+
         self.collisionComponent = CollisionComponent(
             colliderShape: .circle(radius: radius),
             tags: [.playerProjectile]

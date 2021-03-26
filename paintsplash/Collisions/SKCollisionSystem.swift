@@ -19,8 +19,9 @@ class SKCollisionSystem: CollisionSystem {
             return
         }
 
-        let physicsBody = data.collisionComponent.colliderShape.getPhysicsBody()
-        physicsBody.contactTestBitMask = data.collisionComponent.tags.getBitMask()
+        let collisionData = data.collisionComponent
+        let physicsBody = collisionData.colliderShape.getPhysicsBody()
+        physicsBody.contactTestBitMask = collisionData.tags.getBitMask()
 
         let nodeEntityMap = renderSystem.getNodeEntityMap()
 

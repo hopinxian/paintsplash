@@ -8,7 +8,7 @@
 import CoreGraphics
 
 struct ChasePlayerBehaviour: StateBehaviour {
-    func updateAI(aiEntity: StatefulEntity, aiGameInfo: AIGameInfo) {
+    func updateAI(aiEntity: StatefulEntity, aiGameInfo: GameInfo) {
         // move towards player location
         guard let movable = aiEntity as? Movable else {
             fatalError("AIEntity does not conform to the required protocols for ApproachPointBehaviour")

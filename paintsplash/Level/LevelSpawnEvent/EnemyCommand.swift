@@ -9,7 +9,7 @@ class EnemyCommand: SpawnCommand {
     var location: Vector2D?
     var color: PaintColor?
 
-    override func spawnIntoLevel(gameInfo: AIGameInfo) {
+    override func spawnIntoLevel(gameInfo: GameInfo) {
         let eventLocation = getLocation(location: location, gameInfo: gameInfo)
         let eventColor = getColor(color: color, gameInfo: gameInfo)
 

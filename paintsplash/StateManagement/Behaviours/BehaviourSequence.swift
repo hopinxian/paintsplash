@@ -12,7 +12,7 @@ class BehaviourSequence: StateBehaviour {
         self.behaviours = behaviours
     }
 
-    func updateAI(aiEntity: StatefulEntity, aiGameInfo: AIGameInfo) {
+    func updateAI(aiEntity: StatefulEntity, aiGameInfo: GameInfo) {
         for behaviour in behaviours {
             behaviour.updateAI(aiEntity: aiEntity, aiGameInfo: aiGameInfo)
         }

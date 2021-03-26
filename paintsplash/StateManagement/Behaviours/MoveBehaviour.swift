@@ -14,12 +14,13 @@ struct MoveBehaviour: StateBehaviour {
         self.speed = speed
     }
 
-    func updateAI(aiEntity: StatefulEntity, aiGameInfo: AIGameInfo) {
+    func updateAI(aiEntity: StatefulEntity, aiGameInfo: GameInfo) {
         guard let movable = aiEntity as? Movable else {
             fatalError("AIEntity does not conform to the required protocols for CanvasBehaviour")
         }
 
-        movable.moveableComponent.direction = direction
-        movable.moveableComponent.speed = speed
+        let moveableComponent = movable.moveableComponent
+        moveableComponent.direction = direction
+        moveableComponent.speed = speed
     }
 }

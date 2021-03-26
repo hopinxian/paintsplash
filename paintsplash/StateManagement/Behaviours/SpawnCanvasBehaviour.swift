@@ -7,11 +7,8 @@
 import Foundation
 
 class SpawnCanvasBehaviour: StateBehaviour {
-    private var complete = false
-
-    func updateAI(aiEntity: StatefulEntity, aiGameInfo: AIGameInfo) {
-        guard !complete,
-              let transformable = aiEntity as? Transformable else {
+    func updateAI(aiEntity: StatefulEntity, aiGameInfo: GameInfo) {
+        guard let transformable = aiEntity as? Transformable else {
             fatalError("AIEntity does not conform to the required protocols for SpawnEnemyBehaviour")
         }
 
@@ -23,7 +20,5 @@ class SpawnCanvasBehaviour: StateBehaviour {
             size: Constants.CANVAS_SPAWNER_SIZE
         )
         canvas.spawn()
-
-        complete = true
     }
 }

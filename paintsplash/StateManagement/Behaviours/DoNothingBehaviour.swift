@@ -6,7 +6,7 @@
 //
 
 struct DoNothingBehaviour: StateBehaviour {
-    func updateAI(aiEntity: StatefulEntity, aiGameInfo: AIGameInfo) {
+    func updateAI(aiEntity: StatefulEntity, aiGameInfo: GameInfo) {
         // Does Nothing
     }
 }

@@ -7,15 +7,9 @@
 
 class PlayerHealthDisplay: GameEntity, Transformable {
     let transformComponent: TransformComponent
-    var transform: Transform
     var healthDisplayView: HorizontalStack<HeartDisplay>
 
     init(startingHealth: Int) {
-        transform = Transform(
-            position: Constants.HEALTH_DISPLAY_POSITION,
-            rotation: 0.0,
-            size: Constants.HEALTH_DISPLAY_SIZE
-        )
         self.transformComponent = TransformComponent(
             position: Constants.HEALTH_DISPLAY_POSITION,
             rotation: 0,

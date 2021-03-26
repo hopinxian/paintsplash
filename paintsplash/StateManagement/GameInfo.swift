@@ -6,7 +6,7 @@
 //
 import CoreGraphics
 
-struct AIGameInfo {
+struct GameInfo {
     var playerPosition: Vector2D
     var numberOfEnemies: Int
 }

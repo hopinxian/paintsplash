@@ -18,7 +18,10 @@ extension EnemySpawnerState {
         }
 
         override func onEnterState() {
-            spawner.animationComponent.animate(animation: SpawnerAnimations.spawnerIdle, interupt: false)
+            spawner.animationComponent.animate(
+                animation: SpawnerAnimations.spawnerIdle,
+                interupt: false
+            )
         }
 
         override func getStateTransition() -> State? {

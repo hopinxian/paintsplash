@@ -58,7 +58,7 @@ class Level {
 
         var timeSinceLoopStart = Date().timeIntervalSince(loopStartTime)
         while timeSinceLoopStart >= spawnEvents[nextSpawnEvent].time {
-            let gameInfo = AIGameInfo(playerPosition: Vector2D.zero, numberOfEnemies: 0)
+            let gameInfo = GameInfo(playerPosition: Vector2D.zero, numberOfEnemies: 0)
             spawnEvents[nextSpawnEvent].spawnIntoLevel(gameInfo: gameInfo)
             nextSpawnEvent += 1
             if nextSpawnEvent == spawnEvents.count {

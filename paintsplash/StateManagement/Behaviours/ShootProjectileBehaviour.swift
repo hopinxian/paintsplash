@@ -6,11 +6,8 @@
 //
 
 class ShootProjectileBehaviour: StateBehaviour {
-    private var completed = false
-
-    func updateAI(aiEntity: StatefulEntity, aiGameInfo: AIGameInfo) {
-        guard !completed,
-              let player = aiEntity as? Player else {
+    func updateAI(aiEntity: StatefulEntity, aiGameInfo: GameInfo) {
+        guard let player = aiEntity as? Player else {
             return
         }
 
@@ -25,7 +22,5 @@ class ShootProjectileBehaviour: StateBehaviour {
                 ammo: player.multiWeaponComponent.activeWeapon.getAmmo()
             )
         )
-
-        completed = true
     }
 }

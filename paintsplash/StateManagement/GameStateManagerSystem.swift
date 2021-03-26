@@ -7,10 +7,10 @@
 
 class GameStateManagerSystem: StateManagerSystem {
     var aiEntities = [GameEntity: StatefulEntity]()
-    var aiGameInfo: AIGameInfo
+    var gameInfo: GameInfo
 
     init() {
-        self.aiGameInfo = AIGameInfo(
+        self.gameInfo = GameInfo(
             playerPosition: Vector2D.zero,
             numberOfEnemies: 0
         )
@@ -20,7 +20,7 @@ class GameStateManagerSystem: StateManagerSystem {
     }
 
     private func onPlayerMove(event: PlayerMovementEvent) {
-        aiGameInfo.playerPosition = event.location
+        gameInfo.playerPosition = event.location
     }
 
     func addEntity(_ entity: GameEntity) {
@@ -49,6 +49,6 @@ class GameStateManagerSystem: StateManagerSystem {
             aiComponent.currentState.onStayState()
         }
         let behaviour = aiComponent.getCurrentBehaviour()
-        behaviour.updateAI(aiEntity: aiEntity, aiGameInfo: aiGameInfo)
+        behaviour.updateAI(aiEntity: aiEntity, aiGameInfo: gameInfo)
     }
 }

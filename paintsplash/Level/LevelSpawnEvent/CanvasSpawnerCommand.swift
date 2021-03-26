@@ -16,7 +16,7 @@ class CanvasSpawnerCommand: SpawnCommand {
         self.endX = endX
     }
 
-    override func spawnIntoLevel(gameInfo: AIGameInfo) {
+    override func spawnIntoLevel(gameInfo: GameInfo) {
         let eventLocation = getLocation(location: location, gameInfo: gameInfo)
         let eventVelocity = getVelocity(velocity: velocity, gameInfo: gameInfo)
         let eventCanvasSize = getCanvasSize(size: canvasSize, gameInfo: gameInfo)

@@ -18,12 +18,7 @@ extension EnemySpawnerState {
         }
 
         override func getBehaviour() -> StateBehaviour {
-            BehaviourSequence(
-                behaviours: [
-                    SpawnEnemyBehaviour(spawnQuantity: 1),
-                    UpdateAnimationBehaviour(animation: SpawnerAnimations.spawnerSpawn, interupt: true)
-                ]
-            )
+            SpawnEnemyBehaviour(spawnQuantity: 1)
         }
     }
 }
