@@ -33,12 +33,22 @@ class MultiplayerMenuViewController: UIViewController {
         joinRoomButton.isEnabled = enabled
     }
 
-    @IBAction func createRoom(_ sender: Any) {
+    @IBAction private func createRoom(_ sender: UIButton) {
         guard let name = nameTextField.text else {
             return
         }
-        connectionHandler.createRoom(hostName: name)
+
+        // Show loading animation
+
+        connectionHandler.createRoom(hostName: name,
+                                     onSuccess: { roomId in onCreateRoom(roomId: roomId)) },
+                                     onError: { error in print("Failed to host room: \(error)") })
     }
 
+    private func onCreateRoom(roomId: String) {
+        // Close loading animation
+        
+        print("created room with id: \(roomId)")
+    }
 
 }

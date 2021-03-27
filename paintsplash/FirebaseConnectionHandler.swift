@@ -10,16 +10,53 @@ import Firebase
 class FirebaseConnectionHandler: ConnectionHandler {
     var databaseRef = Database.database().reference()
 
-    func createRoom(hostName: String) {
-        databaseRef.child(FirebasePaths.rooms).child(hostName).setValue(["isOpen": true])
-        getAllRooms()
+    func createRoom(hostName: String, onSuccess: ((String) -> Void)?, onError: ((Error) -> Void)?) {
+        // Generate unique room code to return to player
+        let roomId = randomFourCharString()
+        let roomRef = databaseRef.child(FirebasePaths.rooms).child(roomId)
+        roomRef.observeSingleEvent(of: .value, with: { snapshot in
+
+            // Room already exists, try creating another one
+            if snapshot.value as? [String: AnyObject] != nil {
+                self.createRoom(hostName: hostName, onSuccess: onSuccess, onError: onError)
+                return
+            }
+
+            var roomInfo: [String : AnyObject] = [:]
+            roomInfo[FirebasePaths.rooms_roomId] = roomId as AnyObject
+            roomInfo[FirebasePaths.rooms_isOpen] = true as AnyObject
+
+            roomRef.setValue(roomInfo, withCompletionBlock: { error, ref in
+                if let error = error {
+                    onError?(error)
+                    return
+                }
+
+                ref.onDisconnectRemoveValue()
+
+                onSuccess?(roomId)
+            })
+        })
+
+        // databaseRef.child(FirebasePaths.rooms).child(hostName).setValue(["isOpen": true])
+        // getAllRooms()
+
+        // onSuccess?()
     }
 
-    func joinRoom(hostName: String) {
+    func randomFourCharString() -> String {
+        var string = ""
+        for _ in 0..<4 {
+            string += String(Int.random(in: 0...9))
+        }
+        return string
+    }
+
+    func joinRoom(hostName: String, onSuccess: (() -> Void)?, onRoomNotExist: (() -> Void)?) {
     }
 
     func getAllRooms() {
-        databaseRef.child(FirebasePaths.rooms).getData(completion: { (error, snapshot) in
+        databaseRef.child(FirebasePaths.rooms).getData(completion: { error, snapshot in
             if let error = error {
                 print("Error fetching all rooms \(error)")
                 return
