@@ -9,7 +9,7 @@ class LevelScore: GameEntity, Renderable {
     var renderComponent: RenderComponent
     var transformComponent: TransformComponent
 
-    var gameManager: GameManager
+    // var gameManager: GameManager
 
     var score = 0
     var freeze: Bool = true
@@ -28,7 +28,7 @@ class LevelScore: GameEntity, Renderable {
             size: Vector2D(90, 50)
         )
 
-        self.gameManager = gameManager
+        // self.gameManager = gameManager
 
         super.init()
 

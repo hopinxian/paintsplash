@@ -168,6 +168,6 @@ class Player: GameEntity,
     }
 
     override func update() {
-        print(stateComponent.currentState)
+        // print(stateComponent.currentState)
     }
 }

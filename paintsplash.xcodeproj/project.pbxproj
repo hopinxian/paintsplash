@@ -185,6 +185,7 @@
 		D5DC909125FCC4210038DF71 /* AtlasAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5DC909025FCC4210038DF71 /* AtlasAnimation.swift */; };
 		D5DC90AA25FCE5280038DF71 /* SlimeMoveLeft.atlas in Resources */ = {isa = PBXBuildFile; fileRef = D5DC90A825FCE5280038DF71 /* SlimeMoveLeft.atlas */; };
 		D5DC90AB25FCE5280038DF71 /* SlimeMoveRight.atlas in Resources */ = {isa = PBXBuildFile; fileRef = D5DC90A925FCE5280038DF71 /* SlimeMoveRight.atlas */; };
+		DC04EAB4260EECFB00D7DDFF /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC04EAB3260EECFB00D7DDFF /* MenuViewController.swift */; };
 		DC08DA51260511B9000F4F90 /* CanvasEndEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC08DA50260511B9000F4F90 /* CanvasEndEvent.swift */; };
 		DC08DA5C26051243000F4F90 /* CanvasHitEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC08DA5B26051243000F4F90 /* CanvasHitEvent.swift */; };
 		DC08DA6A260516DE000F4F90 /* CanvasEndMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC08DA69260516DE000F4F90 /* CanvasEndMarker.swift */; };
@@ -429,6 +430,7 @@
 		D5DC909025FCC4210038DF71 /* AtlasAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AtlasAnimation.swift; sourceTree = "<group>"; };
 		D5DC90A825FCE5280038DF71 /* SlimeMoveLeft.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = SlimeMoveLeft.atlas; sourceTree = "<group>"; };
 		D5DC90A925FCE5280038DF71 /* SlimeMoveRight.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = SlimeMoveRight.atlas; sourceTree = "<group>"; };
+		DC04EAB3260EECFB00D7DDFF /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		DC08DA50260511B9000F4F90 /* CanvasEndEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasEndEvent.swift; sourceTree = "<group>"; };
 		DC08DA5B26051243000F4F90 /* CanvasHitEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasHitEvent.swift; sourceTree = "<group>"; };
 		DC08DA69260516DE000F4F90 /* CanvasEndMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasEndMarker.swift; sourceTree = "<group>"; };
@@ -650,6 +652,7 @@
 				ACB3607525F661620016E240 /* Actions.sks */,
 				ACB3607725F661620016E240 /* GameScene.swift */,
 				ACB3607925F661620016E240 /* GameViewController.swift */,
+				DC04EAB3260EECFB00D7DDFF /* MenuViewController.swift */,
 				ACB3607B25F661620016E240 /* Main.storyboard */,
 				ACB3607E25F661630016E240 /* Assets.xcassets */,
 				ACB3608025F661630016E240 /* Info.plist */,
@@ -1411,6 +1414,7 @@
 				DC6BD6A725FF46D100A33861 /* SlimeAnimations.swift in Sources */,
 				D5553D74260629D100C1862E /* CallbackAnimation.swift in Sources */,
 				AC5F0B712601112C00E28D49 /* PlayerAnimations.swift in Sources */,
+				DC04EAB4260EECFB00D7DDFF /* MenuViewController.swift in Sources */,
 				D53F5415260D93CB00635B05 /* BoundedTransformComponent.swift in Sources */,
 				D5553D9C26062D1000C1862E /* PlayableAudio.swift in Sources */,
 				D53F5401260D636A00635B05 /* HasWeapon.swift in Sources */,

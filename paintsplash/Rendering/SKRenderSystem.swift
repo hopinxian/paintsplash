@@ -8,7 +8,7 @@ import SpriteKit
 
 class SKRenderSystem: RenderSystem {
     var renderables = [GameEntity: Renderable]()
-    private let scene: GameScene
+    private weak var scene: GameScene?
     private var nodeEntityMap = BidirectionalMap<GameEntity, SKNode>()
 
     init(scene: GameScene) {
@@ -24,7 +24,7 @@ class SKRenderSystem: RenderSystem {
             renderables[entity] = renderable
         }
 
-        scene.addChild(node)
+        scene?.addChild(node)
         nodeEntityMap[entity] = node
     }
 

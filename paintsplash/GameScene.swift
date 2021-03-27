@@ -179,6 +179,11 @@ class GameScene: SKScene, GameManager {
         movementSystem.updateEntities()
         entityList.forEach({ $0.update() })
     }
+
+
+    deinit {
+        print("deinit gamescene")
+    }
 }
 
 extension SKNode: UIAccessibilityIdentification {

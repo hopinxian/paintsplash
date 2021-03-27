@@ -10,6 +10,8 @@ import SpriteKit
 
 class GameViewController: UIViewController {
 
+    weak var gameScene: GameScene?
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -20,6 +22,7 @@ class GameViewController: UIViewController {
                 return
             }
 
+            self.gameScene = gameScene
             // Set the scale mode to scale to fit the window
             gameScene.scaleMode = .aspectFill
 
@@ -32,6 +35,19 @@ class GameViewController: UIViewController {
             view.showsFPS = true
             view.showsNodeCount = true
         }
+    }
+
+    @IBAction private func closeGame(_ sender: Any) {
+        self.gameScene = nil
+
+        self.removeFromParent()
+
+        self.dismiss(animated: true, completion: nil)
+
+        if let view = self.view as? SKView? {
+            view?.presentScene(nil)
+        }
+
     }
 
     override var shouldAutorotate: Bool {
@@ -48,5 +64,9 @@ class GameViewController: UIViewController {
 
     override var prefersStatusBarHidden: Bool {
         true
+    }
+
+    deinit {
+        print("removed game view controller")
     }
 }
