@@ -10,7 +10,14 @@ protocol ConnectionHandler {
                     onSuccess: ((String) -> Void)?,
                     onError: ((Error) -> Void)?)
 
-    func joinRoom(hostName: String,
+    func joinRoom(guestName: String,
+                  roomId: String,
                   onSuccess: (() -> Void)?,
                   onRoomNotExist: (() -> Void)?)
+
+    func leaveRoom(roomId: String,
+                   onSuccess: (() -> Void)?,
+                   onError: ((Error) -> Void)?)
+
+
 }

@@ -37,11 +37,6 @@ class FirebaseConnectionHandler: ConnectionHandler {
                 onSuccess?(roomId)
             })
         })
-
-        // databaseRef.child(FirebasePaths.rooms).child(hostName).setValue(["isOpen": true])
-        // getAllRooms()
-
-        // onSuccess?()
     }
 
     func randomFourCharString() -> String {
@@ -52,7 +47,12 @@ class FirebaseConnectionHandler: ConnectionHandler {
         return string
     }
 
-    func joinRoom(hostName: String, onSuccess: (() -> Void)?, onRoomNotExist: (() -> Void)?) {
+    func joinRoom(guestName: String, roomId: String, onSuccess: (() -> Void)?, onRoomNotExist: (() -> Void)?) {
+        // Try to join a room
+    }
+
+    func leaveRoom(roomId: String, onSuccess: (() -> Void)?, onError: ((Error) -> Void)?) {
+
     }
 
     func getAllRooms() {

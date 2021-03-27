@@ -41,14 +41,17 @@ class MultiplayerMenuViewController: UIViewController {
         // Show loading animation
 
         connectionHandler.createRoom(hostName: name,
-                                     onSuccess: { roomId in onCreateRoom(roomId: roomId)) },
+                                     onSuccess: { roomId in
+                                        self.onCreateRoom(roomId: roomId)
+                                     },
                                      onError: { error in print("Failed to host room: \(error)") })
     }
 
     private func onCreateRoom(roomId: String) {
         // Close loading animation
-        
+
         print("created room with id: \(roomId)")
+        connectionHandler.getAllRooms()
     }
 
 }

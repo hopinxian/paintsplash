@@ -76,6 +76,9 @@
                                 <rect key="frame" x="469" y="171" width="72" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Join Room"/>
+                                <connections>
+                                    <segue destination="3xa-g7-gsi" kind="show" id="zby-33-kVJ"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="HNd-bv-kXe"/>
@@ -91,6 +94,22 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SEv-AK-NEW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="454.57627118644069" y="106.82926829268293"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="kN2-uG-H3M">
+            <objects>
+                <viewController id="3xa-g7-gsi" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="GPx-ij-ULh">
+                        <rect key="frame" x="0.0" y="0.0" width="704" height="780"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="BgQ-L5-dD3"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Xfl-uL-KBF"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3oZ-b1-rVS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="453" y="766"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Tuu-su-uhT">
