@@ -25,11 +25,14 @@
                                     <segue destination="BV1-FR-VrT" kind="show" identifier="StartGameSegue" id="dxk-Hz-rzA"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fvm-ss-zhl">
-                                <rect key="frame" x="506" y="467" width="184" height="59"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fvm-ss-zhl" userLabel="Multiplayer Button">
+                                <rect key="frame" x="508" y="466" width="184" height="59"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="39"/>
                                 <state key="normal" title="Multiplayer"/>
+                                <connections>
+                                    <segue destination="P7p-Ms-6B4" kind="show" id="HRX-eb-45i"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="3sB-Xf-lfj"/>
@@ -42,6 +45,39 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="I02-qX-fc6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-214" y="-639"/>
+        </scene>
+        <!--Multiplayer Menu-->
+        <scene sceneID="aIh-hR-5t4">
+            <objects>
+                <viewController title="Multiplayer Menu" id="Sjf-th-9Xh" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="qut-hV-0u6">
+                        <rect key="frame" x="0.0" y="0.0" width="704" height="780"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="HNd-bv-kXe"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="AEN-9Z-aVp"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SEv-AK-NEW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="455" y="107"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Tuu-su-uhT">
+            <objects>
+                <navigationController id="P7p-Ms-6B4" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="fNX-ME-xGH"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="8BE-II-oT0">
+                        <rect key="frame" x="0.0" y="0.0" width="704" height="56"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Sjf-th-9Xh" kind="relationship" relationship="rootViewController" id="n1w-S4-Y7D"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vw8-VV-8Qm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="455" y="-640"/>
         </scene>
         <!--Game View Controller-->
         <scene sceneID="tXr-a1-R10">

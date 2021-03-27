@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		028D3740E487FD28E48CDE35 /* Pods_paintsplashTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 832DA6DEF015D561938E8999 /* Pods_paintsplashTests.framework */; };
 		8402D28F25FE0BDB00493DDE /* ColorMixer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8402D28E25FE0BDB00493DDE /* ColorMixer.swift */; };
 		8402D29725FE106800493DDE /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8402D29625FE106800493DDE /* Math.swift */; };
 		840A334826060626007BC34D /* AmmoType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840A334726060626007BC34D /* AmmoType.swift */; };
@@ -219,6 +220,7 @@
 		DC7B421F25FF63350069B422 /* CollisionEventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7B421625FF63350069B422 /* CollisionEventManager.swift */; };
 		DC7B422025FF63350069B422 /* CollisionEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7B421725FF63350069B422 /* CollisionEvent.swift */; };
 		DC7B422125FF63350069B422 /* EventSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7B421825FF63350069B422 /* EventSystem.swift */; };
+		DC8820FA260F2F150082ECC2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DC8820F9260F2F150082ECC2 /* GoogleService-Info.plist */; };
 		DC933112260671C700209712 /* CanvasRequestManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC933111260671C700209712 /* CanvasRequestManagerTests.swift */; };
 		DC93311A26067AD600209712 /* EnemyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC93311926067AD600209712 /* EnemyTests.swift */; };
 		DC93312726070F5300209712 /* EnemySpawnerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC93312626070F5300209712 /* EnemySpawnerTests.swift */; };
@@ -228,6 +230,7 @@
 		DCAD59EC2605B775005A2C4D /* CanvasSubviewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCAD59EB2605B775005A2C4D /* CanvasSubviewManager.swift */; };
 		DCB72DBA25FE18B100B183E0 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCB72DB925FE18B100B183E0 /* State.swift */; };
 		DCF1BEFA25FA6B6E00B56AD4 /* GameInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF1BEF925FA6B6E00B56AD4 /* GameInfo.swift */; };
+		E84EE0BB4BB365C4F814E7DB /* Pods_paintsplash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA71891B866EA2481AEAECA3 /* Pods_paintsplash.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -241,6 +244,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0609A59F929F8DBC9B944B04 /* Pods-paintsplash.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-paintsplash.debug.xcconfig"; path = "Target Support Files/Pods-paintsplash/Pods-paintsplash.debug.xcconfig"; sourceTree = "<group>"; };
+		797D61BC60233738D095E379 /* Pods-paintsplashTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-paintsplashTests.release.xcconfig"; path = "Target Support Files/Pods-paintsplashTests/Pods-paintsplashTests.release.xcconfig"; sourceTree = "<group>"; };
+		832DA6DEF015D561938E8999 /* Pods_paintsplashTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_paintsplashTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8402D28E25FE0BDB00493DDE /* ColorMixer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorMixer.swift; sourceTree = "<group>"; };
 		8402D29625FE106800493DDE /* Math.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Math.swift; sourceTree = "<group>"; };
 		840A334726060626007BC34D /* AmmoType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmmoType.swift; sourceTree = "<group>"; };
@@ -321,6 +327,9 @@
 		ACFD822125F67C5B009D806B /* Projectile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Projectile.swift; sourceTree = "<group>"; };
 		ACFD822625F67C76009D806B /* PaintColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaintColor.swift; sourceTree = "<group>"; };
 		ACFD822B25F67C9E009D806B /* Transformable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transformable.swift; sourceTree = "<group>"; };
+		B90D6F48B816918876C594B6 /* Pods-paintsplash.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-paintsplash.release.xcconfig"; path = "Target Support Files/Pods-paintsplash/Pods-paintsplash.release.xcconfig"; sourceTree = "<group>"; };
+		C07A22B7C1CBE2752586F533 /* Pods-paintsplashTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-paintsplashTests.debug.xcconfig"; path = "Target Support Files/Pods-paintsplashTests/Pods-paintsplashTests.debug.xcconfig"; sourceTree = "<group>"; };
+		CA71891B866EA2481AEAECA3 /* Pods_paintsplash.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_paintsplash.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D50A0778260346C000822D67 /* Health.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Health.swift; sourceTree = "<group>"; };
 		D50A07EB260499E900822D67 /* PlayerHealthDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerHealthDisplay.swift; sourceTree = "<group>"; };
 		D50A07F026049A3A00822D67 /* HeartDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartDisplay.swift; sourceTree = "<group>"; };
@@ -464,6 +473,7 @@
 		DC7B421625FF63350069B422 /* CollisionEventManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollisionEventManager.swift; sourceTree = "<group>"; };
 		DC7B421725FF63350069B422 /* CollisionEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollisionEvent.swift; sourceTree = "<group>"; };
 		DC7B421825FF63350069B422 /* EventSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventSystem.swift; sourceTree = "<group>"; };
+		DC8820F9260F2F150082ECC2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DC933111260671C700209712 /* CanvasRequestManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasRequestManagerTests.swift; sourceTree = "<group>"; };
 		DC93311926067AD600209712 /* EnemyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyTests.swift; sourceTree = "<group>"; };
 		DC93312626070F5300209712 /* EnemySpawnerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemySpawnerTests.swift; sourceTree = "<group>"; };
@@ -480,6 +490,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E84EE0BB4BB365C4F814E7DB /* Pods_paintsplash.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -487,12 +498,24 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				028D3740E487FD28E48CDE35 /* Pods_paintsplashTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		503C4BAAB79A19F16B426F4D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				0609A59F929F8DBC9B944B04 /* Pods-paintsplash.debug.xcconfig */,
+				B90D6F48B816918876C594B6 /* Pods-paintsplash.release.xcconfig */,
+				C07A22B7C1CBE2752586F533 /* Pods-paintsplashTests.debug.xcconfig */,
+				797D61BC60233738D095E379 /* Pods-paintsplashTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		8416DAEB2603358800926D01 /* Level */ = {
 			isa = PBXGroup;
 			children = (
@@ -611,10 +634,13 @@
 		ACB3606525F661620016E240 = {
 			isa = PBXGroup;
 			children = (
+				DC8820F9260F2F150082ECC2 /* GoogleService-Info.plist */,
 				ACB3607025F661620016E240 /* paintsplash */,
 				ACB3608825F661630016E240 /* paintsplashTests */,
 				ACB3606F25F661620016E240 /* Products */,
 				ACB3609325F661630016E240 /* paintsplashUITests */,
+				503C4BAAB79A19F16B426F4D /* Pods */,
+				EFDA0E0463EFA3266D5AD38D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1204,6 +1230,15 @@
 			path = Behaviours;
 			sourceTree = "<group>";
 		};
+		EFDA0E0463EFA3266D5AD38D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CA71891B866EA2481AEAECA3 /* Pods_paintsplash.framework */,
+				832DA6DEF015D561938E8999 /* Pods_paintsplashTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1211,10 +1246,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = ACB3609925F661630016E240 /* Build configuration list for PBXNativeTarget "paintsplash" */;
 			buildPhases = (
+				C43F3C62981D18EEDBF9B0FA /* [CP] Check Pods Manifest.lock */,
 				ACB3606A25F661620016E240 /* Sources */,
 				ACB3606B25F661620016E240 /* Frameworks */,
 				ACB3606C25F661620016E240 /* Resources */,
 				84BCB8E425FE4A0800E948B3 /* ShellScript */,
+				499A6725BF92BDD1E996BA94 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1229,6 +1266,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = ACB3609C25F661630016E240 /* Build configuration list for PBXNativeTarget "paintsplashTests" */;
 			buildPhases = (
+				627B86A199E851D5C45E197B /* [CP] Check Pods Manifest.lock */,
 				ACB3608125F661630016E240 /* Sources */,
 				ACB3608225F661630016E240 /* Frameworks */,
 				ACB3608325F661630016E240 /* Resources */,
@@ -1296,6 +1334,7 @@
 				DC0EE8A725FE650200CBF414 /* SpawnerIdle.atlas in Resources */,
 				AC5F0B7E2601130500E28D49 /* PlayerBrushAttackRight.atlas in Resources */,
 				ACB3607425F661620016E240 /* GameScene.sks in Resources */,
+				DC8820FA260F2F150082ECC2 /* GoogleService-Info.plist in Resources */,
 				846D4FD9260241670079720F /* SlimeIdleGray.atlas in Resources */,
 				AC5F0B7D2601130500E28D49 /* PlayerBrushWalkLeft.atlas in Resources */,
 				AC5F0B802601130500E28D49 /* PlayerBrushIdleRight.atlas in Resources */,
@@ -1324,6 +1363,45 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		499A6725BF92BDD1E996BA94 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-paintsplash/Pods-paintsplash-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-paintsplash/Pods-paintsplash-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-paintsplash/Pods-paintsplash-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		627B86A199E851D5C45E197B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-paintsplashTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		84BCB8E425FE4A0800E948B3 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1340,6 +1418,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if test -d \"/opt/homebrew/bin/\"; then\n  PATH=\"/opt/homebrew/bin/:${PATH}\"\nfi\n\nexport PATH\n\nif which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+		C43F3C62981D18EEDBF9B0FA /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-paintsplash-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1693,6 +1793,7 @@
 		};
 		ACB3609A25F661630016E240 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0609A59F929F8DBC9B944B04 /* Pods-paintsplash.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1715,6 +1816,7 @@
 		};
 		ACB3609B25F661630016E240 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B90D6F48B816918876C594B6 /* Pods-paintsplash.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1737,6 +1839,7 @@
 		};
 		ACB3609D25F661630016E240 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C07A22B7C1CBE2752586F533 /* Pods-paintsplashTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1759,6 +1862,7 @@
 		};
 		ACB3609E25F661630016E240 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 797D61BC60233738D095E379 /* Pods-paintsplashTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
