@@ -27,11 +27,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fvm-ss-zhl" userLabel="Multiplayer Button">
-<<<<<<< HEAD
-                                <rect key="frame" x="508" y="381" width="184" height="59"/>
-=======
                                 <rect key="frame" x="508" y="466" width="184" height="59"/>
->>>>>>> 3fd7823455869179455d3bddf368bda7497a91f9
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="39"/>
                                 <state key="normal" title="Multiplayer"/>
@@ -54,7 +50,6 @@
         <!--Multiplayer Menu-->
         <scene sceneID="aIh-hR-5t4">
             <objects>
-<<<<<<< HEAD
                 <viewController title="Multiplayer Menu" id="Sjf-th-9Xh" customClass="MultiplayerMenuViewController" customModule="paintsplash" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="qut-hV-0u6">
                         <rect key="frame" x="0.0" y="0.0" width="704" height="780"/>
@@ -86,17 +81,10 @@
                                 </connections>
                             </button>
                         </subviews>
-=======
-                <viewController title="Multiplayer Menu" id="Sjf-th-9Xh" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="qut-hV-0u6">
-                        <rect key="frame" x="0.0" y="0.0" width="704" height="780"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
->>>>>>> 3fd7823455869179455d3bddf368bda7497a91f9
                         <viewLayoutGuide key="safeArea" id="HNd-bv-kXe"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" id="AEN-9Z-aVp"/>
-<<<<<<< HEAD
                     <connections>
                         <outlet property="createRoomButton" destination="1ps-3P-qYm" id="dFG-dK-XDe"/>
                         <outlet property="joinRoomButton" destination="A5U-ij-gU6" id="X0B-8i-Buw"/>
@@ -122,28 +110,15 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3oZ-b1-rVS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="453" y="766"/>
-=======
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="SEv-AK-NEW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="455" y="107"/>
->>>>>>> 3fd7823455869179455d3bddf368bda7497a91f9
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Tuu-su-uhT">
             <objects>
-<<<<<<< HEAD
                 <navigationController navigationBarHidden="YES" id="P7p-Ms-6B4" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="fNX-ME-xGH"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="8BE-II-oT0">
                         <rect key="frame" x="-238" y="-20" width="0.0" height="0.0"/>
-=======
-                <navigationController id="P7p-Ms-6B4" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="fNX-ME-xGH"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="8BE-II-oT0">
-                        <rect key="frame" x="0.0" y="0.0" width="704" height="56"/>
->>>>>>> 3fd7823455869179455d3bddf368bda7497a91f9
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
