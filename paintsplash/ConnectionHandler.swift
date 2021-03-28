@@ -19,6 +19,11 @@ protocol ConnectionHandler {
                   onRoomIsClosed: (() -> Void)?,
                   onRoomNotExist: (() -> Void)?)
 
+    func observeRoom(roomId: String,
+                     onRoomChange: ((RoomInfo) -> Void)?,
+                     onRoomClose: (() -> Void)?,
+                     onError: (() -> Void)?)
+
     func leaveRoom(roomId: String,
                    onSuccess: (() -> Void)?,
                    onError: ((Error) -> Void)?)

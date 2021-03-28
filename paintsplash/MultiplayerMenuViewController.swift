@@ -67,6 +67,8 @@ class MultiplayerMenuViewController: UIViewController {
             }
             roomVC.roomId = roomId
             roomVC.hostName = self.playerName
+            roomVC.connectionHandler = self.connectionHandler
+
         case SegueIdentifiers.joinRoomVCSegue:
             guard let joinRoomVC = segue.destination as? JoinRoomViewController else {
                 return

@@ -10,6 +10,7 @@ enum FirebasePaths {
     static let rooms_roomId = "roomId"
     static let rooms_roomId_isOpen = "isOpen"
     static let rooms_roomId_host = "host"
+    static let rooms_roomId_guest = "guest"
     static let rooms_roomId_players = "players"
 
     static func joinPaths(_ paths: String ...) -> String {
