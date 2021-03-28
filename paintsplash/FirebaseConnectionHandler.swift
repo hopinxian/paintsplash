@@ -8,7 +8,7 @@
 import Firebase
 
 class FirebaseConnectionHandler: ConnectionHandler {
-    var databaseRef = Database.database().reference()
+    private var databaseRef = Database.database().reference()
 
     func createRoom(hostName: String, onSuccess: ((String) -> Void)?, onError: ((Error) -> Void)?) {
         // Generate unique room code to return to player
@@ -22,9 +22,9 @@ class FirebaseConnectionHandler: ConnectionHandler {
                 return
             }
 
-            var roomInfo: [String : AnyObject] = [:]
-            roomInfo[FirebasePaths.rooms_roomId] = roomId as AnyObject
-            roomInfo[FirebasePaths.rooms_isOpen] = true as AnyObject
+            var roomInfo: [String :AnyObject] = [:]
+            roomInfo[FirebasePaths.rooms_roomId_host] = hostName as AnyObject
+            roomInfo[FirebasePaths.rooms_roomId_isOpen] = true as AnyObject
 
             roomRef.setValue(roomInfo, withCompletionBlock: { error, ref in
                 if let error = error {
@@ -39,7 +39,7 @@ class FirebaseConnectionHandler: ConnectionHandler {
         })
     }
 
-    func randomFourCharString() -> String {
+    private func randomFourCharString() -> String {
         var string = ""
         for _ in 0..<4 {
             string += String(Int.random(in: 0...9))

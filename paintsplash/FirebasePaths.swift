@@ -8,5 +8,6 @@
 enum FirebasePaths {
     static let rooms = "rooms"
     static let rooms_roomId = "roomId"
-    static let rooms_isOpen = "isOpen"
+    static let rooms_roomId_isOpen = "isOpen"
+    static let rooms_roomId_host = "host"
 }

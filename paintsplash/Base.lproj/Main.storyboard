@@ -77,7 +77,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Join Room"/>
                                 <connections>
-                                    <segue destination="3xa-g7-gsi" kind="show" id="zby-33-kVJ"/>
+                                    <segue destination="3xa-g7-gsi" kind="show" identifier="ShowJoinRoomSegue" id="zby-33-kVJ"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -89,11 +89,47 @@
                         <outlet property="createRoomButton" destination="1ps-3P-qYm" id="dFG-dK-XDe"/>
                         <outlet property="joinRoomButton" destination="A5U-ij-gU6" id="X0B-8i-Buw"/>
                         <outlet property="nameTextField" destination="Yv0-CW-S8b" id="S0e-0f-teX"/>
+                        <segue destination="NZ3-Jq-PLP" kind="show" identifier="ShowRoomVCSegue" id="qP2-MV-Z7H"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SEv-AK-NEW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="454.57627118644069" y="106.82926829268293"/>
+        </scene>
+        <!--Room View Controller-->
+        <scene sceneID="5Z0-8f-lVS">
+            <objects>
+                <viewController title="Room View Controller" id="NZ3-Jq-PLP" customClass="RoomViewController" customModule="paintsplash" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="lmu-7t-FlG">
+                        <rect key="frame" x="0.0" y="0.0" width="704" height="780"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Room Id:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QAi-Mh-Uhj" userLabel="Room Id Label">
+                                <rect key="frame" x="179" y="73" width="114" height="36"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GKw-mR-keC" userLabel="Room Id">
+                                <rect key="frame" x="357" y="73" width="75" height="36"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="9Tv-Hb-2ok"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="gNx-dI-bFT"/>
+                    <connections>
+                        <outlet property="roomCodeDisplay" destination="GKw-mR-keC" id="f3l-zL-jnI"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Zm7-aZ-xCs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="100.67796610169492" y="848.78048780487802"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="kN2-uG-H3M">
@@ -109,7 +145,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3oZ-b1-rVS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="453" y="766"/>
+            <point key="canvasLocation" x="819" y="849"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Tuu-su-uhT">

@@ -19,5 +19,4 @@ protocol ConnectionHandler {
                    onSuccess: (() -> Void)?,
                    onError: ((Error) -> Void)?)
 
-
 }

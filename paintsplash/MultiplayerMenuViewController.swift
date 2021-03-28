@@ -15,6 +15,8 @@ class MultiplayerMenuViewController: UIViewController {
     @IBOutlet private var createRoomButton: UIButton!
     @IBOutlet private var joinRoomButton: UIButton!
 
+    private var roomId: String?
+
     override func viewDidLoad() {
         toggleButtons(enabled: false)
     }
@@ -39,7 +41,6 @@ class MultiplayerMenuViewController: UIViewController {
         }
 
         // Show loading animation
-
         connectionHandler.createRoom(hostName: name,
                                      onSuccess: { roomId in
                                         self.onCreateRoom(roomId: roomId)
@@ -51,7 +52,26 @@ class MultiplayerMenuViewController: UIViewController {
         // Close loading animation
 
         print("created room with id: \(roomId)")
+        self.roomId = roomId
         connectionHandler.getAllRooms()
+
+        performSegue(withIdentifier: "ShowRoomVCSegue", sender: nil)
     }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+        case "ShowRoomVCSegue":
+            guard let roomVC = segue.destination as? RoomViewController,
+                  let roomId = self.roomId else {
+                return
+            }
+            roomVC.roomId = roomId
+        default:
+            print("No segue with given identifier")
+            return
+        }
+
+    }
+
 
 }
