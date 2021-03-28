@@ -8,6 +8,7 @@
 import SpriteKit
 
 class GameScene: SKScene, GameManager {
+//    var gameManager: GameManager
     var entities = Set<GameEntity>()
 
     var currentLevel: Level?
@@ -184,15 +185,4 @@ class GameScene: SKScene, GameManager {
     deinit {
         print("deinit gamescene")
     }
-}
-
-extension SKNode: UIAccessibilityIdentification {
-   public var accessibilityIdentifier: String? {
-       get {
-           super.accessibilityLabel
-       }
-       set(accessibilityIdentifier) {
-           super.accessibilityLabel = accessibilityIdentifier
-       }
-   }
 }
