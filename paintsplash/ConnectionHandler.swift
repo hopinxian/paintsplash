@@ -7,12 +7,16 @@
 
 protocol ConnectionHandler {
     func createRoom(hostName: String,
-                    onSuccess: ((String) -> Void)?,
+                    onSuccess: ((RoomInfo) -> Void)?,
                     onError: ((Error) -> Void)?)
+
+    func getAllRooms()
 
     func joinRoom(guestName: String,
                   roomId: String,
-                  onSuccess: (() -> Void)?,
+                  onSuccess: ((RoomInfo) -> Void)?,
+                  onError: (() -> Void)?,
+                  onRoomIsClosed: (() -> Void)?,
                   onRoomNotExist: (() -> Void)?)
 
     func leaveRoom(roomId: String,

@@ -230,7 +230,10 @@
 		DCAD59EC2605B775005A2C4D /* CanvasSubviewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCAD59EB2605B775005A2C4D /* CanvasSubviewManager.swift */; };
 		DCB72DBA25FE18B100B183E0 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCB72DB925FE18B100B183E0 /* State.swift */; };
 		DCCF8CEC26102DDA006F6964 /* RoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCCF8CEB26102DDA006F6964 /* RoomViewController.swift */; };
+		DCCF8CF026103412006F6964 /* SegueIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCCF8CEF26103412006F6964 /* SegueIdentifiers.swift */; };
+		DCCF8CF4261038E4006F6964 /* JoinRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCCF8CF3261038E4006F6964 /* JoinRoomViewController.swift */; };
 		DCF1BEFA25FA6B6E00B56AD4 /* GameInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF1BEF925FA6B6E00B56AD4 /* GameInfo.swift */; };
+		DCF748F2261069A90008633D /* RoomInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF748F1261069A90008633D /* RoomInfo.swift */; };
 		DCFBF89A260F66EC00BA1216 /* ConnectionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCFBF899260F66EC00BA1216 /* ConnectionHandler.swift */; };
 		DCFBF89E260F680A00BA1216 /* FirebaseConnectionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCFBF89D260F680A00BA1216 /* FirebaseConnectionHandler.swift */; };
 		DCFBF8A2260F6C0600BA1216 /* FirebasePaths.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCFBF8A1260F6C0600BA1216 /* FirebasePaths.swift */; };
@@ -488,7 +491,10 @@
 		DCAD59EB2605B775005A2C4D /* CanvasSubviewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasSubviewManager.swift; sourceTree = "<group>"; };
 		DCB72DB925FE18B100B183E0 /* State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
 		DCCF8CEB26102DDA006F6964 /* RoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomViewController.swift; sourceTree = "<group>"; };
+		DCCF8CEF26103412006F6964 /* SegueIdentifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegueIdentifiers.swift; sourceTree = "<group>"; };
+		DCCF8CF3261038E4006F6964 /* JoinRoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinRoomViewController.swift; sourceTree = "<group>"; };
 		DCF1BEF925FA6B6E00B56AD4 /* GameInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameInfo.swift; sourceTree = "<group>"; };
+		DCF748F1261069A90008633D /* RoomInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomInfo.swift; sourceTree = "<group>"; };
 		DCFBF899260F66EC00BA1216 /* ConnectionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionHandler.swift; sourceTree = "<group>"; };
 		DCFBF89D260F680A00BA1216 /* FirebaseConnectionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseConnectionHandler.swift; sourceTree = "<group>"; };
 		DCFBF8A1260F6C0600BA1216 /* FirebasePaths.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebasePaths.swift; sourceTree = "<group>"; };
@@ -689,7 +695,9 @@
 				ACB3607725F661620016E240 /* GameScene.swift */,
 				ACB3607925F661620016E240 /* GameViewController.swift */,
 				DCFBF8A5260F7DA500BA1216 /* MultiplayerMenuViewController.swift */,
+				DCCF8CEF26103412006F6964 /* SegueIdentifiers.swift */,
 				DC04EAB3260EECFB00D7DDFF /* MenuViewController.swift */,
+				DCCF8CF3261038E4006F6964 /* JoinRoomViewController.swift */,
 				DCCF8CEB26102DDA006F6964 /* RoomViewController.swift */,
 				ACB3607B25F661620016E240 /* Main.storyboard */,
 				ACB3607E25F661630016E240 /* Assets.xcassets */,
@@ -698,6 +706,7 @@
 				AC0A184C26052AF800A1338C /* Constants.swift */,
 				D53F5438260D948C00635B05 /* Components */,
 				D5500C052608E7E200E21BF1 /* System.swift */,
+				DCF748F1261069A90008633D /* RoomInfo.swift */,
 				DCFBF899260F66EC00BA1216 /* ConnectionHandler.swift */,
 				DCFBF89D260F680A00BA1216 /* FirebaseConnectionHandler.swift */,
 				DCFBF8A1260F6C0600BA1216 /* FirebasePaths.swift */,
@@ -1500,6 +1509,7 @@
 				DC0C02E12603B94200656E49 /* CanvasEventManager.swift in Sources */,
 				D53F5452260D952200635B05 /* SKCollisionSystem.swift in Sources */,
 				D5C5691D260AE5BF009E5BD9 /* BehaviourSequence.swift in Sources */,
+				DCF748F2261069A90008633D /* RoomInfo.swift in Sources */,
 				842B5CEE26048D2B00FCF7BD /* Points.swift in Sources */,
 				ACFD820925F676AB009D806B /* Movable.swift in Sources */,
 				DC6874CF260362C800CF89E4 /* CanvasRequestManager.swift in Sources */,
@@ -1510,6 +1520,7 @@
 				ACFD821025F6773B009D806B /* Vector2D+CoreGraphics.swift in Sources */,
 				D5553D9B26062D1000C1862E /* AudioPlayer.swift in Sources */,
 				D5C56911260AC3D8009E5BD9 /* DoNothingBehaviour.swift in Sources */,
+				DCCF8CF026103412006F6964 /* SegueIdentifiers.swift in Sources */,
 				ACB3607825F661620016E240 /* GameScene.swift in Sources */,
 				D55A8AA225FBB4E000BBE210 /* Tags.swift in Sources */,
 				DC7B421D25FF63350069B422 /* EntityMovementEventManager.swift in Sources */,
@@ -1615,6 +1626,7 @@
 				D55EEB7E260089C200ADC70B /* PaintGunAmmoDisplay.swift in Sources */,
 				D53F548C260D96DB00635B05 /* CanvasSpawnerState.swift in Sources */,
 				D53F5421260D942800635B05 /* HealthComponent.swift in Sources */,
+				DCCF8CF4261038E4006F6964 /* JoinRoomViewController.swift in Sources */,
 				D53F5498260D970A00635B05 /* EnemyState.swift in Sources */,
 				D55EEB4B25FF8B6500ADC70B /* GameScene+UserInput.swift in Sources */,
 				ACC154F126012F560000775C /* PlayerActionEvent.swift in Sources */,
@@ -1826,7 +1838,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = crawlers.paintsplashes;
+				PRODUCT_BUNDLE_IDENTIFIER = crawlers.paintsplashes2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -1849,7 +1861,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = crawlers.paintsplashes;
+				PRODUCT_BUNDLE_IDENTIFIER = crawlers.paintsplashes2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
