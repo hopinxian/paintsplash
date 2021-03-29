@@ -234,6 +234,7 @@
 		DCCF8CF4261038E4006F6964 /* JoinRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCCF8CF3261038E4006F6964 /* JoinRoomViewController.swift */; };
 		DCF1BEFA25FA6B6E00B56AD4 /* GameInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF1BEF925FA6B6E00B56AD4 /* GameInfo.swift */; };
 		DCF748F2261069A90008633D /* RoomInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF748F1261069A90008633D /* RoomInfo.swift */; };
+		DCF748FC2610F5AC0008633D /* PlayerInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF748FB2610F5AC0008633D /* PlayerInfo.swift */; };
 		DCFBF89A260F66EC00BA1216 /* ConnectionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCFBF899260F66EC00BA1216 /* ConnectionHandler.swift */; };
 		DCFBF89E260F680A00BA1216 /* FirebaseConnectionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCFBF89D260F680A00BA1216 /* FirebaseConnectionHandler.swift */; };
 		DCFBF8A2260F6C0600BA1216 /* FirebasePaths.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCFBF8A1260F6C0600BA1216 /* FirebasePaths.swift */; };
@@ -495,6 +496,7 @@
 		DCCF8CF3261038E4006F6964 /* JoinRoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinRoomViewController.swift; sourceTree = "<group>"; };
 		DCF1BEF925FA6B6E00B56AD4 /* GameInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameInfo.swift; sourceTree = "<group>"; };
 		DCF748F1261069A90008633D /* RoomInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomInfo.swift; sourceTree = "<group>"; };
+		DCF748FB2610F5AC0008633D /* PlayerInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerInfo.swift; sourceTree = "<group>"; };
 		DCFBF899260F66EC00BA1216 /* ConnectionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionHandler.swift; sourceTree = "<group>"; };
 		DCFBF89D260F680A00BA1216 /* FirebaseConnectionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseConnectionHandler.swift; sourceTree = "<group>"; };
 		DCFBF8A1260F6C0600BA1216 /* FirebasePaths.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebasePaths.swift; sourceTree = "<group>"; };
@@ -707,6 +709,7 @@
 				D53F5438260D948C00635B05 /* Components */,
 				D5500C052608E7E200E21BF1 /* System.swift */,
 				DCF748F1261069A90008633D /* RoomInfo.swift */,
+				DCF748FB2610F5AC0008633D /* PlayerInfo.swift */,
 				DCFBF899260F66EC00BA1216 /* ConnectionHandler.swift */,
 				DCFBF89D260F680A00BA1216 /* FirebaseConnectionHandler.swift */,
 				DCFBF8A1260F6C0600BA1216 /* FirebasePaths.swift */,
@@ -1484,6 +1487,7 @@
 				D53F540D260D93AC00635B05 /* Component.swift in Sources */,
 				DC247F5025F9C1CB001B814C /* ChasePlayerBehaviour.swift in Sources */,
 				D5BCE0CA260DA74700080794 /* SpawnAIEntityEvent.swift in Sources */,
+				DCF748FC2610F5AC0008633D /* PlayerInfo.swift in Sources */,
 				D5C568FF260A19C9009E5BD9 /* MovementSystem.swift in Sources */,
 				D5500C102608F12800E21BF1 /* SKNodeFactory.swift in Sources */,
 				DC7B422025FF63350069B422 /* CollisionEvent.swift in Sources */,

@@ -18,7 +18,6 @@ struct FirebaseObserver {
 }
 
 class FirebaseConnectionHandler: ConnectionHandler {
-
     private var databaseRef = Database.database().reference()
 
     private var observers: [FirebaseObserver] = []
@@ -30,7 +29,7 @@ class FirebaseConnectionHandler: ConnectionHandler {
         }
     }
 
-    func createRoom(hostName: String, onSuccess: ((RoomInfo) -> Void)?, onError: ((Error) -> Void)?) {
+    func createRoom(player: PlayerInfo, onSuccess: ((RoomInfo) -> Void)?, onError: ((Error) -> Void)?) {
         // Generate unique room code to return to player
         let roomId = randomFourCharString()
         let roomRef = databaseRef.child(FirebasePaths.rooms).child(roomId)
@@ -38,18 +37,19 @@ class FirebaseConnectionHandler: ConnectionHandler {
 
             // Room already exists, try creating another one
             if snapshot.value as? [String: AnyObject] != nil {
-                self?.createRoom(hostName: hostName, onSuccess: onSuccess, onError: onError)
+                self?.createRoom(player: player, onSuccess: onSuccess, onError: onError)
                 return
             }
 
-            // var players: [String: AnyObject] = [:]
-            // TODO: add players
-            // var selfPlayer: [String: AnyObject] = [FirebasePaths.pla : hostName]
+            let hostId = player.playerUUID
+
+            let playerDict = player.toPlayerDict()
+            let players = [hostId: playerDict]
 
             var roomInfo: [String: AnyObject] = [:]
-            roomInfo[FirebasePaths.rooms_roomId_host] = hostName as AnyObject
-            roomInfo[FirebasePaths.rooms_roomId_isOpen] = true as AnyObject
-            // roomInfo[FirebasePaths.rooms_roomId_players] = players as AnyObject
+            roomInfo[FirebasePaths.rooms_isOpen] = true as AnyObject
+            roomInfo[FirebasePaths.rooms_id] = roomId as AnyObject
+            roomInfo[FirebasePaths.rooms_players] = players as AnyObject
 
             roomRef.setValue(roomInfo, withCompletionBlock: { error, ref in
                 if let error = error {
@@ -59,7 +59,8 @@ class FirebaseConnectionHandler: ConnectionHandler {
 
                 ref.onDisconnectRemoveValue()
 
-                onSuccess?(RoomInfo(roomId: roomId, hostName: hostName, guestName: "", isOpen: true))
+                // TODO
+                onSuccess?(RoomInfo(from: roomInfo))
             })
         })
     }
@@ -72,7 +73,7 @@ class FirebaseConnectionHandler: ConnectionHandler {
         return string
     }
 
-    func joinRoom(guestName: String, roomId: String, onSuccess: ((RoomInfo) -> Void)?,
+    func joinRoom(player: PlayerInfo, roomId: String, onSuccess: ((RoomInfo) -> Void)?,
                   onError: (() -> Void)?, onRoomIsClosed: (() -> Void)?,
                   onRoomNotExist: (() -> Void)?) {
         print("Try to join room \(roomId)")
@@ -85,8 +86,7 @@ class FirebaseConnectionHandler: ConnectionHandler {
                 return
             }
 
-            guard let isOpen = room[FirebasePaths.rooms_roomId_isOpen] as? Bool,
-                  let hostName = room[FirebasePaths.rooms_roomId_host] as? String else {
+            guard let isOpen = room[FirebasePaths.rooms_isOpen] as? Bool else {
                 onError?()
                 return
             }
@@ -98,15 +98,16 @@ class FirebaseConnectionHandler: ConnectionHandler {
 
             // TODO: add guest player
             // TODO: check if we should close room immediately
-            roomRef.child(FirebasePaths.rooms_roomId_isOpen).setValue(false as AnyObject)
-            roomRef.child(FirebasePaths.rooms_roomId_guest).setValue(guestName as AnyObject)
+            roomRef.child(FirebasePaths.rooms_isOpen).setValue(false as AnyObject)
 
-            let roomInfo = RoomInfo(roomId: roomId,
-                                    hostName: hostName,
-                                    guestName: guestName,
-                                    isOpen: false)
+            // roomRef.child(FirebasePaths.rooms_roomId_guest).setValue(guestName as AnyObject)
 
-            onSuccess?(roomInfo)
+//            let roomInfo = RoomInfo(roomId: roomId,
+//                                    hostName: hostName,
+//                                    guestName: guestName,
+//                                    isOpen: false)
+
+            // onSuccess?(roomInfo)
         })
     }
 
@@ -121,11 +122,7 @@ class FirebaseConnectionHandler: ConnectionHandler {
                 return
             }
 
-            guard let updatedRoomInfo = RoomInfo.getRoomInfoFirebase(roomId: roomId, from: room) else {
-                onError?()
-                print("error getting updated room info")
-                return
-            }
+            let updatedRoomInfo = RoomInfo(from: room)
             onRoomChange?(updatedRoomInfo)
         })
 

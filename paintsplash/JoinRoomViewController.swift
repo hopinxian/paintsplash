@@ -11,6 +11,9 @@ class JoinRoomViewController: UIViewController {
     var playerName = String()
     var connectionHandler: ConnectionHandler?
 
+    var roomToJoin: RoomInfo?
+    var playerUUID = String()
+
     @IBOutlet private var enterRoomIdTextField: UITextField!
 
     @IBAction private func didChangeRoomIdTextField(_ sender: UITextField) {
@@ -20,11 +23,14 @@ class JoinRoomViewController: UIViewController {
 
     @IBAction private func joinRoom(_ sender: Any) {
         guard let roomIdToJoin = enterRoomIdTextField.text,
+              !playerUUID.isEmpty,
               !roomIdToJoin.isEmpty else {
             return
         }
 
-        connectionHandler?.joinRoom(guestName: self.playerName,
+        let player = PlayerInfo(uuid: playerUUID, name: playerName, isHost: false)
+
+        connectionHandler?.joinRoom(player: player,
                                     roomId: roomIdToJoin,
                                     onSuccess: onJoinRoom,
                                     onError: onErrorJoiningRoom,
@@ -37,7 +43,8 @@ class JoinRoomViewController: UIViewController {
     }
 
     func onJoinRoom(roomInfo: RoomInfo) {
-        performSegue(withIdentifier: SegueIdentifiers.roomVCSegue, sender: roomInfo)
+        self.roomToJoin = roomInfo
+        performSegue(withIdentifier: SegueIdentifiers.roomVCSegue, sender: nil)
     }
 
     func onRoomNotExist() {
@@ -52,12 +59,10 @@ class JoinRoomViewController: UIViewController {
         switch segue.identifier {
         case SegueIdentifiers.roomVCSegue:
             guard let roomVC = segue.destination as? RoomViewController,
-                  let roomInfo = sender as? RoomInfo else {
+                  let roomInfo = self.roomToJoin else {
                 return
             }
-            roomVC.roomId = roomInfo.roomId
-            roomVC.hostName = roomInfo.hostName
-            roomVC.guestName = roomInfo.guestName
+            roomVC.currentRoom = roomInfo
             roomVC.connectionHandler = self.connectionHandler
         default:
             print("No segue with given identifier")

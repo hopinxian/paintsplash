@@ -13,12 +13,29 @@ struct RoomInfo {
     var guestName: String
     var isOpen: Bool
 
-    static func getRoomInfoFirebase(roomId: String, from roomDict: [String: AnyObject]) -> RoomInfo? {
-        guard let hostName = roomDict[FirebasePaths.rooms_roomId_host] as? String,
-              let guestName = roomDict[FirebasePaths.rooms_roomId_guest] as? String,
-              let isOpen = roomDict[FirebasePaths.rooms_roomId_isOpen] as? Bool else {
-            return nil
+    init(from roomDict: [String: AnyObject]) {
+        // Convert players into host and guestnames
+        var hostName = String()
+        var guestName = String()
+
+        let players = roomDict[FirebasePaths.rooms_players] as? [String: AnyObject] ?? [:]
+        players.forEach { (_, player) in
+            guard let playerDict = player as? [String: AnyObject] else {
+                return
+            }
+            let playerInfo = PlayerInfo(from: playerDict)
+            if playerInfo.isHost {
+                hostName = playerInfo.playerName
+            } else {
+                guestName = playerInfo.playerName
+            }
         }
-        return RoomInfo(roomId: roomId, hostName: hostName, guestName: guestName, isOpen: isOpen)
+
+        self.roomId = roomDict[FirebasePaths.rooms_id] as? String ?? ""
+        self.isOpen = roomDict[FirebasePaths.rooms_isOpen] as? Bool ?? true
+        self.hostName = hostName
+        self.guestName = guestName
+
+        // return RoomInfo(roomId: roomId, hostName: hostName, guestName: guestName, isOpen: isOpen)
     }
 }

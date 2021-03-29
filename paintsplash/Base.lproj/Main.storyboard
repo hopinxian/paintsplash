@@ -146,6 +146,19 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v44-6N-YHz">
+                                <rect key="frame" x="181" y="449" width="84" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Leave Room"/>
+                                <connections>
+                                    <action selector="leaveRoom:" destination="NZ3-Jq-PLP" eventType="touchUpInside" id="ZqG-qT-eCI"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tyh-Ge-J2E">
+                                <rect key="frame" x="405" y="449" width="78" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Start Game"/>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="9Tv-Hb-2ok"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -186,6 +199,11 @@
                                     <action selector="joinRoom:" destination="3xa-g7-gsi" eventType="touchUpInside" id="06Y-ip-R11"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vGS-nI-81n">
+                                <rect key="frame" x="368" y="158" width="48" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Cancel"/>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="BgQ-L5-dD3"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -198,7 +216,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3oZ-b1-rVS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="819" y="849"/>
+            <point key="canvasLocation" x="818.64406779661022" y="848.78048780487802"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Tuu-su-uhT">

@@ -13,18 +13,25 @@ class RoomViewController: UIViewController {
     @IBOutlet private var hostNameLabel: UILabel!
     @IBOutlet private var guestNameLabel: UILabel!
 
-    var roomId = String()
-    var hostName = String()
-    var guestName = String()
+    var currentRoom: RoomInfo? {
+        didSet {
+            guard let roomInfo = currentRoom else {
+                return
+            }
+            onRoomChange(roomInfo: roomInfo)
+        }
+    }
+
     var connectionHandler: ConnectionHandler?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.roomCodeDisplay?.text = roomId
-        self.hostNameLabel?.text = hostName
-        self.guestNameLabel?.text = guestName
 
-        connectionHandler?.observeRoom(roomId: roomId,
+        guard let room = self.currentRoom else {
+            return
+        }
+
+        connectionHandler?.observeRoom(roomId: room.roomId,
                                        onRoomChange: onRoomChange,
                                        onRoomClose: onRoomClose,
                                        onError: onError)
@@ -32,8 +39,9 @@ class RoomViewController: UIViewController {
 
     func onRoomChange(roomInfo: RoomInfo) {
         print("Room changed!")
-        self.hostNameLabel.text = roomInfo.hostName
-        self.guestNameLabel.text = roomInfo.guestName
+        self.roomCodeDisplay?.text = roomInfo.roomId
+        self.hostNameLabel?.text = roomInfo.hostName
+        self.guestNameLabel?.text = roomInfo.guestName
     }
 
     func onRoomClose() {
@@ -42,6 +50,10 @@ class RoomViewController: UIViewController {
 
     func onError() {
         print("Error encountered")
+    }
+
+    @IBAction private func leaveRoom(_ sender: UIButton) {
+
     }
 
 }

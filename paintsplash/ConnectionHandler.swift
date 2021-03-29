@@ -6,13 +6,13 @@
 //
 
 protocol ConnectionHandler {
-    func createRoom(hostName: String,
+    func createRoom(player: PlayerInfo,
                     onSuccess: ((RoomInfo) -> Void)?,
                     onError: ((Error) -> Void)?)
 
     func getAllRooms()
 
-    func joinRoom(guestName: String,
+    func joinRoom(player: PlayerInfo,
                   roomId: String,
                   onSuccess: ((RoomInfo) -> Void)?,
                   onError: (() -> Void)?,
