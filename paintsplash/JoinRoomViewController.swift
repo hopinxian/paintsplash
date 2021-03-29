@@ -8,11 +8,13 @@
 import UIKit
 
 class JoinRoomViewController: UIViewController {
-    var playerName = String()
     var connectionHandler: ConnectionHandler?
 
     var roomToJoin: RoomInfo?
-    var playerUUID = String()
+
+    var playerInfo: PlayerInfo?
+//    var playerUUID = String()
+//    var playerName = String()
 
     @IBOutlet private var enterRoomIdTextField: UITextField!
 
@@ -23,13 +25,10 @@ class JoinRoomViewController: UIViewController {
 
     @IBAction private func joinRoom(_ sender: Any) {
         guard let roomIdToJoin = enterRoomIdTextField.text,
-              !playerUUID.isEmpty,
-              !roomIdToJoin.isEmpty else {
+              !roomIdToJoin.isEmpty,
+              let player = playerInfo else {
             return
         }
-
-        let player = PlayerInfo(uuid: playerUUID, name: playerName, isHost: false)
-
         connectionHandler?.joinRoom(player: player,
                                     roomId: roomIdToJoin,
                                     onSuccess: onJoinRoom,
@@ -43,6 +42,8 @@ class JoinRoomViewController: UIViewController {
     }
 
     func onJoinRoom(roomInfo: RoomInfo) {
+        print("successfully joined room: transitioning")
+        // TODO: reset to nil when room VC is closed
         self.roomToJoin = roomInfo
         performSegue(withIdentifier: SegueIdentifiers.roomVCSegue, sender: nil)
     }
@@ -63,6 +64,7 @@ class JoinRoomViewController: UIViewController {
                 return
             }
             roomVC.currentRoom = roomInfo
+            roomVC.playerInfo = self.playerInfo
             roomVC.connectionHandler = self.connectionHandler
         default:
             print("No segue with given identifier")

@@ -87,6 +87,7 @@ class FirebaseConnectionHandler: ConnectionHandler {
             }
 
             guard let isOpen = room[FirebasePaths.rooms_isOpen] as? Bool else {
+                print("error with database schema")
                 onError?()
                 return
             }
@@ -95,19 +96,28 @@ class FirebaseConnectionHandler: ConnectionHandler {
                 onRoomIsClosed?()
                 return
             }
-
-            // TODO: add guest player
             // TODO: check if we should close room immediately
-            roomRef.child(FirebasePaths.rooms_isOpen).setValue(false as AnyObject)
 
-            // roomRef.child(FirebasePaths.rooms_roomId_guest).setValue(guestName as AnyObject)
+            let players = room[FirebasePaths.rooms_players] as? [String: AnyObject] ?? [:]
+            // check that player doesn't already exist
+            guard players[player.playerUUID] == nil else {
+                print("player already exists")
+                onError?()
+                return
+            }
 
-//            let roomInfo = RoomInfo(roomId: roomId,
-//                                    hostName: hostName,
-//                                    guestName: guestName,
-//                                    isOpen: false)
+            // Add guest as one of the players
+            let guestDict = player.toPlayerDict()
+            let guestRef = roomRef.child(FirebasePaths.rooms_players).child(player.playerUUID)
+            guestRef.setValue(guestDict, withCompletionBlock: { error, ref in
+                if let err = error {
+                    // TODO: better error handling
+                    print("error setting guest ref")
+                    onError?()
+                }
 
-            // onSuccess?(roomInfo)
+                guestRef.onDisconnectRemoveValue()
+            })
         })
     }
 

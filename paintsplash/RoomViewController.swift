@@ -22,6 +22,8 @@ class RoomViewController: UIViewController {
         }
     }
 
+    var playerInfo: PlayerInfo?
+
     var connectionHandler: ConnectionHandler?
 
     override func viewDidLoad() {

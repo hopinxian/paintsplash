@@ -58,18 +58,24 @@ class MultiplayerMenuViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
         case SegueIdentifiers.roomVCSegue:
+            // TODO: when creating a room
             guard let roomVC = segue.destination as? RoomViewController,
                   let currentRoom = self.currentRoom else {
                 return
             }
             roomVC.currentRoom = currentRoom
+            roomVC.playerInfo = PlayerInfo(uuid: self.playerUUID,
+                                           name: self.playerName,
+                                           isHost: true)
             roomVC.connectionHandler = self.connectionHandler
 
         case SegueIdentifiers.joinRoomVCSegue:
             guard let joinRoomVC = segue.destination as? JoinRoomViewController else {
                 return
             }
-            joinRoomVC.playerName = self.playerName
+            joinRoomVC.playerInfo = PlayerInfo(uuid: self.playerUUID,
+                                           name: self.playerName,
+                                           isHost: false)
             joinRoomVC.connectionHandler = self.connectionHandler
         default:
             print("No segue with given identifier")

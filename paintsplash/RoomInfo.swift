@@ -19,7 +19,7 @@ struct RoomInfo {
         var guestName = String()
 
         let players = roomDict[FirebasePaths.rooms_players] as? [String: AnyObject] ?? [:]
-        players.forEach { (_, player) in
+        players.forEach { _, player in
             guard let playerDict = player as? [String: AnyObject] else {
                 return
             }
@@ -35,7 +35,5 @@ struct RoomInfo {
         self.isOpen = roomDict[FirebasePaths.rooms_isOpen] as? Bool ?? true
         self.hostName = hostName
         self.guestName = guestName
-
-        // return RoomInfo(roomId: roomId, hostName: hostName, guestName: guestName, isOpen: isOpen)
     }
 }
