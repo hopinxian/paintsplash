@@ -17,7 +17,7 @@ struct FirebaseObserver {
     }
 }
 
-class FirebaseConnectionHandler: ConnectionHandler {
+class FirebaseConnectionHandler: LobbyHandler {
     private var databaseRef = Database.database().reference()
 
     private var observers: [FirebaseObserver] = []

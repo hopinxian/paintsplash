@@ -5,7 +5,7 @@
 //  Created by Cynthia Lee on 27/3/21.
 //
 
-protocol ConnectionHandler {
+protocol LobbyHandler {
     func createRoom(player: PlayerInfo,
                     onSuccess: ((RoomInfo) -> Void)?,
                     onError: ((Error) -> Void)?)

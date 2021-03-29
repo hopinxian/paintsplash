@@ -8,7 +8,7 @@
 import UIKit
 
 class MultiplayerMenuViewController: UIViewController {
-    let connectionHandler: ConnectionHandler = FirebaseConnectionHandler()
+    let connectionHandler: LobbyHandler = FirebaseConnectionHandler()
 
     @IBOutlet private var nameTextField: UITextField!
 

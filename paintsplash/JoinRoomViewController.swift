@@ -8,7 +8,7 @@
 import UIKit
 
 class JoinRoomViewController: UIViewController {
-    var connectionHandler: ConnectionHandler?
+    var connectionHandler: LobbyHandler?
 
     var roomToJoin: RoomInfo?
 
