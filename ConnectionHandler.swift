@@ -70,7 +70,7 @@ class FirebaseConnectionHandler: ConnectionHandler {
     func listen<T: Codable>(to source: String, callBack: @escaping (T?) -> Void) {
         let ref = firebase.reference().child(source)
         let observerHandle = ref.observe(DataEventType.value) { snapshot in
-            let rawData = snapshot.value as? [String: AnyObject]
+            let rawData = snapshot.value as? [String: AnyObject] ?? [:]
             let data = T(from: rawData)
             callBack(data)
         }
@@ -79,20 +79,21 @@ class FirebaseConnectionHandler: ConnectionHandler {
 
     func getData<T: Codable>(at path: String, block: @escaping (Error?, T?) -> Void) {
         firebase.reference().child(path).getData(completion: { (error, snapshot) in
-            //TODO Error Handling
-            let rawData = snapshot.value as? [String: AnyObject]
+            // TODO Error Handling
+            let rawData = snapshot.value as? [String: AnyObject] ?? [:]
+            print(rawData)
             let data = T(from: rawData)
+            print(data)
             block(error, data)
         })
     }
-    
+
     func getData(at path: String, block: @escaping (Error?, [String: Any]?) -> Void) {
         firebase.reference().child(path).getData(completion: { (error, snapshot) in
             let rawData = snapshot.value as? [String: AnyObject]
             block(error, rawData)
         })
     }
-
 
     func commitBatchedOperations() {
         guard !batchedOperations.isEmpty else {
@@ -162,22 +163,22 @@ struct FirebaseOperation {
 //}
 
 extension Encodable {
-  var dictionary: [String: Any]? {
-    guard let data = try? JSONEncoder().encode(self) else { return nil }
-    return (try? JSONSerialization.jsonObject(with: data, options: .allowFragments)).flatMap { $0 as? [String: Any] }
-  }
+    var dictionary: [String: Any]? {
+        guard let data = try? JSONEncoder().encode(self) else { return nil }
+        return (try? JSONSerialization.jsonObject(with: data, options: .allowFragments)).flatMap { $0 as? [String: Any] }
+    }
 }
 
 extension Decodable {
-  init?(from: Any) {
-    do {
-        let data = try JSONSerialization.data(withJSONObject: from, options: .prettyPrinted)
-        let decoder = JSONDecoder()
-        self = try decoder.decode(Self.self, from: data)
-    } catch {
-        return nil
+    init?(from: [String: Any]) {
+        do {
+            let data = try JSONSerialization.data(withJSONObject: from, options: .fragmentsAllowed)
+            let decoder = JSONDecoder()
+            self = try decoder.decode(Self.self, from: data)
+        } catch {
+            return nil
+        }
     }
-  }
 }
 
 enum FirebaseError: Error {

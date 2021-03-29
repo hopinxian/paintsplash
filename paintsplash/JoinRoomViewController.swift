@@ -45,7 +45,7 @@ class JoinRoomViewController: UIViewController {
         print("successfully joined room: transitioning")
         // TODO: reset to nil when room VC is closed
         self.roomToJoin = roomInfo
-        performSegue(withIdentifier: SegueIdentifiers.roomVCSegue, sender: nil)
+        performSegue(withIdentifier: SegueIdentifiers.joinMenuToRoom, sender: nil)
     }
 
     func onRoomNotExist() {
@@ -58,7 +58,7 @@ class JoinRoomViewController: UIViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
-        case SegueIdentifiers.roomVCSegue:
+        case SegueIdentifiers.joinMenuToRoom:
             guard let roomVC = segue.destination as? RoomViewController,
                   let roomInfo = self.roomToJoin else {
                 return

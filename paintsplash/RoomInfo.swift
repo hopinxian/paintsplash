@@ -10,7 +10,7 @@ import Foundation
 struct RoomInfo: Codable {
     var roomId: String
     var host: PlayerInfo
-    var players: [PlayerInfo]
+    var players: [PlayerInfo]?
     var isOpen: Bool
 
     init(roomId: String, host: PlayerInfo, players: [PlayerInfo], isOpen: Bool) {

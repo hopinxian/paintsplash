@@ -95,7 +95,7 @@ class FirebaseLobbyHandler: LobbyHandler {
             }
             // TODO: check if we should close room immediately
 
-            let players = roomInfo.players
+            let players = roomInfo.players ?? []
             // check that player doesn't already exist
             guard !players.contains(player) else {
                 print("player already exists")
@@ -104,10 +104,12 @@ class FirebaseLobbyHandler: LobbyHandler {
             }
 
             // Add guest as one of the players
-            let guestPath = FirebasePaths.rooms_players + "/" + player.playerUUID
+            var newRoomInfo = roomInfo
+            newRoomInfo.players = [player]
+            let roomPath = FirebasePaths.rooms + "/" + roomId
             self.connectionHandler.send(
-                to: guestPath,
-                data: player,
+                to: roomPath,
+                data: newRoomInfo,
                 mode: .single, shouldRemoveOnDisconnect: true,
                 onComplete: { onSuccess?(roomInfo) },
                 onError: onError

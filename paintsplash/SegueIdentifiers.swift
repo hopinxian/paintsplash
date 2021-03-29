@@ -6,6 +6,7 @@
 //
 
 enum SegueIdentifiers {
-    static let roomVCSegue = "ShowRoomVCSegue"
+    static let multiplayerMenuToRoom = "MultiplayerMenuToRoomSegue"
+    static let joinMenuToRoom = "JoinMenuToRoomSegue"
     static let joinRoomVCSegue = "ShowJoinRoomVCSegue"
 }

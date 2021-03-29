@@ -12,6 +12,7 @@ class RoomViewController: UIViewController {
     @IBOutlet private var roomCodeDisplay: UILabel!
     @IBOutlet private var hostNameLabel: UILabel!
     @IBOutlet private var guestNameLabel: UILabel!
+    @IBOutlet var startGameButton: UIButton!
 
     var currentRoom: RoomInfo? {
         didSet {
@@ -38,12 +39,15 @@ class RoomViewController: UIViewController {
                                        onRoomClose: onRoomClose,
                                        onError: onError)
         onRoomChange(roomInfo: room)
+        if playerInfo != currentRoom?.host {
+            startGameButton.isEnabled = false
+        }
     }
 
     func onRoomChange(roomInfo: RoomInfo) {
         self.roomCodeDisplay?.text = roomInfo.roomId
         self.hostNameLabel?.text = roomInfo.host.playerName
-        self.guestNameLabel?.text = roomInfo.players.first?.playerName
+        self.guestNameLabel?.text = roomInfo.players?.first?.playerName
     }
 
     func onRoomClose() {

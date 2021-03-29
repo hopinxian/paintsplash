@@ -59,12 +59,12 @@ class MultiplayerMenuViewController: UIViewController {
         self.currentRoom = roomInfo
         lobbyHandler.getAllRooms()
 
-        performSegue(withIdentifier: SegueIdentifiers.roomVCSegue, sender: nil)
+        performSegue(withIdentifier: SegueIdentifiers.multiplayerMenuToRoom, sender: nil)
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
-        case SegueIdentifiers.roomVCSegue:
+        case SegueIdentifiers.multiplayerMenuToRoom:
             // TODO: when creating a room
             guard let roomVC = segue.destination as? RoomViewController,
                   let currentRoom = self.currentRoom else {

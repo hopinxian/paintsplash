@@ -109,7 +109,7 @@
                         <outlet property="createRoomButton" destination="1ps-3P-qYm" id="dFG-dK-XDe"/>
                         <outlet property="joinRoomButton" destination="A5U-ij-gU6" id="X0B-8i-Buw"/>
                         <outlet property="nameTextField" destination="Yv0-CW-S8b" id="S0e-0f-teX"/>
-                        <segue destination="NZ3-Jq-PLP" kind="show" identifier="ShowRoomVCSegue" id="qP2-MV-Z7H"/>
+                        <segue destination="NZ3-Jq-PLP" kind="show" identifier="MultiplayerMenuToRoomSegue" id="qP2-MV-Z7H"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SEv-AK-NEW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -191,6 +191,7 @@
                         <outlet property="guestNameLabel" destination="jxZ-ln-czB" id="VDV-tF-QD3"/>
                         <outlet property="hostNameLabel" destination="dpJ-Fh-vU4" id="BSJ-pJ-eLG"/>
                         <outlet property="roomCodeDisplay" destination="GKw-mR-keC" id="f3l-zL-jnI"/>
+                        <outlet property="startGameButton" destination="tyh-Ge-J2E" id="X6R-im-z74"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zm7-aZ-xCs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -234,7 +235,7 @@
                     <navigationItem key="navigationItem" id="Xfl-uL-KBF"/>
                     <connections>
                         <outlet property="enterRoomIdTextField" destination="DDg-r7-hWw" id="9wW-Ce-Twx"/>
-                        <segue destination="NZ3-Jq-PLP" kind="show" identifier="ShowRoomVCSegue" id="2yj-LE-K37"/>
+                        <segue destination="NZ3-Jq-PLP" kind="show" identifier="JoinMenuToRoomSegue" id="JGi-jN-m6e"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3oZ-b1-rVS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -321,7 +322,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="2yj-LE-K37"/>
+        <segue reference="qP2-MV-Z7H"/>
     </inferredMetricsTieBreakers>
     <resources>
         <systemColor name="systemBackgroundColor">
