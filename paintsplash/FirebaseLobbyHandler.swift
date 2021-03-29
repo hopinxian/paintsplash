@@ -7,62 +7,66 @@
 
 import Firebase
 
-struct FirebaseObserver {
-    let handle: DatabaseHandle
-    let reference: DatabaseReference
-
-    init(handle: DatabaseHandle, reference: DatabaseReference) {
-        self.handle = handle
-        self.reference = reference
-    }
-}
 
 class FirebaseLobbyHandler: LobbyHandler {
-    private var databaseRef = Database.database().reference()
+    var connectionHandler: ConnectionHandler
 
-    private var observers: [FirebaseObserver] = []
-
-    deinit {
-        // detach all observers
-        observers.forEach { observer in
-            observer.reference.removeObserver(withHandle: observer.handle)
-        }
+    init(connectionHandler: ConnectionHandler) {
+        self.connectionHandler = connectionHandler
     }
 
-    func createRoom(player: PlayerInfo, onSuccess: ((RoomInfo) -> Void)?, onError: ((Error) -> Void)?) {
+    func createRoom(player: PlayerInfo, onSuccess: ((RoomInfo) -> Void)?, onError: ((Error?) -> Void)?) {
         // Generate unique room code to return to player
         let roomId = randomFourCharString()
-        let roomRef = databaseRef.child(FirebasePaths.rooms).child(roomId)
-        roomRef.observeSingleEvent(of: .value, with: { [weak self] snapshot in
-
+//        let roomRef = databaseRef.child(FirebasePaths.rooms).child(roomId)
+        let roomPath = FirebasePaths.rooms + "/" + roomId
+        connectionHandler.getData(at: roomPath) { [weak self] error, roomInfo in
             // Room already exists, try creating another one
-            if snapshot.value as? [String: AnyObject] != nil {
+            if roomInfo != nil {
                 self?.createRoom(player: player, onSuccess: onSuccess, onError: onError)
                 return
             }
 
-            let hostId = player.playerUUID
-
-            let playerDict = player.toPlayerDict()
-            let players = [hostId: playerDict]
-
-            var roomInfo: [String: AnyObject] = [:]
-            roomInfo[FirebasePaths.rooms_isOpen] = true as AnyObject
-            roomInfo[FirebasePaths.rooms_id] = roomId as AnyObject
-            roomInfo[FirebasePaths.rooms_players] = players as AnyObject
-
-            roomRef.setValue(roomInfo, withCompletionBlock: { error, ref in
-                if let error = error {
-                    onError?(error)
-                    return
-                }
-
-                ref.onDisconnectRemoveValue()
-
-                // TODO
-                onSuccess?(RoomInfo(from: roomInfo))
-            })
-        })
+            let newRoomInfo = RoomInfo(roomId: roomId, host: player, players: [], isOpen: true)
+            self?.connectionHandler.send(
+                to: roomPath,
+                data: newRoomInfo,
+                mode: .single, 
+                shouldRemoveOnDisconnect: true,
+                onComplete: { onSuccess?(newRoomInfo) },
+                onError: onError
+            )
+        }
+//        roomRef.observeSingleEvent(of: .value, with: { [weak self] snapshot in
+//
+//            // Room already exists, try creating another one
+//            if snapshot.value as? [String: AnyObject] != nil {
+//                self?.createRoom(player: player, onSuccess: onSuccess, onError: onError)
+//                return
+//            }
+//
+//            let hostId = player.playerUUID
+//
+//            let playerDict = player.toPlayerDict()
+//            let players = [hostId: playerDict]
+//
+//            var roomInfo: [String: AnyObject] = [:]
+//            roomInfo[FirebasePaths.rooms_isOpen] = true as AnyObject
+//            roomInfo[FirebasePaths.rooms_id] = roomId as AnyObject
+//            roomInfo[FirebasePaths.rooms_players] = players as AnyObject
+//
+//            roomRef.setValue(roomInfo, withCompletionBlock: { error, ref in
+//                if let error = error {
+//                    onError?(error)
+//                    return
+//                }
+//
+//                ref.onDisconnectRemoveValue()
+//
+//                // TODO
+//                onSuccess?(RoomInfo(from: roomInfo))
+//            })
+//        })
     }
 
     private func randomFourCharString() -> String {
@@ -74,83 +78,67 @@ class FirebaseLobbyHandler: LobbyHandler {
     }
 
     func joinRoom(player: PlayerInfo, roomId: String, onSuccess: ((RoomInfo) -> Void)?,
-                  onError: (() -> Void)?, onRoomIsClosed: (() -> Void)?,
+                  onError: ((Error?) -> Void)?, onRoomIsClosed: (() -> Void)?,
                   onRoomNotExist: (() -> Void)?) {
         print("Try to join room \(roomId)")
         // Try to join a room
-        let roomRef = databaseRef.child(FirebasePaths.rooms).child(roomId)
-        roomRef.observeSingleEvent(of: .value, with: { snapshot in
-            // Room does not exist
-            guard let room = snapshot.value as? [String: AnyObject] else {
+        let roomPath = FirebasePaths.rooms + "/" + roomId
+        connectionHandler.getData(at: roomPath, block: { (error: Error?, roomInfo: RoomInfo?) in
+            guard let roomInfo = roomInfo else {
                 onRoomNotExist?()
                 return
             }
 
-            guard let isOpen = room[FirebasePaths.rooms_isOpen] as? Bool else {
-                print("error with database schema")
-                onError?()
-                return
-            }
-
-            if !isOpen {
+            if !roomInfo.isOpen {
                 onRoomIsClosed?()
                 return
             }
             // TODO: check if we should close room immediately
 
-            let players = room[FirebasePaths.rooms_players] as? [String: AnyObject] ?? [:]
+            let players = roomInfo.players
             // check that player doesn't already exist
-            guard players[player.playerUUID] == nil else {
+            guard !players.contains(player) else {
                 print("player already exists")
-                onError?()
+                onError?(nil)
                 return
             }
 
             // Add guest as one of the players
-            let guestDict = player.toPlayerDict()
-            let guestRef = roomRef.child(FirebasePaths.rooms_players).child(player.playerUUID)
-            guestRef.setValue(guestDict, withCompletionBlock: { error, ref in
-                if let err = error {
-                    // TODO: better error handling
-                    print("error setting guest ref")
-                    onError?()
-                }
-
-                guestRef.onDisconnectRemoveValue()
-            })
+            let guestPath = FirebasePaths.rooms_players + "/" + player.playerUUID
+            self.connectionHandler.send(
+                to: guestPath,
+                data: player,
+                mode: .single, shouldRemoveOnDisconnect: true,
+                onComplete: { onSuccess?(roomInfo) },
+                onError: onError
+            )
         })
     }
 
     func observeRoom(roomId: String, onRoomChange: ((RoomInfo) -> Void)?, onRoomClose: (() -> Void)?,
-                     onError: (() -> Void)?) {
-        let roomRef = databaseRef.child(FirebasePaths.rooms).child(roomId)
-        let observerHandle = roomRef.observe(.value, with: { snapshot in
-            print("Room changed \(snapshot)")
-            guard let room = snapshot.value as? [String: AnyObject] else {
-                // room closed or does not exist
+                     onError: ((Error?) -> Void)?) {
+        let roomPath = FirebasePaths.rooms + "/" + roomId
+        connectionHandler.listen(to: roomPath) { (roomInfo: RoomInfo?) in
+            guard let roomInfo = roomInfo else {
                 onRoomClose?()
                 return
             }
 
-            let updatedRoomInfo = RoomInfo(from: room)
-            onRoomChange?(updatedRoomInfo)
-        })
-
-        self.observers.append(FirebaseObserver(handle: observerHandle, reference: roomRef))
+            onRoomChange?(roomInfo)
+        }
     }
 
-    func leaveRoom(roomId: String, onSuccess: (() -> Void)?, onError: ((Error) -> Void)?) {
+    func leaveRoom(roomId: String, onSuccess: (() -> Void)?, onError: ((Error?) -> Void)?) {
 
     }
 
     func getAllRooms() {
-        databaseRef.child(FirebasePaths.rooms).getData(completion: { error, snapshot in
+        connectionHandler.getData(at: FirebasePaths.rooms) { (error, snapshot) in
             if let error = error {
                 print("Error fetching all rooms \(error)")
                 return
             }
             print("Fetched all rooms: \(snapshot)")
-
-        })
+        }
     }
 }

@@ -8,7 +8,7 @@
 import UIKit
 
 class JoinRoomViewController: UIViewController {
-    var connectionHandler: LobbyHandler?
+    var lobbyHandler: LobbyHandler?
 
     var roomToJoin: RoomInfo?
 
@@ -29,7 +29,7 @@ class JoinRoomViewController: UIViewController {
               let player = playerInfo else {
             return
         }
-        connectionHandler?.joinRoom(player: player,
+        lobbyHandler?.joinRoom(player: player,
                                     roomId: roomIdToJoin,
                                     onSuccess: onJoinRoom,
                                     onError: onErrorJoiningRoom,
@@ -37,7 +37,7 @@ class JoinRoomViewController: UIViewController {
                                     onRoomNotExist: onRoomNotExist)
     }
 
-    func onErrorJoiningRoom() {
+    func onErrorJoiningRoom(error: Error?) {
         print("Error joining room")
     }
 
@@ -65,7 +65,13 @@ class JoinRoomViewController: UIViewController {
             }
             roomVC.currentRoom = roomInfo
             roomVC.playerInfo = self.playerInfo
-            roomVC.connectionHandler = self.connectionHandler
+            roomVC.lobbyHandler = self.lobbyHandler
+        case "StartMultiplayerClient":
+            guard let clientVC = segue.destination as? MultiplayerClientViewController else {
+                return
+            }
+
+            clientVC.connectionHandler = FirebaseConnectionHandler()
         default:
             print("No segue with given identifier")
             return

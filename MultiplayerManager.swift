@@ -7,12 +7,12 @@
 
 class MultiplayerServer: GameManager {
     var entities = Set<GameEntity>()
-    var lobby: MultiplayerLobby
-    var connectionHandler: ConnectionHandler
+    var room: RoomInfo
+    var lobbyHandler: LobbyHandler
 
-    init(connectionHandler: ConnectionHandler, lobby: MultiplayerLobby) {
-        self.connectionHandler = connectionHandler
-        self.lobby = lobby
+    init(lobbyHandler: LobbyHandler, roomInfo: RoomInfo) {
+        self.lobbyHandler = lobbyHandler
+        self.room = roomInfo
     }
 
     func sendGameState() {
@@ -38,28 +38,48 @@ class MultiplayerServer: GameManager {
 
 class MultiplayerClient: GameManager {
     var entities = Set<GameEntity>()
-    var lobby: MultiplayerLobby?
+    var room: RoomInfo?
     var connectionHandler: ConnectionHandler
-    var multiplayerMatchmaker: MultiplayerMatchmaker
+    var gameScene: GameScene
 
-    init(connectionHandler: ConnectionHandler, matchMaker: MultiplayerMatchmaker) {
-        self.multiplayerMatchmaker = matchMaker
+    var renderSystem: RenderSystem!
+    var animationSystem: AnimationSystem!
+    var audioSystem: AudioSystem!
+
+    init(connectionHandler: ConnectionHandler, gameScene: GameScene) {
         self.connectionHandler = connectionHandler
+        self.gameScene = gameScene
+        setupGame()
     }
 
-    func joinLobby(code: String) throws {
-        guard !inLobby() else {
-            throw MultiplayerError.alreadyInLobby
-        }
+    func setupGame() {
+        setUpSystems()
+        setUpEntities()
+        setUpUI()
+        setUpAudio()
+    }
 
-        let joinedLobby = try multiplayerMatchmaker.joinLobby(code)
-        self.lobby = joinedLobby
+    func setUpSystems() {
+        let renderSystem = SKRenderSystem(scene: gameScene)
+        self.renderSystem = renderSystem
+        animationSystem = SKAnimationSystem(renderSystem: renderSystem)
+        audioSystem = AudioManager()
+    }
 
-        let server = MultiplayerServer(connectionHandler: connectionHandler, lobby: joinedLobby)
+    func setUpEntities() {
+
+    }
+
+    func setUpUI() {
+
+    }
+
+    func setUpAudio() {
+
     }
 
     func inLobby() -> Bool {
-        lobby != nil
+        return false
     }
 
     func updateGameState() {

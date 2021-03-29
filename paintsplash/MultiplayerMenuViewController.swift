@@ -8,7 +8,7 @@
 import UIKit
 
 class MultiplayerMenuViewController: UIViewController {
-    let connectionHandler: LobbyHandler = FirebaseLobbyHandler()
+    let lobbyHandler: LobbyHandler
 
     @IBOutlet private var nameTextField: UITextField!
 
@@ -18,6 +18,12 @@ class MultiplayerMenuViewController: UIViewController {
     private var currentRoom: RoomInfo?
     private var playerName = String()
     private let playerUUID = UUID().uuidString
+
+    required init?(coder: NSCoder) {
+        let connectionHandler = FirebaseConnectionHandler()
+        lobbyHandler = FirebaseLobbyHandler(connectionHandler: connectionHandler)
+        super.init(coder: coder)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,17 +46,18 @@ class MultiplayerMenuViewController: UIViewController {
     }
 
     @IBAction private func createRoom(_ sender: UIButton) {
-        let playerInfo = PlayerInfo(uuid: self.playerUUID, name: self.playerName, isHost: true)
-        connectionHandler.createRoom(player: playerInfo,
+        let playerInfo = PlayerInfo(playerUUID: self.playerUUID, playerName: self.playerName)
+        lobbyHandler.createRoom(player: playerInfo,
                                      onSuccess: { roomInfo in
                                         self.onCreateRoom(roomInfo: roomInfo)
                                      },
                                      onError: { error in print("Failed to host room: \(error)") })
+
     }
 
     private func onCreateRoom(roomInfo: RoomInfo) {
         self.currentRoom = roomInfo
-        connectionHandler.getAllRooms()
+        lobbyHandler.getAllRooms()
 
         performSegue(withIdentifier: SegueIdentifiers.roomVCSegue, sender: nil)
     }
@@ -64,19 +71,17 @@ class MultiplayerMenuViewController: UIViewController {
                 return
             }
             roomVC.currentRoom = currentRoom
-            roomVC.playerInfo = PlayerInfo(uuid: self.playerUUID,
-                                           name: self.playerName,
-                                           isHost: true)
-            roomVC.connectionHandler = self.connectionHandler
+            roomVC.playerInfo = PlayerInfo(playerUUID: self.playerUUID,
+                                           playerName: self.playerName)
+            roomVC.lobbyHandler = self.lobbyHandler
 
         case SegueIdentifiers.joinRoomVCSegue:
             guard let joinRoomVC = segue.destination as? JoinRoomViewController else {
                 return
             }
-            joinRoomVC.playerInfo = PlayerInfo(uuid: self.playerUUID,
-                                           name: self.playerName,
-                                           isHost: false)
-            joinRoomVC.connectionHandler = self.connectionHandler
+            joinRoomVC.playerInfo = PlayerInfo(playerUUID: self.playerUUID,
+                                               playerName: self.playerName)
+            joinRoomVC.lobbyHandler = self.lobbyHandler
         default:
             print("No segue with given identifier")
             return

@@ -6,8 +6,17 @@
 //
 
 protocol ConnectionHandler {
-    func send<T: Codable>(to destination: CloudPath, data: T, mode: TransactionMode) throws
-    func listen<T: Codable>(to source: CloudPath, callBack: @escaping (T) -> Void)
+    func send<T: Codable>(
+        to destination: String,
+        data: T,
+        mode: TransactionMode,
+        shouldRemoveOnDisconnect: Bool,
+        onComplete: (() -> Void)?,
+        onError: ((Error?) -> Void)?
+    )
+    func listen<T: Codable>(to source: String, callBack: @escaping (T?) -> Void)
+    func getData<T: Codable>(at path: String, block: @escaping (Error?, T?) -> Void)
+    func getData(at path: String, block: @escaping (Error?, [String: Any]?) -> Void)
 }
 
 import Firebase
@@ -15,31 +24,75 @@ import Firebase
 class FirebaseConnectionHandler: ConnectionHandler {
     var firebase: Database
     var batchedOperations = [FirebaseOperation]()
+    private var observers: [FirebaseObserver] = []
 
-    init(firebase: Database) {
-        self.firebase = firebase
+    deinit {
+        // detach all observers
+        observers.forEach { observer in
+            observer.reference.removeObserver(withHandle: observer.handle)
+        }
     }
 
-    func send<T: Codable>(to destination: CloudPath, data: T, mode: TransactionMode = .single) throws {
-        guard let dataDict = data.dictionary else {
-            throw FirebaseError.encodingError
-        }
+    init() {
+        self.firebase = Database.database()
+    }
+
+    func send<T: Codable>(
+        to destination: String,
+        data: T,
+        mode: TransactionMode,
+        shouldRemoveOnDisconnect: Bool,
+        onComplete: (() -> Void)?,
+        onError: ((Error?) -> Void)?
+    ) {
+        let dataDict = data.dictionary
 
         if mode == .single {
-            firebase.reference().child(destination.path).setValue(dataDict)
+            firebase.reference().child(destination).setValue(dataDict, withCompletionBlock: { error, ref in
+                if shouldRemoveOnDisconnect {
+                    ref.onDisconnectRemoveValue()
+                }
+                if error != nil {
+                    DispatchQueue.main.async {
+                        onError?(error)
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        onComplete?()
+                    }
+                }
+            })
         } else if mode == .batched {
-            batchedOperations.append(FirebaseOperation(path: destination.path, data: dataDict))
+            batchedOperations.append(FirebaseOperation(path: destination, data: dataDict, onSuccess: onComplete, onError: onError))
         }
     }
 
-    func listen<T: Codable>(to source: CloudPath, callBack: @escaping (T) -> Void) {
-        firebase.reference().child(source.path).observe(DataEventType.value) { snapshot in
-            let dataDict = snapshot.value as? [String: AnyObject] ?? [:]
-            if let object = T.init(from: dataDict) {
-                callBack(object)
-            }
+    func listen<T: Codable>(to source: String, callBack: @escaping (T?) -> Void) {
+        let ref = firebase.reference().child(source)
+        let observerHandle = ref.observe(DataEventType.value) { snapshot in
+            let rawData = snapshot.value as? [String: AnyObject]
+            let data = T(from: rawData)
+            callBack(data)
         }
+        self.observers.append(FirebaseObserver(handle: observerHandle, reference: ref))
     }
+
+    func getData<T: Codable>(at path: String, block: @escaping (Error?, T?) -> Void) {
+        firebase.reference().child(path).getData(completion: { (error, snapshot) in
+            //TODO Error Handling
+            let rawData = snapshot.value as? [String: AnyObject]
+            let data = T(from: rawData)
+            block(error, data)
+        })
+    }
+    
+    func getData(at path: String, block: @escaping (Error?, [String: Any]?) -> Void) {
+        firebase.reference().child(path).getData(completion: { (error, snapshot) in
+            let rawData = snapshot.value as? [String: AnyObject]
+            block(error, rawData)
+        })
+    }
+
 
     func commitBatchedOperations() {
         guard !batchedOperations.isEmpty else {
@@ -52,6 +105,20 @@ class FirebaseConnectionHandler: ConnectionHandler {
             }
 
             return TransactionResult.success(withValue: mutableData)
+        }, andCompletionBlock: { error, success, snapshot in
+            if success {
+                for operation in self.batchedOperations {
+                    DispatchQueue.main.async {
+                        operation.onSuccess?()
+                    }
+                }
+            } else {
+                for operation in self.batchedOperations {
+                    DispatchQueue.main.async {
+                        operation.onError?(error)
+                    }
+                }
+            }
         })
     }
 }
@@ -63,34 +130,36 @@ enum TransactionMode {
 
 struct FirebaseOperation {
     let path: String
-    let data: [String: Any]
+    let data: [String: Any]?
+    let onSuccess: (() -> Void)?
+    let onError: ((Error?) -> Void)?
 }
 
-protocol CloudPath {
-    var path: String { get }
-    static func fromObject(_ object: AnyObject) -> CloudPath
-}
-
-class FirebasePath: CloudPath {
-    static func fromObject(_ object: AnyObject) -> CloudPath {
-        switch object {
-        case let lobby as MultiplayerLobby:
-            let id = lobby.id
-            return FirebasePath(path: id.uuidString)
-        case let entity as GameEntity:
-            let id = entity.id
-            return FirebasePath(path: id.uuidString)
-        default:
-            return FirebasePath(path: "")
-        }
-    }
-
-    var path: String
-
-    init(path: String) {
-        self.path = path
-    }
-}
+//protocol CloudPath {
+//    var path: String { get }
+//    static func fromObject(_ object: AnyObject) -> CloudPath
+//}
+//
+//class FirebasePath: CloudPath {
+//    static func fromObject(_ object: AnyObject) -> CloudPath {
+//        switch object {
+//        case let lobby as MultiplayerLobby:
+//            let id = lobby.id
+//            return FirebasePath(path: id.uuidString)
+//        case let entity as GameEntity:
+//            let id = entity.id
+//            return FirebasePath(path: id.uuidString)
+//        default:
+//            return FirebasePath(path: "")
+//        }
+//    }
+//
+//    var path: String
+//
+//    init(path: String) {
+//        self.path = path
+//    }
+//}
 
 extension Encodable {
   var dictionary: [String: Any]? {
@@ -113,4 +182,14 @@ extension Decodable {
 
 enum FirebaseError: Error {
     case encodingError
+}
+
+struct FirebaseObserver {
+    let handle: DatabaseHandle
+    let reference: DatabaseReference
+
+    init(handle: DatabaseHandle, reference: DatabaseReference) {
+        self.handle = handle
+        self.reference = reference
+    }
 }

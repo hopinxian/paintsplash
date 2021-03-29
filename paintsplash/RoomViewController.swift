@@ -24,7 +24,7 @@ class RoomViewController: UIViewController {
 
     var playerInfo: PlayerInfo?
 
-    var connectionHandler: LobbyHandler?
+    var lobbyHandler: LobbyHandler?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,29 +33,44 @@ class RoomViewController: UIViewController {
             return
         }
 
-        connectionHandler?.observeRoom(roomId: room.roomId,
+        lobbyHandler?.observeRoom(roomId: room.roomId,
                                        onRoomChange: onRoomChange,
                                        onRoomClose: onRoomClose,
                                        onError: onError)
+        onRoomChange(roomInfo: room)
     }
 
     func onRoomChange(roomInfo: RoomInfo) {
-        print("Room changed!")
         self.roomCodeDisplay?.text = roomInfo.roomId
-        self.hostNameLabel?.text = roomInfo.hostName
-        self.guestNameLabel?.text = roomInfo.guestName
+        self.hostNameLabel?.text = roomInfo.host.playerName
+        self.guestNameLabel?.text = roomInfo.players.first?.playerName
     }
 
     func onRoomClose() {
 
     }
 
-    func onError() {
+    func onError(error: Error?) {
         print("Error encountered")
     }
 
     @IBAction private func leaveRoom(_ sender: UIButton) {
 
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+        case "StartMultiplayerServer":
+            guard let serverVC = segue.destination as? MultiplayerServerViewController else {
+                return
+            }
+
+            serverVC.lobbyHandler = self.lobbyHandler
+            serverVC.connectionHandler = FirebaseConnectionHandler()
+            serverVC.roomInfo = currentRoom
+        default:
+            break
+        }
     }
 
 }

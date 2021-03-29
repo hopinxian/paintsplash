@@ -11,6 +11,14 @@ import SpriteKit
 class GameViewController: UIViewController {
 
     weak var gameScene: GameScene?
+    var gameManager: GameManager?
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        // Hide the navigation bar on the this view controller
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +36,7 @@ class GameViewController: UIViewController {
 
             // Present the scene
             gameScene.size = view.bounds.size
+
             view.presentScene(gameScene)
 
             view.ignoresSiblingOrder = true

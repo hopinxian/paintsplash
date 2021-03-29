@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="SyQ-UE-Ovl">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="VUw-IP-qEr">
     <device id="ipad10_9rounded" orientation="landscape" layout="fullscreen" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -9,6 +9,23 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="Njr-4B-x0U">
+            <objects>
+                <navigationController navigationBarHidden="YES" id="VUw-IP-qEr" sceneMemberID="viewController">
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="rqT-od-Rcc">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="SyQ-UE-Ovl" kind="relationship" relationship="rootViewController" id="3Gv-i0-TPm"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Pgp-hc-jrg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1033" y="-640"/>
+        </scene>
         <!--Menu View Controller-->
         <scene sceneID="Mag-rz-Ywh">
             <objects>
@@ -32,13 +49,15 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="39"/>
                                 <state key="normal" title="Multiplayer"/>
                                 <connections>
-                                    <segue destination="P7p-Ms-6B4" kind="show" id="HRX-eb-45i"/>
+                                    <segue destination="Sjf-th-9Xh" kind="show" id="oD7-ml-2hr"/>
                                 </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="3sB-Xf-lfj"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
+                    <navigationItem key="navigationItem" id="ipv-M9-Mwn"/>
+                    <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="startGameButton" destination="oYq-Wa-HMB" id="wah-jm-u7y"/>
                     </connections>
@@ -52,7 +71,7 @@
             <objects>
                 <viewController title="Multiplayer Menu" id="Sjf-th-9Xh" customClass="MultiplayerMenuViewController" customModule="paintsplash" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="qut-hV-0u6">
-                        <rect key="frame" x="0.0" y="0.0" width="704" height="780"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1180" height="820"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1ps-3P-qYm">
@@ -85,6 +104,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" id="AEN-9Z-aVp"/>
+                    <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="createRoomButton" destination="1ps-3P-qYm" id="dFG-dK-XDe"/>
                         <outlet property="joinRoomButton" destination="A5U-ij-gU6" id="X0B-8i-Buw"/>
@@ -101,7 +121,7 @@
             <objects>
                 <viewController title="Room View Controller" id="NZ3-Jq-PLP" customClass="RoomViewController" customModule="paintsplash" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="lmu-7t-FlG">
-                        <rect key="frame" x="0.0" y="0.0" width="704" height="780"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1180" height="820"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Room Id:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QAi-Mh-Uhj" userLabel="Room Id Label">
@@ -158,6 +178,9 @@
                                 <rect key="frame" x="405" y="449" width="78" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Start Game"/>
+                                <connections>
+                                    <segue destination="HRi-Zi-BnW" kind="show" identifier="StartMultiplayerServer" id="VNl-bf-WhG"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="9Tv-Hb-2ok"/>
@@ -179,7 +202,7 @@
             <objects>
                 <viewController title="Join Room View Controller" id="3xa-g7-gsi" customClass="JoinRoomViewController" customModule="paintsplash" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="GPx-ij-ULh">
-                        <rect key="frame" x="0.0" y="0.0" width="704" height="780"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1180" height="820"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DDg-r7-hWw">
@@ -218,49 +241,83 @@
             </objects>
             <point key="canvasLocation" x="818.64406779661022" y="848.78048780487802"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="Tuu-su-uhT">
-            <objects>
-                <navigationController navigationBarHidden="YES" id="P7p-Ms-6B4" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="fNX-ME-xGH"/>
-                    <nil key="simulatedTopBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="8BE-II-oT0">
-                        <rect key="frame" x="-238" y="-20" width="0.0" height="0.0"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="Sjf-th-9Xh" kind="relationship" relationship="rootViewController" id="n1w-S4-Y7D"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="vw8-VV-8Qm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="455" y="-640"/>
-        </scene>
-        <!--Game View Controller-->
+        <!--Single Player View Controller-->
         <scene sceneID="tXr-a1-R10">
             <objects>
-                <viewController id="BV1-FR-VrT" customClass="GameViewController" customModule="paintsplash" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="singlePlayerViewController" id="BV1-FR-VrT" customClass="SinglePlayerViewController" customModule="paintsplash" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" multipleTouchEnabled="YES" contentMode="scaleToFill" id="3se-qz-xqx" customClass="SKView">
-                        <rect key="frame" x="0.0" y="0.0" width="704" height="780"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1180" height="820"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hxt-Eo-uBB">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vT6-OS-uhk">
                                 <rect key="frame" x="20" y="20" width="83" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Close Game"/>
                                 <connections>
-                                    <action selector="closeGame:" destination="BV1-FR-VrT" eventType="touchUpInside" id="2D6-Q9-ZAq"/>
+                                    <action selector="onCloseGame:" destination="BV1-FR-VrT" eventType="touchUpInside" id="WjP-hS-RwN"/>
                                 </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="4qk-I5-YsI"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" id="Vhl-xQ-gS6"/>
+                    <nil key="simulatedTopBarMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-782" y="107"/>
+        </scene>
+        <!--Multiplayer Server View Controller-->
+        <scene sceneID="eYI-2d-kuf">
+            <objects>
+                <viewController storyboardIdentifier="multiplayerClientViewController" id="HRi-Zi-BnW" customClass="MultiplayerServerViewController" customModule="paintsplash" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" multipleTouchEnabled="YES" contentMode="scaleToFill" id="Qkp-X9-YEF" customClass="SKView">
+                        <rect key="frame" x="0.0" y="0.0" width="1180" height="820"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sac-BC-CSE">
+                                <rect key="frame" x="20" y="20" width="83" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Close Game"/>
+                                <connections>
+                                    <action selector="closeGame:" destination="HRi-Zi-BnW" eventType="touchUpInside" id="NxK-yX-Rqw"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="hM5-9J-mW4"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="c3C-VL-P9x"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kC9-AW-o45" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-227" y="1696"/>
+        </scene>
+        <!--Multiplayer Client View Controller-->
+        <scene sceneID="T9t-3t-ng8">
+            <objects>
+                <viewController storyboardIdentifier="multiplayerServerViewController" id="ESr-bj-Mg2" customClass="MultiplayerClientViewController" customModule="paintsplash" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" multipleTouchEnabled="YES" contentMode="scaleToFill" id="1hs-Kn-nYH" customClass="SKView">
+                        <rect key="frame" x="0.0" y="0.0" width="1180" height="820"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uqm-3E-TUn">
+                                <rect key="frame" x="20" y="20" width="83" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Close Game"/>
+                                <connections>
+                                    <action selector="closeGame:" destination="ESr-bj-Mg2" eventType="touchUpInside" id="pOT-F3-RbS"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="cah-7c-elU"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="8Id-ev-IiZ"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JJz-c5-c6N" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="428" y="1696"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
