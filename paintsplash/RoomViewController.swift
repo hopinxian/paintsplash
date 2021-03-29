@@ -45,13 +45,14 @@ class RoomViewController: UIViewController {
     }
 
     func onRoomChange(roomInfo: RoomInfo) {
+        // print("on room change triggered: guest: \(roomInfo.players?.first?.playerName)")
         self.roomCodeDisplay?.text = roomInfo.roomId
         self.hostNameLabel?.text = roomInfo.host.playerName
-        self.guestNameLabel?.text = roomInfo.players?.first?.playerName
+        self.guestNameLabel?.text = roomInfo.players?.first?.value.playerName
     }
 
     func onRoomClose() {
-
+        print("on room close")
     }
 
     func onError(error: Error?) {

@@ -10,11 +10,11 @@ import Foundation
 struct RoomInfo: Codable {
     var roomId: String
     var host: PlayerInfo
-    var players: [PlayerInfo]?
+    var players: [String: PlayerInfo]?
     var isOpen: Bool
 
-    init(roomId: String, host: PlayerInfo, players: [PlayerInfo], isOpen: Bool) {
-        assert(!players.contains(host))
+    init(roomId: String, host: PlayerInfo, players: [String: PlayerInfo], isOpen: Bool) {
+        // assert(!players.contains(host))
         self.roomId = roomId
         self.host = host
         self.players = players
