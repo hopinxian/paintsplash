@@ -15,7 +15,7 @@ class MultiplayerServerViewController: GameViewController {
         guard let scene = gameScene else {
             fatalError("GameScene not setup properly")
         }
-        let gameManager = MultiplayerServer(lobbyHandler: lobbyHandler, roomInfo: roomInfo)
+        let gameManager = MultiplayerServer(lobbyHandler: lobbyHandler, roomInfo: roomInfo, gameScene: scene)
         scene.gameManager = gameManager
     }
 }

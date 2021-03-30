@@ -7,6 +7,7 @@
 
 class MultiplayerClientViewController: GameViewController {
     var connectionHandler: ConnectionHandler!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         guard let scene = gameScene else {

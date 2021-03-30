@@ -220,6 +220,8 @@
 		DC6874CF260362C800CF89E4 /* CanvasRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC6874CE260362C800CF89E4 /* CanvasRequestManager.swift */; };
 		DC6921012605E20F008AEC2E /* PlayerDie.atlas in Resources */ = {isa = PBXBuildFile; fileRef = DC6921002605E20F008AEC2E /* PlayerDie.atlas */; };
 		DC6A07C5261304D0009FE7F6 /* GameStateInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC6A07C4261304D0009FE7F6 /* GameStateInfo.swift */; };
+		DC6A07CD261329B8009FE7F6 /* GameConnectionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC6A07CC261329B8009FE7F6 /* GameConnectionHandler.swift */; };
+		DC6A07D126132D26009FE7F6 /* FirebaseGameHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC6A07D026132D26009FE7F6 /* FirebaseGameHandler.swift */; };
 		DC6BD6A725FF46D100A33861 /* SlimeAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC6BD6A625FF46D100A33861 /* SlimeAnimations.swift */; };
 		DC7B421925FF63350069B422 /* EventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7B420D25FF63350069B422 /* EventManager.swift */; };
 		DC7B421A25FF63350069B422 /* TouchInputEventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7B420F25FF63350069B422 /* TouchInputEventManager.swift */; };
@@ -492,6 +494,8 @@
 		DC6874CE260362C800CF89E4 /* CanvasRequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasRequestManager.swift; sourceTree = "<group>"; };
 		DC6921002605E20F008AEC2E /* PlayerDie.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = PlayerDie.atlas; sourceTree = "<group>"; };
 		DC6A07C4261304D0009FE7F6 /* GameStateInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStateInfo.swift; sourceTree = "<group>"; };
+		DC6A07CC261329B8009FE7F6 /* GameConnectionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameConnectionHandler.swift; sourceTree = "<group>"; };
+		DC6A07D026132D26009FE7F6 /* FirebaseGameHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseGameHandler.swift; sourceTree = "<group>"; };
 		DC6BD6A625FF46D100A33861 /* SlimeAnimations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlimeAnimations.swift; sourceTree = "<group>"; };
 		DC7B420D25FF63350069B422 /* EventManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventManager.swift; sourceTree = "<group>"; };
 		DC7B420F25FF63350069B422 /* TouchInputEventManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchInputEventManager.swift; sourceTree = "<group>"; };
@@ -740,7 +744,9 @@
 				DCF748FB2610F5AC0008633D /* PlayerInfo.swift */,
 				DC4CAC70261301790086CBCC /* NetworkEntity.swift */,
 				DCFBF899260F66EC00BA1216 /* LobbyHandler.swift */,
+				DC6A07CC261329B8009FE7F6 /* GameConnectionHandler.swift */,
 				DCFBF89D260F680A00BA1216 /* FirebaseLobbyHandler.swift */,
+				DC6A07D026132D26009FE7F6 /* FirebaseGameHandler.swift */,
 				DCFBF8A1260F6C0600BA1216 /* FirebasePaths.swift */,
 			);
 			path = paintsplash;
@@ -1688,11 +1694,13 @@
 				842B5CDE260487BC00FCF7BD /* LevelScore.swift in Sources */,
 				D596B17925F7C20D00A5854F /* StateBehaviour.swift in Sources */,
 				D50FD6CF26120A4800491CAC /* MultiplayerClientViewController.swift in Sources */,
+				DC6A07CD261329B8009FE7F6 /* GameConnectionHandler.swift in Sources */,
 				840A889225FF13A100A07596 /* PaintColor+UIColor.swift in Sources */,
 				D53F5470260D962300635B05 /* PlayerState+Attack.swift in Sources */,
 				AC097E1126020005000951B0 /* ColorMakeup.swift in Sources */,
 				D5553D9F26062D1000C1862E /* AudioSystem.swift in Sources */,
 				D58346A725FB8616005C344D /* PaintProjectile.swift in Sources */,
+				DC6A07D126132D26009FE7F6 /* FirebaseGameHandler.swift in Sources */,
 				D53F5431260D947200635B05 /* StateComponent.swift in Sources */,
 				846D4FCD260241540079720F /* SlimeGraphics.swift in Sources */,
 				DCFBF8A6260F7DA500BA1216 /* MultiplayerMenuViewController.swift in Sources */,

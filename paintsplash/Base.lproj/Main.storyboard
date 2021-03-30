@@ -119,7 +119,6 @@
         <!--Room View Controller-->
         <scene sceneID="5Z0-8f-lVS">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Zm7-aZ-xCs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <viewController title="Room View Controller" id="NZ3-Jq-PLP" customClass="RoomViewController" customModule="paintsplash" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="lmu-7t-FlG">
                         <rect key="frame" x="0.0" y="0.0" width="1180" height="820"/>
@@ -193,9 +192,11 @@
                         <outlet property="hostNameLabel" destination="dpJ-Fh-vU4" id="BSJ-pJ-eLG"/>
                         <outlet property="roomCodeDisplay" destination="GKw-mR-keC" id="f3l-zL-jnI"/>
                         <outlet property="startGameButton" destination="tyh-Ge-J2E" id="X6R-im-z74"/>
-                        <segue destination="HRi-Zi-BnW" kind="show" id="va4-o7-lxx"/>
+                        <segue destination="HRi-Zi-BnW" kind="show" identifier="StartMultiplayerServer" id="va4-o7-lxx"/>
+                        <segue destination="ESr-bj-Mg2" kind="show" identifier="StartMultiplayerClient" id="WR2-IP-RQZ"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Zm7-aZ-xCs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="84" y="874"/>
         </scene>

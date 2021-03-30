@@ -14,14 +14,7 @@ class RoomViewController: UIViewController {
     @IBOutlet private var guestNameLabel: UILabel!
     @IBOutlet var startGameButton: UIButton!
 
-    var currentRoom: RoomInfo? {
-        didSet {
-            guard let roomInfo = currentRoom else {
-                return
-            }
-            onRoomChange(roomInfo: roomInfo)
-        }
-    }
+    var currentRoom: RoomInfo?
 
     var playerInfo: PlayerInfo?
 
@@ -46,6 +39,17 @@ class RoomViewController: UIViewController {
 
     func onRoomChange(roomInfo: RoomInfo) {
         print("onRoomChange: \(roomInfo)")
+        self.currentRoom = roomInfo
+
+        if let gameId = roomInfo.gameId {
+            // TODO: transitioning logic: pass gameId to other VC to observe
+            if playerInfo == roomInfo.host {
+                performSegue(withIdentifier: "StartMultiplayerServer", sender: nil)
+            } else {
+                performSegue(withIdentifier: "StartMultiplayerClient", sender: nil)
+            }
+            return
+        }
 
         self.roomCodeDisplay?.text = roomInfo.roomId
         self.hostNameLabel?.text = roomInfo.host.playerName
@@ -68,12 +72,8 @@ class RoomViewController: UIViewController {
         }
 
         lobbyHandler?.startGame(roomId: roomInfo.roomId, player: player,
-                                onSuccess: onStartGame(roomInfo:), onError: onError(error:))
+                                onSuccess: nil, onError: onError(error:))
 
-    }
-
-    private func onStartGame(roomInfo: RoomInfo) {
-        print("game started! \(roomInfo)")
     }
 
     @IBAction private func leaveRoom(_ sender: UIButton) {
@@ -90,6 +90,11 @@ class RoomViewController: UIViewController {
             serverVC.lobbyHandler = self.lobbyHandler
             serverVC.connectionHandler = FirebaseConnectionHandler()
             serverVC.roomInfo = currentRoom
+        case "StartMultiplayerClient":
+            guard let clientVC = segue.destination as? MultiplayerClientViewController else {
+                return
+            }
+            clientVC.connectionHandler = FirebaseConnectionHandler()
         default:
             break
         }
