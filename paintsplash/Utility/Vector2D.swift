@@ -9,7 +9,7 @@
 
 import Foundation
 
-struct Vector2D {
+struct Vector2D: Codable {
     let x: Double
     let y: Double
 

@@ -30,6 +30,8 @@ class Player: GameEntity,
     let stateComponent: StateComponent
     let multiWeaponComponent: MultiWeaponComponent
 
+    let connectionHander = FirebaseConnectionHandler()
+
     init(initialPosition: Vector2D) {
         self.transformComponent = BoundedTransformComponent(
             position: initialPosition,

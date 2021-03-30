@@ -6,7 +6,7 @@
 //
 
 class FirebaseGameHandler: GameConnectionHandler {
-    func observeGame() {
+    func addEntity(gameId: String, entity: GameEntity) {
         
     }
 }

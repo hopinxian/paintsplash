@@ -56,4 +56,8 @@ class Canvas: GameEntity, StatefulEntity, Renderable, Collidable, Transformable,
             break
         }
     }
+
+    deinit {
+        print("canvas deinit")
+    }
 }

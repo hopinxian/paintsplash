@@ -6,6 +6,5 @@
 //
 
 protocol GameConnectionHandler {
-    func observeGame()
-    
+    func addEntity(gameId: String, entity: GameEntity)
 }

@@ -9,10 +9,14 @@
 class MultiplayerServer: GameManager {
     var room: RoomInfo
     var lobbyHandler: LobbyHandler
+    var gameConnectionHandler: GameConnectionHandler?
+    var gameId: String?
 
     var gameScene: GameScene
     var gameManager: GameManager?
-    var entities = Set<GameEntity>()
+    var entities = Set<GameEntity>() // shared entities
+
+    // stuff that is not shared: health, ammo, joystick, shooting uibar, background
 
     var currentLevel: Level?
 
@@ -30,6 +34,8 @@ class MultiplayerServer: GameManager {
         self.room = roomInfo
         self.gameScene = gameScene
 
+        self.gameId = roomInfo.gameId
+
         setupGame()
     }
 
@@ -38,8 +44,11 @@ class MultiplayerServer: GameManager {
         EventSystem.entityChangeEvents.removeEntityEvent.subscribe(listener: onRemoveEntity)
 
         setUpSystems()
+        setUpUI() // Static non changing stuff that shouldn't be synced (joystick, bg)
+
+        self.gameConnectionHandler = FirebaseGameHandler()
+
         setUpEntities()
-        setUpUI()
     }
 
     func setUpSystems() {
@@ -150,6 +159,9 @@ class MultiplayerServer: GameManager {
         collisionSystem.addEntity(object)
         movementSystem.addEntity(object)
         animationSystem.addEntity(object)
+
+        // TODO: adding child
+
     }
 
     private func onRemoveEntity(event: RemoveEntityEvent) {
@@ -163,6 +175,8 @@ class MultiplayerServer: GameManager {
         collisionSystem.removeEntity(object)
         movementSystem.removeEntity(object)
         animationSystem.removeEntity(object)
+
+        // remove child
     }
 
     func update() {
@@ -173,7 +187,10 @@ class MultiplayerServer: GameManager {
         animationSystem.updateEntities()
         collisionSystem.updateEntities()
         movementSystem.updateEntities()
-        entityList.forEach({ $0.update() })
+        entityList.forEach({
+            $0.update()
+            // TODO update child
+        })
     }
 
 }

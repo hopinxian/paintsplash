@@ -8,12 +8,12 @@ import Foundation
 
 class GameEntity {
     var id = UUID()
-    var components = [Component]()
+    // var components = [Component]()
 
     init() {
-        for component in components {
-            component.entity = self
-        }
+//        for component in components {
+//            component.entity = self
+//        }
     }
 
     func spawn() {
