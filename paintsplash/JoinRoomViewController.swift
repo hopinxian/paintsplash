@@ -13,8 +13,6 @@ class JoinRoomViewController: UIViewController {
     var roomToJoin: RoomInfo?
 
     var playerInfo: PlayerInfo?
-//    var playerUUID = String()
-//    var playerName = String()
 
     @IBOutlet private var enterRoomIdTextField: UITextField!
 
@@ -30,11 +28,11 @@ class JoinRoomViewController: UIViewController {
             return
         }
         lobbyHandler?.joinRoom(player: player,
-                                    roomId: roomIdToJoin,
-                                    onSuccess: onJoinRoom,
-                                    onError: onErrorJoiningRoom,
-                                    onRoomIsClosed: onRoomIsClosed,
-                                    onRoomNotExist: onRoomNotExist)
+                               roomId: roomIdToJoin,
+                               onSuccess: onJoinRoom,
+                               onError: onErrorJoiningRoom,
+                               onRoomIsClosed: onRoomIsClosed,
+                               onRoomNotExist: onRoomNotExist)
     }
 
     func onErrorJoiningRoom(error: Error?) {

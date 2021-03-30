@@ -4,14 +4,12 @@
 //
 //  Created by Cynthia Lee on 28/3/21.
 //
-
-import Foundation
-
 struct RoomInfo: Codable {
     var roomId: String
     var host: PlayerInfo
     var players: [String: PlayerInfo]?
     var isOpen: Bool
+    var gameId: String?
 
     init(roomId: String, host: PlayerInfo, players: [String: PlayerInfo], isOpen: Bool) {
         // assert(!players.contains(host))
@@ -19,5 +17,13 @@ struct RoomInfo: Codable {
         self.host = host
         self.players = players
         self.isOpen = isOpen
+    }
+
+    mutating func setGameId(gameId: String) {
+        self.gameId = gameId
+    }
+
+    mutating func closeGame() {
+        self.isOpen = false
     }
 }

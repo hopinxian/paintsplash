@@ -29,7 +29,7 @@ class FirebaseLobbyHandler: LobbyHandler {
             self?.connectionHandler.send(
                 to: roomPath,
                 data: newRoomInfo,
-                mode: .single, 
+                mode: .single,
                 shouldRemoveOnDisconnect: true,
                 onComplete: { onSuccess?(newRoomInfo) },
                 onError: onError
@@ -130,7 +130,7 @@ class FirebaseLobbyHandler: LobbyHandler {
     }
 
     func leaveRoom(roomId: String, onSuccess: (() -> Void)?, onError: ((Error?) -> Void)?) {
-
+        // TODO: check if player is host
     }
 
     func getAllRooms() {
@@ -142,4 +142,54 @@ class FirebaseLobbyHandler: LobbyHandler {
             print("Fetched all rooms: \(snapshot)")
         }
     }
+
+    func startGame(roomId: String, player: PlayerInfo, onSuccess: ((RoomInfo) -> Void)?,
+                   onError: ((Error?) -> Void)?) {
+        let roomPath = FirebasePaths.joinPaths(FirebasePaths.rooms, roomId)
+
+        // create and set a room ID
+        connectionHandler.getData(at: roomPath, block: { (error: Error?, roomInfo: RoomInfo?) in
+            guard var roomInfo = roomInfo else {
+                print("Room does not exist anymore")
+                return
+            }
+
+            // Check if player starting game is host
+            if player != roomInfo.host {
+                print("player is not host and cannot start game")
+                return
+            }
+
+            guard roomInfo.players != nil else {
+                print("Insufficient players to start multiplayer game")
+                return
+            }
+
+            // Generate UUID for new game
+            let newGameId = UUID().uuidString
+
+            // Create a new game entry
+            let gamePath = FirebasePaths.joinPaths(FirebasePaths.games, newGameId)
+            let newGame = GameStateInfo(roomId: roomId, gameId: newGameId)
+
+            self.connectionHandler.send(to: gamePath,
+                                        data: newGame,
+                                        mode: .single, shouldRemoveOnDisconnect: true,
+                                        onComplete: nil,
+                                        onError: onError)
+
+            // Update game state for room
+            roomInfo.setGameId(gameId: newGameId)
+            roomInfo.closeGame()
+            let roomGamePath = FirebasePaths.joinPaths(roomPath)
+            self.connectionHandler.send(to: roomGamePath,
+                                        data: roomInfo,
+                                        mode: .single, shouldRemoveOnDisconnect: true,
+                                        onComplete: { onSuccess?(roomInfo) },
+                                        onError: onError)
+
+            print("successfully set game ID")
+        })
+    }
+
 }

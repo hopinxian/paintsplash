@@ -9,7 +9,7 @@ class MultiplayerServerViewController: GameViewController {
     var connectionHandler: ConnectionHandler!
     var lobbyHandler: LobbyHandler!
     var roomInfo: RoomInfo!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         guard let scene = gameScene else {

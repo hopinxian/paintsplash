@@ -216,8 +216,10 @@
 		DC24033D2600FEFE00550E1E /* CanvasSpawner.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC24033C2600FEFE00550E1E /* CanvasSpawner.swift */; };
 		DC247F5025F9C1CB001B814C /* ChasePlayerBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC247F4F25F9C1CB001B814C /* ChasePlayerBehaviour.swift */; };
 		DC247F5525F9E53C001B814C /* SpawnEnemyBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC247F5425F9E53C001B814C /* SpawnEnemyBehaviour.swift */; };
+		DC4CAC71261301790086CBCC /* NetworkEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4CAC70261301790086CBCC /* NetworkEntity.swift */; };
 		DC6874CF260362C800CF89E4 /* CanvasRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC6874CE260362C800CF89E4 /* CanvasRequestManager.swift */; };
 		DC6921012605E20F008AEC2E /* PlayerDie.atlas in Resources */ = {isa = PBXBuildFile; fileRef = DC6921002605E20F008AEC2E /* PlayerDie.atlas */; };
+		DC6A07C5261304D0009FE7F6 /* GameStateInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC6A07C4261304D0009FE7F6 /* GameStateInfo.swift */; };
 		DC6BD6A725FF46D100A33861 /* SlimeAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC6BD6A625FF46D100A33861 /* SlimeAnimations.swift */; };
 		DC7B421925FF63350069B422 /* EventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7B420D25FF63350069B422 /* EventManager.swift */; };
 		DC7B421A25FF63350069B422 /* TouchInputEventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7B420F25FF63350069B422 /* TouchInputEventManager.swift */; };
@@ -486,8 +488,10 @@
 		DC24033C2600FEFE00550E1E /* CanvasSpawner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasSpawner.swift; sourceTree = "<group>"; };
 		DC247F4F25F9C1CB001B814C /* ChasePlayerBehaviour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChasePlayerBehaviour.swift; sourceTree = "<group>"; };
 		DC247F5425F9E53C001B814C /* SpawnEnemyBehaviour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpawnEnemyBehaviour.swift; sourceTree = "<group>"; };
+		DC4CAC70261301790086CBCC /* NetworkEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkEntity.swift; sourceTree = "<group>"; };
 		DC6874CE260362C800CF89E4 /* CanvasRequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasRequestManager.swift; sourceTree = "<group>"; };
 		DC6921002605E20F008AEC2E /* PlayerDie.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = PlayerDie.atlas; sourceTree = "<group>"; };
+		DC6A07C4261304D0009FE7F6 /* GameStateInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStateInfo.swift; sourceTree = "<group>"; };
 		DC6BD6A625FF46D100A33861 /* SlimeAnimations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlimeAnimations.swift; sourceTree = "<group>"; };
 		DC7B420D25FF63350069B422 /* EventManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventManager.swift; sourceTree = "<group>"; };
 		DC7B420F25FF63350069B422 /* TouchInputEventManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchInputEventManager.swift; sourceTree = "<group>"; };
@@ -731,8 +735,10 @@
 				AC0A184C26052AF800A1338C /* Constants.swift */,
 				D53F5438260D948C00635B05 /* Components */,
 				D5500C052608E7E200E21BF1 /* System.swift */,
+				DC6A07C4261304D0009FE7F6 /* GameStateInfo.swift */,
 				DCF748F1261069A90008633D /* RoomInfo.swift */,
 				DCF748FB2610F5AC0008633D /* PlayerInfo.swift */,
+				DC4CAC70261301790086CBCC /* NetworkEntity.swift */,
 				DCFBF899260F66EC00BA1216 /* LobbyHandler.swift */,
 				DCFBF89D260F680A00BA1216 /* FirebaseLobbyHandler.swift */,
 				DCFBF8A1260F6C0600BA1216 /* FirebasePaths.swift */,
@@ -1539,6 +1545,7 @@
 				D5C5691D260AE5BF009E5BD9 /* BehaviourSequence.swift in Sources */,
 				DCF748F2261069A90008633D /* RoomInfo.swift in Sources */,
 				842B5CEE26048D2B00FCF7BD /* Points.swift in Sources */,
+				DC4CAC71261301790086CBCC /* NetworkEntity.swift in Sources */,
 				ACFD820925F676AB009D806B /* Movable.swift in Sources */,
 				DC6874CF260362C800CF89E4 /* CanvasRequestManager.swift in Sources */,
 				ACC154F626012F640000775C /* PlayerActionEventManager.swift in Sources */,
@@ -1577,6 +1584,7 @@
 				D53F5415260D93CB00635B05 /* BoundedTransformComponent.swift in Sources */,
 				D5553D9C26062D1000C1862E /* PlayableAudio.swift in Sources */,
 				D53F5401260D636A00635B05 /* HasWeapon.swift in Sources */,
+				DC6A07C5261304D0009FE7F6 /* GameStateInfo.swift in Sources */,
 				D50FD6D326120ABC00491CAC /* MultiplayerServerViewController.swift in Sources */,
 				DC9BAACB26010EFE0011B26E /* SpawnCanvasBehaviour.swift in Sources */,
 				8453F2C7260C89AE00FFD8AE /* SpawnCommand.swift in Sources */,
@@ -1874,7 +1882,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = crawlers.paintsplashes;
+				PRODUCT_BUNDLE_IDENTIFIER = crawlers.paintsplashes2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -1897,7 +1905,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = crawlers.paintsplashes;
+				PRODUCT_BUNDLE_IDENTIFIER = crawlers.paintsplashes2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;

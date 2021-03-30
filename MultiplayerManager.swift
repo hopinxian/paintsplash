@@ -32,7 +32,7 @@ class MultiplayerServer: GameManager {
     }
 
     func removeObject(_ object: GameEntity) {
-        
+
     }
 }
 

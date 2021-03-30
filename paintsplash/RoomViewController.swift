@@ -35,9 +35,9 @@ class RoomViewController: UIViewController {
         }
 
         lobbyHandler?.observeRoom(roomId: room.roomId,
-                                       onRoomChange: onRoomChange,
-                                       onRoomClose: onRoomClose,
-                                       onError: onError)
+                                  onRoomChange: onRoomChange,
+                                  onRoomClose: onRoomClose,
+                                  onError: onError)
         onRoomChange(roomInfo: room)
         if playerInfo != currentRoom?.host {
             startGameButton.isEnabled = false
@@ -45,7 +45,8 @@ class RoomViewController: UIViewController {
     }
 
     func onRoomChange(roomInfo: RoomInfo) {
-        // print("on room change triggered: guest: \(roomInfo.players?.first?.playerName)")
+        print("onRoomChange: \(roomInfo)")
+
         self.roomCodeDisplay?.text = roomInfo.roomId
         self.hostNameLabel?.text = roomInfo.host.playerName
         self.guestNameLabel?.text = roomInfo.players?.first?.value.playerName
@@ -56,7 +57,23 @@ class RoomViewController: UIViewController {
     }
 
     func onError(error: Error?) {
-        print("Error encountered")
+        print("Error encountered: \(error)")
+    }
+
+    @IBAction private func startGame(_ sender: UIButton) {
+        print("start game button pressed")
+        guard let roomInfo = self.currentRoom,
+              let player = self.playerInfo else {
+            return
+        }
+
+        lobbyHandler?.startGame(roomId: roomInfo.roomId, player: player,
+                                onSuccess: onStartGame(roomInfo:), onError: onError(error:))
+
+    }
+
+    private func onStartGame(roomInfo: RoomInfo) {
+        print("game started! \(roomInfo)")
     }
 
     @IBAction private func leaveRoom(_ sender: UIButton) {
