@@ -5,7 +5,7 @@
 //  Created by Farrell Nah on 19/3/21.
 //
 
-class HeartDisplay: GameEntity, Renderable {
+class HeartDisplay: UIEntity, Renderable {
     let transformComponent: TransformComponent
     let renderComponent: RenderComponent
 

@@ -8,6 +8,8 @@
 protocol GameManager {
     var entities: Set<GameEntity> { get set }
 
+    var uiEntities: Set<GameEntity> { get set }
+
 //    var currentLevel: Level? { get set }
 //
 //    var aiSystem: StateManagerSystem! { get }

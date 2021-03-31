@@ -10,7 +10,12 @@ import SpriteKit
 class SinglePlayerGameManager: GameManager {
     var gameScene: GameScene
     var gameManager: GameManager?
+
+    // game entities that should change
     var entities = Set<GameEntity>()
+
+    // game entities that are specific to player and do not change
+    var uiEntities = Set<GameEntity>()
 
     var currentLevel: Level?
 
@@ -31,6 +36,8 @@ class SinglePlayerGameManager: GameManager {
 
         EventSystem.entityChangeEvents.addEntityEvent.subscribe(listener: onAddEntity)
         EventSystem.entityChangeEvents.removeEntityEvent.subscribe(listener: onRemoveEntity)
+        EventSystem.entityChangeEvents.addUIEntityEvent.subscribe(listener: onAddUIEntity)
+        EventSystem.entityChangeEvents.removeUIEntityEvent.subscribe(listener: onRemoveUIEntity)
 
         setupGame()
     }
@@ -116,7 +123,7 @@ class SinglePlayerGameManager: GameManager {
         let joystick = Joystick(associatedEntityID: player.id)
         joystick.spawn()
 
-        let attackButton = AttackButton(associatedEntityID: player2.id)
+        let attackButton = AttackButton(associatedEntityID: player.id)
         attackButton.spawn()
 
 //        let joystick2 = Joystick(associatedEntityID: player2.id)
@@ -147,8 +154,21 @@ class SinglePlayerGameManager: GameManager {
         addObject(event.entity)
     }
 
-    func addObject(_ object: GameEntity) {
-        entities.insert(object)
+    private func onRemoveEntity(event: RemoveEntityEvent) {
+        removeObject(event.entity)
+    }
+
+    private func onAddUIEntity(event: AddUIEntityEvent) {
+        uiEntities.insert(event.entity)
+        addObjectToSystems(event.entity)
+    }
+
+    private func onRemoveUIEntity(event: RemoveUIEntityEvent) {
+        uiEntities.remove(event.entity)
+        removeObjectFromSystems(event.entity)
+    }
+
+    private func addObjectToSystems(_ object: GameEntity) {
         renderSystem.addEntity(object)
         aiSystem.addEntity(object)
         collisionSystem.addEntity(object)
@@ -156,12 +176,7 @@ class SinglePlayerGameManager: GameManager {
         animationSystem.addEntity(object)
     }
 
-    private func onRemoveEntity(event: RemoveEntityEvent) {
-        removeObject(event.entity)
-    }
-
-    func removeObject(_ object: GameEntity) {
-        entities.remove(object)
+    private func removeObjectFromSystems(_ object: GameEntity) {
         renderSystem.removeEntity(object)
         aiSystem.removeEntity(object)
         collisionSystem.removeEntity(object)
@@ -169,14 +184,36 @@ class SinglePlayerGameManager: GameManager {
         animationSystem.removeEntity(object)
     }
 
+    func addObject(_ object: GameEntity) {
+        entities.insert(object)
+        addObjectToSystems(object)
+//        renderSystem.addEntity(object)
+//        aiSystem.addEntity(object)
+//        collisionSystem.addEntity(object)
+//        movementSystem.addEntity(object)
+//        animationSystem.addEntity(object)
+    }
+
+    func removeObject(_ object: GameEntity) {
+        entities.remove(object)
+        removeObjectFromSystems(object)
+//        renderSystem.removeEntity(object)
+//        aiSystem.removeEntity(object)
+//        collisionSystem.removeEntity(object)
+//        movementSystem.removeEntity(object)
+//        animationSystem.removeEntity(object)
+    }
+
     func update() {
         currentLevel?.update()
         let entityList = Array(entities)
+
         aiSystem.updateEntities()
         renderSystem.updateEntities()
         animationSystem.updateEntities()
         collisionSystem.updateEntities()
         movementSystem.updateEntities()
+
         entityList.forEach({ $0.update() })
     }
 

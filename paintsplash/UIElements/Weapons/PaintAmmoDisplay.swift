@@ -5,7 +5,7 @@
 //  Created by Farrell Nah on 16/3/21.
 //
 
-class PaintAmmoDisplay: GameEntity, Renderable, Colorable {
+class PaintAmmoDisplay: UIEntity, Renderable, Colorable {
     let renderComponent: RenderComponent
     let transformComponent: TransformComponent
 

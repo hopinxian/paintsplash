@@ -5,7 +5,7 @@
 //  Created by Praveen Bala on 20/3/21.
 //
 
-class UIBar: GameEntity, Renderable {
+class UIBar: UIEntity, Renderable {
     let renderComponent: RenderComponent
     let transformComponent: TransformComponent
 

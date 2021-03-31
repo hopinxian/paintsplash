@@ -7,10 +7,9 @@
 
 import Foundation
 
-class AttackButton: GameEntity, Renderable {
+class AttackButton: UIEntity, Renderable {
     let renderComponent: RenderComponent
     let transformComponent: TransformComponent
-
 
     private let associatedEntity: UUID
     private var tracking = false

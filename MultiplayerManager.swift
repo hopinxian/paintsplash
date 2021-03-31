@@ -15,6 +15,7 @@ class MultiplayerServer: GameManager {
     var gameScene: GameScene
     var gameManager: GameManager?
     var entities = Set<GameEntity>() // shared entities
+    var uiEntities = Set<GameEntity>()
 
     // stuff that is not shared: health, ammo, joystick, shooting uibar, background
 
@@ -196,6 +197,8 @@ class MultiplayerServer: GameManager {
 }
 
 class MultiplayerClient: GameManager {
+    var uiEntities = Set<GameEntity>()
+
     var entities = Set<GameEntity>()
     var room: RoomInfo?
     var connectionHandler: ConnectionHandler

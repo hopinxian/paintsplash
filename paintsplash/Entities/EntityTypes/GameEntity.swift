@@ -38,3 +38,13 @@ extension GameEntity: Hashable {
         hasher.combine(id)
     }
 }
+
+class UIEntity: GameEntity {
+    override func spawn() {
+        EventSystem.entityChangeEvents.addUIEntityEvent.post(event: AddUIEntityEvent(entity: self))
+    }
+
+    override func destroy() {
+        EventSystem.entityChangeEvents.removeUIEntityEvent.post(event: RemoveUIEntityEvent(entity: self))
+    }
+}

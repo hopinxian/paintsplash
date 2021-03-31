@@ -5,7 +5,7 @@
 //  Created by Farrell Nah on 19/3/21.
 //
 
-class PlayerHealthDisplay: GameEntity, Transformable {
+class PlayerHealthDisplay: UIEntity, Transformable {
     let transformComponent: TransformComponent
     var healthDisplayView: HorizontalStack<HeartDisplay>
 
