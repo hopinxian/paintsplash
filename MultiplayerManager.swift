@@ -5,12 +5,16 @@
 //  Created by Farrell Nah on 28/3/21.
 //
 
+import Foundation
+
 // TODO: subclass single player game manager, override?
 class MultiplayerServer: SinglePlayerGameManager {
     var room: RoomInfo
     var lobbyHandler: LobbyHandler
     var gameConnectionHandler: GameConnectionHandler?
     var gameId: String?
+
+    var otherPlayer: Player!
 
 //    var gameScene: GameScene
 //    var gameManager: GameManager?
@@ -35,21 +39,17 @@ class MultiplayerServer: SinglePlayerGameManager {
         self.room = roomInfo
         self.gameId = roomInfo.gameId
         super.init(gameScene: gameScene)
-
-        // setupGame()
     }
 
-//    func setupGame() {
-//        EventSystem.entityChangeEvents.addEntityEvent.subscribe(listener: onAddEntity)
-//        EventSystem.entityChangeEvents.removeEntityEvent.subscribe(listener: onRemoveEntity)
-//
-//        setUpSystems()
+    override func setupGame() {
+        setUpSystems()
 //        setUpUI() // Static non changing stuff that shouldn't be synced (joystick, bg)
-//
-//        self.gameConnectionHandler = FirebaseGameHandler()
-//
-//        setUpEntities()
-//    }
+
+        self.gameConnectionHandler = FirebaseGameHandler()
+
+        setUpEntities()
+        setUpUI() // Static non changing stuff that shouldn't be synced (joystick, bg)
+    }
 
 //    func setUpSystems() {
 //        let skRenderSystem = SKRenderSystem(scene: gameScene)
@@ -70,31 +70,42 @@ class MultiplayerServer: SinglePlayerGameManager {
 //        self.movementSystem = FrameMovementSystem()
 //    }
 
-//    func setUpEntities() {
-//        let background = Background()
-//        background.spawn()
-//
-//        // TODO: handle 2 players
-////        player = Player(initialPosition: Vector2D.zero)
-////        player.spawn()
-//
-//        let canvasSpawner = CanvasSpawner(
-//            initialPosition: Constants.CANVAS_SPAWNER_POSITION,
-//            canvasVelocity: Vector2D(0.4, 0),
-//            spawnInterval: 10
-//        )
-//        canvasSpawner.spawn()
-//
-//        let canvasManager = CanvasRequestManager()
-//        canvasManager.spawn()
-//
-//        let canvasEndMarker = CanvasEndMarker(size: Constants.CANVAS_END_MARKER_SIZE,
-//                                              position: Constants.CANVAS_END_MARKER_POSITION)
-//        canvasEndMarker.spawn()
-//
-//        currentLevel = Level.getDefaultLevel(gameManager: self, canvasManager: canvasManager)
-//        currentLevel?.run()
-//    }
+    override func setUpEntities() {
+        let background = Background()
+        background.spawn()
+
+//         TODO: handle 2 players
+
+        let hostId = UUID(uuidString: room.host.playerUUID)
+        player = NetworkedPlayer(initialPosition: Vector2D.zero + Vector2D.right * 50, playerUUID: hostId)
+        player.spawn()
+
+        guard let otherIdStr = room.players?.first?.value.playerUUID else {
+            fatalError("Cannot get client uuid")
+        }
+
+        let otherId = UUID(uuidString: otherIdStr)
+
+        otherPlayer = NetworkedPlayer(initialPosition: Vector2D.zero + Vector2D.left * 50, playerUUID: otherId)
+        otherPlayer.spawn()
+
+        let canvasSpawner = CanvasSpawner(
+            initialPosition: Constants.CANVAS_SPAWNER_POSITION,
+            canvasVelocity: Vector2D(0.4, 0),
+            spawnInterval: 10
+        )
+        canvasSpawner.spawn()
+
+        let canvasManager = CanvasRequestManager()
+        canvasManager.spawn()
+
+        let canvasEndMarker = CanvasEndMarker(size: Constants.CANVAS_END_MARKER_SIZE,
+                                              position: Constants.CANVAS_END_MARKER_POSITION)
+        canvasEndMarker.spawn()
+
+        currentLevel = Level.getDefaultLevel(gameManager: self, canvasManager: canvasManager)
+        currentLevel?.run()
+    }
 
     override func setUpUI() {
 //        guard let paintGun = player.multiWeaponComponent.availableWeapons.compactMap({ $0 as? PaintGun }).first else {
@@ -108,36 +119,37 @@ class MultiplayerServer: SinglePlayerGameManager {
 //        guard let paintBucket = player.multiWeaponComponent.availableWeapons.compactMap({ $0 as? Bucket }).first else {
 //            fatalError("PaintBucket not setup properly")
 //        }
-
+//
 //        let paintBucketUI = PaintBucketAmmoDisplay(weaponData: paintBucket)
 //        paintBucketUI.spawn()
 //        paintBucketUI.ammoDisplayView.animationComponent.animate(
 //            animation: WeaponAnimations.unselectWeapon,
 //            interupt: true
 //        )
-//
-//        let joystick = Joystick(associatedEntityID: pl)
-//        joystick.spawn()
-//
-//        let attackButton = AttackButton()
-//        attackButton.spawn()
 
-//        let playerHealthUI = PlayerHealthDisplay(startingHealth: player.healthComponent.currentHealth)
-//        playerHealthUI.spawn()
+        let joystick = Joystick(associatedEntityID: player.id)
+        joystick.spawn()
 
-//        let bottombar = UIBar(
-//            position: Constants.BOTTOM_BAR_POSITION,
-//            size: Constants.BOTTOM_BAR_SIZE,
-//            spritename: Constants.BOTTOM_BAR_SPRITE
-//        )
-//        bottombar.spawn()
-//
-//        let topBar = UIBar(
-//            position: Constants.TOP_BAR_POSITION,
-//            size: Constants.TOP_BAR_SIZE,
-//            spritename: Constants.TOP_BAR_SPRITE
-//        )
-//        topBar.spawn()
+        let attackButton = AttackButton(associatedEntityID: player.id)
+        attackButton.spawn()
+
+        let playerHealthUI =
+            PlayerHealthDisplay(startingHealth: player.healthComponent.currentHealth, associatedEntityId: player.id)
+        playerHealthUI.spawn()
+
+        let bottombar = UIBar(
+            position: Constants.BOTTOM_BAR_POSITION,
+            size: Constants.BOTTOM_BAR_SIZE,
+            spritename: Constants.BOTTOM_BAR_SPRITE
+        )
+        bottombar.spawn()
+
+        let topBar = UIBar(
+            position: Constants.TOP_BAR_POSITION,
+            size: Constants.TOP_BAR_SIZE,
+            spritename: Constants.TOP_BAR_SPRITE
+        )
+        topBar.spawn()
     }
 
     func sendGameState() {
@@ -216,6 +228,7 @@ class MultiplayerClient: GameManager {
         self.playerInfo = playerInfo
         self.room = roomInfo
 
+        print("init client")
         EventSystem.entityChangeEvents.addEntityEvent.subscribe(listener: onAddEntity)
         EventSystem.entityChangeEvents.removeEntityEvent.subscribe(listener: onRemoveEntity)
 

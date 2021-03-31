@@ -46,7 +46,6 @@ class Joystick: UIEntity, Renderable {
             zPosition: renderComponent.zPosition + 1
         )
 
-
         super.init()
 
         EventSystem.inputEvents.touchDownEvent.subscribe(listener: onTouchDown)

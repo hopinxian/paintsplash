@@ -125,7 +125,8 @@ class SinglePlayerGameManager: GameManager {
         let attackButton = AttackButton(associatedEntityID: player.id)
         attackButton.spawn()
 
-        let playerHealthUI = PlayerHealthDisplay(startingHealth: player.healthComponent.currentHealth)
+        let playerHealthUI =
+            PlayerHealthDisplay(startingHealth: player.healthComponent.currentHealth, associatedEntityId: player.id)
         playerHealthUI.spawn()
 
         let bottombar = UIBar(
