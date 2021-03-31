@@ -127,7 +127,7 @@ class Player: GameEntity,
         healthComponent.currentHealth += amount
 
         EventSystem.playerActionEvent.playerHealthUpdateEvent.post(
-            event: PlayerHealthUpdateEvent(newHealth: healthComponent.currentHealth)
+            event: PlayerHealthUpdateEvent(newHealth: healthComponent.currentHealth, playerId: id)
         )
     }
 
@@ -135,7 +135,7 @@ class Player: GameEntity,
         healthComponent.currentHealth -= amount
 
         EventSystem.playerActionEvent.playerHealthUpdateEvent.post(
-            event: PlayerHealthUpdateEvent(newHealth: healthComponent.currentHealth)
+            event: PlayerHealthUpdateEvent(newHealth: healthComponent.currentHealth, playerId: id)
         )
 
         if healthComponent.currentHealth <= 0 {
@@ -143,22 +143,26 @@ class Player: GameEntity,
         }
     }
 
+    func loadAmmoDrop(_ drop: PaintAmmoDrop) {
+        let ammo = drop.getAmmoObject()
+        if multiWeaponComponent.canLoad([ammo]) {
+            multiWeaponComponent.load([ammo])
+            let event = PlayerAmmoUpdateEvent(
+                weapon: multiWeaponComponent.activeWeapon,
+                ammo: multiWeaponComponent.activeWeapon.getAmmo()
+            )
+
+            EventSystem.playerActionEvent.playerAmmoUpdateEvent.post(
+                event: event
+            )
+        }
+    }
+
     func onCollide(with: Collidable) {
         if with.collisionComponent.tags.contains(.ammoDrop) {
             switch with {
             case let ammoDrop as PaintAmmoDrop:
-                let ammo = ammoDrop.getAmmoObject()
-                if multiWeaponComponent.canLoad([ammo]) {
-                    multiWeaponComponent.load([ammo])
-                    let event = PlayerAmmoUpdateEvent(
-                        weapon: multiWeaponComponent.activeWeapon,
-                        ammo: multiWeaponComponent.activeWeapon.getAmmo()
-                    )
-
-                    EventSystem.playerActionEvent.playerAmmoUpdateEvent.post(
-                        event: event
-                    )
-                }
+                loadAmmoDrop(ammoDrop)
             default:
                 fatalError("Ammo Drop not conforming to AmmoDrop protocol")
             }
@@ -180,5 +184,75 @@ class Player: GameEntity,
 
     override func update() {
         // print(stateComponent.currentState)
+    }
+}
+
+class NetworkedPlayer: Player {
+
+    init(initialPosition: Vector2D, playerUUID: UUID?) {
+        super.init(initialPosition: initialPosition)
+        id = playerUUID ?? id
+    }
+
+    override func onWeaponChange(event: PlayerChangeWeaponEvent) {
+//        switch event.newWeapon {
+//        case is Bucket.Type:
+//            _ = multiWeaponComponent.switchWeapon(to: Bucket.self)
+//        case is PaintGun.Type:
+//            _ = multiWeaponComponent.switchWeapon(to: PaintGun.self)
+//        default:
+//            break
+//        }
+//
+//        EventSystem.playerActionEvent.playerChangedWeaponEvent.post(
+//            event: PlayerChangedWeaponEvent(weapon: multiWeaponComponent.activeWeapon)
+//        )
+
+        super.onWeaponChange(event: event)
+        // send to firebase
+    }
+
+    override func heal(amount: Int) {
+//        healthComponent.currentHealth += amount
+//
+//        EventSystem.playerActionEvent.playerHealthUpdateEvent.post(
+//            event: PlayerHealthUpdateEvent(newHealth: healthComponent.currentHealth)
+//        )
+
+        super.heal(amount: amount)
+        // send to firebase
+    }
+
+    override func takeDamage(amount: Int) {
+//        healthComponent.currentHealth -= amount
+//
+//        EventSystem.playerActionEvent.playerHealthUpdateEvent.post(
+//            event: PlayerHealthUpdateEvent(newHealth: healthComponent.currentHealth)
+//        )
+//
+//        if healthComponent.currentHealth <= 0 {
+//            stateComponent.currentState = PlayerState.Die(player: self)
+//        }
+
+        super.takeDamage(amount: amount)
+        // send to firebase
+    }
+
+    override func loadAmmoDrop(_ drop: PaintAmmoDrop) {
+//        let ammo = drop.getAmmoObject()
+//        if multiWeaponComponent.canLoad([ammo]) {
+//            multiWeaponComponent.load([ammo])
+//            let event = PlayerAmmoUpdateEvent(
+//                weapon: multiWeaponComponent.activeWeapon,
+//                ammo: multiWeaponComponent.activeWeapon.getAmmo()
+//            )
+//
+//            EventSystem.playerActionEvent.playerAmmoUpdateEvent.post(
+//                event: event
+//            )
+//        }
+
+        super.loadAmmoDrop(drop)
+        // send to firebase
     }
 }

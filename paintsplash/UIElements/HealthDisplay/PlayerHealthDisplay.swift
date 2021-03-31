@@ -5,11 +5,14 @@
 //  Created by Farrell Nah on 19/3/21.
 //
 
+import Foundation
+
 class PlayerHealthDisplay: UIEntity, Transformable {
     let transformComponent: TransformComponent
     var healthDisplayView: HorizontalStack<HeartDisplay>
+    let associatedEntity: UUID
 
-    init(startingHealth: Int) {
+    init(startingHealth: Int, associatedEntityId: UUID) {
         self.transformComponent = TransformComponent(
             position: Constants.HEALTH_DISPLAY_POSITION,
             rotation: 0,
@@ -23,6 +26,7 @@ class PlayerHealthDisplay: UIEntity, Transformable {
         )
 
         self.healthDisplayView = displayView
+        self.associatedEntity = associatedEntityId
 
         super.init()
 
@@ -32,6 +36,9 @@ class PlayerHealthDisplay: UIEntity, Transformable {
     }
 
     private func onHealthUpdate(event: PlayerHealthUpdateEvent) {
+        guard event.playerId == associatedEntity else {
+            return
+        }
         updateViews(health: event.newHealth)
     }
 
