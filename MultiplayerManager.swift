@@ -76,18 +76,37 @@ class MultiplayerServer: SinglePlayerGameManager {
 
 //         TODO: handle 2 players
 
-        let hostId = UUID(uuidString: room.host.playerUUID)
+        guard let hostId = UUID(uuidString: room.host.playerUUID) else {
+            return
+        }
         player = NetworkedPlayer(initialPosition: Vector2D.zero + Vector2D.right * 50, playerUUID: hostId)
         player.spawn()
+
+        EventSystem.playerActionEvent.playerHealthUpdateEvent.subscribe(listener: { event in
+            self.gameConnectionHandler?.sendPlayerState(gameId: self.gameId ?? "",
+                                                        playerId: self.room.host.playerUUID,
+                                                        playerState: PlayerStateInfo(playerId: hostId,
+                                                                                     health: event.newHealth))
+        })
 
         guard let otherIdStr = room.players?.first?.value.playerUUID else {
             fatalError("Cannot get client uuid")
         }
 
-        let otherId = UUID(uuidString: otherIdStr)
+        guard let otherId = UUID(uuidString: otherIdStr) else {
+            return
+        }
 
         otherPlayer = NetworkedPlayer(initialPosition: Vector2D.zero + Vector2D.left * 50, playerUUID: otherId)
         otherPlayer.spawn()
+
+
+        EventSystem.playerActionEvent.playerHealthUpdateEvent.subscribe(listener: { event in
+            self.gameConnectionHandler?.sendPlayerState(gameId: self.gameId ?? "",
+                                                        playerId: otherIdStr,
+                                                        playerState: PlayerStateInfo(playerId: otherId,
+                                                                                     health: event.newHealth))
+        })
 
         let canvasSpawner = CanvasSpawner(
             initialPosition: Constants.CANVAS_SPAWNER_POSITION,
@@ -283,7 +302,11 @@ class MultiplayerClient: GameManager {
         // let playerHealthUI = PlayerHealthDisplay(startingHealth: player.healthComponent.currentHealth)
 
         // TODO: player health is currently hardcoded
-        let playerHealthUI = PlayerHealthDisplay(startingHealth: 3)
+        guard let playerId = UUID(uuidString: playerInfo.playerUUID) else {
+            return
+        }
+
+        let playerHealthUI = PlayerHealthDisplay(startingHealth: 3, associatedEntityId: playerId)
         playerHealthUI.spawn()
 
         let bottombar = UIBar(
@@ -299,6 +322,18 @@ class MultiplayerClient: GameManager {
             spritename: Constants.TOP_BAR_SPRITE
         )
         topBar.spawn()
+
+        guard let gameId = room.gameId else {
+            return
+        }
+        gameConnectionHandler.observePlayerState(gameId: gameId, playerId: playerInfo.playerUUID,
+                                                 onChange: handlePlayerStateUpdate)
+    }
+
+    func handlePlayerStateUpdate(playerState: PlayerStateInfo) {
+        let health = playerState.health
+        EventSystem.playerActionEvent.playerHealthUpdateEvent.post(event: PlayerHealthUpdateEvent(newHealth: health,
+                                                                                                  playerId: playerState.playerId))
     }
 
     func setUpAudio() {

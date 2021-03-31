@@ -188,7 +188,6 @@ class Player: GameEntity,
 }
 
 class NetworkedPlayer: Player {
-
     init(initialPosition: Vector2D, playerUUID: UUID?) {
         super.init(initialPosition: initialPosition)
         id = playerUUID ?? id
