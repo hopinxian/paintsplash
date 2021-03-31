@@ -86,7 +86,6 @@ class RoomViewController: UIViewController {
             guard let serverVC = segue.destination as? MultiplayerServerViewController else {
                 return
             }
-
             serverVC.lobbyHandler = self.lobbyHandler
             serverVC.connectionHandler = FirebaseConnectionHandler()
             serverVC.roomInfo = currentRoom
@@ -95,6 +94,8 @@ class RoomViewController: UIViewController {
                 return
             }
             clientVC.connectionHandler = FirebaseConnectionHandler()
+            clientVC.roomInfo = self.currentRoom
+            clientVC.playerInfo = self.playerInfo
         default:
             break
         }

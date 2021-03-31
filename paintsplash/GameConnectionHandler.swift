@@ -7,4 +7,12 @@
 
 protocol GameConnectionHandler {
     func addEntity(gameId: String, entity: GameEntity)
+
+    func sendPlayerState(gameId: String, playerId: String, playerState: PlayerStateInfo)
+
+    func observePlayerState(gameId: String, playerId: String, onChange: ((PlayerStateInfo) -> Void)?)
+}
+
+struct PlayerStateInfo: Codable {
+    var health: Int
 }

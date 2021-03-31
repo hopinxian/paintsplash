@@ -199,17 +199,22 @@ class MultiplayerClient: GameManager {
     var uiEntities = Set<GameEntity>()
 
     var entities = Set<GameEntity>()
-    var room: RoomInfo?
+    var room: RoomInfo
     var connectionHandler: ConnectionHandler
     var gameScene: GameScene
+    var gameConnectionHandler = FirebaseGameHandler()
+
+    var playerInfo: PlayerInfo
 
     var renderSystem: RenderSystem!
     var animationSystem: AnimationSystem!
     var audioSystem: AudioSystem!
 
-    init(connectionHandler: ConnectionHandler, gameScene: GameScene) {
+    init(connectionHandler: ConnectionHandler, gameScene: GameScene, playerInfo: PlayerInfo, roomInfo: RoomInfo) {
         self.connectionHandler = connectionHandler
         self.gameScene = gameScene
+        self.playerInfo = playerInfo
+        self.room = roomInfo
 
         EventSystem.entityChangeEvents.addEntityEvent.subscribe(listener: onAddEntity)
         EventSystem.entityChangeEvents.removeEntityEvent.subscribe(listener: onRemoveEntity)
@@ -222,6 +227,21 @@ class MultiplayerClient: GameManager {
         setUpEntities()
         setUpUI()
         setUpAudio()
+
+        setUpObservers()
+    }
+
+    func setUpObservers() {
+        guard let gameID = room.gameId else {
+            return
+        }
+        gameConnectionHandler.observePlayerState(gameId: gameID,
+                                                 playerId: playerInfo.playerUUID,
+                                                 onChange: onPlayerStateChange )
+    }
+
+    func onPlayerStateChange(playerState: PlayerStateInfo) {
+        print("CHANGED PLAYER STATE: \(playerState)")
     }
 
     func setUpSystems() {
@@ -247,8 +267,11 @@ class MultiplayerClient: GameManager {
 //        let attackButton = AttackButton()
 //        attackButton.spawn()
 
-//        let playerHealthUI = PlayerHealthDisplay(startingHealth: player.healthComponent.currentHealth)
-//        playerHealthUI.spawn()
+        // let playerHealthUI = PlayerHealthDisplay(startingHealth: player.healthComponent.currentHealth)
+
+        // TODO: player health is currently hardcoded
+        let playerHealthUI = PlayerHealthDisplay(startingHealth: 3)
+        playerHealthUI.spawn()
 
         let bottombar = UIBar(
             position: Constants.BOTTOM_BAR_POSITION,

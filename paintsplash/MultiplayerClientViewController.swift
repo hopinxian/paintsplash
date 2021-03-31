@@ -7,13 +7,23 @@
 
 class MultiplayerClientViewController: GameViewController {
     var connectionHandler: ConnectionHandler!
+    var playerInfo: PlayerInfo?
+    var roomInfo: RoomInfo?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         guard let scene = gameScene else {
             fatalError("GameScene not setup properly")
         }
-        let gameManager = MultiplayerClient(connectionHandler: connectionHandler, gameScene: scene)
+
+        guard let playerInfo = self.playerInfo,
+              let roomInfo = self.roomInfo else {
+            return
+        }
+        let gameManager = MultiplayerClient(connectionHandler: connectionHandler,
+                                            gameScene: scene,
+                                            playerInfo: playerInfo,
+                                            roomInfo: roomInfo)
         scene.gameManager = gameManager
     }
 }
