@@ -77,16 +77,11 @@ class MultiplayerClient: GameManager {
     }
 
     func updateAnimationSystem(data: AnimationSystemData?) {
-        print("hello")
         guard let animatableData = data else {
             return
         }
-        print("goodby")
-
 
         animatableData.animatables.forEach({ encodedAnimatable in
-            print(encodedAnimatable.animationComponent.currentAnimation)
-            print(encodedAnimatable.animationComponent.animationToPlay)
             if let (_, animatable) = animationSystem.animatables.first(where: { $0.key.id == encodedAnimatable.entityID }) {
                 animatable.animationComponent = encodedAnimatable.animationComponent
             } else {

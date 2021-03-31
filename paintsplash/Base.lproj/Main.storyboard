@@ -40,7 +40,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="39"/>
                                 <state key="normal" title="Start Game"/>
                                 <connections>
-                                    <action selector="onStartGame:" destination="SyQ-UE-Ovl" eventType="touchUpInside" id="WX8-Xh-N1n"/>
                                     <segue destination="BV1-FR-VrT" kind="show" identifier="StartGameSegue" id="dxk-Hz-rzA"/>
                                 </connections>
                             </button>

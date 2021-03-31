@@ -70,7 +70,6 @@ class FirebaseConnectionHandler: ConnectionHandler {
     func listen<T: Codable>(to source: String, callBack: @escaping (T?) -> Void) {
         let ref = firebase.reference().child(source)
         let observerHandle = ref.observe(DataEventType.value) { snapshot in
-            print(snapshot)
             let rawData = snapshot.value as? [String: AnyObject] ?? [:]
             let data = T(from: rawData)
             callBack(data)

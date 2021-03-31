@@ -4,6 +4,7 @@
 //
 //  Created by Farrell Nah on 26/3/21.
 //
+import SpriteKit
 
 class SKAnimationSystem: AnimationSystem {
     var animatables = [GameEntity: Animatable]()
@@ -40,7 +41,12 @@ class SKAnimationSystem: AnimationSystem {
         }
 
         node.removeAllActions()
-        node.run(animationToPlay.getAction(), withKey: animationToPlay.name)
+        let animation = AnimationManager.getAnimation(from: animationToPlay)
+        let actionToRun = SKAction.sequence([animation.getAction(), SKAction.run({
+            animationComponent.callBack?()
+            animationComponent.animationIsPlaying = false
+        })])
+        node.run(actionToRun, withKey: animation.name)
 
         animationComponent.animationIsPlaying = true
         animationComponent.currentAnimation = animationToPlay

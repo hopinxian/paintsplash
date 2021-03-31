@@ -19,18 +19,6 @@ class AtlasAnimation: Animation {
         super.init(name: name)
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case atlasName, isRepeating, animationDuration
-    }
-
-    required init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.atlasName = try container.decode(String.self, forKey: .atlasName)
-        self.isRepeating = try container.decode(Bool.self, forKey: .isRepeating)
-        self.animationDuration = try container.decode(Double.self, forKey: .animationDuration)
-        try super.init(from: container.superDecoder())
-    }
-
     override func getAction() -> SKAction {
         let animationAtlas = SKTextureAtlas(named: atlasName)
 

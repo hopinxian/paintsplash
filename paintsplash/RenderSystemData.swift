@@ -33,8 +33,6 @@ struct AnimationSystemData: Codable {
     init(from animationSystem: AnimationSystem) {
         self.animatables = animationSystem.animatables.map({ entity, animatable in
             let encoded = EncodableAnimatable(entityID: entity.id, animationComponent: animatable.animationComponent)
-            print(encoded.animationComponent.currentAnimation)
-            print(encoded.animationComponent.animationToPlay)
             return encoded
         })
     }
