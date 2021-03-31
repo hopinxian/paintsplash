@@ -13,6 +13,7 @@ class Background: UIEntity, Renderable {
     override init() {
         self.renderComponent = RenderComponent(renderType: .sprite(spriteName: "floor"),
                                                zPosition: Constants.ZPOSITION_FLOOR)
-        self.transformComponent = TransformComponent(position: Vector2D.zero, rotation: 0, size: SpaceConverter.modelSize)
+        self.transformComponent = TransformComponent(position: Vector2D.zero, rotation: 0,
+                                                     size: SpaceConverter.modelSize)
     }
 }

@@ -29,7 +29,6 @@ class SinglePlayerGameManager: GameManager {
     private var collisionDetector: SKCollisionDetector!
 
     var player: Player!
-    var player2: Player!
 
     init(gameScene: GameScene) {
         self.gameScene = gameScene
@@ -45,6 +44,7 @@ class SinglePlayerGameManager: GameManager {
     func setupGame() {
         setUpSystems()
         setUpEntities()
+        setUpPlayer()
         setUpUI()
         setUpAudio()
     }
@@ -68,15 +68,14 @@ class SinglePlayerGameManager: GameManager {
         self.movementSystem = FrameMovementSystem()
     }
 
+    func setUpPlayer() {
+        player = Player(initialPosition: Vector2D.zero)
+        player.spawn()
+    }
+
     func setUpEntities() {
         let background = Background()
         background.spawn()
-
-        player = Player(initialPosition: Vector2D.zero)
-        player.spawn()
-
-        player2 = Player(initialPosition: Vector2D.zero)
-        player2.spawn()
 
         let canvasSpawner = CanvasSpawner(
             initialPosition: Constants.CANVAS_SPAWNER_POSITION,
@@ -125,12 +124,6 @@ class SinglePlayerGameManager: GameManager {
 
         let attackButton = AttackButton(associatedEntityID: player.id)
         attackButton.spawn()
-
-//        let joystick2 = Joystick(associatedEntityID: player2.id)
-//        joystick.spawn()
-//
-//        let attackButton2 = AttackButton(associatedEntityID: player2.id)
-//        attackButton.spawn()
 
         let playerHealthUI = PlayerHealthDisplay(startingHealth: player.healthComponent.currentHealth)
         playerHealthUI.spawn()
@@ -187,21 +180,11 @@ class SinglePlayerGameManager: GameManager {
     func addObject(_ object: GameEntity) {
         entities.insert(object)
         addObjectToSystems(object)
-//        renderSystem.addEntity(object)
-//        aiSystem.addEntity(object)
-//        collisionSystem.addEntity(object)
-//        movementSystem.addEntity(object)
-//        animationSystem.addEntity(object)
     }
 
     func removeObject(_ object: GameEntity) {
         entities.remove(object)
         removeObjectFromSystems(object)
-//        renderSystem.removeEntity(object)
-//        aiSystem.removeEntity(object)
-//        collisionSystem.removeEntity(object)
-//        movementSystem.removeEntity(object)
-//        animationSystem.removeEntity(object)
     }
 
     func update() {
