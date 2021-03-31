@@ -6,9 +6,9 @@
 //
 
 class VerticalStack<ItemType: Renderable>: GameEntity, Renderable, Animatable {
-    let animationComponent: AnimationComponent
-    let renderComponent: RenderComponent
-    let transformComponent: TransformComponent
+    var animationComponent: AnimationComponent
+    var renderComponent: RenderComponent
+    var transformComponent: TransformComponent
 
     var items: [ItemType]
     var zPosition: Int

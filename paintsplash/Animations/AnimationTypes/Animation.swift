@@ -6,11 +6,16 @@
 //
 import SpriteKit
 
-protocol Animation {
-    var name: String { get }
-    var animationDuration: Double { get }
+class Animation: Codable {
+    var name: String
 
-    func getAction() -> SKAction
+    init(name: String) {
+        self.name = name
+    }
+
+    func getAction() -> SKAction {
+        SKAction()
+    }
 }
 
 extension Animation {

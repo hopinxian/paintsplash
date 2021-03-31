@@ -6,6 +6,6 @@
 //
 
 struct WeaponAnimations {
-    static let selectWeapon = ChangeAlphaAnimation(name: "selectWeapon", animationDuration: 0.25, newAlpha: 1)
-    static let unselectWeapon = ChangeAlphaAnimation(name: "unselectWeapon", animationDuration: 0.25, newAlpha: 0.5)
+    static let selectWeapon = ChangeAlphaAnimation(name: "selectWeapon", duration: 0.25, newAlpha: 1)
+    static let unselectWeapon = ChangeAlphaAnimation(name: "unselectWeapon", duration: 0.25, newAlpha: 0.5)
 }

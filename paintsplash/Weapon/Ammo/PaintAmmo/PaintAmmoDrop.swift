@@ -7,11 +7,11 @@
 import Foundation
 
 class PaintAmmoDrop: GameEntity, Renderable, Collidable, AmmoDrop, Colorable {
-    let transformComponent: TransformComponent
-    let renderComponent: RenderComponent
-    let collisionComponent: CollisionComponent
+    var transformComponent: TransformComponent
+    var renderComponent: RenderComponent
+    var collisionComponent: CollisionComponent
 
-    let color: PaintColor
+    var color: PaintColor
 
     init(color: PaintColor, position: Vector2D) {
         self.color = color

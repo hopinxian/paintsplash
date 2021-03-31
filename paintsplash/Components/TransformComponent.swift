@@ -5,7 +5,7 @@
 //  Created by Farrell Nah on 26/3/21.
 //
 
-class TransformComponent: Component {
+class TransformComponent: Component, Codable {
     var position: Vector2D
     var rotation: Double
     var size: Vector2D

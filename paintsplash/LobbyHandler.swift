@@ -28,4 +28,6 @@ protocol LobbyHandler {
                    onSuccess: (() -> Void)?,
                    onError: ((Error?) -> Void)?)
 
+    func startGame(roomInfo: RoomInfo)
+
 }

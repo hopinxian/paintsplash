@@ -7,10 +7,10 @@
 import Foundation
 
 class PaintProjectile: GameEntity, Projectile, Renderable, Colorable {
-    let transformComponent: TransformComponent
-    let moveableComponent: MoveableComponent
-    let collisionComponent: CollisionComponent
-    let renderComponent: RenderComponent
+    var transformComponent: TransformComponent
+    var moveableComponent: MoveableComponent
+    var collisionComponent: CollisionComponent
+    var renderComponent: RenderComponent
 
     var color: PaintColor
 

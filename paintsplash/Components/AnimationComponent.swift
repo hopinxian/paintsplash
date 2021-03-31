@@ -5,7 +5,7 @@
 //  Created by Farrell Nah on 26/3/21.
 //
 
-class AnimationComponent: Component {
+class AnimationComponent: Component, Codable {
     var currentAnimation: Animation?
     var animationToPlay: Animation?
     var animationIsPlaying: Bool = false
@@ -18,7 +18,6 @@ class AnimationComponent: Component {
         if !animationIsPlaying || interupt {
             animationToPlay = CallbackAnimation(
                 name: animation.name,
-                animationDuration: animation.animationDuration,
                 animation: animation,
                 completionCallback: { [weak self] in
                     self?.animationIsPlaying = false

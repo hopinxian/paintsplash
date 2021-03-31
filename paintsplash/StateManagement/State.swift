@@ -21,5 +21,6 @@ class State {
     }
     func onStayState() {
         // Do nothing by default
+        
     }
 }

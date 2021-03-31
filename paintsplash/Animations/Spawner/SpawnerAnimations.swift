@@ -7,15 +7,15 @@
 
 struct SpawnerAnimations {
     static let spawnerIdle =
-        AtlasAnimation(atlasName: "SpawnerIdle", name: "spawnerIdle",
-                       animationDuration: 1.2, isRepeating: true)
+        AtlasAnimation(name: "spawnerIdle",
+                       animationDuration: 1.2, atlasName: "SpawnerIdle", isRepeating: true)
     static let spawnerSpawn =
-        AtlasAnimation(atlasName: "SpawnerSpawn", name: "spawnerSpawn",
-                       animationDuration: 1.2, isRepeating: false)
+        AtlasAnimation(name: "spawnerSpawn",
+                       animationDuration: 1.2, atlasName: "SpawnerSpawn", isRepeating: false)
     static let spawnerDie =
-        AtlasAnimation(atlasName: "SpawnerDie", name: "spawnerDie",
-                       animationDuration: 1.2, isRepeating: false)
+        AtlasAnimation(name: "spawnerDie",
+                       animationDuration: 1.2, atlasName: "SpawnerDie", isRepeating: false)
     static let spawnerHit =
-        AtlasAnimation(atlasName: "SpawnerHit", name: "spawnerHit",
-                       animationDuration: 1.2, isRepeating: true)
+        AtlasAnimation(name: "spawnerHit",
+                       animationDuration: 1.2, atlasName: "SpawnerHit", isRepeating: true)
 }

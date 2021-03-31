@@ -6,8 +6,8 @@
 //
 
 class PaintAmmoDisplay: GameEntity, Renderable, Colorable {
-    let renderComponent: RenderComponent
-    let transformComponent: TransformComponent
+    var renderComponent: RenderComponent
+    var transformComponent: TransformComponent
 
     var color: PaintColor
 

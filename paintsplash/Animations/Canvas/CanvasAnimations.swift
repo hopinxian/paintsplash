@@ -7,15 +7,20 @@
 
 struct CanvasAnimations {
     static let canvasIdle =
-        AtlasAnimation(atlasName: "CanvasIdle", name: "canvasIdle",
-                       animationDuration: 0, isRepeating: false)
+        AtlasAnimation(name: "canvasIdle",
+                       animationDuration: 0,
+                       atlasName: "CanvasIdle",
+                       isRepeating: false)
+    
     static let canvasDisappear =
         CompoundAnimation(
             name: "canvasDisappear",
             animations: [
-                FadeOutAnimation(name: "canvasFade", animationDuration: 1.0),
-                AtlasAnimation(atlasName: "CanvasIdle", name: "canvasIdle",
-                               animationDuration: 0, isRepeating: false)
+                FadeOutAnimation(name: "canvasFade", duration: 1.0),
+                AtlasAnimation(name: "canvasIdle",
+                               animationDuration: 0,
+                               atlasName: "CanvasIdle",
+                               isRepeating: false)
             ]
         )
 }

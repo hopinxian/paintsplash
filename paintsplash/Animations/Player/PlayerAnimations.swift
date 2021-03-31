@@ -8,31 +8,47 @@
 struct PlayerAnimations {
     // Attack
     static let playerBrushAttackLeft =
-        AtlasAnimation(atlasName: "PlayerBrushAttackLeft", name: "playerBrushAttackLeft",
-                       animationDuration: 0.5, isRepeating: false)
+        AtlasAnimation(name: "playerBrushAttackLeft",
+                       animationDuration: 0.5,
+                       atlasName: "PlayerBrushAttackLeft",
+                       isRepeating: false)
 
     static let playerBrushAttackRight =
-        AtlasAnimation(atlasName: "PlayerBrushAttackRight", name: "playerBrushAttackRight",
-                       animationDuration: 0.5, isRepeating: false)
+        AtlasAnimation(name: "playerBrushAttackRight",
+                       animationDuration: 0.5,
+                       atlasName: "PlayerBrushAttackRight",
+                       isRepeating: false)
 
     // Idle
     static let playerBrushIdleLeft =
-        AtlasAnimation(atlasName: "PlayerBrushIdleLeft", name: "playerBrushIdleLeft",
-                       animationDuration: 1.2, isRepeating: true)
+        AtlasAnimation(name: "playerBrushIdleLeft",
+                       animationDuration: 1.2,
+                       atlasName: "PlayerBrushIdleLeft",
+                       isRepeating: true)
 
     static let playerBrushIdleRight =
-        AtlasAnimation(atlasName: "PlayerBrushIdleRight", name: "layerBrushIdleRight",
-                       animationDuration: 1.2, isRepeating: true)
+        AtlasAnimation(name: "layerBrushIdleRight",
+                       animationDuration: 1.2,
+                       atlasName: "PlayerBrushIdleRight",
+                       isRepeating: true)
 
     // Walk
     static let playerBrushWalkLeft =
-        AtlasAnimation(atlasName: "PlayerBrushWalkLeft", name: "playerBrushWalkLeft",
-                       animationDuration: 1.2, isRepeating: true)
+        AtlasAnimation(name: "playerBrushWalkLeft",
+                       animationDuration: 1.2,
+                       atlasName: "PlayerBrushWalkLeft",
+                       isRepeating: true)
+
     static let playerBrushWalkRight =
-        AtlasAnimation(atlasName: "PlayerBrushWalkRight", name: "playerBrushWalkRight",
-                       animationDuration: 1.2, isRepeating: true)
+        AtlasAnimation(name: "playerBrushWalkRight",
+                       animationDuration: 1.2,
+                       atlasName: "PlayerBrushWalkRight",
+                       isRepeating: true)
 
     // Death
-    static let playerDie = AtlasAnimation(atlasName: "PlayerDie", name: "playerDie",
-                                          animationDuration: 1.0, isRepeating: false)
+    static let playerDie =
+        AtlasAnimation(name: "playerDie",
+                       animationDuration: 1.0,
+                       atlasName: "PlayerDie",
+                       isRepeating: false)
 }

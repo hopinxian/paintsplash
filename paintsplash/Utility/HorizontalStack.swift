@@ -20,9 +20,9 @@ class HorizontalStack<ItemType: Renderable>: GameEntity, Renderable, Animatable 
 //    var nextPosition: Vector2D
     private var startPosition: Vector2D
 
-    let transformComponent: TransformComponent
-    let renderComponent: RenderComponent
-    let animationComponent: AnimationComponent
+    var transformComponent: TransformComponent
+    var renderComponent: RenderComponent
+    var animationComponent: AnimationComponent
 
     init(
         position: Vector2D,

@@ -134,6 +134,14 @@ class FirebaseLobbyHandler: LobbyHandler {
 
     }
 
+    func startGame(roomInfo: RoomInfo) {
+        var newRoomInfo = roomInfo
+        newRoomInfo.started = true
+        newRoomInfo.gameID = UUID().uuidString
+        let roomPath = FirebasePaths.rooms + "/" + newRoomInfo.roomId
+        connectionHandler.send(to: roomPath, data: newRoomInfo, mode: .single, shouldRemoveOnDisconnect: false, onComplete: nil, onError: nil)
+    }
+
     func getAllRooms() {
         connectionHandler.getData(at: FirebasePaths.rooms) { (error, snapshot) in
             if let error = error {

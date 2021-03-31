@@ -48,6 +48,14 @@ class RoomViewController: UIViewController {
         self.roomCodeDisplay?.text = roomInfo.roomId
         self.hostNameLabel?.text = roomInfo.host.playerName
         self.guestNameLabel?.text = roomInfo.players?.first?.playerName
+
+        if roomInfo.started {
+            if roomInfo.host == playerInfo {
+                performSegue(withIdentifier: "StartMultiplayerServer", sender: nil)
+            } else {
+                performSegue(withIdentifier: "StartMultiplayerClient", sender: nil)
+            }
+        }        
     }
 
     func onRoomClose() {
@@ -62,6 +70,14 @@ class RoomViewController: UIViewController {
 
     }
 
+    @IBAction func onStartGame(_ sender: UIButton) {
+        guard let currentRoom = self.currentRoom else {
+            fatalError("Room not setup properly")
+        }
+
+        lobbyHandler?.startGame(roomInfo: currentRoom)
+    }
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
         case "StartMultiplayerServer":
@@ -70,8 +86,14 @@ class RoomViewController: UIViewController {
             }
 
             serverVC.lobbyHandler = self.lobbyHandler
-            serverVC.connectionHandler = FirebaseConnectionHandler()
             serverVC.roomInfo = currentRoom
+        case "StartMultiplayerClient":
+            guard let clientVC = segue.destination as? MultiplayerClientViewController,
+                  let currentRoom = self.currentRoom else {
+                return
+            }
+
+            clientVC.roomInfo = currentRoom
         default:
             break
         }

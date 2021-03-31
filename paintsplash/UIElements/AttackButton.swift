@@ -6,8 +6,8 @@
 //
 
 class AttackButton: GameEntity, Renderable {
-    let renderComponent: RenderComponent
-    let transformComponent: TransformComponent
+    var renderComponent: RenderComponent
+    var transformComponent: TransformComponent
 
     private var tracking = false
     private var radius: Double {

@@ -84,13 +84,19 @@
 		D50A08432604E26400822D67 /* HorizontalStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50A08422604E26400822D67 /* HorizontalStack.swift */; };
 		D50A08592604F52E00822D67 /* WeaponAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50A08582604F52E00822D67 /* WeaponAnimations.swift */; };
 		D50FD68226104B7400491CAC /* ConnectionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50FD68126104B7400491CAC /* ConnectionHandler.swift */; };
-		D50FD69C261056AF00491CAC /* MultiplayerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50FD69B261056AF00491CAC /* MultiplayerManager.swift */; };
+		D50FD69C261056AF00491CAC /* MultiplayerClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50FD69B261056AF00491CAC /* MultiplayerClient.swift */; };
 		D50FD6A426105B6A00491CAC /* MultiplayerMatchmaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50FD6A326105B6A00491CAC /* MultiplayerMatchmaker.swift */; };
 		D50FD6C3261204F800491CAC /* SinglePlayerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50FD6C2261204F800491CAC /* SinglePlayerManager.swift */; };
 		D50FD6C72612058B00491CAC /* Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50FD6C62612058B00491CAC /* Background.swift */; };
 		D50FD6CB2612084500491CAC /* SinglePlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50FD6CA2612084500491CAC /* SinglePlayerViewController.swift */; };
 		D50FD6CF26120A4800491CAC /* MultiplayerClientViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50FD6CE26120A4800491CAC /* MultiplayerClientViewController.swift */; };
 		D50FD6D326120ABC00491CAC /* MultiplayerServerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50FD6D226120ABC00491CAC /* MultiplayerServerViewController.swift */; };
+		D53647102614508700C2BCBB /* NetworkRenderSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D536470F2614508700C2BCBB /* NetworkRenderSystem.swift */; };
+		D5364714261452F800C2BCBB /* NetworkAnimationSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5364713261452F800C2BCBB /* NetworkAnimationSystem.swift */; };
+		D53647182614589C00C2BCBB /* RenderSystemData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53647172614589C00C2BCBB /* RenderSystemData.swift */; };
+		D536471C2614626C00C2BCBB /* AnimationFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D536471B2614626C00C2BCBB /* AnimationFactory.swift */; };
+		D536472026146C8200C2BCBB /* RawAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D536471F26146C8200C2BCBB /* RawAnimation.swift */; };
+		D53647242614A45D00C2BCBB /* MultiplayerServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53647232614A45D00C2BCBB /* MultiplayerServer.swift */; };
 		D53F5401260D636A00635B05 /* HasWeapon.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53F5400260D636A00635B05 /* HasWeapon.swift */; };
 		D53F540D260D93AC00635B05 /* Component.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53F540C260D93AC00635B05 /* Component.swift */; };
 		D53F5411260D93BB00635B05 /* TransformComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53F5410260D93BB00635B05 /* TransformComponent.swift */; };
@@ -353,13 +359,19 @@
 		D50A08422604E26400822D67 /* HorizontalStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalStack.swift; sourceTree = "<group>"; };
 		D50A08582604F52E00822D67 /* WeaponAnimations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeaponAnimations.swift; sourceTree = "<group>"; };
 		D50FD68126104B7400491CAC /* ConnectionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionHandler.swift; sourceTree = "<group>"; };
-		D50FD69B261056AF00491CAC /* MultiplayerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiplayerManager.swift; sourceTree = "<group>"; };
+		D50FD69B261056AF00491CAC /* MultiplayerClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiplayerClient.swift; sourceTree = "<group>"; };
 		D50FD6A326105B6A00491CAC /* MultiplayerMatchmaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiplayerMatchmaker.swift; sourceTree = "<group>"; };
 		D50FD6C2261204F800491CAC /* SinglePlayerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SinglePlayerManager.swift; sourceTree = "<group>"; };
 		D50FD6C62612058B00491CAC /* Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Background.swift; sourceTree = "<group>"; };
 		D50FD6CA2612084500491CAC /* SinglePlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SinglePlayerViewController.swift; sourceTree = "<group>"; };
 		D50FD6CE26120A4800491CAC /* MultiplayerClientViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiplayerClientViewController.swift; sourceTree = "<group>"; };
 		D50FD6D226120ABC00491CAC /* MultiplayerServerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiplayerServerViewController.swift; sourceTree = "<group>"; };
+		D536470F2614508700C2BCBB /* NetworkRenderSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRenderSystem.swift; sourceTree = "<group>"; };
+		D5364713261452F800C2BCBB /* NetworkAnimationSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAnimationSystem.swift; sourceTree = "<group>"; };
+		D53647172614589C00C2BCBB /* RenderSystemData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderSystemData.swift; sourceTree = "<group>"; };
+		D536471B2614626C00C2BCBB /* AnimationFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationFactory.swift; sourceTree = "<group>"; };
+		D536471F26146C8200C2BCBB /* RawAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawAnimation.swift; sourceTree = "<group>"; };
+		D53647232614A45D00C2BCBB /* MultiplayerServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiplayerServer.swift; sourceTree = "<group>"; };
 		D53F5400260D636A00635B05 /* HasWeapon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasWeapon.swift; sourceTree = "<group>"; };
 		D53F540C260D93AC00635B05 /* Component.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Component.swift; sourceTree = "<group>"; };
 		D53F5410260D93BB00635B05 /* TransformComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransformComponent.swift; sourceTree = "<group>"; };
@@ -669,7 +681,8 @@
 			isa = PBXGroup;
 			children = (
 				D50FD6A326105B6A00491CAC /* MultiplayerMatchmaker.swift */,
-				D50FD69B261056AF00491CAC /* MultiplayerManager.swift */,
+				D50FD69B261056AF00491CAC /* MultiplayerClient.swift */,
+				D53647232614A45D00C2BCBB /* MultiplayerServer.swift */,
 				D50FD68126104B7400491CAC /* ConnectionHandler.swift */,
 				DC8820F9260F2F150082ECC2 /* GoogleService-Info.plist */,
 				ACB3607025F661620016E240 /* paintsplash */,
@@ -732,6 +745,7 @@
 				D53F5438260D948C00635B05 /* Components */,
 				D5500C052608E7E200E21BF1 /* System.swift */,
 				DCF748F1261069A90008633D /* RoomInfo.swift */,
+				D53647172614589C00C2BCBB /* RenderSystemData.swift */,
 				DCF748FB2610F5AC0008633D /* PlayerInfo.swift */,
 				DCFBF899260F66EC00BA1216 /* LobbyHandler.swift */,
 				DCFBF89D260F680A00BA1216 /* FirebaseLobbyHandler.swift */,
@@ -929,12 +943,14 @@
 			isa = PBXGroup;
 			children = (
 				D55EEB5225FF98DD00ADC70B /* Animation.swift */,
+				D536471F26146C8200C2BCBB /* RawAnimation.swift */,
 				D5553D5C2606297700C1862E /* FadeOutAnimation.swift */,
 				D5553D642606298500C1862E /* ChangeAlphaAnimation.swift */,
 				D5553D692606299B00C1862E /* CompoundAnimation.swift */,
 				D5553D6E260629AE00C1862E /* SequenceAnimation.swift */,
 				D5553D73260629D100C1862E /* CallbackAnimation.swift */,
 				D5DC909025FCC4210038DF71 /* AtlasAnimation.swift */,
+				D536471B2614626C00C2BCBB /* AnimationFactory.swift */,
 			);
 			path = AnimationTypes;
 			sourceTree = "<group>";
@@ -1028,7 +1044,9 @@
 				D5500C0F2608F12800E21BF1 /* SKNodeFactory.swift */,
 				D53F5439260D94A800635B05 /* Animatable.swift */,
 				D53F5443260D94EB00635B05 /* SKRenderSystem.swift */,
+				D536470F2614508700C2BCBB /* NetworkRenderSystem.swift */,
 				D53F5447260D94F700635B05 /* SKAnimationSystem.swift */,
+				D5364713261452F800C2BCBB /* NetworkAnimationSystem.swift */,
 				D53F544B260D950500635B05 /* AnimationSystem.swift */,
 			);
 			path = Rendering;
@@ -1526,6 +1544,7 @@
 				AC069592260123C4007982DE /* ChangeViewEvent.swift in Sources */,
 				AC0A184D26052AF800A1338C /* Constants.swift in Sources */,
 				AC097E082601FFE4000951B0 /* ProcessedInputEvent.swift in Sources */,
+				D536472026146C8200C2BCBB /* RawAnimation.swift in Sources */,
 				D53F5444260D94EB00635B05 /* SKRenderSystem.swift in Sources */,
 				D5500C022608E38800E21BF1 /* RenderComponent.swift in Sources */,
 				8402D29725FE106800493DDE /* Math.swift in Sources */,
@@ -1555,6 +1574,7 @@
 				DC7B421D25FF63350069B422 /* EntityMovementEventManager.swift in Sources */,
 				8453F2D7260C917000FFD8AE /* CanvasSpawnerCommand.swift in Sources */,
 				AC11994426053CFB003BA54B /* AudioEvent.swift in Sources */,
+				D5364714261452F800C2BCBB /* NetworkAnimationSystem.swift in Sources */,
 				D55EEB8626008AAE00ADC70B /* PaintAmmoDisplay.swift in Sources */,
 				D53F545A260D955500635B05 /* RenderInfo.swift in Sources */,
 				DC16B41F25FDE64C00C58670 /* StateManagerSystem.swift in Sources */,
@@ -1615,6 +1635,7 @@
 				D53F5411260D93BB00635B05 /* TransformComponent.swift in Sources */,
 				D5553D5D2606297700C1862E /* FadeOutAnimation.swift in Sources */,
 				842B5CE42604882F00FCF7BD /* ScoreEvent.swift in Sources */,
+				D53647182614589C00C2BCBB /* RenderSystemData.swift in Sources */,
 				D596B17425F7C0F500A5854F /* UserInput.swift in Sources */,
 				D53F5474260D963F00635B05 /* PlayerState+MoveLeft.swift in Sources */,
 				840A334D26060655007BC34D /* AmmoDrop.swift in Sources */,
@@ -1638,6 +1659,7 @@
 				D50A07F126049A3A00822D67 /* HeartDisplay.swift in Sources */,
 				DC7B421E25FF63350069B422 /* EventMovementSystem.swift in Sources */,
 				D53F54B4260D97EC00635B05 /* GameStateManagerSystem.swift in Sources */,
+				D536471C2614626C00C2BCBB /* AnimationFactory.swift in Sources */,
 				DC7B421A25FF63350069B422 /* TouchInputEventManager.swift in Sources */,
 				8453F2D1260C911A00FFD8AE /* EnemySpawnerCommand.swift in Sources */,
 				D596B1AE25F8CF5B00A5854F /* ColliderShape.swift in Sources */,
@@ -1650,8 +1672,9 @@
 				D53F5484260D969C00635B05 /* EnemySpawnerState+Spawning.swift in Sources */,
 				D53F54E8260D9F4600635B05 /* PlayerState+MoveRight.swift in Sources */,
 				D53F5456260D952F00635B05 /* SKCollisionDetector.swift in Sources */,
+				D53647242614A45D00C2BCBB /* MultiplayerServer.swift in Sources */,
 				8453F2DB260C920C00FFD8AE /* AmmoDropCommand.swift in Sources */,
-				D50FD69C261056AF00491CAC /* MultiplayerManager.swift in Sources */,
+				D50FD69C261056AF00491CAC /* MultiplayerClient.swift in Sources */,
 				AC11994C26053D04003BA54B /* AudioEventManager.swift in Sources */,
 				D53F5419260D93F200635B05 /* AnimationComponent.swift in Sources */,
 				8453F2CB260C8A0D00FFD8AE /* EnemyCommand.swift in Sources */,
@@ -1665,6 +1688,7 @@
 				D55EEB4B25FF8B6500ADC70B /* GameScene+UserInput.swift in Sources */,
 				ACC154F126012F560000775C /* PlayerActionEvent.swift in Sources */,
 				D50FD6CB2612084500491CAC /* SinglePlayerViewController.swift in Sources */,
+				D53647102614508700C2BCBB /* NetworkRenderSystem.swift in Sources */,
 				DC7B421C25FF63350069B422 /* Event.swift in Sources */,
 				D53F549C260D971B00635B05 /* EnemyState+Idle.swift in Sources */,
 				840A334826060626007BC34D /* AmmoType.swift in Sources */,

@@ -8,8 +8,8 @@
 class CanvasRequest: GameEntity, Renderable, Transformable {
     private(set) var requiredColors: Set<PaintColor>
 
-    let renderComponent: RenderComponent
-    let transformComponent: TransformComponent
+    var renderComponent: RenderComponent
+    var transformComponent: TransformComponent
 
     init?(requiredColors: Set<PaintColor>, position: Vector2D) {
         if requiredColors.count < 1 {

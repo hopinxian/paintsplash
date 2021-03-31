@@ -21,14 +21,14 @@ class Player: GameEntity,
 
     private let moveSpeed = 10.0
 
-    let transformComponent: TransformComponent
-    let renderComponent: RenderComponent
-    let animationComponent: AnimationComponent
-    let healthComponent: HealthComponent
-    let moveableComponent: MoveableComponent
-    let collisionComponent: CollisionComponent
-    let stateComponent: StateComponent
-    let multiWeaponComponent: MultiWeaponComponent
+    var transformComponent: TransformComponent
+    var renderComponent: RenderComponent
+    var animationComponent: AnimationComponent
+    var healthComponent: HealthComponent
+    var moveableComponent: MoveableComponent
+    var collisionComponent: CollisionComponent
+    var stateComponent: StateComponent
+    var multiWeaponComponent: MultiWeaponComponent
 
     init(initialPosition: Vector2D) {
         self.transformComponent = BoundedTransformComponent(

@@ -12,6 +12,8 @@ struct RoomInfo: Codable {
     var host: PlayerInfo
     var players: [PlayerInfo]?
     var isOpen: Bool
+    var started: Bool
+    var gameID: String
 
     init(roomId: String, host: PlayerInfo, players: [PlayerInfo], isOpen: Bool) {
         assert(!players.contains(host))
@@ -19,5 +21,7 @@ struct RoomInfo: Codable {
         self.host = host
         self.players = players
         self.isOpen = isOpen
+        self.started = false
+        self.gameID = ""
     }
 }

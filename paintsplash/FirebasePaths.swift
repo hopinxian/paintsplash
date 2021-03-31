@@ -17,6 +17,8 @@ enum FirebasePaths {
     static let player_UUID = "playerId"
     static let player_isHost = "isHost"
 
+    static let games = "games"
+
     static func joinPaths(_ paths: String ...) -> String {
         paths.joined(separator: "/")
     }

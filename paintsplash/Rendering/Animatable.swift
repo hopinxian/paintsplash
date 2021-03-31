@@ -6,5 +6,5 @@
 //
 
 protocol Animatable: GameEntity {
-    var animationComponent: AnimationComponent { get }
+    var animationComponent: AnimationComponent { get set }
 }

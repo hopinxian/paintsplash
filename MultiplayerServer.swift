@@ -1,23 +1,21 @@
 //
-//  GameScene.swift
+//  MultiplayerServer.swift
 //  paintsplash
 //
-//  Created by Praveen Bala on 8/3/21.
+//  Created by Farrell Nah on 31/3/21.
 //
 
-import SpriteKit
-
-class SinglePlayerGameManager: GameManager {
-    var gameScene: GameScene
-    var gameManager: GameManager?
+class MultiplayerServer: GameManager {
     var entities = Set<GameEntity>()
-
+    var room: RoomInfo
+    var connectionHandler: ConnectionHandler
+    var gameScene: GameScene
     var currentLevel: Level?
 
-    var aiSystem: StateManagerSystem!
-    var audioManager: AudioSystem!
     var renderSystem: RenderSystem!
     var animationSystem: AnimationSystem!
+    var aiSystem: StateManagerSystem!
+//    var audioManager: AudioSystem!
     var collisionSystem: CollisionSystem!
     var movementSystem: MovementSystem!
 
@@ -25,8 +23,10 @@ class SinglePlayerGameManager: GameManager {
 
     var player: Player!
 
-    init(gameScene: GameScene) {
+    init(roomInfo: RoomInfo, gameScene: GameScene) {
         self.gameScene = gameScene
+        self.connectionHandler = FirebaseConnectionHandler()
+        self.room = roomInfo
 
         EventSystem.entityChangeEvents.addEntityEvent.subscribe(listener: onAddEntity)
         EventSystem.entityChangeEvents.removeEntityEvent.subscribe(listener: onRemoveEntity)
@@ -55,7 +55,7 @@ class SinglePlayerGameManager: GameManager {
 
         self.aiSystem = GameStateManagerSystem()
 
-        self.audioManager = AudioManager()
+//        self.audioManager = AudioManager()
 
         self.movementSystem = FrameMovementSystem()
     }
@@ -86,7 +86,7 @@ class SinglePlayerGameManager: GameManager {
     }
 
     func setUpAudio() {
-        self.audioManager.playMusic(Music.backgroundMusic)
+//        self.audioManager.playMusic(Music.backgroundMusic)
     }
 
     func setUpUI() {
@@ -162,14 +162,40 @@ class SinglePlayerGameManager: GameManager {
     func update() {
         currentLevel?.update()
         aiSystem.updateEntities()
-        renderSystem.updateEntities()
-        animationSystem.updateEntities()
         collisionSystem.updateEntities()
         movementSystem.updateEntities()
+        sendGameState()
+        renderSystem.updateEntities()
+        animationSystem.updateEntities()
         entities.forEach({ $0.update() })
+    }
+
+    func sendGameState() {
+        let renderSystemPath = FirebasePaths.games + "/" + room.gameID + "/" + "RenderSystem"
+        let renderSystemData = RenderSystemData(from: renderSystem)
+        connectionHandler.send(
+            to: renderSystemPath,
+            data: renderSystemData,
+            mode: .single,
+            shouldRemoveOnDisconnect: false,
+            onComplete: nil,
+            onError: nil
+        )
+
+        let animSystemPath = FirebasePaths.games + "/" + room.gameID + "/" + "AnimSystem"
+        let animationSystemData = AnimationSystemData(from: animationSystem)
+        connectionHandler.send(
+            to: animSystemPath,
+            data: animationSystemData,
+            mode: .single,
+            shouldRemoveOnDisconnect: false,
+            onComplete: nil,
+            onError: nil
+        )
     }
 
     deinit {
         print("deinit gamescene")
     }
 }
+

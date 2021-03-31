@@ -66,12 +66,6 @@ class JoinRoomViewController: UIViewController {
             roomVC.currentRoom = roomInfo
             roomVC.playerInfo = self.playerInfo
             roomVC.lobbyHandler = self.lobbyHandler
-        case "StartMultiplayerClient":
-            guard let clientVC = segue.destination as? MultiplayerClientViewController else {
-                return
-            }
-
-            clientVC.connectionHandler = FirebaseConnectionHandler()
         default:
             print("No segue with given identifier")
             return

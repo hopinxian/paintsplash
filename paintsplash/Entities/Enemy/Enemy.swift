@@ -10,13 +10,13 @@ import SpriteKit
 let hitDuration: Double = 0.25
 
 class Enemy: GameEntity, StatefulEntity, Renderable, Animatable, Collidable, Movable, Colorable, Health {
-    let renderComponent: RenderComponent
-    let transformComponent: TransformComponent
-    let collisionComponent: CollisionComponent
-    let moveableComponent: MoveableComponent
-    let healthComponent: HealthComponent
-    let stateComponent: StateComponent
-    let animationComponent: AnimationComponent
+    var renderComponent: RenderComponent
+    var transformComponent: TransformComponent
+    var collisionComponent: CollisionComponent
+    var moveableComponent: MoveableComponent
+    var healthComponent: HealthComponent
+    var stateComponent: StateComponent
+    var animationComponent: AnimationComponent
 
     private(set) var color: PaintColor
     private let moveSpeed = 1.0

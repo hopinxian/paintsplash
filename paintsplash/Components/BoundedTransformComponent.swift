@@ -20,4 +20,15 @@ class BoundedTransformComponent: TransformComponent {
         self.bounds = bounds
         super.init(position: position, rotation: rotation, size: size)
     }
+
+    private enum CodingKeys: String, CodingKey {
+        case bounds
+    }
+
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+
+        self.bounds = try container.decode(Rect.self, forKey: .bounds)
+        try super.init(from: container.superDecoder())
+    }
 }

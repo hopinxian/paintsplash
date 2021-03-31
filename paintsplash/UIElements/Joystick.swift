@@ -6,8 +6,8 @@
 //
 
 class Joystick: GameEntity, Renderable {
-    let renderComponent: RenderComponent
-    let transformComponent: TransformComponent
+    var renderComponent: RenderComponent
+    var transformComponent: TransformComponent
 
     private let foregroundNode: JoystickForeground
 
@@ -92,8 +92,8 @@ class Joystick: GameEntity, Renderable {
 }
 
 class JoystickForeground: GameEntity, Renderable {
-    let renderComponent: RenderComponent
-    let transformComponent: TransformComponent
+    var renderComponent: RenderComponent
+    var transformComponent: TransformComponent
 
     init(position: Vector2D, size: Vector2D, zPosition: Int) {
         let renderType = RenderType.sprite(spriteName: "joystick-foreground")
