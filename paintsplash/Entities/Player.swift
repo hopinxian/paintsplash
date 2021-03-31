@@ -82,6 +82,11 @@ class Player: GameEntity,
         EventSystem.processedInputEvents.playerChangeWeaponEvent.subscribe(listener: onWeaponChange)
     }
 
+    convenience init(initialPosition: Vector2D, playerUUID: UUID?) {
+        self.init(initialPosition: initialPosition)
+        id = playerUUID ?? id
+    }
+
     func onMove(event: PlayerMoveEvent) {
 
         guard event.playerID == id else {
@@ -185,74 +190,5 @@ class Player: GameEntity,
 
     override func update() {
         // print(stateComponent.currentState)
-    }
-}
-
-class NetworkedPlayer: Player {
-    init(initialPosition: Vector2D, playerUUID: UUID?) {
-        super.init(initialPosition: initialPosition)
-        id = playerUUID ?? id
-    }
-
-    override func onWeaponChange(event: PlayerChangeWeaponEvent) {
-//        switch event.newWeapon {
-//        case is Bucket.Type:
-//            _ = multiWeaponComponent.switchWeapon(to: Bucket.self)
-//        case is PaintGun.Type:
-//            _ = multiWeaponComponent.switchWeapon(to: PaintGun.self)
-//        default:
-//            break
-//        }
-//
-//        EventSystem.playerActionEvent.playerChangedWeaponEvent.post(
-//            event: PlayerChangedWeaponEvent(weapon: multiWeaponComponent.activeWeapon)
-//        )
-
-        super.onWeaponChange(event: event)
-        // send to firebase
-    }
-
-    override func heal(amount: Int) {
-//        healthComponent.currentHealth += amount
-//
-//        EventSystem.playerActionEvent.playerHealthUpdateEvent.post(
-//            event: PlayerHealthUpdateEvent(newHealth: healthComponent.currentHealth)
-//        )
-
-        super.heal(amount: amount)
-        // send to firebase
-    }
-
-    override func takeDamage(amount: Int) {
-//        healthComponent.currentHealth -= amount
-//
-//        EventSystem.playerActionEvent.playerHealthUpdateEvent.post(
-//            event: PlayerHealthUpdateEvent(newHealth: healthComponent.currentHealth)
-//        )
-//
-//        if healthComponent.currentHealth <= 0 {
-//            stateComponent.currentState = PlayerState.Die(player: self)
-//        }
-
-        super.takeDamage(amount: amount)
-        // send to firebase
-    }
-
-    override func loadAmmoDrop(_ drop: PaintAmmoDrop) {
-//        let ammo = drop.getAmmoObject()
-//        if multiWeaponComponent.canLoad([ammo]) {
-//            multiWeaponComponent.load([ammo])
-//            let event = PlayerAmmoUpdateEvent(
-//                weapon: multiWeaponComponent.activeWeapon,
-//                ammo: multiWeaponComponent.activeWeapon.getAmmo()
-//            )
-//
-//            EventSystem.playerActionEvent.playerAmmoUpdateEvent.post(
-//                event: event
-//            )
-//        }
-
-        super.loadAmmoDrop(drop)
-        // send to firebase
     }
 }

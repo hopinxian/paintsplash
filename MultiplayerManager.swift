@@ -79,18 +79,19 @@ class MultiplayerServer: SinglePlayerGameManager {
         guard let hostId = UUID(uuidString: room.host.playerUUID) else {
             fatalError("UUID host err")
         }
-        player = NetworkedPlayer(initialPosition: Vector2D.zero + Vector2D.right * 50, playerUUID: hostId)
+        player = Player(initialPosition: Vector2D.zero + Vector2D.right * 50, playerUUID: hostId)
         player.spawn()
+        assert(player.id == hostId)
 
-//        EventSystem.playerActionEvent.playerHealthUpdateEvent.subscribe(listener: { event in
-//            if event.playerId == otherId {
-//                print("client has been hit")
-//            }
-//            self.gameConnectionHandler?.sendPlayerState(gameId: self.gameId ?? "",
-//                                                        playerId: hostId.uuidString,
-//                                                        playerState: PlayerStateInfo(playerId: hostId,
-//                                                                                     health: event.newHealth))
-//        })
+        EventSystem.playerActionEvent.playerHealthUpdateEvent.subscribe(listener: { event in
+            guard event.playerId == hostId else {
+                return
+            }
+            self.gameConnectionHandler?.sendPlayerState(gameId: self.gameId ?? "",
+                                                        playerId: hostId.uuidString,
+                                                        playerState: PlayerStateInfo(playerId: hostId,
+                                                                                     health: event.newHealth))
+        })
 
         guard let otherIdStr = room.players?.first?.value.playerUUID else {
             fatalError("Cannot get client uuid")
@@ -100,13 +101,13 @@ class MultiplayerServer: SinglePlayerGameManager {
             fatalError("UUID client err")
         }
 
-        otherPlayer = NetworkedPlayer(initialPosition: Vector2D.zero + Vector2D.left * 50, playerUUID: otherId)
+        otherPlayer = Player(initialPosition: Vector2D.zero + Vector2D.left * 50, playerUUID: otherId)
         otherPlayer.spawn()
-
+        assert(otherPlayer.id == otherId)
 
         EventSystem.playerActionEvent.playerHealthUpdateEvent.subscribe(listener: { event in
-            if event.playerId == otherId {
-                print("client has been hit")
+            guard event.playerId == otherId else {
+                return
             }
             self.gameConnectionHandler?.sendPlayerState(gameId: self.gameId ?? "",
                                                         playerId: otherIdStr,
