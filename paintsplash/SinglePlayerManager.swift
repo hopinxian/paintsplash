@@ -24,6 +24,7 @@ class SinglePlayerGameManager: GameManager {
     private var collisionDetector: SKCollisionDetector!
 
     var player: Player!
+    var player2: Player!
 
     init(gameScene: GameScene) {
         self.gameScene = gameScene
@@ -67,6 +68,9 @@ class SinglePlayerGameManager: GameManager {
         player = Player(initialPosition: Vector2D.zero)
         player.spawn()
 
+        player2 = Player(initialPosition: Vector2D.zero)
+        player2.spawn()
+
         let canvasSpawner = CanvasSpawner(
             initialPosition: Constants.CANVAS_SPAWNER_POSITION,
             canvasVelocity: Vector2D(0.4, 0),
@@ -109,11 +113,17 @@ class SinglePlayerGameManager: GameManager {
             interupt: true
         )
 
-        let joystick = Joystick()
+        let joystick = Joystick(associatedEntityID: player.id)
         joystick.spawn()
 
-        let attackButton = AttackButton()
+        let attackButton = AttackButton(associatedEntityID: player2.id)
         attackButton.spawn()
+
+//        let joystick2 = Joystick(associatedEntityID: player2.id)
+//        joystick.spawn()
+//
+//        let attackButton2 = AttackButton(associatedEntityID: player2.id)
+//        attackButton.spawn()
 
         let playerHealthUI = PlayerHealthDisplay(startingHealth: player.healthComponent.currentHealth)
         playerHealthUI.spawn()

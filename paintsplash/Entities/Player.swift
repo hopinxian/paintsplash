@@ -83,6 +83,11 @@ class Player: GameEntity,
     }
 
     func onMove(event: PlayerMoveEvent) {
+
+        guard event.playerID == id else {
+            return
+        }
+
         moveableComponent.direction = event.direction
 
         lastDirection = event.direction.magnitude == 0 ? lastDirection : event.direction
@@ -92,6 +97,10 @@ class Player: GameEntity,
     }
 
     func onShoot(event: PlayerShootEvent) {
+        guard event.playerID == id else {
+            return
+        }
+
         if lastDirection.x > 0 {
             stateComponent.currentState = PlayerState.AttackRight(player: self)
         } else {

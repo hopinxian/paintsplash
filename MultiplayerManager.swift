@@ -115,12 +115,12 @@ class MultiplayerServer: GameManager {
 //            animation: WeaponAnimations.unselectWeapon,
 //            interupt: true
 //        )
-
-        let joystick = Joystick()
-        joystick.spawn()
-
-        let attackButton = AttackButton()
-        attackButton.spawn()
+//
+//        let joystick = Joystick(associatedEntityID: pl)
+//        joystick.spawn()
+//
+//        let attackButton = AttackButton()
+//        attackButton.spawn()
 
 //        let playerHealthUI = PlayerHealthDisplay(startingHealth: player.healthComponent.currentHealth)
 //        playerHealthUI.spawn()
@@ -237,11 +237,13 @@ class MultiplayerClient: GameManager {
         let background = Background()
         background.spawn()
 
-        let joystick = Joystick()
-        joystick.spawn()
+//        add player id to button and joystick
 
-        let attackButton = AttackButton()
-        attackButton.spawn()
+//        let joystick = Joystick()
+//        joystick.spawn()
+//
+//        let attackButton = AttackButton()
+//        attackButton.spawn()
 
 //        let playerHealthUI = PlayerHealthDisplay(startingHealth: player.healthComponent.currentHealth)
 //        playerHealthUI.spawn()
