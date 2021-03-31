@@ -77,24 +77,27 @@ class MultiplayerServer: SinglePlayerGameManager {
 //         TODO: handle 2 players
 
         guard let hostId = UUID(uuidString: room.host.playerUUID) else {
-            return
+            fatalError("UUID host err")
         }
         player = NetworkedPlayer(initialPosition: Vector2D.zero + Vector2D.right * 50, playerUUID: hostId)
         player.spawn()
 
-        EventSystem.playerActionEvent.playerHealthUpdateEvent.subscribe(listener: { event in
-            self.gameConnectionHandler?.sendPlayerState(gameId: self.gameId ?? "",
-                                                        playerId: self.room.host.playerUUID,
-                                                        playerState: PlayerStateInfo(playerId: hostId,
-                                                                                     health: event.newHealth))
-        })
+//        EventSystem.playerActionEvent.playerHealthUpdateEvent.subscribe(listener: { event in
+//            if event.playerId == otherId {
+//                print("client has been hit")
+//            }
+//            self.gameConnectionHandler?.sendPlayerState(gameId: self.gameId ?? "",
+//                                                        playerId: hostId.uuidString,
+//                                                        playerState: PlayerStateInfo(playerId: hostId,
+//                                                                                     health: event.newHealth))
+//        })
 
         guard let otherIdStr = room.players?.first?.value.playerUUID else {
             fatalError("Cannot get client uuid")
         }
 
         guard let otherId = UUID(uuidString: otherIdStr) else {
-            return
+            fatalError("UUID client err")
         }
 
         otherPlayer = NetworkedPlayer(initialPosition: Vector2D.zero + Vector2D.left * 50, playerUUID: otherId)
@@ -102,6 +105,9 @@ class MultiplayerServer: SinglePlayerGameManager {
 
 
         EventSystem.playerActionEvent.playerHealthUpdateEvent.subscribe(listener: { event in
+            if event.playerId == otherId {
+                print("client has been hit")
+            }
             self.gameConnectionHandler?.sendPlayerState(gameId: self.gameId ?? "",
                                                         playerId: otherIdStr,
                                                         playerState: PlayerStateInfo(playerId: otherId,
@@ -250,7 +256,7 @@ class MultiplayerClient: GameManager {
         print("init client")
         EventSystem.entityChangeEvents.addEntityEvent.subscribe(listener: onAddEntity)
         EventSystem.entityChangeEvents.removeEntityEvent.subscribe(listener: onRemoveEntity)
-
+        assert(playerInfo.playerUUID == room.players!.first!.value.playerUUID, "Wrong uuid")
         setupGame()
     }
 
@@ -331,6 +337,9 @@ class MultiplayerClient: GameManager {
     }
 
     func handlePlayerStateUpdate(playerState: PlayerStateInfo) {
+        guard playerState.playerId.uuidString == playerInfo.playerUUID else {
+            return
+        }
         let health = playerState.health
         EventSystem.playerActionEvent.playerHealthUpdateEvent.post(event: PlayerHealthUpdateEvent(newHealth: health,
                                                                                                   playerId: playerState.playerId))

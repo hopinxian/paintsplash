@@ -175,6 +175,7 @@ class Player: GameEntity,
             //                fatalError("Enemy does not conform to enemy")
             switch with {
             case _ as Enemy:
+
                 takeDamage(amount: 1)
             default:
                 fatalError("Enemy does not conform to any enemy type")
