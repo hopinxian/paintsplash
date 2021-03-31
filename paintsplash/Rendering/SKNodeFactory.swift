@@ -45,7 +45,9 @@ class SKNodeFactory {
     }
 
     private static func colorize(_ renderableEntity: Renderable) -> (color: UIColor, blendFactor: CGFloat)? {
+//        print("Here")
         if let colorData = renderableEntity as? Colorable {
+//            print(colorData.color)
             return (colorData.color.uiColor, 1)
         } else {
             return nil

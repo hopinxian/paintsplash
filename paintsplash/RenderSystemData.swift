@@ -32,8 +32,22 @@ struct AnimationSystemData: Codable {
 
     init(from animationSystem: AnimationSystem) {
         self.animatables = animationSystem.animatables.map({ entity, animatable in
-            let encoded = EncodableAnimatable(entityID: entity.id, animationComponent: animatable.animationComponent)
-            return encoded
+            EncodableAnimatable(entityID: entity.id, animationComponent: animatable.animationComponent)
+        })
+    }
+}
+
+struct EncodableColorable: Codable {
+    let entityID: UUID
+    let color: PaintColor
+}
+
+struct ColorSystemData: Codable {
+    let colorables: [EncodableColorable]
+
+    init(from colorables: [GameEntity: Colorable]) {
+        self.colorables = colorables.map({ entity, colorable in
+            EncodableColorable(entityID: entity.id, color: colorable.color)
         })
     }
 }

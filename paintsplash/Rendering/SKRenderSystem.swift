@@ -60,6 +60,26 @@ class SKRenderSystem: RenderSystem {
         let transformComponent = renderable.transformComponent
         node.position = SpaceConverter.modelToScreen(transformComponent.position)
         node.zRotation = CGFloat(transformComponent.rotation)
+
+        switch renderable.renderComponent.renderType {
+        case .sprite(let spriteName):
+            if let spriteNode = node as? SKSpriteNode {
+                if let colorData = renderable as? Colorable {
+                    if spriteNode.color != colorData.color.uiColor {
+                        spriteNode.color = colorData.color.uiColor
+                    }
+                }
+                let screenSize: CGSize = SpaceConverter.modelToScreen(renderable.transformComponent.size)
+                if spriteNode.size != screenSize {
+                    spriteNode.size = screenSize
+                }
+            }
+        case .label(let text):
+            if let labelNode = node as? SKLabelNode,
+               labelNode.text != text {
+                labelNode.text = text
+            }
+        }
     }
 
     func onChangeView(event: ChangeViewEvent) {

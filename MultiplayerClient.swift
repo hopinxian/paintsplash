@@ -30,8 +30,10 @@ class MultiplayerClient: GameManager {
         connectionHandler.listen(to: renderSystemPath, callBack: updateRenderSystem)
 
         let animationSystemPath = FirebasePaths.games + "/" + room.gameID + "/" + "AnimSystem"
-
         connectionHandler.listen(to: animationSystemPath, callBack: updateAnimationSystem)
+
+        let colorSystemPath = FirebasePaths.games + "/" + room.gameID + "/" + "ColorSystem"
+        connectionHandler.listen(to: colorSystemPath, callBack: updateColorSystem)
     }
 
     func setupGame() {
@@ -43,7 +45,7 @@ class MultiplayerClient: GameManager {
     func setUpSystems() {
         let renderSystem = SKRenderSystem(scene: gameScene)
         self.renderSystem = renderSystem
-        animationSystem = SKAnimationSystem(renderSystem: renderSystem)
+        self.animationSystem = SKAnimationSystem(renderSystem: renderSystem)
     }
 
     func setUpEntities() {
@@ -92,6 +94,30 @@ class MultiplayerClient: GameManager {
         })
     }
 
+    func updateColorSystem(data: ColorSystemData?) {
+        guard let colorData = data else {
+            return
+        }
+
+        var colorables = [GameEntity: Colorable]()
+        entities.forEach({ entity in
+            if let colorable = entity as? Colorable {
+                colorables[entity] = colorable
+            }
+        })
+
+
+        colorData.colorables.forEach({ encodedColorable in
+            if var (_, colorable) = colorables.first(where: { $0.0.id == encodedColorable.entityID }) {
+                colorable.color = encodedColorable.color
+            } else {
+                let newEntity = NetworkedEntity(id: encodedColorable.entityID)
+                newEntity.color = encodedColorable.color
+                newEntity.spawn()
+            }
+        })
+    }
+
     func sendInput(event: TouchInputEvent) {
 
     }
@@ -127,15 +153,17 @@ enum MultiplayerError: Error {
     case cannotJoinLobby
 }
 
-class NetworkedEntity: GameEntity, Renderable, Animatable {
+class NetworkedEntity: GameEntity, Renderable, Animatable, Colorable {
     var renderComponent: RenderComponent
     var transformComponent: TransformComponent
     var animationComponent: AnimationComponent
+    var color: PaintColor
 
     init(id: UUID) {
         self.renderComponent = RenderComponent(renderType: .sprite(spriteName: ""), zPosition: 0)
         self.transformComponent = TransformComponent(position: Vector2D.zero, rotation: 0, size: Vector2D.zero)
         self.animationComponent = AnimationComponent()
+        self.color = .white
 
         super.init()
 

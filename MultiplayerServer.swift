@@ -192,6 +192,24 @@ class MultiplayerServer: GameManager {
             onComplete: nil,
             onError: nil
         )
+
+        var colorables = [GameEntity: Colorable]()
+        entities.forEach({ entity in
+            if let colorable = entity as? Colorable {
+                colorables[entity] = colorable
+            }
+        })
+
+        let colorSystemPath = FirebasePaths.games + "/" + room.gameID + "/" + "ColorSystem"
+        let colorSystemData = ColorSystemData(from: colorables)
+        connectionHandler.send(
+            to: colorSystemPath,
+            data: colorSystemData,
+            mode: .single,
+            shouldRemoveOnDisconnect: false,
+            onComplete: nil,
+            onError: nil
+        )
     }
 
     deinit {

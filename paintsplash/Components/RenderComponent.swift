@@ -14,11 +14,3 @@ class RenderComponent: Component, Codable {
         self.zPosition = zPosition
     }
 }
-
-class ColorComponent: Component {
-    var color: PaintColor
-
-    init(color: PaintColor) {
-        self.color = color
-    }
-}
