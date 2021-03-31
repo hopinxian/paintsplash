@@ -5,9 +5,12 @@
 //  Created by Praveen Bala on 15/3/21.
 //
 
+import Foundation
+
 class Joystick: GameEntity, Renderable {
     let renderComponent: RenderComponent
     let transformComponent: TransformComponent
+    private let associatedEntity: UUID
 
     private let foregroundNode: JoystickForeground
 
@@ -21,8 +24,10 @@ class Joystick: GameEntity, Renderable {
         transformComponent.size.x / 2
     }
 
-    override init() {
+    init(associatedEntityID: UUID) {
         let renderType = RenderType.sprite(spriteName: Constants.JOYSTICK_SPRITE)
+
+        self.associatedEntity = associatedEntityID
 
         self.transformComponent = TransformComponent(
             position: Constants.JOYSTICK_POSITION,
@@ -40,6 +45,7 @@ class Joystick: GameEntity, Renderable {
             size: Constants.JOYSTICK_SIZE * 0.60,
             zPosition: renderComponent.zPosition + 1
         )
+
 
         super.init()
 
@@ -79,14 +85,14 @@ class Joystick: GameEntity, Renderable {
 
         foregroundNode.transformComponent.position = newLocation
 
-        let event = PlayerMoveEvent(direction: displacement.unitVector)
+        let event = PlayerMoveEvent(direction: displacement.unitVector, playerID: associatedEntity)
         EventSystem.processedInputEvents.playerMoveEvent.post(event: event)
     }
 
     func onTouchUp(event: TouchUpEvent) {
         tracking = false
         foregroundNode.transformComponent.position = transformComponent.position
-        let event = PlayerMoveEvent(direction: Vector2D.zero)
+        let event = PlayerMoveEvent(direction: Vector2D.zero, playerID: associatedEntity)
         EventSystem.processedInputEvents.playerMoveEvent.post(event: event)
     }
 }
