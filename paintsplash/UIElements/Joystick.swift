@@ -110,6 +110,10 @@ class Joystick: UIEntity, Renderable {
 
 class MovementJoystick: Joystick {
     override func onTouchMoved(event: TouchMovedEvent) {
+        guard tracking else {
+            return
+        }
+
         super.onTouchMoved(event: event)
 
         let event = PlayerMoveEvent(direction: displacement, playerID: associatedEntity)
@@ -117,6 +121,10 @@ class MovementJoystick: Joystick {
     }
 
     override func onTouchUp(event: TouchUpEvent) {
+        guard tracking else {
+            return
+        }
+        
         super.onTouchUp(event: event)
 
         let event = PlayerMoveEvent(direction: Vector2D.zero, playerID: associatedEntity)
@@ -135,7 +143,6 @@ class AttackJoystick: Joystick {
 
         super.onTouchMoved(event: event)
         lastDisplacement = displacement
-        print("attack move")
     }
 
     override func onTouchUp(event: TouchUpEvent) {

@@ -102,15 +102,16 @@ class Player: GameEntity,
     }
 
     func onShoot(event: PlayerShootEvent) {
-        print("shoot")
         guard event.playerID == id else {
             return
         }
 
-        if lastDirection.x > 0 {
+        if event.direction.x > 0 {
             stateComponent.currentState = PlayerState.AttackRight(player: self, attackDirection: event.direction)
+            lastDirection = .right
         } else {
             stateComponent.currentState = PlayerState.AttackLeft(player: self, attackDirection: event.direction)
+            lastDirection = .left
         }
     }
 
