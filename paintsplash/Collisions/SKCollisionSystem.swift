@@ -25,11 +25,11 @@ class SKCollisionSystem: CollisionSystem {
 
         let nodeEntityMap = renderSystem.getNodeEntityMap()
 
-        if nodeEntityMap[data] == nil {
+        if nodeEntityMap[data.id] == nil {
             renderSystem.addEntity(entity)
         }
 
-        let node = nodeEntityMap[data]
+        let node = nodeEntityMap[data.id]
         node?.physicsBody = physicsBody
     }
 
@@ -39,7 +39,7 @@ class SKCollisionSystem: CollisionSystem {
         }
 
         let nodeEntityMap = renderSystem.getNodeEntityMap()
-        if let node = nodeEntityMap[data] {
+        if let node = nodeEntityMap[data.id] {
             node.physicsBody = nil
         }
     }

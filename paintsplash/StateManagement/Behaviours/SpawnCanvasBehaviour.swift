@@ -12,7 +12,7 @@ class SpawnCanvasBehaviour: StateBehaviour {
             fatalError("AIEntity does not conform to the required protocols for SpawnEnemyBehaviour")
         }
 
-        let spawnPosition = transformable.transformComponent.position
+        let spawnPosition = transformable.transformComponent.localPosition
 
         let canvas = Canvas(
             initialPosition: spawnPosition,

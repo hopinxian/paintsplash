@@ -17,7 +17,7 @@ class PlayerHealthDisplay: GameEntity, Transformable {
         )
 
         let displayView = HorizontalStack<HeartDisplay>(
-            position: transformComponent.position,
+            position: transformComponent.localPosition,
             size: transformComponent.size,
             backgroundSprite: "WhiteSquare"
         )

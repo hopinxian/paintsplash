@@ -6,7 +6,7 @@
 //
 
 class NetworkAnimationSystem: AnimationSystem {
-    var animatables = [GameEntity: Animatable]()
+    var animatables = [EntityID: Animatable]()
 
     init() {
     }
@@ -16,11 +16,11 @@ class NetworkAnimationSystem: AnimationSystem {
             return
         }
 
-        animatables[entity] = animatable
+        animatables[entity.id] = animatable
     }
 
     func removeEntity(_ entity: GameEntity) {
-        animatables[entity] = nil
+        animatables[entity.id] = nil
     }
 
     func updateEntities() {
@@ -29,7 +29,7 @@ class NetworkAnimationSystem: AnimationSystem {
         }
     }
 
-    func updateEntity(_ entity: GameEntity, _ animatable: Animatable) {
+    func updateEntity(_ entity: EntityID, _ animatable: Animatable) {
         let animationComponent = animatable.animationComponent
 
         guard let animationToPlay = animationComponent.animationToPlay else {

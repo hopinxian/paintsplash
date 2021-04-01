@@ -4,15 +4,33 @@
 //
 //  Created by Farrell Nah on 26/3/21.
 //
+import Foundation
 
 class TransformComponent: Component, Codable {
-    var position: Vector2D
+    var parentID: EntityID?
+    var localPosition: Vector2D
     var rotation: Double
     var size: Vector2D
 
+    var worldPosition: Vector2D
+
     init(position: Vector2D, rotation: Double, size: Vector2D) {
-        self.position = position
+        self.localPosition = position
         self.rotation = rotation
         self.size = size
+        self.parentID = nil
+        self.worldPosition = position
+    }
+
+    func addParent(_ parent: GameEntity) {
+        guard parent is Transformable else {
+            return
+        }
+
+        self.parentID = parent.id
+    }
+
+    func removeParent() {
+        parentID = nil
     }
 }

@@ -6,10 +6,10 @@
 //
 
 class BoundedTransformComponent: TransformComponent {
-    override var position: Vector2D {
+    override var localPosition: Vector2D {
         didSet {
-            if !bounds.inset(by: size / 2).contains(position) {
-                position = oldValue
+            if !bounds.inset(by: size / 2).contains(localPosition) {
+                localPosition = oldValue
             }
         }
     }

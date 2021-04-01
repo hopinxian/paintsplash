@@ -35,7 +35,7 @@ class AttackButton: GameEntity, Renderable {
     }
 
     func onTouchDown(event: TouchDownEvent) {
-        if Vector2D.magnitude(of: event.location - transformComponent.position) < radius {
+        if Vector2D.magnitude(of: event.location - transformComponent.localPosition) < radius {
             tracking = true
         }
     }

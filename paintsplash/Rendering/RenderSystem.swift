@@ -8,6 +8,6 @@
 import SpriteKit
 
 protocol RenderSystem: System {
-    var renderables: [GameEntity: Renderable] { get set }
-    func updateEntity(_ entity: GameEntity, _ renderable: Renderable)
+    var renderables: [EntityID: Renderable] { get set }
+    func updateEntity(_ entity: EntityID, _ renderable: Renderable)
 }

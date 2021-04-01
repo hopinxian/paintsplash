@@ -7,7 +7,7 @@
 import Foundation
 
 struct EncodableRenderable: Codable {
-    let entityID: UUID
+    let entityID: EntityID
     let renderComponent: RenderComponent
     let transformComponent: TransformComponent
 }
@@ -17,13 +17,13 @@ struct RenderSystemData: Codable {
 
     init(from renderSystem: RenderSystem) {
         self.renderables = renderSystem.renderables.map({ entity, renderable in
-            EncodableRenderable(entityID: entity.id, renderComponent: renderable.renderComponent, transformComponent: renderable.transformComponent)
+            EncodableRenderable(entityID: entity, renderComponent: renderable.renderComponent, transformComponent: renderable.transformComponent)
         })
     }
 }
 
 struct EncodableAnimatable: Codable {
-    let entityID: UUID
+    let entityID: EntityID
     let animationComponent: AnimationComponent
 }
 
@@ -32,13 +32,13 @@ struct AnimationSystemData: Codable {
 
     init(from animationSystem: AnimationSystem) {
         self.animatables = animationSystem.animatables.map({ entity, animatable in
-            EncodableAnimatable(entityID: entity.id, animationComponent: animatable.animationComponent)
+            EncodableAnimatable(entityID: entity, animationComponent: animatable.animationComponent)
         })
     }
 }
 
 struct EncodableColorable: Codable {
-    let entityID: UUID
+    let entityID: EntityID
     let color: PaintColor
 }
 

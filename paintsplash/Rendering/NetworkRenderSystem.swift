@@ -6,7 +6,7 @@
 //
 
 class NetworkRenderSystem: RenderSystem {
-    var renderables = [GameEntity: Renderable]()
+    var renderables = [EntityID: Renderable]()
 
     init() {
 //        EventSystem.changeViewEvent.subscribe(listener: onChangeView)
@@ -14,12 +14,12 @@ class NetworkRenderSystem: RenderSystem {
 
     func addEntity(_ entity: GameEntity) {
         if let renderable = entity as? Renderable {
-            renderables[entity] = renderable
+            renderables[entity.id] = renderable
         }
     }
 
     func removeEntity(_ entity: GameEntity) {
-        renderables[entity] = nil
+        renderables[entity.id] = nil
     }
 
     func updateEntities() {
@@ -28,7 +28,7 @@ class NetworkRenderSystem: RenderSystem {
         }
     }
 
-    func updateEntity(_ entity: GameEntity, _ renderable: Renderable) {
+    func updateEntity(_ entity: EntityID, _ renderable: Renderable) {
         guard let renderable = renderables[entity] else {
             return
         }

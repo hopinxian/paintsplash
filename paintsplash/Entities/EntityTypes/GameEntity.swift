@@ -7,14 +7,7 @@
 import Foundation
 
 class GameEntity {
-    var id = UUID()
-    var components = [Component]()
-
-    init() {
-        for component in components {
-            component.entity = self
-        }
-    }
+    var id = EntityID()
 
     func spawn() {
         EventSystem.entityChangeEvents.addEntityEvent.post(event: AddEntityEvent(entity: self))

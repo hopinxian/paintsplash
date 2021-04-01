@@ -21,7 +21,7 @@ class SKNodeFactory {
             return SKNode()
         }
 
-        node.position = SpaceConverter.modelToScreen(transformComponent.position)
+        node.position = SpaceConverter.modelToScreen(transformComponent.localPosition)
         node.zRotation = CGFloat(transformComponent.rotation)
         node.zPosition = CGFloat(renderComponent.zPosition)
 

@@ -7,7 +7,7 @@
 import SpriteKit
 
 class SKAnimationSystem: AnimationSystem {
-    var animatables = [GameEntity: Animatable]()
+    var animatables = [EntityID: Animatable]()
     let renderSystem: SKRenderSystem
 
     init(renderSystem: SKRenderSystem) {
@@ -19,11 +19,11 @@ class SKAnimationSystem: AnimationSystem {
             return
         }
 
-        animatables[entity] = animatable
+        animatables[entity.id] = animatable
     }
 
     func removeEntity(_ entity: GameEntity) {
-        animatables[entity] = nil
+        animatables[entity.id] = nil
     }
 
     func updateEntities() {
@@ -32,7 +32,7 @@ class SKAnimationSystem: AnimationSystem {
         }
     }
 
-    func updateEntity(_ entity: GameEntity, _ animatable: Animatable) {
+    func updateEntity(_ entity: EntityID, _ animatable: Animatable) {
         let animationComponent = animatable.animationComponent
 
         guard let node = renderSystem.getNodeEntityMap()[entity],

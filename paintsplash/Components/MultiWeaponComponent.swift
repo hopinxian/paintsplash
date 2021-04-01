@@ -41,7 +41,7 @@ class MultiWeaponComponent: WeaponComponent {
             return nil
         }
 
-        projectile.transformComponent.position = carriedBy.transformComponent.position
+        projectile.transformComponent.localPosition = carriedBy.transformComponent.localPosition
         projectile.spawn()
 
         return projectile

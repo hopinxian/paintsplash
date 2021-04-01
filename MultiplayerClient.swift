@@ -55,27 +55,31 @@ class MultiplayerClient: GameManager {
     func setUpUI() {
 
     }
-    
-    func inLobby() -> Bool {
-        return false
-    }
+
 
     func updateRenderSystem(data: RenderSystemData?) {
         guard let renderableData = data else {
             return
         }
 
+        var deletedEntities = renderSystem.renderables
         renderableData.renderables.forEach({ encodedRenderable in
-            if let (_, renderable) = renderSystem.renderables.first(where: { $0.key.id == encodedRenderable.entityID }) {
+            if let (entity, renderable) = renderSystem.renderables.first(where: { $0.key == encodedRenderable.entityID }) {
                 renderable.renderComponent = encodedRenderable.renderComponent
                 renderable.transformComponent = encodedRenderable.transformComponent
+                deletedEntities[entity] = nil
             } else {
                 let newEntity = NetworkedEntity(id: encodedRenderable.entityID)
                 newEntity.renderComponent = encodedRenderable.renderComponent
                 newEntity.transformComponent = encodedRenderable.transformComponent
                 newEntity.spawn()
+                deletedEntities[newEntity.id] = nil
             }
         })
+
+        for (entity, renderable) in deletedEntities {
+            renderable.destroy()
+        }
     }
 
     func updateAnimationSystem(data: AnimationSystemData?) {
@@ -84,7 +88,7 @@ class MultiplayerClient: GameManager {
         }
 
         animatableData.animatables.forEach({ encodedAnimatable in
-            if let (_, animatable) = animationSystem.animatables.first(where: { $0.key.id == encodedAnimatable.entityID }) {
+            if let (entity, animatable) = animationSystem.animatables.first(where: { $0.key == encodedAnimatable.entityID }) {
                 animatable.animationComponent = encodedAnimatable.animationComponent
             } else {
                 let newEntity = NetworkedEntity(id: encodedAnimatable.entityID)
@@ -106,9 +110,8 @@ class MultiplayerClient: GameManager {
             }
         })
 
-
         colorData.colorables.forEach({ encodedColorable in
-            if var (_, colorable) = colorables.first(where: { $0.0.id == encodedColorable.entityID }) {
+            if var (entity, colorable) = colorables.first(where: { $0.0.id == encodedColorable.entityID }) {
                 colorable.color = encodedColorable.color
             } else {
                 let newEntity = NetworkedEntity(id: encodedColorable.entityID)
@@ -159,7 +162,7 @@ class NetworkedEntity: GameEntity, Renderable, Animatable, Colorable {
     var animationComponent: AnimationComponent
     var color: PaintColor
 
-    init(id: UUID) {
+    init(id: EntityID) {
         self.renderComponent = RenderComponent(renderType: .sprite(spriteName: ""), zPosition: 0)
         self.transformComponent = TransformComponent(position: Vector2D.zero, rotation: 0, size: Vector2D.zero)
         self.animationComponent = AnimationComponent()

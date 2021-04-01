@@ -85,7 +85,7 @@ class Player: GameEntity,
 
         lastDirection = event.direction.magnitude == 0 ? lastDirection : event.direction
         EventSystem.playerActionEvent.playerMovementEvent.post(
-            event: PlayerMovementEvent(location: transformComponent.position)
+            event: PlayerMovementEvent(location: transformComponent.localPosition)
         )
     }
 

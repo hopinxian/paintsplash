@@ -59,7 +59,7 @@ class Joystick: GameEntity, Renderable {
     }
 
     func onTouchDown(event: TouchDownEvent) {
-        if Vector2D.magnitude(of: event.location - transformComponent.position) < backgroundRadius {
+        if Vector2D.magnitude(of: event.location - transformComponent.localPosition) < backgroundRadius {
             tracking = true
         }
     }
@@ -70,14 +70,14 @@ class Joystick: GameEntity, Renderable {
         }
 
         var newLocation = event.location
-        let displacement = newLocation - transformComponent.position
+        let displacement = newLocation - transformComponent.localPosition
 
         if displacement.magnitude > backgroundRadius {
             let newDisplacement = Vector2D.normalize(displacement) * backgroundRadius
-            newLocation = transformComponent.position + newDisplacement
+            newLocation = transformComponent.localPosition + newDisplacement
         }
 
-        foregroundNode.transformComponent.position = newLocation
+        foregroundNode.transformComponent.localPosition = newLocation
 
         let event = PlayerMoveEvent(direction: displacement.unitVector)
         EventSystem.processedInputEvents.playerMoveEvent.post(event: event)
@@ -85,7 +85,7 @@ class Joystick: GameEntity, Renderable {
 
     func onTouchUp(event: TouchUpEvent) {
         tracking = false
-        foregroundNode.transformComponent.position = transformComponent.position
+        foregroundNode.transformComponent.localPosition = transformComponent.localPosition
         let event = PlayerMoveEvent(direction: Vector2D.zero)
         EventSystem.processedInputEvents.playerMoveEvent.post(event: event)
     }

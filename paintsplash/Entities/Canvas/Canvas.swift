@@ -44,10 +44,12 @@ class Canvas: GameEntity, StatefulEntity, Renderable, Collidable, Transformable,
             self.colors.insert(color)
 
             // add visible paint blob to canvas
-            let blobInfo = CanvasSubviewManager.getRandomPaintRenderInfo(canvasTransformable: self,
-                                                                         color: color)
-            let addBlobEvent = AddSubviewEvent(renderable: self, renderInfo: blobInfo)
-            EventSystem.changeViewEvent.addSubviewEvent.post(event: addBlobEvent)
+//            let blobInfo = CanvasSubviewManager.getRandomPaintRenderInfo(canvasTransformable: self,
+//                                                                         color: color)
+//            let addBlobEvent = AddSubviewEvent(renderable: self, renderInfo: blobInfo)
+//            EventSystem.changeViewEvent.addSubviewEvent.post(event: addBlobEvent)
+            let blob = PaintBlob(color: color, canvas: self)
+            blob.spawn()
 
             // post notification to alert system about colours on the current canvas
             let canvasHitEvent = CanvasHitEvent(canvas: self)

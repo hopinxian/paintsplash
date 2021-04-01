@@ -97,9 +97,9 @@ class VerticalStack<ItemType: Renderable>: GameEntity, Renderable, Animatable {
         }
         let startX = leftPadding - rightPadding
         let startY = -(transformComponent.size.y / 2) + (firstItem.transformComponent.size.y / 2) + bottomPadding
-        var nextPosition = transformComponent.position + Vector2D(startX, startY)
+        var nextPosition = transformComponent.localPosition + Vector2D(startX, startY)
         for item in items {
-            item.transformComponent.position = nextPosition
+            item.transformComponent.localPosition = nextPosition
             item.renderComponent.zPosition = zPosition + 1
             EventSystem.entityChangeEvents.addEntityEvent.post(event: AddEntityEvent(entity: item))
             nextPosition += Vector2D(0, item.transformComponent.size.y + seperation)

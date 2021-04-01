@@ -140,6 +140,9 @@
 		D53F54F8260DA0D400635B05 /* EnemyState+ChasingRight.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53F54F7260DA0D400635B05 /* EnemyState+ChasingRight.swift */; };
 		D54628042614C071002527C3 /* AnimationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54628032614C071002527C3 /* AnimationManager.swift */; };
 		D546280C2614DB45002527C3 /* ColorComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D546280B2614DB44002527C3 /* ColorComponent.swift */; };
+		D546281626158B2C002527C3 /* TransformSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D546281526158B2C002527C3 /* TransformSystem.swift */; };
+		D546281A26158F37002527C3 /* PaintBlob.swift in Sources */ = {isa = PBXBuildFile; fileRef = D546281926158F37002527C3 /* PaintBlob.swift */; };
+		D546281E261594FE002527C3 /* EntityID.swift in Sources */ = {isa = PBXBuildFile; fileRef = D546281D261594FE002527C3 /* EntityID.swift */; };
 		D5500C022608E38800E21BF1 /* RenderComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5500C012608E38800E21BF1 /* RenderComponent.swift */; };
 		D5500C062608E7E200E21BF1 /* System.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5500C052608E7E200E21BF1 /* System.swift */; };
 		D5500C0A2608E8FE00E21BF1 /* RenderType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5500C092608E8FE00E21BF1 /* RenderType.swift */; };
@@ -415,6 +418,9 @@
 		D53F54F7260DA0D400635B05 /* EnemyState+ChasingRight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EnemyState+ChasingRight.swift"; sourceTree = "<group>"; };
 		D54628032614C071002527C3 /* AnimationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationManager.swift; sourceTree = "<group>"; };
 		D546280B2614DB44002527C3 /* ColorComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorComponent.swift; sourceTree = "<group>"; };
+		D546281526158B2C002527C3 /* TransformSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransformSystem.swift; sourceTree = "<group>"; };
+		D546281926158F37002527C3 /* PaintBlob.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaintBlob.swift; sourceTree = "<group>"; };
+		D546281D261594FE002527C3 /* EntityID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityID.swift; sourceTree = "<group>"; };
 		D5500C012608E38800E21BF1 /* RenderComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderComponent.swift; sourceTree = "<group>"; };
 		D5500C052608E7E200E21BF1 /* System.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = System.swift; sourceTree = "<group>"; };
 		D5500C092608E8FE00E21BF1 /* RenderType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderType.swift; sourceTree = "<group>"; };
@@ -995,6 +1001,7 @@
 				DC24030D2600845100550E1E /* Canvas.swift */,
 				DC08DA69260516DE000F4F90 /* CanvasEndMarker.swift */,
 				DCAD59EB2605B775005A2C4D /* CanvasSubviewManager.swift */,
+				D546281926158F37002527C3 /* PaintBlob.swift */,
 			);
 			path = Canvas;
 			sourceTree = "<group>";
@@ -1135,6 +1142,7 @@
 			isa = PBXGroup;
 			children = (
 				ACFD822B25F67C9E009D806B /* Transformable.swift */,
+				D546281526158B2C002527C3 /* TransformSystem.swift */,
 			);
 			path = Transform;
 			sourceTree = "<group>";
@@ -1143,6 +1151,7 @@
 			isa = PBXGroup;
 			children = (
 				AC097DFF2601FFDB000951B0 /* GameEntity.swift */,
+				D546281D261594FE002527C3 /* EntityID.swift */,
 			);
 			path = EntityTypes;
 			sourceTree = "<group>";
@@ -1532,6 +1541,7 @@
 				DCF748FC2610F5AC0008633D /* PlayerInfo.swift in Sources */,
 				D5C568FF260A19C9009E5BD9 /* MovementSystem.swift in Sources */,
 				D5500C102608F12800E21BF1 /* SKNodeFactory.swift in Sources */,
+				D546281626158B2C002527C3 /* TransformSystem.swift in Sources */,
 				DC7B422025FF63350069B422 /* CollisionEvent.swift in Sources */,
 				D53F5494260D96F900635B05 /* CanvasSpawnerState+Spawning.swift in Sources */,
 				DC247F5525F9E53C001B814C /* SpawnEnemyBehaviour.swift in Sources */,
@@ -1626,6 +1636,7 @@
 				D53F54F8260DA0D400635B05 /* EnemyState+ChasingRight.swift in Sources */,
 				842B5CE92604885800FCF7BD /* ScoreEventManager.swift in Sources */,
 				DC2403192600D68900550E1E /* CanvasAnimations.swift in Sources */,
+				D546281E261594FE002527C3 /* EntityID.swift in Sources */,
 				DC24033D2600FEFE00550E1E /* CanvasSpawner.swift in Sources */,
 				D5500C062608E7E200E21BF1 /* System.swift in Sources */,
 				ACB3607225F661620016E240 /* AppDelegate.swift in Sources */,
@@ -1649,6 +1660,7 @@
 				D5500C0A2608E8FE00E21BF1 /* RenderType.swift in Sources */,
 				D596B19A25F8CF0800A5854F /* Renderable.swift in Sources */,
 				DC94351726019EA1001046BB /* CanvasRequest.swift in Sources */,
+				D546281A26158F37002527C3 /* PaintBlob.swift in Sources */,
 				DC7B421B25FF63350069B422 /* TouchInputEvent.swift in Sources */,
 				D53F5435260D948500635B05 /* NoState.swift in Sources */,
 				D53F547C260D967100635B05 /* EnemySpawnerState.swift in Sources */,
