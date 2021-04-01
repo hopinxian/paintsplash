@@ -32,7 +32,7 @@ class CanvasRequestManager: GameEntity, Transformable {
         self.requestsDisplayView = displayView
         super.init()
 
-        EventSystem.entityChangeEvents.addEntityEvent.post(event: AddEntityEvent(entity: displayView))
+        displayView.spawn()
         EventSystem.canvasEvent.canvasHitEvent.subscribe(listener: evaluateCanvases)
     }
 

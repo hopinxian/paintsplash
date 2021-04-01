@@ -212,7 +212,10 @@ class MultiplayerClient: GameManager {
             return
         }
 
-        var deletedEntities = renderSystem.renderables
+        let uiEntityIDs = Set(uiEntities.map({ $0.id }))
+        var deletedEntities = renderSystem.renderables.filter({ entityID, _ in
+            !uiEntityIDs.contains(entityID)
+        })
         renderableData.renderables.forEach({ encodedRenderable in
             if let (entity, renderable) = renderSystem.renderables.first(
                 where: { $0.key == encodedRenderable.entityID }) {

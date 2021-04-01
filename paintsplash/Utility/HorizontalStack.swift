@@ -5,7 +5,7 @@
 //  Created by Farrell Nah on 19/3/21.
 //
 
-class HorizontalStack<ItemType: Renderable>: GameEntity, Renderable, Animatable {
+class HorizontalStack<ItemType: Renderable>: UIEntity, Renderable, Animatable {
 
     var items: [ItemType]
 
@@ -69,7 +69,8 @@ class HorizontalStack<ItemType: Renderable>: GameEntity, Renderable, Animatable 
         shiftItemsLeft(from: index + 1, to: items.count - 1, xDistance: width)
 
         items.remove(at: index)
-        EventSystem.entityChangeEvents.removeEntityEvent.post(event: RemoveEntityEvent(entity: item))
+        item.destroy()
+//        EventSystem.entityChangeEvents.removeEntityEvent.post(event: RemoveEntityEvent(entity: item))
         // renderViews()
     }
 
@@ -88,10 +89,7 @@ class HorizontalStack<ItemType: Renderable>: GameEntity, Renderable, Animatable 
         // get position to add stuff
         item.transformComponent.localPosition = nextPosition
         item.renderComponent.zPosition = zPosition + 1
-        EventSystem.entityChangeEvents.addEntityEvent.post(event: AddEntityEvent(entity: item))
-
-        // nextPosition += Vector2D(item.transformComponent.size.x + seperation, 0)
-        // renderViews()
+        item.spawn()
     }
 
     func insertBottom(item: ItemType) {
@@ -132,7 +130,7 @@ class HorizontalStack<ItemType: Renderable>: GameEntity, Renderable, Animatable 
 
     private func clearViews() {
         for item in items {
-            EventSystem.entityChangeEvents.removeEntityEvent.post(event: RemoveEntityEvent(entity: item))
+            item.destroy()
         }
     }
 
@@ -146,7 +144,7 @@ class HorizontalStack<ItemType: Renderable>: GameEntity, Renderable, Animatable 
         for item in items {
             item.transformComponent.localPosition = nextPosition
             item.renderComponent.zPosition = zPosition + 1
-            EventSystem.entityChangeEvents.addEntityEvent.post(event: AddEntityEvent(entity: item))
+            item.spawn()
             nextPosition += Vector2D(item.transformComponent.size.x + seperation, 0)
         }
     }

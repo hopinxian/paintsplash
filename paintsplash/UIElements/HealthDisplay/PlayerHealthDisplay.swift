@@ -30,7 +30,7 @@ class PlayerHealthDisplay: UIEntity, Transformable {
 
         super.init()
 
-        EventSystem.entityChangeEvents.addEntityEvent.post(event: AddEntityEvent(entity: displayView))
+        displayView.spawn()
         EventSystem.playerActionEvent.playerHealthUpdateEvent.subscribe(listener: onHealthUpdate)
         updateViews(health: startingHealth)
     }

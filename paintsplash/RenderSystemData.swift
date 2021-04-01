@@ -15,8 +15,8 @@ struct EncodableRenderable: Codable {
 struct RenderSystemData: Codable {
     let renderables: [EncodableRenderable]
 
-    init(from renderSystem: RenderSystem) {
-        self.renderables = renderSystem.renderables.map({ entity, renderable in
+    init(from data: [EntityID: Renderable]) {
+        self.renderables = data.map({ entity, renderable in
             EncodableRenderable(entityID: entity, renderComponent: renderable.renderComponent, transformComponent: renderable.transformComponent)
         })
     }
@@ -30,8 +30,8 @@ struct EncodableAnimatable: Codable {
 struct AnimationSystemData: Codable {
     let animatables: [EncodableAnimatable]
 
-    init(from animationSystem: AnimationSystem) {
-        self.animatables = animationSystem.animatables.map({ entity, animatable in
+    init(from data: [EntityID: Animatable]) {
+        self.animatables = data.map({ entity, animatable in
             EncodableAnimatable(entityID: entity, animationComponent: animatable.animationComponent)
         })
     }
@@ -45,9 +45,9 @@ struct EncodableColorable: Codable {
 struct ColorSystemData: Codable {
     let colorables: [EncodableColorable]
 
-    init(from colorables: [GameEntity: Colorable]) {
+    init(from colorables: [EntityID: Colorable]) {
         self.colorables = colorables.map({ entity, colorable in
-            EncodableColorable(entityID: entity.id, color: colorable.color)
+            EncodableColorable(entityID: entity, color: colorable.color)
         })
     }
 }

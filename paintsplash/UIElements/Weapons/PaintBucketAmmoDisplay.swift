@@ -27,7 +27,7 @@ class PaintBucketAmmoDisplay: UIEntity, Transformable {
         )
 
         self.ammoDisplayView = displayView
-        EventSystem.entityChangeEvents.addEntityEvent.post(event: AddEntityEvent(entity: displayView))
+        displayView.spawn()
 
         self.weaponData = weaponData
 

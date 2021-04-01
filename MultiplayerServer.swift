@@ -178,8 +178,12 @@ class MultiplayerServer: SinglePlayerGameManager {
     }
 
     func sendGameState() {
+        let uiEntityIDs = Set(uiEntities.map({ $0.id }))
         let renderSystemPath = FirebasePaths.games + "/" + room.gameID + "/" + "RenderSystem"
-        let renderSystemData = RenderSystemData(from: renderSystem)
+        let renderablesToSend = renderSystem.renderables.filter({ entityID, _ in
+            !uiEntityIDs.contains(entityID)
+        })
+        let renderSystemData = RenderSystemData(from: renderablesToSend)
         connectionHandler.send(
             to: renderSystemPath,
             data: renderSystemData,
@@ -189,8 +193,11 @@ class MultiplayerServer: SinglePlayerGameManager {
             onError: nil
         )
 
+        let animatablesToSend = animationSystem.animatables.filter({ entityID, _ in
+            !uiEntityIDs.contains(entityID)
+        })
         let animSystemPath = FirebasePaths.games + "/" + room.gameID + "/" + "AnimSystem"
-        let animationSystemData = AnimationSystemData(from: animationSystem)
+        let animationSystemData = AnimationSystemData(from: animatablesToSend)
         connectionHandler.send(
             to: animSystemPath,
             data: animationSystemData,
@@ -200,10 +207,10 @@ class MultiplayerServer: SinglePlayerGameManager {
             onError: nil
         )
 
-        var colorables = [GameEntity: Colorable]()
+        var colorables = [EntityID: Colorable]()
         entities.forEach({ entity in
-            if let colorable = entity as? Colorable {
-                colorables[entity] = colorable
+            if let colorable = entity as? Colorable, !uiEntityIDs.contains(entity.id) {
+                colorables[entity.id] = colorable
             }
         })
 
