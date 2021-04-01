@@ -40,15 +40,15 @@ class MultiplayerServer: SinglePlayerGameManager {
         player = Player(initialPosition: Vector2D.zero + Vector2D.right * 50, playerUUID: hostId)
         player.spawn()
 
-        EventSystem.playerActionEvent.playerHealthUpdateEvent.subscribe(listener: { event in
-            guard event.playerId == hostId else {
-                return
-            }
-            self.gameConnectionHandler?.sendPlayerState(gameId: self.gameId ?? "",
-                                                        playerId: hostId.uuidString,
-                                                        playerState: PlayerStateInfo(playerId: hostId,
-                                                                                     health: event.newHealth))
-        })
+//        EventSystem.playerActionEvent.playerHealthUpdateEvent.subscribe(listener: { event in
+//            guard event.playerId == hostId else {
+//                return
+//            }
+//            self.gameConnectionHandler?.sendPlayerState(gameId: self.gameId ?? "",
+//                                                        playerId: hostId.uuidString,
+//                                                        playerState: PlayerStateInfo(playerId: hostId,
+//                                                                                     health: event.newHealth))
+//        })
 
         // set up other players
         room.players?.forEach { _, player in
@@ -70,10 +70,13 @@ class MultiplayerServer: SinglePlayerGameManager {
             guard event.playerId == playerID else {
                 return
             }
-            self.gameConnectionHandler?.sendPlayerState(gameId: gameId,
+            self.gameConnectionHandler?.sendPlayerEvent(gameId: gameId,
                                                         playerId: playerID.uuidString,
-                                                        playerState: PlayerStateInfo(playerId: playerID,
-                                                                                     health: event.newHealth))
+                                                        action: event)
+//            self.gameConnectionHandler?.sendPlayerState(gameId: gameId,
+//                                                        playerId: playerID.uuidString,
+//                                                        playerState: PlayerStateInfo(playerId: playerID,
+//                                                                                     health: event.newHealth))
         })
 
         // Update player ammo

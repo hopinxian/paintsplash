@@ -11,23 +11,23 @@ class FirebaseGameHandler: GameConnectionHandler {
     func addEntity(gameId: String, entity: GameEntity) {
     }
 
-    func sendPlayerState(gameId: String, playerId: String, playerState: PlayerStateInfo) {
-        let playerPath = FirebasePaths.joinPaths(FirebasePaths.games, gameId, FirebasePaths.game_players, playerId)
-        connectionHandler.send(to: playerPath, data: playerState,
-                               mode: .single,
-                               shouldRemoveOnDisconnect: true, onComplete: { print("updated player state") },
-                               onError: nil)
-    }
-
-    func observePlayerState(gameId: String, playerId: String, onChange: ((PlayerStateInfo) -> Void)?) {
-        let playerPath = FirebasePaths.joinPaths(FirebasePaths.games, gameId, FirebasePaths.game_players, playerId)
-        connectionHandler.listen(to: playerPath) { (playerStateInfo: PlayerStateInfo?) in
-            guard let playerStateInfo = playerStateInfo else {
-                return
-            }
-            onChange?(playerStateInfo)
-        }
-    }
+//    func sendPlayerState(gameId: String, playerId: String, playerState: PlayerStateInfo) {
+//        let playerPath = FirebasePaths.joinPaths(FirebasePaths.games, gameId, FirebasePaths.game_players, playerId)
+//        connectionHandler.send(to: playerPath, data: playerState,
+//                               mode: .single,
+//                               shouldRemoveOnDisconnect: true, onComplete: { print("updated player state") },
+//                               onError: nil)
+//    }
+//
+//    func observePlayerState(gameId: String, playerId: String, onChange: ((PlayerStateInfo) -> Void)?) {
+//        let playerPath = FirebasePaths.joinPaths(FirebasePaths.games, gameId, FirebasePaths.game_players, playerId)
+//        connectionHandler.listen(to: playerPath) { (playerStateInfo: PlayerStateInfo?) in
+//            guard let playerStateInfo = playerStateInfo else {
+//                return
+//            }
+//            onChange?(playerStateInfo)
+//        }
+//    }
 
     private func getEventPath(_ event: Event.Type) -> String? {
         switch event {
@@ -39,6 +39,8 @@ class FirebaseGameHandler: GameConnectionHandler {
             return FirebasePaths.player_weaponChoice
         case is PlayerAmmoUpdateEvent.Type:
             return FirebasePaths.player_ammoUpdate
+        case is PlayerHealthUpdateEvent.Type:
+            return FirebasePaths.player_healthUpdate
         default:
             return nil
         }

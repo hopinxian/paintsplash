@@ -51,19 +51,18 @@ class MultiplayerClient: GameManager {
         guard let gameID = room.gameId else {
             return
         }
-        gameConnectionHandler.observePlayerState(gameId: gameID,
+
+        gameConnectionHandler.observePlayerEvent(gameId: gameID,
                                                  playerId: playerInfo.playerUUID,
-                                                 onChange: onPlayerStateChange)
+                                                 onChange: {
+                                                    EventSystem.playerActionEvent.playerHealthUpdateEvent.post(event: $0)
+                                                 })
 
         gameConnectionHandler.observePlayerEvent(
             gameId: gameID,
             playerId: playerInfo.playerUUID,
             onChange: { EventSystem.playerActionEvent.playerAmmoUpdateEvent.post(event: $0) }
         )
-    }
-
-    func onPlayerStateChange(playerState: PlayerStateInfo) {
-        print("CHANGED PLAYER STATE: \(playerState)")
     }
 
     func setUpSystems() {
@@ -177,22 +176,6 @@ class MultiplayerClient: GameManager {
             spritename: Constants.TOP_BAR_SPRITE
         )
         topBar.spawn()
-
-        guard let gameId = room.gameId else {
-            return
-        }
-        gameConnectionHandler.observePlayerState(gameId: gameId, playerId: playerInfo.playerUUID,
-                                                 onChange: handlePlayerStateUpdate)
-    }
-
-    func handlePlayerStateUpdate(playerState: PlayerStateInfo) {
-        guard playerState.playerId.uuidString == playerInfo.playerUUID else {
-            return
-        }
-        let health = playerState.health
-        EventSystem.playerActionEvent.playerHealthUpdateEvent
-            .post(event: PlayerHealthUpdateEvent(newHealth: health,
-                                                 playerId: playerState.playerId))
     }
 
     func setUpAudio() {
