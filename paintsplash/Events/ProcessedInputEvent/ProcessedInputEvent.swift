@@ -12,21 +12,21 @@ class ProcessedInputEvent: Event {
 
 class PlayerMoveEvent: ProcessedInputEvent, Codable {
     let direction: Vector2D
-    let playerID: EntityID
+    let playerId: EntityID
 
     init(direction: Vector2D, playerID: EntityID) {
         self.direction = direction
-        self.playerID = playerID
+        self.playerId = playerID
     }
 }
 
 class PlayerShootEvent: ProcessedInputEvent, Codable {
     let direction: Vector2D
-    let playerID: EntityID
+    let playerId: EntityID
 
     init(direction: Vector2D, playerID: EntityID) {
         self.direction = direction
-        self.playerID = playerID
+        self.playerId = playerID
     }
 }
 

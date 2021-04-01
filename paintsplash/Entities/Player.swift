@@ -89,7 +89,7 @@ class Player: GameEntity,
 
     func onMove(event: PlayerMoveEvent) {
 
-        guard event.playerID == id else {
+        guard event.playerId == id else {
             return
         }
 
@@ -97,7 +97,7 @@ class Player: GameEntity,
 
         lastDirection = event.direction.magnitude == 0 ? lastDirection : event.direction
         EventSystem.playerActionEvent.playerMovementEvent.post(
-            event: PlayerMovementEvent(location: transformComponent.localPosition, playerId: event.playerID)
+            event: PlayerMovementEvent(location: transformComponent.localPosition, playerId: event.playerId)
         )
     }
 

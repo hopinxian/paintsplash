@@ -57,20 +57,19 @@ class MultiplayerClient: GameManager {
     }
 
     func setUpObservers() {
-        guard let gameID = room.gameId else {
-            return
-        }
+        let gameID = room.gameID
 
         gameConnectionHandler.observePlayerEvent(
-                gameId: gameID,
-                playerId: playerInfo.playerUUID,
-                onChange: { EventSystem.playerActionEvent.playerHealthUpdateEvent.post(event: $0) })
+            gameId: gameID,
+            playerId: playerInfo.playerUUID,
+            onChange: { EventSystem.playerActionEvent.playerHealthUpdateEvent.post(event: $0) })
 
         gameConnectionHandler.observePlayerEvent(
             gameId: gameID,
             playerId: playerInfo.playerUUID,
             onChange: { EventSystem.playerActionEvent.playerAmmoUpdateEvent.post(event: $0) }
         )
+    }
 
     func setUpSystems() {
         let renderSystem = SKRenderSystem(scene: gameScene)
@@ -84,10 +83,7 @@ class MultiplayerClient: GameManager {
     }
 
     func setUpInputListeners() {
-        guard let gameId = self.room.gameId else {
-            print("no game id found")
-            return
-        }
+        let gameId = self.room.gameID
 
         EventSystem.processedInputEvents.playerMoveEvent.subscribe {
             self.sendPlayerMoveEvent($0, gameId: gameId)
@@ -106,7 +102,7 @@ class MultiplayerClient: GameManager {
     private func sendPlayerMoveEvent(_ event: PlayerMoveEvent, gameId: String) {
         self.gameConnectionHandler.sendPlayerEvent(
             gameId: gameId,
-            playerId: event.playerId.uuidString,
+            playerId: event.playerId.id.uuidString,
             action: event
         )
     }
@@ -114,7 +110,7 @@ class MultiplayerClient: GameManager {
     private func sendPlayerShootEvent(_ event: PlayerShootEvent, gameId: String) {
         self.gameConnectionHandler.sendPlayerEvent(
             gameId: gameId,
-            playerId: event.playerId.uuidString,
+            playerId: event.playerId.id.uuidString,
             action: event
         )
     }
@@ -122,7 +118,7 @@ class MultiplayerClient: GameManager {
     private func sendPlayerWeaponChangeEvent(_ event: PlayerChangeWeaponEvent, gameId: String) {
         self.gameConnectionHandler.sendPlayerEvent(
             gameId: gameId,
-            playerId: event.playerId.uuidString,
+            playerId: event.playerId.id.uuidString,
             action: event
         )
     }
@@ -136,6 +132,10 @@ class MultiplayerClient: GameManager {
 
         guard let playerId = EntityID(id: playerInfo.playerUUID) else {
             fatalError("Invalid player ID")
+        }
+
+        guard let paintGun = player.multiWeaponComponent.availableWeapons.compactMap({ $0 as? PaintGun }).first else {
+            fatalError("Paintgun not setup properly")
         }
 
         let paintGunUI = PaintGunAmmoDisplay(weaponData: paintGun, associatedEntity: playerId)
@@ -248,7 +248,7 @@ class MultiplayerClient: GameManager {
         var deletedEntities = renderSystem.renderables
         renderableData.renderables.forEach({ encodedRenderable in
             if let (entity, renderable) = renderSystem.renderables.first(
-                where: { $0.key == encodedRenderable.entityID }) {
+                    where: { $0.key == encodedRenderable.entityID }) {
                 renderable.renderComponent = encodedRenderable.renderComponent
                 renderable.transformComponent = encodedRenderable.transformComponent
                 deletedEntities[entity] = nil
@@ -273,7 +273,7 @@ class MultiplayerClient: GameManager {
 
         animatableData.animatables.forEach({ encodedAnimatable in
             if let (_, animatable) = animationSystem.animatables.first(
-                where: { $0.key == encodedAnimatable.entityID }) {
+                    where: { $0.key == encodedAnimatable.entityID }) {
                 animatable.animationComponent = encodedAnimatable.animationComponent
             } else {
                 let newEntity = NetworkedEntity(id: encodedAnimatable.entityID)
@@ -329,3 +329,4 @@ class NetworkedEntity: GameEntity, Renderable, Animatable, Colorable {
         self.id = id
     }
 }
+

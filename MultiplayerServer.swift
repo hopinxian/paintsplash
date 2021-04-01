@@ -44,10 +44,11 @@ class MultiplayerServer: SinglePlayerGameManager {
 
     func setUpGuestPlayer(player: PlayerInfo) {
         // Initialize player
-        guard let playerID = EntityID(id: player.playerUUID),
-              let gameId = self.gameId else {
+        guard let playerID = EntityID(id: player.playerUUID) else {
             return
         }
+
+        let gameId = self.room.gameID
         let newPlayer = Player(initialPosition: Vector2D.zero + Vector2D.left * 50, playerUUID: playerID)
         newPlayer.spawn()
 
@@ -57,7 +58,7 @@ class MultiplayerServer: SinglePlayerGameManager {
                 return
             }
             self.gameConnectionHandler?.sendPlayerEvent(gameId: gameId,
-                                                        playerId: playerID.uuidString,
+                                                        playerId: playerID.id.uuidString,
                                                         action: event)
         })
 
@@ -67,7 +68,7 @@ class MultiplayerServer: SinglePlayerGameManager {
                 return
             }
 
-            self.gameConnectionHandler?.sendPlayerEvent(gameId: gameId, playerId: playerID.uuidString, action: event)
+            self.gameConnectionHandler?.sendPlayerEvent(gameId: gameId, playerId: playerID.id.uuidString, action: event)
         })
 
         // Listen to user input from clients
@@ -75,7 +76,7 @@ class MultiplayerServer: SinglePlayerGameManager {
         // Shooting input
         self.gameConnectionHandler?.observePlayerEvent(
             gameId: gameId,
-            playerId: playerID.uuidString,
+            playerId: playerID.id.uuidString,
             onChange: { EventSystem.processedInputEvents.playerShootEvent.post(event: $0) }
         )
 
@@ -83,7 +84,7 @@ class MultiplayerServer: SinglePlayerGameManager {
 
         self.gameConnectionHandler?.observePlayerEvent(
             gameId: gameId,
-            playerId: playerID.uuidString,
+            playerId: playerID.id.uuidString,
             onChange: { EventSystem.processedInputEvents.playerMoveEvent.post(event: $0) }
         )
 
@@ -91,7 +92,7 @@ class MultiplayerServer: SinglePlayerGameManager {
 
         self.gameConnectionHandler?.observePlayerEvent(
             gameId: gameId,
-            playerId: playerID.uuidString,
+            playerId: playerID.id.uuidString,
             onChange: { EventSystem.processedInputEvents.playerChangeWeaponEvent.post(event: $0) }
         )
     }

@@ -150,7 +150,7 @@ class Level {
         dropCommand.time = 3
 
         let spawnerCommand = EnemySpawnerCommand()
-        spawnerCommand.time = 15
+        spawnerCommand.time = 100
 
         level.addSpawnEvent(dropCommand)
         level.addSpawnEvent(spawnerCommand)
