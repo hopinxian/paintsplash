@@ -91,6 +91,9 @@ class SKRenderSystem: RenderSystem {
 
         let transformComponent = renderable.transformComponent
         node.position = SpaceConverter.modelToScreen(transformComponent.localPosition)
+        if renderable is PaintBlob {
+            print(node.position)
+        }
         node.zRotation = CGFloat(transformComponent.rotation)
 
         updateSpecificNodeTypes(node, renderable)

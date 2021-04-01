@@ -179,7 +179,7 @@ class MultiplayerServer: SinglePlayerGameManager {
 
     func sendGameState() {
         let uiEntityIDs = Set(uiEntities.map({ $0.id }))
-        let renderSystemPath = FirebasePaths.games + "/" + room.gameID + "/" + "RenderSystem"
+        let renderSystemPath = FirebasePaths.joinPaths(FirebasePaths.games, room.gameID, FirebasePaths.render_system)
         let renderablesToSend = renderSystem.renderables.filter({ entityID, _ in
             !uiEntityIDs.contains(entityID)
         })
@@ -196,7 +196,7 @@ class MultiplayerServer: SinglePlayerGameManager {
         let animatablesToSend = animationSystem.animatables.filter({ entityID, _ in
             !uiEntityIDs.contains(entityID)
         })
-        let animSystemPath = FirebasePaths.games + "/" + room.gameID + "/" + "AnimSystem"
+        let animSystemPath = FirebasePaths.joinPaths(FirebasePaths.games, room.gameID, FirebasePaths.animation_system)
         let animationSystemData = AnimationSystemData(from: animatablesToSend)
         connectionHandler.send(
             to: animSystemPath,
@@ -214,7 +214,7 @@ class MultiplayerServer: SinglePlayerGameManager {
             }
         })
 
-        let colorSystemPath = FirebasePaths.games + "/" + room.gameID + "/" + "ColorSystem"
+        let colorSystemPath = FirebasePaths.joinPaths(FirebasePaths.games, room.gameID, FirebasePaths.animation_system)
         let colorSystemData = ColorSystemData(from: colorables)
         connectionHandler.send(
             to: colorSystemPath,

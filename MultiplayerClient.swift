@@ -37,13 +37,13 @@ class MultiplayerClient: GameManager {
         assert(playerInfo.playerUUID == room.players!.first!.value.playerUUID, "Wrong uuid")
         setupGame()
 
-        let renderSystemPath = FirebasePaths.games + "/" + room.gameID + "/" + "RenderSystem"
+        let renderSystemPath = FirebasePaths.joinPaths(FirebasePaths.games, room.gameID, FirebasePaths.render_system)
         connectionHandler.listen(to: renderSystemPath, callBack: updateRenderSystem)
 
-        let animationSystemPath = FirebasePaths.games + "/" + room.gameID + "/" + "AnimSystem"
+        let animationSystemPath = FirebasePaths.joinPaths(FirebasePaths.games, room.gameID, FirebasePaths.animation_system)
         connectionHandler.listen(to: animationSystemPath, callBack: updateAnimationSystem)
 
-        let colorSystemPath = FirebasePaths.games + "/" + room.gameID + "/" + "ColorSystem"
+        let colorSystemPath = FirebasePaths.joinPaths(FirebasePaths.games, room.gameID, FirebasePaths.color_system)
         connectionHandler.listen(to: colorSystemPath, callBack: updateColorSystem)
     }
 
@@ -100,8 +100,6 @@ class MultiplayerClient: GameManager {
     func setUpUI() {
         let background = Background()
         background.spawn()
-        print("here")
-        print(background.transformComponent.localPosition)
 
         guard let playerId = EntityID(id: playerInfo.playerUUID) else {
             fatalError("Invalid player ID")
