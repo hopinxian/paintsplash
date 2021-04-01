@@ -53,7 +53,13 @@ class MultiplayerClient: GameManager {
         }
         gameConnectionHandler.observePlayerState(gameId: gameID,
                                                  playerId: playerInfo.playerUUID,
-                                                 onChange: onPlayerStateChange )
+                                                 onChange: onPlayerStateChange)
+
+        gameConnectionHandler.observePlayerEvent(
+            gameId: gameID,
+            playerId: playerInfo.playerUUID,
+            onChange: { EventSystem.playerActionEvent.playerAmmoUpdateEvent.post(event: $0) }
+        )
     }
 
     func onPlayerStateChange(playerState: PlayerStateInfo) {
@@ -81,7 +87,6 @@ class MultiplayerClient: GameManager {
             self.sendPlayerMoveEvent($0, gameId: gameId)
         }
 
-
         EventSystem.processedInputEvents.playerShootEvent.subscribe {
             self.sendPlayerShootEvent($0, gameId: gameId)
         }
@@ -90,6 +95,7 @@ class MultiplayerClient: GameManager {
             self.sendPlayerWeaponChangeEvent($0, gameId: gameId)
         }
     }
+
 
     private func sendPlayerMoveEvent(_ event: PlayerMoveEvent, gameId: String) {
         self.gameConnectionHandler.sendPlayerEvent(

@@ -37,6 +37,8 @@ class FirebaseGameHandler: GameConnectionHandler {
             return FirebasePaths.player_shootInput
         case is PlayerChangeWeaponEvent.Type:
             return FirebasePaths.player_weaponChoice
+        case is PlayerAmmoUpdateEvent.Type:
+            return FirebasePaths.player_ammoUpdate
         default:
             return nil
         }
