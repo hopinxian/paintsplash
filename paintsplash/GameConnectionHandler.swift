@@ -13,17 +13,9 @@ protocol GameConnectionHandler {
 
     func observePlayerState(gameId: String, playerId: String, onChange: ((PlayerStateInfo) -> Void)?)
 
-    func sendPlayerMoveInput(gameId: String, playerId: String, playerMoveEvent: PlayerMoveEvent)
+    func sendPlayerEvent<T: Codable>(gameId: String, playerId: String, action: T) where T: Event
 
-    func observePlayerMoveInput(gameId: String, playerId: String, onChange: ((PlayerMoveEvent) -> Void)?)
-
-    func sendPlayerShootInput(gameId: String, playerId: String, playerShootEvent: PlayerShootEvent)
-
-    func observePlayerShootInput(gameId: String, playerId: String, onChange: ((PlayerShootEvent) -> Void)?)
-
-    func sendPlayerChangeWeapon(gameId: String, playerId: String, changeWeaponEvent: PlayerChangeWeaponEvent)
-
-    func observePlayerChangeWeapon(gameId: String, playerId: String, onChange: ((PlayerChangeWeaponEvent) -> Void)?)
+    func observePlayerEvent<T: Codable>(gameId: String, playerId: String, onChange: ((T) -> Void)?) where T: Event
 }
 
 struct PlayerStateInfo: Codable {

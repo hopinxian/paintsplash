@@ -60,7 +60,7 @@ class MultiplayerServer: SinglePlayerGameManager {
     func setUpGuestPlayer(player: PlayerInfo) {
         // Initialize player
         guard let playerID = UUID(uuidString: player.playerUUID),
-              let gameId = self.gameId else {
+            let gameId = self.gameId else {
             return
         }
         let newPlayer = Player(initialPosition: Vector2D.zero + Vector2D.left * 50, playerUUID: playerID)
@@ -85,32 +85,29 @@ class MultiplayerServer: SinglePlayerGameManager {
         })
 
         // Listen to user input from clients
+
         // Shooting input
-        self.gameConnectionHandler?
-            .observePlayerShootInput(gameId: gameId,
-                                     playerId: playerID.uuidString,
-                                     onChange: { playerShootEvent in
-                                        EventSystem.processedInputEvents.playerShootEvent
-                                            .post(event: playerShootEvent)
-                                     })
+        self.gameConnectionHandler?.observePlayerEvent(
+            gameId: gameId,
+            playerId: playerID.uuidString,
+            onChange: { EventSystem.processedInputEvents.playerShootEvent.post(event: $0) }
+        )
 
         // Movement input
-        self.gameConnectionHandler?
-            .observePlayerMoveInput(gameId: gameId,
-                                    playerId: playerID.uuidString,
-                                    onChange: { playerMoveEvent in
-                                        EventSystem.processedInputEvents.playerMoveEvent
-                                            .post(event: playerMoveEvent)
-                                    })
 
-        // TODO: Select weapon input
-        self.gameConnectionHandler?
-            .observePlayerChangeWeapon(gameId: gameId,
-                                       playerId: playerID.uuidString,
-                                       onChange: { playerChangeWeaponEvent in
-                                        EventSystem.processedInputEvents.playerChangeWeaponEvent
-                                            .post(event: playerChangeWeaponEvent)
-                                       })
+        self.gameConnectionHandler?.observePlayerEvent(
+            gameId: gameId,
+            playerId: playerID.uuidString,
+            onChange: { EventSystem.processedInputEvents.playerMoveEvent.post(event: $0) }
+        )
+
+        // Weapon change
+
+        self.gameConnectionHandler?.observePlayerEvent(
+            gameId: gameId,
+            playerId: playerID.uuidString,
+            onChange: { EventSystem.processedInputEvents.playerChangeWeaponEvent.post(event: $0) }
+        )
     }
 
     override func setUpEntities() {

@@ -77,24 +77,44 @@ class MultiplayerClient: GameManager {
             return
         }
 
-        EventSystem.processedInputEvents.playerMoveEvent.subscribe(listener: { event in
-            self.gameConnectionHandler.sendPlayerMoveInput(gameId: gameId,
-                                                           playerId: event.playerID.uuidString,
-                                                           playerMoveEvent: event)
-        })
+        EventSystem.processedInputEvents.playerMoveEvent.subscribe {
+            self.sendPlayerMoveEvent($0, gameId: gameId)
+        }
 
-        EventSystem.processedInputEvents.playerShootEvent.subscribe(listener: { event in
-            self.gameConnectionHandler.sendPlayerShootInput(gameId: gameId,
-                                                            playerId: event.playerID.uuidString,
-                                                            playerShootEvent: event)
-        })
 
-        EventSystem.processedInputEvents.playerChangeWeaponEvent.subscribe(listener: { event in
-            self.gameConnectionHandler.sendPlayerChangeWeapon(gameId: gameId,
-                                                              playerId: event.playerId.uuidString,
-                                                              changeWeaponEvent: event)
-        })
+        EventSystem.processedInputEvents.playerShootEvent.subscribe {
+            self.sendPlayerShootEvent($0, gameId: gameId)
+        }
+
+        EventSystem.processedInputEvents.playerChangeWeaponEvent.subscribe {
+            self.sendPlayerWeaponChangeEvent($0, gameId: gameId)
+        }
     }
+
+    private func sendPlayerMoveEvent(_ event: PlayerMoveEvent, gameId: String) {
+        self.gameConnectionHandler.sendPlayerEvent(
+            gameId: gameId,
+            playerId: event.playerId.uuidString,
+            action: event
+        )
+    }
+
+    private func sendPlayerShootEvent(_ event: PlayerShootEvent, gameId: String) {
+        self.gameConnectionHandler.sendPlayerEvent(
+            gameId: gameId,
+            playerId: event.playerId.uuidString,
+            action: event
+        )
+    }
+
+    private func sendPlayerWeaponChangeEvent(_ event: PlayerChangeWeaponEvent, gameId: String) {
+        self.gameConnectionHandler.sendPlayerEvent(
+            gameId: gameId,
+            playerId: event.playerId.uuidString,
+            action: event
+        )
+    }
+
 
     func setUpUI() {
         let background = Background()

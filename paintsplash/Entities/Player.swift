@@ -88,7 +88,7 @@ class Player: GameEntity,
     }
 
     func onMove(event: PlayerMoveEvent) {
-        guard event.playerID == id else {
+        guard event.playerId == id else {
             return
         }
 
@@ -96,12 +96,12 @@ class Player: GameEntity,
 
         lastDirection = event.direction.magnitude == 0 ? lastDirection : event.direction
         EventSystem.playerActionEvent.playerMovementEvent.post(
-            event: PlayerMovementEvent(location: transformComponent.position, playerId: event.playerID)
+            event: PlayerMovementEvent(location: transformComponent.position, playerId: event.playerId)
         )
     }
 
     func onShoot(event: PlayerShootEvent) {
-        guard event.playerID == id,
+        guard event.playerId == id,
               multiWeaponComponent.canShoot() else {
             return
         }
