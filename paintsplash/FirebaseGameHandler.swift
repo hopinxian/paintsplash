@@ -43,7 +43,9 @@ class FirebaseGameHandler: GameConnectionHandler {
                                                  FirebasePaths.game_players, playerId,
                                                  FirebasePaths.player_moveInput)
         connectionHandler.listen(to: playerPath, callBack: { (playerMoveEvent: PlayerMoveEvent?) in
+            print("client player moved")
             guard let playerMoveEvent = playerMoveEvent else {
+                print("did not observe player move input properly")
                 return
             }
             onChange?(playerMoveEvent)
