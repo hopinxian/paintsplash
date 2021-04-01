@@ -46,10 +46,15 @@ class MultiplayerClient: GameManager {
 
     func setupGame() {
         setUpSystems()
+        print("sys")
         setUpEntities()
+        print("ent")
         setUpUI()
+        print("ui")
         setUpObservers()
+        print("ob")
         setUpInputListeners()
+        print("in")
     }
 
     func setUpObservers() {
@@ -93,6 +98,8 @@ class MultiplayerClient: GameManager {
     func setUpUI() {
         let background = Background()
         background.spawn()
+        print("here")
+        print(background.transformComponent.localPosition)
 
         guard let playerId = EntityID(id: playerInfo.playerUUID) else {
             fatalError("Invalid player ID")

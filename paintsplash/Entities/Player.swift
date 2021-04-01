@@ -107,10 +107,11 @@ class Player: GameEntity,
         }
 
         if multiWeaponComponent.canShoot() {
+            let direction = event.direction.magnitude > 0 ? event.direction : lastDirection
             if lastDirection.x > 0 {
-                stateComponent.currentState = PlayerState.AttackRight(player: self, attackDirection: lastDirection)
+                stateComponent.currentState = PlayerState.AttackRight(player: self, attackDirection: direction)
             } else {
-                stateComponent.currentState = PlayerState.AttackLeft(player: self, attackDirection: lastDirection)
+                stateComponent.currentState = PlayerState.AttackLeft(player: self, attackDirection: direction)
             }
         }
     }
