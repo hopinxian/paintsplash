@@ -16,9 +16,9 @@ class PaintProjectile: GameEntity, Projectile, Renderable, Colorable, Transforma
 
     private let moveSpeed = 15.0
 
-    init(color: PaintColor, radius: Double, direction: Vector2D) {
+    init(color: PaintColor, position: Vector2D, radius: Double, direction: Vector2D) {
         self.transformComponent = TransformComponent(
-            position: Vector2D.zero,
+            position: position,
             rotation: 0.0,
             size: Vector2D(radius * 2, radius * 2)
         )
@@ -58,7 +58,7 @@ class PaintProjectile: GameEntity, Projectile, Renderable, Colorable, Transforma
         }
 
         if destroy {
-            EventSystem.entityChangeEvents.removeEntityEvent.post(event: RemoveEntityEvent(entity: self))
+            self.destroy()
         }
     }
 

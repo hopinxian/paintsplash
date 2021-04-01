@@ -192,6 +192,9 @@
 		D5BCE0CF260DA75200080794 /* SpawnAIEntityEventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5BCE0CD260DA75200080794 /* SpawnAIEntityEventManager.swift */; };
 		D5BCE0D0260DA75200080794 /* DespawnAIEntityEventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5BCE0CE260DA75200080794 /* DespawnAIEntityEventManager.swift */; };
 		D5BCE0D4260DA75F00080794 /* DespawnAIEntityEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5BCE0D3260DA75F00080794 /* DespawnAIEntityEvent.swift */; };
+		D5BFA8E72616118A00BC2D50 /* NetworkSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5BFA8E62616118A00BC2D50 /* NetworkSystem.swift */; };
+		D5BFA8ED2616119100BC2D50 /* NetworkComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5BFA8EC2616119100BC2D50 /* NetworkComponent.swift */; };
+		D5BFA8F1261611A400BC2D50 /* NetworkSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5BFA8F0261611A400BC2D50 /* NetworkSource.swift */; };
 		D5C568FF260A19C9009E5BD9 /* MovementSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C568FE260A19C9009E5BD9 /* MovementSystem.swift */; };
 		D5C56909260A3528009E5BD9 /* BidirectionalMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C56908260A3528009E5BD9 /* BidirectionalMap.swift */; };
 		D5C56911260AC3D8009E5BD9 /* DoNothingBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C56910260AC3D8009E5BD9 /* DoNothingBehaviour.swift */; };
@@ -474,6 +477,9 @@
 		D5BCE0CD260DA75200080794 /* SpawnAIEntityEventManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpawnAIEntityEventManager.swift; sourceTree = "<group>"; };
 		D5BCE0CE260DA75200080794 /* DespawnAIEntityEventManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DespawnAIEntityEventManager.swift; sourceTree = "<group>"; };
 		D5BCE0D3260DA75F00080794 /* DespawnAIEntityEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DespawnAIEntityEvent.swift; sourceTree = "<group>"; };
+		D5BFA8E62616118A00BC2D50 /* NetworkSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkSystem.swift; sourceTree = "<group>"; };
+		D5BFA8EC2616119100BC2D50 /* NetworkComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkComponent.swift; sourceTree = "<group>"; };
+		D5BFA8F0261611A400BC2D50 /* NetworkSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkSource.swift; sourceTree = "<group>"; };
 		D5C568FE260A19C9009E5BD9 /* MovementSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovementSystem.swift; sourceTree = "<group>"; };
 		D5C56908260A3528009E5BD9 /* BidirectionalMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BidirectionalMap.swift; sourceTree = "<group>"; };
 		D5C56910260AC3D8009E5BD9 /* DoNothingBehaviour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoNothingBehaviour.swift; sourceTree = "<group>"; };
@@ -720,6 +726,7 @@
 		ACB3607025F661620016E240 /* paintsplash */ = {
 			isa = PBXGroup;
 			children = (
+				D5BFA8E52616117F00BC2D50 /* Networking */,
 				D5553D9126062D1000C1862E /* Audio */,
 				D5553D8026062A8900C1862E /* Entities */,
 				D5553D7926062A0100C1862E /* UIElements */,
@@ -1189,6 +1196,16 @@
 			path = AISystemEvents;
 			sourceTree = "<group>";
 		};
+		D5BFA8E52616117F00BC2D50 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				D5BFA8E62616118A00BC2D50 /* NetworkSystem.swift */,
+				D5BFA8EC2616119100BC2D50 /* NetworkComponent.swift */,
+				D5BFA8F0261611A400BC2D50 /* NetworkSource.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
 		D5D9201225FB9A3D00E70364 /* PaintWeapons */ = {
 			isa = PBXGroup;
 			children = (
@@ -1585,6 +1602,7 @@
 				ACFD820925F676AB009D806B /* Movable.swift in Sources */,
 				DC6874CF260362C800CF89E4 /* CanvasRequestManager.swift in Sources */,
 				ACC154F626012F640000775C /* PlayerActionEventManager.swift in Sources */,
+				D5BFA8E72616118A00BC2D50 /* NetworkSystem.swift in Sources */,
 				D596B1B625F8CF7400A5854F /* CollisionSystem.swift in Sources */,
 				DC24030E2600845100550E1E /* Canvas.swift in Sources */,
 				AC097E012601FFDB000951B0 /* GameEntity.swift in Sources */,
@@ -1610,6 +1628,7 @@
 				D55EEBAD260096FB00ADC70B /* VerticalStack.swift in Sources */,
 				D53F54B8260D980100635B05 /* StatefulEntity.swift in Sources */,
 				D5553D652606298500C1862E /* ChangeAlphaAnimation.swift in Sources */,
+				D5BFA8F1261611A400BC2D50 /* NetworkSource.swift in Sources */,
 				DCFBF89E260F680A00BA1216 /* FirebaseLobbyHandler.swift in Sources */,
 				DC6BD6A725FF46D100A33861 /* SlimeAnimations.swift in Sources */,
 				DCFBF89A260F66EC00BA1216 /* LobbyHandler.swift in Sources */,
@@ -1732,6 +1751,7 @@
 				D596B17925F7C20D00A5854F /* StateBehaviour.swift in Sources */,
 				D50FD6CF26120A4800491CAC /* MultiplayerClientViewController.swift in Sources */,
 				DC6A07CD261329B8009FE7F6 /* GameConnectionHandler.swift in Sources */,
+				D5BFA8ED2616119100BC2D50 /* NetworkComponent.swift in Sources */,
 				840A889225FF13A100A07596 /* PaintColor+UIColor.swift in Sources */,
 				D53F5470260D962300635B05 /* PlayerState+Attack.swift in Sources */,
 				AC097E1126020005000951B0 /* ColorMakeup.swift in Sources */,

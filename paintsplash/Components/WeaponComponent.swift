@@ -16,7 +16,7 @@ class WeaponComponent: Component, Weapon {
     func load(_ ammo: [Ammo]) {
 
     }
-    func shoot(in direction: Vector2D) -> Projectile? {
+    func shoot(from position: Vector2D, in direction: Vector2D) -> Projectile? {
         nil
     }
     func canShoot() -> Bool {

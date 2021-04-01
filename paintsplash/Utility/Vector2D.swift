@@ -26,6 +26,7 @@ struct Vector2D: Codable {
     static let left = Vector2D(-1, 0)
     static let up = Vector2D(0, 1)
     static let down = Vector2D(0, -1)
+    static let outOfScreen = Vector2D(10000, 10000)
 
     init(_ x: Int, _ y: Int) {
         self.x = Double(x)

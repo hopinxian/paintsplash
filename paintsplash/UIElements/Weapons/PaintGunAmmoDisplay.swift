@@ -28,8 +28,7 @@ class PaintGunAmmoDisplay: UIEntity, Transformable {
             backgroundSprite: "WhiteSquare"
         )
         self.ammoDisplayView = displayView
-
-        EventSystem.entityChangeEvents.addEntityEvent.post(event: AddEntityEvent(entity: displayView))
+        displayView.spawn()
 
         self.weaponData = weaponData
         super.init()
@@ -65,7 +64,7 @@ class PaintGunAmmoDisplay: UIEntity, Transformable {
         let ammoDisplays = ammo
             .compactMap({ PaintAmmoDisplay(
                 paintAmmo: $0,
-                position: Vector2D.zero,
+                position: Vector2D.outOfScreen,
                 zPosition: Constants.ZPOSITION_UI_ELEMENT + 1)
         })
 

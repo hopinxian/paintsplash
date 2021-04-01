@@ -13,11 +13,15 @@ struct EncodableRenderable: Codable {
 }
 
 struct RenderSystemData: Codable {
-    let renderables: [EncodableRenderable]
+    var renderables = [EntityID: EncodableRenderable]()
 
-    init(from renderSystem: RenderSystem) {
-        self.renderables = renderSystem.renderables.map({ entity, renderable in
-            EncodableRenderable(entityID: entity, renderComponent: renderable.renderComponent, transformComponent: renderable.transformComponent)
+    init(from data: [EntityID: Renderable]) {
+        data.forEach({ entity, renderable in
+            self.renderables[entity] = EncodableRenderable(
+                entityID: entity, 
+                renderComponent: renderable.renderComponent, 
+                transformComponent: renderable.transformComponent
+            )
         })
     }
 }
@@ -28,11 +32,11 @@ struct EncodableAnimatable: Codable {
 }
 
 struct AnimationSystemData: Codable {
-    let animatables: [EncodableAnimatable]
+    var animatables = [EntityID: EncodableAnimatable]()
 
-    init(from animationSystem: AnimationSystem) {
-        self.animatables = animationSystem.animatables.map({ entity, animatable in
-            EncodableAnimatable(entityID: entity, animationComponent: animatable.animationComponent)
+    init(from data: [EntityID: Animatable]) {
+        data.forEach({ entity, animatable in
+            self.animatables[entity] = EncodableAnimatable(entityID: entity, animationComponent: animatable.animationComponent)
         })
     }
 }
@@ -43,11 +47,26 @@ struct EncodableColorable: Codable {
 }
 
 struct ColorSystemData: Codable {
-    let colorables: [EncodableColorable]
+    var colorables = [EntityID: EncodableColorable]()
 
-    init(from colorables: [GameEntity: Colorable]) {
-        self.colorables = colorables.map({ entity, colorable in
-            EncodableColorable(entityID: entity.id, color: colorable.color)
+    init(from colorables: [EntityID: Colorable]) {
+        colorables.forEach({ entity, colorable in
+            self.colorables[entity] = EncodableColorable(entityID: entity, color: colorable.color)
         })
     }
+}
+
+struct EntityData: Codable {
+    let entities: [EntityID]
+
+    init(from entities: [GameEntity]) {
+        self.entities = entities.map({ $0.id })
+    }
+}
+
+struct SystemData: Codable {
+    let entityData: EntityData
+    let renderSystemData: RenderSystemData
+    let animationSystemData: AnimationSystemData
+    let colorSystemData: ColorSystemData
 }

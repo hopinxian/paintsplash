@@ -93,7 +93,7 @@ class Joystick: UIEntity, Renderable {
         self.displacement = .zero
     }
 
-    class JoystickForeground: GameEntity, Renderable {
+    class JoystickForeground: UIEntity, Renderable {
         var renderComponent: RenderComponent
         var transformComponent: TransformComponent
 

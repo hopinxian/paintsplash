@@ -16,6 +16,7 @@ class Canvas: GameEntity, StatefulEntity, Renderable, Collidable, Transformable,
     var endX: Double
     private(set) var colors: Set<PaintColor> = []
     private let moveSpeed = 1.0
+    private(set) var paintedColors: Set<PaintBlob> = []
 
     init(initialPosition: Vector2D, direction: Vector2D, size: Vector2D, endX: Double) {
         self.endX = endX
@@ -55,6 +56,7 @@ class Canvas: GameEntity, StatefulEntity, Renderable, Collidable, Transformable,
 //            EventSystem.changeViewEvent.addSubviewEvent.post(event: addBlobEvent)
             let blob = PaintBlob(color: color, canvas: self)
             blob.spawn()
+            paintedColors.insert(blob)
 
             // post notification to alert system about colours on the current canvas
             let canvasHitEvent = CanvasHitEvent(canvas: self)
@@ -62,6 +64,11 @@ class Canvas: GameEntity, StatefulEntity, Renderable, Collidable, Transformable,
         default:
             break
         }
+    }
+
+    override func destroy() {
+        paintedColors.forEach({ $0.destroy() })
+        super.destroy()
     }
 
     deinit {

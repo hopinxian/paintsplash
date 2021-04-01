@@ -31,6 +31,11 @@ enum FirebasePaths {
     static let entity_renderable = "renderable"
     static let entity_transform = "transform"
 
+    static let render_system = "render_system"
+    static let animation_system = "animation_system"
+    static let color_system = "color_system"
+    static let systems = "systems"
+
     static func joinPaths(_ paths: String ...) -> String {
         paths.joined(separator: "/")
     }

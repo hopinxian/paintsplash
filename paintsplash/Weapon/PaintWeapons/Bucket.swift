@@ -5,15 +5,17 @@
 //  Created by Farrell Nah on 12/3/21.
 //
 
-class Bucket: Weapon {
-    var capacity: Int = 4
-    var carriedBy: Transformable?
+class Bucket: WeaponComponent {
     private let maxCoolDown = 100.0
     private var currentCoolDown = 0.0
 
     private var ammoQueue = [PaintAmmo]()
 
-    func load(_ ammos: [Ammo]) {
+    init() {
+        super.init(capacity: 4)
+    }
+
+    override func load(_ ammos: [Ammo]) {
         for ammo in ammos {
             if let paintAmmo = ammo as? PaintAmmo {
                 load(paintAmmo)
@@ -44,24 +46,24 @@ class Bucket: Weapon {
         }
     }
 
-    func shoot(in direction: Vector2D) -> Projectile? {
+    override func shoot(from position: Vector2D, in direction: Vector2D) -> Projectile? {
         guard !ammoQueue.isEmpty && canShoot() else {
             return nil
         }
         let ammo = ammoQueue.removeFirst()
 
-        return PaintProjectile(color: ammo.color, radius: 75, direction: Vector2D.zero)
+        return PaintProjectile(color: ammo.color, position: position, radius: 75, direction: Vector2D.zero)
     }
 
-    func canShoot() -> Bool {
+    override func canShoot() -> Bool {
         currentCoolDown == 0 && !ammoQueue.isEmpty
     }
 
-    func getAmmo() -> [Ammo] {
+    override func getAmmo() -> [Ammo] {
         ammoQueue
     }
 
-    func canLoad(_ ammo: [Ammo]) -> Bool {
+    override func canLoad(_ ammo: [Ammo]) -> Bool {
         ammoQueue.count < capacity
     }
 }

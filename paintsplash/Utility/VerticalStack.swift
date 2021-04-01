@@ -87,7 +87,7 @@ class VerticalStack<ItemType: Renderable>: GameEntity, Renderable, Animatable {
 
     private func clearViews() {
         for item in items {
-            EventSystem.entityChangeEvents.removeEntityEvent.post(event: RemoveEntityEvent(entity: item))
+            item.destroy()
         }
     }
 
@@ -97,11 +97,12 @@ class VerticalStack<ItemType: Renderable>: GameEntity, Renderable, Animatable {
         }
         let startX = leftPadding - rightPadding
         let startY = -(transformComponent.size.y / 2) + (firstItem.transformComponent.size.y / 2) + bottomPadding
-        var nextPosition = transformComponent.localPosition + Vector2D(startX, startY)
+        var nextPosition = Vector2D(startX, startY)
         for item in items {
+            item.transformComponent.addParent(self)
             item.transformComponent.localPosition = nextPosition
             item.renderComponent.zPosition = zPosition + 1
-            EventSystem.entityChangeEvents.addEntityEvent.post(event: AddEntityEvent(entity: item))
+            item.spawn()
             nextPosition += Vector2D(0, item.transformComponent.size.y + seperation)
         }
     }
