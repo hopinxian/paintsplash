@@ -16,6 +16,8 @@ class MultiplayerClient: GameManager {
     var gameConnectionHandler: GameConnectionHandler = FirebaseGameHandler()
 
     var playerInfo: PlayerInfo
+    // Dummy player that allows the appropriate ammo stacks to appear
+    let player = Player(initialPosition: .zero)
 
     var renderSystem: RenderSystem!
     var animationSystem: AnimationSystem!
@@ -94,9 +96,6 @@ class MultiplayerClient: GameManager {
         })
     }
 
-    // Dummy player that allows the appropriate ammo stacks to appear
-    let player = Player(initialPosition: .zero)
-
     func setUpUI() {
         let background = Background()
         background.spawn()
@@ -104,6 +103,7 @@ class MultiplayerClient: GameManager {
         guard let playerId = UUID(uuidString: playerInfo.playerUUID) else {
             return
         }
+        self.player.id = playerId
 
         // Ensure that player state is set up here first
         // Dummy player that allows the appropriate ammo stacks to appear
