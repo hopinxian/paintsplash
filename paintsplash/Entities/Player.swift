@@ -90,10 +90,12 @@ class Player: GameEntity,
     }
 
     func onShoot(event: PlayerShootEvent) {
-        if lastDirection.x > 0 {
-            stateComponent.currentState = PlayerState.AttackRight(player: self)
-        } else {
-            stateComponent.currentState = PlayerState.AttackLeft(player: self)
+        if multiWeaponComponent.canShoot() {
+            if lastDirection.x > 0 {
+                stateComponent.currentState = PlayerState.AttackRight(player: self)
+            } else {
+                stateComponent.currentState = PlayerState.AttackLeft(player: self)
+            }
         }
     }
 
