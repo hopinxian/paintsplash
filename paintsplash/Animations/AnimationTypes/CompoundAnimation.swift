@@ -13,4 +13,8 @@ class CompoundAnimation: Animation {
         self.animations = animations
         super.init(name: name)
     }
+
+    override func getAction() -> SKAction {
+        SKAction.group(animations.compactMap({ $0.getAction() }))
+    }
 }
