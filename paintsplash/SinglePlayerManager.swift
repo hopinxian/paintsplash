@@ -122,8 +122,8 @@ class SinglePlayerGameManager: GameManager {
         let joystick = MovementJoystick(associatedEntityID: player.id, position: Constants.JOYSTICK_POSITION)
         joystick.spawn()
 
-        let attackButton = AttackButton(associatedEntityID: player.id)
-        attackButton.spawn()
+        let attackJoystick = AttackJoystick(associatedEntityID: player.id, position: Constants.ATTACK_BUTTON_POSITION)
+        attackJoystick.spawn()
 
         let playerHealthUI =
             PlayerHealthDisplay(startingHealth: player.healthComponent.currentHealth, associatedEntityId: player.id)

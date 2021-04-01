@@ -156,7 +156,7 @@ class MultiplayerServer: SinglePlayerGameManager {
         let joystick = MovementJoystick(associatedEntityID: player.id, position: Constants.JOYSTICK_POSITION)
         joystick.spawn()
 
-        let attackButton = AttackButton(associatedEntityID: player.id)
+        let attackButton = AttackJoystick(associatedEntityID: player.id, position: Constants.ATTACK_BUTTON_POSITION)
         attackButton.spawn()
 
         let playerHealthUI =
