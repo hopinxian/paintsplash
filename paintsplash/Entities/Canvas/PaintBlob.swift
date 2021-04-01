@@ -15,7 +15,7 @@ class PaintBlob: GameEntity, Renderable, Transformable, Colorable {
         let renderComponent = canvas.renderComponent
 
         self.color = color
-        self.renderComponent = RenderComponent(renderType: .sprite(spriteName: "blob"), zPosition: renderComponent.zPosition)
+        self.renderComponent = RenderComponent(renderType: .sprite(spriteName: "paint-splash-1"), zPosition: renderComponent.zPosition)
 
         let canvasWidth = transformComponent.size.x
         let canvasHeight = transformComponent.size.y

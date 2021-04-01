@@ -40,6 +40,7 @@ class Canvas: GameEntity, StatefulEntity, Renderable, Collidable, Transformable,
     func onCollide(with: Collidable) {
         switch with {
         case let ammo as PaintProjectile:
+            print("BOOOOOM")
             let color = ammo.color
             self.colors.insert(color)
 

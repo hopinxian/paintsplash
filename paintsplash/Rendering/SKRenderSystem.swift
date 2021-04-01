@@ -73,16 +73,13 @@ class SKRenderSystem: RenderSystem {
 
     func updateEntity(_ entity: EntityID, _ renderable: Renderable) {
         // Only update those without parents. Those with parents will be updated automatically
-        guard let node = nodeEntityMap[entity],
-              renderable.transformComponent.parentID == nil else {
+        guard let node = nodeEntityMap[entity] else {
             return
         }
 
         let transformComponent = renderable.transformComponent
-        node.position = SpaceConverter.modelToScreen(transformComponent.worldPosition)
+        node.position = SpaceConverter.modelToScreen(transformComponent.localPosition)
         node.zRotation = CGFloat(transformComponent.rotation)
-        print(renderable)
-        print(node.position)
 
         switch renderable.renderComponent.renderType {
         case .sprite(let spriteName):
@@ -103,6 +100,13 @@ class SKRenderSystem: RenderSystem {
                 labelNode.text = text
             }
         }
+    }
+
+    func renderableFromNode(_ node: SKNode) -> Renderable? {
+        guard let id = nodeEntityMap[node] else {
+            return nil
+        }
+        return renderables[id]
     }
 
 //    func onChangeView(event: ChangeViewEvent) {
