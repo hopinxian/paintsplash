@@ -42,12 +42,18 @@ class PaintGunAmmoDisplay: UIEntity, Transformable {
     }
 
     private func onAmmoUpdate(event: PlayerAmmoUpdateEvent) {
+        guard event.playerId == self.associatedEntity else {
+            return
+        }
         if event.weapon is PaintGun {
             updateAmmoDisplay(ammo: event.ammo.compactMap({ $0 as? PaintAmmo }))
         }
     }
 
     private func onChangeWeapon(event: PlayerChangedWeaponEvent) {
+        guard event.playerId == self.associatedEntity else {
+            return
+        }
         if type(of: event.weapon) == type(of: weaponData) {
             ammoDisplayView.animationComponent.animate(animation: WeaponAnimations.selectWeapon, interupt: true)
         } else {

@@ -88,7 +88,6 @@ class Player: GameEntity,
     }
 
     func onMove(event: PlayerMoveEvent) {
-
         guard event.playerID == id else {
             return
         }
@@ -116,6 +115,9 @@ class Player: GameEntity,
     }
 
     func onWeaponChange(event: PlayerChangeWeaponEvent) {
+        guard event.playerId == self.id else {
+            return
+        }
         switch event.newWeapon {
         case is Bucket.Type:
             _ = multiWeaponComponent.switchWeapon(to: Bucket.self)
