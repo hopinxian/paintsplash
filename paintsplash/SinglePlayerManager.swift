@@ -119,7 +119,7 @@ class SinglePlayerGameManager: GameManager {
             interupt: true
         )
 
-        let joystick = Joystick(associatedEntityID: player.id)
+        let joystick = MovementJoystick(associatedEntityID: player.id, position: Constants.JOYSTICK_POSITION)
         joystick.spawn()
 
         let attackButton = AttackButton(associatedEntityID: player.id)
