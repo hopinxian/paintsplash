@@ -63,8 +63,6 @@ class PaintProjectile: GameEntity, Projectile, Renderable, Colorable, Transforma
     }
 
     override func update() {
-        print(Constants.PROJECTILE_MOVEMENT_BOUNDS.inset(by: transformComponent.size))
-        print(transformComponent.worldPosition)
         if !Constants.PROJECTILE_MOVEMENT_BOUNDS
             .contains(transformComponent.worldPosition) {
             destroy()

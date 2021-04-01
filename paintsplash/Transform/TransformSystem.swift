@@ -38,11 +38,7 @@ class WorldTransformSystem: TransformSystem {
                     transformable.transformComponent.localPosition
             }
         } else {
-
             transformable.transformComponent.worldPosition = transformable.transformComponent.localPosition
-            if (transformable is PaintProjectile) {
-                print(transformable.transformComponent.worldPosition)
-            }
         }
     }
 }

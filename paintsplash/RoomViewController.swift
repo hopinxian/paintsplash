@@ -35,9 +35,9 @@ class RoomViewController: UIViewController {
         }
 
         lobbyHandler?.observeRoom(roomId: room.roomId,
-                                       onRoomChange: onRoomChange,
-                                       onRoomClose: onRoomClose,
-                                       onError: onError)
+                                  onRoomChange: onRoomChange,
+                                  onRoomClose: onRoomClose,
+                                  onError: onError)
         onRoomChange(roomInfo: room)
         if playerInfo != currentRoom?.host {
             startGameButton.isEnabled = false
@@ -55,7 +55,7 @@ class RoomViewController: UIViewController {
             } else {
                 performSegue(withIdentifier: "StartMultiplayerClient", sender: nil)
             }
-        }        
+        }
     }
 
     func onRoomClose() {

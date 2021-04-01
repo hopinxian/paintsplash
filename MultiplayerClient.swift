@@ -20,7 +20,6 @@ class MultiplayerClient: GameManager {
         self.gameScene = gameScene
         self.room = room
 
-
         EventSystem.entityChangeEvents.addEntityEvent.subscribe(listener: onAddEntity)
         EventSystem.entityChangeEvents.removeEntityEvent.subscribe(listener: onRemoveEntity)
 
@@ -56,7 +55,6 @@ class MultiplayerClient: GameManager {
 
     }
 
-
     func updateRenderSystem(data: RenderSystemData?) {
         guard let renderableData = data else {
             return
@@ -64,7 +62,8 @@ class MultiplayerClient: GameManager {
 
         var deletedEntities = renderSystem.renderables
         renderableData.renderables.forEach({ encodedRenderable in
-            if let (entity, renderable) = renderSystem.renderables.first(where: { $0.key == encodedRenderable.entityID }) {
+            if let (entity, renderable) = renderSystem.renderables.first(
+                where: { $0.key == encodedRenderable.entityID }) {
                 renderable.renderComponent = encodedRenderable.renderComponent
                 renderable.transformComponent = encodedRenderable.transformComponent
                 deletedEntities[entity] = nil
@@ -77,7 +76,7 @@ class MultiplayerClient: GameManager {
             }
         })
 
-        for (entity, renderable) in deletedEntities {
+        for (_, renderable) in deletedEntities {
             renderable.destroy()
         }
     }
@@ -88,7 +87,8 @@ class MultiplayerClient: GameManager {
         }
 
         animatableData.animatables.forEach({ encodedAnimatable in
-            if let (entity, animatable) = animationSystem.animatables.first(where: { $0.key == encodedAnimatable.entityID }) {
+            if let (_, animatable) = animationSystem.animatables.first(
+                where: { $0.key == encodedAnimatable.entityID }) {
                 animatable.animationComponent = encodedAnimatable.animationComponent
             } else {
                 let newEntity = NetworkedEntity(id: encodedAnimatable.entityID)
@@ -111,7 +111,7 @@ class MultiplayerClient: GameManager {
         })
 
         colorData.colorables.forEach({ encodedColorable in
-            if var (entity, colorable) = colorables.first(where: { $0.0.id == encodedColorable.entityID }) {
+            if var (_, colorable) = colorables.first(where: { $0.0.id == encodedColorable.entityID }) {
                 colorable.color = encodedColorable.color
             } else {
                 let newEntity = NetworkedEntity(id: encodedColorable.entityID)

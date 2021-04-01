@@ -54,9 +54,7 @@ class PaintGun: WeaponComponent {
     }
 
     override func canShoot() -> Bool {
-        let result = currentCoolDown == 0 && !ammoStack.isEmpty
-        print(result)
-        return result
+        currentCoolDown == 0 && !ammoStack.isEmpty
     }
 
     override func getAmmo() -> [Ammo] {

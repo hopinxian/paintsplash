@@ -17,8 +17,6 @@ class SKNodeFactory {
             node = buildSpriteNode(entity: renderable, spriteName: spriteName, size: transformComponent.size)
         case .label(let text):
             node = buildLabelNode(text: text)
-        default:
-            return SKNode()
         }
 
         node.position = SpaceConverter.modelToScreen(transformComponent.localPosition)

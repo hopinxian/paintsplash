@@ -29,7 +29,11 @@ class CanvasState: State {
     class Die: CanvasState {
         override func onEnterState() {
             canvas.moveableComponent.speed = 0
-            canvas.animationComponent.animate(animation: CanvasAnimations.canvasDisappear, interupt: true, callBack: { self.canvas.destroy() })
+            canvas.animationComponent.animate(
+                animation: CanvasAnimations.canvasDisappear,
+                interupt: true,
+                callBack: { self.canvas.destroy() }
+            )
         }
 
         override func getBehaviour() -> StateBehaviour {
