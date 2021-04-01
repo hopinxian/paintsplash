@@ -54,6 +54,13 @@ class MultiplayerClient: GameManager {
         gameConnectionHandler.observePlayerState(gameId: gameID,
                                                  playerId: playerInfo.playerUUID,
                                                  onChange: onPlayerStateChange )
+
+        gameConnectionHandler.observePlayerAmmoUpdate(gameId: gameID,
+                                                      playerId: playerInfo.playerUUID,
+                                                      onChange: { playerAmmoUpdateEvent in
+                                                        EventSystem.playerActionEvent.playerAmmoUpdateEvent
+                                                            .post(event: playerAmmoUpdateEvent)
+                                                      })
     }
 
     func onPlayerStateChange(playerState: PlayerStateInfo) {

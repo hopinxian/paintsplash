@@ -24,6 +24,7 @@ enum FirebasePaths {
     static let player_moveInput = "moveInput"
     static let player_shootInput = "shootInput"
     static let player_weaponChoice = "weaponChoice"
+    static let player_ammoUpdate = "ammo"
 
     static let entity_renderable = "renderable"
     static let entity_transform = "transform"

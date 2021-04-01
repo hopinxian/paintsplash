@@ -24,6 +24,10 @@ protocol GameConnectionHandler {
     func sendPlayerChangeWeapon(gameId: String, playerId: String, changeWeaponEvent: PlayerChangeWeaponEvent)
 
     func observePlayerChangeWeapon(gameId: String, playerId: String, onChange: ((PlayerChangeWeaponEvent) -> Void)?)
+
+    func sendPlayerAmmoUpdate(gameId: String, playerId: String, ammoUpdateEvent: PlayerAmmoUpdateEvent)
+
+    func observePlayerAmmoUpdate(gameId: String, playerId: String, onChange: ((PlayerAmmoUpdateEvent) -> Void)?)
 }
 
 struct PlayerStateInfo: Codable {

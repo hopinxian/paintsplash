@@ -14,7 +14,6 @@ class MultiplayerServer: SinglePlayerGameManager {
     var gameId: String?
 
     // var otherPlayer: Player!
-    var guestPlayers = Set<Player>()
 
     private var collisionDetector: SKCollisionDetector!
 
@@ -82,6 +81,10 @@ class MultiplayerServer: SinglePlayerGameManager {
             guard event.playerId == playerID else {
                 return
             }
+            self.gameConnectionHandler?
+                .sendPlayerAmmoUpdate(gameId: gameId,
+                                      playerId: playerID.uuidString,
+                                      ammoUpdateEvent: event)
         })
 
         // Listen to user input from clients
