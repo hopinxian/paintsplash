@@ -14,23 +14,8 @@ class MultiplayerServer: SinglePlayerGameManager {
     var gameConnectionHandler: GameConnectionHandler?
     var gameId: String?
 
-    var otherPlayer: Player!
-
-//    var gameScene: GameScene
-//    var gameManager: GameManager?
-//    var entities = Set<GameEntity>() // shared entities
-//    var uiEntities = Set<GameEntity>()
-
-    // stuff that is not shared: health, ammo, joystick, shooting uibar, background
-
-//    var currentLevel: Level?
-//
-//    var aiSystem: StateManagerSystem!
-//    var audioManager: AudioSystem!
-//    var renderSystem: RenderSystem!
-//    var animationSystem: AnimationSystem!
-//    var collisionSystem: CollisionSystem!
-//    var movementSystem: MovementSystem!
+    // var otherPlayer: Player!
+    var guestPlayers = Set<Player>()
 
     private var collisionDetector: SKCollisionDetector!
 
@@ -42,13 +27,78 @@ class MultiplayerServer: SinglePlayerGameManager {
     }
 
     override func setupGame() {
-        setUpSystems()
-//        setUpUI() // Static non changing stuff that shouldn't be synced (joystick, bg)
-
         self.gameConnectionHandler = FirebaseGameHandler()
-
+        setUpSystems()
         setUpEntities()
+        setUpPlayer()
         setUpUI() // Static non changing stuff that shouldn't be synced (joystick, bg)
+    }
+
+    override func setUpPlayer() {
+        guard let hostId = UUID(uuidString: room.host.playerUUID) else {
+            fatalError("Error fetching IDs of players")
+        }
+
+        player = Player(initialPosition: Vector2D.zero + Vector2D.right * 50, playerUUID: hostId)
+        player.spawn()
+
+        EventSystem.playerActionEvent.playerHealthUpdateEvent.subscribe(listener: { event in
+            guard event.playerId == hostId else {
+                return
+            }
+            self.gameConnectionHandler?.sendPlayerState(gameId: self.gameId ?? "",
+                                                        playerId: hostId.uuidString,
+                                                        playerState: PlayerStateInfo(playerId: hostId,
+                                                                                     health: event.newHealth))
+        })
+
+        // set up other players
+        room.players?.forEach { id, player in
+            setUpGuestPlayer(player: player)
+        }
+
+//        otherPlayer = Player(initialPosition: Vector2D.zero + Vector2D.left * 50, playerUUID: otherId)
+//        otherPlayer.spawn()
+
+
+//        EventSystem.playerActionEvent.playerHealthUpdateEvent.subscribe(listener: { event in
+//            guard event.playerId == otherId else {
+//                return
+//            }
+//            self.gameConnectionHandler?.sendPlayerState(gameId: self.gameId ?? "",
+//                                                        playerId: otherIdStr,
+//                                                        playerState: PlayerStateInfo(playerId: otherId,
+//                                                                                     health: event.newHealth))
+//        })
+
+    }
+
+    func setUpGuestPlayer(player: PlayerInfo) {
+        // Initialize player
+        guard let playerID = UUID(uuidString: player.playerUUID),
+              let gameId = self.gameId else {
+            return
+        }
+        let newPlayer = Player(initialPosition: Vector2D.zero + Vector2D.left * 50, playerUUID: playerID)
+        newPlayer.spawn()
+
+        // Send player state updates to DB
+        EventSystem.playerActionEvent.playerHealthUpdateEvent.subscribe(listener: { event in
+            guard event.playerId == playerID else {
+                return
+            }
+            self.gameConnectionHandler?.sendPlayerState(gameId: gameId,
+                                                        playerId: playerID.uuidString,
+                                                        playerState: PlayerStateInfo(playerId: playerID,
+                                                                                     health: event.newHealth))
+        })
+
+        // Listen to user input from clients
+        gameConnectionHandler?.observePlayerMoveInput(gameId: gameId,
+                                                      playerId: playerID.uuidString,
+                                                      onChange: { playerMoveEvent in
+                                                        EventSystem.playerActionEvent.playerMovementEvent.post(event: PlayerMovementEvent(location: playerMoveEvent.direction, playerId: playerID))
+                                                      })
     }
 
 //    func setUpSystems() {
@@ -74,46 +124,6 @@ class MultiplayerServer: SinglePlayerGameManager {
         let background = Background()
         background.spawn()
 
-//         TODO: handle 2 players
-
-        guard let hostId = UUID(uuidString: room.host.playerUUID) else {
-            fatalError("UUID host err")
-        }
-        player = Player(initialPosition: Vector2D.zero + Vector2D.right * 50, playerUUID: hostId)
-        player.spawn()
-        assert(player.id == hostId)
-
-        EventSystem.playerActionEvent.playerHealthUpdateEvent.subscribe(listener: { event in
-            guard event.playerId == hostId else {
-                return
-            }
-            self.gameConnectionHandler?.sendPlayerState(gameId: self.gameId ?? "",
-                                                        playerId: hostId.uuidString,
-                                                        playerState: PlayerStateInfo(playerId: hostId,
-                                                                                     health: event.newHealth))
-        })
-
-        guard let otherIdStr = room.players?.first?.value.playerUUID else {
-            fatalError("Cannot get client uuid")
-        }
-
-        guard let otherId = UUID(uuidString: otherIdStr) else {
-            fatalError("UUID client err")
-        }
-
-        otherPlayer = Player(initialPosition: Vector2D.zero + Vector2D.left * 50, playerUUID: otherId)
-        otherPlayer.spawn()
-        assert(otherPlayer.id == otherId)
-
-        EventSystem.playerActionEvent.playerHealthUpdateEvent.subscribe(listener: { event in
-            guard event.playerId == otherId else {
-                return
-            }
-            self.gameConnectionHandler?.sendPlayerState(gameId: self.gameId ?? "",
-                                                        playerId: otherIdStr,
-                                                        playerState: PlayerStateInfo(playerId: otherId,
-                                                                                     health: event.newHealth))
-        })
 
         let canvasSpawner = CanvasSpawner(
             initialPosition: Constants.CANVAS_SPAWNER_POSITION,
@@ -159,8 +169,8 @@ class MultiplayerServer: SinglePlayerGameManager {
         let attackButton = AttackButton(associatedEntityID: player.id)
         attackButton.spawn()
 
-        let playerHealthUI =
-            PlayerHealthDisplay(startingHealth: player.healthComponent.currentHealth, associatedEntityId: player.id)
+        let playerHealthUI = PlayerHealthDisplay(startingHealth: player.healthComponent.currentHealth,
+                                                 associatedEntityId: player.id)
         playerHealthUI.spawn()
 
         let bottombar = UIBar(
@@ -299,12 +309,15 @@ class MultiplayerClient: GameManager {
         background.spawn()
 
 //        add player id to button and joystick
+        guard let playerID = UUID(uuidString: playerInfo.playerUUID) else {
+            return
+        }
 
-//        let joystick = Joystick()
-//        joystick.spawn()
-//
-//        let attackButton = AttackButton()
-//        attackButton.spawn()
+        let joystick = Joystick(associatedEntityID: playerID)
+        joystick.spawn()
+
+        let attackButton = AttackButton(associatedEntityID: playerID)
+        attackButton.spawn()
 
         // let playerHealthUI = PlayerHealthDisplay(startingHealth: player.healthComponent.currentHealth)
 

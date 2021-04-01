@@ -12,6 +12,10 @@ protocol GameConnectionHandler {
     func sendPlayerState(gameId: String, playerId: String, playerState: PlayerStateInfo)
 
     func observePlayerState(gameId: String, playerId: String, onChange: ((PlayerStateInfo) -> Void)?)
+
+    func sendPlayerMoveInput(gameId: String, playerId: String, playerMoveEvent: PlayerMoveEvent)
+
+    func observePlayerMoveInput(gameId: String, playerId: String, onChange: ((PlayerMoveEvent) -> Void)?)
 }
 
 struct PlayerStateInfo: Codable {

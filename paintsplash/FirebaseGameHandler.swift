@@ -28,4 +28,25 @@ class FirebaseGameHandler: GameConnectionHandler {
             onChange?(playerStateInfo)
         }
     }
+
+    func sendPlayerMoveInput(gameId: String, playerId: String, playerMoveEvent: PlayerMoveEvent) {
+        let playerPath = FirebasePaths.joinPaths(FirebasePaths.games, gameId,
+                                                 FirebasePaths.game_players, playerId,
+                                                 FirebasePaths.player_moveInput)
+        connectionHandler.send(to: playerPath, data: playerMoveEvent,
+                               mode: .single, shouldRemoveOnDisconnect: true,
+                               onComplete: nil, onError: nil)
+    }
+
+    func observePlayerMoveInput(gameId: String, playerId: String, onChange: ((PlayerMoveEvent) -> Void)?) {
+        let playerPath = FirebasePaths.joinPaths(FirebasePaths.games, gameId,
+                                                 FirebasePaths.game_players, playerId,
+                                                 FirebasePaths.player_moveInput)
+        connectionHandler.listen(to: playerPath, callBack: { (playerMoveEvent: PlayerMoveEvent?) in
+            guard let playerMoveEvent = playerMoveEvent else {
+                return
+            }
+            onChange?(playerMoveEvent)
+        })
+    }
 }

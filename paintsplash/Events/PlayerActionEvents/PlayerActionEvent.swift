@@ -13,10 +13,12 @@ class PlayerActionEvent: Event {
 }
 
 class PlayerMovementEvent: PlayerActionEvent {
+    let playerId: UUID
     let location: Vector2D
 
-    init(location: Vector2D) {
+    init(location: Vector2D, playerId: UUID) {
         self.location = location
+        self.playerId = playerId
     }
 }
 

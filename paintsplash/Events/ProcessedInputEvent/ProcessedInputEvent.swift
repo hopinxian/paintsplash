@@ -10,7 +10,7 @@ import Foundation
 class ProcessedInputEvent: Event {
 }
 
-class PlayerMoveEvent: ProcessedInputEvent {
+class PlayerMoveEvent: ProcessedInputEvent, Codable {
     let direction: Vector2D
     let playerID: UUID
 
