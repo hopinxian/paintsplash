@@ -10,11 +10,12 @@ import Foundation
 class Joystick: UIEntity, Renderable {
     let renderComponent: RenderComponent
     let transformComponent: TransformComponent
-    private let associatedEntity: UUID
+    let associatedEntity: UUID
+    private (set) var displacement: Vector2D = .zero
 
     private let foregroundNode: JoystickForeground
 
-    private var tracking = false
+    private (set) var tracking = false
 
     private var backgroundRadius: Double {
         transformComponent.size.x / 2
@@ -24,13 +25,13 @@ class Joystick: UIEntity, Renderable {
         transformComponent.size.x / 2
     }
 
-    init(associatedEntityID: UUID) {
+    init(associatedEntityID: UUID, position: Vector2D) {
         let renderType = RenderType.sprite(spriteName: Constants.JOYSTICK_SPRITE)
 
         self.associatedEntity = associatedEntityID
 
         self.transformComponent = TransformComponent(
-            position: Constants.JOYSTICK_POSITION,
+            position: position,
             rotation: 0,
             size: Constants.JOYSTICK_SIZE
         )
@@ -41,7 +42,7 @@ class Joystick: UIEntity, Renderable {
         )
 
         foregroundNode = JoystickForeground(
-            position: Constants.JOYSTICK_POSITION,
+            position: position,
             size: Constants.JOYSTICK_SIZE * 0.60,
             zPosition: renderComponent.zPosition + 1
         )
@@ -83,29 +84,76 @@ class Joystick: UIEntity, Renderable {
         }
 
         foregroundNode.transformComponent.position = newLocation
-
-        let event = PlayerMoveEvent(direction: displacement.unitVector, playerID: associatedEntity)
-        EventSystem.processedInputEvents.playerMoveEvent.post(event: event)
+        self.displacement = displacement.unitVector
     }
 
     func onTouchUp(event: TouchUpEvent) {
         tracking = false
         foregroundNode.transformComponent.position = transformComponent.position
+        self.displacement = .zero
+    }
+
+    class JoystickForeground: GameEntity, Renderable {
+        let renderComponent: RenderComponent
+        let transformComponent: TransformComponent
+
+        init(position: Vector2D, size: Vector2D, zPosition: Int) {
+            let renderType = RenderType.sprite(spriteName: "joystick-foreground")
+
+            self.renderComponent = RenderComponent(renderType: renderType, zPosition: zPosition)
+            self.transformComponent = TransformComponent(position: position, rotation: 0, size: size)
+
+            super.init()
+        }
+    }
+}
+
+class MovementJoystick: Joystick {
+    override func onTouchMoved(event: TouchMovedEvent) {
+        guard tracking else {
+            return
+        }
+
+        super.onTouchMoved(event: event)
+
+        let event = PlayerMoveEvent(direction: displacement, playerID: associatedEntity)
+        EventSystem.processedInputEvents.playerMoveEvent.post(event: event)
+    }
+
+    override func onTouchUp(event: TouchUpEvent) {
+        guard tracking else {
+            return
+        }
+        
+        super.onTouchUp(event: event)
+
         let event = PlayerMoveEvent(direction: Vector2D.zero, playerID: associatedEntity)
         EventSystem.processedInputEvents.playerMoveEvent.post(event: event)
     }
 }
 
-class JoystickForeground: GameEntity, Renderable {
-    let renderComponent: RenderComponent
-    let transformComponent: TransformComponent
+class AttackJoystick: Joystick {
 
-    init(position: Vector2D, size: Vector2D, zPosition: Int) {
-        let renderType = RenderType.sprite(spriteName: "joystick-foreground")
+    private var lastDisplacement: Vector2D = .zero
 
-        self.renderComponent = RenderComponent(renderType: renderType, zPosition: zPosition)
-        self.transformComponent = TransformComponent(position: position, rotation: 0, size: size)
+    override func onTouchMoved(event: TouchMovedEvent) {
+        guard tracking else {
+            return
+        }
 
-        super.init()
+        super.onTouchMoved(event: event)
+        lastDisplacement = displacement
+    }
+
+    override func onTouchUp(event: TouchUpEvent) {
+        guard tracking else {
+            return
+        }
+
+        super.onTouchUp(event: event)
+
+        let event = PlayerShootEvent(direction: lastDisplacement, playerID: associatedEntity)
+        EventSystem.processedInputEvents.playerShootEvent.post(event: event)
+        lastDisplacement = .zero
     }
 }

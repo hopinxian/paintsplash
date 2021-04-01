@@ -163,10 +163,10 @@ class MultiplayerServer: SinglePlayerGameManager {
 //            interupt: true
 //        )
 
-        let joystick = Joystick(associatedEntityID: player.id)
+        let joystick = MovementJoystick(associatedEntityID: player.id, position: Constants.JOYSTICK_POSITION)
         joystick.spawn()
 
-        let attackButton = AttackButton(associatedEntityID: player.id)
+        let attackButton = AttackJoystick(associatedEntityID: player.id, position: Constants.ATTACK_BUTTON_POSITION)
         attackButton.spawn()
 
         let playerHealthUI = PlayerHealthDisplay(startingHealth: player.healthComponent.currentHealth,
@@ -276,8 +276,8 @@ class MultiplayerClient: GameManager {
         setUpEntities()
         setUpUI()
         setUpAudio()
-
         setUpObservers()
+        setUpInputListeners()
     }
 
     func setUpObservers() {
@@ -304,27 +304,36 @@ class MultiplayerClient: GameManager {
 
     }
 
+    func setUpInputListeners() {
+        EventSystem.processedInputEvents.playerMoveEvent.subscribe(listener: { event in
+            print("player has moved. send to firebase")
+        })
+
+        EventSystem.processedInputEvents.playerShootEvent.subscribe(listener: { event in
+            print("player has attacked. send to firebase")
+        })
+
+        EventSystem.processedInputEvents.playerChangeWeaponEvent.subscribe(listener: { event in
+            print("player has changed weapon. send to firebase")
+        })
+    }
+
     func setUpUI() {
         let background = Background()
         background.spawn()
 
-//        add player id to button and joystick
-        guard let playerID = UUID(uuidString: playerInfo.playerUUID) else {
-            return
-        }
-
-        let joystick = Joystick(associatedEntityID: playerID)
-        joystick.spawn()
-
-        let attackButton = AttackButton(associatedEntityID: playerID)
-        attackButton.spawn()
-
-        // let playerHealthUI = PlayerHealthDisplay(startingHealth: player.healthComponent.currentHealth)
-
-        // TODO: player health is currently hardcoded
         guard let playerId = UUID(uuidString: playerInfo.playerUUID) else {
             return
         }
+
+        let joystick = MovementJoystick(associatedEntityID: playerId, position: Constants.JOYSTICK_POSITION)
+        joystick.spawn()
+
+        let attackButton = AttackJoystick(associatedEntityID: playerId, position: Constants.ATTACK_BUTTON_POSITION)
+        attackButton.spawn()
+        // let playerHealthUI = PlayerHealthDisplay(startingHealth: player.healthComponent.currentHealth)
+
+        // TODO: player health is currently hardcoded
 
         let playerHealthUI = PlayerHealthDisplay(startingHealth: 3, associatedEntityId: playerId)
         playerHealthUI.spawn()

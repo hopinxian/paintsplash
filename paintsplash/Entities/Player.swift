@@ -106,10 +106,12 @@ class Player: GameEntity,
             return
         }
 
-        if lastDirection.x > 0 {
-            stateComponent.currentState = PlayerState.AttackRight(player: self)
+        if event.direction.x > 0 {
+            stateComponent.currentState = PlayerState.AttackRight(player: self, attackDirection: event.direction)
+            lastDirection = .right
         } else {
-            stateComponent.currentState = PlayerState.AttackLeft(player: self)
+            stateComponent.currentState = PlayerState.AttackLeft(player: self, attackDirection: event.direction)
+            lastDirection = .left
         }
     }
 
