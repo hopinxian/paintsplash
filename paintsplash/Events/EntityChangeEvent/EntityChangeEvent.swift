@@ -14,9 +14,13 @@ class EntityChangeEvent: Event {
 }
 
 class AddEntityEvent: EntityChangeEvent {
-
 }
 
 class RemoveEntityEvent: EntityChangeEvent {
+}
 
+class AddUIEntityEvent: EntityChangeEvent {
+}
+
+class RemoveUIEntityEvent: EntityChangeEvent {
 }

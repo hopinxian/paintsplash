@@ -179,7 +179,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Start Game"/>
                                 <connections>
-                                    <action selector="onStartGame:" destination="NZ3-Jq-PLP" eventType="touchUpInside" id="fbB-Aq-U0R"/>
+                                    <action selector="startGame:" destination="NZ3-Jq-PLP" eventType="touchUpInside" id="ciw-6K-aTs"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -192,13 +192,13 @@
                         <outlet property="hostNameLabel" destination="dpJ-Fh-vU4" id="BSJ-pJ-eLG"/>
                         <outlet property="roomCodeDisplay" destination="GKw-mR-keC" id="f3l-zL-jnI"/>
                         <outlet property="startGameButton" destination="tyh-Ge-J2E" id="X6R-im-z74"/>
-                        <segue destination="HRi-Zi-BnW" kind="show" identifier="StartMultiplayerServer" id="hFF-yn-mpl"/>
-                        <segue destination="ESr-bj-Mg2" kind="show" identifier="StartMultiplayerClient" id="O3W-Bb-quL"/>
+                        <segue destination="HRi-Zi-BnW" kind="show" identifier="StartMultiplayerServer" id="va4-o7-lxx"/>
+                        <segue destination="ESr-bj-Mg2" kind="show" identifier="StartMultiplayerClient" id="WR2-IP-RQZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zm7-aZ-xCs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="100.67796610169492" y="848.78048780487802"/>
+            <point key="canvasLocation" x="84" y="874"/>
         </scene>
         <!--Join Room View Controller-->
         <scene sceneID="kN2-uG-H3M">
@@ -282,18 +282,12 @@
                                 <rect key="frame" x="20" y="20" width="83" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Close Game"/>
-                                <connections>
-                                    <action selector="closeGame:" destination="HRi-Zi-BnW" eventType="touchUpInside" id="NxK-yX-Rqw"/>
-                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="hM5-9J-mW4"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" id="c3C-VL-P9x"/>
-                    <connections>
-                        <segue destination="ESr-bj-Mg2" kind="show" identifier="StartMultiplayerClient" id="1f2-Hp-M6s"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kC9-AW-o45" sceneMemberID="firstResponder"/>
             </objects>
@@ -311,9 +305,6 @@
                                 <rect key="frame" x="20" y="20" width="83" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Close Game"/>
-                                <connections>
-                                    <action selector="closeGame:" destination="ESr-bj-Mg2" eventType="touchUpInside" id="pOT-F3-RbS"/>
-                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="cah-7c-elU"/>
@@ -327,7 +318,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="1f2-Hp-M6s"/>
         <segue reference="qP2-MV-Z7H"/>
     </inferredMetricsTieBreakers>
     <resources>

@@ -7,7 +7,6 @@
 
 import Firebase
 
-
 class FirebaseLobbyHandler: LobbyHandler {
     var connectionHandler: ConnectionHandler
 
@@ -18,8 +17,7 @@ class FirebaseLobbyHandler: LobbyHandler {
     func createRoom(player: PlayerInfo, onSuccess: ((RoomInfo) -> Void)?, onError: ((Error?) -> Void)?) {
         // Generate unique room code to return to player
         let roomId = randomFourCharString()
-//        let roomRef = databaseRef.child(FirebasePaths.rooms).child(roomId)
-        let roomPath = FirebasePaths.rooms + "/" + roomId
+        let roomPath = FirebasePaths.joinPaths(FirebasePaths.rooms, roomId)
         connectionHandler.getData(at: roomPath) { [weak self] error, roomInfo in
             // Room already exists, try creating another one
             if roomInfo != nil {
@@ -27,11 +25,11 @@ class FirebaseLobbyHandler: LobbyHandler {
                 return
             }
 
-            let newRoomInfo = RoomInfo(roomId: roomId, host: player, players: [], isOpen: true)
+            let newRoomInfo = RoomInfo(roomId: roomId, host: player, players: [:], isOpen: true)
             self?.connectionHandler.send(
                 to: roomPath,
                 data: newRoomInfo,
-                mode: .single, 
+                mode: .single,
                 shouldRemoveOnDisconnect: true,
                 onComplete: { onSuccess?(newRoomInfo) },
                 onError: onError
@@ -95,9 +93,9 @@ class FirebaseLobbyHandler: LobbyHandler {
             }
             // TODO: check if we should close room immediately
 
-            let players = roomInfo.players ?? []
+            let players = roomInfo.players ?? [:]
             // check that player doesn't already exist
-            guard !players.contains(player) else {
+            guard players[player.playerUUID] == nil else {
                 print("player already exists")
                 onError?(nil)
                 return
@@ -105,13 +103,15 @@ class FirebaseLobbyHandler: LobbyHandler {
 
             // Add guest as one of the players
             var newRoomInfo = roomInfo
-            newRoomInfo.players = [player]
-            let roomPath = FirebasePaths.rooms + "/" + roomId
+            newRoomInfo.players = [:]
+            newRoomInfo.players?[player.playerUUID] = player
+            let roomPath = FirebasePaths.joinPaths(FirebasePaths.rooms, roomId, FirebasePaths.rooms_players,
+                                                   player.playerUUID)
             self.connectionHandler.send(
                 to: roomPath,
-                data: newRoomInfo,
+                data: player,
                 mode: .single, shouldRemoveOnDisconnect: true,
-                onComplete: { onSuccess?(roomInfo) },
+                onComplete: { onSuccess?(newRoomInfo) },
                 onError: onError
             )
         })
@@ -119,19 +119,18 @@ class FirebaseLobbyHandler: LobbyHandler {
 
     func observeRoom(roomId: String, onRoomChange: ((RoomInfo) -> Void)?, onRoomClose: (() -> Void)?,
                      onError: ((Error?) -> Void)?) {
-        let roomPath = FirebasePaths.rooms + "/" + roomId
+        let roomPath = FirebasePaths.joinPaths(FirebasePaths.rooms, roomId)
         connectionHandler.listen(to: roomPath) { (roomInfo: RoomInfo?) in
             guard let roomInfo = roomInfo else {
                 onRoomClose?()
                 return
             }
-
             onRoomChange?(roomInfo)
         }
     }
 
     func leaveRoom(roomId: String, onSuccess: (() -> Void)?, onError: ((Error?) -> Void)?) {
-
+        // TODO: check if player is host
     }
 
     func startGame(roomInfo: RoomInfo) {
@@ -151,4 +150,55 @@ class FirebaseLobbyHandler: LobbyHandler {
             print("Fetched all rooms: \(snapshot)")
         }
     }
+
+    func startGame(roomId: String, player: PlayerInfo, onSuccess: ((RoomInfo) -> Void)?,
+                   onError: ((Error?) -> Void)?) {
+        let roomPath = FirebasePaths.joinPaths(FirebasePaths.rooms, roomId)
+
+        // create and set a room ID
+        connectionHandler.getData(at: roomPath, block: { (error: Error?, roomInfo: RoomInfo?) in
+            guard var roomInfo = roomInfo else {
+                print("Room does not exist anymore")
+                return
+            }
+
+            // Check if player starting game is host
+            if player != roomInfo.host {
+                print("player is not host and cannot start game")
+                return
+            }
+
+            guard roomInfo.players != nil else {
+                print("Insufficient players to start multiplayer game")
+                return
+            }
+
+            // Generate UUID for new game
+            let newGameId = UUID().uuidString
+
+            // Create a new game entry
+            let gamePath = FirebasePaths.joinPaths(FirebasePaths.games, newGameId)
+            let newGame = GameStateInfo(roomId: roomId, gameId: newGameId)
+
+            self.connectionHandler.send(to: gamePath,
+                                        data: newGame,
+                                        mode: .single, shouldRemoveOnDisconnect: true,
+                                        onComplete: nil,
+                                        onError: onError)
+
+            // Update game state for room
+            roomInfo.gameID = newGameId
+            roomInfo.started = true
+            roomInfo.closeGame()
+            let roomGamePath = FirebasePaths.joinPaths(roomPath)
+            self.connectionHandler.send(to: roomGamePath,
+                                        data: roomInfo,
+                                        mode: .single, shouldRemoveOnDisconnect: true,
+                                        onComplete: { onSuccess?(roomInfo) },
+                                        onError: onError)
+
+            print("successfully set game ID")
+        })
+    }
+
 }

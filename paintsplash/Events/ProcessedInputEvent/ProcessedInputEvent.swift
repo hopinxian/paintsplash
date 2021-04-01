@@ -5,22 +5,28 @@
 //  Created by Farrell Nah on 15/3/21.
 //
 
+import Foundation
+
 class ProcessedInputEvent: Event {
 }
 
-class PlayerMoveEvent: ProcessedInputEvent {
+class PlayerMoveEvent: ProcessedInputEvent, Codable {
     let direction: Vector2D
+    let playerID: EntityID
 
-    init(direction: Vector2D) {
+    init(direction: Vector2D, playerID: EntityID) {
         self.direction = direction
+        self.playerID = playerID
     }
 }
 
-class PlayerShootEvent: ProcessedInputEvent {
+class PlayerShootEvent: ProcessedInputEvent, Codable {
     let direction: Vector2D
+    let playerID: EntityID
 
-    init(direction: Vector2D) {
+    init(direction: Vector2D, playerID: EntityID) {
         self.direction = direction
+        self.playerID = playerID
     }
 }
 

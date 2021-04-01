@@ -6,12 +6,19 @@
 //
 
 class ShootProjectileBehaviour: StateBehaviour {
+
+    var shootDirection: Vector2D
+
+    init(shootDirection: Vector2D) {
+        self.shootDirection = shootDirection
+    }
+
     func updateAI(aiEntity: StatefulEntity, aiGameInfo: GameInfo) {
         guard let player = aiEntity as? Player else {
             return
         }
 
-        _ = player.multiWeaponComponent.shoot(in: player.lastDirection)
+        _ = player.multiWeaponComponent.shoot(in: shootDirection)
 
         EventSystem.audioEvent.playSoundEffectEvent.post(event: PlaySoundEffectEvent(effect: SoundEffect.attack))
 

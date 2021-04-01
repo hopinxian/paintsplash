@@ -48,10 +48,10 @@ class MultiplayerMenuViewController: UIViewController {
     @IBAction private func createRoom(_ sender: UIButton) {
         let playerInfo = PlayerInfo(playerUUID: self.playerUUID, playerName: self.playerName)
         lobbyHandler.createRoom(player: playerInfo,
-                                     onSuccess: { roomInfo in
-                                        self.onCreateRoom(roomInfo: roomInfo)
-                                     },
-                                     onError: { error in print("Failed to host room: \(error)") })
+                                onSuccess: { roomInfo in
+                                    self.onCreateRoom(roomInfo: roomInfo)
+                                },
+                                onError: { error in print("Failed to host room: \(error)") })
 
     }
 

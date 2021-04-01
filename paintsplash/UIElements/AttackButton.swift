@@ -5,18 +5,21 @@
 //  Created by Praveen Bala on 17/3/21.
 //
 
-class AttackButton: GameEntity, Renderable {
+import Foundation
+
+class AttackButton: UIEntity, Renderable {
     var renderComponent: RenderComponent
     var transformComponent: TransformComponent
 
+    private let associatedEntity: EntityID
     private var tracking = false
     private var radius: Double {
         transformComponent.size.x / 2
     }
 
-    override init() {
+    init(associatedEntityID: EntityID) {
         let renderType = RenderType.sprite(spriteName: Constants.ATTACK_BUTTON_SPRITE)
-
+        self.associatedEntity = associatedEntityID
         self.renderComponent = RenderComponent(
             renderType: renderType,
             zPosition: Constants.ZPOSITION_UI_ELEMENT
@@ -46,7 +49,7 @@ class AttackButton: GameEntity, Renderable {
         }
 
         tracking = false
-        let event = PlayerShootEvent(direction: Vector2D.up)
+        let event = PlayerShootEvent(direction: Vector2D.up, playerID: associatedEntity)
         EventSystem.processedInputEvents.playerShootEvent.post(event: event)
     }
 }

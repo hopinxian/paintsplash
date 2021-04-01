@@ -30,6 +30,8 @@ class Player: GameEntity,
     var stateComponent: StateComponent
     var multiWeaponComponent: MultiWeaponComponent
 
+    let connectionHander = FirebaseConnectionHandler()
+
     init(initialPosition: Vector2D) {
         self.transformComponent = BoundedTransformComponent(
             position: initialPosition,
@@ -80,21 +82,35 @@ class Player: GameEntity,
         EventSystem.processedInputEvents.playerChangeWeaponEvent.subscribe(listener: onWeaponChange)
     }
 
+    convenience init(initialPosition: Vector2D, playerUUID: EntityID?) {
+        self.init(initialPosition: initialPosition)
+        id = playerUUID ?? id
+    }
+
     func onMove(event: PlayerMoveEvent) {
+
+        guard event.playerID == id else {
+            return
+        }
+
         moveableComponent.direction = event.direction
 
         lastDirection = event.direction.magnitude == 0 ? lastDirection : event.direction
         EventSystem.playerActionEvent.playerMovementEvent.post(
-            event: PlayerMovementEvent(location: transformComponent.localPosition)
+            event: PlayerMovementEvent(location: transformComponent.localPosition, playerId: event.playerID)
         )
     }
 
     func onShoot(event: PlayerShootEvent) {
+        guard event.playerID == id else {
+            return
+        }
+
         if multiWeaponComponent.canShoot() {
             if lastDirection.x > 0 {
-                stateComponent.currentState = PlayerState.AttackRight(player: self)
+                stateComponent.currentState = PlayerState.AttackRight(player: self, attackDirection: lastDirection)
             } else {
-                stateComponent.currentState = PlayerState.AttackLeft(player: self)
+                stateComponent.currentState = PlayerState.AttackLeft(player: self, attackDirection: lastDirection)
             }
         }
     }
@@ -118,7 +134,7 @@ class Player: GameEntity,
         healthComponent.currentHealth += amount
 
         EventSystem.playerActionEvent.playerHealthUpdateEvent.post(
-            event: PlayerHealthUpdateEvent(newHealth: healthComponent.currentHealth)
+            event: PlayerHealthUpdateEvent(newHealth: healthComponent.currentHealth, playerId: id)
         )
     }
 
@@ -126,7 +142,7 @@ class Player: GameEntity,
         healthComponent.currentHealth -= amount
 
         EventSystem.playerActionEvent.playerHealthUpdateEvent.post(
-            event: PlayerHealthUpdateEvent(newHealth: healthComponent.currentHealth)
+            event: PlayerHealthUpdateEvent(newHealth: healthComponent.currentHealth, playerId: id)
         )
 
         if healthComponent.currentHealth <= 0 {
@@ -134,22 +150,26 @@ class Player: GameEntity,
         }
     }
 
+    func loadAmmoDrop(_ drop: PaintAmmoDrop) {
+        let ammo = drop.getAmmoObject()
+        if multiWeaponComponent.canLoad([ammo]) {
+            multiWeaponComponent.load([ammo])
+            let event = PlayerAmmoUpdateEvent(
+                weapon: multiWeaponComponent.activeWeapon,
+                ammo: multiWeaponComponent.activeWeapon.getAmmo()
+            )
+
+            EventSystem.playerActionEvent.playerAmmoUpdateEvent.post(
+                event: event
+            )
+        }
+    }
+
     func onCollide(with: Collidable) {
         if with.collisionComponent.tags.contains(.ammoDrop) {
             switch with {
             case let ammoDrop as PaintAmmoDrop:
-                let ammo = ammoDrop.getAmmoObject()
-                if multiWeaponComponent.canLoad([ammo]) {
-                    multiWeaponComponent.load([ammo])
-                    let event = PlayerAmmoUpdateEvent(
-                        weapon: multiWeaponComponent.activeWeapon,
-                        ammo: multiWeaponComponent.activeWeapon.getAmmo()
-                    )
-
-                    EventSystem.playerActionEvent.playerAmmoUpdateEvent.post(
-                        event: event
-                    )
-                }
+                loadAmmoDrop(ammoDrop)
             default:
                 fatalError("Ammo Drop not conforming to AmmoDrop protocol")
             }
@@ -162,6 +182,7 @@ class Player: GameEntity,
             //                fatalError("Enemy does not conform to enemy")
             switch with {
             case _ as Enemy:
+
                 takeDamage(amount: 1)
             default:
                 fatalError("Enemy does not conform to any enemy type")

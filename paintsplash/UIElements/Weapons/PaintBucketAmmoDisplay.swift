@@ -5,7 +5,7 @@
 //  Created by Farrell Nah on 17/3/21.
 //
 
-class PaintBucketAmmoDisplay: GameEntity, Transformable {
+class PaintBucketAmmoDisplay: UIEntity, Transformable {
     var transformComponent: TransformComponent
     var ammoDisplayView: VerticalStack<PaintAmmoDisplay>
     var weaponData: Bucket

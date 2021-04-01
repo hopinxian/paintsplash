@@ -9,6 +9,13 @@ extension PlayerState {
     class AttackRight: PlayerState {
         var shootComplete = false
         var animationComplete = false
+        var attackDirection: Vector2D
+
+        init(player: Player?, attackDirection: Vector2D) {
+            self.attackDirection = attackDirection
+            super.init(player: player)
+        }
+
         override func onEnterState() {
             if player.multiWeaponComponent.canShoot() {
                 player.animationComponent.animate(
@@ -30,7 +37,7 @@ extension PlayerState {
         override func getBehaviour() -> StateBehaviour {
             if !shootComplete {
                 shootComplete = true
-                return ShootProjectileBehaviour()
+                return ShootProjectileBehaviour(shootDirection: attackDirection)
             }
             return DoNothingBehaviour()
         }

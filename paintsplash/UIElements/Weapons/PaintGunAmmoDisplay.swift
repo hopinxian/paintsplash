@@ -5,7 +5,7 @@
 //  Created by Farrell Nah on 16/3/21.
 //
 
-class PaintGunAmmoDisplay: GameEntity, Transformable {
+class PaintGunAmmoDisplay: UIEntity, Transformable {
     var transformComponent: TransformComponent
 
     var ammoDisplayView: VerticalStack<PaintAmmoDisplay>
