@@ -45,12 +45,12 @@ class PaintGun: WeaponComponent {
         }
     }
 
-    override func shoot(in direction: Vector2D) -> Projectile? {
+    override func shoot(from position: Vector2D, in direction: Vector2D) -> Projectile? {
         guard canShoot(),
               let ammo = ammoStack.popLast() else {
             return nil
         }
-        return PaintProjectile(color: ammo.color, radius: 25.0, direction: direction)
+        return PaintProjectile(color: ammo.color, position: position, radius: 25.0, direction: direction)
     }
 
     override func canShoot() -> Bool {

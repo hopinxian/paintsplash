@@ -6,7 +6,7 @@
 //
 
 class CanvasSpawner: GameEntity, StatefulEntity, Transformable {
-    let transformComponent: TransformComponent
+    var transformComponent: TransformComponent
     let stateComponent: StateComponent
     // X-coordinate where canvas should disappear
     private var spawnInterval: Double

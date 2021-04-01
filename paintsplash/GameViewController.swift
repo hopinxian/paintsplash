@@ -36,7 +36,7 @@ class GameViewController: UIViewController {
 
             // Present the scene
             gameScene.size = view.bounds.size
-            view.preferredFramesPerSecond = 10
+            view.preferredFramesPerSecond = 30
 
             view.presentScene(gameScene)
 

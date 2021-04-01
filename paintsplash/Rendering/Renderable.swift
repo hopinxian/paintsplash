@@ -6,7 +6,6 @@
 //
 import SpriteKit
 
-protocol Renderable: GameEntity {
+protocol Renderable: Transformable {
     var renderComponent: RenderComponent { get set }
-    var transformComponent: TransformComponent { get set }
 }

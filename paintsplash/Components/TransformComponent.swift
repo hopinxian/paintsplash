@@ -23,11 +23,16 @@ class TransformComponent: Component, Codable {
     }
 
     func addParent(_ parent: GameEntity) {
-        guard parent is Transformable else {
+        guard let parentTransformable = parent as? Transformable else {
             return
         }
 
         self.parentID = parent.id
+        self.worldPosition = parentTransformable.transformComponent.worldPosition + localPosition
+        print("Here")
+        print(parentTransformable.transformComponent.worldPosition)
+        print(localPosition)
+        print(self.worldPosition)
     }
 
     func removeParent() {

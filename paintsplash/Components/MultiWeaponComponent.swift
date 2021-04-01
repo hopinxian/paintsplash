@@ -34,14 +34,13 @@ class MultiWeaponComponent: WeaponComponent {
         weapon.load(ammo)
     }
 
-    override func shoot(in direction: Vector2D) -> Projectile? {
+    override func shoot(from position: Vector2D, in direction: Vector2D) -> Projectile? {
         // Handle shooting here
-        guard let projectile = activeWeapon.shoot(in: direction),
+        guard let projectile = activeWeapon.shoot(from: position, in: direction),
             let carriedBy = carriedBy else {
             return nil
         }
 
-        projectile.transformComponent.localPosition = carriedBy.transformComponent.localPosition
         projectile.spawn()
 
         return projectile

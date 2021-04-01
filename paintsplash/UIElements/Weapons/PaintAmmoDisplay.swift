@@ -5,7 +5,7 @@
 //  Created by Farrell Nah on 16/3/21.
 //
 
-class PaintAmmoDisplay: UIEntity, Renderable, Colorable {
+class PaintAmmoDisplay: UIEntity, Renderable, Colorable, Transformable {
     var renderComponent: RenderComponent
     var transformComponent: TransformComponent
 

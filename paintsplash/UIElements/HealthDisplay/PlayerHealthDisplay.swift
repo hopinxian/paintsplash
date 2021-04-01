@@ -8,7 +8,7 @@
 import Foundation
 
 class PlayerHealthDisplay: UIEntity, Transformable {
-    let transformComponent: TransformComponent
+    var transformComponent: TransformComponent
     var healthDisplayView: HorizontalStack<HeartDisplay>
     let associatedEntity: EntityID
 

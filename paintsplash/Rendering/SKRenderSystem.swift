@@ -34,11 +34,6 @@ class SKRenderSystem: RenderSystem {
         let node = buildNode(for: renderable)
         renderables[entity.id] = renderable
 
-        if let parent = renderable.transformComponent.parentID,
-           let parentNode = nodeEntityMap[parent] {
-            addChildToNode(parentNode: parentNode, childNode: node)
-        }
-
         return node
     }
 
@@ -46,18 +41,20 @@ class SKRenderSystem: RenderSystem {
         SKNode()
     }
 
-    private func addChildToNode(parentNode: SKNode, childNode: SKNode) {
+    private func getCroppedToNode(maskNode: SKNode, childNode: SKNode) -> SKCropNode? {
+        guard let mask = maskNode.copy() as? SKSpriteNode else {
+            return nil
+        }
         let cropNode = SKCropNode()
 
-        let maskNode = parentNode.copy() as? SKSpriteNode
-        maskNode?.position = .zero
+        mask.position = .zero
 
-        cropNode.maskNode = maskNode
-        cropNode.position = .zero
+        cropNode.maskNode = mask
+        cropNode.position = maskNode.position
         cropNode.zPosition = CGFloat(childNode.zPosition + 1)
         cropNode.addChild(childNode)
 
-        parentNode.addChild(cropNode)
+        return cropNode
     }
 
     func removeEntity(_ entity: GameEntity) {
@@ -71,7 +68,17 @@ class SKRenderSystem: RenderSystem {
     }
 
     private func buildNode(for renderable: Renderable) -> SKNode {
-        SKNodeFactory.getSKNode(from: renderable)
+        var node = SKNodeFactory.getSKNode(from: renderable)
+
+        if let parent = renderable.transformComponent.parentID,
+           let parentNode = nodeEntityMap[parent],
+           renderable.renderComponent.cropInParent,
+           let cropNode = getCroppedToNode(maskNode: parentNode, childNode: node) {
+            node = cropNode
+            renderable.transformComponent.localPosition = .zero
+        }
+
+        return node
     }
 
     func getNodeEntityMap() -> BidirectionalMap<EntityID, SKNode> {
@@ -90,10 +97,7 @@ class SKRenderSystem: RenderSystem {
         }
 
         let transformComponent = renderable.transformComponent
-        node.position = SpaceConverter.modelToScreen(transformComponent.localPosition)
-        if renderable is PaintBlob {
-            print(node.position)
-        }
+        node.position = SpaceConverter.modelToScreen(transformComponent.worldPosition)
         node.zRotation = CGFloat(transformComponent.rotation)
 
         updateSpecificNodeTypes(node, renderable)
@@ -116,6 +120,9 @@ class SKRenderSystem: RenderSystem {
         if let colorData = renderable as? Colorable {
             if node.color != colorData.color.uiColor {
                 node.color = colorData.color.uiColor
+                node.children.compactMap({ $0 as? SKSpriteNode }).forEach({ $0.color = colorData.color.uiColor })
+                print(colorData.color)
+                print(node.children)
             }
         }
         let screenSize: CGSize = SpaceConverter.modelToScreen(renderable.transformComponent.size)

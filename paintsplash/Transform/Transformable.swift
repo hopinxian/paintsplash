@@ -6,5 +6,5 @@
 //
 
 protocol Transformable: GameEntity {
-    var transformComponent: TransformComponent { get }
+    var transformComponent: TransformComponent { get set }
 }

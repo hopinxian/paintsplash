@@ -94,8 +94,8 @@ class SinglePlayerGameManager: GameManager {
                                               position: Constants.CANVAS_END_MARKER_POSITION)
         canvasEndMarker.spawn()
 
-//        currentLevel = Level.getDefaultLevel(gameManager: self, canvasManager: canvasManager)
-//        currentLevel?.run()
+        currentLevel = Level.getDefaultLevel(gameManager: self, canvasManager: canvasManager)
+        currentLevel?.run()
     }
 
     func setUpAudio() {

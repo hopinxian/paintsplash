@@ -179,33 +179,34 @@ class MultiplayerServer: SinglePlayerGameManager {
 
     func sendGameState() {
         let uiEntityIDs = Set(uiEntities.map({ $0.id }))
-        let renderSystemPath = FirebasePaths.joinPaths(FirebasePaths.games, room.gameID, FirebasePaths.render_system)
+        let entityData = EntityData(from: entities.filter({ !uiEntityIDs.contains($0.id) }))
+//        let renderSystemPath = FirebasePaths.joinPaths(FirebasePaths.games, room.gameID, FirebasePaths.render_system)
         let renderablesToSend = renderSystem.renderables.filter({ entityID, _ in
             !uiEntityIDs.contains(entityID)
         })
         let renderSystemData = RenderSystemData(from: renderablesToSend)
-        connectionHandler.send(
-            to: renderSystemPath,
-            data: renderSystemData,
-            mode: .single,
-            shouldRemoveOnDisconnect: false,
-            onComplete: nil,
-            onError: nil
-        )
+//        connectionHandler.send(
+//            to: renderSystemPath,
+//            data: renderSystemData,
+//            mode: .single,
+//            shouldRemoveOnDisconnect: false,
+//            onComplete: nil,
+//            onError: nil
+//        )
 
         let animatablesToSend = animationSystem.animatables.filter({ entityID, _ in
             !uiEntityIDs.contains(entityID)
         })
-        let animSystemPath = FirebasePaths.joinPaths(FirebasePaths.games, room.gameID, FirebasePaths.animation_system)
+//        let animSystemPath = FirebasePaths.joinPaths(FirebasePaths.games, room.gameID, FirebasePaths.animation_system)
         let animationSystemData = AnimationSystemData(from: animatablesToSend)
-        connectionHandler.send(
-            to: animSystemPath,
-            data: animationSystemData,
-            mode: .single,
-            shouldRemoveOnDisconnect: false,
-            onComplete: nil,
-            onError: nil
-        )
+//        connectionHandler.send(
+//            to: animSystemPath,
+//            data: animationSystemData,
+//            mode: .single,
+//            shouldRemoveOnDisconnect: false,
+//            onComplete: nil,
+//            onError: nil
+//        )
 
         var colorables = [EntityID: Colorable]()
         entities.forEach({ entity in
@@ -214,16 +215,24 @@ class MultiplayerServer: SinglePlayerGameManager {
             }
         })
 
-        let colorSystemPath = FirebasePaths.joinPaths(FirebasePaths.games, room.gameID, FirebasePaths.animation_system)
+//        let colorSystemPath = FirebasePaths.joinPaths(FirebasePaths.games, room.gameID, FirebasePaths.color_system)
         let colorSystemData = ColorSystemData(from: colorables)
-        connectionHandler.send(
-            to: colorSystemPath,
-            data: colorSystemData,
-            mode: .single,
-            shouldRemoveOnDisconnect: false,
-            onComplete: nil,
-            onError: nil
+//        connectionHandler.send(
+//            to: colorSystemPath,
+//            data: colorSystemData,
+//            mode: .single,
+//            shouldRemoveOnDisconnect: false,
+//            onComplete: nil,
+//            onError: nil
+//        )
+        let systemData = SystemData(
+            entityData: entityData, 
+            renderSystemData: renderSystemData, 
+            animationSystemData: animationSystemData, 
+            colorSystemData: colorSystemData
         )
+        let systemPath = FirebasePaths.joinPaths(FirebasePaths.games, room.gameID, FirebasePaths.systems)
+        connectionHandler.send(to: systemPath, data: systemData, mode: .single, shouldRemoveOnDisconnect: false, onComplete: nil, onError: nil)
     }
 
     func receiveInput() {

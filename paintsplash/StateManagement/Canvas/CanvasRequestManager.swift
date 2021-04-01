@@ -38,7 +38,7 @@ class CanvasRequestManager: GameEntity, Transformable {
 
     func addRequest(colors: Set<PaintColor>) {
         guard requestsDisplayView.items.count < maxRequests,
-              let canvasRequest = CanvasRequest(requiredColors: colors, position: .zero) else {
+              let canvasRequest = CanvasRequest(requiredColors: colors, position: Vector2D.outOfScreen) else {
             return
         }
 
@@ -65,10 +65,7 @@ class CanvasRequestManager: GameEntity, Transformable {
 
             requestsDisplayView.remove(at: index)
 
-            // TODO: fade canvas
             canvas.destroy()
-//            let removeCanvasEvent = DespawnAIEntityEvent(entityToDespawn: canvas)
-//            EventSystem.despawnAIEntityEvent.post(event: removeCanvasEvent)
 
             break
         }
