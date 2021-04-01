@@ -6,22 +6,21 @@
 //
 import Foundation
 
-class PaintProjectile: GameEntity, Projectile, Renderable, Colorable {
-    let transformComponent: TransformComponent
-    let moveableComponent: MoveableComponent
-    let collisionComponent: CollisionComponent
-    let renderComponent: RenderComponent
+class PaintProjectile: GameEntity, Projectile, Renderable, Colorable, Transformable {
+    var transformComponent: TransformComponent
+    var moveableComponent: MoveableComponent
+    var collisionComponent: CollisionComponent
+    var renderComponent: RenderComponent
 
     var color: PaintColor
 
     private let moveSpeed = 15.0
 
     init(color: PaintColor, radius: Double, direction: Vector2D) {
-        self.transformComponent = BoundedTransformComponent(
+        self.transformComponent = TransformComponent(
             position: Vector2D.zero,
             rotation: 0.0,
-            size: Vector2D(radius * 2, radius * 2),
-            bounds: Constants.PROJECTILE_MOVEMENT_BOUNDS
+            size: Vector2D(radius * 2, radius * 2)
         )
 
         self.moveableComponent = MoveableComponent(direction: direction, speed: moveSpeed)
@@ -60,6 +59,13 @@ class PaintProjectile: GameEntity, Projectile, Renderable, Colorable {
 
         if destroy {
             EventSystem.entityChangeEvents.removeEntityEvent.post(event: RemoveEntityEvent(entity: self))
+        }
+    }
+
+    override func update() {
+        if !Constants.PROJECTILE_MOVEMENT_BOUNDS
+            .contains(transformComponent.worldPosition) {
+            destroy()
         }
     }
 }

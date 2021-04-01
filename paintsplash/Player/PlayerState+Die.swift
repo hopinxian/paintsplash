@@ -8,6 +8,8 @@
 extension PlayerState {
     class Die: PlayerState {
         override func onEnterState() {
+            player.collisionComponent.active = false
+            player.moveableComponent.speed = 0.0
             player.animationComponent.animate(
                 animation: PlayerAnimations.playerDie,
                 interupt: true, callBack: { self.player.destroy() }

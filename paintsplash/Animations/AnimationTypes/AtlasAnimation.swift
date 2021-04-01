@@ -7,13 +7,19 @@
 
 import SpriteKit
 
-struct AtlasAnimation: Animation {
+class AtlasAnimation: Animation {
     let atlasName: String
-    let name: String
-    let animationDuration: Double
     let isRepeating: Bool
+    let animationDuration: Double
 
-    func getAction() -> SKAction {
+    init(name: String, animationDuration: Double, atlasName: String, isRepeating: Bool) {
+        self.atlasName = atlasName
+        self.isRepeating = isRepeating
+        self.animationDuration = animationDuration
+        super.init(name: name)
+    }
+
+    override func getAction() -> SKAction {
         let animationAtlas = SKTextureAtlas(named: atlasName)
 
         // Sorting ensures that animation images are in the correct order

@@ -9,5 +9,5 @@
  `Colorable` is a type that has a color.
  */
 protocol Colorable {
-    var color: PaintColor { get }
+    var color: PaintColor { get set }
 }

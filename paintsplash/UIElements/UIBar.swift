@@ -6,8 +6,8 @@
 //
 
 class UIBar: UIEntity, Renderable {
-    let renderComponent: RenderComponent
-    let transformComponent: TransformComponent
+    var renderComponent: RenderComponent
+    var transformComponent: TransformComponent
 
     init(position: Vector2D, size: Vector2D, spritename: String) {
         let renderType = RenderType.sprite(spriteName: spritename)

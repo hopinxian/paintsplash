@@ -4,13 +4,28 @@
 //
 //  Created by Farrell Nah on 20/3/21.
 //
-import SpriteKit
-
-struct FadeOutAnimation: Animation {
-    let name: String
-    let animationDuration: Double
-
-    func getAction() -> SKAction {
-        SKAction.fadeOut(withDuration: animationDuration)
-    }
-}
+//import SpriteKit
+//
+//class FadeOutAnimation: Animation {
+//    let duration: Double
+//
+//    init(name: String, duration: Double) {
+//        self.duration = duration
+//        super.init(name: name)
+//    }
+//
+//    private enum CodingKeys: String, CodingKey {
+//        case duration
+//    }
+//
+//    required init(from decoder: Decoder) throws {
+//        print("Oops4")
+//        let container = try decoder.container(keyedBy: CodingKeys.self)
+//        self.duration = try container.decode(Double.self, forKey: .duration)
+//        try super.init(from: container.superDecoder())
+//    }
+//    
+//    override func getAction() -> SKAction {
+//        SKAction.fadeOut(withDuration: duration)
+//    }
+//}

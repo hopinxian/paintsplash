@@ -41,19 +41,17 @@ class RoomViewController: UIViewController {
         print("onRoomChange: \(roomInfo)")
         self.currentRoom = roomInfo
 
-        if let gameId = roomInfo.gameId {
-            // TODO: transitioning logic: pass gameId to other VC to observe
-            if playerInfo == roomInfo.host {
+        self.roomCodeDisplay?.text = roomInfo.roomId
+        self.hostNameLabel?.text = roomInfo.host.playerName
+        self.guestNameLabel?.text = roomInfo.players?.first?.value.playerName
+
+        if roomInfo.started {
+            if roomInfo.host == playerInfo {
                 performSegue(withIdentifier: "StartMultiplayerServer", sender: nil)
             } else {
                 performSegue(withIdentifier: "StartMultiplayerClient", sender: nil)
             }
-            return
         }
-
-        self.roomCodeDisplay?.text = roomInfo.roomId
-        self.hostNameLabel?.text = roomInfo.host.playerName
-        self.guestNameLabel?.text = roomInfo.players?.first?.value.playerName
     }
 
     func onRoomClose() {
@@ -87,7 +85,6 @@ class RoomViewController: UIViewController {
                 return
             }
             serverVC.lobbyHandler = self.lobbyHandler
-            serverVC.connectionHandler = FirebaseConnectionHandler()
             serverVC.roomInfo = currentRoom
         case "StartMultiplayerClient":
             guard let clientVC = segue.destination as? MultiplayerClientViewController else {

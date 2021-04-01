@@ -13,10 +13,10 @@ class PlayerActionEvent: Event {
 }
 
 class PlayerMovementEvent: PlayerActionEvent {
-    let playerId: UUID
+    let playerId: EntityID
     let location: Vector2D
 
-    init(location: Vector2D, playerId: UUID) {
+    init(location: Vector2D, playerId: EntityID) {
         self.location = location
         self.playerId = playerId
     }
@@ -28,9 +28,9 @@ class PlayerAttackEvent: PlayerActionEvent {
 
 class PlayerHealthUpdateEvent: PlayerActionEvent, Codable {
     let newHealth: Int
-    let playerId: UUID
+    let playerId: EntityID
 
-    init(newHealth: Int, playerId: UUID) {
+    init(newHealth: Int, playerId: EntityID) {
         self.newHealth = newHealth
         self.playerId = playerId
     }
@@ -39,10 +39,10 @@ class PlayerHealthUpdateEvent: PlayerActionEvent, Codable {
 class PlayerAmmoUpdateEvent: PlayerActionEvent, Codable {
     let weaponType: Weapon.Type
     let ammo: [Ammo]
-    let playerId: UUID
+    let playerId: EntityID
     private let weaponTypeEnum: WeaponType?
 
-    init(weaponType: Weapon.Type, ammo: [Ammo], playerId: UUID) {
+    init(weaponType: Weapon.Type, ammo: [Ammo], playerId: EntityID) {
         self.weaponType = weaponType
         self.ammo = ammo
         self.playerId = playerId
@@ -65,7 +65,7 @@ class PlayerAmmoUpdateEvent: PlayerActionEvent, Codable {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         playerId = try values.decode(UUID.self, forKey: .playerId)
         let paintAmmo = try? values.decode([PaintAmmo].self, forKey: .ammo) // TODO: Change [PaintAmmo] to [Ammo]
-        ammo = paintAmmo ?? [] 
+        ammo = paintAmmo ?? []
         weaponTypeEnum = try values.decode(WeaponType.self, forKey: .weaponTypeEnum)
         guard let type = weaponTypeEnum,
               let eventWeaponType = type.toWeapon() else {
@@ -77,9 +77,9 @@ class PlayerAmmoUpdateEvent: PlayerActionEvent, Codable {
 
 class PlayerChangedWeaponEvent: PlayerActionEvent {
     let weapon: Weapon
-    let playerId: UUID
+    let playerId: EntityID
 
-    init(weapon: Weapon, playerId: UUID) {
+    init(weapon: Weapon, playerId: EntityID) {
         self.weapon = weapon
         self.playerId = playerId
     }

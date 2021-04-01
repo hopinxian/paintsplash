@@ -6,8 +6,8 @@
 //
 
 class HeartDisplay: UIEntity, Renderable {
-    let transformComponent: TransformComponent
-    let renderComponent: RenderComponent
+    var transformComponent: TransformComponent
+    var renderComponent: RenderComponent
 
     init(position: Vector2D, zPosition: Int) {
         let renderType = RenderType.sprite(spriteName: "heart")

@@ -160,10 +160,10 @@ class FirebaseLobbyHandler: LobbyHandler {
                 return
             }
 
-            guard roomInfo.players != nil else {
-                print("Insufficient players to start multiplayer game")
-                return
-            }
+//            guard roomInfo.players != nil else {
+//                print("Insufficient players to start multiplayer game")
+//                return
+//            }
 
             // Generate UUID for new game
             let newGameId = UUID().uuidString
@@ -179,7 +179,8 @@ class FirebaseLobbyHandler: LobbyHandler {
                                         onError: onError)
 
             // Update game state for room
-            roomInfo.setGameId(gameId: newGameId)
+            roomInfo.gameID = newGameId
+            roomInfo.started = true
             roomInfo.closeGame()
             let roomGamePath = FirebasePaths.joinPaths(roomPath)
             self.connectionHandler.send(to: roomGamePath,

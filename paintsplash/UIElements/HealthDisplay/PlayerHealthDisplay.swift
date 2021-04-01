@@ -10,9 +10,9 @@ import Foundation
 class PlayerHealthDisplay: UIEntity, Transformable {
     let transformComponent: TransformComponent
     var healthDisplayView: HorizontalStack<HeartDisplay>
-    let associatedEntity: UUID
+    let associatedEntity: EntityID
 
-    init(startingHealth: Int, associatedEntityId: UUID) {
+    init(startingHealth: Int, associatedEntityId: EntityID) {
         self.transformComponent = TransformComponent(
             position: Constants.HEALTH_DISPLAY_POSITION,
             rotation: 0,
@@ -20,7 +20,7 @@ class PlayerHealthDisplay: UIEntity, Transformable {
         )
 
         let displayView = HorizontalStack<HeartDisplay>(
-            position: transformComponent.position,
+            position: transformComponent.localPosition,
             size: transformComponent.size,
             backgroundSprite: "WhiteSquare"
         )

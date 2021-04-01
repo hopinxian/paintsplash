@@ -5,17 +5,23 @@
 //  Created by Cynthia Lee on 14/3/21.
 //
 
-struct SpawnerAnimations {
-    static let spawnerIdle =
-        AtlasAnimation(atlasName: "SpawnerIdle", name: "spawnerIdle",
-                       animationDuration: 1.2, isRepeating: true)
-    static let spawnerSpawn =
-        AtlasAnimation(atlasName: "SpawnerSpawn", name: "spawnerSpawn",
-                       animationDuration: 1.2, isRepeating: false)
-    static let spawnerDie =
-        AtlasAnimation(atlasName: "SpawnerDie", name: "spawnerDie",
-                       animationDuration: 1.2, isRepeating: false)
-    static let spawnerHit =
-        AtlasAnimation(atlasName: "SpawnerHit", name: "spawnerHit",
-                       animationDuration: 1.2, isRepeating: true)
+struct SpawnerAnimations: AnimationSource {
+    var animations: [String : Animation] = [
+        "spawnerIdle":
+        AtlasAnimation(name: "spawnerIdle",
+                       animationDuration: 1.2, atlasName: "SpawnerIdle", isRepeating: true),
+        "spawnerSpawn":
+        AtlasAnimation(name: "spawnerSpawn",
+                       animationDuration: 1.2, atlasName: "SpawnerSpawn", isRepeating: false),
+        "spawnerDie":
+        AtlasAnimation(name: "spawnerDie",
+                       animationDuration: 1.2, atlasName: "SpawnerDie", isRepeating: false),
+        "spawnerHit":
+        AtlasAnimation(name: "spawnerHit",
+                       animationDuration: 1.2, atlasName: "SpawnerHit", isRepeating: true)
+    ]
+    static let spawnerIdle = "spawnerIdle"
+    static let spawnerSpawn = "spawnerSpawn"
+    static let spawnerDie = "spawnerDie"
+    static let spawnerHit = "spawnerHit"
 }

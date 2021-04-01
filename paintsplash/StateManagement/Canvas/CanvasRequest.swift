@@ -8,8 +8,8 @@
 class CanvasRequest: GameEntity, Renderable, Transformable {
     private(set) var requiredColors: Set<PaintColor>
 
-    let renderComponent: RenderComponent
-    let transformComponent: TransformComponent
+    var renderComponent: RenderComponent
+    var transformComponent: TransformComponent
 
     init?(requiredColors: Set<PaintColor>, position: Vector2D) {
         if requiredColors.count < 1 {
@@ -36,10 +36,12 @@ class CanvasRequest: GameEntity, Renderable, Transformable {
     func paintRequiredColours() {
         for color in requiredColors {
             // add visible paint blob to canvas
-            let blobInfo = CanvasSubviewManager.getRandomPaintRenderInfo(canvasTransformable: self,
-                                                                         color: color)
-            let addBlobEvent = AddSubviewEvent(renderable: self, renderInfo: blobInfo)
-            EventSystem.changeViewEvent.addSubviewEvent.post(event: addBlobEvent)
+//            let blobInfo = CanvasSubviewManager.getRandomPaintRenderInfo(canvasTransformable: self,
+//                                                                         color: color)
+//            let addBlobEvent = AddSubviewEvent(renderable: self, renderInfo: blobInfo)
+//            EventSystem.changeViewEvent.addSubviewEvent.post(event: addBlobEvent)
+            let blob = PaintBlob(color: color, canvas: self)
+            blob.spawn()
         }
     }
 }

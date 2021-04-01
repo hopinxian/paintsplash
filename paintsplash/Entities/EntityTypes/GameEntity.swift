@@ -7,7 +7,7 @@
 import Foundation
 
 class GameEntity {
-    var id = UUID()
+    var id = EntityID()
     // var components = [Component]()
 
     init() {

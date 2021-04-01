@@ -17,15 +17,14 @@ class SKCollisionDetector: NSObject, SKPhysicsContactDelegate {
     }
 
     func didBegin(_ contact: SKPhysicsContact) {
-        let nodeEntityMap = renderSystem.getNodeEntityMap()
         guard let nodeA = contact.bodyA.node,
               let nodeB = contact.bodyB.node else {
             return
         }
 
-        guard let collidableA = nodeEntityMap[nodeA] as? Collidable,
+        guard let collidableA = renderSystem.renderableFromNode(nodeA) as? Collidable,
               collidableA.collisionComponent.active,
-              let collidableB = nodeEntityMap[nodeB] as? Collidable,
+              let collidableB = renderSystem.renderableFromNode(nodeB) as? Collidable,
               collidableB.collisionComponent.active else {
             return
         }

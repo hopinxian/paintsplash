@@ -6,12 +6,11 @@
 //
 import SpriteKit
 
-struct SequenceAnimation: Animation {
-    let name: String
-    let animationDuration: Double = 0
+class SequenceAnimation: Animation {
     let animations: [Animation]
 
-    func getAction() -> SKAction {
-        SKAction.sequence(animations.compactMap({ $0.getAction() }))
+    init(name: String, animations: [Animation]) {
+        self.animations = animations
+        super.init(name: name)
     }
 }

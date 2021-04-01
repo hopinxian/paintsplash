@@ -6,20 +6,20 @@
 //
 
 class Component {
-    private weak var _entity: GameEntity?
-    var entity: GameEntity {
-        get {
-            guard let nonNullEntity = _entity else {
-                fatalError("Component not setup correctly")
-            }
-
-            return nonNullEntity
-        }
-
-        set {
-            _entity = newValue
-        }
-    }
+//    private weak var _entity: GameEntity?
+//    var entity: GameEntity {
+//        get {
+//            guard let nonNullEntity = _entity else {
+//                fatalError("Component not setup correctly")
+//            }
+//
+//            return nonNullEntity
+//        }
+//
+//        set {
+//            _entity = newValue
+//        }
+//    }
 
     var active: Bool = true
 }

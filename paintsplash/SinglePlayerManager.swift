@@ -25,6 +25,7 @@ class SinglePlayerGameManager: GameManager {
     var animationSystem: AnimationSystem!
     var collisionSystem: CollisionSystem!
     var movementSystem: MovementSystem!
+    var transformSystem: TransformSystem!
 
     private var collisionDetector: SKCollisionDetector!
 
@@ -66,6 +67,8 @@ class SinglePlayerGameManager: GameManager {
         self.audioManager = AudioManager()
 
         self.movementSystem = FrameMovementSystem()
+
+        self.transformSystem = WorldTransformSystem()
     }
 
     func setUpPlayer() {
@@ -163,6 +166,7 @@ class SinglePlayerGameManager: GameManager {
     }
 
     private func addObjectToSystems(_ object: GameEntity) {
+        transformSystem.addEntity(object)
         renderSystem.addEntity(object)
         aiSystem.addEntity(object)
         collisionSystem.addEntity(object)
@@ -171,6 +175,7 @@ class SinglePlayerGameManager: GameManager {
     }
 
     private func removeObjectFromSystems(_ object: GameEntity) {
+        transformSystem.removeEntity(object)
         renderSystem.removeEntity(object)
         aiSystem.removeEntity(object)
         collisionSystem.removeEntity(object)
@@ -190,15 +195,14 @@ class SinglePlayerGameManager: GameManager {
 
     func update() {
         currentLevel?.update()
-        let entityList = Array(entities)
-
+        transformSystem.updateEntities()
         aiSystem.updateEntities()
         renderSystem.updateEntities()
         animationSystem.updateEntities()
         collisionSystem.updateEntities()
         movementSystem.updateEntities()
 
-        entityList.forEach({ $0.update() })
+        entities.forEach({ $0.update() })
     }
 
     deinit {

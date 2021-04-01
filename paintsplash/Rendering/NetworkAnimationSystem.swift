@@ -1,17 +1,14 @@
 //
-//  SKAnimationSystem.swift
+//  NetworkAnimationSystem.swift
 //  paintsplash
 //
-//  Created by Farrell Nah on 26/3/21.
+//  Created by Farrell Nah on 31/3/21.
 //
-import SpriteKit
 
-class SKAnimationSystem: AnimationSystem {
+class NetworkAnimationSystem: AnimationSystem {
     var animatables = [EntityID: Animatable]()
-    let renderSystem: SKRenderSystem
 
-    init(renderSystem: SKRenderSystem) {
-        self.renderSystem = renderSystem
+    init() {
     }
 
     func addEntity(_ entity: GameEntity) {
@@ -35,18 +32,9 @@ class SKAnimationSystem: AnimationSystem {
     func updateEntity(_ entity: EntityID, _ animatable: Animatable) {
         let animationComponent = animatable.animationComponent
 
-        guard let node = renderSystem.getNodeEntityMap()[entity],
-              let animationToPlay = animationComponent.animationToPlay else {
+        guard let animationToPlay = animationComponent.animationToPlay else {
             return
         }
-
-        node.removeAllActions()
-        let animation = AnimationManager.getAnimation(from: animationToPlay)
-        let actionToRun = SKAction.sequence([animation.getAction(), SKAction.run({
-            animationComponent.callBack?()
-            animationComponent.animationIsPlaying = false
-        })])
-        node.run(actionToRun, withKey: animation.name)
 
         animationComponent.animationIsPlaying = true
         animationComponent.currentAnimation = animationToPlay

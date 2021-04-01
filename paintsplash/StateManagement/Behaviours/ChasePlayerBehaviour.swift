@@ -14,7 +14,7 @@ struct ChasePlayerBehaviour: StateBehaviour {
             fatalError("AIEntity does not conform to the required protocols for ApproachPointBehaviour")
         }
 
-        let enemyCurrentPosition = movable.transformComponent.position
+        let enemyCurrentPosition = movable.transformComponent.localPosition
         let playerPosition = aiGameInfo.playerPosition
 
         let direction = playerPosition - enemyCurrentPosition

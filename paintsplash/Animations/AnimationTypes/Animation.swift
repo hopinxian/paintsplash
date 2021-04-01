@@ -6,11 +6,27 @@
 //
 import SpriteKit
 
-protocol Animation {
-    var name: String { get }
-    var animationDuration: Double { get }
+protocol AnimationSource {
+    var animations: [String: Animation] { get }
+    func getAnimation(from identifier: String) -> Animation?
+}
 
-    func getAction() -> SKAction
+extension AnimationSource {
+    func getAnimation(from identifier: String) -> Animation? {
+        animations[identifier]
+    }
+}
+
+class Animation {
+    var name: String
+
+    init(name: String) {
+        self.name = name
+    }
+
+    func getAction() -> SKAction {
+        SKAction()
+    }
 }
 
 extension Animation {

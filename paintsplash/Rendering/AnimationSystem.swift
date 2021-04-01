@@ -6,5 +6,5 @@
 //
 
 protocol AnimationSystem: System {
-    var animatables: [GameEntity: Animatable] { get set }
+    var animatables: [EntityID: Animatable] { get set }
 }

@@ -23,8 +23,8 @@ class MultiplayerClient: GameManager {
     var animationSystem: AnimationSystem!
     var audioSystem: AudioSystem!
 
-    init(connectionHandler: ConnectionHandler, gameScene: GameScene, playerInfo: PlayerInfo, roomInfo: RoomInfo) {
-        self.connectionHandler = connectionHandler
+    init(gameScene: GameScene, playerInfo: PlayerInfo, roomInfo: RoomInfo) {
+        self.connectionHandler = FirebaseConnectionHandler()
         self.gameScene = gameScene
         self.playerInfo = playerInfo
         self.room = roomInfo
@@ -36,6 +36,15 @@ class MultiplayerClient: GameManager {
 
         assert(playerInfo.playerUUID == room.players!.first!.value.playerUUID, "Wrong uuid")
         setupGame()
+
+        let renderSystemPath = FirebasePaths.games + "/" + room.gameID + "/" + "RenderSystem"
+        connectionHandler.listen(to: renderSystemPath, callBack: updateRenderSystem)
+
+        let animationSystemPath = FirebasePaths.games + "/" + room.gameID + "/" + "AnimSystem"
+        connectionHandler.listen(to: animationSystemPath, callBack: updateAnimationSystem)
+
+        let colorSystemPath = FirebasePaths.games + "/" + room.gameID + "/" + "ColorSystem"
+        connectionHandler.listen(to: colorSystemPath, callBack: updateColorSystem)
     }
 
     func setupGame() {
@@ -52,18 +61,16 @@ class MultiplayerClient: GameManager {
             return
         }
 
-        gameConnectionHandler.observePlayerEvent(gameId: gameID,
-                                                 playerId: playerInfo.playerUUID,
-                                                 onChange: {
-                                                    EventSystem.playerActionEvent.playerHealthUpdateEvent.post(event: $0)
-                                                 })
+        gameConnectionHandler.observePlayerEvent(
+                gameId: gameID,
+                playerId: playerInfo.playerUUID,
+                onChange: { EventSystem.playerActionEvent.playerHealthUpdateEvent.post(event: $0) })
 
         gameConnectionHandler.observePlayerEvent(
             gameId: gameID,
             playerId: playerInfo.playerUUID,
             onChange: { EventSystem.playerActionEvent.playerAmmoUpdateEvent.post(event: $0) }
         )
-    }
 
     func setUpSystems() {
         let renderSystem = SKRenderSystem(scene: gameScene)
@@ -124,18 +131,11 @@ class MultiplayerClient: GameManager {
     func setUpUI() {
         let background = Background()
         background.spawn()
+        print("here")
+        print(background.transformComponent.localPosition)
 
-        guard let playerId = UUID(uuidString: playerInfo.playerUUID) else {
-            return
-        }
-        self.player.id = playerId
-
-        // Ensure that player state is set up here first
-        // Dummy player that allows the appropriate ammo stacks to appear
-        // let player = Player(initialPosition: .zero)
-
-        guard let paintGun = player.multiWeaponComponent.availableWeapons.compactMap({ $0 as? PaintGun }).first else {
-            fatalError("PaintGun not setup properly")
+        guard let playerId = EntityID(id: playerInfo.playerUUID) else {
+            fatalError("Invalid player ID")
         }
 
         let paintGunUI = PaintGunAmmoDisplay(weaponData: paintGun, associatedEntity: playerId)
@@ -195,10 +195,9 @@ class MultiplayerClient: GameManager {
     }
 
     func update() {
-        let entityList = Array(entities)
         renderSystem.updateEntities()
         animationSystem.updateEntities()
-        entityList.forEach({ $0.update() })
+        entities.forEach({ $0.update() })
     }
 
     func addObject(_ object: GameEntity) {
@@ -239,5 +238,94 @@ class MultiplayerClient: GameManager {
     private func removeObjectFromSystems(_ object: GameEntity) {
         renderSystem.removeEntity(object)
         animationSystem.removeEntity(object)
+    }
+
+    func updateRenderSystem(data: RenderSystemData?) {
+        guard let renderableData = data else {
+            return
+        }
+
+        var deletedEntities = renderSystem.renderables
+        renderableData.renderables.forEach({ encodedRenderable in
+            if let (entity, renderable) = renderSystem.renderables.first(
+                where: { $0.key == encodedRenderable.entityID }) {
+                renderable.renderComponent = encodedRenderable.renderComponent
+                renderable.transformComponent = encodedRenderable.transformComponent
+                deletedEntities[entity] = nil
+            } else {
+                let newEntity = NetworkedEntity(id: encodedRenderable.entityID)
+                newEntity.renderComponent = encodedRenderable.renderComponent
+                newEntity.transformComponent = encodedRenderable.transformComponent
+                newEntity.spawn()
+                deletedEntities[newEntity.id] = nil
+            }
+        })
+
+        for (_, renderable) in deletedEntities {
+            renderable.destroy()
+        }
+    }
+
+    func updateAnimationSystem(data: AnimationSystemData?) {
+        guard let animatableData = data else {
+            return
+        }
+
+        animatableData.animatables.forEach({ encodedAnimatable in
+            if let (_, animatable) = animationSystem.animatables.first(
+                where: { $0.key == encodedAnimatable.entityID }) {
+                animatable.animationComponent = encodedAnimatable.animationComponent
+            } else {
+                let newEntity = NetworkedEntity(id: encodedAnimatable.entityID)
+                newEntity.animationComponent = encodedAnimatable.animationComponent
+                newEntity.spawn()
+            }
+        })
+    }
+
+    func updateColorSystem(data: ColorSystemData?) {
+        guard let colorData = data else {
+            return
+        }
+
+        var colorables = [GameEntity: Colorable]()
+        entities.forEach({ entity in
+            if let colorable = entity as? Colorable {
+                colorables[entity] = colorable
+            }
+        })
+
+        colorData.colorables.forEach({ encodedColorable in
+            if var (_, colorable) = colorables.first(where: { $0.0.id == encodedColorable.entityID }) {
+                colorable.color = encodedColorable.color
+            } else {
+                let newEntity = NetworkedEntity(id: encodedColorable.entityID)
+                newEntity.color = encodedColorable.color
+                newEntity.spawn()
+            }
+        })
+    }
+}
+
+enum MultiplayerError: Error {
+    case alreadyInLobby
+    case cannotJoinLobby
+}
+
+class NetworkedEntity: GameEntity, Renderable, Animatable, Colorable {
+    var renderComponent: RenderComponent
+    var transformComponent: TransformComponent
+    var animationComponent: AnimationComponent
+    var color: PaintColor
+
+    init(id: EntityID) {
+        self.renderComponent = RenderComponent(renderType: .sprite(spriteName: ""), zPosition: 0)
+        self.transformComponent = TransformComponent(position: Vector2D.zero, rotation: 0, size: Vector2D.zero)
+        self.animationComponent = AnimationComponent()
+        self.color = .white
+
+        super.init()
+
+        self.id = id
     }
 }

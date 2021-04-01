@@ -10,15 +10,15 @@ import SpriteKit
 let hitDuration: Double = 0.25
 
 class Enemy: GameEntity, StatefulEntity, Renderable, Animatable, Collidable, Movable, Colorable, Health {
-    let renderComponent: RenderComponent
-    let transformComponent: TransformComponent
-    let collisionComponent: CollisionComponent
-    let moveableComponent: MoveableComponent
-    let healthComponent: HealthComponent
-    let stateComponent: StateComponent
-    let animationComponent: AnimationComponent
+    var renderComponent: RenderComponent
+    var transformComponent: TransformComponent
+    var collisionComponent: CollisionComponent
+    var moveableComponent: MoveableComponent
+    var healthComponent: HealthComponent
+    var stateComponent: StateComponent
+    var animationComponent: AnimationComponent
 
-    private(set) var color: PaintColor
+    var color: PaintColor
     private let moveSpeed = 1.0
 
     var lastDirection = Vector2D.zero
@@ -86,10 +86,9 @@ class Enemy: GameEntity, StatefulEntity, Renderable, Animatable, Collidable, Mov
     private func die() {
         moveableComponent.speed = 0
         collisionComponent.active = false
-        animationComponent.animate(animation: SlimeAnimations.slimeDieGray, interupt: true,
-                                   callBack: { self.destroy() })
+//        animationComponent.animate(animation: SlimeAnimations.slimeDieGray, interupt: true,
+//                                   callBack: { self.destroy() })
         stateComponent.currentState = EnemyState.Die(enemy: self)
-
 
         EventSystem.scoreEvent.post(event: ScoreEvent(value: Points.enemyKill))
     }

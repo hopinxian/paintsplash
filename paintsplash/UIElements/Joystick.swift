@@ -8,9 +8,9 @@
 import Foundation
 
 class Joystick: UIEntity, Renderable {
-    let renderComponent: RenderComponent
-    let transformComponent: TransformComponent
-    let associatedEntity: UUID
+    var renderComponent: RenderComponent
+    var transformComponent: TransformComponent
+    let associatedEntity: EntityID
     private (set) var displacement: Vector2D = .zero
 
     private let foregroundNode: JoystickForeground
@@ -25,7 +25,7 @@ class Joystick: UIEntity, Renderable {
         transformComponent.size.x / 2
     }
 
-    init(associatedEntityID: UUID, position: Vector2D) {
+    init(associatedEntityID: EntityID, position: Vector2D) {
         let renderType = RenderType.sprite(spriteName: Constants.JOYSTICK_SPRITE)
 
         self.associatedEntity = associatedEntityID
@@ -65,7 +65,7 @@ class Joystick: UIEntity, Renderable {
     }
 
     func onTouchDown(event: TouchDownEvent) {
-        if Vector2D.magnitude(of: event.location - transformComponent.position) < backgroundRadius {
+        if Vector2D.magnitude(of: event.location - transformComponent.localPosition) < backgroundRadius {
             tracking = true
         }
     }
@@ -76,26 +76,26 @@ class Joystick: UIEntity, Renderable {
         }
 
         var newLocation = event.location
-        let displacement = newLocation - transformComponent.position
+        let displacement = newLocation - transformComponent.localPosition
 
         if displacement.magnitude > backgroundRadius {
             let newDisplacement = Vector2D.normalize(displacement) * backgroundRadius
-            newLocation = transformComponent.position + newDisplacement
+            newLocation = transformComponent.localPosition + newDisplacement
         }
 
-        foregroundNode.transformComponent.position = newLocation
+        foregroundNode.transformComponent.localPosition = newLocation
         self.displacement = displacement.unitVector
     }
 
     func onTouchUp(event: TouchUpEvent) {
         tracking = false
-        foregroundNode.transformComponent.position = transformComponent.position
+        foregroundNode.transformComponent.localPosition = transformComponent.localPosition
         self.displacement = .zero
     }
 
     class JoystickForeground: GameEntity, Renderable {
-        let renderComponent: RenderComponent
-        let transformComponent: TransformComponent
+        var renderComponent: RenderComponent
+        var transformComponent: TransformComponent
 
         init(position: Vector2D, size: Vector2D, zPosition: Int) {
             let renderType = RenderType.sprite(spriteName: "joystick-foreground")
@@ -124,7 +124,7 @@ class MovementJoystick: Joystick {
         guard tracking else {
             return
         }
-        
+
         super.onTouchUp(event: event)
 
         let event = PlayerMoveEvent(direction: Vector2D.zero, playerID: associatedEntity)

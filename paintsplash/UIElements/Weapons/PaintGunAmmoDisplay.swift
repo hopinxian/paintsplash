@@ -11,9 +11,9 @@ class PaintGunAmmoDisplay: UIEntity, Transformable {
 
     var ammoDisplayView: VerticalStack<PaintAmmoDisplay>
     var weaponData: PaintGun
-    let associatedEntity: UUID
+    let associatedEntity: EntityID
 
-    init(weaponData: PaintGun, associatedEntity: UUID) {
+    init(weaponData: PaintGun, associatedEntity: EntityID) {
         self.associatedEntity = associatedEntity
 
         self.transformComponent = TransformComponent(
@@ -23,7 +23,7 @@ class PaintGunAmmoDisplay: UIEntity, Transformable {
         )
 
         let displayView = VerticalStack<PaintAmmoDisplay>(
-            position: transformComponent.position,
+            position: transformComponent.localPosition,
             size: transformComponent.size,
             backgroundSprite: "WhiteSquare"
         )
@@ -74,8 +74,8 @@ class PaintGunAmmoDisplay: UIEntity, Transformable {
 
     func touchDown(event: TouchDownEvent) {
         let location = event.location
-        if abs(transformComponent.position.x - location.x) < transformComponent.size.x &&
-            abs(transformComponent.position.y - location.y) < transformComponent.size.y {
+        if abs(transformComponent.localPosition.x - location.x) < transformComponent.size.x &&
+            abs(transformComponent.localPosition.y - location.y) < transformComponent.size.y {
             let event = PlayerChangeWeaponEvent(newWeapon: PaintGun.self, playerId: associatedEntity)
             EventSystem.processedInputEvents.playerChangeWeaponEvent.post(event: event)
         }

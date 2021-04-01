@@ -9,18 +9,14 @@ import Foundation
 
 class MultiplayerServer: SinglePlayerGameManager {
     var room: RoomInfo
-    var lobbyHandler: LobbyHandler
+    var connectionHandler: ConnectionHandler
     var gameConnectionHandler: GameConnectionHandler?
-    var gameId: String?
-
-    // var otherPlayer: Player!
 
     private var collisionDetector: SKCollisionDetector!
 
-    init(lobbyHandler: LobbyHandler, roomInfo: RoomInfo, gameScene: GameScene) {
-        self.lobbyHandler = lobbyHandler
+    init(roomInfo: RoomInfo, gameScene: GameScene) {
         self.room = roomInfo
-        self.gameId = roomInfo.gameId
+        self.connectionHandler = FirebaseConnectionHandler()
         super.init(gameScene: gameScene)
     }
 
@@ -33,22 +29,12 @@ class MultiplayerServer: SinglePlayerGameManager {
     }
 
     override func setUpPlayer() {
-        guard let hostId = UUID(uuidString: room.host.playerUUID) else {
+        guard let hostId = EntityID(id: room.host.playerUUID) else {
             fatalError("Error fetching IDs of players")
         }
 
         player = Player(initialPosition: Vector2D.zero + Vector2D.right * 50, playerUUID: hostId)
         player.spawn()
-
-//        EventSystem.playerActionEvent.playerHealthUpdateEvent.subscribe(listener: { event in
-//            guard event.playerId == hostId else {
-//                return
-//            }
-//            self.gameConnectionHandler?.sendPlayerState(gameId: self.gameId ?? "",
-//                                                        playerId: hostId.uuidString,
-//                                                        playerState: PlayerStateInfo(playerId: hostId,
-//                                                                                     health: event.newHealth))
-//        })
 
         // set up other players
         room.players?.forEach { _, player in
@@ -58,8 +44,8 @@ class MultiplayerServer: SinglePlayerGameManager {
 
     func setUpGuestPlayer(player: PlayerInfo) {
         // Initialize player
-        guard let playerID = UUID(uuidString: player.playerUUID),
-            let gameId = self.gameId else {
+        guard let playerID = EntityID(id: player.playerUUID),
+              let gameId = self.gameId else {
             return
         }
         let newPlayer = Player(initialPosition: Vector2D.zero + Vector2D.left * 50, playerUUID: playerID)
@@ -73,10 +59,6 @@ class MultiplayerServer: SinglePlayerGameManager {
             self.gameConnectionHandler?.sendPlayerEvent(gameId: gameId,
                                                         playerId: playerID.uuidString,
                                                         action: event)
-//            self.gameConnectionHandler?.sendPlayerState(gameId: gameId,
-//                                                        playerId: playerID.uuidString,
-//                                                        playerState: PlayerStateInfo(playerId: playerID,
-//                                                                                     health: event.newHealth))
         })
 
         // Update player ammo
@@ -182,11 +164,63 @@ class MultiplayerServer: SinglePlayerGameManager {
     }
 
     func sendGameState() {
+        let renderSystemPath = FirebasePaths.games + "/" + room.gameID + "/" + "RenderSystem"
+        let renderSystemData = RenderSystemData(from: renderSystem)
+        connectionHandler.send(
+            to: renderSystemPath,
+            data: renderSystemData,
+            mode: .single,
+            shouldRemoveOnDisconnect: false,
+            onComplete: nil,
+            onError: nil
+        )
 
+        let animSystemPath = FirebasePaths.games + "/" + room.gameID + "/" + "AnimSystem"
+        let animationSystemData = AnimationSystemData(from: animationSystem)
+        connectionHandler.send(
+            to: animSystemPath,
+            data: animationSystemData,
+            mode: .single,
+            shouldRemoveOnDisconnect: false,
+            onComplete: nil,
+            onError: nil
+        )
+
+        var colorables = [GameEntity: Colorable]()
+        entities.forEach({ entity in
+            if let colorable = entity as? Colorable {
+                colorables[entity] = colorable
+            }
+        })
+
+        let colorSystemPath = FirebasePaths.games + "/" + room.gameID + "/" + "ColorSystem"
+        let colorSystemData = ColorSystemData(from: colorables)
+        connectionHandler.send(
+            to: colorSystemPath,
+            data: colorSystemData,
+            mode: .single,
+            shouldRemoveOnDisconnect: false,
+            onComplete: nil,
+            onError: nil
+        )
     }
 
     func receiveInput() {
 
+    }
+
+    override func update() {
+        currentLevel?.update()
+        aiSystem.updateEntities()
+        collisionSystem.updateEntities()
+        movementSystem.updateEntities()
+        entities.forEach({ $0.update() })
+
+        sendGameState()
+
+        transformSystem.updateEntities()
+        renderSystem.updateEntities()
+        animationSystem.updateEntities()
     }
 
     private func onAddEntity(event: AddEntityEvent) {
@@ -234,9 +268,4 @@ class MultiplayerServer: SinglePlayerGameManager {
 //        })
 //    }
 
-}
-
-enum MultiplayerError: Error {
-    case alreadyInLobby
-    case cannotJoinLobby
 }

@@ -9,7 +9,8 @@ struct RoomInfo: Codable {
     var host: PlayerInfo
     var players: [String: PlayerInfo]?
     var isOpen: Bool
-    var gameId: String?
+    var started: Bool
+    var gameID: String
 
     init(roomId: String, host: PlayerInfo, players: [String: PlayerInfo], isOpen: Bool) {
         // assert(!players.contains(host))
@@ -17,10 +18,8 @@ struct RoomInfo: Codable {
         self.host = host
         self.players = players
         self.isOpen = isOpen
-    }
-
-    mutating func setGameId(gameId: String) {
-        self.gameId = gameId
+        self.started = false
+        self.gameID = ""
     }
 
     mutating func closeGame() {

@@ -5,17 +5,19 @@
 //  Created by Cynthia Lee on 16/3/21.
 //
 
-struct CanvasAnimations {
-    static let canvasIdle =
-        AtlasAnimation(atlasName: "CanvasIdle", name: "canvasIdle",
-                       animationDuration: 0, isRepeating: false)
-    static let canvasDisappear =
-        CompoundAnimation(
-            name: "canvasDisappear",
-            animations: [
-                FadeOutAnimation(name: "canvasFade", animationDuration: 1.0),
-                AtlasAnimation(atlasName: "CanvasIdle", name: "canvasIdle",
-                               animationDuration: 0, isRepeating: false)
-            ]
-        )
+import SpriteKit
+
+struct CanvasAnimations: AnimationSource {
+    var animations: [String : Animation] = [
+        "canvasIdle":
+            AtlasAnimation(name: "canvasIdle",
+                           animationDuration: 0,
+                           atlasName: "CanvasIdle",
+                           isRepeating: false),
+        "canvasDisappear":
+            RawAnimation(name: "canvasFade", action: SKAction.fadeOut(withDuration: 1.0))
+
+    ]
+    static let canvasIdle = "canvasIdle"
+    static let canvasDisappear = "canvasDisappear"
 }

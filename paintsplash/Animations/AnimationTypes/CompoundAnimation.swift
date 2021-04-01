@@ -6,12 +6,15 @@
 //
 import SpriteKit
 
-struct CompoundAnimation: Animation {
-    let name: String
-    let animationDuration: Double = 0
+class CompoundAnimation: Animation {
     let animations: [Animation]
 
-    func getAction() -> SKAction {
+    init(name: String, animations: [Animation]) {
+        self.animations = animations
+        super.init(name: name)
+    }
+
+    override func getAction() -> SKAction {
         SKAction.group(animations.compactMap({ $0.getAction() }))
     }
 }

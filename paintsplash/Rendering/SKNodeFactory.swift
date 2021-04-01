@@ -17,11 +17,9 @@ class SKNodeFactory {
             node = buildSpriteNode(entity: renderable, spriteName: spriteName, size: transformComponent.size)
         case .label(let text):
             node = buildLabelNode(text: text)
-        default:
-            return SKNode()
         }
 
-        node.position = SpaceConverter.modelToScreen(transformComponent.position)
+        node.position = SpaceConverter.modelToScreen(transformComponent.localPosition)
         node.zRotation = CGFloat(transformComponent.rotation)
         node.zPosition = CGFloat(renderComponent.zPosition)
 
@@ -45,7 +43,9 @@ class SKNodeFactory {
     }
 
     private static func colorize(_ renderableEntity: Renderable) -> (color: UIColor, blendFactor: CGFloat)? {
+//        print("Here")
         if let colorData = renderableEntity as? Colorable {
+//            print(colorData.color)
             return (colorData.color.uiColor, 1)
         } else {
             return nil

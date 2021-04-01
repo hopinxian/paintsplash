@@ -12,21 +12,21 @@ class ProcessedInputEvent: Event {
 
 class PlayerMoveEvent: ProcessedInputEvent, Codable {
     let direction: Vector2D
-    let playerId: UUID
+    let playerID: EntityID
 
-    init(direction: Vector2D, playerID: UUID) {
+    init(direction: Vector2D, playerID: EntityID) {
         self.direction = direction
-        self.playerId = playerID
+        self.playerID = playerID
     }
 }
 
 class PlayerShootEvent: ProcessedInputEvent, Codable {
     let direction: Vector2D
-    let playerId: UUID
+    let playerID: EntityID
 
-    init(direction: Vector2D, playerID: UUID) {
+    init(direction: Vector2D, playerID: EntityID) {
         self.direction = direction
-        self.playerId = playerID
+        self.playerID = playerID
     }
 }
 
@@ -43,10 +43,10 @@ class PlayerShootEvent: ProcessedInputEvent, Codable {
 
 class PlayerChangeWeaponEvent: ProcessedInputEvent, Codable {
     let newWeapon: Weapon.Type
-    let playerId: UUID
+    let playerId: EntityID
     let weaponType: WeaponType?
 
-    init(newWeapon: Weapon.Type, playerId: UUID) {
+    init(newWeapon: Weapon.Type, playerId: EntityID) {
         self.newWeapon = newWeapon
         self.playerId = playerId
         self.weaponType = WeaponType.toEnum(newWeapon)
@@ -58,7 +58,7 @@ class PlayerChangeWeaponEvent: ProcessedInputEvent, Codable {
 
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        playerId = try values.decode(UUID.self, forKey: .playerId)
+        playerId = try values.decode(EntityID.self, forKey: .playerId)
         weaponType = try values.decode(WeaponType.self, forKey: .weaponType)
         guard let type = weaponType,
               let newWeaponType = type.toWeapon() else {

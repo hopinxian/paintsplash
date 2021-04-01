@@ -20,9 +20,9 @@ class HorizontalStack<ItemType: Renderable>: GameEntity, Renderable, Animatable 
 //    var nextPosition: Vector2D
     private var startPosition: Vector2D
 
-    let transformComponent: TransformComponent
-    let renderComponent: RenderComponent
-    let animationComponent: AnimationComponent
+    var transformComponent: TransformComponent
+    var renderComponent: RenderComponent
+    var animationComponent: AnimationComponent
 
     init(
         position: Vector2D,
@@ -50,7 +50,7 @@ class HorizontalStack<ItemType: Renderable>: GameEntity, Renderable, Animatable 
         let startX = leftPadding - (transformComponent.size.x / 2)
         let startY = bottomPadding - topPadding
 
-        self.startPosition = transformComponent.position + Vector2D(startX, startY)
+        self.startPosition = transformComponent.localPosition + Vector2D(startX, startY)
 
         super.init()
     }
@@ -79,14 +79,14 @@ class HorizontalStack<ItemType: Renderable>: GameEntity, Renderable, Animatable 
 
         // if first item exists, change next position
         if let firstItem = items.last {
-            let x = firstItem.transformComponent.position.x + seperation + item.transformComponent.size.x
+            let x = firstItem.transformComponent.localPosition.x + seperation + item.transformComponent.size.x
             nextPosition = Vector2D(x, startPosition.y)
         }
 
         items.append(item)
 
         // get position to add stuff
-        item.transformComponent.position = nextPosition
+        item.transformComponent.localPosition = nextPosition
         item.renderComponent.zPosition = zPosition + 1
         EventSystem.entityChangeEvents.addEntityEvent.post(event: AddEntityEvent(entity: item))
 
@@ -115,7 +115,7 @@ class HorizontalStack<ItemType: Renderable>: GameEntity, Renderable, Animatable 
     private func shiftItemsLeft(from: Int, to: Int, xDistance: Double) {
         for (index, item) in items.enumerated() {
             if index >= from && index <= to {
-                item.transformComponent.position -= Vector2D(xDistance + seperation, 0)
+                item.transformComponent.localPosition -= Vector2D(xDistance + seperation, 0)
             }
         }
     }
@@ -142,9 +142,9 @@ class HorizontalStack<ItemType: Renderable>: GameEntity, Renderable, Animatable 
         }
         let startX = -(transformComponent.size.x / 2) + (firstItem.transformComponent.size.x / 2) + leftPadding
         let startY = bottomPadding - topPadding
-        var nextPosition = transformComponent.position + Vector2D(startX, startY)
+        var nextPosition = transformComponent.localPosition + Vector2D(startX, startY)
         for item in items {
-            item.transformComponent.position = nextPosition
+            item.transformComponent.localPosition = nextPosition
             item.renderComponent.zPosition = zPosition + 1
             EventSystem.entityChangeEvents.addEntityEvent.post(event: AddEntityEvent(entity: item))
             nextPosition += Vector2D(item.transformComponent.size.x + seperation, 0)

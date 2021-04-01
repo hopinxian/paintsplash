@@ -4,9 +4,10 @@
 //
 //  Created by Farrell Nah on 29/3/21.
 //
+import UIKit
+import SpriteKit
 
 class MultiplayerServerViewController: GameViewController {
-    var connectionHandler: ConnectionHandler!
     var lobbyHandler: LobbyHandler!
     var roomInfo: RoomInfo!
 
@@ -15,7 +16,7 @@ class MultiplayerServerViewController: GameViewController {
         guard let scene = gameScene else {
             fatalError("GameScene not setup properly")
         }
-        let gameManager = MultiplayerServer(lobbyHandler: lobbyHandler, roomInfo: roomInfo, gameScene: scene)
+        let gameManager = MultiplayerServer(roomInfo: roomInfo, gameScene: scene)
         scene.gameManager = gameManager
     }
 }

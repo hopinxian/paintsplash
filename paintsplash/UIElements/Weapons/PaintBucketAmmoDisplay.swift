@@ -10,9 +10,9 @@ class PaintBucketAmmoDisplay: UIEntity, Transformable {
     var transformComponent: TransformComponent
     var ammoDisplayView: VerticalStack<PaintAmmoDisplay>
     var weaponData: Bucket
-    let associatedEntity: UUID
+    let associatedEntity: EntityID
 
-    init(weaponData: Bucket, associatedEntity: UUID) {
+    init(weaponData: Bucket, associatedEntity: EntityID) {
         self.associatedEntity = associatedEntity
         self.transformComponent = TransformComponent(
             position: Constants.PAINT_BUCKET_AMMO_DISPLAY_POSITION,
@@ -21,7 +21,7 @@ class PaintBucketAmmoDisplay: UIEntity, Transformable {
         )
 
         let displayView = VerticalStack<PaintAmmoDisplay>(
-            position: transformComponent.position,
+            position: transformComponent.localPosition,
             size: transformComponent.size,
             backgroundSprite: "WhiteSquare"
         )
@@ -73,8 +73,8 @@ class PaintBucketAmmoDisplay: UIEntity, Transformable {
 
     func touchDown(event: TouchDownEvent) {
         let location = event.location
-        if abs(transformComponent.position.x - location.x) < transformComponent.size.x &&
-            abs(transformComponent.position.y - location.y) < transformComponent.size.y {
+        if abs(transformComponent.localPosition.x - location.x) < transformComponent.size.x &&
+            abs(transformComponent.localPosition.y - location.y) < transformComponent.size.y {
             let event = PlayerChangeWeaponEvent(newWeapon: Bucket.self, playerId: associatedEntity)
             EventSystem.processedInputEvents.playerChangeWeaponEvent.post(event: event)
         }

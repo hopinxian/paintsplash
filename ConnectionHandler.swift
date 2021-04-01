@@ -81,9 +81,7 @@ class FirebaseConnectionHandler: ConnectionHandler {
         firebase.reference().child(path).getData(completion: { (error, snapshot) in
             // TODO Error Handling
             let rawData = snapshot.value as? [String: AnyObject] ?? [:]
-            print(rawData)
             let data = T(from: rawData)
-            print(data)
             block(error, data)
         })
     }

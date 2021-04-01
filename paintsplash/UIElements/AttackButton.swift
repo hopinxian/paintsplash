@@ -8,16 +8,16 @@
 import Foundation
 
 class AttackButton: UIEntity, Renderable {
-    let renderComponent: RenderComponent
-    let transformComponent: TransformComponent
+    var renderComponent: RenderComponent
+    var transformComponent: TransformComponent
 
-    private let associatedEntity: UUID
+    private let associatedEntity: EntityID
     private var tracking = false
     private var radius: Double {
         transformComponent.size.x / 2
     }
 
-    init(associatedEntityID: UUID) {
+    init(associatedEntityID: EntityID) {
         let renderType = RenderType.sprite(spriteName: Constants.ATTACK_BUTTON_SPRITE)
         self.associatedEntity = associatedEntityID
         self.renderComponent = RenderComponent(
@@ -38,7 +38,7 @@ class AttackButton: UIEntity, Renderable {
     }
 
     func onTouchDown(event: TouchDownEvent) {
-        if Vector2D.magnitude(of: event.location - transformComponent.position) < radius {
+        if Vector2D.magnitude(of: event.location - transformComponent.localPosition) < radius {
             tracking = true
         }
     }

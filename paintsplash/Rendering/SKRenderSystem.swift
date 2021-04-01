@@ -7,42 +7,74 @@
 import SpriteKit
 
 class SKRenderSystem: RenderSystem {
-    var renderables = [GameEntity: Renderable]()
+    var renderables = [EntityID: Renderable]()
     private weak var scene: GameScene?
-    private var nodeEntityMap = BidirectionalMap<GameEntity, SKNode>()
+    private var nodeEntityMap = BidirectionalMap<EntityID, SKNode>()
 
     init(scene: GameScene) {
         self.scene = scene
-
-        EventSystem.changeViewEvent.subscribe(listener: onChangeView)
     }
 
     func addEntity(_ entity: GameEntity) {
         var node = SKNode()
         if let renderable = entity as? Renderable {
-            node = buildNode(for: renderable)
-            renderables[entity] = renderable
+            node = addAsRenderable(entity: entity, renderable: renderable)
+        } else {
+            node = addAsNonRenderable()
         }
 
-        scene?.addChild(node)
-        nodeEntityMap[entity] = node
+        if node.parent == nil {
+            scene?.addChild(node)
+        }
+
+        nodeEntityMap[entity.id] = node
+    }
+
+    private func addAsRenderable(entity: GameEntity, renderable: Renderable) -> SKNode {
+        let node = buildNode(for: renderable)
+        renderables[entity.id] = renderable
+
+        if let parent = renderable.transformComponent.parentID,
+           let parentNode = nodeEntityMap[parent] {
+            addChildToNode(parentNode: parentNode, childNode: node)
+        }
+
+        return node
+    }
+
+    private func addAsNonRenderable() -> SKNode {
+        SKNode()
+    }
+
+    private func addChildToNode(parentNode: SKNode, childNode: SKNode) {
+        let cropNode = SKCropNode()
+
+        let maskNode = parentNode.copy() as? SKSpriteNode
+        maskNode?.position = .zero
+
+        cropNode.maskNode = maskNode
+        cropNode.position = .zero
+        cropNode.zPosition = CGFloat(childNode.zPosition + 1)
+        cropNode.addChild(childNode)
+
+        parentNode.addChild(cropNode)
     }
 
     func removeEntity(_ entity: GameEntity) {
-        guard let node = nodeEntityMap[entity] else {
+        guard let node = nodeEntityMap[entity.id] else {
             return
         }
 
         node.removeFromParent()
-        nodeEntityMap[entity] = nil
-        renderables[entity] = nil
+        nodeEntityMap[entity.id] = nil
+        renderables[entity.id] = nil
     }
 
     private func buildNode(for renderable: Renderable) -> SKNode {
         SKNodeFactory.getSKNode(from: renderable)
     }
 
-    func getNodeEntityMap() -> BidirectionalMap<GameEntity, SKNode> {
+    func getNodeEntityMap() -> BidirectionalMap<EntityID, SKNode> {
         nodeEntityMap
     }
 
@@ -52,55 +84,53 @@ class SKRenderSystem: RenderSystem {
         }
     }
 
-    func updateEntity(_ entity: GameEntity, _ renderable: Renderable) {
+    func updateEntity(_ entity: EntityID, _ renderable: Renderable) {
         guard let node = nodeEntityMap[entity] else {
             return
         }
 
         let transformComponent = renderable.transformComponent
-        node.position = SpaceConverter.modelToScreen(transformComponent.position)
+        node.position = SpaceConverter.modelToScreen(transformComponent.localPosition)
         node.zRotation = CGFloat(transformComponent.rotation)
+
+        updateSpecificNodeTypes(node, renderable)
     }
 
-    func onChangeView(event: ChangeViewEvent) {
-        switch event {
-        case let addSubviewEvent as AddSubviewEvent:
-            addSubviewToEntity(addSubviewEvent.renderable,
-                               subviewInfo: addSubviewEvent.subviewRenderInfo)
-        default:
-            break
+    private func updateSpecificNodeTypes(_ node: SKNode, _ renderable: Renderable) {
+        switch renderable.renderComponent.renderType {
+        case .sprite(_):
+            if let spriteNode = node as? SKSpriteNode {
+                updateSpriteNode(spriteNode, renderable)
+            }
+        case .label(let text):
+            if let labelNode = node as? SKLabelNode {
+                updateLabelNode(labelNode, text: text)
+            }
         }
     }
 
-    func addSubviewToEntity(_ entity: GameEntity, subviewInfo: RenderInfo) {
-        guard let node = nodeEntityMap[entity] else {
-            return
+    private func updateSpriteNode(_ node: SKSpriteNode, _ renderable: Renderable) {
+        if let colorData = renderable as? Colorable {
+            if node.color != colorData.color.uiColor {
+                node.color = colorData.color.uiColor
+            }
         }
-
-        let subview = SKSpriteNode(imageNamed: subviewInfo.spriteName)
-
-        subview.position = SpaceConverter.modelToScreen(subviewInfo.position)
-        subview.size = SpaceConverter.modelToScreen(Vector2D(subviewInfo.width, subviewInfo.height))
-        subview.zPosition = CGFloat(node.zPosition + 1)
-        subview.color = subviewInfo.color.uiColor
-        subview.colorBlendFactor = CGFloat(subviewInfo.colorBlend)
-        subview.zRotation = CGFloat(subviewInfo.rotation)
-
-        if subviewInfo.cropInParent {
-            let cropNode = SKCropNode()
-
-            let maskNode = node.copy() as? SKSpriteNode
-            maskNode?.position = .zero
-
-            cropNode.maskNode = maskNode
-            cropNode.position = .zero
-            cropNode.zPosition = CGFloat(node.zPosition + 1)
-            cropNode.addChild(subview)
-
-            node.addChild(cropNode)
-        } else {
-            node.addChild(subview)
+        let screenSize: CGSize = SpaceConverter.modelToScreen(renderable.transformComponent.size)
+        if node.size != screenSize {
+            node.size = screenSize
         }
     }
 
+    private func updateLabelNode(_ node: SKLabelNode, text: String) {
+        if node.text != text {
+            node.text = text
+        }
+    }
+
+    func renderableFromNode(_ node: SKNode) -> Renderable? {
+        guard let id = nodeEntityMap[node] else {
+            return nil
+        }
+        return renderables[id]
+    }
 }

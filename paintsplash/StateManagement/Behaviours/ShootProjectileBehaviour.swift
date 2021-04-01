@@ -18,7 +18,6 @@ class ShootProjectileBehaviour: StateBehaviour {
             return
         }
 
-        print(player.multiWeaponComponent.activeWeapon.getAmmo())
         _ = player.multiWeaponComponent.shoot(in: shootDirection)
 
         EventSystem.audioEvent.playSoundEffectEvent.post(event: PlaySoundEffectEvent(effect: SoundEffect.attack))

@@ -7,6 +7,6 @@
 import SpriteKit
 
 protocol Renderable: GameEntity {
-    var renderComponent: RenderComponent { get }
-    var transformComponent: TransformComponent { get }
+    var renderComponent: RenderComponent { get set }
+    var transformComponent: TransformComponent { get set }
 }

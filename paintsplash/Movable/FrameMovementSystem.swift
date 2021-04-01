@@ -23,7 +23,7 @@ class FrameMovementSystem: MovementSystem {
         let transformComponent = movable.transformComponent
         let movementComponent = movable.moveableComponent
 
-        transformComponent.position += movementComponent.direction * movementComponent.speed
+        transformComponent.localPosition += movementComponent.direction * movementComponent.speed
     }
 
     func updateEntities() {

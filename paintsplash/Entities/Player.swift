@@ -21,14 +21,14 @@ class Player: GameEntity,
 
     private let moveSpeed = 10.0
 
-    let transformComponent: TransformComponent
-    let renderComponent: RenderComponent
-    let animationComponent: AnimationComponent
-    let healthComponent: HealthComponent
-    let moveableComponent: MoveableComponent
-    let collisionComponent: CollisionComponent
-    let stateComponent: StateComponent
-    let multiWeaponComponent: MultiWeaponComponent
+    var transformComponent: TransformComponent
+    var renderComponent: RenderComponent
+    var animationComponent: AnimationComponent
+    var healthComponent: HealthComponent
+    var moveableComponent: MoveableComponent
+    var collisionComponent: CollisionComponent
+    var stateComponent: StateComponent
+    var multiWeaponComponent: MultiWeaponComponent
 
     let connectionHander = FirebaseConnectionHandler()
 
@@ -82,13 +82,14 @@ class Player: GameEntity,
         EventSystem.processedInputEvents.playerChangeWeaponEvent.subscribe(listener: onWeaponChange)
     }
 
-    convenience init(initialPosition: Vector2D, playerUUID: UUID?) {
+    convenience init(initialPosition: Vector2D, playerUUID: EntityID?) {
         self.init(initialPosition: initialPosition)
         id = playerUUID ?? id
     }
 
     func onMove(event: PlayerMoveEvent) {
-        guard event.playerId == id else {
+
+        guard event.playerID == id else {
             return
         }
 
@@ -96,7 +97,7 @@ class Player: GameEntity,
 
         lastDirection = event.direction.magnitude == 0 ? lastDirection : event.direction
         EventSystem.playerActionEvent.playerMovementEvent.post(
-            event: PlayerMovementEvent(location: transformComponent.position, playerId: event.playerId)
+            event: PlayerMovementEvent(location: transformComponent.localPosition, playerId: event.playerID)
         )
     }
 
@@ -106,12 +107,13 @@ class Player: GameEntity,
             return
         }
 
-        if event.direction.x > 0 {
-            stateComponent.currentState = PlayerState.AttackRight(player: self, attackDirection: event.direction)
-            lastDirection = .right
-        } else {
-            stateComponent.currentState = PlayerState.AttackLeft(player: self, attackDirection: event.direction)
-            lastDirection = .left
+        if multiWeaponComponent.canShoot() {
+            let direction = event.direction.magnitude > 0 ? event.direction : lastDirection
+            if lastDirection.x > 0 {
+                stateComponent.currentState = PlayerState.AttackRight(player: self, attackDirection: direction)
+            } else {
+                stateComponent.currentState = PlayerState.AttackLeft(player: self, attackDirection: direction)
+            }
         }
     }
 
