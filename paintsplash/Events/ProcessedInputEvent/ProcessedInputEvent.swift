@@ -20,7 +20,7 @@ class PlayerMoveEvent: ProcessedInputEvent, Codable {
     }
 }
 
-class PlayerShootEvent: ProcessedInputEvent {
+class PlayerShootEvent: ProcessedInputEvent, Codable {
     let direction: Vector2D
     let playerID: UUID
 

@@ -80,7 +80,9 @@ class MultiplayerClient: GameManager {
         })
 
         EventSystem.processedInputEvents.playerShootEvent.subscribe(listener: { event in
-            print("player has attacked. send to firebase")
+            self.gameConnectionHandler.sendPlayerShootInput(gameId: gameId,
+                                                            playerId: event.playerID.uuidString,
+                                                            playerShootEvent: event)
         })
 
         EventSystem.processedInputEvents.playerChangeWeaponEvent.subscribe(listener: { event in

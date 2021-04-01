@@ -79,15 +79,22 @@ class MultiplayerServer: SinglePlayerGameManager {
 
         // Listen to user input from clients
         self.gameConnectionHandler?
+            .observePlayerShootInput(gameId: gameId,
+                                    playerId: playerID.uuidString,
+                                    onChange: { playerShootEvent in
+                                        EventSystem.processedInputEvents.playerShootEvent
+                                            .post(event: playerShootEvent)
+                                    })
+
+        // Movement input
+        self.gameConnectionHandler?
             .observePlayerMoveInput(gameId: gameId,
                                     playerId: playerID.uuidString,
                                     onChange: { playerMoveEvent in
-                                        print("received player input from client: \(playerMoveEvent.playerID)")
-                                        print("direction: \(playerMoveEvent.direction)")
                                         EventSystem.processedInputEvents.playerMoveEvent
-                                            .post(event: PlayerMoveEvent(direction: playerMoveEvent.direction,
-                                                                         playerID: playerMoveEvent.playerID))
+                                            .post(event: playerMoveEvent)
                                     })
+        // Shooting input
     }
 
 //    func setUpSystems() {

@@ -43,12 +43,33 @@ class FirebaseGameHandler: GameConnectionHandler {
                                                  FirebasePaths.game_players, playerId,
                                                  FirebasePaths.player_moveInput)
         connectionHandler.listen(to: playerPath, callBack: { (playerMoveEvent: PlayerMoveEvent?) in
-            print("client player moved")
             guard let playerMoveEvent = playerMoveEvent else {
-                print("did not observe player move input properly")
                 return
             }
             onChange?(playerMoveEvent)
         })
     }
+
+    func sendPlayerShootInput(gameId: String, playerId: String, playerShootEvent: PlayerShootEvent) {
+        let playerPath = FirebasePaths.joinPaths(FirebasePaths.games, gameId,
+                                                 FirebasePaths.game_players, playerId,
+                                                 FirebasePaths.player_shootInput)
+        connectionHandler.send(to: playerPath, data: playerShootEvent,
+                               mode: .single, shouldRemoveOnDisconnect: true,
+                               onComplete: nil, onError: nil)
+    }
+
+    func observePlayerShootInput(gameId: String, playerId: String, onChange: ((PlayerShootEvent) -> Void)?) {
+        let playerPath = FirebasePaths.joinPaths(FirebasePaths.games, gameId,
+                                                 FirebasePaths.game_players, playerId,
+                                                 FirebasePaths.player_shootInput)
+        connectionHandler.listen(to: playerPath, callBack: { (playerShootEvent: PlayerShootEvent?) in
+            guard let playerShootEvent = playerShootEvent else {
+                return
+            }
+            onChange?(playerShootEvent)
+        })
+    }
+
+
 }
