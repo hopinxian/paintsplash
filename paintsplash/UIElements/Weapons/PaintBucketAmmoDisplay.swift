@@ -44,7 +44,7 @@ class PaintBucketAmmoDisplay: UIEntity, Transformable {
         guard event.playerId == associatedEntity else {
             return
         }
-        if event.weapon is Bucket {
+        if event.weaponType == Bucket.self {
             updateAmmoDisplay(ammo: event.ammo.compactMap({ $0 as? PaintAmmo }))
         }
     }

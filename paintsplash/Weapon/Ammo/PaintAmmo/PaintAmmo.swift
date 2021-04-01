@@ -5,7 +5,7 @@
 //  Created by Farrell Nah on 12/3/21.
 //
 
-struct PaintAmmo: Ammo, Colorable {
+struct PaintAmmo: Ammo, Colorable, Codable {
     var color: PaintColor
     var type: AmmoType = .paint
 

@@ -70,8 +70,8 @@ class PlayerChangeWeaponEvent: ProcessedInputEvent, Codable {
 }
 
 enum WeaponType: String, Codable {
-    case paintgun = "paintgun"
-    case bucket = "bucket"
+    case paintgun
+    case bucket
 
     static func toEnum(_ type: Weapon.Type) -> WeaponType? {
         switch type {

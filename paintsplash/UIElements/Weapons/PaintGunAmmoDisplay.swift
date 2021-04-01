@@ -45,7 +45,7 @@ class PaintGunAmmoDisplay: UIEntity, Transformable {
         guard event.playerId == self.associatedEntity else {
             return
         }
-        if event.weapon is PaintGun {
+        if event.weaponType is PaintGun.Type {
             updateAmmoDisplay(ammo: event.ammo.compactMap({ $0 as? PaintAmmo }))
         }
     }

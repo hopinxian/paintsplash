@@ -101,7 +101,8 @@ class Player: GameEntity,
     }
 
     func onShoot(event: PlayerShootEvent) {
-        guard event.playerID == id else {
+        guard event.playerID == id,
+              multiWeaponComponent.canShoot() else {
             return
         }
 
@@ -157,7 +158,7 @@ class Player: GameEntity,
         if multiWeaponComponent.canLoad([ammo]) {
             multiWeaponComponent.load([ammo])
             let event = PlayerAmmoUpdateEvent(
-                weapon: multiWeaponComponent.activeWeapon,
+                weaponType: type(of: multiWeaponComponent.activeWeapon),
                 ammo: multiWeaponComponent.activeWeapon.getAmmo(),
                 playerId: self.id
             )

@@ -25,7 +25,7 @@ class ShootProjectileBehaviour: StateBehaviour {
 
         EventSystem.playerActionEvent.playerAmmoUpdateEvent.post(
             event: PlayerAmmoUpdateEvent(
-                weapon: player.multiWeaponComponent.activeWeapon,
+                weaponType: type(of: player.multiWeaponComponent.activeWeapon),
                 ammo: player.multiWeaponComponent.activeWeapon.getAmmo(),
                 playerId: player.id
             )
