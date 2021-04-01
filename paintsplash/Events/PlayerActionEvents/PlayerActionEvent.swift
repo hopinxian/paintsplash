@@ -56,7 +56,7 @@ class PlayerAmmoUpdateEvent: PlayerActionEvent {
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         playerId = try values.decode(UUID.self, forKey: .playerId)
-        ammo = try values.decode([PaintAmmo].self, forKey: .ammo)
+        ammo = try values.decode([PaintAmmo].self, forKey: .ammo) // TODO: Change [PaintAmmo] to [Ammo]
         weaponTypeEnum = try values.decode(WeaponType.self, forKey: .weaponTypeEnum)
         guard let type = weaponTypeEnum,
               let eventWeaponType = type.toWeapon() else {
