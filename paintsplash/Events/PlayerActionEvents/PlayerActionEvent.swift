@@ -36,7 +36,7 @@ class PlayerHealthUpdateEvent: PlayerActionEvent {
     }
 }
 
-class PlayerAmmoUpdateEvent: PlayerActionEvent {
+class PlayerAmmoUpdateEvent: PlayerActionEvent, Codable {
     let weaponType: Weapon.Type
     let ammo: [Ammo]
     let playerId: UUID
@@ -51,6 +51,14 @@ class PlayerAmmoUpdateEvent: PlayerActionEvent {
 
     enum CodingKeys: String, CodingKey {
         case playerId, weaponTypeEnum, ammo
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(playerId, forKey: .playerId)
+        try container.encode(weaponTypeEnum, forKey: .weaponTypeEnum)
+        let codableAmmo = ammo.compactMap { $0 as? PaintAmmo }
+        try container.encode(codableAmmo, forKey: .ammo)
     }
 
     required init(from decoder: Decoder) throws {
