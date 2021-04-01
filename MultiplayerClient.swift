@@ -13,7 +13,7 @@ class MultiplayerClient: GameManager {
     var room: RoomInfo
     var connectionHandler: ConnectionHandler
     var gameScene: GameScene
-    var gameConnectionHandler = FirebaseGameHandler()
+    var gameConnectionHandler: GameConnectionHandler = FirebaseGameHandler()
 
     var playerInfo: PlayerInfo
 
@@ -27,9 +27,11 @@ class MultiplayerClient: GameManager {
         self.playerInfo = playerInfo
         self.room = roomInfo
 
-        print("init client")
         EventSystem.entityChangeEvents.addEntityEvent.subscribe(listener: onAddEntity)
         EventSystem.entityChangeEvents.removeEntityEvent.subscribe(listener: onRemoveEntity)
+        EventSystem.entityChangeEvents.addUIEntityEvent.subscribe(listener: onAddUIEntity)
+        EventSystem.entityChangeEvents.removeUIEntityEvent.subscribe(listener: onRemoveUIEntity)
+
         assert(playerInfo.playerUUID == room.players!.first!.value.playerUUID, "Wrong uuid")
         setupGame()
     }
@@ -86,9 +88,14 @@ class MultiplayerClient: GameManager {
         })
 
         EventSystem.processedInputEvents.playerChangeWeaponEvent.subscribe(listener: { event in
-            print("player has changed weapon. send to firebase")
+            self.gameConnectionHandler.sendPlayerChangeWeapon(gameId: gameId,
+                                                              playerId: event.playerId.uuidString,
+                                                              changeWeaponEvent: event)
         })
     }
+
+    // Dummy player that allows the appropriate ammo stacks to appear
+    let player = Player(initialPosition: .zero)
 
     func setUpUI() {
         let background = Background()
@@ -98,15 +105,36 @@ class MultiplayerClient: GameManager {
             return
         }
 
+        // Ensure that player state is set up here first
+        // Dummy player that allows the appropriate ammo stacks to appear
+        // let player = Player(initialPosition: .zero)
+
+        guard let paintGun = player.multiWeaponComponent.availableWeapons.compactMap({ $0 as? PaintGun }).first else {
+            fatalError("PaintGun not setup properly")
+        }
+
+        let paintGunUI = PaintGunAmmoDisplay(weaponData: paintGun, associatedEntity: playerId)
+        paintGunUI.spawn()
+        paintGunUI.ammoDisplayView.animationComponent.animate(animation: WeaponAnimations.selectWeapon, interupt: true)
+
+        guard let paintBucket = player.multiWeaponComponent.availableWeapons.compactMap({ $0 as? Bucket }).first else {
+            fatalError("PaintBucket not setup properly")
+        }
+
+        let paintBucketUI = PaintBucketAmmoDisplay(weaponData: paintBucket, associatedEntity: playerId)
+        paintBucketUI.spawn()
+        paintBucketUI.ammoDisplayView.animationComponent.animate(
+            animation: WeaponAnimations.unselectWeapon,
+            interupt: true
+        )
+
         let joystick = MovementJoystick(associatedEntityID: playerId, position: Constants.JOYSTICK_POSITION)
         joystick.spawn()
 
         let attackButton = AttackJoystick(associatedEntityID: playerId, position: Constants.ATTACK_BUTTON_POSITION)
         attackButton.spawn()
-        // let playerHealthUI = PlayerHealthDisplay(startingHealth: player.healthComponent.currentHealth)
 
-        // TODO: player health is currently hardcoded
-
+        // TODO: player health is currently hardcoded: should be listening to player state
         let playerHealthUI = PlayerHealthDisplay(startingHealth: 3, associatedEntityId: playerId)
         playerHealthUI.spawn()
 
@@ -136,8 +164,9 @@ class MultiplayerClient: GameManager {
             return
         }
         let health = playerState.health
-        EventSystem.playerActionEvent.playerHealthUpdateEvent.post(event: PlayerHealthUpdateEvent(newHealth: health,
-                                                                                                  playerId: playerState.playerId))
+        EventSystem.playerActionEvent.playerHealthUpdateEvent
+            .post(event: PlayerHealthUpdateEvent(newHealth: health,
+                                                 playerId: playerState.playerId))
     }
 
     func setUpAudio() {
@@ -181,5 +210,25 @@ class MultiplayerClient: GameManager {
 
     private func onRemoveEntity(event: RemoveEntityEvent) {
         removeObject(event.entity)
+    }
+
+    private func onAddUIEntity(event: AddUIEntityEvent) {
+        uiEntities.insert(event.entity)
+        addObjectToSystems(event.entity)
+    }
+
+    private func onRemoveUIEntity(event: RemoveUIEntityEvent) {
+        uiEntities.remove(event.entity)
+        removeObjectFromSystems(event.entity)
+    }
+
+    private func addObjectToSystems(_ object: GameEntity) {
+        renderSystem.addEntity(object)
+        animationSystem.addEntity(object)
+    }
+
+    private func removeObjectFromSystems(_ object: GameEntity) {
+        renderSystem.removeEntity(object)
+        animationSystem.removeEntity(object)
     }
 }

@@ -77,14 +77,22 @@ class MultiplayerServer: SinglePlayerGameManager {
                                                                                      health: event.newHealth))
         })
 
+        // Update player ammo
+        EventSystem.playerActionEvent.playerAmmoUpdateEvent.subscribe(listener: { event in
+            guard event.playerId == playerID else {
+                return
+            }
+        })
+
         // Listen to user input from clients
+        // Shooting input
         self.gameConnectionHandler?
             .observePlayerShootInput(gameId: gameId,
-                                    playerId: playerID.uuidString,
-                                    onChange: { playerShootEvent in
+                                     playerId: playerID.uuidString,
+                                     onChange: { playerShootEvent in
                                         EventSystem.processedInputEvents.playerShootEvent
                                             .post(event: playerShootEvent)
-                                    })
+                                     })
 
         // Movement input
         self.gameConnectionHandler?
@@ -94,32 +102,20 @@ class MultiplayerServer: SinglePlayerGameManager {
                                         EventSystem.processedInputEvents.playerMoveEvent
                                             .post(event: playerMoveEvent)
                                     })
-        // Shooting input
-    }
 
-//    func setUpSystems() {
-//        let skRenderSystem = SKRenderSystem(scene: gameScene)
-//        self.renderSystem = skRenderSystem
-//
-//        let skCollisionSystem = SKCollisionSystem(renderSystem: skRenderSystem)
-//        self.collisionSystem = skCollisionSystem
-//
-//        self.collisionDetector = SKCollisionDetector(renderSystem: skRenderSystem, collisionSystem: skCollisionSystem)
-//        gameScene.physicsWorld.contactDelegate = collisionDetector
-//
-//        self.animationSystem = SKAnimationSystem(renderSystem: skRenderSystem)
-//
-//        self.aiSystem = GameStateManagerSystem()
-//
-//        self.audioManager = AudioManager()
-//
-//        self.movementSystem = FrameMovementSystem()
-//    }
+        // TODO: Select weapon input
+        self.gameConnectionHandler?
+            .observePlayerChangeWeapon(gameId: gameId,
+                                       playerId: playerID.uuidString,
+                                       onChange: { playerChangeWeaponEvent in
+                                        EventSystem.processedInputEvents.playerChangeWeaponEvent
+                                            .post(event: playerChangeWeaponEvent)
+                                       })
+    }
 
     override func setUpEntities() {
         let background = Background()
         background.spawn()
-
 
         let canvasSpawner = CanvasSpawner(
             initialPosition: Constants.CANVAS_SPAWNER_POSITION,
@@ -140,24 +136,24 @@ class MultiplayerServer: SinglePlayerGameManager {
     }
 
     override func setUpUI() {
-//        guard let paintGun = player.multiWeaponComponent.availableWeapons.compactMap({ $0 as? PaintGun }).first else {
-//            fatalError("PaintGun not setup properly")
-//        }
-//
-//        let paintGunUI = PaintGunAmmoDisplay(weaponData: paintGun)
-//        paintGunUI.spawn()
-//        paintGunUI.ammoDisplayView.animationComponent.animate(animation: WeaponAnimations.selectWeapon, interupt: true)
-//
-//        guard let paintBucket = player.multiWeaponComponent.availableWeapons.compactMap({ $0 as? Bucket }).first else {
-//            fatalError("PaintBucket not setup properly")
-//        }
-//
-//        let paintBucketUI = PaintBucketAmmoDisplay(weaponData: paintBucket)
-//        paintBucketUI.spawn()
-//        paintBucketUI.ammoDisplayView.animationComponent.animate(
-//            animation: WeaponAnimations.unselectWeapon,
-//            interupt: true
-//        )
+        guard let paintGun = player.multiWeaponComponent.availableWeapons.compactMap({ $0 as? PaintGun }).first else {
+            fatalError("PaintGun not setup properly")
+        }
+
+        let paintGunUI = PaintGunAmmoDisplay(weaponData: paintGun, associatedEntity: player.id)
+        paintGunUI.spawn()
+        paintGunUI.ammoDisplayView.animationComponent.animate(animation: WeaponAnimations.selectWeapon, interupt: true)
+
+        guard let paintBucket = player.multiWeaponComponent.availableWeapons.compactMap({ $0 as? Bucket }).first else {
+            fatalError("PaintBucket not setup properly")
+        }
+
+        let paintBucketUI = PaintBucketAmmoDisplay(weaponData: paintBucket, associatedEntity: player.id)
+        paintBucketUI.spawn()
+        paintBucketUI.ammoDisplayView.animationComponent.animate(
+            animation: WeaponAnimations.unselectWeapon,
+            interupt: true
+        )
 
         let joystick = MovementJoystick(associatedEntityID: player.id, position: Constants.JOYSTICK_POSITION)
         joystick.spawn()

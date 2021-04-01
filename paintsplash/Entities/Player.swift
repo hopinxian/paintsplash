@@ -126,7 +126,7 @@ class Player: GameEntity,
         }
 
         EventSystem.playerActionEvent.playerChangedWeaponEvent.post(
-            event: PlayerChangedWeaponEvent(weapon: multiWeaponComponent.activeWeapon)
+            event: PlayerChangedWeaponEvent(weapon: multiWeaponComponent.activeWeapon, playerId: id)
         )
     }
 
@@ -156,7 +156,8 @@ class Player: GameEntity,
             multiWeaponComponent.load([ammo])
             let event = PlayerAmmoUpdateEvent(
                 weapon: multiWeaponComponent.activeWeapon,
-                ammo: multiWeaponComponent.activeWeapon.getAmmo()
+                ammo: multiWeaponComponent.activeWeapon.getAmmo(),
+                playerId: self.id
             )
 
             EventSystem.playerActionEvent.playerAmmoUpdateEvent.post(

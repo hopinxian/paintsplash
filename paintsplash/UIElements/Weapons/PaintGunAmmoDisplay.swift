@@ -4,14 +4,18 @@
 //
 //  Created by Farrell Nah on 16/3/21.
 //
+import Foundation
 
 class PaintGunAmmoDisplay: UIEntity, Transformable {
     var transformComponent: TransformComponent
 
     var ammoDisplayView: VerticalStack<PaintAmmoDisplay>
     var weaponData: PaintGun
+    let associatedEntity: UUID
 
-    init(weaponData: PaintGun) {
+    init(weaponData: PaintGun, associatedEntity: UUID) {
+        self.associatedEntity = associatedEntity
+
         self.transformComponent = TransformComponent(
             position: Constants.PAINT_GUN_AMMO_DISPLAY_POSITION,
             rotation: 0.0,
@@ -66,7 +70,7 @@ class PaintGunAmmoDisplay: UIEntity, Transformable {
         let location = event.location
         if abs(transformComponent.position.x - location.x) < transformComponent.size.x &&
             abs(transformComponent.position.y - location.y) < transformComponent.size.y {
-            let event = PlayerChangeWeaponEvent(newWeapon: PaintGun.self)
+            let event = PlayerChangeWeaponEvent(newWeapon: PaintGun.self, playerId: associatedEntity)
             EventSystem.processedInputEvents.playerChangeWeaponEvent.post(event: event)
         }
     }

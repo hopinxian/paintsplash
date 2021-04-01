@@ -39,18 +39,22 @@ class PlayerHealthUpdateEvent: PlayerActionEvent {
 class PlayerAmmoUpdateEvent: PlayerActionEvent {
     let weapon: Weapon
     let ammo: [Ammo]
+    let playerId: UUID
 
-    init(weapon: Weapon, ammo: [Ammo]) {
+    init(weapon: Weapon, ammo: [Ammo], playerId: UUID) {
         self.weapon = weapon
         self.ammo = ammo
+        self.playerId = playerId
     }
 }
 
 class PlayerChangedWeaponEvent: PlayerActionEvent {
     let weapon: Weapon
+    let playerId: UUID
 
-    init(weapon: Weapon) {
+    init(weapon: Weapon, playerId: UUID) {
         self.weapon = weapon
+        self.playerId = playerId
     }
 }
 

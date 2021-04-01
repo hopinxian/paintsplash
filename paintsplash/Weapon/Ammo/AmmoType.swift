@@ -5,6 +5,6 @@
 //  Created by Ho Pin Xian on 20/3/21.
 //
 
-enum AmmoType {
+enum AmmoType: String, Codable {
     case paint
 }

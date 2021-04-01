@@ -104,7 +104,7 @@ class SinglePlayerGameManager: GameManager {
             fatalError("PaintGun not setup properly")
         }
 
-        let paintGunUI = PaintGunAmmoDisplay(weaponData: paintGun)
+        let paintGunUI = PaintGunAmmoDisplay(weaponData: paintGun, associatedEntity: player.id)
         paintGunUI.spawn()
         paintGunUI.ammoDisplayView.animationComponent.animate(animation: WeaponAnimations.selectWeapon, interupt: true)
 
@@ -112,7 +112,7 @@ class SinglePlayerGameManager: GameManager {
             fatalError("PaintBucket not setup properly")
         }
 
-        let paintBucketUI = PaintBucketAmmoDisplay(weaponData: paintBucket)
+        let paintBucketUI = PaintBucketAmmoDisplay(weaponData: paintBucket, associatedEntity: player.id)
         paintBucketUI.spawn()
         paintBucketUI.ammoDisplayView.animationComponent.animate(
             animation: WeaponAnimations.unselectWeapon,
