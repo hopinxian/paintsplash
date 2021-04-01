@@ -40,11 +40,30 @@ class PlayerAmmoUpdateEvent: PlayerActionEvent {
     let weaponType: Weapon.Type
     let ammo: [Ammo]
     let playerId: UUID
+    private let weaponTypeEnum: WeaponType?
 
     init(weaponType: Weapon.Type, ammo: [Ammo], playerId: UUID) {
         self.weaponType = weaponType
         self.ammo = ammo
         self.playerId = playerId
+        weaponTypeEnum = WeaponType.toEnum(weaponType)
+    }
+
+    enum CodingKeys: String, CodingKey {
+        case playerId, weaponTypeEnum, ammo
+    }
+
+    required init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        playerId = try values.decode(UUID.self, forKey: .playerId)
+        ammo = try values.decode([PaintAmmo].self, forKey: .ammo)
+        weaponTypeEnum = try values.decode(WeaponType.self, forKey: .weaponTypeEnum)
+        guard let type = weaponTypeEnum,
+              let eventWeaponType = type.toWeapon() else {
+            fatalError("Cannot decode")
+        }
+
+        weaponType = eventWeaponType
     }
 }
 
