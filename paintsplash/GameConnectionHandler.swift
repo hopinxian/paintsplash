@@ -20,6 +20,10 @@ protocol GameConnectionHandler {
     func sendPlayerShootInput(gameId: String, playerId: String, playerShootEvent: PlayerShootEvent)
 
     func observePlayerShootInput(gameId: String, playerId: String, onChange: ((PlayerShootEvent) -> Void)?)
+
+    func sendPlayerChangeWeapon(gameId: String, playerId: String, changeWeaponEvent: PlayerChangeWeaponEvent)
+
+    func observePlayerChangeWeapon(gameId: String, playerId: String, onChange: ((PlayerChangeWeaponEvent) -> Void)?)
 }
 
 struct PlayerStateInfo: Codable {

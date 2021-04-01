@@ -4,13 +4,16 @@
 //
 //  Created by Farrell Nah on 17/3/21.
 //
+import Foundation
 
 class PaintBucketAmmoDisplay: UIEntity, Transformable {
     var transformComponent: TransformComponent
     var ammoDisplayView: VerticalStack<PaintAmmoDisplay>
     var weaponData: Bucket
+    let associatedEntity: EntityID
 
-    init(weaponData: Bucket) {
+    init(weaponData: Bucket, associatedEntity: EntityID) {
+        self.associatedEntity = associatedEntity
         self.transformComponent = TransformComponent(
             position: Constants.PAINT_BUCKET_AMMO_DISPLAY_POSITION,
             rotation: 0.0,
@@ -38,12 +41,18 @@ class PaintBucketAmmoDisplay: UIEntity, Transformable {
     }
 
     private func onAmmoUpdate(event: PlayerAmmoUpdateEvent) {
+        guard event.playerId == associatedEntity else {
+            return
+        }
         if event.weapon is Bucket {
             updateAmmoDisplay(ammo: event.ammo.compactMap({ $0 as? PaintAmmo }))
         }
     }
 
     private func onChangeWeapon(event: PlayerChangedWeaponEvent) {
+        guard event.playerId == associatedEntity else {
+            return
+        }
         if type(of: event.weapon) == type(of: weaponData) {
             ammoDisplayView.animationComponent.animate(animation: WeaponAnimations.selectWeapon, interupt: true)
         } else {
@@ -66,7 +75,7 @@ class PaintBucketAmmoDisplay: UIEntity, Transformable {
         let location = event.location
         if abs(transformComponent.localPosition.x - location.x) < transformComponent.size.x &&
             abs(transformComponent.localPosition.y - location.y) < transformComponent.size.y {
-            let event = PlayerChangeWeaponEvent(newWeapon: Bucket.self)
+            let event = PlayerChangeWeaponEvent(newWeapon: Bucket.self, playerId: associatedEntity)
             EventSystem.processedInputEvents.playerChangeWeaponEvent.post(event: event)
         }
     }

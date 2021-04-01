@@ -71,5 +71,24 @@ class FirebaseGameHandler: GameConnectionHandler {
         })
     }
 
+    func sendPlayerChangeWeapon(gameId: String, playerId: String, changeWeaponEvent: PlayerChangeWeaponEvent) {
+        let playerPath = FirebasePaths.joinPaths(FirebasePaths.games, gameId,
+                                                 FirebasePaths.game_players, playerId,
+                                                 FirebasePaths.player_weaponChoice)
+        connectionHandler.send(to: playerPath, data: changeWeaponEvent,
+                               mode: .single, shouldRemoveOnDisconnect: true,
+                               onComplete: nil, onError: nil)
+    }
 
+    func observePlayerChangeWeapon(gameId: String, playerId: String, onChange: ((PlayerChangeWeaponEvent) -> Void)?) {
+        let playerPath = FirebasePaths.joinPaths(FirebasePaths.games, gameId,
+                                                 FirebasePaths.game_players, playerId,
+                                                 FirebasePaths.player_weaponChoice)
+        connectionHandler.listen(to: playerPath, callBack: { (playerChangeWeaponEvent: PlayerChangeWeaponEvent?) in
+            guard let playerChangeWeaponEvent = playerChangeWeaponEvent else {
+                return
+            }
+            onChange?(playerChangeWeaponEvent)
+        })
+    }
 }

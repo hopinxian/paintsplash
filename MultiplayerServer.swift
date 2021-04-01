@@ -85,7 +85,7 @@ class MultiplayerServer: SinglePlayerGameManager {
         // Shooting input
         self.gameConnectionHandler?
             .observePlayerShootInput(gameId: room.gameID,
-                                     playerId: playerID.uuidString,
+                                     playerId: playerID.id.uuidString,
                                      onChange: { playerShootEvent in
                                         EventSystem.processedInputEvents.playerShootEvent
                                             .post(event: playerShootEvent)
@@ -94,7 +94,7 @@ class MultiplayerServer: SinglePlayerGameManager {
         // Movement input
         self.gameConnectionHandler?
             .observePlayerMoveInput(gameId: room.gameID,
-                                    playerId: playerID.uuidString,
+                                    playerId: playerID.id.uuidString,
                                     onChange: { playerMoveEvent in
                                         EventSystem.processedInputEvents.playerMoveEvent
                                             .post(event: playerMoveEvent)
@@ -103,7 +103,7 @@ class MultiplayerServer: SinglePlayerGameManager {
         // TODO: Select weapon input
         self.gameConnectionHandler?
             .observePlayerChangeWeapon(gameId: room.gameID,
-                                       playerId: playerID.uuidString,
+                                       playerId: playerID.id.uuidString,
                                        onChange: { playerChangeWeaponEvent in
                                         EventSystem.processedInputEvents.playerChangeWeaponEvent
                                             .post(event: playerChangeWeaponEvent)
@@ -221,6 +221,20 @@ class MultiplayerServer: SinglePlayerGameManager {
 
     func receiveInput() {
 
+    }
+
+    override func update() {
+        currentLevel?.update()
+        aiSystem.updateEntities()
+        collisionSystem.updateEntities()
+        movementSystem.updateEntities()
+        entities.forEach({ $0.update() })
+
+        sendGameState()
+
+        transformSystem.updateEntities()
+        renderSystem.updateEntities()
+        animationSystem.updateEntities()
     }
 
     private func onAddEntity(event: AddEntityEvent) {

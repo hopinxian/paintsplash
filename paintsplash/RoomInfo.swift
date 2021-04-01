@@ -21,7 +21,7 @@ struct RoomInfo: Codable {
         self.started = false
         self.gameID = ""
     }
-    
+
     mutating func closeGame() {
         self.isOpen = false
     }

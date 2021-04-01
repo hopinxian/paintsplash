@@ -20,9 +20,9 @@ class MultiplayerClientViewController: GameViewController {
               let roomInfo = self.roomInfo else {
             return
         }
-        let gameManager = MultiplayerClient(room: roomInfo,
-                                            gameScene: scene,
-                                            playerInfo: playerInfo)
+        let gameManager = MultiplayerClient(gameScene: scene,
+                                            playerInfo: playerInfo,
+                                            roomInfo: roomInfo)
         scene.gameManager = gameManager
     }
 }

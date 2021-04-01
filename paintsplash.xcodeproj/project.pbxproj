@@ -83,6 +83,7 @@
 		D50A08432604E26400822D67 /* HorizontalStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50A08422604E26400822D67 /* HorizontalStack.swift */; };
 		D50A08592604F52E00822D67 /* WeaponAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50A08582604F52E00822D67 /* WeaponAnimations.swift */; };
 		D50FD68226104B7400491CAC /* ConnectionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50FD68126104B7400491CAC /* ConnectionHandler.swift */; };
+		D50FD69C261056AF00491CAC /* MultiplayerServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50FD69B261056AF00491CAC /* MultiplayerServer.swift */; };
 		D50FD6A426105B6A00491CAC /* MultiplayerMatchmaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50FD6A326105B6A00491CAC /* MultiplayerMatchmaker.swift */; };
 		D50FD6C3261204F800491CAC /* SinglePlayerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50FD6C2261204F800491CAC /* SinglePlayerManager.swift */; };
 		D50FD6C72612058B00491CAC /* Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50FD6C62612058B00491CAC /* Background.swift */; };
@@ -93,7 +94,6 @@
 		D5364714261452F800C2BCBB /* NetworkAnimationSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5364713261452F800C2BCBB /* NetworkAnimationSystem.swift */; };
 		D53647182614589C00C2BCBB /* RenderSystemData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53647172614589C00C2BCBB /* RenderSystemData.swift */; };
 		D536472026146C8200C2BCBB /* RawAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D536471F26146C8200C2BCBB /* RawAnimation.swift */; };
-		D53647242614A45D00C2BCBB /* MultiplayerServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53647232614A45D00C2BCBB /* MultiplayerServer.swift */; };
 		D53F5401260D636A00635B05 /* HasWeapon.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53F5400260D636A00635B05 /* HasWeapon.swift */; };
 		D53F540D260D93AC00635B05 /* Component.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53F540C260D93AC00635B05 /* Component.swift */; };
 		D53F5411260D93BB00635B05 /* TransformComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53F5410260D93BB00635B05 /* TransformComponent.swift */; };
@@ -365,6 +365,7 @@
 		D50A08422604E26400822D67 /* HorizontalStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalStack.swift; sourceTree = "<group>"; };
 		D50A08582604F52E00822D67 /* WeaponAnimations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeaponAnimations.swift; sourceTree = "<group>"; };
 		D50FD68126104B7400491CAC /* ConnectionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionHandler.swift; sourceTree = "<group>"; };
+		D50FD69B261056AF00491CAC /* MultiplayerServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiplayerServer.swift; sourceTree = "<group>"; };
 		D50FD6A326105B6A00491CAC /* MultiplayerMatchmaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiplayerMatchmaker.swift; sourceTree = "<group>"; };
 		D50FD6C2261204F800491CAC /* SinglePlayerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SinglePlayerManager.swift; sourceTree = "<group>"; };
 		D50FD6C62612058B00491CAC /* Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Background.swift; sourceTree = "<group>"; };
@@ -375,7 +376,6 @@
 		D5364713261452F800C2BCBB /* NetworkAnimationSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAnimationSystem.swift; sourceTree = "<group>"; };
 		D53647172614589C00C2BCBB /* RenderSystemData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderSystemData.swift; sourceTree = "<group>"; };
 		D536471F26146C8200C2BCBB /* RawAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawAnimation.swift; sourceTree = "<group>"; };
-		D53647232614A45D00C2BCBB /* MultiplayerServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiplayerServer.swift; sourceTree = "<group>"; };
 		D53F5400260D636A00635B05 /* HasWeapon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasWeapon.swift; sourceTree = "<group>"; };
 		D53F540C260D93AC00635B05 /* Component.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Component.swift; sourceTree = "<group>"; };
 		D53F5410260D93BB00635B05 /* TransformComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransformComponent.swift; sourceTree = "<group>"; };
@@ -695,7 +695,7 @@
 			isa = PBXGroup;
 			children = (
 				D50FD6A326105B6A00491CAC /* MultiplayerMatchmaker.swift */,
-				D53647232614A45D00C2BCBB /* MultiplayerServer.swift */,
+				D50FD69B261056AF00491CAC /* MultiplayerServer.swift */,
 				DCF66400261592490046AFC1 /* MultiplayerClient.swift */,
 				D50FD68126104B7400491CAC /* ConnectionHandler.swift */,
 				DC8820F9260F2F150082ECC2 /* GoogleService-Info.plist */,
@@ -1699,8 +1699,8 @@
 				D53F5484260D969C00635B05 /* EnemySpawnerState+Spawning.swift in Sources */,
 				D53F54E8260D9F4600635B05 /* PlayerState+MoveRight.swift in Sources */,
 				D53F5456260D952F00635B05 /* SKCollisionDetector.swift in Sources */,
-				D53647242614A45D00C2BCBB /* MultiplayerServer.swift in Sources */,
 				8453F2DB260C920C00FFD8AE /* AmmoDropCommand.swift in Sources */,
+				D50FD69C261056AF00491CAC /* MultiplayerServer.swift in Sources */,
 				AC11994C26053D04003BA54B /* AudioEventManager.swift in Sources */,
 				D53F5419260D93F200635B05 /* AnimationComponent.swift in Sources */,
 				8453F2CB260C8A0D00FFD8AE /* EnemyCommand.swift in Sources */,

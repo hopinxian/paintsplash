@@ -2,7 +2,7 @@
 //  MultiplayerClient.swift
 //  paintsplash
 //
-//  Created by Farrell Nah on 28/3/21.
+//  Created by Cynthia Lee on 1/4/21.
 //
 import Foundation
 
@@ -13,25 +13,28 @@ class MultiplayerClient: GameManager {
     var room: RoomInfo
     var connectionHandler: ConnectionHandler
     var gameScene: GameScene
-    var gameConnectionHandler = FirebaseGameHandler()
+    var gameConnectionHandler: GameConnectionHandler = FirebaseGameHandler()
 
     var playerInfo: PlayerInfo
+    // Dummy player that allows the appropriate ammo stacks to appear
+    let player = Player(initialPosition: .zero)
 
     var renderSystem: RenderSystem!
     var animationSystem: AnimationSystem!
+    var audioSystem: AudioSystem!
 
-    init(room: RoomInfo,
-         gameScene: GameScene,
-         playerInfo: PlayerInfo) {
+    init(gameScene: GameScene, playerInfo: PlayerInfo, roomInfo: RoomInfo) {
         self.connectionHandler = FirebaseConnectionHandler()
         self.gameScene = gameScene
-        self.room = room
         self.playerInfo = playerInfo
+        self.room = roomInfo
 
         EventSystem.entityChangeEvents.addEntityEvent.subscribe(listener: onAddEntity)
         EventSystem.entityChangeEvents.removeEntityEvent.subscribe(listener: onRemoveEntity)
-        assert(playerInfo.playerUUID == room.players!.first!.value.playerUUID, "Wrong uuid")
+        EventSystem.entityChangeEvents.addUIEntityEvent.subscribe(listener: onAddUIEntity)
+        EventSystem.entityChangeEvents.removeUIEntityEvent.subscribe(listener: onRemoveUIEntity)
 
+        assert(playerInfo.playerUUID == room.players!.first!.value.playerUUID, "Wrong uuid")
         setupGame()
 
         let renderSystemPath = FirebasePaths.games + "/" + room.gameID + "/" + "RenderSystem"
@@ -46,21 +49,17 @@ class MultiplayerClient: GameManager {
 
     func setupGame() {
         setUpSystems()
-        print("sys")
         setUpEntities()
-        print("ent")
         setUpUI()
-        print("ui")
+        setUpAudio()
         setUpObservers()
-        print("ob")
         setUpInputListeners()
-        print("in")
     }
 
     func setUpObservers() {
-        gameConnectionHandler.observePlayerState(gameId: room.gameID,
-                playerId: playerInfo.playerUUID,
-                onChange: onPlayerStateChange )
+        gameConnectionHandler.observePlayerState(gameId: self.room.gameID,
+                                                 playerId: playerInfo.playerUUID,
+                                                 onChange: onPlayerStateChange )
     }
 
     func onPlayerStateChange(playerState: PlayerStateInfo) {
@@ -70,7 +69,8 @@ class MultiplayerClient: GameManager {
     func setUpSystems() {
         let renderSystem = SKRenderSystem(scene: gameScene)
         self.renderSystem = renderSystem
-        self.animationSystem = SKAnimationSystem(renderSystem: renderSystem)
+        animationSystem = SKAnimationSystem(renderSystem: renderSystem)
+        audioSystem = AudioManager()
     }
 
     func setUpEntities() {
@@ -81,17 +81,19 @@ class MultiplayerClient: GameManager {
         EventSystem.processedInputEvents.playerMoveEvent.subscribe(listener: { event in
             self.gameConnectionHandler.sendPlayerMoveInput(gameId: self.room.gameID,
                                                            playerId: event.playerID.id.uuidString,
-                    playerMoveEvent: event)
+                                                           playerMoveEvent: event)
         })
 
         EventSystem.processedInputEvents.playerShootEvent.subscribe(listener: { event in
             self.gameConnectionHandler.sendPlayerShootInput(gameId: self.room.gameID,
                                                             playerId: event.playerID.id.uuidString,
-                    playerShootEvent: event)
+                                                            playerShootEvent: event)
         })
 
         EventSystem.processedInputEvents.playerChangeWeaponEvent.subscribe(listener: { event in
-            print("player has changed weapon. send to firebase")
+            self.gameConnectionHandler.sendPlayerChangeWeapon(gameId: self.room.gameID,
+                                                              playerId: event.playerId.id.uuidString,
+                                                              changeWeaponEvent: event)
         })
     }
 
@@ -110,39 +112,99 @@ class MultiplayerClient: GameManager {
 
         let attackButton = AttackJoystick(associatedEntityID: playerId, position: Constants.ATTACK_BUTTON_POSITION)
         attackButton.spawn()
-        // let playerHealthUI = PlayerHealthDisplay(startingHealth: player.healthComponent.currentHealth)
 
-        // TODO: player health is currently hardcoded
-
+        // TODO: player health is currently hardcoded: should be listening to player state
         let playerHealthUI = PlayerHealthDisplay(startingHealth: 3, associatedEntityId: playerId)
         playerHealthUI.spawn()
 
         let bottombar = UIBar(
-                position: Constants.BOTTOM_BAR_POSITION,
-                size: Constants.BOTTOM_BAR_SIZE,
-                spritename: Constants.BOTTOM_BAR_SPRITE
+            position: Constants.BOTTOM_BAR_POSITION,
+            size: Constants.BOTTOM_BAR_SIZE,
+            spritename: Constants.BOTTOM_BAR_SPRITE
         )
         bottombar.spawn()
 
         let topBar = UIBar(
-                position: Constants.TOP_BAR_POSITION,
-                size: Constants.TOP_BAR_SIZE,
-                spritename: Constants.TOP_BAR_SPRITE
+            position: Constants.TOP_BAR_POSITION,
+            size: Constants.TOP_BAR_SIZE,
+            spritename: Constants.TOP_BAR_SPRITE
         )
         topBar.spawn()
 
         gameConnectionHandler.observePlayerState(gameId: room.gameID, playerId: playerInfo.playerUUID,
-                onChange: handlePlayerStateUpdate)
+                                                 onChange: handlePlayerStateUpdate)
     }
 
     func handlePlayerStateUpdate(playerState: PlayerStateInfo) {
-        guard playerState.playerId.id.uuidString
-                == playerInfo.playerUUID else {
+        guard playerState.playerId.id.uuidString == playerInfo.playerUUID else {
             return
         }
         let health = playerState.health
-        EventSystem.playerActionEvent.playerHealthUpdateEvent.post(event: PlayerHealthUpdateEvent(newHealth: health,
-                playerId: playerState.playerId))
+        EventSystem.playerActionEvent.playerHealthUpdateEvent
+            .post(event: PlayerHealthUpdateEvent(newHealth: health,
+                                                 playerId: playerState.playerId))
+    }
+
+    func setUpAudio() {
+
+    }
+
+    func inLobby() -> Bool {
+        false
+    }
+
+    func updateGameState() {
+
+    }
+
+    func sendInput(event: TouchInputEvent) {
+
+    }
+
+    func update() {
+        renderSystem.updateEntities()
+        animationSystem.updateEntities()
+        entities.forEach({ $0.update() })
+    }
+
+    func addObject(_ object: GameEntity) {
+        entities.insert(object)
+        renderSystem.addEntity(object)
+        animationSystem.addEntity(object)
+    }
+
+    private func onAddEntity(event: AddEntityEvent) {
+        addObject(event.entity)
+    }
+
+    func removeObject(_ object: GameEntity) {
+        entities.remove(object)
+        renderSystem.removeEntity(object)
+        animationSystem.removeEntity(object)
+    }
+
+    private func onRemoveEntity(event: RemoveEntityEvent) {
+        removeObject(event.entity)
+    }
+
+    private func onAddUIEntity(event: AddUIEntityEvent) {
+        uiEntities.insert(event.entity)
+        addObjectToSystems(event.entity)
+    }
+
+    private func onRemoveUIEntity(event: RemoveUIEntityEvent) {
+        uiEntities.remove(event.entity)
+        removeObjectFromSystems(event.entity)
+    }
+
+    private func addObjectToSystems(_ object: GameEntity) {
+        renderSystem.addEntity(object)
+        animationSystem.addEntity(object)
+    }
+
+    private func removeObjectFromSystems(_ object: GameEntity) {
+        renderSystem.removeEntity(object)
+        animationSystem.removeEntity(object)
     }
 
     func updateRenderSystem(data: RenderSystemData?) {
@@ -209,36 +271,6 @@ class MultiplayerClient: GameManager {
                 newEntity.spawn()
             }
         })
-    }
-
-    func sendInput(event: TouchInputEvent) {
-
-    }
-
-    func update() {
-        renderSystem.updateEntities()
-        animationSystem.updateEntities()
-        entities.forEach({ $0.update() })
-    }
-
-    private func onAddEntity(event: AddEntityEvent) {
-        addObject(event.entity)
-    }
-
-    func addObject(_ object: GameEntity) {
-        entities.insert(object)
-        renderSystem.addEntity(object)
-        animationSystem.addEntity(object)
-    }
-
-    private func onRemoveEntity(event: RemoveEntityEvent) {
-        removeObject(event.entity)
-    }
-
-    func removeObject(_ object: GameEntity) {
-        entities.remove(object)
-        renderSystem.removeEntity(object)
-        animationSystem.removeEntity(object)
     }
 }
 

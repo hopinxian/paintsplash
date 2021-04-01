@@ -4,14 +4,18 @@
 //
 //  Created by Farrell Nah on 16/3/21.
 //
+import Foundation
 
 class PaintGunAmmoDisplay: UIEntity, Transformable {
     var transformComponent: TransformComponent
 
     var ammoDisplayView: VerticalStack<PaintAmmoDisplay>
     var weaponData: PaintGun
+    let associatedEntity: EntityID
 
-    init(weaponData: PaintGun) {
+    init(weaponData: PaintGun, associatedEntity: EntityID) {
+        self.associatedEntity = associatedEntity
+
         self.transformComponent = TransformComponent(
             position: Constants.PAINT_GUN_AMMO_DISPLAY_POSITION,
             rotation: 0.0,
@@ -38,12 +42,18 @@ class PaintGunAmmoDisplay: UIEntity, Transformable {
     }
 
     private func onAmmoUpdate(event: PlayerAmmoUpdateEvent) {
+        guard event.playerId == self.associatedEntity else {
+            return
+        }
         if event.weapon is PaintGun {
             updateAmmoDisplay(ammo: event.ammo.compactMap({ $0 as? PaintAmmo }))
         }
     }
 
     private func onChangeWeapon(event: PlayerChangedWeaponEvent) {
+        guard event.playerId == self.associatedEntity else {
+            return
+        }
         if type(of: event.weapon) == type(of: weaponData) {
             ammoDisplayView.animationComponent.animate(animation: WeaponAnimations.selectWeapon, interupt: true)
         } else {
@@ -66,7 +76,7 @@ class PaintGunAmmoDisplay: UIEntity, Transformable {
         let location = event.location
         if abs(transformComponent.localPosition.x - location.x) < transformComponent.size.x &&
             abs(transformComponent.localPosition.y - location.y) < transformComponent.size.y {
-            let event = PlayerChangeWeaponEvent(newWeapon: PaintGun.self)
+            let event = PlayerChangeWeaponEvent(newWeapon: PaintGun.self, playerId: associatedEntity)
             EventSystem.processedInputEvents.playerChangeWeaponEvent.post(event: event)
         }
     }
