@@ -15,16 +15,7 @@ struct CanvasAnimations: AnimationSource {
                            atlasName: "CanvasIdle",
                            isRepeating: false),
         "canvasDisappear":
-            CompoundAnimation(
-                name: "canvasDisappear",
-                animations: [
-                    RawAnimation(name: "canvasFade", action: SKAction.fadeOut(withDuration: 1.0)),
-                    AtlasAnimation(name: "canvasIdle",
-                                   animationDuration: 0,
-                                   atlasName: "CanvasIdle",
-                                   isRepeating: false)
-                ]
-            )
+            RawAnimation(name: "canvasFade", action: SKAction.fadeOut(withDuration: 1.0))
 
     ]
     static let canvasIdle = "canvasIdle"

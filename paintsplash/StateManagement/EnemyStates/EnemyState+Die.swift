@@ -12,7 +12,7 @@ extension EnemyState {
                 animation: SlimeAnimations.slimeDieGray,
                 interupt: true,
                 callBack: {
-                    self.enemy.destroy()
+                        self.enemy.destroy()
 
                 }
             )

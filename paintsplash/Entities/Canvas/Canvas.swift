@@ -5,17 +5,20 @@
 //  Created by Cynthia Lee on 16/3/21.
 //
 
-class Canvas: GameEntity, StatefulEntity, Renderable, Collidable, Transformable, Movable {
+class Canvas: GameEntity, StatefulEntity, Renderable, Collidable, Transformable, Movable, Animatable {
     var stateComponent: StateComponent
     var renderComponent: RenderComponent
     var transformComponent: TransformComponent
     var collisionComponent: CollisionComponent
     var moveableComponent: MoveableComponent
+    var animationComponent: AnimationComponent
 
+    var endX: Double
     private(set) var colors: Set<PaintColor> = []
     private let moveSpeed = 1.0
 
-    init(initialPosition: Vector2D, direction: Vector2D, size: Vector2D) {
+    init(initialPosition: Vector2D, direction: Vector2D, size: Vector2D, endX: Double) {
+        self.endX = endX
         self.stateComponent = StateComponent()
 
         self.renderComponent = RenderComponent(
@@ -32,6 +35,8 @@ class Canvas: GameEntity, StatefulEntity, Renderable, Collidable, Transformable,
 
         self.moveableComponent = MoveableComponent(direction: direction, speed: moveSpeed)
 
+        self.animationComponent = AnimationComponent()
+        
         super.init()
 
         self.stateComponent.currentState = CanvasState.Moving(canvas: self)

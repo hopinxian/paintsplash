@@ -17,7 +17,8 @@ class SpawnCanvasBehaviour: StateBehaviour {
         let canvas = Canvas(
             initialPosition: spawnPosition,
             direction: Vector2D(1, 0),
-            size: Constants.CANVAS_SPAWNER_SIZE
+            size: Constants.CANVAS_SPAWNER_SIZE,
+            endX: Constants.CANVAS_END_MARKER_POSITION.x
         )
         canvas.spawn()
     }

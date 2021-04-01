@@ -13,8 +13,27 @@ class CanvasState: State {
     }
 
     class Moving: CanvasState {
+        override func getStateTransition() -> State? {
+            if canvas.transformComponent.worldPosition.x >= canvas.endX {
+                return Die(canvas: canvas)
+            } else {
+                return nil
+            }
+        }
+
         func getBehaviour(aiEntity: StatefulEntity) -> StateBehaviour {
             MoveBehaviour(direction: Vector2D(1, 0), speed: 1)
+        }
+    }
+
+    class Die: CanvasState {
+        override func onEnterState() {
+            canvas.moveableComponent.speed = 0
+            canvas.animationComponent.animate(animation: CanvasAnimations.canvasDisappear, interupt: true, callBack: { self.canvas.destroy() })
+        }
+
+        override func getBehaviour() -> StateBehaviour {
+            MoveBehaviour(direction: Vector2D(0, -1), speed: 1)
         }
     }
 }
