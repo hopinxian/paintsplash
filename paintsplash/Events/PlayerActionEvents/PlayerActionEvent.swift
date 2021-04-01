@@ -54,24 +54,28 @@ class PlayerAmmoUpdateEvent: PlayerActionEvent, Codable {
     }
 
     func encode(to encoder: Encoder) throws {
+        print("start encoding ammo")
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(playerId, forKey: .playerId)
         try container.encode(weaponTypeEnum, forKey: .weaponTypeEnum)
         let codableAmmo = ammo.compactMap { $0 as? PaintAmmo }
         try container.encode(codableAmmo, forKey: .ammo)
+        print("ammo encoded: \(ammo)")
     }
 
     required init(from decoder: Decoder) throws {
+        print("start decoding")
         let values = try decoder.container(keyedBy: CodingKeys.self)
         playerId = try values.decode(UUID.self, forKey: .playerId)
-        ammo = try values.decode([PaintAmmo].self, forKey: .ammo) // TODO: Change [PaintAmmo] to [Ammo]
+        let paintAmmo = try? values.decode([PaintAmmo].self, forKey: .ammo) // TODO: Change [PaintAmmo] to [Ammo]
+        ammo = paintAmmo ?? [] 
         weaponTypeEnum = try values.decode(WeaponType.self, forKey: .weaponTypeEnum)
         guard let type = weaponTypeEnum,
               let eventWeaponType = type.toWeapon() else {
             fatalError("Cannot decode")
         }
-
         weaponType = eventWeaponType
+        print("successfully decoded")
     }
 }
 
