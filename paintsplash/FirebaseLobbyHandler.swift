@@ -174,7 +174,7 @@ class FirebaseLobbyHandler: LobbyHandler {
 
             self.connectionHandler.send(to: gamePath,
                                         data: newGame,
-                                        mode: .single, shouldRemoveOnDisconnect: true,
+                                        mode: .single, shouldRemoveOnDisconnect: false,
                                         onComplete: nil,
                                         onError: onError)
 

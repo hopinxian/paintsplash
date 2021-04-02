@@ -264,21 +264,13 @@ class MultiplayerClient: GameManager {
         }
 
         let uiEntityIDs = Set(uiEntities.map({ $0.id }))
-        var deletedEntities = renderSystem.renderables.filter({ entityID, _ in
-            !uiEntityIDs.contains(entityID)
-        })
         renderableData.renderables.forEach({ entity, encodedRenderable in
             if let (entity, renderable) = renderSystem.renderables.first(
                 where: { $0.key == entity }) {
                 renderable.renderComponent = encodedRenderable.renderComponent
                 renderable.transformComponent = encodedRenderable.transformComponent
-                deletedEntities[entity] = nil
             }
         })
-
-        for (_, renderable) in deletedEntities {
-            renderable.destroy()
-        }
     }
     
     func updateAnimationSystem(data: AnimationSystemData?) {

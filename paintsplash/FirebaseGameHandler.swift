@@ -38,7 +38,7 @@ class FirebaseGameHandler: GameConnectionHandler {
                                                  FirebasePaths.game_players, playerId,
                                                  path)
         connectionHandler.send(to: playerPath, data: action,
-                               mode: .single, shouldRemoveOnDisconnect: true,
+                               mode: .single, shouldRemoveOnDisconnect: false,
                                onComplete: nil, onError: nil)
     }
 

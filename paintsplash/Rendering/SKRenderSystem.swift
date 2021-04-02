@@ -41,20 +41,31 @@ class SKRenderSystem: RenderSystem {
         SKNode()
     }
 
-    private func getCroppedToNode(maskNode: SKNode, childNode: SKNode) -> SKCropNode? {
+    private func getCroppedToNode(maskNode: SKNode, childNode: SKNode) -> SKNode? {
         guard let mask = maskNode.copy() as? SKSpriteNode else {
             return nil
         }
+        let parentPos = maskNode.position
+        let childPos = childNode.position
+
+        let parentNode = SKNode()
+        parentNode.position = childNode.position
+
         let cropNode = SKCropNode()
 
         mask.position = .zero
 
         cropNode.maskNode = mask
-        cropNode.position = maskNode.position
         cropNode.zPosition = CGFloat(childNode.zPosition + 1)
+        cropNode.position = maskNode.position
+
+        childNode.position = CGPoint(x: childPos.x - parentPos.x, y: childPos.y - parentPos.y)
         cropNode.addChild(childNode)
 
-        return cropNode
+        cropNode.position = CGPoint(x: parentPos.x - childPos.x, y: parentPos.y - childPos.y)
+
+        parentNode.addChild(cropNode)
+        return parentNode
     }
 
     func removeEntity(_ entity: GameEntity) {
@@ -75,9 +86,9 @@ class SKRenderSystem: RenderSystem {
            renderable.renderComponent.cropInParent,
            let cropNode = getCroppedToNode(maskNode: parentNode, childNode: node) {
             node = cropNode
-            renderable.transformComponent.localPosition = .zero
         }
 
+        
         return node
     }
 
@@ -121,8 +132,6 @@ class SKRenderSystem: RenderSystem {
             if node.color != colorData.color.uiColor {
                 node.color = colorData.color.uiColor
                 node.children.compactMap({ $0 as? SKSpriteNode }).forEach({ $0.color = colorData.color.uiColor })
-                print(colorData.color)
-                print(node.children)
             }
         }
         let screenSize: CGSize = SpaceConverter.modelToScreen(renderable.transformComponent.size)
