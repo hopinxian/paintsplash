@@ -13,7 +13,7 @@ class CanvasTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        canvas = Canvas(initialPosition: .zero, velocity: .zero, size: Vector2D(50, 50), endX: 100)
+        canvas = Canvas(initialPosition: .zero, direction: .zero, size: Vector2D(50, 50), endX: 100)
     }
 
     override func tearDown() {
@@ -22,31 +22,32 @@ class CanvasTests: XCTestCase {
     }
 
     func testInitialization() {
-        XCTAssertEqual(canvas.position, Vector2D.zero)
-        XCTAssertEqual(canvas.zPosition, Constants.ZPOSITION_UI_ELEMENT)
+        XCTAssertEqual(canvas.transformComponent.worldPosition, Vector2D.zero)
+        XCTAssertEqual(canvas.renderComponent.zPosition, Constants.ZPOSITION_UI_ELEMENT)
         XCTAssertEqual(canvas.colors, [])
-        XCTAssertEqual(canvas.velocity, .zero)
-        XCTAssertEqual(canvas.defaultSpeed, 0)
-        XCTAssertEqual(canvas.transform.size, Vector2D(50, 50))
-        XCTAssertEqual(canvas.state, .idle)
-        XCTAssertTrue(canvas.currentBehaviour is CanvasBehaviour)
+        XCTAssertEqual(canvas.moveableComponent.direction, .zero)
+        XCTAssertEqual(canvas.moveableComponent.speed, 0)
+        XCTAssertEqual(canvas.transformComponent.size, Vector2D(50, 50))
+        XCTAssertTrue(canvas.stateComponent.getCurrentBehaviour() is MoveBehaviour)
+        XCTAssertTrue(canvas.stateComponent.currentState is CanvasState.Moving)
     }
 
     func testOnCollide_PaintProjectile() {
-        let paint1 = PaintProjectile(color: .blue, radius: 10, velocity: .zero)
-        canvas.onCollide(otherObject: paint1)
+        let paint1 = PaintProjectile(color: .blue, position: Vector2D.zero, radius: 10, direction: .zero)
+        
+        canvas.onCollide(with: paint1)
 
         XCTAssertEqual(canvas.colors.count, 1)
         XCTAssertTrue(canvas.colors.contains(.blue))
 
-        let paint2 = PaintProjectile(color: .lightpurple, radius: 10, velocity: .zero)
-        canvas.onCollide(otherObject: paint2)
+        let paint2 = PaintProjectile(color: .lightpurple, position: Vector2D.zero, radius: 10, direction: .zero)
+        canvas.onCollide(with: paint2)
         XCTAssertEqual(canvas.colors.count, 2)
         XCTAssertTrue(canvas.colors.contains(.blue))
         XCTAssertTrue(canvas.colors.contains(.lightpurple))
 
-        let paint3 = PaintProjectile(color: .white, radius: 10, velocity: .zero)
-        canvas.onCollide(otherObject: paint3)
+        let paint3 = PaintProjectile(color: .white, position: Vector2D.zero, radius: 10, direction: .zero)
+        canvas.onCollide(with: paint3)
         XCTAssertEqual(canvas.colors.count, 3)
         XCTAssertTrue(canvas.colors.contains(.blue))
         XCTAssertTrue(canvas.colors.contains(.lightpurple))
@@ -54,8 +55,8 @@ class CanvasTests: XCTestCase {
     }
 
     func testOnCollide_EnemyBlob() {
-        let blob = Enemy(initialPosition: .zero, initialVelocity: .zero, color: .red)
-        canvas.onCollide(otherObject: blob)
+        let blob = Enemy(initialPosition: .zero, color: .red)
+        canvas.onCollide(with: blob)
 
         // Test that canvas colliding with enemy blob does not change canvas colors
         XCTAssertEqual(canvas.colors.count, 0)
@@ -63,8 +64,8 @@ class CanvasTests: XCTestCase {
     }
 
     func testOnCollide_EnemySpawner() {
-        let spawner = EnemySpawner(initialPosition: .zero, initialVelocity: .zero, color: .green)
-        canvas.onCollide(otherObject: spawner)
+        let spawner = EnemySpawner(initialPosition: .zero, color: .green)
+        canvas.onCollide(with: spawner)
 
         // Test that canvas colliding with enemy spawner does not change canvas colors
         XCTAssertEqual(canvas.colors.count, 0)
@@ -72,8 +73,8 @@ class CanvasTests: XCTestCase {
     }
 
     func testOnCollide_Player() {
-        let player = Player(initialPosition: .zero, initialVelocity: .zero)
-        canvas.onCollide(otherObject: player)
+        let player = Player(initialPosition: .zero)
+        canvas.onCollide(with: player)
         // Test that canvas colliding with player does not change canvas colors
         XCTAssertEqual(canvas.colors.count, 0)
     }
