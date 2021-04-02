@@ -146,17 +146,15 @@ class Level {
 
         level.repeatLimit = 1
         
-        for i in 0..<10 {
-            let enemyCommand = EnemyCommand()
-            enemyCommand.time = Double(10 * i)
-            level.addSpawnEvent(enemyCommand)
-        }
+        let enemyCommand = EnemyCommand()
+        enemyCommand.time = 0
+        level.addSpawnEvent(enemyCommand)
         
         let spawnerCommand = EnemySpawnerCommand()
         spawnerCommand.time = 5
         level.addSpawnEvent(spawnerCommand)
         
-        for i in 0..<30 {
+        for i in 0..<10 {
             let dropCommand = AmmoDropCommand()
             dropCommand.time = Double(i * 5)
             level.addSpawnEvent(dropCommand)
