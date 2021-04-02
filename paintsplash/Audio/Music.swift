@@ -12,3 +12,5 @@ struct Music: PlayableAudio {
 
     static let backgroundMusic = Music(name: "background-music", fileExtension: "mp3", loops: -1)
 }
+
+extension Music: Codable {}

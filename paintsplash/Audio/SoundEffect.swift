@@ -12,3 +12,5 @@ struct SoundEffect: PlayableAudio {
 
     static let attack = SoundEffect(name: "attack", fileExtension: "mp3", loops: 1)
 }
+
+extension SoundEffect: Codable { }

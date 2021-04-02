@@ -20,12 +20,16 @@ class FirebaseGameHandler: GameConnectionHandler {
             return FirebasePaths.player_ammoUpdate
         case is PlayerHealthUpdateEvent.Type:
             return FirebasePaths.player_healthUpdate
+        case is PlaySoundEffectEvent.Type:
+            return FirebasePaths.player_healthUpdate
+        case is PlayMusicEvent.Type:
+            return FirebasePaths.player_healthUpdate
         default:
             return nil
         }
     }
 
-    func sendPlayerEvent<T: Codable>(gameId: String, playerId: String, action: T) where T: Event {
+    func sendEvent<T: Codable>(gameId: String, playerId: String, action: T) where T: Event {
         guard let path = getEventPath(T.self) else {
             return
         }
@@ -38,7 +42,7 @@ class FirebaseGameHandler: GameConnectionHandler {
                                onComplete: nil, onError: nil)
     }
 
-    func observePlayerEvent<T: Codable>(gameId: String, playerId: String, onChange: ((T) -> Void)?) where T: Event {
+    func observeEvent<T: Codable>(gameId: String, playerId: String, onChange: ((T) -> Void)?) where T: Event {
         guard let path = getEventPath(T.self) else {
             return
         }

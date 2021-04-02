@@ -102,7 +102,9 @@ class SinglePlayerGameManager: GameManager {
     }
 
     func setUpAudio() {
-        self.audioManager.playMusic(Music.backgroundMusic)
+        self.audioManager.associatedDevice = player.id
+        EventSystem.audioEvent.post(event: PlayMusicEvent(music: Music.backgroundMusic, playerId: player.id))
+//        self.audioManager.playMusic(Music.backgroundMusic)
     }
 
     func setUpUI() {

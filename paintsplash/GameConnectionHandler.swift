@@ -7,7 +7,7 @@
 import Foundation
 
 protocol GameConnectionHandler {
-    func sendPlayerEvent<T: Codable>(gameId: String, playerId: String, action: T) where T: Event
+    func sendEvent<T: Codable>(gameId: String, playerId: String, action: T) where T: Event
 
-    func observePlayerEvent<T: Codable>(gameId: String, playerId: String, onChange: ((T) -> Void)?) where T: Event
+    func observeEvent<T: Codable>(gameId: String, playerId: String, onChange: ((T) -> Void)?) where T: Event
 }

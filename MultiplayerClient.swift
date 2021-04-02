@@ -67,15 +67,27 @@ class MultiplayerClient: GameManager {
     func setUpObservers() {
         let gameID = room.gameID
 
-        gameConnectionHandler.observePlayerEvent(
+        gameConnectionHandler.observeEvent(
             gameId: gameID,
             playerId: playerInfo.playerUUID,
             onChange: { EventSystem.playerActionEvent.playerHealthUpdateEvent.post(event: $0) })
 
-        gameConnectionHandler.observePlayerEvent(
+        gameConnectionHandler.observeEvent(
             gameId: gameID,
             playerId: playerInfo.playerUUID,
             onChange: { EventSystem.playerActionEvent.playerAmmoUpdateEvent.post(event: $0) }
+        )
+
+//        gameConnectionHandler.observeEvent(
+//            gameId: gameID,
+//            playerId: playerInfo.playerUUID,
+//            onChange: { EventSystem.audioEvent.playMusicEvent.post(event: $0) }
+//        )
+
+        gameConnectionHandler.observeEvent(
+            gameId: gameID,
+            playerId: playerInfo.playerUUID,
+            onChange: { EventSystem.audioEvent.post(event: $0) }
         )
     }
 
@@ -83,7 +95,7 @@ class MultiplayerClient: GameManager {
         let renderSystem = SKRenderSystem(scene: gameScene)
         self.renderSystem = renderSystem
         animationSystem = SKAnimationSystem(renderSystem: renderSystem)
-        audioSystem = AudioManager()
+        audioSystem = AudioManager(associatedDeviceId: player.id)
         self.transformSystem = WorldTransformSystem()
     }
 
@@ -108,7 +120,7 @@ class MultiplayerClient: GameManager {
     }
 
     private func sendPlayerMoveEvent(_ event: PlayerMoveEvent, gameId: String) {
-        self.gameConnectionHandler.sendPlayerEvent(
+        self.gameConnectionHandler.sendEvent(
             gameId: gameId,
             playerId: event.playerId.id.uuidString,
             action: event
@@ -116,7 +128,7 @@ class MultiplayerClient: GameManager {
     }
 
     private func sendPlayerShootEvent(_ event: PlayerShootEvent, gameId: String) {
-        self.gameConnectionHandler.sendPlayerEvent(
+        self.gameConnectionHandler.sendEvent(
             gameId: gameId,
             playerId: event.playerId.id.uuidString,
             action: event
@@ -124,7 +136,7 @@ class MultiplayerClient: GameManager {
     }
 
     private func sendPlayerWeaponChangeEvent(_ event: PlayerChangeWeaponEvent, gameId: String) {
-        self.gameConnectionHandler.sendPlayerEvent(
+        self.gameConnectionHandler.sendEvent(
             gameId: gameId,
             playerId: event.playerId.id.uuidString,
             action: event
@@ -184,7 +196,7 @@ class MultiplayerClient: GameManager {
     }
 
     func setUpAudio() {
-
+        self.audioSystem = AudioManager(associatedDeviceId: player.id)
     }
 
     func inLobby() -> Bool {

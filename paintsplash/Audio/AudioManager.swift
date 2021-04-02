@@ -11,6 +11,7 @@ class AudioManager: AudioSystem {
 
     private var musicPlayer: AudioPlayer?
     private var effectPlayer: AudioPlayer?
+    var associatedDevice: EntityID?
 
     var isPlayingMusic: Bool {
         musicPlayer?.isPlaying ?? false
@@ -24,7 +25,12 @@ class AudioManager: AudioSystem {
         EventSystem.audioEvent.subscribe(listener: audioEventListener)
     }
 
-    func playMusic(_ music: Music) {
+    convenience init(associatedDeviceId: EntityID?) {
+        self.init()
+        self.associatedDevice = associatedDeviceId
+    }
+
+    func playMusic(_ music: Music) {      
         guard let path = Bundle.main.path(forResource: music.name, ofType: music.fileExtension) else {
             return
         }
@@ -56,16 +62,60 @@ class AudioManager: AudioSystem {
         effectPlayer?.stop()
     }
 
+    private func processPlayMusicEvent(_ event: PlayMusicEvent) {
+        guard shouldExecuteForEntity(event.playerId) else {
+            return
+        }
+        print("playing music")
+        playMusic(event.music)
+    }
+
+
+    private func processPlaySoundEffectEvent(_ event: PlaySoundEffectEvent) {
+        guard shouldExecuteForEntity(event.playerId) else {
+            return
+        }
+        print("playing effect")
+        playEffect(event.effect)
+    }
+
+    private func processStopMusicEvent(_ event: StopMusicEvent) {
+        guard shouldExecuteForEntity(event.playerId) else {
+            return
+        }
+
+        stopMusic()
+    }
+
+
+    private func processStopSoundEffectEvent(_ event: StopSoundEffectEvent) {
+        guard shouldExecuteForEntity(event.playerId) else {
+            return
+        }
+
+        stopEffect()
+    }
+
+    private func shouldExecuteForEntity(_ entitiyId: EntityID?) -> Bool {
+        guard let eventId = entitiyId,
+              let managerId = self.associatedDevice else {
+            return true // if no id specified, all audio managers should play
+        }
+
+        return eventId == managerId
+    }
+
     private func audioEventListener(event: AudioEvent) {
+        print("got event")
         switch event {
         case let event as PlayMusicEvent:
-            playMusic(event.music)
+            processPlayMusicEvent(event)
         case let event as PlaySoundEffectEvent:
-            playEffect(event.effect)
-        case is StopMusicEvent:
-            stopMusic()
-        case is StopSoundEffectEvent:
-            stopEffect()
+            processPlaySoundEffectEvent(event)
+        case let event as StopMusicEvent:
+            processStopMusicEvent(event)
+        case let event as StopSoundEffectEvent:
+            processStopSoundEffectEvent(event)
         default:
             break
         }

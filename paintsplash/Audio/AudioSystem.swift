@@ -8,6 +8,7 @@
 protocol AudioSystem {
     var isPlayingMusic: Bool { get }
     var isPlayingEffect: Bool { get }
+    var associatedDevice: EntityID? { get set }
 
     func playMusic(_ music: Music)
     func playEffect(_ effect: SoundEffect)
