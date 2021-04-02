@@ -16,16 +16,6 @@ class GameScene: SKScene {
 
         SpaceConverter.modelSize = Constants.MODEL_WORLD_SIZE
         SpaceConverter.screenSize = Vector2D(self.size.width, self.size.height)
-
-        let testNode = SKShapeNode(circleOfRadius: 100)
-        testNode.zPosition = 300
-        let testChild = SKShapeNode(circleOfRadius: 50)
-        testChild.zPosition = 300
-
-        testNode.position = CGPoint(x: 300, y: 300)
-        testChild.position = CGPoint(x: -100, y: -100)
-        testNode.addChild(testChild)
-        self.addChild(testNode)
     }
 
     override func update(_ currentTime: TimeInterval) {
