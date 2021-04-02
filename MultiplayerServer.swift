@@ -19,9 +19,6 @@ class MultiplayerServer: SinglePlayerGameManager {
         self.connectionHandler = FirebaseConnectionHandler()
         
         super.init(gameScene: gameScene)
-
-        let callbackPath = FirebasePaths.games + "/" + room.gameID + "/" + "Callback"
-        connectionHandler.listen(to: callbackPath, callBack: respondToCallback)
     }
 
     override func setupGame() {
@@ -243,12 +240,6 @@ class MultiplayerServer: SinglePlayerGameManager {
 
     private func onAddEntity(event: AddEntityEvent) {
         addObject(event.entity)
-    }
-    
-    func respondToCallback(id: CallbackId?) {
-        if let callbackId = id {
-            ClientCallback.manager.startCallback(of: callbackId)
-        }
     }
     
 //
