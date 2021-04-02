@@ -9,6 +9,7 @@ import CoreGraphics
 class GameInfo {
     var playerPosition: Vector2D
     var numberOfEnemies: Int
+    var numberOfDrops: Int = 0
     var existingEnemyColors: [PaintColor: Int] = [:]
     var requiredCanvasColors: [PaintColor: Int] = [:]
     var existingDropColors: [PaintColor: Int] = [:]

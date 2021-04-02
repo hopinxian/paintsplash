@@ -10,6 +10,11 @@ class AmmoDropCommand: SpawnCommand {
     var color: PaintColor?
 
     override func spawnIntoLevel(gameInfo: GameInfo) {
+        if gameInfo.numberOfDrops >= Level.dropCapacity {
+            return
+        }
+
+        
         let eventLocation = getLocation(location: location, gameInfo: gameInfo)
         let eventColor = getAmmoDropColor(color: color, gameInfo: gameInfo)
 

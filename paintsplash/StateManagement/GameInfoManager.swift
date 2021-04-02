@@ -34,6 +34,7 @@ class GameInfoManager {
             }
         case let drop as PaintAmmoDrop:
             gameInfo.existingDropColors[drop.color, default: 0] += 1
+            gameInfo.numberOfDrops += 1
         default:
             return
         }
@@ -53,6 +54,7 @@ class GameInfoManager {
             }
         case let drop as PaintAmmoDrop:
             gameInfo.existingDropColors[drop.color]? -= 1
+            gameInfo.numberOfDrops -= 1
         default:
             return
         }
