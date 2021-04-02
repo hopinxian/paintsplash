@@ -37,7 +37,7 @@ class EnemySpawner: GameEntity, StatefulEntity, Transformable, Renderable, Anima
 
         super.init()
 
-        self.stateComponent.currentState = EnemySpawnerState.Idle(spawner: self, idleTime: 3)
+        self.stateComponent.currentState = EnemySpawnerState.Idle(spawner: self, idleTime: 10)
     }
 
     func onCollide(with: Collidable) {
@@ -67,7 +67,7 @@ class EnemySpawner: GameEntity, StatefulEntity, Transformable, Renderable, Anima
     }
 
     private func die() {
-        let event = DespawnAIEntityEvent(entityToDespawn: self)
-        EventSystem.despawnAIEntityEvent.post(event: event)
+        let event = RemoveEntityEvent(entity: self)
+        EventSystem.entityChangeEvents.removeEntityEvent.post(event: event)
     }
 }

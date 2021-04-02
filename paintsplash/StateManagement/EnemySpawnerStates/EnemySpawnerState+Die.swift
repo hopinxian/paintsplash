@@ -14,7 +14,7 @@ extension EnemySpawnerState {
         }
 
         override func getStateTransition() -> State? {
-            Idle(spawner: spawner, idleTime: 3)
+            Idle(spawner: spawner, idleTime: 10)
         }
 
         override func getBehaviour() -> StateBehaviour {

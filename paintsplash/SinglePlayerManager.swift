@@ -30,9 +30,12 @@ class SinglePlayerGameManager: GameManager {
     private var collisionDetector: SKCollisionDetector!
 
     var player: Player!
+    var gameInfoManager: GameInfoManager
 
     init(gameScene: GameScene) {
         self.gameScene = gameScene
+        let gameInfo = GameInfo(playerPosition: Vector2D.zero, numberOfEnemies: 0)
+        self.gameInfoManager = GameInfoManager(gameInfo: gameInfo)
 
         EventSystem.entityChangeEvents.addEntityEvent.subscribe(listener: onAddEntity)
         EventSystem.entityChangeEvents.removeEntityEvent.subscribe(listener: onRemoveEntity)
@@ -62,7 +65,7 @@ class SinglePlayerGameManager: GameManager {
 
         self.animationSystem = SKAnimationSystem(renderSystem: skRenderSystem)
 
-        self.aiSystem = GameStateManagerSystem()
+        self.aiSystem = GameStateManagerSystem(gameInfo: gameInfoManager.gameInfo)
 
         self.audioManager = AudioManager()
 
@@ -94,7 +97,7 @@ class SinglePlayerGameManager: GameManager {
                                               position: Constants.CANVAS_END_MARKER_POSITION)
         canvasEndMarker.spawn()
 
-        currentLevel = Level.getDefaultLevel(gameManager: self, canvasManager: canvasManager)
+        currentLevel = Level.getDefaultLevel(gameManager: self, canvasManager: canvasManager, gameInfo: gameInfoManager.gameInfo)
         currentLevel?.run()
     }
 

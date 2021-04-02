@@ -6,7 +6,15 @@
 //
 import CoreGraphics
 
-struct GameInfo {
+class GameInfo {
     var playerPosition: Vector2D
     var numberOfEnemies: Int
+    var existingEnemyColors: [PaintColor: Int] = [:]
+    var requiredCanvasColors: [PaintColor: Int] = [:]
+    var existingDropColors: [PaintColor: Int] = [:]
+    
+    init(playerPosition: Vector2D, numberOfEnemies: Int) {
+        self.playerPosition = playerPosition
+        self.numberOfEnemies = numberOfEnemies
+    }
 }
