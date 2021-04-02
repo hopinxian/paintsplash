@@ -69,9 +69,14 @@ class SKRenderSystem: RenderSystem {
     }
 
     func removeEntity(_ entity: GameEntity) {
+        print("rendersystem")
+        print(entity)
         guard let node = nodeEntityMap[entity.id] else {
             return
         }
+
+        print(entity)
+        print(entity.id)
 
         node.removeFromParent()
         nodeEntityMap[entity.id] = nil

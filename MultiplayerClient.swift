@@ -74,7 +74,9 @@ class MultiplayerClient: GameManager {
         gameConnectionHandler.observeEvent(
             gameId: gameID,
             playerId: playerInfo.playerUUID,
-            onChange: { EventSystem.playerActionEvent.playerAmmoUpdateEvent.post(event: $0) }
+            onChange: { (event: PlayerAmmoUpdateEvent) in
+                EventSystem.playerActionEvent.playerAmmoUpdateEvent.post(event: event)
+            }
         )
 
         gameConnectionHandler.observeEvent(
@@ -315,6 +317,14 @@ class MultiplayerClient: GameManager {
         }
 
         let entityIDs = Set(entities.map({ $0.id }))
+        let uiEntityIDs = Set(uiEntities.map({ $0.id }))
+
+        print("entity")
+        print(entityIDs)
+        print(data.entityData.entities)
+
+        print("ui")
+        print(uiEntityIDs)
 
         for entity in data.entityData.entities {
             if !entityIDs.contains(entity) {
