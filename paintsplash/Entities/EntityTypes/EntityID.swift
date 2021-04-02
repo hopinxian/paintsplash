@@ -19,8 +19,16 @@ struct EntityID: Hashable, Codable {
         return id
     }
 
+    static func getLocalID() -> String {
+        "L" + getID()
+    }
+
     static func addID(entity: EntityID) {
         existingIDs[entity.id] = entity
+    }
+
+    static func removeID(id: String) {
+        existingIDs[id] = nil
     }
 
     static func getEntity(id: String) -> EntityID? {

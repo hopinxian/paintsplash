@@ -27,6 +27,8 @@ enum FirebasePaths {
     static let player_weaponChoice = "weaponChoice"
     static let player_ammoUpdate = "ammo"
     static let player_healthUpdate = "health"
+    static let player_music = "music"
+    static let player_soundEffect = "soundEffect"
 
     static let entity_renderable = "renderable"
     static let entity_transform = "transform"

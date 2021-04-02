@@ -80,6 +80,8 @@ class VerticalStack<ItemType: Renderable>: UIEntity, Renderable, Animatable {
     }
 
     func changeItems(to newItems: [ItemType]) {
+        print("change views")
+        print(newItems)
         clearViews()
         items = newItems
         renderViews()
@@ -88,6 +90,7 @@ class VerticalStack<ItemType: Renderable>: UIEntity, Renderable, Animatable {
     private func clearViews() {
         for item in items {
             item.destroy()
+            print("destroy")
         }
     }
 
@@ -97,12 +100,12 @@ class VerticalStack<ItemType: Renderable>: UIEntity, Renderable, Animatable {
         }
         let startX = leftPadding - rightPadding
         let startY = -(transformComponent.size.y / 2) + (firstItem.transformComponent.size.y / 2) + bottomPadding
-        var nextPosition = Vector2D(startX, startY)
+        var nextPosition = transformComponent.worldPosition + Vector2D(startX, startY)
         for item in items {
-            item.transformComponent.addParent(self)
             item.transformComponent.localPosition = nextPosition
             item.renderComponent.zPosition = zPosition + 1
             item.spawn()
+            print("spawn")
             nextPosition += Vector2D(0, item.transformComponent.size.y + seperation)
         }
     }

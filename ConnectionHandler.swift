@@ -102,6 +102,10 @@ class FirebaseConnectionHandler: ConnectionHandler {
         })
     }
 
+    func removeData(at path: String) {
+        firebase.reference().child(path).removeValue()
+    }
+
     func commitBatchedOperations() {
         guard !batchedOperations.isEmpty else {
             return
