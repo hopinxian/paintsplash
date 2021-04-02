@@ -198,9 +198,22 @@ class FirebaseLobbyHandler: LobbyHandler {
         })
     }
 
-    func stopGame(roomInfo: RoomInfo, onSuccess: ((RoomInfo) -> Void)?, onError: ((Error?) -> Void)?) {
+    func stopGame(roomInfo: RoomInfo, onSuccess: (() -> Void)?, onError: ((Error?) -> Void)?) {
+        let gamePath = FirebasePaths.joinPaths(FirebasePaths.games, roomInfo.gameID)
         let gameRunningPath = FirebasePaths.joinPaths(FirebasePaths.games, roomInfo.gameID,
                                                       FirebasePaths.game_isRunning)
+        connectionHandler.sendSingleValue(to: gameRunningPath, data: false,
+                                          shouldRemoveOnDisconnect: false,
+                                          onComplete: { [weak self] in
+                                            self?.connectionHandler.removeData(at: gamePath, block: { error in
+                                                if error != nil {
+                                                    onError?(error)
+                                                    return
+                                                }
+                                                print("stopped game, removed game data")
+                                                onSuccess?()
+                                            })
+                                          }, onError: onError)
     }
 
     func observeGame(roomInfo: RoomInfo, onGameStop: (() -> Void)?, onError: ((Error?) -> Void)?) {

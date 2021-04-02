@@ -40,7 +40,6 @@ class MultiplayerClient: GameManager {
         EventSystem.entityChangeEvents.addUIEntityEvent.subscribe(listener: onAddUIEntity)
         EventSystem.entityChangeEvents.removeUIEntityEvent.subscribe(listener: onRemoveUIEntity)
 
-        assert(playerInfo.playerUUID == room.players!.first!.value.playerUUID, "Wrong uuid")
         setupGame()
 
 //        let renderSystemPath = FirebasePaths.joinPaths(FirebasePaths.games, room.gameID, FirebasePaths.render_system)

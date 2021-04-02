@@ -35,7 +35,7 @@ protocol LobbyHandler {
                    onError: ((Error?) -> Void)?)
 
     func stopGame(roomInfo: RoomInfo,
-                  onSuccess: ((RoomInfo) -> Void)?,
+                  onSuccess: (() -> Void)?,
                   onError: ((Error?) -> Void)?)
 
     func observeGame(roomInfo: RoomInfo,

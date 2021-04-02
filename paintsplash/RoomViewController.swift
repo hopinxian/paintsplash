@@ -95,9 +95,9 @@ class RoomViewController: UIViewController {
             guard let clientVC = segue.destination as? MultiplayerClientViewController else {
                 return
             }
-            clientVC.connectionHandler = FirebaseConnectionHandler()
             clientVC.roomInfo = self.currentRoom
             clientVC.playerInfo = self.playerInfo
+            clientVC.lobbyHandler = self.lobbyHandler
         default:
             break
         }

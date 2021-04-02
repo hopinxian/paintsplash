@@ -7,9 +7,9 @@
 import UIKit
 
 class MultiplayerClientViewController: GameViewController {
-    var connectionHandler: ConnectionHandler!
-    var playerInfo: PlayerInfo?
-    var roomInfo: RoomInfo?
+    var lobbyHandler: LobbyHandler!
+    var playerInfo: PlayerInfo!
+    var roomInfo: RoomInfo!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,9 +25,17 @@ class MultiplayerClientViewController: GameViewController {
                                             playerInfo: playerInfo,
                                             roomInfo: roomInfo)
         scene.gameManager = gameManager
+
+        lobbyHandler.observeGame(roomInfo: roomInfo, onGameStop: onCloseGame, onError: nil)
     }
 
     @IBAction private func endMultiplayerGame(_ sender: UIButton) {
+        lobbyHandler.stopGame(roomInfo: self.roomInfo, onSuccess: nil, onError: nil)
+    }
+
+    private func onCloseGame() {
+        print("closing multiplayer game")
+        self.navigationController?.popViewController(animated: true)
     }
 
     deinit {
