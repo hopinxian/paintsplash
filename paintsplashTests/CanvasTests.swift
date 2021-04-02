@@ -26,9 +26,9 @@ class CanvasTests: XCTestCase {
         XCTAssertEqual(canvas.renderComponent.zPosition, Constants.ZPOSITION_UI_ELEMENT)
         XCTAssertEqual(canvas.colors, [])
         XCTAssertEqual(canvas.moveableComponent.direction, .zero)
-        XCTAssertEqual(canvas.moveableComponent.speed, 0)
+        XCTAssertEqual(canvas.moveableComponent.speed, 1)
         XCTAssertEqual(canvas.transformComponent.size, Vector2D(50, 50))
-        XCTAssertTrue(canvas.stateComponent.getCurrentBehaviour() is MoveBehaviour)
+        XCTAssertTrue(canvas.stateComponent.getCurrentBehaviour() is DoNothingBehaviour)
         XCTAssertTrue(canvas.stateComponent.currentState is CanvasState.Moving)
     }
 

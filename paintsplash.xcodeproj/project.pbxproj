@@ -33,6 +33,7 @@
 		846D4FD8260241670079720F /* SlimeHitGray.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 846D4FD3260241660079720F /* SlimeHitGray.atlas */; };
 		846D4FD9260241670079720F /* SlimeIdleGray.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 846D4FD4260241670079720F /* SlimeIdleGray.atlas */; };
 		846D4FDA260241670079720F /* SlimeMoveLeftGray.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 846D4FD5260241670079720F /* SlimeMoveLeftGray.atlas */; };
+		849E63AD26179E9B00AFA9A7 /* MockGameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849E63AC26179E9A00AFA9A7 /* MockGameManager.swift */; };
 		84D453D42615B98700864E38 /* GameInfoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D453D32615B98700864E38 /* GameInfoManager.swift */; };
 		AC069592260123C4007982DE /* ChangeViewEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC069591260123C4007982DE /* ChangeViewEvent.swift */; };
 		AC069597260123CE007982DE /* ChangeViewEventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC069596260123CE007982DE /* ChangeViewEventManager.swift */; };
@@ -309,6 +310,7 @@
 		846D4FD3260241660079720F /* SlimeHitGray.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = SlimeHitGray.atlas; sourceTree = "<group>"; };
 		846D4FD4260241670079720F /* SlimeIdleGray.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = SlimeIdleGray.atlas; sourceTree = "<group>"; };
 		846D4FD5260241670079720F /* SlimeMoveLeftGray.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = SlimeMoveLeftGray.atlas; sourceTree = "<group>"; };
+		849E63AC26179E9A00AFA9A7 /* MockGameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockGameManager.swift; sourceTree = "<group>"; };
 		84D453D32615B98700864E38 /* GameInfoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameInfoManager.swift; sourceTree = "<group>"; };
 		AC069591260123C4007982DE /* ChangeViewEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeViewEvent.swift; sourceTree = "<group>"; };
 		AC069596260123CE007982DE /* ChangeViewEventManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeViewEventManager.swift; sourceTree = "<group>"; };
@@ -633,6 +635,7 @@
 				846D4FB126023F2F0079720F /* AmmoHelper.swift */,
 				D5553DAB26071C0100C1862E /* MockRenderSystem.swift */,
 				D5553DAF26071E0700C1862E /* MockCollisionSystem.swift */,
+				849E63AC26179E9A00AFA9A7 /* MockGameManager.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -1786,6 +1789,7 @@
 				8418A7AC26070391000BFBD4 /* LevelSpawnEventTests.swift in Sources */,
 				840A336A2606256F007BC34D /* LevelTests.swift in Sources */,
 				D5553DC62607279800C1862E /* CanvasRenderableTests.swift in Sources */,
+				849E63AD26179E9B00AFA9A7 /* MockGameManager.swift in Sources */,
 				D5553DC22607263400C1862E /* EnemyRenderableTests.swift in Sources */,
 				8418A7A82606FA6D000BFBD4 /* LevelScoreTests.swift in Sources */,
 				ACF5676A2606E446009D0A28 /* AudioPlayerImplTests.swift in Sources */,

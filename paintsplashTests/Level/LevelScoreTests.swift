@@ -9,19 +9,9 @@ import XCTest
 @testable import paintsplash
 
 class LevelScoreTests: XCTestCase {
-
-    var gameManager: GameManager!
-    
-    override func setUp() {
-        super.setUp()
-        let gameManager = SinglePlayerGameManager(gameScene: GameScene())
-        gameManager.renderSystem = MockRenderSystem()
-        gameManager.collisionSystem = MockCollisionSystem()
-        self.gameManager = gameManager
-    }
     
     func testConstruct() {
-        let score = LevelScore(gameManager: gameManager)
+        let score = LevelScore()
 
         XCTAssertTrue(score.freeze)
         XCTAssertEqual(score.score, 0)
@@ -29,7 +19,7 @@ class LevelScoreTests: XCTestCase {
     }
 
     func testReset() {
-        let score = LevelScore(gameManager: gameManager)
+        let score = LevelScore()
         score.score = 200
         score.reset()
 
@@ -38,7 +28,7 @@ class LevelScoreTests: XCTestCase {
 
     func testOnScoreEvent() {
         let event = ScoreEvent(value: 100)
-        let score = LevelScore(gameManager: gameManager)
+        let score = LevelScore()
 
         score.onScoreEvent(event: event)
         XCTAssertEqual(score.score, 0)

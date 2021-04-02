@@ -10,7 +10,6 @@ import XCTest
 
 class LevelTests: XCTestCase {
 
-    var gameManager: GameManager!
     let canvasRequestManager = CanvasRequestManager()
     var level: Level!
     
@@ -21,12 +20,7 @@ class LevelTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        let gameManager = SinglePlayerGameManager(gameScene: GameScene())
-        gameManager.renderSystem = MockRenderSystem()
-        gameManager.collisionSystem = MockCollisionSystem()
-        self.gameManager = gameManager
-        
-        level = Level(gameManager: gameManager, canvasManager: canvasRequestManager, gameInfo: GameInfo(playerPosition: Vector2D.zero, numberOfEnemies: 0))
+        level = Level(canvasManager: canvasRequestManager, gameInfo: GameInfo(playerPosition: Vector2D.zero, numberOfEnemies: 0))
         
         enemyEvent = EnemyCommand()
         enemyEvent.time = 2

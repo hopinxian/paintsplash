@@ -55,7 +55,7 @@ class PlayerStateChangeTests: XCTestCase {
         player.onMove(event: event)
         XCTAssertEqual(player.lastDirection, Vector2D.up)
         manager.updateEntity(player, player)
-        XCTAssertTrue(player.stateComponent.currentState is PlayerState.MoveRight)
+        XCTAssertTrue(player.stateComponent.currentState is PlayerState.IdleRight)
         // Player still facing right (last position)
 
         // stop moving up
