@@ -26,7 +26,8 @@ class LevelTests: XCTestCase {
         gameManager.collisionSystem = MockCollisionSystem()
         self.gameManager = gameManager
         
-        level = Level(gameManager: gameManager, canvasManager: canvasRequestManager, gameInfo: GameInfo(playerPosition: Vector2D.zero, numberOfEnemies: 0))
+        level = Level(gameManager: gameManager, canvasManager: canvasRequestManager,
+                      gameInfo: GameInfo(playerPosition: Vector2D.zero, numberOfEnemies: 0))
         
         enemyEvent = EnemyCommand()
         enemyEvent.time = 2

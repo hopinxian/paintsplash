@@ -26,7 +26,7 @@ class MockRenderSystem: RenderSystem {
     }
     
     func addEntity(_ entity: GameEntity) {
-        activeRenderables.append(entity as! Renderable)
+        // activeRenderables.append(entity as! Renderable)
     }
     
     func removeEntity(_ entity: GameEntity) {
