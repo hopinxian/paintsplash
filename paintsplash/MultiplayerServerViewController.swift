@@ -18,5 +18,21 @@ class MultiplayerServerViewController: GameViewController {
         }
         let gameManager = MultiplayerServer(roomInfo: roomInfo, gameScene: scene)
         scene.gameManager = gameManager
+
+        // set up observer for game state
+
     }
+
+    deinit {
+        print("closed multiplayer server VC")
+    }
+
+    @IBAction private func endMultplayerGame(_ sender: UIButton) {
+        lobbyHandler.stopGame(roomInfo: self.roomInfo, onSuccess: nil, onError: nil)
+    }
+
+    private func onCloseGame() {
+
+    }
+
 }

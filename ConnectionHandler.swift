@@ -17,6 +17,14 @@ protocol ConnectionHandler {
     func listen<T: Codable>(to source: String, callBack: @escaping (T?) -> Void)
     func getData<T: Codable>(at path: String, block: @escaping (Error?, T?) -> Void)
     func getData(at path: String, block: @escaping (Error?, [String: Any]?) -> Void)
+    func removeData(at path: String, block: @escaping (Error?) -> Void)
+
+    // methods for individual value
+    func sendSingleValue<T: Codable>(to path: String, data: T,
+                                     shouldRemoveOnDisconnect: Bool,
+                                     onComplete: (() -> Void)?,
+                                     onError: ((Error?) -> Void)?)
+    func observeSingleValue<T: Codable>(to source: String, callBack: @escaping (T?) -> Void)
 }
 
 import Firebase
@@ -63,7 +71,8 @@ class FirebaseConnectionHandler: ConnectionHandler {
                 }
             })
         } else if mode == .batched {
-            batchedOperations.append(FirebaseOperation(path: destination, data: dataDict, onSuccess: onComplete, onError: onError))
+            batchedOperations.append(FirebaseOperation(path: destination, data: dataDict,
+                                                       onSuccess: onComplete, onError: onError))
         }
     }
 
@@ -78,7 +87,7 @@ class FirebaseConnectionHandler: ConnectionHandler {
     }
 
     func getData<T: Codable>(at path: String, block: @escaping (Error?, T?) -> Void) {
-        firebase.reference().child(path).getData(completion: { (error, snapshot) in
+        firebase.reference().child(path).getData(completion: { error, snapshot in
             // TODO Error Handling
             let rawData = snapshot.value as? [String: AnyObject] ?? [:]
             let data = T(from: rawData)
@@ -87,7 +96,7 @@ class FirebaseConnectionHandler: ConnectionHandler {
     }
 
     func getData(at path: String, block: @escaping (Error?, [String: Any]?) -> Void) {
-        firebase.reference().child(path).getData(completion: { (error, snapshot) in
+        firebase.reference().child(path).getData(completion: { error, snapshot in
             let rawData = snapshot.value as? [String: AnyObject]
             block(error, rawData)
         })
@@ -102,7 +111,6 @@ class FirebaseConnectionHandler: ConnectionHandler {
             for operation in self.batchedOperations {
                 mutableData.childData(byAppendingPath: operation.path).value = operation.data
             }
-
             return TransactionResult.success(withValue: mutableData)
         }, andCompletionBlock: { error, success, snapshot in
             if success {
@@ -119,6 +127,41 @@ class FirebaseConnectionHandler: ConnectionHandler {
                 }
             }
         })
+    }
+
+    func removeData(at path: String, block: @escaping (Error?) -> Void) {
+        firebase.reference().child(path).removeValue(completionBlock: { error, _ in
+            block(error)
+        })
+    }
+
+    func sendSingleValue<T: Codable>(to path: String, data: T,
+                                     shouldRemoveOnDisconnect: Bool,
+                                     onComplete: (() -> Void)?,
+                                     onError: ((Error?) -> Void)?) {
+        firebase.reference().child(path).setValue(data, withCompletionBlock: { error, ref in
+            if shouldRemoveOnDisconnect {
+                ref.onDisconnectRemoveValue()
+            }
+            if error != nil {
+                DispatchQueue.main.async {
+                    onError?(error)
+                }
+            } else {
+                DispatchQueue.main.async {
+                    onComplete?()
+                }
+            }
+        })
+    }
+
+    func observeSingleValue<T: Codable>(to source: String, callBack: @escaping (T?) -> Void) {
+        let ref = firebase.reference().child(source)
+        let observerHandle = ref.observe(DataEventType.value) { snapshot in
+            let rawData = snapshot.value as? T
+            callBack(rawData)
+        }
+        self.observers.append(FirebaseObserver(handle: observerHandle, reference: ref))
     }
 }
 

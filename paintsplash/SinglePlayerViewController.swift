@@ -15,7 +15,12 @@ class SinglePlayerViewController: GameViewController {
         let gameManager = SinglePlayerGameManager(gameScene: scene)
         gameScene?.gameManager = gameManager
     }
-    @IBAction func onCloseGame(_ sender: UIButton) {
+
+    @IBAction private func onCloseGame(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
+    }
+
+    deinit {
+        print("Closed single player game")
     }
 }

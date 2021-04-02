@@ -24,7 +24,8 @@ protocol LobbyHandler {
                      onRoomClose: (() -> Void)?,
                      onError: ((Error?) -> Void)?)
 
-    func leaveRoom(roomId: String,
+    func leaveRoom(playerInfo: PlayerInfo,
+                   roomId: String,
                    onSuccess: (() -> Void)?,
                    onError: ((Error?) -> Void)?)
 
@@ -32,5 +33,13 @@ protocol LobbyHandler {
                    player: PlayerInfo,
                    onSuccess: ((RoomInfo) -> Void)?,
                    onError: ((Error?) -> Void)?)
+
+    func stopGame(roomInfo: RoomInfo,
+                  onSuccess: ((RoomInfo) -> Void)?,
+                  onError: ((Error?) -> Void)?)
+
+    func observeGame(roomInfo: RoomInfo,
+                     onGameStop: (() -> Void)?,
+                     onError: ((Error?) -> Void)?)
 
 }

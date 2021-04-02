@@ -4,6 +4,7 @@
 //
 //  Created by Farrell Nah on 29/3/21.
 //
+import UIKit
 
 class MultiplayerClientViewController: GameViewController {
     var connectionHandler: ConnectionHandler!
@@ -24,5 +25,12 @@ class MultiplayerClientViewController: GameViewController {
                                             playerInfo: playerInfo,
                                             roomInfo: roomInfo)
         scene.gameManager = gameManager
+    }
+
+    @IBAction private func endMultiplayerGame(_ sender: UIButton) {
+    }
+
+    deinit {
+        print("closed multiplayer client VC")
     }
 }

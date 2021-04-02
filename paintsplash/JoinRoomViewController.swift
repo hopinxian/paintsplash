@@ -70,4 +70,12 @@ class JoinRoomViewController: UIViewController {
         }
 
     }
+
+    @IBAction private func closeJoinRoomMenu(_ sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
+    }
+
+    deinit {
+        print("Closed join room view controller")
+    }
 }
