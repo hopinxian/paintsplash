@@ -30,9 +30,7 @@ class MultiplayerClient: GameManager {
         self.playerInfo = playerInfo
         self.room = roomInfo
 
-        guard let playerId = EntityID(id: playerInfo.playerUUID) else {
-            fatalError("Invalid player ID")
-        }
+        let playerId = EntityID(id: playerInfo.playerUUID)
         self.player = Player(initialPosition: .zero, playerUUID: playerId)
 
         EventSystem.entityChangeEvents.addEntityEvent.subscribe(listener: onAddEntity)
@@ -109,7 +107,7 @@ class MultiplayerClient: GameManager {
     private func sendPlayerMoveEvent(_ event: PlayerMoveEvent, gameId: String) {
         self.gameConnectionHandler.sendPlayerEvent(
             gameId: gameId,
-            playerId: event.playerId.id.uuidString,
+            playerId: event.playerId.id,
             action: event
         )
     }
@@ -117,7 +115,7 @@ class MultiplayerClient: GameManager {
     private func sendPlayerShootEvent(_ event: PlayerShootEvent, gameId: String) {
         self.gameConnectionHandler.sendPlayerEvent(
             gameId: gameId,
-            playerId: event.playerId.id.uuidString,
+            playerId: event.playerId.id,
             action: event
         )
     }
@@ -125,7 +123,7 @@ class MultiplayerClient: GameManager {
     private func sendPlayerWeaponChangeEvent(_ event: PlayerChangeWeaponEvent, gameId: String) {
         self.gameConnectionHandler.sendPlayerEvent(
             gameId: gameId,
-            playerId: event.playerId.id.uuidString,
+            playerId: event.playerId.id,
             action: event
         )
     }
@@ -134,9 +132,7 @@ class MultiplayerClient: GameManager {
         let background = Background()
         background.spawn()
 
-        guard let playerId = EntityID(id: playerInfo.playerUUID) else {
-            fatalError("Invalid player ID")
-        }
+        let playerId = EntityID(id: playerInfo.playerUUID)
 
         guard let paintGun = player.multiWeaponComponent.availableWeapons.compactMap({ $0 as? PaintGun }).first else {
             fatalError("Paintgun not setup properly")
