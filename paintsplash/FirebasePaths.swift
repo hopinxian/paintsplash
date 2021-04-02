@@ -27,7 +27,6 @@ enum FirebasePaths {
     static let player_ammoUpdate = "ammo"
     static let player_healthUpdate = "health"
 
-
     static let entity_renderable = "renderable"
     static let entity_transform = "transform"
 

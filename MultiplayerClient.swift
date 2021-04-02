@@ -17,7 +17,7 @@ class MultiplayerClient: GameManager {
 
     var playerInfo: PlayerInfo
     // Dummy player that allows the appropriate ammo stacks to appear
-    let player = Player(initialPosition: .zero)
+    var player: Player
 
     var renderSystem: RenderSystem!
     var animationSystem: AnimationSystem!
@@ -29,6 +29,11 @@ class MultiplayerClient: GameManager {
         self.gameScene = gameScene
         self.playerInfo = playerInfo
         self.room = roomInfo
+
+        guard let playerId = EntityID(id: playerInfo.playerUUID) else {
+            fatalError("Invalid player ID")
+        }
+        self.player = Player(initialPosition: .zero, playerUUID: playerId)
 
         EventSystem.entityChangeEvents.addEntityEvent.subscribe(listener: onAddEntity)
         EventSystem.entityChangeEvents.removeEntityEvent.subscribe(listener: onRemoveEntity)
@@ -102,7 +107,6 @@ class MultiplayerClient: GameManager {
         }
     }
 
-
     private func sendPlayerMoveEvent(_ event: PlayerMoveEvent, gameId: String) {
         self.gameConnectionHandler.sendPlayerEvent(
             gameId: gameId,
@@ -126,7 +130,6 @@ class MultiplayerClient: GameManager {
             action: event
         )
     }
-
 
     func setUpUI() {
         let background = Background()

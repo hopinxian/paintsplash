@@ -5,7 +5,7 @@
 //  Created by Farrell Nah on 16/3/21.
 //
 
-class VerticalStack<ItemType: Renderable>: GameEntity, Renderable, Animatable {
+class VerticalStack<ItemType: Renderable>: UIEntity, Renderable, Animatable {
     var animationComponent: AnimationComponent
     var renderComponent: RenderComponent
     var transformComponent: TransformComponent

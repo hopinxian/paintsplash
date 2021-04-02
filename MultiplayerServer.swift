@@ -81,7 +81,6 @@ class MultiplayerServer: SinglePlayerGameManager {
         )
 
         // Movement input
-
         self.gameConnectionHandler?.observePlayerEvent(
             gameId: gameId,
             playerId: playerID.id.uuidString,
@@ -89,7 +88,6 @@ class MultiplayerServer: SinglePlayerGameManager {
         )
 
         // Weapon change
-
         self.gameConnectionHandler?.observePlayerEvent(
             gameId: gameId,
             playerId: playerID.id.uuidString,

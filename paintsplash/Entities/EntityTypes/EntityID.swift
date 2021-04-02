@@ -10,7 +10,6 @@ struct EntityID: Hashable, Codable {
     var id = UUID()
 
     init() {
-        
     }
 
     init?(id: String) {
