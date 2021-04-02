@@ -26,7 +26,9 @@ class MultiplayerClientViewController: GameViewController {
                                             roomInfo: roomInfo)
         scene.gameManager = gameManager
 
-        lobbyHandler.observeGame(roomInfo: roomInfo, onGameStop: onCloseGame, onError: nil)
+        lobbyHandler.observeGame(roomInfo: roomInfo, onGameStop: onCloseGame, onError: { error in
+            print("Error observing game on client")
+        })
     }
 
     @IBAction private func endMultiplayerGame(_ sender: UIButton) {
