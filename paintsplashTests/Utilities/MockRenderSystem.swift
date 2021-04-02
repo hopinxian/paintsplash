@@ -27,7 +27,7 @@ class MockRenderSystem: RenderSystem {
     }
     
     func addEntity(_ entity: GameEntity) {
-        // activeRenderables.append(entity as! Renderable)
+        activeRenderables.append(entity as! Renderable)
     }
     
     func removeEntity(_ entity: GameEntity) {
@@ -36,22 +36,5 @@ class MockRenderSystem: RenderSystem {
     
     func updateEntities() {
 
-    }
-  
-    func animateRenderable(renderable: Renderable, animation: Animation, interrupt: Bool) {
-        guard renderableAnimations[renderable.id.id] == nil || interrupt else {
-            XCTFail("Tried to start an animation when an animation is already running")
-            return
-        }
-
-        renderableAnimations[renderable.id.id] = animation
-    }
-
-    func addSubview(renderable: Renderable, subviewInfo: RenderInfo) {
-        if var subviews = renderableSubviews[renderable.id.id] {
-            subviews.append(subviewInfo)
-        } else {
-            renderableSubviews[renderable.id.id] = [subviewInfo]
-        }
     }
 }

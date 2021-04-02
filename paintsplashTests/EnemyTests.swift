@@ -66,12 +66,12 @@ class EnemyTests: XCTestCase {
     func testInit() {
         XCTAssertEqual(redEnemy.color, .red)
         XCTAssertEqual(redEnemy.healthComponent.currentHealth, 1)
-        XCTAssertFalse(redEnemy.stateComponent.currentState is EnemyState.Idle)
+        XCTAssertTrue(redEnemy.stateComponent.currentState is EnemyState.Idle)
         XCTAssertEqual(redEnemy.transformComponent.worldPosition, .zero)
         XCTAssertEqual(redEnemy.moveableComponent.direction, .zero)
         XCTAssertEqual(redEnemy.healthComponent.maxHealth, 1)
         XCTAssertEqual(redEnemy.moveableComponent.speed, 1)
-        XCTAssertTrue(redEnemy.stateComponent.getCurrentBehaviour() is ChasePlayerBehaviour)
+        XCTAssertTrue(redEnemy.stateComponent.getCurrentBehaviour() is DoNothingBehaviour)
     }
 
     func testSetState() {
@@ -80,8 +80,7 @@ class EnemyTests: XCTestCase {
         manager.updateEntity(orangeEnemy, orangeEnemy)
         manager.updateEntity(yellowEnemy, yellowEnemy)
 
-        XCTAssertTrue(redEnemy.stateComponent.currentState is EnemyState.Idle)
-        XCTAssertTrue(redEnemy.stateComponent.currentState is EnemyState.ChasingRight)
+        XCTAssertTrue(redEnemy.stateComponent.getCurrentBehaviour() is ChasePlayerBehaviour)
         XCTAssertTrue(redEnemy.stateComponent.currentState is EnemyState.ChasingLeft)
     }
 
@@ -236,8 +235,9 @@ class EnemyTests: XCTestCase {
         XCTAssertEqual(lightRedEnemy.healthComponent.currentHealth, 0)
 
         // Test that enemy can heal by positive amount up to maximum health
+        // Enemy still dead
         lightRedEnemy.heal(amount: 2)
-        XCTAssertTrue(lightRedEnemy.stateComponent.currentState is EnemyState.Idle)
+        XCTAssertTrue(lightRedEnemy.stateComponent.currentState is EnemyState.Die)
         XCTAssertEqual(lightRedEnemy.healthComponent.currentHealth, lightRedEnemy.healthComponent.maxHealth)
     }
 

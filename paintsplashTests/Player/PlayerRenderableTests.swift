@@ -18,30 +18,14 @@ class PlayerRenderableTests: XCTestCase {
         super.setUp()
         player = Player(initialPosition: Vector2D.zero)
         mockRenderSystem = MockRenderSystem()
-        let gameScene = GameScene()
-        let gameManager = SinglePlayerGameManager(gameScene: gameScene)
+        let gameManager = MockGameManager()
         gameManager.renderSystem = mockRenderSystem
-        gameManager.collisionSystem = MockCollisionSystem()
         self.gameManager = gameManager
     }
 
     func testSpawn_addsRenderable() {
         player.spawn()
         XCTAssertTrue(mockRenderSystem.activeRenderables.contains(where: { $0 === player }))
-    }
-
-    func testUpdate_updatesRenderable() {
-        player.spawn()
-        player.moveableComponent.direction = Vector2D(1, 0)
-        let oldPosition = player.transformComponent.worldPosition
-        player.update()
-        guard let updatedPlayer = mockRenderSystem.updatedRenderables.first(where: { $0 === player }) else {
-            XCTFail("Player was not updated")
-            return
-        }
-        let expectedPosition = oldPosition + Vector2D(1, 0)
-        XCTAssertEqual(updatedPlayer.transformComponent.worldPosition, expectedPosition)
-
     }
 
     func testDestroy_removesRenderable() {
