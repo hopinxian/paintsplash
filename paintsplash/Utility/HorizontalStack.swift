@@ -5,7 +5,7 @@
 //  Created by Farrell Nah on 19/3/21.
 //
 
-class HorizontalStack<ItemType: Renderable>: UIEntity, Renderable, Animatable {
+class HorizontalStack<ItemType: Renderable>: GameEntity, Renderable, Animatable {
 
     var items: [ItemType]
 
