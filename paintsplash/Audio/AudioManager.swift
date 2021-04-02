@@ -21,7 +21,9 @@ class AudioManager: AudioSystem {
     }
 
     init() {
-        EventSystem.audioEvent.subscribe(listener: audioEventListener)
+        EventSystem.audioEvent.subscribe(listener: { [weak self] event in
+            self?.audioEventListener(event: event)
+        })
     }
 
     func playMusic(_ music: Music) {

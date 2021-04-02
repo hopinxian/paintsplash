@@ -5,7 +5,7 @@
 //  Created by Farrell Nah on 13/3/21.
 //
 
-protocol GameManager {
+protocol GameManager: AnyObject {
     var entities: Set<GameEntity> { get set }
 
     var uiEntities: Set<GameEntity> { get set }

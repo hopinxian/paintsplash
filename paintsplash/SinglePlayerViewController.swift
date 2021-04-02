@@ -21,6 +21,6 @@ class SinglePlayerViewController: GameViewController {
     }
 
     deinit {
-        print("Closed single player game")
+        print("deinit SinglePlayerViewController")
     }
 }
