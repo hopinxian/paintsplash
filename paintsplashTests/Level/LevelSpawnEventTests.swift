@@ -10,34 +10,43 @@ import XCTest
 
 class LevelSpawnEventTests: XCTestCase {
 
-    let spawnObjectA = LevelSpawnType.enemy(location: nil, color: nil)
-    let spawnObjectB = LevelSpawnType.enemySpawner(location: nil, color: nil)
+    let spawnObjectA = EnemyCommand()
+    let spawnObjectB = EnemySpawnerCommand()
 
     func testConstruct() {
-        let event = LevelSpawnEvent(time: 2, spawnObject: spawnObjectA)
+        let event = EnemyCommand()
+        event.time = 2
         XCTAssertEqual(event.time, 2)
-        XCTAssertEqual(event.spawnObject, spawnObjectA)
+        XCTAssertEqual(event.color, nil)
+        XCTAssertEqual(event.location, nil)
     }
 
     func testEqual() {
-        let eventA = LevelSpawnEvent(time: 2, spawnObject: spawnObjectA)
-        let eventB = LevelSpawnEvent(time: 2, spawnObject: spawnObjectB)
+        let eventA = EnemyCommand()
+        eventA.time = 2
+        let eventB = EnemySpawnerCommand()
+        eventB.time = 2
         XCTAssertNotEqual(eventA, eventB)
 
-        let eventC = LevelSpawnEvent(time: 3, spawnObject: spawnObjectA)
+        let eventC = EnemyCommand()
+        eventC.time = 3
         XCTAssertNotEqual(eventA, eventC)
-
-        let eventACopy = LevelSpawnEvent(time: 2, spawnObject: spawnObjectA)
+        
+        let eventACopy = EnemyCommand()
+        eventACopy.time = 2
         XCTAssertEqual(eventA, eventACopy)
     }
 
     func testCompare() {
-        let eventA = LevelSpawnEvent(time: 2, spawnObject: spawnObjectA)
-        let eventB = LevelSpawnEvent(time: 2, spawnObject: spawnObjectB)
+        let eventA = EnemyCommand()
+        eventA.time = 2
+        let eventB = EnemySpawnerCommand()
+        eventB.time = 2
         XCTAssertFalse(eventA < eventB)
         XCTAssertFalse(eventB < eventA)
 
-        let eventC = LevelSpawnEvent(time: 3, spawnObject: spawnObjectA)
+        let eventC = EnemyCommand()
+        eventC.time = 3
         XCTAssertTrue(eventA < eventC)
         XCTAssertFalse(eventA > eventC)
     }

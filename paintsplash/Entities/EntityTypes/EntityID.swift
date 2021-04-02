@@ -7,16 +7,41 @@
 import Foundation
 
 struct EntityID: Hashable, Codable {
-    var id = UUID()
+    static var nextID: Int = 0
+    static var existingIDs: [String: EntityID] = [:]
 
-    init() {
-    }
-
-    init?(id: String) {
-        guard let uuid = UUID(uuidString: id) else {
-            return nil
+    static func getID() -> String {
+        while existingIDs[String(nextID)] != nil {
+            nextID += 1
         }
 
-        self.id = uuid
+        let id = String(nextID)
+        return id
+    }
+
+    static func addID(entity: EntityID) {
+        existingIDs[entity.id] = entity
+    }
+
+    static func getEntity(id: String) -> EntityID? {
+        existingIDs[id]
+    }
+
+    var id: String
+
+    init() {
+        self.id = EntityID.getID()
+        EntityID.addID(entity: self)
+    }
+
+    init(id: String) {
+        if let entity = EntityID.getEntity(id: id) {
+            print("Conflict Detected")
+            print(id)
+            self = entity
+        } else {
+            self.id = id
+            EntityID.addID(entity: self)
+        }
     }
 }

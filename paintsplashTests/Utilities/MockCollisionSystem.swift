@@ -8,15 +8,19 @@
 @testable import paintsplash
 
 class MockCollisionSystem: CollisionSystem {
-    func addCollidable(_ collidable: Collidable) {
-
+    func collisionBetweenEntity(first: Collidable, second: Collidable) {
+        
     }
-
-    func removeCollidable(_ collidable: Collidable) {
-
+    
+    func addEntity(_ entity: GameEntity) {
+        
     }
-
-    func collisionBetween(first: Collidable, second: Collidable) {
-
+    
+    func removeEntity(_ entity: GameEntity) {
+        
+    }
+    
+    func updateEntities() {
+        
     }
 }

@@ -37,7 +37,7 @@ class EnemySpawner: GameEntity, StatefulEntity, Transformable, Renderable, Anima
 
         super.init()
 
-        self.stateComponent.currentState = EnemySpawnerState.Idle(spawner: self, idleTime: 10)
+        self.stateComponent.currentState = EnemySpawnerState.Idle(spawner: self, idleTime: 100)
     }
 
     func onCollide(with: Collidable) {

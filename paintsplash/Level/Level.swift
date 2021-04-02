@@ -13,8 +13,10 @@ class Level {
 
     var repeatLimit: Int?
     var bufferBetweenLoop = 5.0 // in seconds
-    private var gameManager: GameManager
     private var gameInfo: GameInfo
+    
+    static let enemyCapacity = 5
+    static let dropCapacity = 5
     
     private var canvasRequestManager: CanvasRequestManager
     private(set) var canvasSpawnInterval = 2.0
@@ -32,15 +34,14 @@ class Level {
 
     let bounds = Constants.PLAYER_MOVEMENT_BOUNDS
 
-    init(gameManager: GameManager, canvasManager: CanvasRequestManager, gameInfo: GameInfo) {
-        self.gameManager = gameManager
+    init(canvasManager: CanvasRequestManager, gameInfo: GameInfo) {
         self.canvasRequestManager = canvasManager
         self.gameInfo = gameInfo
         
         // TODO: comment out
         canvasRequestManager.addRequest(colors: [.yellow])
 
-        score = LevelScore(gameManager: gameManager)
+        score = LevelScore()
     }
 
     func run() {
@@ -141,22 +142,20 @@ class Level {
         }
     }
 
-    static func getDefaultLevel(gameManager: GameManager, canvasManager: CanvasRequestManager, gameInfo: GameInfo) -> Level {
-        let level = Level(gameManager: gameManager, canvasManager: canvasManager, gameInfo: gameInfo)
+    static func getDefaultLevel(canvasManager: CanvasRequestManager, gameInfo: GameInfo) -> Level {
+        let level = Level(canvasManager: canvasManager, gameInfo: gameInfo)
 
         level.repeatLimit = 1
         
-        for i in 0..<10 {
-            let enemyCommand = EnemyCommand()
-            enemyCommand.time = Double(10 * i)
-            level.addSpawnEvent(enemyCommand)
-        }
+        let enemyCommand = EnemyCommand()
+        enemyCommand.time = 0
+        level.addSpawnEvent(enemyCommand)
         
         let spawnerCommand = EnemySpawnerCommand()
         spawnerCommand.time = 5
         level.addSpawnEvent(spawnerCommand)
         
-        for i in 0..<30 {
+        for i in 0..<10 {
             let dropCommand = AmmoDropCommand()
             dropCommand.time = Double(i * 5)
             level.addSpawnEvent(dropCommand)

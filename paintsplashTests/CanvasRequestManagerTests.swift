@@ -73,21 +73,22 @@ class CanvasRequestManagerTests: XCTestCase {
         let requestColorSet1: Set<PaintColor> = [.red, .lightblue, .yellow]
         canvasRequestManager.addRequest(colors: requestColorSet1)
 
-        let canvas = Canvas(initialPosition: .zero, velocity: .zero,
+        let canvas = Canvas(initialPosition: .zero, direction: .zero,
                             size: Vector2D(50, 50), endX: 100)
 
         // Test that request is not removed when canvas is not yet complete
-        let redProjectile = PaintProjectile(color: .red, radius: 10, velocity: .zero)
-        canvas.onCollide(otherObject: redProjectile)
+        let redProjectile = PaintProjectile(color: .red, position: Vector2D.zero, radius: 10, direction: .zero)
+        
+        canvas.onCollide(with: redProjectile)
         XCTAssertFalse(canvasRequestManager.requestsDisplayView.items.isEmpty)
 
-        let lightBlueProjectile = PaintProjectile(color: .lightblue, radius: 10, velocity: .zero)
-        canvas.onCollide(otherObject: lightBlueProjectile)
+        let lightBlueProjectile = PaintProjectile(color: .lightblue, position: Vector2D.zero, radius: 10, direction: .zero)
+        canvas.onCollide(with: lightBlueProjectile)
         XCTAssertFalse(canvasRequestManager.requestsDisplayView.items.isEmpty)
 
         // Test that request is fulfilled and removed when correct combination is made
-        let yellowProjectile = PaintProjectile(color: .yellow, radius: 10, velocity: .zero)
-        canvas.onCollide(otherObject: yellowProjectile)
+        let yellowProjectile = PaintProjectile(color: .yellow, position: Vector2D.zero, radius: 10, direction: .zero)
+        canvas.onCollide(with: yellowProjectile)
         XCTAssertTrue(canvasRequestManager.requestsDisplayView.items.isEmpty)
     }
 
@@ -95,27 +96,27 @@ class CanvasRequestManagerTests: XCTestCase {
         let requestColorSet1: Set<PaintColor> = [.red, .lightblue, .yellow]
         canvasRequestManager.addRequest(colors: requestColorSet1)
 
-        let canvas = Canvas(initialPosition: .zero, velocity: .zero,
+        let canvas = Canvas(initialPosition: .zero, direction: .zero,
                             size: Vector2D(50, 50), endX: 100)
 
         // Test that request is not removed when canvas is not yet complete
-        let redProjectile = PaintProjectile(color: .red, radius: 10, velocity: .zero)
-        canvas.onCollide(otherObject: redProjectile)
+        let redProjectile = PaintProjectile(color: .red, position: Vector2D.zero, radius: 10, direction: .zero)
+        canvas.onCollide(with: redProjectile)
         XCTAssertFalse(canvasRequestManager.requestsDisplayView.items.isEmpty)
 
-        let lightBlueProjectile = PaintProjectile(color: .lightblue, radius: 10, velocity: .zero)
-        canvas.onCollide(otherObject: lightBlueProjectile)
+        let lightBlueProjectile = PaintProjectile(color: .lightblue, position: Vector2D.zero, radius: 10, direction: .zero)
+        canvas.onCollide(with: lightBlueProjectile)
         XCTAssertFalse(canvasRequestManager.requestsDisplayView.items.isEmpty)
 
         // Test that an incorrect color combination does not complete the canvas
-        let purpleProjectile = PaintProjectile(color: .purple, radius: 10, velocity: .zero)
-        canvas.onCollide(otherObject: purpleProjectile)
+        let purpleProjectile = PaintProjectile(color: .purple, position: Vector2D.zero, radius: 10, direction: .zero)
+        canvas.onCollide(with: purpleProjectile)
         XCTAssertFalse(canvasRequestManager.requestsDisplayView.items.isEmpty)
 
         // Test that even though all required colors are fulfilled, excess color does not allow
         // the request to be fulfilled and removed
-        let yellowProjectile = PaintProjectile(color: .yellow, radius: 10, velocity: .zero)
-        canvas.onCollide(otherObject: yellowProjectile)
+        let yellowProjectile = PaintProjectile(color: .yellow, position: Vector2D.zero, radius: 10, direction: .zero)
+        canvas.onCollide(with: yellowProjectile)
         XCTAssertFalse(canvasRequestManager.requestsDisplayView.items.isEmpty)
     }
 

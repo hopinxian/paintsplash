@@ -15,7 +15,7 @@ extension EnemySpawnerState {
                 interupt: true,
                 callBack: {
                     self.spawner.stateComponent.currentState =
-                        Idle(spawner: self.spawner, idleTime: 10.0)
+                        Idle(spawner: self.spawner, idleTime: 100.0)
                 }
             )
         }
@@ -36,7 +36,7 @@ extension EnemySpawnerState {
                 animation: SpawnerAnimations.spawnerHit,
                 interupt: true,
                 callBack: {
-                    self.spawner.stateComponent.currentState = Idle(spawner: self.spawner, idleTime: 10.0)
+                    self.spawner.stateComponent.currentState = Idle(spawner: self.spawner, idleTime: 100.0)
                 }
             )
         }

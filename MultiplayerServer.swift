@@ -31,11 +31,10 @@ class MultiplayerServer: SinglePlayerGameManager {
     }
 
     override func setUpPlayer() {
-        guard let hostId = EntityID(id: room.host.playerUUID) else {
-            fatalError("Error fetching IDs of players")
-        }
+        let hostId = EntityID(id: room.host.playerUUID)
 
         player = Player(initialPosition: Vector2D.zero + Vector2D.right * 50, playerUUID: hostId)
+        print(player.id)
         player.spawn()
 
         // set up other players
@@ -46,9 +45,7 @@ class MultiplayerServer: SinglePlayerGameManager {
 
     func setUpGuestPlayer(player: PlayerInfo) {
         // Initialize player
-        guard let playerID = EntityID(id: player.playerUUID) else {
-            return
-        }
+        let playerID = EntityID(id: player.playerUUID)
 
         let gameId = self.room.gameID
         let newPlayer = Player(initialPosition: Vector2D.zero + Vector2D.left * 50, playerUUID: playerID)
@@ -112,21 +109,21 @@ class MultiplayerServer: SinglePlayerGameManager {
         // Shooting input
         self.gameConnectionHandler?.observeEvent(
             gameId: gameId,
-            playerId: playerID.id.uuidString,
+            playerId: playerID.id,
             onChange: { EventSystem.processedInputEvents.playerShootEvent.post(event: $0) }
         )
 
         // Movement input
         self.gameConnectionHandler?.observeEvent(
             gameId: gameId,
-            playerId: playerID.id.uuidString,
+            playerId: playerID.id,
             onChange: { EventSystem.processedInputEvents.playerMoveEvent.post(event: $0) }
         )
 
         // Weapon change
         self.gameConnectionHandler?.observeEvent(
             gameId: gameId,
-            playerId: playerID.id.uuidString,
+            playerId: playerID.id,
             onChange: { EventSystem.processedInputEvents.playerChangeWeaponEvent.post(event: $0) }
         )
     }
@@ -149,7 +146,7 @@ class MultiplayerServer: SinglePlayerGameManager {
                                               position: Constants.CANVAS_END_MARKER_POSITION)
         canvasEndMarker.spawn()
 
-        currentLevel = Level.getDefaultLevel(gameManager: self, canvasManager: canvasManager, gameInfo: gameInfoManager.gameInfo)
+        currentLevel = Level.getDefaultLevel( canvasManager: canvasManager, gameInfo: gameInfoManager.gameInfo)
         currentLevel?.run()
     }
 

@@ -196,6 +196,7 @@
 		D5BFA8E72616118A00BC2D50 /* NetworkSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5BFA8E62616118A00BC2D50 /* NetworkSystem.swift */; };
 		D5BFA8ED2616119100BC2D50 /* NetworkComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5BFA8EC2616119100BC2D50 /* NetworkComponent.swift */; };
 		D5BFA8F1261611A400BC2D50 /* NetworkSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5BFA8F0261611A400BC2D50 /* NetworkSource.swift */; };
+		D5C1F3ED26176C9D0030C7DC /* IDManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C1F3EC26176C9D0030C7DC /* IDManager.swift */; };
 		D5C568FF260A19C9009E5BD9 /* MovementSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C568FE260A19C9009E5BD9 /* MovementSystem.swift */; };
 		D5C56909260A3528009E5BD9 /* BidirectionalMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C56908260A3528009E5BD9 /* BidirectionalMap.swift */; };
 		D5C56911260AC3D8009E5BD9 /* DoNothingBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C56910260AC3D8009E5BD9 /* DoNothingBehaviour.swift */; };
@@ -482,6 +483,7 @@
 		D5BFA8E62616118A00BC2D50 /* NetworkSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkSystem.swift; sourceTree = "<group>"; };
 		D5BFA8EC2616119100BC2D50 /* NetworkComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkComponent.swift; sourceTree = "<group>"; };
 		D5BFA8F0261611A400BC2D50 /* NetworkSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkSource.swift; sourceTree = "<group>"; };
+		D5C1F3EC26176C9D0030C7DC /* IDManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDManager.swift; sourceTree = "<group>"; };
 		D5C568FE260A19C9009E5BD9 /* MovementSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovementSystem.swift; sourceTree = "<group>"; };
 		D5C56908260A3528009E5BD9 /* BidirectionalMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BidirectionalMap.swift; sourceTree = "<group>"; };
 		D5C56910260AC3D8009E5BD9 /* DoNothingBehaviour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoNothingBehaviour.swift; sourceTree = "<group>"; };
@@ -702,6 +704,7 @@
 		ACB3606525F661620016E240 = {
 			isa = PBXGroup;
 			children = (
+				D5C1F3EC26176C9D0030C7DC /* IDManager.swift */,
 				D50FD6A326105B6A00491CAC /* MultiplayerMatchmaker.swift */,
 				DCF66400261592490046AFC1 /* MultiplayerClient.swift */,
 				D50FD69B261056AF00491CAC /* MultiplayerServer.swift */,
@@ -1710,6 +1713,7 @@
 				D50A07F126049A3A00822D67 /* HeartDisplay.swift in Sources */,
 				DC7B421E25FF63350069B422 /* EventMovementSystem.swift in Sources */,
 				D53F54B4260D97EC00635B05 /* GameStateManagerSystem.swift in Sources */,
+				D5C1F3ED26176C9D0030C7DC /* IDManager.swift in Sources */,
 				DC7B421A25FF63350069B422 /* TouchInputEventManager.swift in Sources */,
 				8453F2D1260C911A00FFD8AE /* EnemySpawnerCommand.swift in Sources */,
 				D596B1AE25F8CF5B00A5854F /* ColliderShape.swift in Sources */,
