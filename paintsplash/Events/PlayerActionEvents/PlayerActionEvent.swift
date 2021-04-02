@@ -22,9 +22,9 @@ class PlayerMovementEvent: PlayerActionEvent {
     }
 }
 
-class PlayerAttackEvent: PlayerActionEvent {
-
-}
+//class PlayerAttackEvent: PlayerActionEvent {
+//
+//}
 
 class PlayerHealthUpdateEvent: PlayerActionEvent, Codable {
     let newHealth: Int

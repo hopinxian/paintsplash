@@ -14,7 +14,8 @@ class Level {
     var repeatLimit: Int?
     var bufferBetweenLoop = 5.0 // in seconds
     private var gameManager: GameManager
-
+    private var gameInfo: GameInfo
+    
     private var canvasRequestManager: CanvasRequestManager
     private(set) var canvasSpawnInterval = 2.0
     private(set) var lastSpawnDate: Date!
@@ -31,10 +32,11 @@ class Level {
 
     let bounds = Constants.PLAYER_MOVEMENT_BOUNDS
 
-    init(gameManager: GameManager, canvasManager: CanvasRequestManager) {
+    init(gameManager: GameManager, canvasManager: CanvasRequestManager, gameInfo: GameInfo) {
         self.gameManager = gameManager
         self.canvasRequestManager = canvasManager
-
+        self.gameInfo = gameInfo
+        
         // TODO: comment out
         canvasRequestManager.addRequest(colors: [.yellow])
 
@@ -62,7 +64,6 @@ class Level {
 
         var timeSinceLoopStart = Date().timeIntervalSince(loopStartTime)
         while timeSinceLoopStart >= spawnEvents[nextSpawnEvent].time {
-            let gameInfo = GameInfo(playerPosition: Vector2D.zero, numberOfEnemies: 0)
             spawnEvents[nextSpawnEvent].spawnIntoLevel(gameInfo: gameInfo)
             nextSpawnEvent += 1
             if nextSpawnEvent == spawnEvents.count {
@@ -140,19 +141,21 @@ class Level {
         }
     }
 
-    static func getDefaultLevel(gameManager: GameManager, canvasManager: CanvasRequestManager) -> Level {
-        let level = Level(gameManager: gameManager, canvasManager: canvasManager)
+    static func getDefaultLevel(gameManager: GameManager, canvasManager: CanvasRequestManager, gameInfo: GameInfo) -> Level {
+        let level = Level(gameManager: gameManager, canvasManager: canvasManager, gameInfo: gameInfo)
 
         let enemyCommand = EnemyCommand()
         enemyCommand.time = 10
 
-        let dropCommand = AmmoDropCommand()
-        dropCommand.time = 3
-
         let spawnerCommand = EnemySpawnerCommand()
         spawnerCommand.time = 100
 
-        level.addSpawnEvent(dropCommand)
+        for i in 0..<5 {
+            let dropCommand = AmmoDropCommand()
+            dropCommand.time = Double(i)
+            level.addSpawnEvent(dropCommand)
+        }
+        
         level.addSpawnEvent(spawnerCommand)
         level.addSpawnEvent(enemyCommand)
 

@@ -33,6 +33,8 @@
 		846D4FD8260241670079720F /* SlimeHitGray.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 846D4FD3260241660079720F /* SlimeHitGray.atlas */; };
 		846D4FD9260241670079720F /* SlimeIdleGray.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 846D4FD4260241670079720F /* SlimeIdleGray.atlas */; };
 		846D4FDA260241670079720F /* SlimeMoveLeftGray.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 846D4FD5260241670079720F /* SlimeMoveLeftGray.atlas */; };
+		84D453D02615AA9500864E38 /* ClientCallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D453CF2615AA9500864E38 /* ClientCallback.swift */; };
+		84D453D42615B98700864E38 /* GameInfoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D453D32615B98700864E38 /* GameInfoManager.swift */; };
 		AC069592260123C4007982DE /* ChangeViewEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC069591260123C4007982DE /* ChangeViewEvent.swift */; };
 		AC069597260123CE007982DE /* ChangeViewEventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC069596260123CE007982DE /* ChangeViewEventManager.swift */; };
 		AC07DE4F2605E63900B12840 /* Rect.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC07DE4E2605E63900B12840 /* Rect.swift */; };
@@ -308,6 +310,8 @@
 		846D4FD3260241660079720F /* SlimeHitGray.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = SlimeHitGray.atlas; sourceTree = "<group>"; };
 		846D4FD4260241670079720F /* SlimeIdleGray.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = SlimeIdleGray.atlas; sourceTree = "<group>"; };
 		846D4FD5260241670079720F /* SlimeMoveLeftGray.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = SlimeMoveLeftGray.atlas; sourceTree = "<group>"; };
+		84D453CF2615AA9500864E38 /* ClientCallback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientCallback.swift; sourceTree = "<group>"; };
+		84D453D32615B98700864E38 /* GameInfoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameInfoManager.swift; sourceTree = "<group>"; };
 		AC069591260123C4007982DE /* ChangeViewEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeViewEvent.swift; sourceTree = "<group>"; };
 		AC069596260123CE007982DE /* ChangeViewEventManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeViewEventManager.swift; sourceTree = "<group>"; };
 		AC07DE4E2605E63900B12840 /* Rect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rect.swift; sourceTree = "<group>"; };
@@ -701,8 +705,9 @@
 			isa = PBXGroup;
 			children = (
 				D50FD6A326105B6A00491CAC /* MultiplayerMatchmaker.swift */,
-				D50FD69B261056AF00491CAC /* MultiplayerServer.swift */,
 				DCF66400261592490046AFC1 /* MultiplayerClient.swift */,
+				D50FD69B261056AF00491CAC /* MultiplayerServer.swift */,
+				84D453CF2615AA9500864E38 /* ClientCallback.swift */,
 				D50FD68126104B7400491CAC /* ConnectionHandler.swift */,
 				DC8820F9260F2F150082ECC2 /* GoogleService-Info.plist */,
 				ACB3607025F661620016E240 /* paintsplash */,
@@ -1141,6 +1146,7 @@
 				D53F54B7260D980100635B05 /* StatefulEntity.swift */,
 				D53F54B3260D97EC00635B05 /* GameStateManagerSystem.swift */,
 				DCF1BEF925FA6B6E00B56AD4 /* GameInfo.swift */,
+				84D453D32615B98700864E38 /* GameInfoManager.swift */,
 				DCB72DB925FE18B100B183E0 /* State.swift */,
 				D53F5434260D948500635B05 /* NoState.swift */,
 				DC6874D3260362D100CF89E4 /* Canvas */,
@@ -1649,6 +1655,7 @@
 				D58346AC25FB8636005C344D /* PaintAmmo.swift in Sources */,
 				D53F54EE260D9FE100635B05 /* PlayerState+IdleRight.swift in Sources */,
 				D5BCE0D4260DA75F00080794 /* DespawnAIEntityEvent.swift in Sources */,
+				84D453D42615B98700864E38 /* GameInfoManager.swift in Sources */,
 				D58346B125FB8653005C344D /* Ammo.swift in Sources */,
 				8402D28F25FE0BDB00493DDE /* ColorMixer.swift in Sources */,
 				D5DC909125FCC4210038DF71 /* AtlasAnimation.swift in Sources */,
@@ -1666,6 +1673,7 @@
 				D53F5488260D96A900635B05 /* EnemySpawnerState+Die.swift in Sources */,
 				D598F55F2601C03600D7CACB /* PaintBucketAmmoDisplay.swift in Sources */,
 				D53F5478260D964F00635B05 /* PlayerState+Die.swift in Sources */,
+				84D453D02615AA9500864E38 /* ClientCallback.swift in Sources */,
 				D53F54F8260DA0D400635B05 /* EnemyState+ChasingRight.swift in Sources */,
 				842B5CE92604885800FCF7BD /* ScoreEventManager.swift in Sources */,
 				DC2403192600D68900550E1E /* CanvasAnimations.swift in Sources */,
@@ -1939,14 +1947,14 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = X872J9X7F2;
+				DEVELOPMENT_TEAM = 5Q6AP63883;
 				INFOPLIST_FILE = paintsplash/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = crawlers.paintsplashes2;
+				PRODUCT_BUNDLE_IDENTIFIER = crawlers.paintsplashes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -1962,14 +1970,14 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = X872J9X7F2;
+				DEVELOPMENT_TEAM = 5Q6AP63883;
 				INFOPLIST_FILE = paintsplash/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = crawlers.paintsplashes2;
+				PRODUCT_BUNDLE_IDENTIFIER = crawlers.paintsplashes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;

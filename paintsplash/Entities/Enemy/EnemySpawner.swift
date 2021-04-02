@@ -67,7 +67,7 @@ class EnemySpawner: GameEntity, StatefulEntity, Transformable, Renderable, Anima
     }
 
     private func die() {
-        let event = DespawnAIEntityEvent(entityToDespawn: self)
-        EventSystem.despawnAIEntityEvent.post(event: event)
+        let event = RemoveEntityEvent(entity: self)
+        EventSystem.entityChangeEvents.removeEntityEvent.post(event: event)
     }
 }

@@ -269,6 +269,19 @@ class MultiplayerClient: GameManager {
         }
     }
 
+    func sendCallbackId(_ id: CallbackId) {
+        let callbackPath = FirebasePaths.games + "/" + room.gameID + "/" + "Callback"
+        connectionHandler.send(
+            to: callbackPath,
+            data: id,
+            mode: .single,
+            shouldRemoveOnDisconnect: false,
+            onComplete: nil,
+            onError: {_ in self.sendCallbackId(id)}
+        )
+        // sending of callback notice cannot be allowed to be dropped. on error, retry again.
+    }
+    
     func updateAnimationSystem(data: AnimationSystemData?) {
         guard let animatableData = data else {
             return
@@ -278,6 +291,9 @@ class MultiplayerClient: GameManager {
             if let (_, animatable) = animationSystem.animatables.first(
                 where: { $0.key == entity }) {
                 animatable.animationComponent = encodedAnimatable.animationComponent
+                if let callbackId = encodedAnimatable.callbackId {
+                    animatable.animationComponent.callBack = { self.sendCallbackId(callbackId) }
+                }
             }
         })
     }

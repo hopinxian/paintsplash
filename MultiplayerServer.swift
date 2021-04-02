@@ -17,7 +17,11 @@ class MultiplayerServer: SinglePlayerGameManager {
     init(roomInfo: RoomInfo, gameScene: GameScene) {
         self.room = roomInfo
         self.connectionHandler = FirebaseConnectionHandler()
+        
         super.init(gameScene: gameScene)
+
+        let callbackPath = FirebasePaths.games + "/" + room.gameID + "/" + "Callback"
+        connectionHandler.listen(to: callbackPath, callBack: respondToCallback)
     }
 
     override func setupGame() {
@@ -67,7 +71,6 @@ class MultiplayerServer: SinglePlayerGameManager {
             guard event.playerId == playerID else {
                 return
             }
-
             self.gameConnectionHandler?.sendPlayerEvent(gameId: gameId, playerId: playerID.id.uuidString, action: event)
         })
 
@@ -113,7 +116,7 @@ class MultiplayerServer: SinglePlayerGameManager {
                                               position: Constants.CANVAS_END_MARKER_POSITION)
         canvasEndMarker.spawn()
 
-        currentLevel = Level.getDefaultLevel(gameManager: self, canvasManager: canvasManager)
+        currentLevel = Level.getDefaultLevel(gameManager: self, canvasManager: canvasManager, gameInfo: gameInfoManager.gameInfo)
         currentLevel?.run()
     }
 
@@ -241,6 +244,13 @@ class MultiplayerServer: SinglePlayerGameManager {
     private func onAddEntity(event: AddEntityEvent) {
         addObject(event.entity)
     }
+    
+    func respondToCallback(id: CallbackId?) {
+        if let callbackId = id {
+            ClientCallback.manager.startCallback(of: callbackId)
+        }
+    }
+    
 //
 //    func addObject(_ object: GameEntity) {
 //        entities.insert(object)

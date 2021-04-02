@@ -29,6 +29,7 @@ struct RenderSystemData: Codable {
 struct EncodableAnimatable: Codable {
     let entityID: EntityID
     let animationComponent: AnimationComponent
+    let callbackId: CallbackId?
 }
 
 struct AnimationSystemData: Codable {
@@ -36,7 +37,11 @@ struct AnimationSystemData: Codable {
 
     init(from data: [EntityID: Animatable]) {
         data.forEach({ entity, animatable in
-            self.animatables[entity] = EncodableAnimatable(entityID: entity, animationComponent: animatable.animationComponent)
+            var callbackId: CallbackId? = nil
+            if let callback = animatable.animationComponent.callBack {
+                callbackId = ClientCallback.manager.addCallback(callback: callback)
+            }
+            self.animatables[entity] = EncodableAnimatable(entityID: entity, animationComponent: animatable.animationComponent, callbackId: callbackId)
         })
     }
 }

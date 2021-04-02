@@ -24,10 +24,29 @@ class SpawnCommand: Comparable, Identifiable {
 
 extension SpawnCommand {
     func getLocation(location: Vector2D?, gameInfo: GameInfo) -> Vector2D {
+        if let location = location {
+            return location
+        }
+        
         let randomX = Double.random(in: Constants.PLAYER_MOVEMENT_BOUNDS.minX..<Constants.PLAYER_MOVEMENT_BOUNDS.maxX)
         let randomY = Double.random(in: Constants.PLAYER_MOVEMENT_BOUNDS.minY..<Constants.PLAYER_MOVEMENT_BOUNDS.maxY)
-        let location = location ?? Vector2D(randomX, randomY)
+        let location = Vector2D(randomX, randomY)
+        if intersectPlayer(location: location, gameInfo: gameInfo) {
+            return getLocation(location: nil, gameInfo: gameInfo)
+        }
         return location
+    }
+    
+    private func intersectPlayer(location: Vector2D, gameInfo: GameInfo) -> Bool {
+        let x = gameInfo.playerPosition.x
+        let y = gameInfo.playerPosition.y
+        if location.x >= x - 128 &&
+            location.x <= x + 128 &&
+            location.y <= y + 128 &&
+            location.y >= y - 128 {
+            return true
+        }
+        return false
     }
 
     func getColor(color: PaintColor?, gameInfo: GameInfo) -> PaintColor {
