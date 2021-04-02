@@ -15,6 +15,11 @@ class AudioPlayerImpl: AudioPlayer {
         player?.isPlaying ?? false
     }
 
+    deinit {
+        player?.stop()
+        player = nil
+    }
+
     @discardableResult func playAudio(from url: URL, loops: Int) -> Bool {
         player = try? AVAudioPlayer(contentsOf: url)
         player?.prepareToPlay()

@@ -32,6 +32,7 @@ class MultiplayerClient: GameManager {
 
         let playerId = EntityID(id: playerInfo.playerUUID)
         self.player = Player(initialPosition: .zero, playerUUID: playerId)
+        self.audioSystem = AudioManager()
 
         EventSystem.entityChangeEvents.addEntityEvent.subscribe(listener: onAddEntity)
         EventSystem.entityChangeEvents.removeEntityEvent.subscribe(listener: onRemoveEntity)
@@ -65,15 +66,35 @@ class MultiplayerClient: GameManager {
     func setUpObservers() {
         let gameID = room.gameID
 
-        gameConnectionHandler.observePlayerEvent(
+        gameConnectionHandler.observeEvent(
             gameId: gameID,
             playerId: playerInfo.playerUUID,
             onChange: { EventSystem.playerActionEvent.playerHealthUpdateEvent.post(event: $0) })
 
-        gameConnectionHandler.observePlayerEvent(
+        gameConnectionHandler.observeEvent(
             gameId: gameID,
             playerId: playerInfo.playerUUID,
-            onChange: { EventSystem.playerActionEvent.playerAmmoUpdateEvent.post(event: $0) }
+            onChange: { (event: PlayerAmmoUpdateEvent) in
+                EventSystem.playerActionEvent.playerAmmoUpdateEvent.post(event: event)
+            }
+        )
+
+        gameConnectionHandler.observeEvent(
+            gameId: gameID,
+            playerId: playerInfo.playerUUID,
+            onChange: { (event: PlayMusicEvent) in
+                EventSystem.audioEvent.playMusicEvent.post(event: event)
+                self.gameConnectionHandler.acknowledgeEvent(event, gameId: gameID, playerId: self.playerInfo.playerUUID)
+            }
+        )
+
+        gameConnectionHandler.observeEvent(
+            gameId: gameID,
+            playerId: playerInfo.playerUUID,
+            onChange: { (event: PlaySoundEffectEvent) in
+                EventSystem.audioEvent.playSoundEffectEvent.post(event: event)
+                self.gameConnectionHandler.acknowledgeEvent(event, gameId: gameID, playerId: self.playerInfo.playerUUID)
+            }
         )
     }
 
@@ -81,7 +102,7 @@ class MultiplayerClient: GameManager {
         let renderSystem = SKRenderSystem(scene: gameScene)
         self.renderSystem = renderSystem
         animationSystem = SKAnimationSystem(renderSystem: renderSystem)
-        audioSystem = AudioManager()
+        audioSystem = AudioManager(associatedDeviceId: player.id)
         self.transformSystem = WorldTransformSystem()
     }
 
@@ -106,7 +127,7 @@ class MultiplayerClient: GameManager {
     }
 
     private func sendPlayerMoveEvent(_ event: PlayerMoveEvent, gameId: String) {
-        self.gameConnectionHandler.sendPlayerEvent(
+        self.gameConnectionHandler.sendEvent(
             gameId: gameId,
             playerId: event.playerId.id,
             action: event
@@ -114,7 +135,7 @@ class MultiplayerClient: GameManager {
     }
 
     private func sendPlayerShootEvent(_ event: PlayerShootEvent, gameId: String) {
-        self.gameConnectionHandler.sendPlayerEvent(
+        self.gameConnectionHandler.sendEvent(
             gameId: gameId,
             playerId: event.playerId.id,
             action: event
@@ -122,7 +143,7 @@ class MultiplayerClient: GameManager {
     }
 
     private func sendPlayerWeaponChangeEvent(_ event: PlayerChangeWeaponEvent, gameId: String) {
-        self.gameConnectionHandler.sendPlayerEvent(
+        self.gameConnectionHandler.sendEvent(
             gameId: gameId,
             playerId: event.playerId.id,
             action: event
@@ -180,7 +201,8 @@ class MultiplayerClient: GameManager {
     }
 
     func setUpAudio() {
-
+        self.audioSystem = AudioManager(associatedDeviceId: player.id)
+        EventSystem.audioEvent.playMusicEvent.post(event: PlayMusicEvent(music: Music.backgroundMusic))
     }
 
     func inLobby() -> Bool {
@@ -295,6 +317,14 @@ class MultiplayerClient: GameManager {
         }
 
         let entityIDs = Set(entities.map({ $0.id }))
+        let uiEntityIDs = Set(uiEntities.map({ $0.id }))
+
+        print("entity")
+        print(entityIDs)
+        print(data.entityData.entities)
+
+        print("ui")
+        print(uiEntityIDs)
 
         for entity in data.entityData.entities {
             if !entityIDs.contains(entity) {

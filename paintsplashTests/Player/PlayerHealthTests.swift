@@ -14,51 +14,51 @@ class PlayerHealthTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        player = Player(initialPosition: Vector2D.zero, initialVelocity: Vector2D.zero)
+        player = Player(initialPosition: Vector2D.zero)
     }
 
     func testPlayerDamage() {
-        XCTAssertEqual(player.currentHealth, player.maxHealth)
+        XCTAssertEqual(player.healthComponent.currentHealth, player.healthComponent.maxHealth)
 
-        for index in 1..<player.maxHealth {
+        for index in 1..<player.healthComponent.maxHealth {
             player.takeDamage(amount: 1)
-            XCTAssertEqual(player.currentHealth, player.maxHealth - i)
+            XCTAssertEqual(player.healthComponent.currentHealth, player.healthComponent.maxHealth - index)
         }
     }
 
     func testPlayerDeathWhenHealthZero() {
-        XCTAssertEqual(player.currentHealth, player.maxHealth)
+        XCTAssertEqual(player.healthComponent.currentHealth, player.healthComponent.maxHealth)
 
-        player.takeDamage(amount: player.maxHealth)
-        XCTAssertEqual(player.state, .die)
-        XCTAssertEqual(player.currentHealth, 0)
+        player.takeDamage(amount: player.healthComponent.maxHealth)
+        XCTAssertTrue(player.stateComponent.currentState is PlayerState.Die)
+        XCTAssertEqual(player.healthComponent.currentHealth, 0)
     }
 
     func testPlayerDeathWhenHealthLessThanZero() {
-        XCTAssertEqual(player.currentHealth, player.maxHealth)
+        XCTAssertEqual(player.healthComponent.currentHealth, player.healthComponent.maxHealth)
 
-        player.takeDamage(amount: player.maxHealth + 1)
-        XCTAssertEqual(player.state, .die)
-        XCTAssertEqual(player.currentHealth, 0)
+        player.takeDamage(amount: player.healthComponent.maxHealth + 1)
+        XCTAssertTrue(player.stateComponent.currentState is PlayerState.Die)
+        XCTAssertEqual(player.healthComponent.currentHealth, 0)
     }
 
     func testPlayerHeal() {
-        player.takeDamage(amount: player.maxHealth - 1)
-        XCTAssertEqual(player.currentHealth, 1)
+        player.takeDamage(amount: player.healthComponent.maxHealth - 1)
+        XCTAssertEqual(player.healthComponent.currentHealth, 1)
 
         player.heal(amount: 1)
-        XCTAssertEqual(player.currentHealth, 2)
+        XCTAssertEqual(player.healthComponent.currentHealth, 2)
 
-        player.heal(amount: player.maxHealth - 2)
-        XCTAssertEqual(player.currentHealth, player.maxHealth)
+        player.heal(amount: player.healthComponent.maxHealth - 2)
+        XCTAssertEqual(player.healthComponent.currentHealth, player.healthComponent.maxHealth)
     }
 
     func testPlayerHealPastMaxHealth() {
         player.takeDamage(amount: 1)
-        XCTAssertEqual(player.currentHealth, player.maxHealth - 1)
+        XCTAssertEqual(player.healthComponent.currentHealth, player.healthComponent.maxHealth - 1)
 
-        player.heal(amount: player.maxHealth)
-        XCTAssertEqual(player.currentHealth, player.maxHealth)
+        player.heal(amount: player.healthComponent.maxHealth)
+        XCTAssertEqual(player.healthComponent.currentHealth, player.healthComponent.maxHealth)
     }
 
 }

@@ -14,38 +14,41 @@ class PlayerCollisionTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        player = Player(initialPosition: Vector2D.zero, initialVelocity: Vector2D.zero)
+        player = Player(initialPosition: Vector2D.zero)
     }
 
     func testCollideWithEnemyLoseHealth() {
-        XCTAssertEqual(player.currentHealth, player.maxHealth)
+        XCTAssertEqual(player.healthComponent.currentHealth, player.healthComponent.maxHealth)
 
-        let enemy = Enemy(initialPosition: Vector2D.zero, initialVelocity: Vector2D.zero, color: .blue)
-        player.onCollide(otherObject: enemy)
+        let enemy = Enemy(initialPosition: Vector2D.zero, color: .blue)
+        player.onCollide(with: enemy)
 
-        XCTAssertEqual(player.currentHealth, player.maxHealth - 1)
+        XCTAssertEqual(player.healthComponent.currentHealth, player.healthComponent.maxHealth - 1)
     }
 
     func testCollideWithEnemySpawnerNoChangeInHealth() {
-        XCTAssertEqual(player.currentHealth, player.maxHealth)
+        XCTAssertEqual(player.healthComponent.currentHealth, player.healthComponent.maxHealth)
 
-        let enemy = EnemySpawner(initialPosition: Vector2D.zero, initialVelocity: Vector2D.zero, color: .blue)
-        player.onCollide(otherObject: enemy)
+        let enemy = EnemySpawner(initialPosition: Vector2D.zero, color: .blue)
+        player.onCollide(with: enemy)
 
-        XCTAssertEqual(player.currentHealth, player.maxHealth)
+        XCTAssertEqual(player.healthComponent.currentHealth, player.healthComponent.maxHealth)
     }
 
     func testCollideWithAmmoDrop() {
-        let weaponSystem = player.paintWeaponsSystem
-
-        while weaponSystem.shoot(in: Vector2D.zero) { } // shoot until weapon has no ammo left
+        let weaponSystem = player.multiWeaponComponent
+        
+        while weaponSystem.canShoot(){
+            _ = weaponSystem.shoot(from: player.transformComponent.worldPosition, in: Vector2D.zero)
+        }  // shoot until weapon has no ammo left
 
         let ammo = PaintAmmoDrop(color: .blue, position: Vector2D.zero)
         let canLoad = weaponSystem.canLoad([ammo.getAmmoObject()])
         XCTAssertTrue(canLoad) // weapon can be loaded
 
-        player.onCollide(otherObject: ammo) // weapon should load
-        XCTAssertTrue(weaponSystem.shoot(in: Vector2D.zero)) // weapon should be able to fire
+        player.onCollide(with: ammo) // weapon should load
+        XCTAssertTrue(weaponSystem.canShoot())
+        // weapon should be able to fire
     }
 
 }

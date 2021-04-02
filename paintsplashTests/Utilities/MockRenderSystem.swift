@@ -4,25 +4,20 @@
 //
 //  Created by Farrell Nah on 21/3/21.
 //
+//  swiftlint:disable force_cast
 
 import XCTest
 @testable import paintsplash
 
 class MockRenderSystem: RenderSystem {
+    var renderables: [EntityID : Renderable] = [:]
+    
     var activeRenderables = [Renderable]()
     var updatedRenderables = [Renderable]()
     var renderableAnimations = [UUID: Animation]()
     var renderableSubviews = [UUID: [RenderInfo]]()
-
-    func addRenderable(_ renderable: Renderable) {
-        activeRenderables.append(renderable)
-    }
-
-    func removeRenderable(_ renderable: Renderable) {
-        activeRenderables.removeAll(where: { $0 === renderable })
-    }
-
-    func updateRenderable(_ renderable: Renderable) {
+    
+    func updateEntity(_ entity: EntityID, _ renderable: Renderable) {
         guard activeRenderables.contains(where: { $0 === renderable }) else {
             XCTFail("Tried to update a non active renderable")
             return
@@ -30,21 +25,33 @@ class MockRenderSystem: RenderSystem {
 
         updatedRenderables.append(renderable)
     }
+    
+    func addEntity(_ entity: GameEntity) {
+        activeRenderables.append(entity as! Renderable)
+    }
+    
+    func removeEntity(_ entity: GameEntity) {
+        activeRenderables.removeAll(where: { $0 === entity })
+    }
+    
+    func updateEntities() {
 
+    }
+  
     func animateRenderable(renderable: Renderable, animation: Animation, interrupt: Bool) {
-        guard renderableAnimations[renderable.id] == nil || interrupt else {
+        guard renderableAnimations[renderable.id.id] == nil || interrupt else {
             XCTFail("Tried to start an animation when an animation is already running")
             return
         }
 
-        renderableAnimations[renderable.id] = animation
+        renderableAnimations[renderable.id.id] = animation
     }
 
     func addSubview(renderable: Renderable, subviewInfo: RenderInfo) {
-        if var subviews = renderableSubviews[renderable.id] {
+        if var subviews = renderableSubviews[renderable.id.id] {
             subviews.append(subviewInfo)
         } else {
-            renderableSubviews[renderable.id] = [subviewInfo]
+            renderableSubviews[renderable.id.id] = [subviewInfo]
         }
     }
 }
