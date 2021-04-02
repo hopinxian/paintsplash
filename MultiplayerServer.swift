@@ -30,11 +30,10 @@ class MultiplayerServer: SinglePlayerGameManager {
     }
 
     override func setUpPlayer() {
-        guard let hostId = EntityID(id: room.host.playerUUID) else {
-            fatalError("Error fetching IDs of players")
-        }
+        let hostId = EntityID(id: room.host.playerUUID)
 
         player = Player(initialPosition: Vector2D.zero + Vector2D.right * 50, playerUUID: hostId)
+        print(player.id)
         player.spawn()
 
         // set up other players
@@ -45,9 +44,7 @@ class MultiplayerServer: SinglePlayerGameManager {
 
     func setUpGuestPlayer(player: PlayerInfo) {
         // Initialize player
-        guard let playerID = EntityID(id: player.playerUUID) else {
-            return
-        }
+        let playerID = EntityID(id: player.playerUUID)
 
         let gameId = self.room.gameID
         let newPlayer = Player(initialPosition: Vector2D.zero + Vector2D.left * 50, playerUUID: playerID)
@@ -59,7 +56,7 @@ class MultiplayerServer: SinglePlayerGameManager {
                 return
             }
             self.gameConnectionHandler?.sendPlayerEvent(gameId: gameId,
-                                                        playerId: playerID.id.uuidString,
+                                                        playerId: playerID.id,
                                                         action: event)
         })
 
@@ -68,7 +65,7 @@ class MultiplayerServer: SinglePlayerGameManager {
             guard event.playerId == playerID else {
                 return
             }
-            self.gameConnectionHandler?.sendPlayerEvent(gameId: gameId, playerId: playerID.id.uuidString, action: event)
+            self.gameConnectionHandler?.sendPlayerEvent(gameId: gameId, playerId: playerID.id, action: event)
         })
 
         // Listen to user input from clients
@@ -76,21 +73,21 @@ class MultiplayerServer: SinglePlayerGameManager {
         // Shooting input
         self.gameConnectionHandler?.observePlayerEvent(
             gameId: gameId,
-            playerId: playerID.id.uuidString,
+            playerId: playerID.id,
             onChange: { EventSystem.processedInputEvents.playerShootEvent.post(event: $0) }
         )
 
         // Movement input
         self.gameConnectionHandler?.observePlayerEvent(
             gameId: gameId,
-            playerId: playerID.id.uuidString,
+            playerId: playerID.id,
             onChange: { EventSystem.processedInputEvents.playerMoveEvent.post(event: $0) }
         )
 
         // Weapon change
         self.gameConnectionHandler?.observePlayerEvent(
             gameId: gameId,
-            playerId: playerID.id.uuidString,
+            playerId: playerID.id,
             onChange: { EventSystem.processedInputEvents.playerChangeWeaponEvent.post(event: $0) }
         )
     }
