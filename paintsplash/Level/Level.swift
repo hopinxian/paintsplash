@@ -16,6 +16,9 @@ class Level {
     private var gameManager: GameManager
     private var gameInfo: GameInfo
     
+    static let enemyCapacity = 5
+    static let dropCapacity = 5
+    
     private var canvasRequestManager: CanvasRequestManager
     private(set) var canvasSpawnInterval = 2.0
     private(set) var lastSpawnDate: Date!

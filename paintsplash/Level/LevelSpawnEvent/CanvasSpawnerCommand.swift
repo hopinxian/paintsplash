@@ -17,6 +17,10 @@ class CanvasSpawnerCommand: SpawnCommand {
     }
 
     override func spawnIntoLevel(gameInfo: GameInfo) {
+        if gameInfo.numberOfEnemies >= Level.enemyCapacity {
+            return
+        }
+        
         let eventLocation = getLocation(location: location, gameInfo: gameInfo)
         let eventVelocity = getVelocity(velocity: velocity, gameInfo: gameInfo)
         let eventCanvasSize = getCanvasSize(size: canvasSize, gameInfo: gameInfo)
