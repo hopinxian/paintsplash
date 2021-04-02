@@ -15,48 +15,55 @@ class PlayerStateChangeTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        player = Player(initialPosition: Vector2D.zero, initialVelocity: Vector2D.zero)
-        playerInitialState = player.state
+        player = Player(initialPosition: Vector2D.zero)
+        playerInitialState = player.stateComponent.currentState as? PlayerState
     }
 
     func testPlayerStateChanges() {
-        XCTAssertEqual(player.state, playerInitialState)
-
+        let manager = GameStateManagerSystem(gameInfo: GameInfo(playerPosition: Vector2D.zero, numberOfEnemies: 0))
+        
         // move left
-        player.velocity = Vector2D.left
+        var event = PlayerMoveEvent(direction: Vector2D.left, playerID: player.id)
+        player.onMove(event: event)
         XCTAssertEqual(player.lastDirection, Vector2D.left)
-        player.setState()
-        XCTAssertEqual(player.state, .moveLeft)
+        manager.updateEntity(player, player)
+        XCTAssertTrue(player.stateComponent.currentState is PlayerState.MoveLeft)
 
         // stop moving left
-        player.velocity = Vector2D.zero
-        player.setState()
+        event = PlayerMoveEvent(direction: Vector2D.zero, playerID: player.id)
+        player.onMove(event: event)
         XCTAssertEqual(player.lastDirection, Vector2D.left)
-        XCTAssertEqual(player.state, .idleLeft)
-
+        manager.updateEntity(player, player)
+        XCTAssertTrue(player.stateComponent.currentState is PlayerState.IdleLeft)
+        
         // move right
-        player.velocity = Vector2D.right
+        event = PlayerMoveEvent(direction: Vector2D.right, playerID: player.id)
+        player.onMove(event: event)
         XCTAssertEqual(player.lastDirection, Vector2D.right)
-        player.setState()
-        XCTAssertEqual(player.state, .moveRight)
-
-        // stop moving left
-        player.velocity = Vector2D.zero
-        player.setState()
+        manager.updateEntity(player, player)
+        XCTAssertTrue(player.stateComponent.currentState is PlayerState.MoveRight)
+        
+        // stop moving right
+        event = PlayerMoveEvent(direction: Vector2D.zero, playerID: player.id)
+        player.onMove(event: event)
         XCTAssertEqual(player.lastDirection, Vector2D.right)
-        XCTAssertEqual(player.state, .idleRight)
-
+        manager.updateEntity(player, player)
+        XCTAssertTrue(player.stateComponent.currentState is PlayerState.IdleRight)
+        
         // move up
-        player.velocity = Vector2D.up
-        player.setState()
+        event = PlayerMoveEvent(direction: Vector2D.up, playerID: player.id)
+        player.onMove(event: event)
         XCTAssertEqual(player.lastDirection, Vector2D.up)
-        XCTAssertEqual(player.state, .moveRight) // Player still facing right (last position)
+        manager.updateEntity(player, player)
+        XCTAssertTrue(player.stateComponent.currentState is PlayerState.MoveRight)
+        // Player still facing right (last position)
 
         // stop moving up
-        player.velocity = Vector2D.zero
-        player.setState()
+        event = PlayerMoveEvent(direction: Vector2D.zero, playerID: player.id)
+        player.onMove(event: event)
         XCTAssertEqual(player.lastDirection, Vector2D.up)
-        XCTAssertEqual(player.state, .idleRight) // Player still facing right (last position)
+        manager.updateEntity(player, player)
+        XCTAssertTrue(player.stateComponent.currentState is PlayerState.IdleRight) // Player still facing right (last position)
     }
 
 }

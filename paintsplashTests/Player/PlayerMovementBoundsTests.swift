@@ -34,106 +34,93 @@ class PlayerMovementBoundsTests: XCTestCase {
         (Vector2D.down * boundSize) + Vector2D(0, playerHeight / 2)
     }
 
-    private var playerWidth = Transform.standard.size.x
-    private var playerHeight = Transform.standard.size.y
+    private var playerWidth = 128
+    private var playerHeight = 128
 
     override func setUp() {
         super.setUp()
-        player = Player(initialPosition: Vector2D.zero, initialVelocity: Vector2D.zero)
-        player.movementBounds = bounds
+        player = Player(initialPosition: Vector2D.zero)
     }
 
     func testPlayerHorizontalMovementWithinBounds() {
         // Move left
-        XCTAssertEqual(player.position, Vector2D.zero)
-        player.velocity = Vector2D.left
-        player.move()
-        XCTAssertEqual(player.position, Vector2D.left)
+        XCTAssertEqual(player.transformComponent.worldPosition, Vector2D.zero)
+        player.moveableComponent.direction = Vector2D.left
+        FrameMovementSystem().updateEntity(player, player)
+        XCTAssertEqual(player.transformComponent.worldPosition, Vector2D.left)
 
         // Move right
-        player.velocity = Vector2D.right
-        player.move()
-        XCTAssertEqual(player.position, Vector2D.zero)
+        player.moveableComponent.direction = Vector2D.right
+        FrameMovementSystem().updateEntity(player, player)
+        XCTAssertEqual(player.transformComponent.worldPosition, Vector2D.zero)
     }
 
     func testPlayerVerticalMovementWithinBounds() {
         // Move up
-        XCTAssertEqual(player.position, Vector2D.zero)
-        player.velocity = Vector2D.up
-        player.move()
-        XCTAssertEqual(player.position, Vector2D.up)
-
+        XCTAssertEqual(player.transformComponent.worldPosition, Vector2D.zero)
+        player.moveableComponent.direction = Vector2D.up
+        FrameMovementSystem().updateEntity(player, player)
+        XCTAssertEqual(player.transformComponent.worldPosition, Vector2D.up)
+        
         // Move down
-        player.velocity = Vector2D.down
-        player.move()
-        XCTAssertEqual(player.position, Vector2D.zero)
+        player.moveableComponent.direction = Vector2D.down
+        FrameMovementSystem().updateEntity(player, player)
+        XCTAssertEqual(player.transformComponent.worldPosition, Vector2D.zero)
     }
 
     func testPlayerHorizontalMovementToBoundaryLimit() {
-        XCTAssertEqual(player.position, Vector2D.zero)
+        XCTAssertEqual(player.transformComponent.worldPosition, Vector2D.zero)
 
         // Move left
-        player.velocity = leftBound
-        player.move()
-        player.clampPosition()
-        XCTAssertEqual(player.position, leftBound)
+        player.moveableComponent.direction = Vector2D.left
+        player.moveableComponent.speed = leftBound.magnitude
+        FrameMovementSystem().updateEntity(player, player)
+        XCTAssertEqual(player.transformComponent.worldPosition, leftBound)
 
         // Move past left bound
-        player.velocity = Vector2D.left
-        player.move()
-        player.clampPosition()
-        XCTAssertEqual(player.position, leftBound)
-
+        FrameMovementSystem().updateEntity(player, player)
+        XCTAssertEqual(player.transformComponent.worldPosition, leftBound)
+        
         // Move right (back to zero)
-        player.velocity = leftBound * -1
-        player.move()
-        player.clampPosition()
-        XCTAssertEqual(player.position, Vector2D.zero)
-
+        player.moveableComponent.direction = Vector2D.right
+        FrameMovementSystem().updateEntity(player, player)
+        XCTAssertEqual(player.transformComponent.worldPosition, .zero)
+        
         // Move right (to right bound)
-        player.velocity = rightBound
-        player.move()
-        player.clampPosition()
-        XCTAssertEqual(player.position, rightBound)
-
+        player.moveableComponent.direction = Vector2D.right
+        player.moveableComponent.speed = rightBound.magnitude
+        FrameMovementSystem().updateEntity(player, player)
+        XCTAssertEqual(player.transformComponent.worldPosition, rightBound)
+        
         // Move past right bound
-        player.velocity = Vector2D.right
-        player.move()
-        player.clampPosition()
-        XCTAssertEqual(player.position, rightBound)
+        FrameMovementSystem().updateEntity(player, player)
+        XCTAssertEqual(player.transformComponent.worldPosition, rightBound)
     }
 
     func testPlayerVerticalMovementToBoundaryLimit() {
-        XCTAssertEqual(player.position, Vector2D.zero)
+        XCTAssertEqual(player.transformComponent.worldPosition, Vector2D.zero)
 
         // Move up
-        player.velocity = topBound
-        player.move()
-        player.clampPosition()
-        XCTAssertEqual(player.position, topBound)
-
+        player.moveableComponent.direction = Vector2D.up
+        player.moveableComponent.speed = topBound.magnitude
+        FrameMovementSystem().updateEntity(player, player)
+        XCTAssertEqual(player.transformComponent.worldPosition, topBound)
+        
         // Move past top bound
-        player.velocity = Vector2D.up
-        player.move()
-        player.clampPosition()
-        XCTAssertEqual(player.position, topBound)
-
+        FrameMovementSystem().updateEntity(player, player)
+        XCTAssertEqual(player.transformComponent.worldPosition, topBound)
+        
         // Move down (back to zero)
-        player.velocity = topBound * -1
-        player.move()
-        player.clampPosition()
-        XCTAssertEqual(player.position, Vector2D.zero)
-
+        player.moveableComponent.direction = Vector2D.down
+        FrameMovementSystem().updateEntity(player, player)
+        XCTAssertEqual(player.transformComponent.worldPosition, .zero)
+        
         // Move down (to bottm bound)
-        player.velocity = bottomBound
-        player.move()
-        player.clampPosition()
-        XCTAssertEqual(player.position, bottomBound)
+        FrameMovementSystem().updateEntity(player, player)
+        XCTAssertEqual(player.transformComponent.worldPosition, bottomBound)
 
         // Move past bottom bound
-        player.velocity = Vector2D.down
-        player.move()
-        player.clampPosition()
-        XCTAssertEqual(player.position, bottomBound)
+        FrameMovementSystem().updateEntity(player, player)
+        XCTAssertEqual(player.transformComponent.worldPosition, bottomBound)
     }
 }
