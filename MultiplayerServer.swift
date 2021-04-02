@@ -113,7 +113,7 @@ class MultiplayerServer: SinglePlayerGameManager {
                                               position: Constants.CANVAS_END_MARKER_POSITION)
         canvasEndMarker.spawn()
 
-        currentLevel = Level.getDefaultLevel(gameManager: self, canvasManager: canvasManager, gameInfo: gameInfoManager.gameInfo)
+        currentLevel = Level.getDefaultLevel( canvasManager: canvasManager, gameInfo: gameInfoManager.gameInfo)
         currentLevel?.run()
     }
 

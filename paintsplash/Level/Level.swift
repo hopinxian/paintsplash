@@ -13,7 +13,6 @@ class Level {
 
     var repeatLimit: Int?
     var bufferBetweenLoop = 5.0 // in seconds
-    private var gameManager: GameManager
     private var gameInfo: GameInfo
     
     private var canvasRequestManager: CanvasRequestManager
@@ -32,15 +31,14 @@ class Level {
 
     let bounds = Constants.PLAYER_MOVEMENT_BOUNDS
 
-    init(gameManager: GameManager, canvasManager: CanvasRequestManager, gameInfo: GameInfo) {
-        self.gameManager = gameManager
+    init(canvasManager: CanvasRequestManager, gameInfo: GameInfo) {
         self.canvasRequestManager = canvasManager
         self.gameInfo = gameInfo
         
         // TODO: comment out
         canvasRequestManager.addRequest(colors: [.yellow])
 
-        score = LevelScore(gameManager: gameManager)
+        score = LevelScore()
     }
 
     func run() {
@@ -141,8 +139,8 @@ class Level {
         }
     }
 
-    static func getDefaultLevel(gameManager: GameManager, canvasManager: CanvasRequestManager, gameInfo: GameInfo) -> Level {
-        let level = Level(gameManager: gameManager, canvasManager: canvasManager, gameInfo: gameInfo)
+    static func getDefaultLevel(canvasManager: CanvasRequestManager, gameInfo: GameInfo) -> Level {
+        let level = Level(canvasManager: canvasManager, gameInfo: gameInfo)
 
         level.repeatLimit = 1
         

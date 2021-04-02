@@ -14,27 +14,27 @@ class PlayerWeaponChangeTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        player = Player(initialPosition: Vector2D.zero, initialVelocity: Vector2D.zero)
+        player = Player(initialPosition: Vector2D.zero)
     }
 
     private func changeToBucket() {
-        let event = PlayerChangeWeaponEvent(newWeapon: Bucket.self)
+        let event = PlayerChangeWeaponEvent(newWeapon: Bucket.self, playerId: player.id)
         player.onWeaponChange(event: event)
         checkIfBucket()
     }
 
     private func changeToPaintGun() {
-        let event = PlayerChangeWeaponEvent(newWeapon: PaintGun.self)
+        let event = PlayerChangeWeaponEvent(newWeapon: PaintGun.self, playerId: player.id)
         player.onWeaponChange(event: event)
         checkIfPaintGun()
     }
 
     private func checkIfBucket() {
-        XCTAssertTrue(player.paintWeaponsSystem.activeWeapon is Bucket)
+        XCTAssertTrue(player.multiWeaponComponent.activeWeapon is Bucket)
     }
 
     private func checkIfPaintGun() {
-        XCTAssertTrue(player.paintWeaponsSystem.activeWeapon is PaintGun)
+        XCTAssertTrue(player.multiWeaponComponent.activeWeapon is PaintGun)
     }
 
     func testWeaponChange() {

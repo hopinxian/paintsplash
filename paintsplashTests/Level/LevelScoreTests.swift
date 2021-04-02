@@ -10,15 +10,22 @@ import XCTest
 
 class LevelScoreTests: XCTestCase {
 
-    let gameManager = GameManager(renderSystem: MockRenderSystem(), collisionSystem: MockCollisionSystem())
-
+    var gameManager: GameManager!
+    
+    override func setUp() {
+        super.setUp()
+        let gameManager = SinglePlayerGameManager(gameScene: GameScene())
+        gameManager.renderSystem = MockRenderSystem()
+        gameManager.collisionSystem = MockCollisionSystem()
+        self.gameManager = gameManager
+    }
+    
     func testConstruct() {
         let score = LevelScore(gameManager: gameManager)
 
         XCTAssertTrue(score.freeze)
         XCTAssertEqual(score.score, 0)
-        XCTAssertEqual(score.transform, Transform(position: Vector2D(-300, -495), rotation: 0, size: Vector2D(90, 50)))
-        XCTAssertEqual(score.zPosition, Constants.ZPOSITION_UI_ELEMENT)
+        XCTAssertEqual(score.renderComponent.zPosition, Constants.ZPOSITION_UI_ELEMENT)
     }
 
     func testReset() {

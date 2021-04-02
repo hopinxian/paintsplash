@@ -38,6 +38,20 @@
                BlueprintName = "paintsplashTests"
                ReferencedContainer = "container:paintsplash.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "CanvasRenderableTests">
+               </Test>
+               <Test
+                  Identifier = "EnemyRenderableTests">
+               </Test>
+               <Test
+                  Identifier = "LevelScoreTests">
+               </Test>
+               <Test
+                  Identifier = "PlayerRenderableTests">
+               </Test>
+            </SkippedTests>
          </TestableReference>
       </Testables>
    </TestAction>

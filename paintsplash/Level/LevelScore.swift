@@ -9,12 +9,10 @@ class LevelScore: GameEntity, Renderable {
     var renderComponent: RenderComponent
     var transformComponent: TransformComponent
 
-    // var gameManager: GameManager
-
     var score = 0
     var freeze: Bool = true
 
-    init(gameManager: GameManager) {
+    override init() {
         let renderType = RenderType.label(text: "Level Score: \(score)")
 
         self.renderComponent = RenderComponent(
@@ -27,8 +25,6 @@ class LevelScore: GameEntity, Renderable {
             rotation: 0,
             size: Vector2D(90, 50)
         )
-
-        // self.gameManager = gameManager
 
         super.init()
 

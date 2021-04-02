@@ -16,33 +16,37 @@ class PlayerRenderableTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        player = Player(initialPosition: Vector2D.zero, initialVelocity: Vector2D.zero)
+        player = Player(initialPosition: Vector2D.zero)
         mockRenderSystem = MockRenderSystem()
-        gameManager = GameManager(renderSystem: mockRenderSystem, collisionSystem: MockCollisionSystem())
+        let gameScene = GameScene()
+        let gameManager = SinglePlayerGameManager(gameScene: gameScene)
+        gameManager.renderSystem = mockRenderSystem
+        gameManager.collisionSystem = MockCollisionSystem()
+        self.gameManager = gameManager
     }
 
     func testSpawn_addsRenderable() {
-        player.spawn(gameManager: gameManager)
+        player.spawn()
         XCTAssertTrue(mockRenderSystem.activeRenderables.contains(where: { $0 === player }))
     }
 
     func testUpdate_updatesRenderable() {
-        player.spawn(gameManager: gameManager)
-        player.velocity = Vector2D(1, 0)
-        let oldPosition = player.transform.position
-        player.update(gameManager: gameManager)
+        player.spawn()
+        player.moveableComponent.direction = Vector2D(1, 0)
+        let oldPosition = player.transformComponent.worldPosition
+        player.update()
         guard let updatedPlayer = mockRenderSystem.updatedRenderables.first(where: { $0 === player }) else {
             XCTFail("Player was not updated")
             return
         }
         let expectedPosition = oldPosition + Vector2D(1, 0)
-        XCTAssertEqual(updatedPlayer.transform.position, expectedPosition)
+        XCTAssertEqual(updatedPlayer.transformComponent.worldPosition, expectedPosition)
 
     }
 
     func testDestroy_removesRenderable() {
-        player.spawn(gameManager: gameManager)
-        player.destroy(gameManager: gameManager)
+        player.spawn()
+        player.destroy()
         XCTAssertNil(mockRenderSystem.updatedRenderables.first(where: { $0 === player }))
     }
 }
