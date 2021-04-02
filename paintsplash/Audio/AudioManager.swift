@@ -73,7 +73,6 @@ class AudioManager: AudioSystem {
         guard shouldExecuteForEntity(event.playerId) else {
             return
         }
-        print("playing music")
         playMusic(event.music)
     }
 
@@ -82,7 +81,6 @@ class AudioManager: AudioSystem {
         guard shouldExecuteForEntity(event.playerId) else {
             return
         }
-        print("playing effect")
         playEffect(event.effect)
     }
 
@@ -113,7 +111,6 @@ class AudioManager: AudioSystem {
     }
 
     private func audioEventListener(event: AudioEvent) {
-        print("got event")
         switch event {
         case let event as PlayMusicEvent:
             processPlayMusicEvent(event)

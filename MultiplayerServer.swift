@@ -17,7 +17,7 @@ class MultiplayerServer: SinglePlayerGameManager {
     init(roomInfo: RoomInfo, gameScene: GameScene) {
         self.room = roomInfo
         self.connectionHandler = FirebaseConnectionHandler()
-        
+
         super.init(gameScene: gameScene)
     }
 
@@ -57,8 +57,8 @@ class MultiplayerServer: SinglePlayerGameManager {
                 return
             }
             self.gameConnectionHandler?.sendEvent(gameId: gameId,
-                                                        playerId: playerID.id.uuidString,
-                                                        action: event)
+                                                  playerId: playerID.id,
+                                                  action: event)
         })
 
         // Update player ammo
@@ -66,15 +66,12 @@ class MultiplayerServer: SinglePlayerGameManager {
             guard event.playerId == playerID else {
                 return
             }
-            self.gameConnectionHandler?.sendEvent(gameId: gameId, playerId: playerID.id.uuidString, action: event)
+            self.gameConnectionHandler?.sendEvent(gameId: gameId, playerId: playerID.id, action: event)
         })
 
         // Send background music information
 
         EventSystem.audioEvent.playMusicEvent.subscribe { event in
-
-            print("sending out music event now")
-
             guard let players = self.room.players else {
                 return
             }
@@ -86,7 +83,7 @@ class MultiplayerServer: SinglePlayerGameManager {
                 return
             }
 
-            self.gameConnectionHandler?.sendEvent(gameId: gameId, playerId: playerId.id.uuidString, action: event)
+            self.gameConnectionHandler?.sendEvent(gameId: gameId, playerId: playerId.id, action: event)
         }
 
         EventSystem.audioEvent.playSoundEffectEvent.subscribe { event in
@@ -101,7 +98,7 @@ class MultiplayerServer: SinglePlayerGameManager {
                 return
             }
 
-            self.gameConnectionHandler?.sendEvent(gameId: gameId, playerId: playerId.id.uuidString, action: event)
+            self.gameConnectionHandler?.sendEvent(gameId: gameId, playerId: playerId.id, action: event)
         }
 
         // Listen to user input from clients
@@ -146,7 +143,7 @@ class MultiplayerServer: SinglePlayerGameManager {
                                               position: Constants.CANVAS_END_MARKER_POSITION)
         canvasEndMarker.spawn()
 
-        currentLevel = Level.getDefaultLevel( canvasManager: canvasManager, gameInfo: gameInfoManager.gameInfo)
+        currentLevel = Level.getDefaultLevel(canvasManager: canvasManager, gameInfo: gameInfoManager.gameInfo)
         currentLevel?.run()
     }
 
@@ -244,9 +241,9 @@ class MultiplayerServer: SinglePlayerGameManager {
 //            onError: nil
 //        )
         let systemData = SystemData(
-            entityData: entityData, 
-            renderSystemData: renderSystemData, 
-            animationSystemData: animationSystemData, 
+            entityData: entityData,
+            renderSystemData: renderSystemData,
+            animationSystemData: animationSystemData,
             colorSystemData: colorSystemData
         )
         let systemPath = FirebasePaths.joinPaths(FirebasePaths.games, room.gameID, FirebasePaths.systems)
@@ -274,7 +271,7 @@ class MultiplayerServer: SinglePlayerGameManager {
     private func onAddEntity(event: AddEntityEvent) {
         addObject(event.entity)
     }
-    
+
 //
 //    func addObject(_ object: GameEntity) {
 //        entities.insert(object)

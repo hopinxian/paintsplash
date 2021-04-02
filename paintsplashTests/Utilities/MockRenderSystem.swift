@@ -4,6 +4,7 @@
 //
 //  Created by Farrell Nah on 21/3/21.
 //
+//  swiftlint:disable force_cast
 
 import XCTest
 @testable import paintsplash

@@ -27,16 +27,12 @@ class PlayMusicEvent: AudioEvent, Codable {
     }
 
     required init(from decoder: Decoder) throws {
-        print("start decodign music")
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        print("music values decoded")
         print(values.allKeys)
         print(values)
         music = try values.decode(Music.self, forKey: .music)
-        print("music struct decoded")
         playerId = try? values.decode(EntityID.self, forKey: .playerId)
         super.init()
-        print("done")
     }
 }
 

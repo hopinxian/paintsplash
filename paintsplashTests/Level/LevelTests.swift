@@ -13,30 +13,33 @@ class LevelTests: XCTestCase {
     var gameManager: GameManager!
     let canvasRequestManager = CanvasRequestManager()
     var level: Level!
-    
+
     var enemyEvent: EnemyCommand!
     var enemySpawnerEvent: EnemySpawnerCommand!
     var ammoDropEvent: AmmoDropCommand!
     var canvasSpawnerEvent: CanvasSpawnerCommand!
-    
+
     override func setUp() {
         super.setUp()
         let gameManager = SinglePlayerGameManager(gameScene: GameScene())
         gameManager.renderSystem = MockRenderSystem()
         gameManager.collisionSystem = MockCollisionSystem()
         self.gameManager = gameManager
-        
-        level = Level(gameManager: gameManager, canvasManager: canvasRequestManager, gameInfo: GameInfo(playerPosition: Vector2D.zero, numberOfEnemies: 0))
-        
+
+        level = Level(gameManager: gameManager,
+                      canvasManager: canvasRequestManager,
+                      gameInfo: GameInfo(playerPosition: Vector2D.zero, numberOfEnemies: 0)
+        )
+
         enemyEvent = EnemyCommand()
         enemyEvent.time = 2
-        
+
         enemySpawnerEvent = EnemySpawnerCommand()
         enemySpawnerEvent.time = 3
-        
+
         ammoDropEvent = AmmoDropCommand()
         ammoDropEvent.time = 4
-        
+
         canvasSpawnerEvent = CanvasSpawnerCommand(endX: 10)
         canvasSpawnerEvent.time = 5
     }
