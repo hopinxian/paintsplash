@@ -144,21 +144,24 @@ class Level {
     static func getDefaultLevel(gameManager: GameManager, canvasManager: CanvasRequestManager, gameInfo: GameInfo) -> Level {
         let level = Level(gameManager: gameManager, canvasManager: canvasManager, gameInfo: gameInfo)
 
-        let enemyCommand = EnemyCommand()
-        enemyCommand.time = 10
-
-        let spawnerCommand = EnemySpawnerCommand()
-        spawnerCommand.time = 100
-
-        for i in 0..<5 {
-            let dropCommand = AmmoDropCommand()
-            dropCommand.time = Double(i)
-            level.addSpawnEvent(dropCommand)
+        level.repeatLimit = 1
+        
+        for i in 0..<10 {
+            let enemyCommand = EnemyCommand()
+            enemyCommand.time = Double(10 * i)
+            level.addSpawnEvent(enemyCommand)
         }
         
+        let spawnerCommand = EnemySpawnerCommand()
+        spawnerCommand.time = 5
         level.addSpawnEvent(spawnerCommand)
-        level.addSpawnEvent(enemyCommand)
-
+        
+        for i in 0..<30 {
+            let dropCommand = AmmoDropCommand()
+            dropCommand.time = Double(i * 5)
+            level.addSpawnEvent(dropCommand)
+        }
+            
         return level
     }
 
