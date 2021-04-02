@@ -12,7 +12,7 @@ class RoomViewController: UIViewController {
     @IBOutlet private var roomCodeDisplay: UILabel!
     @IBOutlet private var hostNameLabel: UILabel!
     @IBOutlet private var guestNameLabel: UILabel!
-    @IBOutlet var startGameButton: UIButton!
+    @IBOutlet private var startGameButton: UIButton!
 
     var currentRoom: RoomInfo?
 
@@ -31,6 +31,7 @@ class RoomViewController: UIViewController {
                                   onRoomChange: onRoomChange,
                                   onRoomClose: onRoomClose,
                                   onError: onError)
+
         onRoomChange(roomInfo: room)
         if playerInfo != currentRoom?.host {
             startGameButton.isEnabled = false
@@ -56,6 +57,7 @@ class RoomViewController: UIViewController {
 
     func onRoomClose() {
         print("on room close")
+        self.navigationController?.popViewController(animated: true)
     }
 
     func onError(error: Error?) {
@@ -63,19 +65,22 @@ class RoomViewController: UIViewController {
     }
 
     @IBAction private func startGame(_ sender: UIButton) {
-        print("start game button pressed")
         guard let roomInfo = self.currentRoom,
               let player = self.playerInfo else {
             return
         }
 
         lobbyHandler?.startGame(roomId: roomInfo.roomId, player: player,
-                                onSuccess: nil, onError: onError(error:))
-
+                                onSuccess: nil, onError: onError)
     }
 
     @IBAction private func leaveRoom(_ sender: UIButton) {
-
+        guard let roomInfo = self.currentRoom,
+              let player = self.playerInfo else {
+            return
+        }
+        lobbyHandler?.leaveRoom(playerInfo: player, roomId: roomInfo.roomId,
+                                onSuccess: nil, onError: onError)
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -90,12 +95,16 @@ class RoomViewController: UIViewController {
             guard let clientVC = segue.destination as? MultiplayerClientViewController else {
                 return
             }
-            clientVC.connectionHandler = FirebaseConnectionHandler()
             clientVC.roomInfo = self.currentRoom
             clientVC.playerInfo = self.playerInfo
+            clientVC.lobbyHandler = self.lobbyHandler
         default:
             break
         }
+    }
+
+    deinit {
+        print("Closed view controller")
     }
 
 }

@@ -8,8 +8,7 @@
 import SpriteKit
 
 class SinglePlayerGameManager: GameManager {
-    var gameScene: GameScene
-    var gameManager: GameManager?
+    weak var gameScene: GameScene?
 
     // game entities that should change
     var entities = Set<GameEntity>()
@@ -37,11 +36,19 @@ class SinglePlayerGameManager: GameManager {
         let gameInfo = GameInfo(playerPosition: Vector2D.zero, numberOfEnemies: 0)
         self.gameInfoManager = GameInfoManager(gameInfo: gameInfo)
 
-        EventSystem.entityChangeEvents.addEntityEvent.subscribe(listener: onAddEntity)
-        EventSystem.entityChangeEvents.removeEntityEvent.subscribe(listener: onRemoveEntity)
-        EventSystem.entityChangeEvents.addUIEntityEvent.subscribe(listener: onAddUIEntity)
-        EventSystem.entityChangeEvents.removeUIEntityEvent.subscribe(listener: onRemoveUIEntity)
+        EventSystem.entityChangeEvents.addEntityEvent.subscribe(listener: { [weak self] event in
+            self?.onAddEntity(event: event)
 
+        })
+        EventSystem.entityChangeEvents.removeEntityEvent.subscribe(listener: { [weak self] event in
+            self?.onRemoveEntity(event: event)
+        })
+        EventSystem.entityChangeEvents.addUIEntityEvent.subscribe(listener: { [weak self] event in
+            self?.onAddUIEntity(event: event)
+        })
+        EventSystem.entityChangeEvents.removeUIEntityEvent.subscribe(listener: { [weak self] event in
+            self?.onRemoveUIEntity(event: event)
+        })
         setupGame()
     }
 
@@ -54,6 +61,10 @@ class SinglePlayerGameManager: GameManager {
     }
 
     func setUpSystems() {
+        guard let gameScene = self.gameScene else {
+            fatalError("Failed to initialize gamescene")
+        }
+
         let skRenderSystem = SKRenderSystem(scene: gameScene)
         self.renderSystem = skRenderSystem
 
@@ -211,6 +222,6 @@ class SinglePlayerGameManager: GameManager {
     }
 
     deinit {
-        print("deinit gamescene")
+        print("deinit SinglePlayerGameManager")
     }
 }

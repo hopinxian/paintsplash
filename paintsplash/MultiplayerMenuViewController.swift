@@ -52,7 +52,6 @@ class MultiplayerMenuViewController: UIViewController {
                                     self.onCreateRoom(roomInfo: roomInfo)
                                 },
                                 onError: { error in print("Failed to host room: \(error)") })
-
     }
 
     private func onCreateRoom(roomInfo: RoomInfo) {
@@ -86,7 +85,15 @@ class MultiplayerMenuViewController: UIViewController {
             print("No segue with given identifier")
             return
         }
+    }
 
+
+    @IBAction func closeMultiplayerMenu(_ sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
+    }
+
+    deinit {
+        print("Closed multiplayer menu")
     }
 
 }

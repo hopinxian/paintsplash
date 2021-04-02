@@ -34,12 +34,19 @@ class MultiplayerClient: GameManager {
         self.player = Player(initialPosition: .zero, playerUUID: playerId)
         self.audioSystem = AudioManager()
 
-        EventSystem.entityChangeEvents.addEntityEvent.subscribe(listener: onAddEntity)
-        EventSystem.entityChangeEvents.removeEntityEvent.subscribe(listener: onRemoveEntity)
-        EventSystem.entityChangeEvents.addUIEntityEvent.subscribe(listener: onAddUIEntity)
-        EventSystem.entityChangeEvents.removeUIEntityEvent.subscribe(listener: onRemoveUIEntity)
+        EventSystem.entityChangeEvents.addEntityEvent.subscribe(listener: { [weak self] in
+            self?.onAddEntity(event: $0)
+        })
+        EventSystem.entityChangeEvents.removeEntityEvent.subscribe(listener: { [weak self] in
+            self?.onRemoveEntity(event: $0)
+        })
+        EventSystem.entityChangeEvents.addUIEntityEvent.subscribe(listener: { [weak self] in
+            self?.onAddUIEntity(event: $0)
+        })
+        EventSystem.entityChangeEvents.removeUIEntityEvent.subscribe(listener: { [weak self] in
+            self?.onRemoveUIEntity(event: $0)
+        })
 
-        assert(playerInfo.playerUUID == room.players!.first!.value.playerUUID, "Wrong uuid")
         setupGame()
 
 //        let renderSystemPath = FirebasePaths.joinPaths(FirebasePaths.games, room.gameID, FirebasePaths.render_system)
@@ -113,16 +120,16 @@ class MultiplayerClient: GameManager {
     func setUpInputListeners() {
         let gameId = self.room.gameID
 
-        EventSystem.processedInputEvents.playerMoveEvent.subscribe {
-            self.sendPlayerMoveEvent($0, gameId: gameId)
+        EventSystem.processedInputEvents.playerMoveEvent.subscribe { [weak self] in
+            self?.sendPlayerMoveEvent($0, gameId: gameId)
         }
 
-        EventSystem.processedInputEvents.playerShootEvent.subscribe {
-            self.sendPlayerShootEvent($0, gameId: gameId)
+        EventSystem.processedInputEvents.playerShootEvent.subscribe { [weak self] in
+            self?.sendPlayerShootEvent($0, gameId: gameId)
         }
 
-        EventSystem.processedInputEvents.playerChangeWeaponEvent.subscribe {
-            self.sendPlayerWeaponChangeEvent($0, gameId: gameId)
+        EventSystem.processedInputEvents.playerChangeWeaponEvent.subscribe { [weak self] in
+            self?.sendPlayerWeaponChangeEvent($0, gameId: gameId)
         }
     }
 

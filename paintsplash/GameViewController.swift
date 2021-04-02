@@ -9,9 +9,8 @@ import UIKit
 import SpriteKit
 
 class GameViewController: UIViewController {
-
     weak var gameScene: GameScene?
-    var gameManager: GameManager?
+    weak var gameManager: GameManager?
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -36,7 +35,7 @@ class GameViewController: UIViewController {
 
             // Present the scene
             gameScene.size = view.bounds.size
-            view.preferredFramesPerSecond = 10
+            view.preferredFramesPerSecond = 1
 
             view.presentScene(gameScene)
 
@@ -77,6 +76,6 @@ class GameViewController: UIViewController {
     }
 
     deinit {
-        print("removed game view controller")
+        print("deinit game view controller")
     }
 }

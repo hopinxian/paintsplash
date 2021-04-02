@@ -25,12 +25,19 @@ class LevelTests: XCTestCase {
         gameManager.renderSystem = MockRenderSystem()
         gameManager.collisionSystem = MockCollisionSystem()
         self.gameManager = gameManager
+<<<<<<< HEAD
+        
+        level = Level(gameManager: gameManager, canvasManager: canvasRequestManager,
+                      gameInfo: GameInfo(playerPosition: Vector2D.zero, numberOfEnemies: 0))
+        
+=======
 
         level = Level(gameManager: gameManager,
                       canvasManager: canvasRequestManager,
                       gameInfo: GameInfo(playerPosition: Vector2D.zero, numberOfEnemies: 0)
         )
 
+>>>>>>> 4ae491f023fdb636d324671a48cbd93ca6bfe8c3
         enemyEvent = EnemyCommand()
         enemyEvent.time = 2
 

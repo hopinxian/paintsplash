@@ -99,6 +99,14 @@
                                     <segue destination="3xa-g7-gsi" kind="show" identifier="ShowJoinRoomVCSegue" id="zby-33-kVJ"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wtN-s0-Tvq">
+                                <rect key="frame" x="333" y="636" width="39" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Close"/>
+                                <connections>
+                                    <action selector="closeMultiplayerMenu:" destination="Sjf-th-9Xh" eventType="touchUpInside" id="kkg-hr-aiV"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="HNd-bv-kXe"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -229,6 +237,9 @@
                                 <rect key="frame" x="368" y="158" width="48" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Cancel"/>
+                                <connections>
+                                    <action selector="closeJoinRoomMenu:" destination="3xa-g7-gsi" eventType="touchUpInside" id="LON-bm-XiT"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="BgQ-L5-dD3"/>
@@ -282,6 +293,10 @@
                                 <rect key="frame" x="20" y="20" width="83" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Close Game"/>
+                                <connections>
+                                    <action selector="closeGame:" destination="HRi-Zi-BnW" eventType="touchUpInside" id="7cE-3V-lcQ"/>
+                                    <action selector="endMultplayerGame:" destination="HRi-Zi-BnW" eventType="touchUpInside" id="k0q-VP-h5R"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="hM5-9J-mW4"/>
@@ -305,6 +320,9 @@
                                 <rect key="frame" x="20" y="20" width="83" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Close Game"/>
+                                <connections>
+                                    <action selector="endMultiplayerGame:" destination="ESr-bj-Mg2" eventType="touchUpInside" id="XsS-I2-XT2"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="cah-7c-elU"/>
@@ -318,7 +336,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="qP2-MV-Z7H"/>
+        <segue reference="JGi-jN-m6e"/>
     </inferredMetricsTieBreakers>
     <resources>
         <systemColor name="systemBackgroundColor">

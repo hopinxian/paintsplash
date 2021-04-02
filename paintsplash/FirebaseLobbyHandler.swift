@@ -19,8 +19,13 @@ class FirebaseLobbyHandler: LobbyHandler {
         let roomId = randomFourCharString()
         let roomPath = FirebasePaths.joinPaths(FirebasePaths.rooms, roomId)
         connectionHandler.getData(at: roomPath) { [weak self] error, roomInfo in
+            guard error == nil else {
+                onError?(error)
+                return
+            }
+
             // Room already exists, try creating another one
-            if roomInfo != nil {
+            guard roomInfo == nil else {
                 self?.createRoom(player: player, onSuccess: onSuccess, onError: onError)
                 return
             }
@@ -35,36 +40,6 @@ class FirebaseLobbyHandler: LobbyHandler {
                 onError: onError
             )
         }
-//        roomRef.observeSingleEvent(of: .value, with: { [weak self] snapshot in
-//
-//            // Room already exists, try creating another one
-//            if snapshot.value as? [String: AnyObject] != nil {
-//                self?.createRoom(player: player, onSuccess: onSuccess, onError: onError)
-//                return
-//            }
-//
-//            let hostId = player.playerUUID
-//
-//            let playerDict = player.toPlayerDict()
-//            let players = [hostId: playerDict]
-//
-//            var roomInfo: [String: AnyObject] = [:]
-//            roomInfo[FirebasePaths.rooms_isOpen] = true as AnyObject
-//            roomInfo[FirebasePaths.rooms_id] = roomId as AnyObject
-//            roomInfo[FirebasePaths.rooms_players] = players as AnyObject
-//
-//            roomRef.setValue(roomInfo, withCompletionBlock: { error, ref in
-//                if let error = error {
-//                    onError?(error)
-//                    return
-//                }
-//
-//                ref.onDisconnectRemoveValue()
-//
-//                // TODO
-//                onSuccess?(RoomInfo(from: roomInfo))
-//            })
-//        })
     }
 
     private func randomFourCharString() -> String {
@@ -78,10 +53,9 @@ class FirebaseLobbyHandler: LobbyHandler {
     func joinRoom(player: PlayerInfo, roomId: String, onSuccess: ((RoomInfo) -> Void)?,
                   onError: ((Error?) -> Void)?, onRoomIsClosed: (() -> Void)?,
                   onRoomNotExist: (() -> Void)?) {
-        print("Try to join room \(roomId)")
         // Try to join a room
-        let roomPath = FirebasePaths.rooms + "/" + roomId
-        connectionHandler.getData(at: roomPath, block: { (error: Error?, roomInfo: RoomInfo?) in
+        let roomPath = FirebasePaths.joinPaths(FirebasePaths.rooms, roomId)
+        connectionHandler.getData(at: roomPath, block: { [weak self] (error: Error?, roomInfo: RoomInfo?) in
             guard let roomInfo = roomInfo else {
                 onRoomNotExist?()
                 return
@@ -92,11 +66,10 @@ class FirebaseLobbyHandler: LobbyHandler {
                 return
             }
             // TODO: check if we should close room immediately
-
             let players = roomInfo.players ?? [:]
             // check that player doesn't already exist
             guard players[player.playerUUID] == nil else {
-                print("player already exists")
+                print("Player already exists")
                 onError?(nil)
                 return
             }
@@ -105,9 +78,9 @@ class FirebaseLobbyHandler: LobbyHandler {
             var newRoomInfo = roomInfo
             newRoomInfo.players = [:]
             newRoomInfo.players?[player.playerUUID] = player
-            let roomPath = FirebasePaths.joinPaths(FirebasePaths.rooms, roomId, FirebasePaths.rooms_players,
-                                                   player.playerUUID)
-            self.connectionHandler.send(
+            let roomPath = FirebasePaths.joinPaths(FirebasePaths.rooms, roomId,
+                                                   FirebasePaths.rooms_players, player.playerUUID)
+            self?.connectionHandler.send(
                 to: roomPath,
                 data: player,
                 mode: .single, shouldRemoveOnDisconnect: true,
@@ -121,6 +94,7 @@ class FirebaseLobbyHandler: LobbyHandler {
                      onError: ((Error?) -> Void)?) {
         let roomPath = FirebasePaths.joinPaths(FirebasePaths.rooms, roomId)
         connectionHandler.listen(to: roomPath) { (roomInfo: RoomInfo?) in
+            // If room is closed
             guard let roomInfo = roomInfo else {
                 onRoomClose?()
                 return
@@ -129,8 +103,41 @@ class FirebaseLobbyHandler: LobbyHandler {
         }
     }
 
-    func leaveRoom(roomId: String, onSuccess: (() -> Void)?, onError: ((Error?) -> Void)?) {
-        // TODO: check if player is host
+    func leaveRoom(playerInfo: PlayerInfo, roomId: String, onSuccess: (() -> Void)?, onError: ((Error?) -> Void)?) {
+        let roomPath = FirebasePaths.joinPaths(FirebasePaths.rooms, roomId)
+        connectionHandler.getData(at: roomPath, block: { [weak self] (error: Error?, roomInfo: RoomInfo?) in
+            guard let roomInfo = roomInfo else {
+                onError?(error)
+                return
+            }
+
+            // If player is host: remove room
+            if roomInfo.host == playerInfo {
+                self?.connectionHandler.removeData(at: roomPath, block: { error in
+                    if error != nil {
+                        print("host leave room error")
+                        onError?(error)
+                        return
+                    }
+                    print("Player was host and closed room")
+                    onSuccess?()
+                    return
+                })
+            }
+
+            // If player is guest:
+            let playerPath = FirebasePaths.joinPaths(roomPath, FirebasePaths.game_players, playerInfo.playerUUID)
+            self?.connectionHandler.removeData(at: playerPath, block: { error in
+                if error != nil {
+                    print("guest leave room error")
+                    onError?(error)
+                    return
+                }
+                print("Player was guest and left room")
+                onSuccess?()
+            })
+        })
+
     }
 
     func getAllRooms() {
@@ -147,8 +154,7 @@ class FirebaseLobbyHandler: LobbyHandler {
                    onError: ((Error?) -> Void)?) {
         let roomPath = FirebasePaths.joinPaths(FirebasePaths.rooms, roomId)
 
-        // create and set a room ID
-        connectionHandler.getData(at: roomPath, block: { (error: Error?, roomInfo: RoomInfo?) in
+        connectionHandler.getData(at: roomPath, block: { [weak self] (error: Error?, roomInfo: RoomInfo?) in
             guard var roomInfo = roomInfo else {
                 print("Room does not exist anymore")
                 return
@@ -160,37 +166,68 @@ class FirebaseLobbyHandler: LobbyHandler {
                 return
             }
 
-//            guard roomInfo.players != nil else {
-//                print("Insufficient players to start multiplayer game")
-//                return
-//            }
+            guard roomInfo.players != nil else {
+                // TODO: handle UI for this
+                print("Insufficient players to start multiplayer game")
+                return
+            }
 
             // Generate UUID for new game
             let newGameId = UUID().uuidString
 
             // Create a new game entry
             let gamePath = FirebasePaths.joinPaths(FirebasePaths.games, newGameId)
-            let newGame = GameStateInfo(roomId: roomId, gameId: newGameId)
+            let newGame = GameStateInfo(roomId: roomId, gameId: newGameId, isRunning: true)
 
-            self.connectionHandler.send(to: gamePath,
-                                        data: newGame,
-                                        mode: .single, shouldRemoveOnDisconnect: true,
-                                        onComplete: nil,
-                                        onError: onError)
+            self?.connectionHandler.send(to: gamePath,
+                                         data: newGame,
+                                         mode: .single, shouldRemoveOnDisconnect: true,
+                                         onComplete: nil,
+                                         onError: onError)
 
             // Update game state for room
             roomInfo.gameID = newGameId
             roomInfo.started = true
             roomInfo.closeGame()
             let roomGamePath = FirebasePaths.joinPaths(roomPath)
-            self.connectionHandler.send(to: roomGamePath,
-                                        data: roomInfo,
-                                        mode: .single, shouldRemoveOnDisconnect: true,
-                                        onComplete: { onSuccess?(roomInfo) },
-                                        onError: onError)
-
-            print("successfully set game ID")
+            self?.connectionHandler.send(to: roomGamePath,
+                                         data: roomInfo,
+                                         mode: .single, shouldRemoveOnDisconnect: true,
+                                         onComplete: { onSuccess?(roomInfo) },
+                                         onError: onError)
         })
     }
 
+    func stopGame(roomInfo: RoomInfo, onSuccess: (() -> Void)?, onError: ((Error?) -> Void)?) {
+        let gamePath = FirebasePaths.joinPaths(FirebasePaths.games, roomInfo.gameID)
+        let gameRunningPath = FirebasePaths.joinPaths(FirebasePaths.games, roomInfo.gameID,
+                                                      FirebasePaths.game_isRunning)
+        connectionHandler.sendSingleValue(to: gameRunningPath, data: false,
+                                          shouldRemoveOnDisconnect: false,
+                                          onComplete: { [weak self] in
+                                            self?.connectionHandler.removeData(at: gamePath, block: { error in
+                                                if error != nil {
+                                                    onError?(error)
+                                                    return
+                                                }
+                                                print("stopped game, removed game data")
+                                                onSuccess?()
+                                            })
+                                          }, onError: onError)
+    }
+
+    func observeGame(roomInfo: RoomInfo, onGameStop: (() -> Void)?, onError: ((Error?) -> Void)?) {
+        let gameRunningPath = FirebasePaths.joinPaths(FirebasePaths.games, roomInfo.gameID,
+                                                      FirebasePaths.game_isRunning)
+        connectionHandler.observeSingleValue(to: gameRunningPath, callBack: { (isRunning: Bool?) in
+            guard let isRunning = isRunning else {
+                return
+            }
+
+            if !isRunning {
+                onGameStop?()
+            }
+        })
+
+    }
 }
