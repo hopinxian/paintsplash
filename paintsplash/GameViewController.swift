@@ -9,7 +9,6 @@ import UIKit
 import SpriteKit
 
 class GameViewController: UIViewController {
-
     weak var gameScene: GameScene?
     weak var gameManager: GameManager?
 
@@ -36,7 +35,7 @@ class GameViewController: UIViewController {
 
             // Present the scene
             gameScene.size = view.bounds.size
-            view.preferredFramesPerSecond = 30
+            view.preferredFramesPerSecond = 1
 
             view.presentScene(gameScene)
 

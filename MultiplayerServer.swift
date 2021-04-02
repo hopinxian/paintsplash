@@ -51,21 +51,21 @@ class MultiplayerServer: SinglePlayerGameManager {
         newPlayer.spawn()
 
         // Send player state updates to DB
-        EventSystem.playerActionEvent.playerHealthUpdateEvent.subscribe(listener: { event in
+        EventSystem.playerActionEvent.playerHealthUpdateEvent.subscribe(listener: { [weak self] event in
             guard event.playerId == playerID else {
                 return
             }
-            self.gameConnectionHandler?.sendPlayerEvent(gameId: gameId,
+            self?.gameConnectionHandler?.sendPlayerEvent(gameId: gameId,
                                                         playerId: playerID.id,
                                                         action: event)
         })
 
         // Update player ammo
-        EventSystem.playerActionEvent.playerAmmoUpdateEvent.subscribe(listener: { event in
+        EventSystem.playerActionEvent.playerAmmoUpdateEvent.subscribe(listener: { [weak self] event in
             guard event.playerId == playerID else {
                 return
             }
-            self.gameConnectionHandler?.sendPlayerEvent(gameId: gameId, playerId: playerID.id, action: event)
+            self?.gameConnectionHandler?.sendPlayerEvent(gameId: gameId, playerId: playerID.id, action: event)
         })
 
         // Listen to user input from clients

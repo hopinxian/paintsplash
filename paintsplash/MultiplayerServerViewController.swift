@@ -13,7 +13,7 @@ class MultiplayerServerViewController: GameViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        guard let scene = gameScene else {
+        guard let scene = self.gameScene else {
             fatalError("GameScene not setup properly")
         }
         let gameManager = MultiplayerServer(roomInfo: roomInfo, gameScene: scene)
