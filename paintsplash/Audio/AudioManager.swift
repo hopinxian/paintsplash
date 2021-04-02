@@ -25,6 +25,13 @@ class AudioManager: AudioSystem {
         EventSystem.audioEvent.subscribe(listener: audioEventListener)
     }
 
+    deinit {
+        musicPlayer?.stop()
+        effectPlayer?.stop()
+        musicPlayer = nil
+        effectPlayer = nil
+    }
+
     convenience init(associatedDeviceId: EntityID?) {
         self.init()
         self.associatedDevice = associatedDeviceId

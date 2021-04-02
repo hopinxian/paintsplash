@@ -34,6 +34,7 @@ class MultiplayerClient: GameManager {
             fatalError("Invalid player ID")
         }
         self.player = Player(initialPosition: .zero, playerUUID: playerId)
+        self.audioSystem = AudioManager()
 
         EventSystem.entityChangeEvents.addEntityEvent.subscribe(listener: onAddEntity)
         EventSystem.entityChangeEvents.removeEntityEvent.subscribe(listener: onRemoveEntity)
@@ -78,16 +79,22 @@ class MultiplayerClient: GameManager {
             onChange: { EventSystem.playerActionEvent.playerAmmoUpdateEvent.post(event: $0) }
         )
 
-//        gameConnectionHandler.observeEvent(
-//            gameId: gameID,
-//            playerId: playerInfo.playerUUID,
-//            onChange: { EventSystem.audioEvent.playMusicEvent.post(event: $0) }
-//        )
+        gameConnectionHandler.observeEvent(
+            gameId: gameID,
+            playerId: playerInfo.playerUUID,
+            onChange: { (event: PlayMusicEvent) in
+                EventSystem.audioEvent.playMusicEvent.post(event: event)
+                self.gameConnectionHandler.acknowledgeEvent(event, gameId: gameID, playerId: self.playerInfo.playerUUID)
+            }
+        )
 
         gameConnectionHandler.observeEvent(
             gameId: gameID,
             playerId: playerInfo.playerUUID,
-            onChange: { EventSystem.audioEvent.post(event: $0) }
+            onChange: { (event: PlaySoundEffectEvent) in
+                EventSystem.audioEvent.playSoundEffectEvent.post(event: event)
+                self.gameConnectionHandler.acknowledgeEvent(event, gameId: gameID, playerId: self.playerInfo.playerUUID)
+            }
         )
     }
 
@@ -197,6 +204,7 @@ class MultiplayerClient: GameManager {
 
     func setUpAudio() {
         self.audioSystem = AudioManager(associatedDeviceId: player.id)
+        EventSystem.audioEvent.playMusicEvent.post(event: PlayMusicEvent(music: Music.backgroundMusic))
     }
 
     func inLobby() -> Bool {

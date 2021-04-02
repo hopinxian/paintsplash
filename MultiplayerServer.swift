@@ -27,7 +27,7 @@ class MultiplayerServer: SinglePlayerGameManager {
         setUpEntities()
         setUpPlayer()
         setUpUI()
-        setUpAudio()
+        super.setUpAudio()
     }
 
     override func setUpPlayer() {
@@ -73,13 +73,38 @@ class MultiplayerServer: SinglePlayerGameManager {
         })
 
         // Send background music information
-//
-//        EventSystem.audioEvent.playMusicEvent.subscribe { event in
-//            self.gameConnectionHandler?.sendEvent(gameId: gameId, playerId: playerID.id.uuidString, action: event)
-//        }
 
-        EventSystem.audioEvent.subscribe { event in
-            self.gameConnectionHandler?.sendEvent(gameId: gameId, playerId: playerID.id.uuidString, action: event)
+        EventSystem.audioEvent.playMusicEvent.subscribe { event in
+
+            print("sending out music event now")
+
+            guard let players = self.room.players else {
+                return
+            }
+
+            guard let playerId = event.playerId else {
+                players.forEach {
+                    self.gameConnectionHandler?.sendEvent(gameId: gameId, playerId: $0.key, action: event)
+                }
+                return
+            }
+
+            self.gameConnectionHandler?.sendEvent(gameId: gameId, playerId: playerId.id.uuidString, action: event)
+        }
+
+        EventSystem.audioEvent.playSoundEffectEvent.subscribe { event in
+            guard let players = self.room.players else {
+                return
+            }
+
+            guard let playerId = event.playerId else {
+                players.forEach {
+                    self.gameConnectionHandler?.sendEvent(gameId: gameId, playerId: $0.key, action: event)
+                }
+                return
+            }
+
+            self.gameConnectionHandler?.sendEvent(gameId: gameId, playerId: playerId.id.uuidString, action: event)
         }
 
         // Listen to user input from clients
