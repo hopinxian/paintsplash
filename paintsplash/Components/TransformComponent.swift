@@ -29,10 +29,6 @@ class TransformComponent: Component, Codable {
 
         self.parentID = parent.id
         self.worldPosition = parentTransformable.transformComponent.worldPosition + localPosition
-        print("Here")
-        print(parentTransformable.transformComponent.worldPosition)
-        print(localPosition)
-        print(self.worldPosition)
     }
 
     func removeParent() {

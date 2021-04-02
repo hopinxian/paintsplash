@@ -41,7 +41,11 @@ struct AnimationSystemData: Codable {
             if let callback = animatable.animationComponent.callBack {
                 callbackId = ClientCallback.manager.addCallback(callback: callback)
             }
-            self.animatables[entity] = EncodableAnimatable(entityID: entity, animationComponent: animatable.animationComponent, callbackId: callbackId)
+            self.animatables[entity] = EncodableAnimatable(
+                entityID: entity,
+                animationComponent: animatable.animationComponent,
+                callbackId: callbackId
+            )
         })
     }
 }

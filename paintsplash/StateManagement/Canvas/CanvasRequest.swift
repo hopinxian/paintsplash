@@ -10,6 +10,7 @@ class CanvasRequest: GameEntity, Renderable, Transformable {
 
     var renderComponent: RenderComponent
     var transformComponent: TransformComponent
+    private var paintBlobs: Set<PaintBlob> = []
 
     init?(requiredColors: Set<PaintColor>, position: Vector2D) {
         if requiredColors.count < 1 {
@@ -38,6 +39,12 @@ class CanvasRequest: GameEntity, Renderable, Transformable {
             // add visible paint blob to canvas
             let blob = PaintBlob(color: color, canvas: self)
             blob.spawn()
+            paintBlobs.insert(blob)
         }
+    }
+
+    override func destroy() {
+        paintBlobs.forEach({ $0.destroy() })
+        super.destroy()
     }
 }
