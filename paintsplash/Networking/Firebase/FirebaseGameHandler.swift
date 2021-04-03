@@ -6,7 +6,11 @@
 //
 
 class FirebaseGameHandler: GameConnectionHandler {
-    let connectionHandler = FirebaseConnectionHandler()
+    let connectionHandler: ConnectionHandler
+
+    init(connectionHandler: ConnectionHandler) {
+        self.connectionHandler = connectionHandler
+    }
 
     private func getEventPath(_ event: Event.Type) -> String? {
         switch event {
@@ -29,8 +33,15 @@ class FirebaseGameHandler: GameConnectionHandler {
         }
     }
 
-    func sendEvent<T: Codable>(gameId: String, playerId: String, action: T) where T: Event {
+    func sendEvent<T>(
+        gameId: String,
+        playerId: String, action: T,
+        onError: ((Error?) -> Void)?,
+        onSuccess: (() -> Void)?
+    ) where T: Decodable, T: Encodable, T: Event {
+
         guard let path = getEventPath(T.self) else {
+            onError?(nil)
             return
         }
 
@@ -43,16 +54,18 @@ class FirebaseGameHandler: GameConnectionHandler {
         connectionHandler.send(
             to: playerPath, data: action,
             mode: .single, shouldRemoveOnDisconnect: false,
-            onComplete: nil, onError: nil
+            onComplete: onSuccess, onError: onError
         )
     }
 
     func observeEvent<T: Codable>(
         gameId: String,
         playerId: String,
-        onChange: ((T) -> Void)?
+        onChange: ((T) -> Void)?,
+        onError: ((Error?) -> Void)?
     ) where T: Event {
         guard let path = getEventPath(T.self) else {
+            onError?(nil)
             return
         }
 
@@ -61,6 +74,8 @@ class FirebaseGameHandler: GameConnectionHandler {
             FirebasePaths.game_players, playerId,
             path
         )
+
+        print("here now")
         connectionHandler.listen(
             to: playerPath,
             callBack: { (event: T?) in
@@ -75,9 +90,12 @@ class FirebaseGameHandler: GameConnectionHandler {
     func acknowledgeEvent<T: Codable>(
         _ event: T,
         gameId: String,
-        playerId: String
+        playerId: String,
+        onError: ((Error?) -> Void)?,
+        onSuccess: (() -> Void)?
     ) where T: Event {
         guard let path = getEventPath(T.self) else {
+            onError?(nil)
             return
         }
 
@@ -87,6 +105,13 @@ class FirebaseGameHandler: GameConnectionHandler {
             path
         )
 
-        connectionHandler.removeData(at: playerPath)
+        connectionHandler.removeData(at: playerPath) { error in
+            guard let err = error else {
+                onSuccess?()
+                return
+            }
+
+            onError?(err)
+        }
     }
 }

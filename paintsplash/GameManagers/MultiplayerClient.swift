@@ -13,7 +13,8 @@ class MultiplayerClient: GameManager {
     var room: RoomInfo
     var connectionHandler: ConnectionHandler
     var gameScene: GameScene
-    var gameConnectionHandler: GameConnectionHandler = FirebaseGameHandler()
+    var gameConnectionHandler: GameConnectionHandler =
+        FirebaseGameHandler(connectionHandler: FirebaseConnectionHandler())
 
     var playerInfo: PlayerInfo
     // Dummy player that allows the appropriate ammo stacks to appear
@@ -72,8 +73,10 @@ class MultiplayerClient: GameManager {
         gameConnectionHandler.observeEvent(
             gameId: gameID,
             playerId: playerInfo.playerUUID,
-            onChange: { EventSystem.playerActionEvent.playerHealthUpdateEvent.post(event: $0)
-            }
+            onChange: {
+                EventSystem.playerActionEvent.playerHealthUpdateEvent.post(event: $0)
+            },
+            onError: nil
         )
 
         gameConnectionHandler.observeEvent(
@@ -81,7 +84,8 @@ class MultiplayerClient: GameManager {
             playerId: playerInfo.playerUUID,
             onChange: {
                 EventSystem.playerActionEvent.playerAmmoUpdateEvent.post(event: $0)
-            }
+            },
+            onError: nil
         )
 
         gameConnectionHandler.observeEvent(
@@ -92,9 +96,12 @@ class MultiplayerClient: GameManager {
                 self.gameConnectionHandler.acknowledgeEvent(
                     event,
                     gameId: gameID,
-                    playerId: self.playerInfo.playerUUID
+                    playerId: self.playerInfo.playerUUID,
+                    onError: nil,
+                    onSuccess: nil
                 )
-            }
+            },
+            onError: nil
         )
 
         gameConnectionHandler.observeEvent(
@@ -105,9 +112,12 @@ class MultiplayerClient: GameManager {
                 self.gameConnectionHandler.acknowledgeEvent(
                     event,
                     gameId: gameID,
-                    playerId: self.playerInfo.playerUUID
+                    playerId: self.playerInfo.playerUUID,
+                    onError: nil,
+                    onSuccess: nil
                 )
-            }
+            },
+            onError: nil
         )
 
         let systemPath = FirebasePaths.joinPaths(
@@ -150,7 +160,9 @@ class MultiplayerClient: GameManager {
         self.gameConnectionHandler.sendEvent(
             gameId: gameId,
             playerId: event.playerId.id,
-            action: event
+            action: event,
+            onError: nil,
+            onSuccess: nil
         )
     }
 
@@ -158,7 +170,9 @@ class MultiplayerClient: GameManager {
         self.gameConnectionHandler.sendEvent(
             gameId: gameId,
             playerId: event.playerId.id,
-            action: event
+            action: event,
+            onError: nil,
+            onSuccess: nil
         )
     }
 
@@ -166,7 +180,9 @@ class MultiplayerClient: GameManager {
         self.gameConnectionHandler.sendEvent(
             gameId: gameId,
             playerId: event.playerId.id,
-            action: event
+            action: event,
+            onError: nil,
+            onSuccess: nil
         )
     }
 

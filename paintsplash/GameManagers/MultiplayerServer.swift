@@ -22,7 +22,7 @@ class MultiplayerServer: SinglePlayerGameManager {
     }
 
     override func setupGame() {
-        self.gameConnectionHandler = FirebaseGameHandler()
+        self.gameConnectionHandler = FirebaseGameHandler(connectionHandler: FirebaseConnectionHandler())
         setUpSystems()
         setUpEntities()
         setUpPlayer()
@@ -58,7 +58,9 @@ class MultiplayerServer: SinglePlayerGameManager {
             }
             self?.gameConnectionHandler?.sendEvent(gameId: gameId,
                                                    playerId: playerID.id,
-                                                   action: event)
+                                                   action: event,
+                                                   onError: nil,
+                                                   onSuccess: nil)
         })
 
         // Update player ammo
@@ -66,7 +68,12 @@ class MultiplayerServer: SinglePlayerGameManager {
             guard event.playerId == playerID else {
                 return
             }
-            self?.gameConnectionHandler?.sendEvent(gameId: gameId, playerId: playerID.id, action: event)
+            self?.gameConnectionHandler?
+                .sendEvent(gameId: gameId,
+                           playerId: playerID.id,
+                           action: event,
+                           onError: nil,
+                           onSuccess: nil)
         })
 
         // Send background music information
@@ -78,12 +85,19 @@ class MultiplayerServer: SinglePlayerGameManager {
 
             guard let playerId = event.playerId else {
                 players.forEach {
-                    self.gameConnectionHandler?.sendEvent(gameId: gameId, playerId: $0.key, action: event)
+                    self.gameConnectionHandler?
+                        .sendEvent(gameId: gameId, playerId: $0.key,
+                                   action: event, onError: nil, onSuccess: nil)
                 }
                 return
             }
 
-            self.gameConnectionHandler?.sendEvent(gameId: gameId, playerId: playerId.id, action: event)
+            self.gameConnectionHandler?
+                .sendEvent(gameId: gameId,
+                           playerId: playerId.id,
+                           action: event,
+                           onError: nil,
+                           onSuccess: nil)
         }
 
         EventSystem.audioEvent.playSoundEffectEvent.subscribe { event in
@@ -93,12 +107,16 @@ class MultiplayerServer: SinglePlayerGameManager {
 
             guard let playerId = event.playerId else {
                 players.forEach {
-                    self.gameConnectionHandler?.sendEvent(gameId: gameId, playerId: $0.key, action: event)
+                    self.gameConnectionHandler?
+                        .sendEvent(gameId: gameId, playerId: $0.key,
+                                   action: event, onError: nil, onSuccess: nil)
                 }
                 return
             }
 
-            self.gameConnectionHandler?.sendEvent(gameId: gameId, playerId: playerId.id, action: event)
+            self.gameConnectionHandler?
+                .sendEvent(gameId: gameId, playerId: playerId.id,
+                           action: event, onError: nil, onSuccess: nil)
         }
 
         // Listen to user input from clients
@@ -107,21 +125,24 @@ class MultiplayerServer: SinglePlayerGameManager {
         self.gameConnectionHandler?.observeEvent(
             gameId: gameId,
             playerId: playerID.id,
-            onChange: { EventSystem.processedInputEvents.playerShootEvent.post(event: $0) }
+            onChange: { EventSystem.processedInputEvents.playerShootEvent.post(event: $0) },
+            onError: nil
         )
 
         // Movement input
         self.gameConnectionHandler?.observeEvent(
             gameId: gameId,
             playerId: playerID.id,
-            onChange: { EventSystem.processedInputEvents.playerMoveEvent.post(event: $0) }
+            onChange: { EventSystem.processedInputEvents.playerMoveEvent.post(event: $0) },
+            onError: nil
         )
 
         // Weapon change
         self.gameConnectionHandler?.observeEvent(
             gameId: gameId,
             playerId: playerID.id,
-            onChange: { EventSystem.processedInputEvents.playerChangeWeaponEvent.post(event: $0) }
+            onChange: { EventSystem.processedInputEvents.playerChangeWeaponEvent.post(event: $0) },
+            onError: nil
         )
     }
 

@@ -67,6 +67,8 @@
 		ACA1B3FA26184F4B004F210F /* GameConnectionHandlerStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA1B3F926184F4B004F210F /* GameConnectionHandlerStub.swift */; };
 		ACA1B40226185155004F210F /* FirebaseLobbyHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA1B40126185155004F210F /* FirebaseLobbyHandlerTests.swift */; };
 		ACA1B408261854A8004F210F /* ConnectionHandlerStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA1B407261854A8004F210F /* ConnectionHandlerStub.swift */; };
+		ACA1B412261879D8004F210F /* FirebaseGameHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA1B411261879D8004F210F /* FirebaseGameHandlerTests.swift */; };
+		ACA1B41626187FEA004F210F /* CodableEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA1B41526187FEA004F210F /* CodableEvent.swift */; };
 		ACB3607225F661620016E240 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB3607125F661620016E240 /* AppDelegate.swift */; };
 		ACB3607425F661620016E240 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = ACB3607325F661620016E240 /* GameScene.sks */; };
 		ACB3607625F661620016E240 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = ACB3607525F661620016E240 /* Actions.sks */; };
@@ -360,6 +362,8 @@
 		ACA1B3F926184F4B004F210F /* GameConnectionHandlerStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameConnectionHandlerStub.swift; sourceTree = "<group>"; };
 		ACA1B40126185155004F210F /* FirebaseLobbyHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseLobbyHandlerTests.swift; sourceTree = "<group>"; };
 		ACA1B407261854A8004F210F /* ConnectionHandlerStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionHandlerStub.swift; sourceTree = "<group>"; };
+		ACA1B411261879D8004F210F /* FirebaseGameHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseGameHandlerTests.swift; sourceTree = "<group>"; };
+		ACA1B41526187FEA004F210F /* CodableEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableEvent.swift; sourceTree = "<group>"; };
 		ACB3606E25F661620016E240 /* paintsplash.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = paintsplash.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACB3607125F661620016E240 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ACB3607325F661620016E240 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -666,6 +670,7 @@
 				D5553DAB26071C0100C1862E /* MockRenderSystem.swift */,
 				D5553DAF26071E0700C1862E /* MockCollisionSystem.swift */,
 				849E63AC26179E9A00AFA9A7 /* MockGameManager.swift */,
+				ACA1B41526187FEA004F210F /* CodableEvent.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -830,6 +835,7 @@
 				D5553DC52607279800C1862E /* CanvasRenderableTests.swift */,
 				ACA1B3EF26184C1C004F210F /* FirebasePathsTests.swift */,
 				ACA1B40126185155004F210F /* FirebaseLobbyHandlerTests.swift */,
+				ACA1B411261879D8004F210F /* FirebaseGameHandlerTests.swift */,
 			);
 			path = paintsplashTests;
 			sourceTree = "<group>";
@@ -1898,6 +1904,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AC3EB7212606F57300B5B963 /* PlayerMovementBoundsTests.swift in Sources */,
+				ACA1B412261879D8004F210F /* FirebaseGameHandlerTests.swift in Sources */,
 				84CF592B2618512D008FB1A7 /* MultiWeaponComponentTests.swift in Sources */,
 				ACF567942606EF3F009D0A28 /* PlayerStateChangeTests.swift in Sources */,
 				ACA1B408261854A8004F210F /* ConnectionHandlerStub.swift in Sources */,
@@ -1921,6 +1928,7 @@
 				8418A7A82606FA6D000BFBD4 /* LevelScoreTests.swift in Sources */,
 				84CF593326185D2A008FB1A7 /* HealthComponentTests.swift in Sources */,
 				ACF5676A2606E446009D0A28 /* AudioPlayerImplTests.swift in Sources */,
+				ACA1B41626187FEA004F210F /* CodableEvent.swift in Sources */,
 				AC3EB7262606F58500B5B963 /* PlayerCollisionTests.swift in Sources */,
 				AC3EB72E260701D800B5B963 /* PlayerHealthTests.swift in Sources */,
 				AC3EB733260703ED00B5B963 /* PlayerWeaponChangeTests.swift in Sources */,
