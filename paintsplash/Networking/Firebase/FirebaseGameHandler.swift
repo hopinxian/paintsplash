@@ -75,7 +75,6 @@ class FirebaseGameHandler: GameConnectionHandler {
             path
         )
 
-        print("here now")
         connectionHandler.listen(
             to: playerPath,
             callBack: { (event: T?) in

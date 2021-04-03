@@ -13,7 +13,7 @@ class GameInfo {
     var existingEnemyColors: [PaintColor: Int] = [:]
     var requiredCanvasColors: [PaintColor: Int] = [:]
     var existingDropColors: [PaintColor: Int] = [:]
-    
+
     init(playerPosition: Vector2D, numberOfEnemies: Int) {
         self.playerPosition = playerPosition
         self.numberOfEnemies = numberOfEnemies

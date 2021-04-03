@@ -8,7 +8,7 @@ import UIKit
 import SpriteKit
 
 class SinglePlayerViewController: UIViewController {
-    @IBOutlet var gameView: SKView!
+    @IBOutlet private var gameView: SKView!
 
     override func viewDidLoad() {
         super.viewDidLoad()

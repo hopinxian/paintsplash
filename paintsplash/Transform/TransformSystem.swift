@@ -10,7 +10,7 @@ protocol TransformSystem: System {
 }
 
 class WorldTransformSystem: TransformSystem {
-    var transformables = [EntityID : Transformable]()
+    var transformables = [EntityID: Transformable]()
 
     func addEntity(_ entity: GameEntity) {
         guard let transformable = entity as? Transformable else {

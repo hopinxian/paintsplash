@@ -60,7 +60,7 @@ class FirebaseLobbyHandler: LobbyHandler {
         // Try to join a room
         let roomPath = FirebasePaths.joinPaths(FirebasePaths.rooms, roomId)
 
-        connectionHandler.getData(at: roomPath, block: { [weak self] (error: Error?, roomInfo: RoomInfo?) in
+        connectionHandler.getData(at: roomPath, block: { [weak self] (_: Error?, roomInfo: RoomInfo?) in
             guard let roomInfo = roomInfo else {
                 onRoomNotExist?()
                 return
@@ -83,8 +83,11 @@ class FirebaseLobbyHandler: LobbyHandler {
             var newRoomInfo = roomInfo
             newRoomInfo.players = [:]
             newRoomInfo.players?[player.playerUUID] = player
-            let roomPath = FirebasePaths.joinPaths(FirebasePaths.rooms, roomId,
-                                                   FirebasePaths.rooms_players, player.playerUUID)
+            let roomPath = FirebasePaths.joinPaths(
+                FirebasePaths.rooms, roomId,
+                FirebasePaths.rooms_players, player.playerUUID
+            )
+
             self?.connectionHandler.send(
                 to: roomPath,
                 data: player,
@@ -156,14 +159,13 @@ class FirebaseLobbyHandler: LobbyHandler {
             })
         })
     }
-    
+
     func getAllRooms() {
-        connectionHandler.getData(at: FirebasePaths.rooms) { (error, snapshot) in
-            if let error = error {
-                print("Error fetching all rooms \(error)")
+        connectionHandler.getData(at: FirebasePaths.rooms) { error, snapshot in
+            if let err = error {
+                print("Error fetching all rooms \(err)")
                 return
             }
-            print("Fetched all rooms: \(snapshot)")
         }
     }
 
@@ -175,7 +177,7 @@ class FirebaseLobbyHandler: LobbyHandler {
     ) {
         let roomPath = FirebasePaths.joinPaths(FirebasePaths.rooms, roomId)
 
-        connectionHandler.getData(at: roomPath, block: { [weak self] (error: Error?, roomInfo: RoomInfo?) in
+        connectionHandler.getData(at: roomPath, block: { [weak self] (_: Error?, roomInfo: RoomInfo?) in
             guard var roomInfo = roomInfo else {
                 print("Room does not exist anymore")
                 return
@@ -227,35 +229,44 @@ class FirebaseLobbyHandler: LobbyHandler {
                                                       FirebasePaths.game_isRunning)
 
         func changeGameStatus() {
-            let gameStartedPath = FirebasePaths.joinPaths(FirebasePaths.rooms, roomInfo.roomId,
-                                                          FirebasePaths.rooms_gameStarted)
-            self.connectionHandler.sendSingleValue(to: gameStartedPath,
-                                                   data: false,
-                                                   shouldRemoveOnDisconnect: false,
-                                                   onComplete: {
-                                                    print("changed game status")
-                                                    onSuccess?()
-                                                   },
-                                                   onError: onError)
+            let gameStartedPath = FirebasePaths.joinPaths(
+                FirebasePaths.rooms, roomInfo.roomId,
+                FirebasePaths.rooms_gameStarted
+            )
+
+            self.connectionHandler.sendSingleValue(
+                to: gameStartedPath,
+                data: false,
+                shouldRemoveOnDisconnect: false,
+                onComplete: {
+                    print("changed game status")
+                    onSuccess?()
+                },
+                onError: onError
+            )
         }
 
-        connectionHandler.sendSingleValue(to: gameRunningPath, data: false,
-                                          shouldRemoveOnDisconnect: false,
-                                          onComplete: { [weak self] in
-                                            self?.connectionHandler.removeData(at: gamePath, block: { error in
-                                                if error != nil {
-                                                    onError?(error)
-                                                    return
-                                                }
-                                                print("stopped game, removed game data")
-                                                changeGameStatus()
-                                            })
-                                          }, onError: onError)
+        connectionHandler.sendSingleValue(
+            to: gameRunningPath, data: false,
+            shouldRemoveOnDisconnect: false,
+            onComplete: { [weak self] in
+                self?.connectionHandler.removeData(at: gamePath, block: { error in
+                    if error != nil {
+                        onError?(error)
+                        return
+                    }
+                    print("stopped game, removed game data")
+                    changeGameStatus()
+                })
+            }, onError: onError
+        )
     }
 
     func observeGame(roomInfo: RoomInfo, onGameStop: (() -> Void)?, onError: ((Error?) -> Void)?) {
-        let gameRunningPath = FirebasePaths.joinPaths(FirebasePaths.games, roomInfo.gameID,
-                                                      FirebasePaths.game_isRunning)
+        let gameRunningPath = FirebasePaths.joinPaths(
+            FirebasePaths.games, roomInfo.gameID,
+            FirebasePaths.game_isRunning
+        )
         connectionHandler.observeSingleValue(to: gameRunningPath, callBack: { (isRunning: Bool?) in
             guard let isRunning = isRunning else {
                 return

@@ -111,7 +111,7 @@ class HorizontalStack<ItemType: Renderable>: GameEntity, Renderable, Animatable 
     }
 
     private func shiftItemsLeft(from: Int, to: Int, xDistance: Double) {
-        for (index, item) in items.enumerated() where index >= from && index <= to{
+        for (index, item) in items.enumerated() where index >= from && index <= to {
             item.transformComponent.localPosition -= Vector2D(xDistance + seperation, 0)
         }
     }

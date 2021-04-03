@@ -3,7 +3,7 @@
 //  paintsplash
 //
 //  Created by Cynthia Lee on 1/4/21.
-//
+//  swiftline:disable type_body_length
 import Foundation
 
 class MultiplayerClient: GameManager {
@@ -13,7 +13,8 @@ class MultiplayerClient: GameManager {
     weak var gameScene: GameScene?
 
     var connectionHandler: ConnectionHandler = FirebaseConnectionHandler()
-    var gameConnectionHandler: GameConnectionHandler = FirebaseGameHandler(connectionHandler: FirebaseConnectionHandler())
+    var gameConnectionHandler: GameConnectionHandler =
+        FirebaseGameHandler(connectionHandler: FirebaseConnectionHandler())
 
     var playerInfo: PlayerInfo
     // Dummy player that allows the appropriate ammo stacks to appear

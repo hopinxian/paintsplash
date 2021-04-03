@@ -13,7 +13,7 @@ class EnemySpawnerCommand: SpawnCommand {
         if gameInfo.numberOfEnemies >= Level.enemyCapacity {
             return
         }
-        
+
         let eventLocation = getLocation(location: location, gameInfo: gameInfo)
         let eventColor = getColor(color: color, gameInfo: gameInfo)
 

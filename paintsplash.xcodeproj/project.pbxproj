@@ -40,8 +40,6 @@
 		84CF593826186100008FB1A7 /* BidirectionalMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CF593726186100008FB1A7 /* BidirectionalMapTests.swift */; };
 		84CF593E2618660C008FB1A7 /* MathTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CF593D2618660C008FB1A7 /* MathTests.swift */; };
 		84D453D42615B98700864E38 /* GameInfoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D453D32615B98700864E38 /* GameInfoManager.swift */; };
-		AC069592260123C4007982DE /* ChangeViewEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC069591260123C4007982DE /* ChangeViewEvent.swift */; };
-		AC069597260123CE007982DE /* ChangeViewEventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC069596260123CE007982DE /* ChangeViewEventManager.swift */; };
 		AC07DE4F2605E63900B12840 /* Rect.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC07DE4E2605E63900B12840 /* Rect.swift */; };
 		AC097E012601FFDB000951B0 /* GameEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC097DFF2601FFDB000951B0 /* GameEntity.swift */; };
 		AC097E082601FFE4000951B0 /* ProcessedInputEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC097E062601FFE4000951B0 /* ProcessedInputEvent.swift */; };
@@ -226,7 +224,6 @@
 		D5DC90AA25FCE5280038DF71 /* SlimeMoveLeft.atlas in Resources */ = {isa = PBXBuildFile; fileRef = D5DC90A825FCE5280038DF71 /* SlimeMoveLeft.atlas */; };
 		D5DC90AB25FCE5280038DF71 /* SlimeMoveRight.atlas in Resources */ = {isa = PBXBuildFile; fileRef = D5DC90A925FCE5280038DF71 /* SlimeMoveRight.atlas */; };
 		DC04EAB4260EECFB00D7DDFF /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC04EAB3260EECFB00D7DDFF /* MenuViewController.swift */; };
-		DC08DA51260511B9000F4F90 /* CanvasEndEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC08DA50260511B9000F4F90 /* CanvasEndEvent.swift */; };
 		DC08DA5C26051243000F4F90 /* CanvasHitEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC08DA5B26051243000F4F90 /* CanvasHitEvent.swift */; };
 		DC08DA6A260516DE000F4F90 /* CanvasEndMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC08DA69260516DE000F4F90 /* CanvasEndMarker.swift */; };
 		DC08E2BC26066D8D005863F0 /* CanvasTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC08E2BB26066D8D005863F0 /* CanvasTests.swift */; };
@@ -258,10 +255,6 @@
 		DC7B421A25FF63350069B422 /* TouchInputEventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7B420F25FF63350069B422 /* TouchInputEventManager.swift */; };
 		DC7B421B25FF63350069B422 /* TouchInputEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7B421025FF63350069B422 /* TouchInputEvent.swift */; };
 		DC7B421C25FF63350069B422 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7B421125FF63350069B422 /* Event.swift */; };
-		DC7B421D25FF63350069B422 /* EntityMovementEventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7B421325FF63350069B422 /* EntityMovementEventManager.swift */; };
-		DC7B421E25FF63350069B422 /* EventMovementSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7B421425FF63350069B422 /* EventMovementSystem.swift */; };
-		DC7B421F25FF63350069B422 /* CollisionEventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7B421625FF63350069B422 /* CollisionEventManager.swift */; };
-		DC7B422025FF63350069B422 /* CollisionEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7B421725FF63350069B422 /* CollisionEvent.swift */; };
 		DC7B422125FF63350069B422 /* EventSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7B421825FF63350069B422 /* EventSystem.swift */; };
 		DC8820FA260F2F150082ECC2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DC8820F9260F2F150082ECC2 /* GoogleService-Info.plist */; };
 		DC933112260671C700209712 /* CanvasRequestManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC933111260671C700209712 /* CanvasRequestManagerTests.swift */; };
@@ -334,8 +327,6 @@
 		84CF593726186100008FB1A7 /* BidirectionalMapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BidirectionalMapTests.swift; sourceTree = "<group>"; };
 		84CF593D2618660C008FB1A7 /* MathTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MathTests.swift; sourceTree = "<group>"; };
 		84D453D32615B98700864E38 /* GameInfoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameInfoManager.swift; sourceTree = "<group>"; };
-		AC069591260123C4007982DE /* ChangeViewEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeViewEvent.swift; sourceTree = "<group>"; };
-		AC069596260123CE007982DE /* ChangeViewEventManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeViewEventManager.swift; sourceTree = "<group>"; };
 		AC07DE4E2605E63900B12840 /* Rect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rect.swift; sourceTree = "<group>"; };
 		AC097DFF2601FFDB000951B0 /* GameEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameEntity.swift; sourceTree = "<group>"; };
 		AC097E062601FFE4000951B0 /* ProcessedInputEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProcessedInputEvent.swift; sourceTree = "<group>"; };
@@ -531,7 +522,6 @@
 		D5DC90A825FCE5280038DF71 /* SlimeMoveLeft.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = SlimeMoveLeft.atlas; sourceTree = "<group>"; };
 		D5DC90A925FCE5280038DF71 /* SlimeMoveRight.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = SlimeMoveRight.atlas; sourceTree = "<group>"; };
 		DC04EAB3260EECFB00D7DDFF /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
-		DC08DA50260511B9000F4F90 /* CanvasEndEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasEndEvent.swift; sourceTree = "<group>"; };
 		DC08DA5B26051243000F4F90 /* CanvasHitEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasHitEvent.swift; sourceTree = "<group>"; };
 		DC08DA69260516DE000F4F90 /* CanvasEndMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasEndMarker.swift; sourceTree = "<group>"; };
 		DC08E2BB26066D8D005863F0 /* CanvasTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasTests.swift; sourceTree = "<group>"; };
@@ -563,10 +553,6 @@
 		DC7B420F25FF63350069B422 /* TouchInputEventManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchInputEventManager.swift; sourceTree = "<group>"; };
 		DC7B421025FF63350069B422 /* TouchInputEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchInputEvent.swift; sourceTree = "<group>"; };
 		DC7B421125FF63350069B422 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
-		DC7B421325FF63350069B422 /* EntityMovementEventManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntityMovementEventManager.swift; sourceTree = "<group>"; };
-		DC7B421425FF63350069B422 /* EventMovementSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventMovementSystem.swift; sourceTree = "<group>"; };
-		DC7B421625FF63350069B422 /* CollisionEventManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollisionEventManager.swift; sourceTree = "<group>"; };
-		DC7B421725FF63350069B422 /* CollisionEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollisionEvent.swift; sourceTree = "<group>"; };
 		DC7B421825FF63350069B422 /* EventSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventSystem.swift; sourceTree = "<group>"; };
 		DC8820F9260F2F150082ECC2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DC933111260671C700209712 /* CanvasRequestManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasRequestManagerTests.swift; sourceTree = "<group>"; };
@@ -943,15 +929,6 @@
 				ACC154F526012F640000775C /* PlayerActionEventManager.swift */,
 			);
 			path = PlayerActionEvents;
-			sourceTree = "<group>";
-		};
-		D5553D49260627CB00C1862E /* PlayerChangeViewEvent */ = {
-			isa = PBXGroup;
-			children = (
-				AC069591260123C4007982DE /* ChangeViewEvent.swift */,
-				AC069596260123CE007982DE /* ChangeViewEventManager.swift */,
-			);
-			path = PlayerChangeViewEvent;
 			sourceTree = "<group>";
 		};
 		D5553D4D260627F100C1862E /* EntityChangeEvent */ = {
@@ -1349,7 +1326,6 @@
 		DC0C02D22603B83100656E49 /* CanvasEvents */ = {
 			isa = PBXGroup;
 			children = (
-				DC08DA50260511B9000F4F90 /* CanvasEndEvent.swift */,
 				DC0C02D32603B84400656E49 /* CanvasEvent.swift */,
 				DC0C02E02603B94200656E49 /* CanvasEventManager.swift */,
 				DC08DA5B26051243000F4F90 /* CanvasHitEvent.swift */,
@@ -1411,14 +1387,11 @@
 				DC7B421125FF63350069B422 /* Event.swift */,
 				DC7B420D25FF63350069B422 /* EventManager.swift */,
 				D5553D4D260627F100C1862E /* EntityChangeEvent */,
-				D5553D49260627CB00C1862E /* PlayerChangeViewEvent */,
 				D5553CEC260625E400C1862E /* PlayerActionEvents */,
 				AC11994226053CD8003BA54B /* Audio */,
 				842B5CE22604881A00FCF7BD /* ScoreEvents */,
 				AC097E052601FFE4000951B0 /* ProcessedInputEvent */,
 				DC7B420E25FF63350069B422 /* InputEvents */,
-				DC7B421225FF63350069B422 /* EntityMovementEvents */,
-				DC7B421525FF63350069B422 /* CollisionEvents */,
 				DC0C02D22603B83100656E49 /* CanvasEvents */,
 			);
 			path = Events;
@@ -1431,24 +1404,6 @@
 				DC7B421025FF63350069B422 /* TouchInputEvent.swift */,
 			);
 			path = InputEvents;
-			sourceTree = "<group>";
-		};
-		DC7B421225FF63350069B422 /* EntityMovementEvents */ = {
-			isa = PBXGroup;
-			children = (
-				DC7B421325FF63350069B422 /* EntityMovementEventManager.swift */,
-				DC7B421425FF63350069B422 /* EventMovementSystem.swift */,
-			);
-			path = EntityMovementEvents;
-			sourceTree = "<group>";
-		};
-		DC7B421525FF63350069B422 /* CollisionEvents */ = {
-			isa = PBXGroup;
-			children = (
-				DC7B421625FF63350069B422 /* CollisionEventManager.swift */,
-				DC7B421725FF63350069B422 /* CollisionEvent.swift */,
-			);
-			path = CollisionEvents;
 			sourceTree = "<group>";
 		};
 		DCB72DC325FE1A3900B183E0 /* Behaviours */ = {
@@ -1693,7 +1648,6 @@
 				DCF1BEFA25FA6B6E00B56AD4 /* GameInfo.swift in Sources */,
 				846D4FBA26023F770079720F /* AttackButton.swift in Sources */,
 				ACFD822725F67C76009D806B /* PaintColor.swift in Sources */,
-				DC08DA51260511B9000F4F90 /* CanvasEndEvent.swift in Sources */,
 				ACFD822225F67C5B009D806B /* Projectile.swift in Sources */,
 				D570450826182AF0004AF802 /* SystemData.swift in Sources */,
 				D53F540D260D93AC00635B05 /* Component.swift in Sources */,
@@ -1703,7 +1657,6 @@
 				D5500C102608F12800E21BF1 /* SKNodeFactory.swift in Sources */,
 				D57044EF26182A9E004AF802 /* EncodableAnimatable.swift in Sources */,
 				D546281626158B2C002527C3 /* TransformSystem.swift in Sources */,
-				DC7B422025FF63350069B422 /* CollisionEvent.swift in Sources */,
 				D53F5494260D96F900635B05 /* CanvasSpawnerState+Spawning.swift in Sources */,
 				DC247F5525F9E53C001B814C /* SpawnEnemyBehaviour.swift in Sources */,
 				DC9D4A4825F92E2C000F07FF /* Enemy.swift in Sources */,
@@ -1714,7 +1667,6 @@
 				D598F53D26019E7300D7CACB /* SpaceConverter.swift in Sources */,
 				D546280C2614DB45002527C3 /* ColorComponent.swift in Sources */,
 				D53F5448260D94F700635B05 /* SKAnimationSystem.swift in Sources */,
-				AC069592260123C4007982DE /* ChangeViewEvent.swift in Sources */,
 				AC0A184D26052AF800A1338C /* Constants.swift in Sources */,
 				AC097E082601FFE4000951B0 /* ProcessedInputEvent.swift in Sources */,
 				D536472026146C8200C2BCBB /* RawAnimation.swift in Sources */,
@@ -1748,7 +1700,6 @@
 				D50FD6C72612058B00491CAC /* Background.swift in Sources */,
 				ACB3607825F661620016E240 /* GameScene.swift in Sources */,
 				D55A8AA225FBB4E000BBE210 /* Tags.swift in Sources */,
-				DC7B421D25FF63350069B422 /* EntityMovementEventManager.swift in Sources */,
 				8453F2D7260C917000FFD8AE /* CanvasSpawnerCommand.swift in Sources */,
 				AC11994426053CFB003BA54B /* AudioEvent.swift in Sources */,
 				D55EEB8626008AAE00ADC70B /* PaintAmmoDisplay.swift in Sources */,
@@ -1787,7 +1738,6 @@
 				D50A07EC260499E900822D67 /* PlayerHealthDisplay.swift in Sources */,
 				D57044EA26182A8A004AF802 /* RenderSystemData.swift in Sources */,
 				ACFD820F25F6773B009D806B /* Vector2D.swift in Sources */,
-				DC7B421F25FF63350069B422 /* CollisionEventManager.swift in Sources */,
 				ACB3607A25F661620016E240 /* GameViewController.swift in Sources */,
 				D50A08432604E26400822D67 /* HorizontalStack.swift in Sources */,
 				D55EEB5325FF98DD00ADC70B /* Animation.swift in Sources */,
@@ -1833,14 +1783,12 @@
 				D53F5435260D948500635B05 /* NoState.swift in Sources */,
 				D53F547C260D967100635B05 /* EnemySpawnerState.swift in Sources */,
 				DCCF8CEC26102DDA006F6964 /* RoomViewController.swift in Sources */,
-				AC069597260123CE007982DE /* ChangeViewEventManager.swift in Sources */,
 				AC0A18672605304100A1338C /* UIBar.swift in Sources */,
 				D53F54E2260D9EA500635B05 /* FrameMovementSystem.swift in Sources */,
 				D5553D9D26062D1000C1862E /* Music.swift in Sources */,
 				D570451226182C78004AF802 /* FirebaseObserver.swift in Sources */,
 				ACFD822C25F67C9E009D806B /* Transformable.swift in Sources */,
 				D50A07F126049A3A00822D67 /* HeartDisplay.swift in Sources */,
-				DC7B421E25FF63350069B422 /* EventMovementSystem.swift in Sources */,
 				D53F54B4260D97EC00635B05 /* GameStateManagerSystem.swift in Sources */,
 				DC7B421A25FF63350069B422 /* TouchInputEventManager.swift in Sources */,
 				8453F2D1260C911A00FFD8AE /* EnemySpawnerCommand.swift in Sources */,

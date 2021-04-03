@@ -6,11 +6,8 @@
 //
 
 class EventSystem {
-    static let collisionEvents = CollisionEventManager()
     static let inputEvents = TouchInputEventManager()
-    static let entityMovementEvent = EntityMovementEvent()
     static let playerActionEvent = PlayerActionEventManager()
-    static let changeViewEvent = ChangeViewEventManager()
     static let processedInputEvents = ProcessedInputEventManager()
     static let entityChangeEvents = EntityChangeEventManager()
     static let canvasEvent = CanvasEventManager()

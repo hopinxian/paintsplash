@@ -40,7 +40,7 @@ class PaintBlob: GameEntity, Renderable, Transformable, Colorable {
         let blobPos = Vector2D(posX, posY)
 
         self.transformComponent = TransformComponent(
-            position: blobPos, 
+            position: blobPos,
             rotation: 0,
             size: blobSize
         )

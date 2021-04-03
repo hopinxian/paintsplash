@@ -27,7 +27,7 @@ class JoinRoomViewController: UIViewController {
               let player = playerInfo else {
             return
         }
-        
+
         lobbyHandler?.joinRoom(
             player: player,
             roomId: roomIdToJoin,

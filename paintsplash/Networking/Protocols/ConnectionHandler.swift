@@ -31,7 +31,3 @@ protocol ConnectionHandler {
         callBack: @escaping (T?) -> Void
     )
 }
-
-
-
-

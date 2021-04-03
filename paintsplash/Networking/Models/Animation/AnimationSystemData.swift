@@ -10,7 +10,10 @@ struct AnimationSystemData: Codable {
 
     init(from data: [EntityID: Animatable]) {
         data.forEach({ entity, animatable in
-            self.animatables[entity] = EncodableAnimatable(entityID: entity, animationComponent: animatable.animationComponent)
+            self.animatables[entity] = EncodableAnimatable(
+                entityID: entity,
+                animationComponent: animatable.animationComponent
+            )
         })
     }
 }

@@ -49,7 +49,7 @@ class Canvas: GameEntity, StatefulEntity, Renderable, Collidable, Transformable,
         )
 
         self.animationComponent = AnimationComponent()
-        
+
         super.init()
 
         self.stateComponent.currentState = CanvasState.Moving(canvas: self)

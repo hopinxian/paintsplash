@@ -44,8 +44,6 @@ struct EntityID: Hashable, Codable {
 
     init(id: String) {
         if let entity = EntityID.getEntity(id: id) {
-            print("Conflict Detected")
-            print(id)
             self = entity
         } else {
             self.id = id
