@@ -49,6 +49,9 @@ class RoomViewController: UIViewController {
         self.guestNameLabel?.text = roomInfo.players?.first?.value.playerName
 
         if roomInfo.started {
+            guard roomInfo.players != nil else {
+                return
+            }
             if roomInfo.host == playerInfo {
                 startServer()
             } else {

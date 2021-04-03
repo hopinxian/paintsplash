@@ -265,6 +265,5 @@ class FirebaseLobbyHandler: LobbyHandler {
                 onGameStop?()
             }
         })
-
     }
 }
