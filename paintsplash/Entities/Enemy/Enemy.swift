@@ -25,7 +25,7 @@ class Enemy: GameEntity, StatefulEntity, Renderable, Animatable, Collidable, Mov
 
     init(initialPosition: Vector2D, color: PaintColor) {
         self.color = color
-        
+
         self.renderComponent = RenderComponent(
             renderType: .sprite(spriteName: "Slime"),
             zPosition: Constants.ZPOSITION_PLAYER

@@ -8,7 +8,7 @@
 class AnimationComponent: Component, Codable {
     var currentAnimation: String?
     var animationToPlay: String?
-    var animationIsPlaying: Bool = false
+    var animationIsPlaying = false
     var callBack: (() -> Void)?
 
     override init() {

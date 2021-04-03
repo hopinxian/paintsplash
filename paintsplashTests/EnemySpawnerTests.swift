@@ -12,7 +12,7 @@ class EnemySpawnerTests: XCTestCase {
     var redSpawner: EnemySpawner!
     var blueSpawner: EnemySpawner!
     var yellowSpawner: EnemySpawner!
-    
+
     let gameInfo = GameInfo(playerPosition: Vector2D.zero, numberOfEnemies: 0)
 
     override func setUp() {
@@ -101,7 +101,7 @@ class EnemySpawnerTests: XCTestCase {
         GameStateManagerSystem(gameInfo: gameInfo).updateEntity(redSpawner, redSpawner)
         XCTAssertTrue(redSpawner.stateComponent.currentState is EnemySpawnerState.Idle)
         XCTAssertEqual(redSpawner.healthComponent.currentHealth, 0)
-        
+
         // Test that healing by 0 does nothing
         redSpawner.heal(amount: 0)
         GameStateManagerSystem(gameInfo: gameInfo).updateEntity(redSpawner, redSpawner)
@@ -133,7 +133,7 @@ class EnemySpawnerTests: XCTestCase {
         GameStateManagerSystem(gameInfo: gameInfo).updateEntity(redSpawner, redSpawner)
         XCTAssertTrue(redSpawner.stateComponent.currentState is EnemySpawnerState.Idle)
         XCTAssertEqual(redSpawner.healthComponent.currentHealth, redSpawner.healthComponent.maxHealth - 2)
-        
+
         // Test that health never goes to negative
         redSpawner.takeDamage(amount: 10)
         GameStateManagerSystem(gameInfo: gameInfo).updateEntity(redSpawner, redSpawner)

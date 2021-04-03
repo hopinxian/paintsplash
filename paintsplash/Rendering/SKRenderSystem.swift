@@ -117,7 +117,7 @@ class SKRenderSystem: RenderSystem {
 
     private func updateSpecificNodeTypes(_ node: SKNode, _ renderable: Renderable) {
         switch renderable.renderComponent.renderType {
-        case .sprite(_):
+        case .sprite:
             if let spriteNode = node as? SKSpriteNode {
                 updateSpriteNode(spriteNode, renderable)
             }
@@ -136,7 +136,7 @@ class SKRenderSystem: RenderSystem {
                 .compactMap({ $0 as? SKSpriteNode })
                 .forEach({ $0.color = colorData.color.uiColor })
         }
-        
+
         let screenSize: CGSize = SpaceConverter.modelToScreen(renderable.transformComponent.size)
 
         if node.size != screenSize {

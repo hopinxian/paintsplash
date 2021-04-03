@@ -43,7 +43,7 @@ class EnemySpawner: GameEntity, StatefulEntity, Transformable, Renderable, Anima
         super.init()
 
         self.stateComponent.currentState = EnemySpawnerState.Idle(
-            spawner: self, 
+            spawner: self,
             idleTime: 100
         )
     }

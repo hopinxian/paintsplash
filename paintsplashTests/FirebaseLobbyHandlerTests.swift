@@ -425,7 +425,6 @@ class FirebaseLobbyHandlerTests: XCTestCase {
         let roomDict: [String: PlayerInfo] = [clientPlayer.playerUUID: clientPlayer]
         let room = RoomInfo(roomId: "0", host: hostPlayer, players: roomDict, isOpen: true)
 
-        connectionHandler.disableErrorOnGet()
         connectionHandler.setGetObject(false)
 
         lobbyHandler.observeGame(

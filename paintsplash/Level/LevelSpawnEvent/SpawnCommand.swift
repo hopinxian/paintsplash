@@ -27,7 +27,7 @@ extension SpawnCommand {
         if let location = location {
             return location
         }
-        
+
         let randomX = Double.random(in: Constants.PLAYER_MOVEMENT_BOUNDS.minX..<Constants.PLAYER_MOVEMENT_BOUNDS.maxX)
         let randomY = Double.random(in: Constants.PLAYER_MOVEMENT_BOUNDS.minY..<Constants.PLAYER_MOVEMENT_BOUNDS.maxY)
         let location = Vector2D(randomX, randomY)
@@ -36,7 +36,7 @@ extension SpawnCommand {
         }
         return location
     }
-    
+
     private func intersectPlayer(location: Vector2D, gameInfo: GameInfo) -> Bool {
         let x = gameInfo.playerPosition.x
         let y = gameInfo.playerPosition.y

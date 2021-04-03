@@ -93,7 +93,6 @@ class Player: GameEntity,
     }
 
     func onMove(event: PlayerMoveEvent) {
-
         guard event.playerId == id else {
             return
         }

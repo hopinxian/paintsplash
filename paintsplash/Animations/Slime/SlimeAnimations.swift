@@ -7,7 +7,7 @@
 import SpriteKit
 
 struct SlimeAnimations: AnimationSource {
-    var animations: [String : Animation] = [
+    var animations: [String: Animation] = [
         "slimeMoveRightGray":
             AtlasAnimation(
                 name: "slimeMoveRightGray",

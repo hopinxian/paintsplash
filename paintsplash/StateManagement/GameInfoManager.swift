@@ -12,8 +12,10 @@ class GameInfoManager {
         self.gameInfo = gameInfo
         EventSystem.entityChangeEvents
             .addEntityEvent.subscribe(listener: updateAddEntity)
+
         EventSystem.entityChangeEvents
             .removeEntityEvent.subscribe(listener: updateRemoveEntity)
+
         EventSystem.playerActionEvent
             .playerMovementEvent.subscribe(listener: updatePlayerMove)
     }

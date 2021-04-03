@@ -6,7 +6,7 @@
 //
 
 struct SpawnerAnimations: AnimationSource {
-    var animations: [String : Animation] = [
+    var animations: [String: Animation] = [
         "spawnerIdle":
             AtlasAnimation(
                 name: "spawnerIdle",
@@ -32,7 +32,7 @@ struct SpawnerAnimations: AnimationSource {
             AtlasAnimation(
                 name: "spawnerHit",
                 animationDuration: 1.2,
-                atlasName: "SpawnerHit", 
+                atlasName: "SpawnerHit",
                 isRepeating: true
             )
     ]

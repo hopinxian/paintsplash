@@ -29,12 +29,12 @@ class EnemyTests: XCTestCase {
         redEnemy = Enemy(initialPosition: .zero, color: .red)
         orangeEnemy = Enemy(initialPosition: Vector2D(25, 100), color: .orange)
         yellowEnemy = Enemy(initialPosition: Vector2D(-50, 200), color: .yellow)
-        greenEnemy = Enemy(initialPosition: Vector2D(10, -100),color: .green)
-        blueEnemy = Enemy(initialPosition: Vector2D(-100, -400),  color: .blue)
+        greenEnemy = Enemy(initialPosition: Vector2D(10, -100), color: .green)
+        blueEnemy = Enemy(initialPosition: Vector2D(-100, -400), color: .blue)
         purpleEnemy = Enemy(initialPosition: .zero, color: .purple)
 
-        lightRedEnemy = Enemy(initialPosition: .zero,color: .lightred)
-        lightOrangeEnemy = Enemy(initialPosition: Vector2D(25, 100),                       color: .lightorange)
+        lightRedEnemy = Enemy(initialPosition: .zero, color: .lightred)
+        lightOrangeEnemy = Enemy(initialPosition: Vector2D(25, 100), color: .lightorange)
         lightYellowEnemy = Enemy(initialPosition: Vector2D(-50, 200),
                                  color: .lightyellow)
         lightGreenEnemy = Enemy(initialPosition: Vector2D(10, -100), color: .lightgreen)
@@ -110,7 +110,7 @@ class EnemyTests: XCTestCase {
     func testOnCollide_PaintProjectile_mixedColor_orange() {
         // Test that enemy can be killed if hit by paint containing itself as a color
         let orangePaint = PaintProjectile(color: .orange, position: Vector2D.zero, radius: 10, direction: Vector2D.zero)
-        
+
         redEnemy.onCollide(with: orangePaint)
         XCTAssertTrue(redEnemy.stateComponent.currentState is EnemyState.Die)
         XCTAssertEqual(redEnemy.healthComponent.currentHealth, 0)
@@ -128,15 +128,15 @@ class EnemyTests: XCTestCase {
     func testOnCollide_PaintProjectile_mixedColor_green() {
         // Test that enemy can be killed if hit by paint containing itself as a color
         let greenPaint = PaintProjectile(color: .green, position: Vector2D.zero, radius: 10, direction: Vector2D.zero)
-        
+
         blueEnemy.onCollide(with: greenPaint)
         XCTAssertTrue(blueEnemy.stateComponent.currentState is EnemyState.Die)
         XCTAssertEqual(blueEnemy.healthComponent.currentHealth, 0)
-        
+
         redEnemy.onCollide(with: greenPaint)
         XCTAssertTrue(redEnemy.stateComponent.currentState is EnemyState.Idle)
         XCTAssertEqual(redEnemy.healthComponent.currentHealth, 1)
- 
+
         // Test that enemy of non-composite colour is not hit
         yellowEnemy.onCollide(with: greenPaint)
         XCTAssertTrue(yellowEnemy.stateComponent.currentState is EnemyState.Die)
@@ -150,11 +150,11 @@ class EnemyTests: XCTestCase {
         blueEnemy.onCollide(with: purplePaint)
         XCTAssertTrue(blueEnemy.stateComponent.currentState is EnemyState.Die)
         XCTAssertEqual(blueEnemy.healthComponent.currentHealth, 0)
-        
+
         redEnemy.onCollide(with: purplePaint)
         XCTAssertTrue(redEnemy.stateComponent.currentState is EnemyState.Die)
         XCTAssertEqual(redEnemy.healthComponent.currentHealth, 0)
-        
+
         // Test that enemy of non-composite colour is not hit
         yellowEnemy.onCollide(with: purplePaint)
         XCTAssertTrue(yellowEnemy.stateComponent.currentState is EnemyState.Idle)
@@ -167,7 +167,7 @@ class EnemyTests: XCTestCase {
         lightRedEnemy.onCollide(with: greenPaint)
         XCTAssertTrue(lightRedEnemy.stateComponent.currentState is EnemyState.Idle)
         XCTAssertEqual(lightRedEnemy.healthComponent.currentHealth, 1)
-        
+
         redEnemy.onCollide(with: greenPaint)
         XCTAssertTrue(redEnemy.stateComponent.currentState is EnemyState.Idle)
         XCTAssertEqual(redEnemy.healthComponent.currentHealth, 1)
@@ -192,7 +192,7 @@ class EnemyTests: XCTestCase {
         yellowEnemy.onCollide(with: player)
         XCTAssertTrue(yellowEnemy.stateComponent.currentState is EnemyState.Die)
         XCTAssertEqual(yellowEnemy.healthComponent.currentHealth, 0)
-        
+
         lightBlueEnemy.onCollide(with: player)
         XCTAssertTrue(lightBlueEnemy.stateComponent.currentState is EnemyState.Die)
         XCTAssertEqual(lightBlueEnemy.healthComponent.currentHealth, 0)
@@ -201,11 +201,11 @@ class EnemyTests: XCTestCase {
     func testOnCollide_EnemySpawner() {
         // Test that nothing happens when enemy collides with enemy spawner
         let spawner = EnemySpawner(initialPosition: .zero, color: .red)
-        
+
         redEnemy.onCollide(with: spawner)
         XCTAssertTrue(redEnemy.stateComponent.currentState is EnemyState.Idle)
         XCTAssertEqual(redEnemy.healthComponent.currentHealth, 1)
-        
+
         purpleEnemy.onCollide(with: spawner)
         XCTAssertTrue(purpleEnemy.stateComponent.currentState is EnemyState.Idle)
         XCTAssertEqual(purpleEnemy.healthComponent.currentHealth, 1)
@@ -250,7 +250,7 @@ class EnemyTests: XCTestCase {
         lightRedEnemy.takeDamage(amount: 1)
         XCTAssertTrue(lightRedEnemy.stateComponent.currentState is EnemyState.Die)
         XCTAssertEqual(lightRedEnemy.healthComponent.currentHealth, 0)
-        
+
         // Test that health does not become negative when damage exceeds current health
         blueEnemy.takeDamage(amount: 2)
         XCTAssertTrue(blueEnemy.stateComponent.currentState is EnemyState.Die)

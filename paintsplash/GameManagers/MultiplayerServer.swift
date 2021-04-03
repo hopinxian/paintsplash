@@ -4,7 +4,6 @@
 //
 //  Created by Farrell Nah on 28/3/21.
 //
-
 import Foundation
 
 class MultiplayerServer: SinglePlayerGameManager {
@@ -22,7 +21,8 @@ class MultiplayerServer: SinglePlayerGameManager {
     }
 
     override func setupGame() {
-        self.gameConnectionHandler = FirebaseGameHandler()
+        self.gameConnectionHandler =
+            FirebaseGameHandler(connectionHandler: FirebaseConnectionHandler())
         setUpSystems()
         setUpEntities()
         setUpPlayer()
@@ -34,7 +34,6 @@ class MultiplayerServer: SinglePlayerGameManager {
         let hostId = EntityID(id: room.host.playerUUID)
 
         player = Player(initialPosition: Vector2D.zero + Vector2D.right * 50, playerUUID: hostId)
-        print(player.id)
         player.spawn()
 
         // set up other players
@@ -51,24 +50,48 @@ class MultiplayerServer: SinglePlayerGameManager {
         let newPlayer = Player(initialPosition: Vector2D.zero + Vector2D.left * 50, playerUUID: playerID)
         newPlayer.spawn()
 
+        setupPlayerStateSender(playerID, gameId)
+        setupPlayerAmmoSender(playerID, gameId)
+        setupMusicEventSender(gameId)
+        setupSFXEventSender(gameId)
+        setupClientObservers(playerID: playerID, gameId: gameId)
+    }
+
+    private func setupPlayerStateSender(_ playerID: EntityID, _ gameId: String) {
         // Send player state updates to DB
-        EventSystem.playerActionEvent.playerHealthUpdateEvent.subscribe(listener: { [weak self] event in
-            guard event.playerId == playerID else {
-                return
-            }
-            self?.gameConnectionHandler?.sendEvent(gameId: gameId,
-                                                   playerId: playerID.id,
-                                                   action: event)
-        })
+        EventSystem.playerActionEvent
+            .playerHealthUpdateEvent.subscribe(listener: { [weak self] event in
+                guard event.playerId == playerID else {
+                    return
+                }
+                self?.gameConnectionHandler?.sendEvent(
+                    gameId: gameId,
+                    playerId: playerID.id,
+                    action: event,
+                    onError: nil,
+                    onSuccess: nil
+                )
+            })
+    }
 
+    private func setupPlayerAmmoSender(_ playerID: EntityID, _ gameId: String) {
         // Update player ammo
-        EventSystem.playerActionEvent.playerAmmoUpdateEvent.subscribe(listener: { [weak self] event in
-            guard event.playerId == playerID else {
-                return
-            }
-            self?.gameConnectionHandler?.sendEvent(gameId: gameId, playerId: playerID.id, action: event)
-        })
+        EventSystem.playerActionEvent
+            .playerAmmoUpdateEvent.subscribe(listener: { [weak self] event in
+                guard event.playerId == playerID else {
+                    return
+                }
+                self?.gameConnectionHandler?.sendEvent(
+                    gameId: gameId,
+                    playerId: playerID.id,
+                    action: event,
+                    onError: nil,
+                    onSuccess: nil
+                )
+            })
+    }
 
+    private func setupMusicEventSender(_ gameId: String) {
         // Send background music information
         EventSystem.audioEvent.playMusicEvent.subscribe { [weak self] event in
             guard let players = self?.room.players else {
@@ -77,49 +100,81 @@ class MultiplayerServer: SinglePlayerGameManager {
 
             guard let playerId = event.playerId else {
                 players.forEach {
-                    self?.gameConnectionHandler?.sendEvent(gameId: gameId, playerId: $0.key, action: event)
+                    self?.gameConnectionHandler?.sendEvent(
+                        gameId: gameId,
+                        playerId: $0.key,
+                        action: event,
+                        onError: nil,
+                        onSuccess: nil
+                    )
                 }
                 return
             }
 
-            self?.gameConnectionHandler?.sendEvent(gameId: gameId, playerId: playerId.id, action: event)
+            self?.gameConnectionHandler?.sendEvent(
+                gameId: gameId,
+                playerId: playerId.id,
+                action: event,
+                onError: nil,
+                onSuccess: nil
+            )
         }
+    }
 
-        EventSystem.audioEvent.playSoundEffectEvent.subscribe { [weak self] event in
-            guard let players = self?.room.players else {
-                return
-            }
-
-            guard let playerId = event.playerId else {
-                players.forEach {
-                    self?.gameConnectionHandler?.sendEvent(gameId: gameId, playerId: $0.key, action: event)
+    private func setupSFXEventSender(_ gameId: String) {
+        EventSystem.audioEvent
+            .playSoundEffectEvent.subscribe { [weak self] event in
+                guard let players = self?.room.players else {
+                    return
                 }
-                return
+
+                guard let playerId = event.playerId else {
+                    players.forEach {
+                        self?.gameConnectionHandler?.sendEvent(
+                            gameId: gameId,
+                            playerId: $0.key,
+                            action: event,
+                            onError: nil,
+                            onSuccess: nil
+                        )
+                    }
+                    return
+                }
+
+                self?.gameConnectionHandler?.sendEvent(
+                    gameId: gameId,
+                    playerId: playerId.id,
+                    action: event,
+                    onError: nil,
+                    onSuccess: nil
+                )
             }
+    }
 
-            self?.gameConnectionHandler?.sendEvent(gameId: gameId, playerId: playerId.id, action: event)
-        }
-
+    private func setupClientObservers(playerID: EntityID, gameId: String) {
         // Listen to user input from clients
         // Shooting input
         self.gameConnectionHandler?.observeEvent(
             gameId: gameId,
             playerId: playerID.id,
-            onChange: { EventSystem.processedInputEvents.playerShootEvent.post(event: $0) }
+            onChange: { EventSystem.processedInputEvents.playerShootEvent.post(event: $0) },
+            onError: nil
         )
 
         // Movement input
         self.gameConnectionHandler?.observeEvent(
             gameId: gameId,
             playerId: playerID.id,
-            onChange: { EventSystem.processedInputEvents.playerMoveEvent.post(event: $0) }
+            onChange: { EventSystem.processedInputEvents.playerMoveEvent.post(event: $0) },
+            onError: nil
         )
 
         // Weapon change
         self.gameConnectionHandler?.observeEvent(
             gameId: gameId,
             playerId: playerID.id,
-            onChange: { EventSystem.processedInputEvents.playerChangeWeaponEvent.post(event: $0) }
+            onChange: { EventSystem.processedInputEvents.playerChangeWeaponEvent.post(event: $0) },
+            onError: nil
         )
     }
 
@@ -206,7 +261,6 @@ class MultiplayerServer: SinglePlayerGameManager {
 //            onComplete: nil,
 //            onError: nil
 //        )
-
         let animatablesToSend = animationSystem.animatables.filter({ entityID, _ in
             !uiEntityIDs.contains(entityID)
         })
@@ -220,7 +274,6 @@ class MultiplayerServer: SinglePlayerGameManager {
 //            onComplete: nil,
 //            onError: nil
 //        )
-
         var colorables = [EntityID: Colorable]()
         entities.forEach({ entity in
             if let colorable = entity as? Colorable, !uiEntityIDs.contains(entity.id) {
@@ -244,9 +297,7 @@ class MultiplayerServer: SinglePlayerGameManager {
             animationSystemData: animationSystemData,
             colorSystemData: colorSystemData
         )
-        let systemPath = FirebasePaths.joinPaths(FirebasePaths.games, room.gameID, FirebasePaths.systems)
-        connectionHandler.send(to: systemPath, data: systemData, mode: .single, shouldRemoveOnDisconnect: false,
-                               onComplete: nil, onError: nil)
+        gameConnectionHandler?.sendSystemData(data: systemData, gameID: room.gameID)
     }
 
     func receiveInput() {
@@ -283,7 +334,6 @@ class MultiplayerServer: SinglePlayerGameManager {
 //        // TODO: adding child
 //
 //    }
-
     private func onRemoveEntity(event: RemoveEntityEvent) {
         removeObject(event.entity)
     }
@@ -312,5 +362,4 @@ class MultiplayerServer: SinglePlayerGameManager {
 //            // TODO update child
 //        })
 //    }
-
 }

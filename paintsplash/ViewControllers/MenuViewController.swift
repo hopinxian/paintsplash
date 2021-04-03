@@ -8,14 +8,13 @@
 import UIKit
 
 class MenuViewController: UIViewController {
-
-    @IBOutlet private var startGameButton: UIButton!
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == SegueIdentifiers.startGame {
-            if let gameViewController = segue.destination as? GameViewController {
-                gameViewController.modalPresentationStyle = .fullScreen
-            }
+    @IBAction private func startSinglePlayer(_ sender: UIButton) {
+        let uiViewController = UIStoryboard(name: "Main", bundle: nil)
+            .instantiateViewController(identifier: ViewControllerIdentifiers.singlePlayer)
+        guard let viewController = uiViewController as? SinglePlayerViewController else {
+            fatalError("Error creating client view controller")
         }
+
+        self.navigationController?.pushViewController(viewController, animated: true)
     }
 }

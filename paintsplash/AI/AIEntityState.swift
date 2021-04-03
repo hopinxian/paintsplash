@@ -94,7 +94,7 @@ extension CanvasSpawnerState {
         }
 
         func getBehaviour(aiEntity: AIEntity) -> AIBehaviour {
-            return SpawnCanvasBehaviour()
+            SpawnCanvasBehaviour()
         }
     }
 }

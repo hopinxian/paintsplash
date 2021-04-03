@@ -5,7 +5,7 @@
 //  Created by Praveen Bala on 20/3/21.
 //
 
-struct Rect: Codable {
+struct Rect: Codable, Equatable {
     var minX: Double
     var maxX: Double
     var minY: Double

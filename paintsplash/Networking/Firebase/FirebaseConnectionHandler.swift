@@ -84,10 +84,6 @@ class FirebaseConnectionHandler: ConnectionHandler {
         })
     }
 
-    func removeData(at path: String) {
-        firebase.reference().child(path).removeValue()
-    }
-
     func commitBatchedOperations() {
         guard !batchedOperations.isEmpty else {
             return
@@ -98,7 +94,7 @@ class FirebaseConnectionHandler: ConnectionHandler {
                 mutableData.childData(byAppendingPath: operation.path).value = operation.data
             }
             return TransactionResult.success(withValue: mutableData)
-        }, andCompletionBlock: { error, success, snapshot in
+        }, andCompletionBlock: { error, success, _ in
             if success {
                 for operation in self.batchedOperations {
                     DispatchQueue.main.async {
