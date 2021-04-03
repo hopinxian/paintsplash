@@ -112,7 +112,7 @@ class MultiplayerClient: GameManager {
             room.gameID,
             FirebasePaths.systems
         )
-        connectionHandler.listen(to: systemPath, callBack: updateSystemData)
+        connectionHandler.listen(to: systemPath, callBack: { [weak self] in self?.updateSystemData(data: $0) })
     }
 
     func setUpSystems() {

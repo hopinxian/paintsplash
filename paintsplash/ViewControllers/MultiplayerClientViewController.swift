@@ -29,7 +29,7 @@ class MultiplayerClientViewController: UIViewController {
         scene.gameManager = gameManager
 
         lobbyHandler?.observeGame(roomInfo: roomInfo,
-                                  onGameStop: onCloseGame,
+                                  onGameStop: { [weak self] in self?.onCloseGame() },
                                   onError: { print("Error observing game on client: \($0)") })
     }
 

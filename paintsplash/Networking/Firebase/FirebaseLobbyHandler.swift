@@ -149,12 +149,14 @@ class FirebaseLobbyHandler: LobbyHandler {
                     return
                 }
                 print("Player was guest and left room")
-                onSuccess?()
+                let roomIsOpenPath = FirebasePaths.joinPaths(roomPath, FirebasePaths.rooms_isOpen)
+                self?.connectionHandler.sendSingleValue(to: roomIsOpenPath, data: true,
+                                                        shouldRemoveOnDisconnect: false,
+                                                        onComplete: onSuccess, onError: onError)
             })
         })
-
     }
-
+    
     func getAllRooms() {
         connectionHandler.getData(at: FirebasePaths.rooms) { (error, snapshot) in
             if let error = error {
@@ -223,8 +225,6 @@ class FirebaseLobbyHandler: LobbyHandler {
         let gamePath = FirebasePaths.joinPaths(FirebasePaths.games, roomInfo.gameID)
         let gameRunningPath = FirebasePaths.joinPaths(FirebasePaths.games, roomInfo.gameID,
                                                       FirebasePaths.game_isRunning)
-
-
 
         func changeGameStatus() {
             let gameStartedPath = FirebasePaths.joinPaths(FirebasePaths.rooms, roomInfo.roomId,

@@ -112,7 +112,7 @@ class RoomViewController: UIViewController {
         lobbyHandler?.leaveRoom(
             playerInfo: player,
             roomId: roomInfo.roomId,
-            onSuccess: nil,
+            onSuccess: onRoomClose,
             onError: onError
         )
     }
