@@ -12,6 +12,10 @@ class GameViewController: UIViewController {
     weak var gameScene: GameScene?
     weak var gameManager: GameManager?
 
+    override func loadView() {
+        self.view = SKView(frame: UIScreen.main.bounds)
+    }
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
@@ -77,6 +81,6 @@ class GameViewController: UIViewController {
     }
 
     deinit {
-        print("deinit game view controller")
+        print("deinit GameViewController")
     }
 }

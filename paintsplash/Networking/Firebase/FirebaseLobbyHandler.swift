@@ -149,12 +149,14 @@ class FirebaseLobbyHandler: LobbyHandler {
                     return
                 }
                 print("Player was guest and left room")
-                onSuccess?()
+                let roomIsOpenPath = FirebasePaths.joinPaths(roomPath, FirebasePaths.rooms_isOpen)
+                self?.connectionHandler.sendSingleValue(to: roomIsOpenPath, data: true,
+                                                        shouldRemoveOnDisconnect: false,
+                                                        onComplete: onSuccess, onError: onError)
             })
         })
-
     }
-
+    
     func getAllRooms() {
         connectionHandler.getData(at: FirebasePaths.rooms) { (error, snapshot) in
             if let error = error {
@@ -190,6 +192,7 @@ class FirebaseLobbyHandler: LobbyHandler {
                 print("Insufficient players to start multiplayer game")
                 return
             }
+
             // Generate UUID for new game
             let newGameId = UUID().uuidString
 
@@ -222,6 +225,20 @@ class FirebaseLobbyHandler: LobbyHandler {
         let gamePath = FirebasePaths.joinPaths(FirebasePaths.games, roomInfo.gameID)
         let gameRunningPath = FirebasePaths.joinPaths(FirebasePaths.games, roomInfo.gameID,
                                                       FirebasePaths.game_isRunning)
+
+        func changeGameStatus() {
+            let gameStartedPath = FirebasePaths.joinPaths(FirebasePaths.rooms, roomInfo.roomId,
+                                                          FirebasePaths.rooms_gameStarted)
+            self.connectionHandler.sendSingleValue(to: gameStartedPath,
+                                                   data: false,
+                                                   shouldRemoveOnDisconnect: false,
+                                                   onComplete: {
+                                                    print("changed game status")
+                                                    onSuccess?()
+                                                   },
+                                                   onError: onError)
+        }
+
         connectionHandler.sendSingleValue(to: gameRunningPath, data: false,
                                           shouldRemoveOnDisconnect: false,
                                           onComplete: { [weak self] in
@@ -231,7 +248,7 @@ class FirebaseLobbyHandler: LobbyHandler {
                                                     return
                                                 }
                                                 print("stopped game, removed game data")
-                                                onSuccess?()
+                                                changeGameStatus()
                                             })
                                           }, onError: onError)
     }
@@ -243,11 +260,9 @@ class FirebaseLobbyHandler: LobbyHandler {
             guard let isRunning = isRunning else {
                 return
             }
-
             if !isRunning {
                 onGameStop?()
             }
         })
-
     }
 }

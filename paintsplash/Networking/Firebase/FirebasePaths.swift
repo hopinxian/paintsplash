@@ -11,6 +11,7 @@ enum FirebasePaths {
     static let rooms_isOpen = "isOpen"
     static let rooms_players = "players"
     static let rooms_gameId = "gameId"
+    static let rooms_gameStarted = "started"
 
     static let player_name = "playerName"
     static let player_UUID = "playerId"

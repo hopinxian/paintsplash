@@ -6,7 +6,7 @@
 //
 
 class CanvasSpawnerState: State {
-    let spawner: CanvasSpawner
+    unowned let spawner: CanvasSpawner
 
     init(spawner: CanvasSpawner) {
         self.spawner = spawner

@@ -284,17 +284,20 @@
         <!--Multiplayer Server View Controller-->
         <scene sceneID="eYI-2d-kuf">
             <objects>
-                <viewController storyboardIdentifier="multiplayerClientViewController" id="HRi-Zi-BnW" customClass="MultiplayerServerViewController" customModule="paintsplash" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="multiplayerServerViewController" id="HRi-Zi-BnW" customClass="MultiplayerServerViewController" customModule="paintsplash" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" multipleTouchEnabled="YES" contentMode="scaleToFill" id="Qkp-X9-YEF" customClass="SKView">
                         <rect key="frame" x="0.0" y="0.0" width="1180" height="820"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <skView contentMode="scaleToFill" fixedFrame="YES" sceneName="GameScene.sks" translatesAutoresizingMaskIntoConstraints="NO" id="A82-yy-9DS">
+                                <rect key="frame" x="0.0" y="0.0" width="1180" height="820"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </skView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sac-BC-CSE">
                                 <rect key="frame" x="20" y="20" width="83" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Close Game"/>
                                 <connections>
-                                    <action selector="closeGame:" destination="HRi-Zi-BnW" eventType="touchUpInside" id="7cE-3V-lcQ"/>
                                     <action selector="endMultplayerGame:" destination="HRi-Zi-BnW" eventType="touchUpInside" id="k0q-VP-h5R"/>
                                 </connections>
                             </button>
@@ -303,19 +306,27 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" id="c3C-VL-P9x"/>
+                    <connections>
+                        <outlet property="gameView" destination="A82-yy-9DS" id="VEy-O3-jN8"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kC9-AW-o45" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-227" y="1696"/>
+            <point key="canvasLocation" x="-227.28813559322035" y="1695.3658536585365"/>
         </scene>
         <!--Multiplayer Client View Controller-->
         <scene sceneID="T9t-3t-ng8">
             <objects>
-                <viewController storyboardIdentifier="multiplayerServerViewController" id="ESr-bj-Mg2" customClass="MultiplayerClientViewController" customModule="paintsplash" customModuleProvider="target" sceneMemberID="viewController">
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JJz-c5-c6N" sceneMemberID="firstResponder"/>
+                <viewController storyboardIdentifier="multiplayerClientViewController" id="ESr-bj-Mg2" customClass="MultiplayerClientViewController" customModule="paintsplash" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" multipleTouchEnabled="YES" contentMode="scaleToFill" id="1hs-Kn-nYH" customClass="SKView">
                         <rect key="frame" x="0.0" y="0.0" width="1180" height="820"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <skView contentMode="scaleToFill" fixedFrame="YES" sceneName="GameScene.sks" translatesAutoresizingMaskIntoConstraints="NO" id="bee-rR-oO8">
+                                <rect key="frame" x="0.0" y="0.0" width="1180" height="820"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </skView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uqm-3E-TUn">
                                 <rect key="frame" x="20" y="20" width="83" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -329,10 +340,12 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" id="8Id-ev-IiZ"/>
+                    <connections>
+                        <outlet property="gameView" destination="bee-rR-oO8" id="M3f-sV-IpT"/>
+                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="JJz-c5-c6N" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="428" y="1696"/>
+            <point key="canvasLocation" x="427.62711864406782" y="1695.3658536585365"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>

@@ -49,12 +49,39 @@ class RoomViewController: UIViewController {
         self.guestNameLabel?.text = roomInfo.players?.first?.value.playerName
 
         if roomInfo.started {
+            guard roomInfo.players != nil else {
+                return
+            }
             if roomInfo.host == playerInfo {
-                performSegue(withIdentifier: "StartMultiplayerServer", sender: nil)
+                startServer()
             } else {
-                performSegue(withIdentifier: "StartMultiplayerClient", sender: nil)
+                startClient()
             }
         }
+    }
+
+    private func startServer() {
+        guard let serverVC = UIStoryboard(name: "Main", bundle: nil)
+            .instantiateViewController(identifier: "multiplayerServerViewController")
+            as? MultiplayerServerViewController else {
+                fatalError("Error creating server view controller")
+            }
+
+        serverVC.lobbyHandler = self.lobbyHandler
+        serverVC.roomInfo = currentRoom
+        self.navigationController?.pushViewController(serverVC, animated: true)
+    }
+
+    private func startClient() {
+        guard let clientVC = UIStoryboard(name: "Main", bundle: nil)
+                .instantiateViewController(identifier: "multiplayerClientViewController")
+                as? MultiplayerClientViewController else {
+            fatalError("Error creating client view controller")
+        }
+        clientVC.roomInfo = self.currentRoom
+        clientVC.playerInfo = self.playerInfo
+        clientVC.lobbyHandler = self.lobbyHandler
+        self.navigationController?.pushViewController(clientVC, animated: true)
     }
 
     func onRoomClose() {
@@ -85,35 +112,12 @@ class RoomViewController: UIViewController {
               let player = self.playerInfo else {
             return
         }
-
         lobbyHandler?.leaveRoom(
             playerInfo: player,
             roomId: roomInfo.roomId,
-            onSuccess: nil,
+            onSuccess: onRoomClose,
             onError: onError
         )
-    }
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        switch segue.identifier {
-        case SegueIdentifiers.startMultiplayerServer:
-            guard let serverVC = segue.destination as? MultiplayerServerViewController else {
-                return
-            }
-
-            serverVC.lobbyHandler = self.lobbyHandler
-            serverVC.roomInfo = currentRoom
-        case SegueIdentifiers.startMultiplayerClient:
-            guard let clientVC = segue.destination as? MultiplayerClientViewController else {
-                return
-            }
-
-            clientVC.roomInfo = self.currentRoom
-            clientVC.playerInfo = self.playerInfo
-            clientVC.lobbyHandler = self.lobbyHandler
-        default:
-            break
-        }
     }
 
     deinit {

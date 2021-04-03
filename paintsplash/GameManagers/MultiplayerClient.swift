@@ -8,13 +8,12 @@ import Foundation
 
 class MultiplayerClient: GameManager {
     var uiEntities = Set<GameEntity>()
-
     var entities = Set<GameEntity>()
     var room: RoomInfo
-    var connectionHandler: ConnectionHandler
-    var gameScene: GameScene
-    var gameConnectionHandler: GameConnectionHandler =
-        FirebaseGameHandler(connectionHandler: FirebaseConnectionHandler())
+    weak var gameScene: GameScene?
+
+    var connectionHandler: ConnectionHandler = FirebaseConnectionHandler()
+    var gameConnectionHandler: GameConnectionHandler = FirebaseGameHandler(connectionHandler: FirebaseConnectionHandler())
 
     var playerInfo: PlayerInfo
     // Dummy player that allows the appropriate ammo stacks to appear
@@ -26,7 +25,6 @@ class MultiplayerClient: GameManager {
     var transformSystem: TransformSystem!
 
     init(gameScene: GameScene, playerInfo: PlayerInfo, roomInfo: RoomInfo) {
-        self.connectionHandler = FirebaseConnectionHandler()
         self.gameScene = gameScene
         self.playerInfo = playerInfo
         self.room = roomInfo
@@ -75,6 +73,7 @@ class MultiplayerClient: GameManager {
             playerId: playerInfo.playerUUID,
             onChange: {
                 EventSystem.playerActionEvent.playerHealthUpdateEvent.post(event: $0)
+
             },
             onError: nil
         )
@@ -91,12 +90,15 @@ class MultiplayerClient: GameManager {
         gameConnectionHandler.observeEvent(
             gameId: gameID,
             playerId: playerInfo.playerUUID,
-            onChange: { (event: PlayMusicEvent) in
+            onChange: { [weak self] (event: PlayMusicEvent) in
                 EventSystem.audioEvent.playMusicEvent.post(event: event)
-                self.gameConnectionHandler.acknowledgeEvent(
+                guard let playerId = self?.playerInfo.playerUUID else {
+                    return
+                }
+                self?.gameConnectionHandler.acknowledgeEvent(
                     event,
                     gameId: gameID,
-                    playerId: self.playerInfo.playerUUID,
+                    playerId: playerId,
                     onError: nil,
                     onSuccess: nil
                 )
@@ -107,15 +109,17 @@ class MultiplayerClient: GameManager {
         gameConnectionHandler.observeEvent(
             gameId: gameID,
             playerId: playerInfo.playerUUID,
-            onChange: { (event: PlaySoundEffectEvent) in
+            onChange: { [weak self] (event: PlaySoundEffectEvent) in
                 EventSystem.audioEvent.playSoundEffectEvent.post(event: event)
-                self.gameConnectionHandler.acknowledgeEvent(
+                guard let playerId = self?.playerInfo.playerUUID else {
+                    return
+                }
+                self?.gameConnectionHandler.acknowledgeEvent(
                     event,
                     gameId: gameID,
-                    playerId: self.playerInfo.playerUUID,
+                    playerId: playerId,
                     onError: nil,
-                    onSuccess: nil
-                )
+                    onSuccess: nil)
             },
             onError: nil
         )
@@ -125,10 +129,13 @@ class MultiplayerClient: GameManager {
             room.gameID,
             FirebasePaths.systems
         )
-        connectionHandler.listen(to: systemPath, callBack: updateSystemData)
+        connectionHandler.listen(to: systemPath, callBack: { [weak self] in self?.updateSystemData(data: $0) })
     }
 
     func setUpSystems() {
+        guard let gameScene = self.gameScene else {
+            fatalError("Did not set up game scene properly for multiplayer client")
+        }
         let renderSystem = SKRenderSystem(scene: gameScene)
         self.renderSystem = renderSystem
         animationSystem = SKAnimationSystem(renderSystem: renderSystem)
@@ -193,7 +200,7 @@ class MultiplayerClient: GameManager {
         let playerId = EntityID(id: playerInfo.playerUUID)
 
         guard let paintGun = player.multiWeaponComponent
-                .availableWeapons.compactMap({ $0 as? PaintGun }).first else {
+            .availableWeapons.compactMap({ $0 as? PaintGun }).first else {
             fatalError("Paintgun not setup properly")
         }
 
@@ -205,7 +212,7 @@ class MultiplayerClient: GameManager {
         )
 
         guard let paintBucket = player.multiWeaponComponent
-                .availableWeapons.compactMap({ $0 as? Bucket }).first else {
+            .availableWeapons.compactMap({ $0 as? Bucket }).first else {
             fatalError("PaintBucket not setup properly")
         }
 
@@ -301,7 +308,7 @@ class MultiplayerClient: GameManager {
 
         renderableData.renderables.forEach({ entity, encodedRenderable in
             if let (_, renderable) = renderSystem.renderables.first(
-                where: { $0.key == entity }) {
+                    where: { $0.key == entity }) {
                 renderable.renderComponent = encodedRenderable.renderComponent
                 renderable.transformComponent = encodedRenderable.transformComponent
             }
@@ -315,7 +322,7 @@ class MultiplayerClient: GameManager {
 
         animatableData.animatables.forEach({ entity, encodedAnimatable in
             if let (_, animatable) = animationSystem.animatables.first(
-                where: { $0.key == entity }) {
+                    where: { $0.key == entity }) {
                 animatable.animationComponent = encodedAnimatable.animationComponent
             }
         })

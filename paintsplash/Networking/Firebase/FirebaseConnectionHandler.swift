@@ -4,7 +4,6 @@
 //
 //  Created by Farrell Nah on 3/4/21.
 //
-
 import Firebase
 
 class FirebaseConnectionHandler: ConnectionHandler {
@@ -13,6 +12,7 @@ class FirebaseConnectionHandler: ConnectionHandler {
     private var observers: [FirebaseObserver] = []
 
     deinit {
+        print("Deinitializing FirebaseConnectionHandler")
         // detach all observers
         observers.forEach { observer in
             observer.reference.removeObserver(withHandle: observer.handle)

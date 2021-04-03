@@ -5,7 +5,7 @@
 //  Created by Cynthia Lee on 27/3/21.
 //
 
-protocol LobbyHandler {
+protocol LobbyHandler: AnyObject {
     func createRoom(player: PlayerInfo,
                     onSuccess: ((RoomInfo) -> Void)?,
                     onError: ((Error?) -> Void)?)
@@ -41,5 +41,4 @@ protocol LobbyHandler {
     func observeGame(roomInfo: RoomInfo,
                      onGameStop: (() -> Void)?,
                      onError: ((Error?) -> Void)?)
-
 }

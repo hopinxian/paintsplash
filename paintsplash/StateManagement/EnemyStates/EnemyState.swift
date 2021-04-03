@@ -6,7 +6,7 @@
 //
 
 class EnemyState: State {
-    let enemy: Enemy
+    unowned let enemy: Enemy
 
     init(enemy: Enemy) {
         self.enemy = enemy

@@ -5,22 +5,22 @@
 //  Created by Farrell Nah on 29/3/21.
 //
 import UIKit
+import SpriteKit
 
-class MultiplayerClientViewController: GameViewController {
-    var lobbyHandler: LobbyHandler!
+class MultiplayerClientViewController: UIViewController {
+    weak var lobbyHandler: LobbyHandler?
     var playerInfo: PlayerInfo!
     var roomInfo: RoomInfo!
 
+    @IBOutlet var gameView: SKView!
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        guard let scene = gameScene else {
-            fatalError("GameScene not setup properly")
+
+        guard let scene = gameView.scene as? GameScene else {
+            fatalError("Game scene not setup properly")
         }
 
-        guard let playerInfo = self.playerInfo,
-              let roomInfo = self.roomInfo else {
-            return
-        }
         let gameManager = MultiplayerClient(
             gameScene: scene,
             playerInfo: playerInfo,
@@ -28,25 +28,26 @@ class MultiplayerClientViewController: GameViewController {
         )
         scene.gameManager = gameManager
 
-        lobbyHandler.observeGame(
-            roomInfo: roomInfo,
-            onGameStop: onCloseGame,
-            onError: { error in
-                print("Error observing game on client")
-            }
-        )
+        lobbyHandler?.observeGame(roomInfo: roomInfo,
+                                  onGameStop: { [weak self] in self?.onCloseGame() },
+                                  onError: { print("Error observing game on client: \($0)") })
+
+        // Observe room: If host quits, close the game
+        lobbyHandler?.observeRoom(roomId: roomInfo.roomId,
+                                  onRoomChange: nil,
+                                  onRoomClose: { [weak self] in self?.onCloseGame() },
+                                  onError: nil)
     }
 
     @IBAction private func endMultiplayerGame(_ sender: UIButton) {
-        lobbyHandler.stopGame(roomInfo: self.roomInfo, onSuccess: nil, onError: nil)
+        lobbyHandler?.stopGame(roomInfo: self.roomInfo, onSuccess: nil, onError: nil)
     }
 
     private func onCloseGame() {
-        print("closing multiplayer game")
         self.navigationController?.popViewController(animated: true)
     }
 
     deinit {
-        print("closed multiplayer client VC")
+        print("Deinit MultiplayerClientVC")
     }
 }
