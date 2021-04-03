@@ -58,6 +58,10 @@
 		AC5F0B7F2601130500E28D49 /* PlayerBrushWalkRight.atlas in Resources */ = {isa = PBXBuildFile; fileRef = AC5F0B792601130500E28D49 /* PlayerBrushWalkRight.atlas */; };
 		AC5F0B802601130500E28D49 /* PlayerBrushIdleRight.atlas in Resources */ = {isa = PBXBuildFile; fileRef = AC5F0B7A2601130500E28D49 /* PlayerBrushIdleRight.atlas */; };
 		AC5F0B812601130500E28D49 /* PlayerBrushAttackLeft.atlas in Resources */ = {isa = PBXBuildFile; fileRef = AC5F0B7B2601130500E28D49 /* PlayerBrushAttackLeft.atlas */; };
+		ACA1B3F026184C1C004F210F /* FirebasePathsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA1B3EF26184C1C004F210F /* FirebasePathsTests.swift */; };
+		ACA1B3FA26184F4B004F210F /* GameConnectionHandlerStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA1B3F926184F4B004F210F /* GameConnectionHandlerStub.swift */; };
+		ACA1B40226185155004F210F /* FirebaseLobbyHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA1B40126185155004F210F /* FirebaseLobbyHandlerTests.swift */; };
+		ACA1B408261854A8004F210F /* ConnectionHandlerStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA1B407261854A8004F210F /* ConnectionHandlerStub.swift */; };
 		ACB3607225F661620016E240 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB3607125F661620016E240 /* AppDelegate.swift */; };
 		ACB3607425F661620016E240 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = ACB3607325F661620016E240 /* GameScene.sks */; };
 		ACB3607625F661620016E240 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = ACB3607525F661620016E240 /* Actions.sks */; };
@@ -342,6 +346,10 @@
 		AC5F0B792601130500E28D49 /* PlayerBrushWalkRight.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = PlayerBrushWalkRight.atlas; sourceTree = "<group>"; };
 		AC5F0B7A2601130500E28D49 /* PlayerBrushIdleRight.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = PlayerBrushIdleRight.atlas; sourceTree = "<group>"; };
 		AC5F0B7B2601130500E28D49 /* PlayerBrushAttackLeft.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = PlayerBrushAttackLeft.atlas; sourceTree = "<group>"; };
+		ACA1B3EF26184C1C004F210F /* FirebasePathsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebasePathsTests.swift; sourceTree = "<group>"; };
+		ACA1B3F926184F4B004F210F /* GameConnectionHandlerStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameConnectionHandlerStub.swift; sourceTree = "<group>"; };
+		ACA1B40126185155004F210F /* FirebaseLobbyHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseLobbyHandlerTests.swift; sourceTree = "<group>"; };
+		ACA1B407261854A8004F210F /* ConnectionHandlerStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionHandlerStub.swift; sourceTree = "<group>"; };
 		ACB3606E25F661620016E240 /* paintsplash.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = paintsplash.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACB3607125F661620016E240 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ACB3607325F661620016E240 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -641,6 +649,8 @@
 		846D4FAF26023F2F0079720F /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				ACA1B3F926184F4B004F210F /* GameConnectionHandlerStub.swift */,
+				ACA1B407261854A8004F210F /* ConnectionHandlerStub.swift */,
 				846D4FB026023F2F0079720F /* Projectile+getColor.swift */,
 				846D4FB126023F2F0079720F /* AmmoHelper.swift */,
 				D5553DAB26071C0100C1862E /* MockRenderSystem.swift */,
@@ -787,6 +797,8 @@
 				ACB3608B25F661630016E240 /* Info.plist */,
 				D5553DC12607263400C1862E /* EnemyRenderableTests.swift */,
 				D5553DC52607279800C1862E /* CanvasRenderableTests.swift */,
+				ACA1B3EF26184C1C004F210F /* FirebasePathsTests.swift */,
+				ACA1B40126185155004F210F /* FirebaseLobbyHandlerTests.swift */,
 			);
 			path = paintsplashTests;
 			sourceTree = "<group>";
@@ -1855,8 +1867,10 @@
 			files = (
 				AC3EB7212606F57300B5B963 /* PlayerMovementBoundsTests.swift in Sources */,
 				ACF567942606EF3F009D0A28 /* PlayerStateChangeTests.swift in Sources */,
+				ACA1B408261854A8004F210F /* ConnectionHandlerStub.swift in Sources */,
 				D5553DAC26071C0100C1862E /* MockRenderSystem.swift in Sources */,
 				846D4FB526023F300079720F /* AmmoHelper.swift in Sources */,
+				ACA1B40226185155004F210F /* FirebaseLobbyHandlerTests.swift in Sources */,
 				DC93311A26067AD600209712 /* EnemyTests.swift in Sources */,
 				DC93312726070F5300209712 /* EnemySpawnerTests.swift in Sources */,
 				DC933112260671C700209712 /* CanvasRequestManagerTests.swift in Sources */,
@@ -1865,6 +1879,7 @@
 				8418A7AC26070391000BFBD4 /* LevelSpawnEventTests.swift in Sources */,
 				840A336A2606256F007BC34D /* LevelTests.swift in Sources */,
 				D5553DC62607279800C1862E /* CanvasRenderableTests.swift in Sources */,
+				ACA1B3FA26184F4B004F210F /* GameConnectionHandlerStub.swift in Sources */,
 				849E63AD26179E9B00AFA9A7 /* MockGameManager.swift in Sources */,
 				D5553DC22607263400C1862E /* EnemyRenderableTests.swift in Sources */,
 				8418A7A82606FA6D000BFBD4 /* LevelScoreTests.swift in Sources */,
@@ -1874,6 +1889,7 @@
 				AC3EB733260703ED00B5B963 /* PlayerWeaponChangeTests.swift in Sources */,
 				D5553DBA2607218B00C1862E /* PlayerRenderableTests.swift in Sources */,
 				ACF5677A2606E491009D0A28 /* AudioManagerTests.swift in Sources */,
+				ACA1B3F026184C1C004F210F /* FirebasePathsTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

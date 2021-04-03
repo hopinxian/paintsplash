@@ -29,7 +29,7 @@ class FirebaseLobbyHandler: LobbyHandler {
                 self?.createRoom(player: player, onSuccess: onSuccess, onError: onError)
                 return
             }
-
+            print("creating new room")
             let newRoomInfo = RoomInfo(roomId: roomId, host: player, players: [:], isOpen: true)
             self?.connectionHandler.send(
                 to: roomPath,
@@ -186,11 +186,10 @@ class FirebaseLobbyHandler: LobbyHandler {
             }
 
             guard roomInfo.players != nil else {
-                // TODO: handle UI for this
+                // TODO: handle UI for this, condition unreachable
                 print("Insufficient players to start multiplayer game")
                 return
             }
-
             // Generate UUID for new game
             let newGameId = UUID().uuidString
 
