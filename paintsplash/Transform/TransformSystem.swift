@@ -32,13 +32,21 @@ class WorldTransformSystem: TransformSystem {
 
     private func updateEntity(_ transformable: Transformable) {
         if let parent = transformable.transformComponent.parentID {
-            if let parentTransformable = transformables[parent] {
-                transformable.transformComponent.worldPosition =
-                    parentTransformable.transformComponent.worldPosition +
-                    transformable.transformComponent.localPosition
-            }
+            updateWithParent(parent: parent, transformable: transformable)
         } else {
-            transformable.transformComponent.worldPosition = transformable.transformComponent.localPosition
+            updateWithoutParent(transformable: transformable)
         }
+    }
+
+    private func updateWithParent(parent: EntityID, transformable: Transformable) {
+        if let parentTransformable = transformables[parent] {
+            transformable.transformComponent.worldPosition =
+                parentTransformable.transformComponent.worldPosition +
+                transformable.transformComponent.localPosition
+        }
+    }
+
+    private func updateWithoutParent(transformable: Transformable) {
+        transformable.transformComponent.worldPosition = transformable.transformComponent.localPosition
     }
 }

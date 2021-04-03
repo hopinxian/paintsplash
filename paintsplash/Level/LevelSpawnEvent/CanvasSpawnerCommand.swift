@@ -23,15 +23,8 @@ class CanvasSpawnerCommand: SpawnCommand {
         
         let eventLocation = getLocation(location: location, gameInfo: gameInfo)
         let eventVelocity = getVelocity(velocity: velocity, gameInfo: gameInfo)
-        let eventCanvasSize = getCanvasSize(size: canvasSize, gameInfo: gameInfo)
         let eventSpawnInterval = getSpawnInterval(interval: spawnInterval, gameInfo: gameInfo)
-
-        let event = SpawnAIEntityEvent(spawnEntityType: .canvasSpawner(
-                                        location: eventLocation,
-                                        velocity: eventVelocity, size: eventCanvasSize,
-                                        spawnInterval: eventSpawnInterval,
-                                        endX: endX)
-        )
-        EventSystem.spawnAIEntityEvent.post(event: event)
+        let canvasSpawner = CanvasSpawner(initialPosition: eventLocation, canvasVelocity: eventVelocity, spawnInterval: eventSpawnInterval)
+        canvasSpawner.spawn()
     }
 }

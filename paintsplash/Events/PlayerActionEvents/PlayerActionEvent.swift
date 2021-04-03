@@ -22,10 +22,6 @@ class PlayerMovementEvent: PlayerActionEvent {
     }
 }
 
-//class PlayerAttackEvent: PlayerActionEvent {
-//
-//}
-
 class PlayerHealthUpdateEvent: PlayerActionEvent, Codable {
     let newHealth: Int
     let playerId: EntityID
@@ -64,7 +60,8 @@ class PlayerAmmoUpdateEvent: PlayerActionEvent, Codable {
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         playerId = try values.decode(EntityID.self, forKey: .playerId)
-        let paintAmmo = try? values.decode([PaintAmmo].self, forKey: .ammo) // TODO: Change [PaintAmmo] to [Ammo]
+        let paintAmmo = try? values.decode([PaintAmmo].self, forKey: .ammo)
+        // TODO: Change [PaintAmmo] to [Ammo]
         ammo = paintAmmo ?? []
         weaponTypeEnum = try values.decode(WeaponType.self, forKey: .weaponTypeEnum)
         guard let type = weaponTypeEnum,
@@ -84,54 +81,3 @@ class PlayerChangedWeaponEvent: PlayerActionEvent {
         self.playerId = playerId
     }
 }
-
-//
-//class PlayerActionEvent: Event {
-//
-//}
-//
-//class PlayerMovementEvent: PlayerActionEvent {
-//    let location: Vector2D
-//    let playerId: UUID
-//
-//    init(location: Vector2D, playerId: UUID) {
-//        self.location = location
-//        self.playerId = playerId
-//    }
-//}
-//
-//class PlayerAttackEvent: PlayerActionEvent {
-//
-//}
-//
-//class PlayerHealthUpdateEvent: PlayerActionEvent {
-//    let newHealth: Int
-//    let playerId: UUID
-//
-//    init(newHealth: Int, playerId: UUID) {
-//        self.newHealth = newHealth
-//        self.playerId = playerId
-//    }
-//}
-//
-//class PlayerAmmoUpdateEvent: PlayerActionEvent {
-//    let weapon: Weapon
-//    let ammo: [Ammo]
-//    let playerId: UUID
-//
-//    init(weapon: Weapon, ammo: [Ammo], playerId: UUID) {
-//        self.weapon = weapon
-//        self.ammo = ammo
-//        self.playerId = playerId
-//    }
-//}
-//
-//class PlayerChangedWeaponEvent: PlayerActionEvent {
-//    let weapon: Weapon
-//    let playerId: UUID
-//
-//    init(weapon: Weapon, playerId: UUID) {
-//        self.weapon = weapon
-//        self.playerId = playerId
-//    }
-//}

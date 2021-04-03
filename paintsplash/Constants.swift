@@ -15,9 +15,21 @@ struct Constants {
     static let ZPOSITION_PLAYER: Int = 10 // some UI elements have multiple layers
     static let POSITION_PLAYER = Vector2D(-250, 0)
 
-    static let PLAYER_MOVEMENT_BOUNDS = Rect(minX: -1_000, maxX: 1_000, minY: -400, maxY: 475)
-    static let PROJECTILE_MOVEMENT_BOUNDS = Rect(minX: -1_000, maxX: 1_000, minY: -400, maxY: 1_000)
+    // Movement Bounds
+    static let PLAYER_MOVEMENT_BOUNDS = Rect(
+        minX: -1_000,
+        maxX: 1_000,
+        minY: -400,
+        maxY: 475
+    )
+    static let PROJECTILE_MOVEMENT_BOUNDS = Rect(
+        minX: -1_000,
+        maxX: 1_000,
+        minY: -400,
+        maxY: 1_000
+    )
 
+    // View Information
     static let ATTACK_BUTTON_SPRITE = "attack-button"
     static let ATTACK_BUTTON_POSITION = Vector2D(800, -600)
     static let ATTACK_BUTTON_SIZE = Vector2D(175, 175)

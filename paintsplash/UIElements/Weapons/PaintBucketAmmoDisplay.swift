@@ -14,6 +14,7 @@ class PaintBucketAmmoDisplay: UIEntity, Transformable {
 
     init(weaponData: Bucket, associatedEntity: EntityID) {
         self.associatedEntity = associatedEntity
+
         self.transformComponent = TransformComponent(
             position: Constants.PAINT_BUCKET_AMMO_DISPLAY_POSITION,
             rotation: 0.0,
@@ -33,10 +34,14 @@ class PaintBucketAmmoDisplay: UIEntity, Transformable {
 
         super.init()
 
-        updateAmmoDisplay(ammo: weaponData.getAmmo().compactMap({ $0 as? PaintAmmo }))
+        updateAmmoDisplay(
+            ammo: weaponData.getAmmo().compactMap({ $0 as? PaintAmmo })
+        )
 
-        EventSystem.playerActionEvent.playerAmmoUpdateEvent.subscribe(listener: onAmmoUpdate)
-        EventSystem.playerActionEvent.playerChangedWeaponEvent.subscribe(listener: onChangeWeapon)
+        EventSystem.playerActionEvent
+            .playerAmmoUpdateEvent.subscribe(listener: onAmmoUpdate)
+        EventSystem.playerActionEvent
+            .playerChangedWeaponEvent.subscribe(listener: onChangeWeapon)
         EventSystem.inputEvents.touchDownEvent.subscribe(listener: touchDown)
     }
 

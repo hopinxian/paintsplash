@@ -12,7 +12,7 @@ class AnimationComponent: Component, Codable {
     var callBack: (() -> Void)?
 
     override init() {
-        
+
     }
 
     func animate(animation: String, interupt: Bool) {
@@ -32,9 +32,12 @@ class AnimationComponent: Component, Codable {
 
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.currentAnimation = try container.decodeIfPresent(String.self, forKey: .currentAnimation)
-        self.animationToPlay = try container.decodeIfPresent(String.self, forKey: .animationToPlay)
-        self.animationIsPlaying = try container.decode(Bool.self, forKey: .animationIsPlaying)
+        self.currentAnimation =
+            try container.decodeIfPresent(String.self, forKey: .currentAnimation)
+        self.animationToPlay =
+            try container.decodeIfPresent(String.self, forKey: .animationToPlay)
+        self.animationIsPlaying =
+            try container.decode(Bool.self, forKey: .animationIsPlaying)
     }
 
     func encode(to encoder: Encoder) throws {

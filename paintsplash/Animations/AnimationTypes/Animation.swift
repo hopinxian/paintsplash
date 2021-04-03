@@ -6,17 +6,6 @@
 //
 import SpriteKit
 
-protocol AnimationSource {
-    var animations: [String: Animation] { get }
-    func getAnimation(from identifier: String) -> Animation?
-}
-
-extension AnimationSource {
-    func getAnimation(from identifier: String) -> Animation? {
-        animations[identifier]
-    }
-}
-
 class Animation {
     var name: String
 

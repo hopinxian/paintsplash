@@ -7,11 +7,9 @@
 
 class ChangeViewEventManager: EventManager<ChangeViewEvent> {
     let changeAnimationEvent = EventManager<ChangeAnimationEvent>()
-    let addSubviewEvent = EventManager<AddSubviewEvent>()
 
     override func subscribe(listener: @escaping (ChangeViewEvent) -> Void) {
         super.subscribe(listener: listener)
         changeAnimationEvent.subscribe(listener: listener)
-        addSubviewEvent.subscribe(listener: listener)
     }
 }

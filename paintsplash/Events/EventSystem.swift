@@ -13,8 +13,6 @@ class EventSystem {
     static let changeViewEvent = ChangeViewEventManager()
     static let processedInputEvents = ProcessedInputEventManager()
     static let entityChangeEvents = EntityChangeEventManager()
-    static let spawnAIEntityEvent = SpawnAIEntityEventManager()
-//    static let despawnAIEntityEvent = DespawnAIEntityEventManager()
     static let canvasEvent = CanvasEventManager()
     static let scoreEvent = ScoreEventManager()
     static let audioEvent = AudioEventManager()

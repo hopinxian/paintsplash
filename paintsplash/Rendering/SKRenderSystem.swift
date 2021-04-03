@@ -59,24 +59,21 @@ class SKRenderSystem: RenderSystem {
         cropNode.zPosition = CGFloat(childNode.zPosition + 1)
         cropNode.position = maskNode.position
 
-        childNode.position = CGPoint(x: childPos.x - parentPos.x, y: childPos.y - parentPos.y)
+        childNode.position =
+            CGPoint(x: childPos.x - parentPos.x, y: childPos.y - parentPos.y)
         cropNode.addChild(childNode)
 
-        cropNode.position = CGPoint(x: parentPos.x - childPos.x, y: parentPos.y - childPos.y)
-
+        cropNode.position =
+            CGPoint(x: parentPos.x - childPos.x, y: parentPos.y - childPos.y)
         parentNode.addChild(cropNode)
+
         return parentNode
     }
 
     func removeEntity(_ entity: GameEntity) {
-        print("rendersystem")
-        print(entity)
         guard let node = nodeEntityMap[entity.id] else {
             return
         }
-
-        print(entity)
-        print(entity.id)
 
         node.removeFromParent()
         nodeEntityMap[entity.id] = nil
@@ -93,7 +90,6 @@ class SKRenderSystem: RenderSystem {
             node = cropNode
         }
 
-        
         return node
     }
 
@@ -133,13 +129,16 @@ class SKRenderSystem: RenderSystem {
     }
 
     private func updateSpriteNode(_ node: SKSpriteNode, _ renderable: Renderable) {
-        if let colorData = renderable as? Colorable {
-            if node.color != colorData.color.uiColor {
-                node.color = colorData.color.uiColor
-                node.children.compactMap({ $0 as? SKSpriteNode }).forEach({ $0.color = colorData.color.uiColor })
-            }
+        if let colorData = renderable as? Colorable,
+           node.color != colorData.color.uiColor {
+            node.color = colorData.color.uiColor
+            node.children
+                .compactMap({ $0 as? SKSpriteNode })
+                .forEach({ $0.color = colorData.color.uiColor })
         }
+        
         let screenSize: CGSize = SpaceConverter.modelToScreen(renderable.transformComponent.size)
+
         if node.size != screenSize {
             node.size = screenSize
         }

@@ -20,15 +20,17 @@ class ShootProjectileBehaviour: StateBehaviour {
 
         _ = player.multiWeaponComponent.shoot(from: player.transformComponent.worldPosition, in: shootDirection)
 
-        let event = PlaySoundEffectEvent(effect: SoundEffect.attack, playerId: player.id)
-        EventSystem.audioEvent.playSoundEffectEvent.post(event: event)
-
-        EventSystem.playerActionEvent.playerAmmoUpdateEvent.post(
-            event: PlayerAmmoUpdateEvent(
-                weaponType: type(of: player.multiWeaponComponent.activeWeapon),
-                ammo: player.multiWeaponComponent.activeWeapon.getAmmo(),
-                playerId: player.id
-            )
+        let soundEvent = PlaySoundEffectEvent(
+            effect: SoundEffect.attack,
+            playerId: player.id
         )
+        EventSystem.audioEvent.playSoundEffectEvent.post(event: soundEvent)
+
+        let ammoEvent = PlayerAmmoUpdateEvent(
+            weaponType: type(of: player.multiWeaponComponent.activeWeapon),
+            ammo: player.multiWeaponComponent.activeWeapon.getAmmo(),
+            playerId: player.id
+        )
+        EventSystem.playerActionEvent.playerAmmoUpdateEvent.post(event: ammoEvent)
     }
 }

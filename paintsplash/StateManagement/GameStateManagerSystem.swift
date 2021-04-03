@@ -11,14 +11,7 @@ class GameStateManagerSystem: StateManagerSystem {
 
     init(gameInfo: GameInfo) {
         self.gameInfo = gameInfo
-
-//        EventSystem.playerActionEvent.playerMovementEvent.subscribe(listener: onPlayerMove)
-        // Subscribe to events that change aiGameInfo here
     }
-
-//    private func onPlayerMove(event: PlayerMovementEvent) {
-//        gameInfo.playerPosition = event.location
-//    }
 
     func addEntity(_ entity: GameEntity) {
         guard let aiEntity = entity as? StatefulEntity else {

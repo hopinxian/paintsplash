@@ -12,7 +12,10 @@ extension PlayerState {
         }
 
         override func onEnterState() {
-            player.animationComponent.animate(animation: PlayerAnimations.playerBrushIdleRight, interupt: true)
+            player.animationComponent.animate(
+                animation: PlayerAnimations.playerBrushIdleRight,
+                interupt: true
+            )
         }
 
         override func getStateTransition() -> State? {
