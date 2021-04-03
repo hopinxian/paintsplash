@@ -18,6 +18,7 @@ class SKNodeFactory {
         case .label(let text):
             node = buildLabelNode(text: text)
         }
+
         node.position = SpaceConverter.modelToScreen(transformComponent.worldPosition)
         node.zRotation = CGFloat(transformComponent.rotation)
         node.zPosition = CGFloat(renderComponent.zPosition)

@@ -18,7 +18,12 @@ class Canvas: GameEntity, StatefulEntity, Renderable, Collidable, Transformable,
     private let moveSpeed = 1.0
     private(set) var paintedColors: Set<PaintBlob> = []
 
-    init(initialPosition: Vector2D, direction: Vector2D, size: Vector2D, endX: Double) {
+    init(
+        initialPosition: Vector2D,
+        direction: Vector2D,
+        size: Vector2D,
+        endX: Double
+    ) {
         self.endX = endX
         self.stateComponent = StateComponent()
 
@@ -27,14 +32,21 @@ class Canvas: GameEntity, StatefulEntity, Renderable, Collidable, Transformable,
             zPosition: Constants.ZPOSITION_UI_ELEMENT
         )
 
-        self.transformComponent = TransformComponent(position: initialPosition, rotation: 0, size: size)
+        self.transformComponent = TransformComponent(
+            position: initialPosition,
+            rotation: 0,
+            size: size
+        )
 
         self.collisionComponent = CollisionComponent(
             colliderShape: .rectangle(size: size),
             tags: [.canvas]
         )
 
-        self.moveableComponent = MoveableComponent(direction: direction, speed: moveSpeed)
+        self.moveableComponent = MoveableComponent(
+            direction: direction,
+            speed: moveSpeed
+        )
 
         self.animationComponent = AnimationComponent()
         
@@ -49,11 +61,6 @@ class Canvas: GameEntity, StatefulEntity, Renderable, Collidable, Transformable,
             let color = ammo.color
             self.colors.insert(color)
 
-            // add visible paint blob to canvas
-//            let blobInfo = CanvasSubviewManager.getRandomPaintRenderInfo(canvasTransformable: self,
-//                                                                         color: color)
-//            let addBlobEvent = AddSubviewEvent(renderable: self, renderInfo: blobInfo)
-//            EventSystem.changeViewEvent.addSubviewEvent.post(event: addBlobEvent)
             let blob = PaintBlob(color: color, canvas: self)
             blob.spawn()
             paintedColors.insert(blob)

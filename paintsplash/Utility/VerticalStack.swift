@@ -35,9 +35,17 @@ class VerticalStack<ItemType: Renderable>: UIEntity, Renderable, Animatable {
         self.bottomPadding = bottomPadding
         self.zPosition = Constants.ZPOSITION_UI_ELEMENT
 
-        let renderType = RenderType.sprite(spriteName: backgroundSprite)
-        self.transformComponent = TransformComponent(position: position, rotation: rotation, size: size)
-        self.renderComponent = RenderComponent(renderType: renderType, zPosition: zPosition)
+        self.transformComponent = TransformComponent(
+            position: position,
+            rotation: rotation,
+            size: size
+        )
+
+        self.renderComponent = RenderComponent(
+            renderType: .sprite(spriteName: backgroundSprite),
+            zPosition: zPosition
+        )
+
         self.animationComponent = AnimationComponent()
 
         super.init()
@@ -99,13 +107,15 @@ class VerticalStack<ItemType: Renderable>: UIEntity, Renderable, Animatable {
             return
         }
         let startX = leftPadding - rightPadding
-        let startY = -(transformComponent.size.y / 2) + (firstItem.transformComponent.size.y / 2) + bottomPadding
+        let startY = -(transformComponent.size.y / 2) +
+            (firstItem.transformComponent.size.y / 2) +
+            bottomPadding
+
         var nextPosition = transformComponent.worldPosition + Vector2D(startX, startY)
         for item in items {
             item.transformComponent.localPosition = nextPosition
             item.renderComponent.zPosition = zPosition + 1
             item.spawn()
-            print("spawn")
             nextPosition += Vector2D(0, item.transformComponent.size.y + seperation)
         }
     }

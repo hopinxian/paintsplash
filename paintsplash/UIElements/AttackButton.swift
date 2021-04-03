@@ -18,10 +18,10 @@ class AttackButton: UIEntity, Renderable {
     }
 
     init(associatedEntityID: EntityID) {
-        let renderType = RenderType.sprite(spriteName: Constants.ATTACK_BUTTON_SPRITE)
         self.associatedEntity = associatedEntityID
+
         self.renderComponent = RenderComponent(
-            renderType: renderType,
+            renderType: .sprite(spriteName: Constants.ATTACK_BUTTON_SPRITE),
             zPosition: Constants.ZPOSITION_UI_ELEMENT
         )
 
@@ -49,7 +49,10 @@ class AttackButton: UIEntity, Renderable {
         }
 
         tracking = false
-        let event = PlayerShootEvent(direction: Vector2D.up, playerID: associatedEntity)
+        let event = PlayerShootEvent(
+            direction: Vector2D.up,
+            playerID: associatedEntity
+        )
         EventSystem.processedInputEvents.playerShootEvent.post(event: event)
     }
 }

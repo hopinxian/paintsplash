@@ -13,7 +13,6 @@ extension EnemyState {
                 interupt: true,
                 callBack: {
                         self.enemy.destroy()
-
                 }
             )
         }

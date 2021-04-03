@@ -27,16 +27,22 @@ class PaintGunAmmoDisplay: UIEntity, Transformable {
             size: transformComponent.size,
             backgroundSprite: "WhiteSquare"
         )
+
         self.ammoDisplayView = displayView
         displayView.spawn()
 
         self.weaponData = weaponData
+
         super.init()
 
-        updateAmmoDisplay(ammo: weaponData.getAmmo().compactMap({ $0 as? PaintAmmo }))
+        updateAmmoDisplay(
+            ammo: weaponData.getAmmo().compactMap({ $0 as? PaintAmmo })
+        )
 
-        EventSystem.playerActionEvent.playerAmmoUpdateEvent.subscribe(listener: onAmmoUpdate)
-        EventSystem.playerActionEvent.playerChangedWeaponEvent.subscribe(listener: onChangeWeapon)
+        EventSystem.playerActionEvent
+            .playerAmmoUpdateEvent.subscribe(listener: onAmmoUpdate)
+        EventSystem.playerActionEvent
+            .playerChangedWeaponEvent.subscribe(listener: onChangeWeapon)
         EventSystem.inputEvents.touchDownEvent.subscribe(listener: touchDown)
     }
 

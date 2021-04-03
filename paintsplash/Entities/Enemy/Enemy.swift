@@ -25,6 +25,7 @@ class Enemy: GameEntity, StatefulEntity, Renderable, Animatable, Collidable, Mov
 
     init(initialPosition: Vector2D, color: PaintColor) {
         self.color = color
+        
         self.renderComponent = RenderComponent(
             renderType: .sprite(spriteName: "Slime"),
             zPosition: Constants.ZPOSITION_PLAYER
@@ -37,13 +38,19 @@ class Enemy: GameEntity, StatefulEntity, Renderable, Animatable, Collidable, Mov
         )
 
         self.healthComponent = HealthComponent(currentHealth: 1, maxHealth: 1)
+
         self.collisionComponent = CollisionComponent(
             colliderShape: .circle(radius: 50),
             tags: [.enemy]
         )
 
-        self.moveableComponent = MoveableComponent(direction: Vector2D.zero, speed: moveSpeed)
+        self.moveableComponent = MoveableComponent(
+            direction: Vector2D.zero,
+            speed: moveSpeed
+        )
+
         self.stateComponent = StateComponent()
+
         self.animationComponent = AnimationComponent()
 
         super.init()
@@ -53,18 +60,22 @@ class Enemy: GameEntity, StatefulEntity, Renderable, Animatable, Collidable, Mov
 
     func onCollide(with: Collidable) {
         if with.collisionComponent.tags.contains(.playerProjectile) {
-            switch with {
-            case let projectile as PaintProjectile:
-                if projectile.color.contains(color: self.color) || projectile.color == PaintColor.white {
-                    takeDamage(amount: 1)
-                }
-            default:
-                fatalError("Projectile not conforming to projectile protocol")
-            }
+            onCollideWithPlayerProjectile(with: with)
         }
 
         if with.collisionComponent.tags.contains(.player) {
             takeDamage(amount: 1)
+        }
+    }
+
+    private func onCollideWithPlayerProjectile(with: Collidable) {
+        switch with {
+        case let projectile as PaintProjectile:
+            if projectile.color.contains(color: self.color) || projectile.color == PaintColor.white {
+                takeDamage(amount: 1)
+            }
+        default:
+            fatalError("Projectile not conforming to projectile protocol")
         }
     }
 
@@ -86,8 +97,6 @@ class Enemy: GameEntity, StatefulEntity, Renderable, Animatable, Collidable, Mov
     private func die() {
         moveableComponent.speed = 0
         collisionComponent.active = false
-//        animationComponent.animate(animation: SlimeAnimations.slimeDieGray, interupt: true,
-//                                   callBack: { self.destroy() })
         stateComponent.currentState = EnemyState.Die(enemy: self)
 
         EventSystem.scoreEvent.post(event: ScoreEvent(value: Points.enemyKill))

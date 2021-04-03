@@ -17,7 +17,11 @@ class HeartDisplay: UIEntity, Renderable, Transformable {
             rotation: 0.0,
             size: Constants.HEART_DISPLAY_SIZE
         )
-        self.renderComponent = RenderComponent(renderType: renderType, zPosition: zPosition)
+
+        self.renderComponent = RenderComponent(
+            renderType: renderType,
+            zPosition: zPosition
+        )
 
         super.init()
     }

@@ -7,7 +7,6 @@
 
 class WeaponComponent: Component, Weapon {
     var capacity: Int
-    var carriedBy: Transformable?
 
     init(capacity: Int) {
         self.capacity = capacity

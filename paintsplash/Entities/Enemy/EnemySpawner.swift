@@ -29,15 +29,23 @@ class EnemySpawner: GameEntity, StatefulEntity, Transformable, Renderable, Anima
         )
 
         self.healthComponent = HealthComponent(currentHealth: 3, maxHealth: 3)
-        self.collisionComponent = CollisionComponent(colliderShape: .circle(radius: 50), tags: [])
+
+        self.collisionComponent = CollisionComponent(
+            colliderShape: .circle(radius: 50),
+            tags: []
+        )
         self.stateComponent = StateComponent()
+
         self.animationComponent = AnimationComponent()
 
         self.color = color
 
         super.init()
 
-        self.stateComponent.currentState = EnemySpawnerState.Idle(spawner: self, idleTime: 100)
+        self.stateComponent.currentState = EnemySpawnerState.Idle(
+            spawner: self, 
+            idleTime: 100
+        )
     }
 
     func onCollide(with: Collidable) {

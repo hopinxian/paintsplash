@@ -11,7 +11,6 @@ class GameScene: SKScene {
     var gameManager: GameManager!
 
     override func didMove(to view: SKView) {
-        // Get label node from scene and store it for use later
         isAccessibilityElement = false
 
         SpaceConverter.modelSize = Constants.MODEL_WORLD_SIZE
@@ -19,7 +18,6 @@ class GameScene: SKScene {
     }
 
     override func update(_ currentTime: TimeInterval) {
-        // Called before each frame is rendered
         gameManager.update()
     }
 

@@ -6,6 +6,13 @@
 
 .DS_Store
 
+## Firebase
+.firebaserc
+database-debug.log
+database.rules.json
+firebase.json
+ui-debug.log
+
 ## Build generated
 build/
 DerivedData/

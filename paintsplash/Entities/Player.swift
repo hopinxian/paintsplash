@@ -62,20 +62,25 @@ class Player: GameEntity,
         self.lastDirection = Vector2D.left
 
         self.stateComponent = StateComponent()
-        self.multiWeaponComponent = MultiWeaponComponent(weapons: [PaintGun(), Bucket()])
+
+        self.multiWeaponComponent = MultiWeaponComponent(
+            weapons: [PaintGun(), Bucket()]
+        )
 
         super.init()
 
         self.stateComponent.currentState = PlayerState.IdleLeft(player: self)
 
-        self.multiWeaponComponent.carriedBy = self
         self.multiWeaponComponent.load(
             to: Bucket.self,
-            ammo: [PaintAmmo(color: .red), PaintAmmo(color: .red), PaintAmmo(color: .red)]
+            ammo: [PaintAmmo(color: .red),
+                   PaintAmmo(color: .red),
+                   PaintAmmo(color: .red)]
         )
 
-        self.multiWeaponComponent.load([PaintAmmo(color: .blue), PaintAmmo(color: .red), PaintAmmo(color: .yellow)]
-        )
+        self.multiWeaponComponent.load([PaintAmmo(color: .blue),
+                                        PaintAmmo(color: .red),
+                                        PaintAmmo(color: .yellow)])
 
         EventSystem.processedInputEvents.playerMoveEvent.subscribe(listener: onMove)
         EventSystem.processedInputEvents.playerShootEvent.subscribe(listener: onShoot)
@@ -96,9 +101,11 @@ class Player: GameEntity,
         moveableComponent.direction = event.direction
 
         lastDirection = event.direction.magnitude == 0 ? lastDirection : event.direction
-        EventSystem.playerActionEvent.playerMovementEvent.post(
-            event: PlayerMovementEvent(location: transformComponent.localPosition, playerId: event.playerId)
+        let event = PlayerMovementEvent(
+            location: transformComponent.localPosition,
+            playerId: event.playerId
         )
+        EventSystem.playerActionEvent.playerMovementEvent.post(event: event)
     }
 
     func onShoot(event: PlayerShootEvent) {
@@ -109,11 +116,10 @@ class Player: GameEntity,
 
         if multiWeaponComponent.canShoot() {
             let direction = event.direction.magnitude > 0 ? event.direction : lastDirection
-            if lastDirection.x > 0 {
-                stateComponent.currentState = PlayerState.AttackRight(player: self, attackDirection: direction)
-            } else {
-                stateComponent.currentState = PlayerState.AttackLeft(player: self, attackDirection: direction)
-            }
+
+            stateComponent.currentState = lastDirection.x > 0
+                ? PlayerState.AttackRight(player: self, attackDirection: direction)
+                : PlayerState.AttackLeft(player: self, attackDirection: direction)
         }
     }
 
@@ -130,17 +136,21 @@ class Player: GameEntity,
             break
         }
 
-        EventSystem.playerActionEvent.playerChangedWeaponEvent.post(
-            event: PlayerChangedWeaponEvent(weapon: multiWeaponComponent.activeWeapon, playerId: id)
+        let event = PlayerChangedWeaponEvent(
+            weapon: multiWeaponComponent.activeWeapon,
+            playerId: id
         )
+        EventSystem.playerActionEvent.playerChangedWeaponEvent.post(event: event)
     }
 
     func heal(amount: Int) {
         healthComponent.currentHealth += amount
 
-        EventSystem.playerActionEvent.playerHealthUpdateEvent.post(
-            event: PlayerHealthUpdateEvent(newHealth: healthComponent.currentHealth, playerId: id)
+        let event = PlayerHealthUpdateEvent(
+            newHealth: healthComponent.currentHealth,
+            playerId: id
         )
+        EventSystem.playerActionEvent.playerHealthUpdateEvent.post(event: event)
     }
 
     func takeDamage(amount: Int) {
@@ -173,30 +183,30 @@ class Player: GameEntity,
 
     func onCollide(with: Collidable) {
         if with.collisionComponent.tags.contains(.ammoDrop) {
-            switch with {
-            case let ammoDrop as PaintAmmoDrop:
-                loadAmmoDrop(ammoDrop)
-            default:
-                fatalError("Ammo Drop not conforming to AmmoDrop protocol")
-            }
+            onCollideWithAmmoDrop(with: with)
         }
 
         if with.collisionComponent.tags.contains(.enemy) {
-            // TODO: ensure that enemy collide with enemy spawner/other objects is ok
-            //            guard otherObject is Enemy else {
-            //                print(otherObject)
-            //                fatalError("Enemy does not conform to enemy")
-            switch with {
-            case _ as Enemy:
-
-                takeDamage(amount: 1)
-            default:
-                fatalError("Enemy does not conform to any enemy type")
-            }
+            onCollideWithEnemy(with: with)
         }
     }
 
-    override func update() {
-        // print(stateComponent.currentState)
+    private func onCollideWithAmmoDrop(with: Collidable) {
+        switch with {
+        case let ammoDrop as PaintAmmoDrop:
+            loadAmmoDrop(ammoDrop)
+        default:
+            fatalError("Ammo Drop not conforming to AmmoDrop protocol")
+        }
+    }
+
+    private func onCollideWithEnemy(with: Collidable) {
+        // TODO: ensure that enemy collide with enemy spawner/other objects is ok
+        switch with {
+        case _ as Enemy:
+            takeDamage(amount: 1)
+        default:
+            fatalError("Enemy does not conform to any enemy type")
+        }
     }
 }

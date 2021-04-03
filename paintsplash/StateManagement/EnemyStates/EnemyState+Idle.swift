@@ -8,7 +8,10 @@
 extension EnemyState {
     class Idle: EnemyState {
         override func onEnterState() {
-            enemy.animationComponent.animate(animation: SlimeAnimations.slimeIdleGray, interupt: true)
+            enemy.animationComponent.animate(
+                animation: SlimeAnimations.slimeIdleGray, 
+                interupt: true
+            )
         }
 
         override func getStateTransition() -> State? {

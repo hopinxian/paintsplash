@@ -8,13 +8,13 @@
 class PaintAmmoDisplay: UIEntity, Renderable, Colorable, Transformable {
     var renderComponent: RenderComponent
     var transformComponent: TransformComponent
-
     var color: PaintColor
 
     init(paintAmmo: PaintAmmo, position: Vector2D, zPosition: Int) {
         self.color = paintAmmo.color
 
         let renderType = RenderType.sprite(spriteName: "WhiteSquare")
+
         self.transformComponent = TransformComponent(
             position: position,
             rotation: 0,

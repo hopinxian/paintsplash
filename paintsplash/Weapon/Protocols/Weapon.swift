@@ -7,7 +7,6 @@
 
 protocol Weapon: AnyObject {
     var capacity: Int { get set }
-    var carriedBy: Transformable? { get set }
     func load(_ ammo: [Ammo])
     func shoot(from position: Vector2D, in direction: Vector2D) -> Projectile?
     func canShoot() -> Bool

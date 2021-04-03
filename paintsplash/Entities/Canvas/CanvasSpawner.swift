@@ -8,7 +8,6 @@
 class CanvasSpawner: GameEntity, StatefulEntity, Transformable {
     var transformComponent: TransformComponent
     let stateComponent: StateComponent
-    // X-coordinate where canvas should disappear
     private var spawnInterval: Double
 
     init(initialPosition: Vector2D, canvasVelocity: Vector2D, spawnInterval: Double) {
@@ -23,6 +22,7 @@ class CanvasSpawner: GameEntity, StatefulEntity, Transformable {
 
         super.init()
 
-        self.stateComponent.currentState = CanvasSpawnerState.Idle(spawner: self, idleTime: 1)
+        self.stateComponent.currentState =
+            CanvasSpawnerState.Idle(spawner: self, idleTime: 1)
     }
 }

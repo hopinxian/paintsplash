@@ -15,9 +15,6 @@ class HorizontalStack<ItemType: Renderable>: GameEntity, Renderable, Animatable 
     let bottomPadding: Double
     var zPosition: Int
 
-//    var startX: Double
-//    var startY: Double
-//    var nextPosition: Vector2D
     private var startPosition: Vector2D
 
     var transformComponent: TransformComponent
@@ -41,10 +38,17 @@ class HorizontalStack<ItemType: Renderable>: GameEntity, Renderable, Animatable 
         self.bottomPadding = bottomPadding
         self.zPosition = Constants.ZPOSITION_UI_ELEMENT
 
-        let renderType = RenderType.sprite(spriteName: backgroundSprite)
+        self.transformComponent = TransformComponent(
+            position: position,
+            rotation: rotation,
+            size: size
+        )
+        
+        self.renderComponent = RenderComponent(
+            renderType: .sprite(spriteName: backgroundSprite),
+            zPosition: zPosition
+        )
 
-        self.transformComponent = TransformComponent(position: position, rotation: rotation, size: size)
-        self.renderComponent = RenderComponent(renderType: renderType, zPosition: zPosition)
         self.animationComponent = AnimationComponent()
 
         let startX = leftPadding - (transformComponent.size.x / 2)
@@ -62,7 +66,6 @@ class HorizontalStack<ItemType: Renderable>: GameEntity, Renderable, Animatable 
     }
 
     func remove(at index: Int) {
-        // clearViews()
         let item = items[index]
         let width = item.transformComponent.size.x
 
@@ -70,12 +73,9 @@ class HorizontalStack<ItemType: Renderable>: GameEntity, Renderable, Animatable 
 
         items.remove(at: index)
         item.destroy()
-//        EventSystem.entityChangeEvents.removeEntityEvent.post(event: RemoveEntityEvent(entity: item))
-        // renderViews()
     }
 
     func insertTop(item: ItemType) {
-        // clearViews()
         var nextPosition = startPosition
 
         // if first item exists, change next position
@@ -111,10 +111,8 @@ class HorizontalStack<ItemType: Renderable>: GameEntity, Renderable, Animatable 
     }
 
     private func shiftItemsLeft(from: Int, to: Int, xDistance: Double) {
-        for (index, item) in items.enumerated() {
-            if index >= from && index <= to {
-                item.transformComponent.localPosition -= Vector2D(xDistance + seperation, 0)
-            }
+        for (index, item) in items.enumerated() where index >= from && index <= to{
+            item.transformComponent.localPosition -= Vector2D(xDistance + seperation, 0)
         }
     }
 
@@ -138,9 +136,13 @@ class HorizontalStack<ItemType: Renderable>: GameEntity, Renderable, Animatable 
         guard let firstItem = items.first else {
             return
         }
-        let startX = -(transformComponent.size.x / 2) + (firstItem.transformComponent.size.x / 2) + leftPadding
+
+        let startX = -(transformComponent.size.x / 2) +
+            (firstItem.transformComponent.size.x / 2) +
+            leftPadding
         let startY = bottomPadding - topPadding
         var nextPosition = transformComponent.localPosition + Vector2D(startX, startY)
+
         for item in items {
             item.transformComponent.localPosition = nextPosition
             item.renderComponent.zPosition = zPosition + 1

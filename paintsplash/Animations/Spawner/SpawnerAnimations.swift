@@ -8,18 +8,35 @@
 struct SpawnerAnimations: AnimationSource {
     var animations: [String : Animation] = [
         "spawnerIdle":
-        AtlasAnimation(name: "spawnerIdle",
-                       animationDuration: 1.2, atlasName: "SpawnerIdle", isRepeating: true),
+            AtlasAnimation(
+                name: "spawnerIdle",
+                animationDuration: 1.2,
+                atlasName: "SpawnerIdle",
+                isRepeating: true
+            ),
         "spawnerSpawn":
-        AtlasAnimation(name: "spawnerSpawn",
-                       animationDuration: 1.2, atlasName: "SpawnerSpawn", isRepeating: false),
+            AtlasAnimation(
+                name: "spawnerSpawn",
+                animationDuration: 1.2,
+                atlasName: "SpawnerSpawn",
+                isRepeating: false
+            ),
         "spawnerDie":
-        AtlasAnimation(name: "spawnerDie",
-                       animationDuration: 1.2, atlasName: "SpawnerDie", isRepeating: false),
+            AtlasAnimation(
+                name: "spawnerDie",
+                animationDuration: 1.2,
+                atlasName: "SpawnerDie",
+                isRepeating: false
+            ),
         "spawnerHit":
-        AtlasAnimation(name: "spawnerHit",
-                       animationDuration: 1.2, atlasName: "SpawnerHit", isRepeating: true)
+            AtlasAnimation(
+                name: "spawnerHit",
+                animationDuration: 1.2,
+                atlasName: "SpawnerHit", 
+                isRepeating: true
+            )
     ]
+
     static let spawnerIdle = "spawnerIdle"
     static let spawnerSpawn = "spawnerSpawn"
     static let spawnerDie = "spawnerDie"

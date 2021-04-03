@@ -11,7 +11,6 @@ enum RenderType {
 }
 
 extension RenderType: Codable {
-
     private enum CodingKeys: String, CodingKey {
       case caseType, spriteParams, labelParams
     }

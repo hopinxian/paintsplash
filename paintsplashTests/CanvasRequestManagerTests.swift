@@ -23,7 +23,7 @@ class CanvasRequestManagerTests: XCTestCase {
 
     func testInitialization() {
         let requests = canvasRequestManager.requestsDisplayView.items
-        XCTAssertEqual(canvasRequestManager.maxRequests, 1)
+        XCTAssertEqual(canvasRequestManager.maxRequests, 4)
         XCTAssertEqual(requests.count, 0)
     }
 
@@ -64,7 +64,7 @@ class CanvasRequestManagerTests: XCTestCase {
             return
         }
 
-        XCTAssertEqual(requests.count, 1)
+        XCTAssertEqual(requests.count, 2)
         XCTAssertEqual(request.requiredColors, requestColorSet1)
         XCTAssertNotEqual(request.requiredColors, requestColorSet2)
     }
@@ -135,5 +135,4 @@ class CanvasRequestManagerTests: XCTestCase {
         let score2 = canvasRequestManager.scoreCanvas(request: request2)
         XCTAssertEqual(score2, 600)
     }
-
 }

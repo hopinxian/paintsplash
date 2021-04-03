@@ -8,13 +8,6 @@
 class MultiWeaponComponent: WeaponComponent {
     var activeWeapon: Weapon
     var availableWeapons: [Weapon]
-    override var carriedBy: Transformable? {
-        didSet {
-            for weapon in availableWeapons {
-                weapon.carriedBy = carriedBy
-            }
-        }
-    }
 
     init(weapons: [Weapon]) {
         self.activeWeapon = weapons[0]
@@ -35,9 +28,7 @@ class MultiWeaponComponent: WeaponComponent {
     }
 
     override func shoot(from position: Vector2D, in direction: Vector2D) -> Projectile? {
-        // Handle shooting here
-        guard let projectile = activeWeapon.shoot(from: position, in: direction),
-            let carriedBy = carriedBy else {
+        guard let projectile = activeWeapon.shoot(from: position, in: direction) else {
             return nil
         }
 
