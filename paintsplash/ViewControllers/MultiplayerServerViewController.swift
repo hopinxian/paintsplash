@@ -11,13 +11,13 @@ class MultiplayerServerViewController: UIViewController {
     var lobbyHandler: LobbyHandler!
     var roomInfo: RoomInfo!
 
-    @IBOutlet var gameView: SKView!
+    @IBOutlet private var gameView: SKView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         guard let scene = gameView.scene as? GameScene else {
-            fatalError()
+            fatalError("Game Scene not setup properly")
         }
         let gameManager = MultiplayerServer(roomInfo: roomInfo, gameScene: scene)
         scene.gameManager = gameManager
@@ -27,10 +27,12 @@ class MultiplayerServerViewController: UIViewController {
                                  onError: nil)
 
         // set up observer for room
-        lobbyHandler?.observeRoom(roomId: roomInfo.roomId,
-                                  onRoomChange: { [weak self] in self?.handleRoomChange(roomInfo: $0) },
-                                  onRoomClose: { [weak self] in self?.onCloseGame() },
-                                  onError: nil)
+        lobbyHandler?.observeRoom(
+            roomId: roomInfo.roomId,
+            onRoomChange: { [weak self] in self?.handleRoomChange(roomInfo: $0) },
+            onRoomClose: { [weak self] in self?.onCloseGame() },
+            onError: nil
+        )
     }
 
     private func handleRoomChange(roomInfo: RoomInfo) {

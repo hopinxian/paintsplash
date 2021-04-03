@@ -12,7 +12,7 @@ class MultiplayerClientViewController: UIViewController {
     var playerInfo: PlayerInfo!
     var roomInfo: RoomInfo!
 
-    @IBOutlet var gameView: SKView!
+    @IBOutlet private var gameView: SKView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,15 +28,19 @@ class MultiplayerClientViewController: UIViewController {
         )
         scene.gameManager = gameManager
 
-        lobbyHandler?.observeGame(roomInfo: roomInfo,
-                                  onGameStop: { [weak self] in self?.onCloseGame() },
-                                  onError: { print("Error observing game on client: \($0)") })
+        lobbyHandler?.observeGame(
+            roomInfo: roomInfo,
+            onGameStop: { [weak self] in self?.onCloseGame() },
+            onError: { print("Error observing game on client: \($0)") }
+        )
 
         // Observe room: If host quits, close the game
-        lobbyHandler?.observeRoom(roomId: roomInfo.roomId,
-                                  onRoomChange: nil,
-                                  onRoomClose: { [weak self] in self?.onCloseGame() },
-                                  onError: nil)
+        lobbyHandler?.observeRoom(
+            roomId: roomInfo.roomId,
+            onRoomChange: nil,
+            onRoomClose: { [weak self] in self?.onCloseGame() },
+            onError: nil
+        )
     }
 
     @IBAction private func endMultiplayerGame(_ sender: UIButton) {

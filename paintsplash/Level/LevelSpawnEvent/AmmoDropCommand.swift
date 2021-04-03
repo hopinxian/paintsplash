@@ -30,11 +30,9 @@ class AmmoDropCommand: SpawnCommand {
             .merging(gameInfo.requiredCanvasColors, uniquingKeysWith: { $0 + $1 })
             .merging(gameInfo.existingDropColors, uniquingKeysWith: { $0 - $1 })
         var colors = [PaintColor]()
-        for (key, value) in requiredColorDict {
-            if value > 0 {
-                for _ in 0..<value {
-                    colors.append(key)
-                }
+        for (key, value) in requiredColorDict where value > 0 {
+            for _ in 0..<value {
+                colors.append(key)
             }
         }
         return colors.shuffled().first ?? PaintColor.allCases.shuffled()[0]

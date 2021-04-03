@@ -30,16 +30,6 @@ class PlayerShootEvent: ProcessedInputEvent, Codable {
     }
 }
 
-// class PlayerChangeWeaponEvent: ProcessedInputEvent {
-//    let newWeapon: Weapon.Type
-//    let playerID: UUID
-//
-//    init(newWeapon: Weapon.Type, playerID: UUID) {
-//        self.newWeapon = newWeapon
-//        self.playerID = playerID
-//    }
-// }
-
 class PlayerChangeWeaponEvent: ProcessedInputEvent, Codable {
     let newWeapon: Weapon.Type
     let playerId: EntityID

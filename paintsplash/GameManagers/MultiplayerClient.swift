@@ -3,7 +3,7 @@
 //  paintsplash
 //
 //  Created by Cynthia Lee on 1/4/21.
-//
+//  swiftline:disable type_body_length
 import Foundation
 
 class MultiplayerClient: GameManager {
@@ -13,7 +13,8 @@ class MultiplayerClient: GameManager {
     weak var gameScene: GameScene?
 
     var connectionHandler: ConnectionHandler = FirebaseConnectionHandler()
-    var gameConnectionHandler: GameConnectionHandler = FirebaseGameHandler()
+    var gameConnectionHandler: GameConnectionHandler =
+        FirebaseGameHandler(connectionHandler: FirebaseConnectionHandler())
 
     var playerInfo: PlayerInfo
     // Dummy player that allows the appropriate ammo stacks to appear
@@ -71,8 +72,11 @@ class MultiplayerClient: GameManager {
         gameConnectionHandler.observeEvent(
             gameId: gameID,
             playerId: playerInfo.playerUUID,
-            onChange: { EventSystem.playerActionEvent.playerHealthUpdateEvent.post(event: $0)
-            }
+            onChange: {
+                EventSystem.playerActionEvent.playerHealthUpdateEvent.post(event: $0)
+
+            },
+            onError: nil
         )
 
         gameConnectionHandler.observeEvent(
@@ -80,7 +84,8 @@ class MultiplayerClient: GameManager {
             playerId: playerInfo.playerUUID,
             onChange: {
                 EventSystem.playerActionEvent.playerAmmoUpdateEvent.post(event: $0)
-            }
+            },
+            onError: nil
         )
 
         gameConnectionHandler.observeEvent(
@@ -91,8 +96,15 @@ class MultiplayerClient: GameManager {
                 guard let playerId = self?.playerInfo.playerUUID else {
                     return
                 }
-                self?.gameConnectionHandler.acknowledgeEvent(event, gameId: gameID, playerId: playerId)
-            }
+                self?.gameConnectionHandler.acknowledgeEvent(
+                    event,
+                    gameId: gameID,
+                    playerId: playerId,
+                    onError: nil,
+                    onSuccess: nil
+                )
+            },
+            onError: nil
         )
 
         gameConnectionHandler.observeEvent(
@@ -103,16 +115,19 @@ class MultiplayerClient: GameManager {
                 guard let playerId = self?.playerInfo.playerUUID else {
                     return
                 }
-                self?.gameConnectionHandler.acknowledgeEvent(event, gameId: gameID, playerId: playerId)
-            }
+                self?.gameConnectionHandler.acknowledgeEvent(
+                    event,
+                    gameId: gameID,
+                    playerId: playerId,
+                    onError: nil,
+                    onSuccess: nil)
+            },
+            onError: nil
         )
 
-        let systemPath = FirebasePaths.joinPaths(
-            FirebasePaths.games,
-            room.gameID,
-            FirebasePaths.systems
-        )
-        connectionHandler.listen(to: systemPath, callBack: { [weak self] in self?.updateSystemData(data: $0) })
+        gameConnectionHandler.observeSystemData(gameID: gameID, callback: { [weak self] data in
+            self?.updateSystemData(data: data)
+        })
     }
 
     func setUpSystems() {
@@ -150,7 +165,9 @@ class MultiplayerClient: GameManager {
         self.gameConnectionHandler.sendEvent(
             gameId: gameId,
             playerId: event.playerId.id,
-            action: event
+            action: event,
+            onError: nil,
+            onSuccess: nil
         )
     }
 
@@ -158,7 +175,9 @@ class MultiplayerClient: GameManager {
         self.gameConnectionHandler.sendEvent(
             gameId: gameId,
             playerId: event.playerId.id,
-            action: event
+            action: event,
+            onError: nil,
+            onSuccess: nil
         )
     }
 
@@ -166,7 +185,9 @@ class MultiplayerClient: GameManager {
         self.gameConnectionHandler.sendEvent(
             gameId: gameId,
             playerId: event.playerId.id,
-            action: event
+            action: event,
+            onError: nil,
+            onSuccess: nil
         )
     }
 
@@ -177,7 +198,7 @@ class MultiplayerClient: GameManager {
         let playerId = EntityID(id: playerInfo.playerUUID)
 
         guard let paintGun = player.multiWeaponComponent
-                .availableWeapons.compactMap({ $0 as? PaintGun }).first else {
+            .availableWeapons.compactMap({ $0 as? PaintGun }).first else {
             fatalError("Paintgun not setup properly")
         }
 
@@ -189,7 +210,7 @@ class MultiplayerClient: GameManager {
         )
 
         guard let paintBucket = player.multiWeaponComponent
-                .availableWeapons.compactMap({ $0 as? Bucket }).first else {
+            .availableWeapons.compactMap({ $0 as? Bucket }).first else {
             fatalError("PaintBucket not setup properly")
         }
 
@@ -285,7 +306,7 @@ class MultiplayerClient: GameManager {
 
         renderableData.renderables.forEach({ entity, encodedRenderable in
             if let (_, renderable) = renderSystem.renderables.first(
-                where: { $0.key == entity }) {
+                    where: { $0.key == entity }) {
                 renderable.renderComponent = encodedRenderable.renderComponent
                 renderable.transformComponent = encodedRenderable.transformComponent
             }
@@ -299,7 +320,7 @@ class MultiplayerClient: GameManager {
 
         animatableData.animatables.forEach({ entity, encodedAnimatable in
             if let (_, animatable) = animationSystem.animatables.first(
-                where: { $0.key == entity }) {
+                    where: { $0.key == entity }) {
                 animatable.animationComponent = encodedAnimatable.animationComponent
             }
         })
