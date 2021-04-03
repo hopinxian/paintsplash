@@ -25,6 +25,18 @@ class MultiplayerServerViewController: UIViewController {
         // set up observer for game state
         lobbyHandler.observeGame(roomInfo: roomInfo, onGameStop: { [weak self] in self?.onCloseGame() },
                                  onError: nil)
+
+        // set up observer for room
+        lobbyHandler?.observeRoom(roomId: roomInfo.roomId,
+                                  onRoomChange: { [weak self] in self?.handleRoomChange(roomInfo: $0)},
+                                  onRoomClose: { [weak self] in self?.onCloseGame() },
+                                  onError: nil)
+    }
+
+    private func handleRoomChange(roomInfo: RoomInfo) {
+        if roomInfo.players == nil {
+            onCloseGame()
+        }
     }
 
     @IBAction private func endMultplayerGame(_ sender: UIButton) {

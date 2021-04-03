@@ -41,5 +41,4 @@ protocol LobbyHandler: AnyObject {
     func observeGame(roomInfo: RoomInfo,
                      onGameStop: (() -> Void)?,
                      onError: ((Error?) -> Void)?)
-
 }
