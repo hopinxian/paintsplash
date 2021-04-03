@@ -7,14 +7,17 @@
 import UIKit
 import SpriteKit
 
-class MultiplayerServerViewController: GameViewController {
+class MultiplayerServerViewController: UIViewController {
     var lobbyHandler: LobbyHandler!
     var roomInfo: RoomInfo!
 
+    @IBOutlet var gameView: SKView!
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        guard let scene = self.gameScene else {
-            fatalError("GameScene not setup properly")
+
+        guard let scene = gameView.scene as? GameScene else {
+            fatalError()
         }
         let gameManager = MultiplayerServer(roomInfo: roomInfo, gameScene: scene)
         scene.gameManager = gameManager
@@ -30,7 +33,6 @@ class MultiplayerServerViewController: GameViewController {
 
     private func onCloseGame() {
         print("closing server game")
-        self.navigationController?.popViewController(animated: true)
         self.navigationController?.popViewController(animated: true)
     }
 

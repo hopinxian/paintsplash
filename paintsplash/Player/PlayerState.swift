@@ -9,7 +9,7 @@ protocol StateType {
 }
 
 class PlayerState: State {
-    var player: Player!
+    unowned var player: Player!
 
     init(player: Player?) {
         self.player = player

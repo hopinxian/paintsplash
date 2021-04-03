@@ -6,7 +6,7 @@
 //
 
 class EnemySpawnerState: State {
-    let spawner: EnemySpawner
+    unowned let spawner: EnemySpawner
 
     init(spawner: EnemySpawner) {
         self.spawner = spawner

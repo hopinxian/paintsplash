@@ -6,7 +6,7 @@
 //
 
 class CanvasState: State {
-    let canvas: Canvas
+    unowned let canvas: Canvas
 
     init(canvas: Canvas) {
         self.canvas = canvas

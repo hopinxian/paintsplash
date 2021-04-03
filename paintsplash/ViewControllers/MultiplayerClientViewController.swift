@@ -5,22 +5,22 @@
 //  Created by Farrell Nah on 29/3/21.
 //
 import UIKit
+import SpriteKit
 
-class MultiplayerClientViewController: GameViewController {
+class MultiplayerClientViewController: UIViewController {
     weak var lobbyHandler: LobbyHandler?
     var playerInfo: PlayerInfo!
     var roomInfo: RoomInfo!
 
+    @IBOutlet var gameView: SKView!
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        guard let scene = gameScene else {
-            fatalError("GameScene not setup properly")
+
+        guard let scene = gameView.scene as? GameScene else {
+            fatalError("Game scene not setup properly")
         }
 
-        guard let playerInfo = self.playerInfo,
-              let roomInfo = self.roomInfo else {
-            return
-        }
         let gameManager = MultiplayerClient(
             gameScene: scene,
             playerInfo: playerInfo,
