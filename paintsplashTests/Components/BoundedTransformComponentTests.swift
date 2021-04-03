@@ -19,6 +19,6 @@ class BoundedTransformComponentTests: XCTestCase {
     func testConstruct() {
         XCTAssertEqual(component.bounds, Rect(minX: 0, maxX: 50, minY: 0, maxY: 50))
         XCTAssertEqual(component.size, Vector2D(20, 20))
-        
+
     }
 }
