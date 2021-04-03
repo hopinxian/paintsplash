@@ -20,7 +20,8 @@ class FirebaseConnectionHandler: ConnectionHandler {
     }
 
     init() {
-        self.firebase = Database.database()
+        self.firebase =
+            Database.database(url: "http://localhost:9000/?ns=paintsplash-fe2d8")
     }
 
     func send<T: Codable>(
