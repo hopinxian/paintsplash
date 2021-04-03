@@ -181,6 +181,7 @@
 		D55EEBA02600927800ADC70B /* EntityChangeEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55EEB9F2600927800ADC70B /* EntityChangeEvent.swift */; };
 		D55EEBA82600929500ADC70B /* EntityChangeEventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55EEBA72600929500ADC70B /* EntityChangeEventManager.swift */; };
 		D55EEBAD260096FB00ADC70B /* VerticalStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55EEBAC260096FB00ADC70B /* VerticalStack.swift */; };
+		D566E77626189FF20089FB41 /* ViewControllerIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D566E77526189FF20089FB41 /* ViewControllerIdentifiers.swift */; };
 		D57044E426182A7B004AF802 /* EncodableRenderable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57044E326182A7B004AF802 /* EncodableRenderable.swift */; };
 		D57044EA26182A8A004AF802 /* RenderSystemData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57044E926182A8A004AF802 /* RenderSystemData.swift */; };
 		D57044EF26182A9E004AF802 /* EncodableAnimatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57044EE26182A9E004AF802 /* EncodableAnimatable.swift */; };
@@ -484,6 +485,7 @@
 		D55EEB9F2600927800ADC70B /* EntityChangeEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityChangeEvent.swift; sourceTree = "<group>"; };
 		D55EEBA72600929500ADC70B /* EntityChangeEventManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityChangeEventManager.swift; sourceTree = "<group>"; };
 		D55EEBAC260096FB00ADC70B /* VerticalStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalStack.swift; sourceTree = "<group>"; };
+		D566E77526189FF20089FB41 /* ViewControllerIdentifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerIdentifiers.swift; sourceTree = "<group>"; };
 		D57044E326182A7B004AF802 /* EncodableRenderable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncodableRenderable.swift; sourceTree = "<group>"; };
 		D57044E926182A8A004AF802 /* RenderSystemData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderSystemData.swift; sourceTree = "<group>"; };
 		D57044EE26182A9E004AF802 /* EncodableAnimatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncodableAnimatable.swift; sourceTree = "<group>"; };
@@ -1113,6 +1115,7 @@
 				DCCF8CF3261038E4006F6964 /* JoinRoomViewController.swift */,
 				DCCF8CEB26102DDA006F6964 /* RoomViewController.swift */,
 				DCCF8CEF26103412006F6964 /* SegueIdentifiers.swift */,
+				D566E77526189FF20089FB41 /* ViewControllerIdentifiers.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -1894,6 +1897,7 @@
 				DC6A07D126132D26009FE7F6 /* FirebaseGameHandler.swift in Sources */,
 				D53F5431260D947200635B05 /* StateComponent.swift in Sources */,
 				DCFBF8A6260F7DA500BA1216 /* MultiplayerMenuViewController.swift in Sources */,
+				D566E77626189FF20089FB41 /* ViewControllerIdentifiers.swift in Sources */,
 				D53F542D260D946000635B05 /* WeaponComponent.swift in Sources */,
 				D53F5480260D968400635B05 /* EnemySpawnerState+Idle.swift in Sources */,
 			);

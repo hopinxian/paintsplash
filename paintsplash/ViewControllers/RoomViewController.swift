@@ -62,7 +62,7 @@ class RoomViewController: UIViewController {
 
     private func startServer() {
         guard let serverVC = UIStoryboard(name: "Main", bundle: nil)
-            .instantiateViewController(identifier: "multiplayerServerViewController")
+                .instantiateViewController(identifier: ViewControllerIdentifiers.multiplayerServer)
             as? MultiplayerServerViewController else {
                 fatalError("Error creating server view controller")
             }
@@ -74,7 +74,7 @@ class RoomViewController: UIViewController {
 
     private func startClient() {
         guard let clientVC = UIStoryboard(name: "Main", bundle: nil)
-                .instantiateViewController(identifier: "multiplayerClientViewController")
+                .instantiateViewController(identifier: ViewControllerIdentifiers.multiplayerClient)
                 as? MultiplayerClientViewController else {
             fatalError("Error creating client view controller")
         }
