@@ -34,6 +34,11 @@
 		846D4FD9260241670079720F /* SlimeIdleGray.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 846D4FD4260241670079720F /* SlimeIdleGray.atlas */; };
 		846D4FDA260241670079720F /* SlimeMoveLeftGray.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 846D4FD5260241670079720F /* SlimeMoveLeftGray.atlas */; };
 		849E63AD26179E9B00AFA9A7 /* MockGameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849E63AC26179E9A00AFA9A7 /* MockGameManager.swift */; };
+		84CF591F26184C1B008FB1A7 /* StateComponentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CF591E26184C1B008FB1A7 /* StateComponentTests.swift */; };
+		84CF592B2618512D008FB1A7 /* MultiWeaponComponentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CF592A2618512D008FB1A7 /* MultiWeaponComponentTests.swift */; };
+		84CF593326185D2A008FB1A7 /* HealthComponentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CF593226185D2A008FB1A7 /* HealthComponentTests.swift */; };
+		84CF593826186100008FB1A7 /* BidirectionalMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CF593726186100008FB1A7 /* BidirectionalMapTests.swift */; };
+		84CF593E2618660C008FB1A7 /* MathTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CF593D2618660C008FB1A7 /* MathTests.swift */; };
 		84D453D42615B98700864E38 /* GameInfoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D453D32615B98700864E38 /* GameInfoManager.swift */; };
 		AC069592260123C4007982DE /* ChangeViewEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC069591260123C4007982DE /* ChangeViewEvent.swift */; };
 		AC069597260123CE007982DE /* ChangeViewEventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC069596260123CE007982DE /* ChangeViewEventManager.swift */; };
@@ -320,6 +325,11 @@
 		846D4FD4260241670079720F /* SlimeIdleGray.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = SlimeIdleGray.atlas; sourceTree = "<group>"; };
 		846D4FD5260241670079720F /* SlimeMoveLeftGray.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = SlimeMoveLeftGray.atlas; sourceTree = "<group>"; };
 		849E63AC26179E9A00AFA9A7 /* MockGameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockGameManager.swift; sourceTree = "<group>"; };
+		84CF591E26184C1B008FB1A7 /* StateComponentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateComponentTests.swift; sourceTree = "<group>"; };
+		84CF592A2618512D008FB1A7 /* MultiWeaponComponentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiWeaponComponentTests.swift; sourceTree = "<group>"; };
+		84CF593226185D2A008FB1A7 /* HealthComponentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthComponentTests.swift; sourceTree = "<group>"; };
+		84CF593726186100008FB1A7 /* BidirectionalMapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BidirectionalMapTests.swift; sourceTree = "<group>"; };
+		84CF593D2618660C008FB1A7 /* MathTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MathTests.swift; sourceTree = "<group>"; };
 		84D453D32615B98700864E38 /* GameInfoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameInfoManager.swift; sourceTree = "<group>"; };
 		AC069591260123C4007982DE /* ChangeViewEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeViewEvent.swift; sourceTree = "<group>"; };
 		AC069596260123CE007982DE /* ChangeViewEventManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeViewEventManager.swift; sourceTree = "<group>"; };
@@ -660,6 +670,25 @@
 			path = Utilities;
 			sourceTree = "<group>";
 		};
+		84CF591D26184C01008FB1A7 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				84CF591E26184C1B008FB1A7 /* StateComponentTests.swift */,
+				84CF592A2618512D008FB1A7 /* MultiWeaponComponentTests.swift */,
+				84CF593226185D2A008FB1A7 /* HealthComponentTests.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		84CF593626186093008FB1A7 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				84CF593726186100008FB1A7 /* BidirectionalMapTests.swift */,
+				84CF593D2618660C008FB1A7 /* MathTests.swift */,
+			);
+			path = Utility;
+			sourceTree = "<group>";
+		};
 		AC097E052601FFE4000951B0 /* ProcessedInputEvent */ = {
 			isa = PBXGroup;
 			children = (
@@ -784,6 +813,8 @@
 		ACB3608825F661630016E240 /* paintsplashTests */ = {
 			isa = PBXGroup;
 			children = (
+				84CF593626186093008FB1A7 /* Utility */,
+				84CF591D26184C01008FB1A7 /* Components */,
 				DC08E2BB26066D8D005863F0 /* CanvasTests.swift */,
 				AC3EB71F2606F55F00B5B963 /* Player */,
 				ACF567682606E446009D0A28 /* Audio */,
@@ -1491,6 +1522,7 @@
 					};
 					ACB3608425F661630016E240 = {
 						CreatedOnToolsVersion = 12.4;
+						LastSwiftMigration = 1240;
 						TestTargetID = ACB3606D25F661620016E240;
 					};
 				};
@@ -1866,6 +1898,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AC3EB7212606F57300B5B963 /* PlayerMovementBoundsTests.swift in Sources */,
+				84CF592B2618512D008FB1A7 /* MultiWeaponComponentTests.swift in Sources */,
 				ACF567942606EF3F009D0A28 /* PlayerStateChangeTests.swift in Sources */,
 				ACA1B408261854A8004F210F /* ConnectionHandlerStub.swift in Sources */,
 				D5553DAC26071C0100C1862E /* MockRenderSystem.swift in Sources */,
@@ -1874,15 +1907,19 @@
 				DC93311A26067AD600209712 /* EnemyTests.swift in Sources */,
 				DC93312726070F5300209712 /* EnemySpawnerTests.swift in Sources */,
 				DC933112260671C700209712 /* CanvasRequestManagerTests.swift in Sources */,
+				84CF591F26184C1B008FB1A7 /* StateComponentTests.swift in Sources */,
 				DC08E2BC26066D8D005863F0 /* CanvasTests.swift in Sources */,
 				D5553DB026071E0700C1862E /* MockCollisionSystem.swift in Sources */,
 				8418A7AC26070391000BFBD4 /* LevelSpawnEventTests.swift in Sources */,
+				84CF593826186100008FB1A7 /* BidirectionalMapTests.swift in Sources */,
 				840A336A2606256F007BC34D /* LevelTests.swift in Sources */,
 				D5553DC62607279800C1862E /* CanvasRenderableTests.swift in Sources */,
 				ACA1B3FA26184F4B004F210F /* GameConnectionHandlerStub.swift in Sources */,
+				84CF593E2618660C008FB1A7 /* MathTests.swift in Sources */,
 				849E63AD26179E9B00AFA9A7 /* MockGameManager.swift in Sources */,
 				D5553DC22607263400C1862E /* EnemyRenderableTests.swift in Sources */,
 				8418A7A82606FA6D000BFBD4 /* LevelScoreTests.swift in Sources */,
+				84CF593326185D2A008FB1A7 /* HealthComponentTests.swift in Sources */,
 				ACF5676A2606E446009D0A28 /* AudioPlayerImplTests.swift in Sources */,
 				AC3EB7262606F58500B5B963 /* PlayerCollisionTests.swift in Sources */,
 				AC3EB72E260701D800B5B963 /* PlayerHealthTests.swift in Sources */,
@@ -2083,6 +2120,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5Q6AP63883;
 				INFOPLIST_FILE = paintsplashTests/Info.plist;
@@ -2094,6 +2132,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = crawlers.paintsplashTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/paintsplash.app/paintsplash";
@@ -2106,6 +2145,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5Q6AP63883;
 				INFOPLIST_FILE = paintsplashTests/Info.plist;
