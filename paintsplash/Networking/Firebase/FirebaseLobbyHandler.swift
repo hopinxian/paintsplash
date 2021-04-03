@@ -260,7 +260,6 @@ class FirebaseLobbyHandler: LobbyHandler {
             guard let isRunning = isRunning else {
                 return
             }
-
             if !isRunning {
                 onGameStop?()
             }

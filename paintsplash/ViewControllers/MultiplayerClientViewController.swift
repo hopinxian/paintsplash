@@ -31,6 +31,12 @@ class MultiplayerClientViewController: UIViewController {
         lobbyHandler?.observeGame(roomInfo: roomInfo,
                                   onGameStop: { [weak self] in self?.onCloseGame() },
                                   onError: { print("Error observing game on client: \($0)") })
+
+        // Observe room: If host quits, close the game
+        lobbyHandler?.observeRoom(roomId: roomInfo.roomId,
+                                  onRoomChange: nil,
+                                  onRoomClose: { [weak self] in self?.onCloseGame() },
+                                  onError: nil)
     }
 
     @IBAction private func endMultiplayerGame(_ sender: UIButton) {
@@ -38,7 +44,6 @@ class MultiplayerClientViewController: UIViewController {
     }
 
     private func onCloseGame() {
-        print("closing client multiplayer game")
         self.navigationController?.popViewController(animated: true)
     }
 
