@@ -8,7 +8,7 @@
 import SpriteKit
 
 struct CanvasAnimations: AnimationSource {
-    var animations: [String : Animation] = [
+    var animations: [String: Animation] = [
         "canvasIdle":
             AtlasAnimation(
                 name: "canvasIdle",
@@ -22,7 +22,7 @@ struct CanvasAnimations: AnimationSource {
                 action: SKAction.fadeOut(withDuration: 1.0)
             )
     ]
-    
+
     static let canvasIdle = "canvasIdle"
     static let canvasDisappear = "canvasDisappear"
 }

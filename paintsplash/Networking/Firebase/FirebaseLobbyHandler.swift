@@ -60,7 +60,7 @@ class FirebaseLobbyHandler: LobbyHandler {
         // Try to join a room
         let roomPath = FirebasePaths.joinPaths(FirebasePaths.rooms, roomId)
 
-        connectionHandler.getData(at: roomPath, block: { [weak self] (error: Error?, roomInfo: RoomInfo?) in
+        connectionHandler.getData(at: roomPath, block: { [weak self] (_: Error?, roomInfo: RoomInfo?) in
             guard let roomInfo = roomInfo else {
                 onRoomNotExist?()
                 return
@@ -156,9 +156,9 @@ class FirebaseLobbyHandler: LobbyHandler {
             })
         })
     }
-    
+
     func getAllRooms() {
-        connectionHandler.getData(at: FirebasePaths.rooms) { (error, snapshot) in
+        connectionHandler.getData(at: FirebasePaths.rooms) { error, snapshot in
             if let error = error {
                 print("Error fetching all rooms \(error)")
                 return
@@ -175,7 +175,7 @@ class FirebaseLobbyHandler: LobbyHandler {
     ) {
         let roomPath = FirebasePaths.joinPaths(FirebasePaths.rooms, roomId)
 
-        connectionHandler.getData(at: roomPath, block: { [weak self] (error: Error?, roomInfo: RoomInfo?) in
+        connectionHandler.getData(at: roomPath, block: { [weak self] (_: Error?, roomInfo: RoomInfo?) in
             guard var roomInfo = roomInfo else {
                 print("Room does not exist anymore")
                 return

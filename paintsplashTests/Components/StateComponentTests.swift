@@ -10,28 +10,27 @@ import XCTest
 
 class StateComponentTests: XCTestCase {
 
-    let state = EnemyState.ChasingLeft(enemy: Enemy(initialPosition: Vector2D.zero, color: .red))
-    let component = StateComponent()
-    
-    override func setUpWithError() throws {
+    var state: EnemyState.ChasingLeft {
+        EnemyState.ChasingLeft(enemy: enemy)
     }
+    let enemy = Enemy(initialPosition: Vector2D.zero, color: .red)
+    let component = StateComponent()
 
     func testConstruct() {
         XCTAssertTrue(component.currentState is NoState)
         XCTAssertTrue(component.getCurrentBehaviour() is DoNothingBehaviour)
         XCTAssertNil(component.getNextState())
     }
-    
+
     func testGetCurrentBehaviour() {
         component.currentState = state
         XCTAssertTrue(component.getCurrentBehaviour() is ChasePlayerBehaviour)
     }
-    
+
     func testGetNextState() {
         component.currentState = state
         XCTAssertNil(component.getNextState())
-        
-        let nextState = EnemyState.Idle(enemy: Enemy(initialPosition: Vector2D.zero, color: .red))
+        let nextState = EnemyState.Idle(enemy: enemy)
         component.currentState = nextState
         XCTAssertTrue(component.getNextState() is EnemyState.ChasingLeft)
     }

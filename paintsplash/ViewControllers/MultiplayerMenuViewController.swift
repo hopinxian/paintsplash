@@ -98,7 +98,6 @@ class MultiplayerMenuViewController: UIViewController {
         }
     }
 
-
     @IBAction func closeMultiplayerMenu(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }

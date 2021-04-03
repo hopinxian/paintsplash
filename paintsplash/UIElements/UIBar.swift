@@ -20,7 +20,7 @@ class UIBar: UIEntity, Renderable {
         self.transformComponent = TransformComponent(
             position: position, rotation: 0.0, size: size
         )
-        
+
         super.init()
     }
 }

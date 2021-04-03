@@ -9,19 +9,19 @@
 
 class MockGameManager: GameManager {
     var entities = Set<GameEntity>()
-    
+
     var renderSystem = MockRenderSystem()
     var collisionSystem = MockCollisionSystem()
-    
+
     var uiEntities = Set<GameEntity>()
-    
+
     init() {
         EventSystem.entityChangeEvents.addEntityEvent.subscribe(listener: onAddEntity)
         EventSystem.entityChangeEvents.removeEntityEvent.subscribe(listener: onRemoveEntity)
         EventSystem.entityChangeEvents.addUIEntityEvent.subscribe(listener: onAddUIEntity)
         EventSystem.entityChangeEvents.removeUIEntityEvent.subscribe(listener: onRemoveUIEntity)
     }
-    
+
     private func onAddEntity(event: AddEntityEvent) {
         addObject(event.entity)
     }
@@ -39,7 +39,7 @@ class MockGameManager: GameManager {
         uiEntities.remove(event.entity)
         removeObjectFromSystems(event.entity)
     }
-    
+
     private func addObjectToSystems(_ object: GameEntity) {
         renderSystem.addEntity(object)
         collisionSystem.addEntity(object)

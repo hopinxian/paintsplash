@@ -14,16 +14,16 @@ class Level {
     var repeatLimit: Int?
     var bufferBetweenLoop = 5.0 // in seconds
     private var gameInfo: GameInfo
-    
+
     static let enemyCapacity = 5
     static let dropCapacity = 5
-    
+
     private var canvasRequestManager: CanvasRequestManager
     private(set) var canvasSpawnInterval = 2.0
     private(set) var lastSpawnDate: Date!
 
     /// Runtime information
-    private(set) var isRunning: Bool = false
+    private(set) var isRunning = false
     private(set) var loopStartTime: Date!
     private(set) var nextSpawnEvent: Int = 0
     private(set) var currentLoop = 1
@@ -37,7 +37,7 @@ class Level {
     init(canvasManager: CanvasRequestManager, gameInfo: GameInfo) {
         self.canvasRequestManager = canvasManager
         self.gameInfo = gameInfo
-        
+
         // TODO: comment out
         canvasRequestManager.addRequest(colors: [.yellow])
 
@@ -146,21 +146,21 @@ class Level {
         let level = Level(canvasManager: canvasManager, gameInfo: gameInfo)
 
         level.repeatLimit = 1
-        
+
         let enemyCommand = EnemyCommand()
         enemyCommand.time = 0
         level.addSpawnEvent(enemyCommand)
-        
+
         let spawnerCommand = EnemySpawnerCommand()
         spawnerCommand.time = 5
         level.addSpawnEvent(spawnerCommand)
-        
+
         for i in 0..<10 {
             let dropCommand = AmmoDropCommand()
             dropCommand.time = Double(i * 5)
             level.addSpawnEvent(dropCommand)
         }
-            
+
         return level
     }
 

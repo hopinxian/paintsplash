@@ -28,7 +28,7 @@ class MultiplayerServerViewController: UIViewController {
 
         // set up observer for room
         lobbyHandler?.observeRoom(roomId: roomInfo.roomId,
-                                  onRoomChange: { [weak self] in self?.handleRoomChange(roomInfo: $0)},
+                                  onRoomChange: { [weak self] in self?.handleRoomChange(roomInfo: $0) },
                                   onRoomClose: { [weak self] in self?.onCloseGame() },
                                   onError: nil)
     }

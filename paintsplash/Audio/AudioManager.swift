@@ -39,7 +39,7 @@ class AudioManager: AudioSystem {
         self.associatedDevice = associatedDeviceId
     }
 
-    func playMusic(_ music: Music) {      
+    func playMusic(_ music: Music) {
         guard let path = Bundle.main.path(forResource: music.name, ofType: music.fileExtension) else {
             return
         }
@@ -78,7 +78,6 @@ class AudioManager: AudioSystem {
         playMusic(event.music)
     }
 
-
     private func processPlaySoundEffectEvent(_ event: PlaySoundEffectEvent) {
         guard shouldExecuteForEntity(event.playerId) else {
             return
@@ -93,7 +92,6 @@ class AudioManager: AudioSystem {
 
         stopMusic()
     }
-
 
     private func processStopSoundEffectEvent(_ event: StopSoundEffectEvent) {
         guard shouldExecuteForEntity(event.playerId) else {

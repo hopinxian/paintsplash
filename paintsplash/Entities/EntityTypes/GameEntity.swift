@@ -35,5 +35,3 @@ extension GameEntity: Hashable {
         hasher.combine(id)
     }
 }
-
-

@@ -6,5 +6,5 @@
 //
 
 class Component {
-    var active: Bool = true
+    var active = true
 }

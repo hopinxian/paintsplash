@@ -37,8 +37,8 @@ class PlayerCollisionTests: XCTestCase {
 
     func testCollideWithAmmoDrop() {
         let weaponSystem = player.multiWeaponComponent
-        
-        while weaponSystem.canShoot(){
+
+        while weaponSystem.canShoot() {
             _ = weaponSystem.shoot(from: player.transformComponent.worldPosition, in: Vector2D.zero)
         }  // shoot until weapon has no ammo left
 

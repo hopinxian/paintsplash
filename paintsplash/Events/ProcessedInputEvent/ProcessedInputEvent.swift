@@ -30,7 +30,7 @@ class PlayerShootEvent: ProcessedInputEvent, Codable {
     }
 }
 
-//class PlayerChangeWeaponEvent: ProcessedInputEvent {
+// class PlayerChangeWeaponEvent: ProcessedInputEvent {
 //    let newWeapon: Weapon.Type
 //    let playerID: UUID
 //
@@ -38,8 +38,7 @@ class PlayerShootEvent: ProcessedInputEvent, Codable {
 //        self.newWeapon = newWeapon
 //        self.playerID = playerID
 //    }
-//}
-
+// }
 
 class PlayerChangeWeaponEvent: ProcessedInputEvent, Codable {
     let newWeapon: Weapon.Type

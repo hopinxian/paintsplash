@@ -9,7 +9,7 @@ import XCTest
 @testable import paintsplash
 
 class LevelScoreTests: XCTestCase {
-    
+
     func testConstruct() {
         let score = LevelScore()
 

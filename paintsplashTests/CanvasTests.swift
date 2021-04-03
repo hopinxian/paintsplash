@@ -34,7 +34,7 @@ class CanvasTests: XCTestCase {
 
     func testOnCollide_PaintProjectile() {
         let paint1 = PaintProjectile(color: .blue, position: Vector2D.zero, radius: 10, direction: .zero)
-        
+
         canvas.onCollide(with: paint1)
 
         XCTAssertEqual(canvas.colors.count, 1)

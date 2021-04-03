@@ -7,10 +7,10 @@
 
 class GameInfoManager {
     var gameInfo: GameInfo
-    
+
     init(gameInfo: GameInfo) {
         self.gameInfo = gameInfo
-        
+
         EventSystem.entityChangeEvents
             .addEntityEvent.subscribe(listener: updateAddEntity)
         EventSystem.entityChangeEvents
@@ -18,11 +18,11 @@ class GameInfoManager {
         EventSystem.playerActionEvent
             .playerMovementEvent.subscribe(listener: updatePlayerMove)
     }
-    
+
     func updatePlayerMove(event: PlayerMovementEvent) {
         gameInfo.playerPosition = event.location
     }
-    
+
     func updateAddEntity(event: AddEntityEvent) {
         switch event.entity {
         case let enemy as Enemy:
@@ -42,7 +42,7 @@ class GameInfoManager {
             return
         }
     }
-    
+
     func updateRemoveEntity(event: RemoveEntityEvent) {
         switch event.entity {
         case let enemy as Enemy:

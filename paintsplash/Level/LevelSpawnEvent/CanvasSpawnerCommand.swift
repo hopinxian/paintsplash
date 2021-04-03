@@ -20,7 +20,7 @@ class CanvasSpawnerCommand: SpawnCommand {
         if gameInfo.numberOfEnemies >= Level.enemyCapacity {
             return
         }
-        
+
         let eventLocation = getLocation(location: location, gameInfo: gameInfo)
         let eventVelocity = getVelocity(velocity: velocity, gameInfo: gameInfo)
         let eventSpawnInterval = getSpawnInterval(interval: spawnInterval, gameInfo: gameInfo)
