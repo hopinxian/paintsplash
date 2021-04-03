@@ -88,8 +88,6 @@ class VerticalStack<ItemType: Renderable>: UIEntity, Renderable, Animatable {
     }
 
     func changeItems(to newItems: [ItemType]) {
-        print("change views")
-        print(newItems)
         clearViews()
         items = newItems
         renderViews()
@@ -98,7 +96,6 @@ class VerticalStack<ItemType: Renderable>: UIEntity, Renderable, Animatable {
     private func clearViews() {
         for item in items {
             item.destroy()
-            print("destroy")
         }
     }
 

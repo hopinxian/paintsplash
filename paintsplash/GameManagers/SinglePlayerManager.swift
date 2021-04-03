@@ -25,6 +25,7 @@ class SinglePlayerGameManager: GameManager {
     var collisionSystem: CollisionSystem!
     var movementSystem: MovementSystem!
     var transformSystem: TransformSystem!
+    var playerSystem: PlayerSystem!
 
     private var collisionDetector: SKCollisionDetector!
 
@@ -89,6 +90,8 @@ class SinglePlayerGameManager: GameManager {
         self.movementSystem = FrameMovementSystem()
 
         self.transformSystem = WorldTransformSystem()
+
+        self.playerSystem = PaintSplashPlayerSystem()
     }
 
     func setUpPlayer() {
@@ -214,6 +217,7 @@ class SinglePlayerGameManager: GameManager {
         collisionSystem.addEntity(object)
         movementSystem.addEntity(object)
         animationSystem.addEntity(object)
+        playerSystem.addEntity(object)
     }
 
     private func removeObjectFromSystems(_ object: GameEntity) {
@@ -223,6 +227,7 @@ class SinglePlayerGameManager: GameManager {
         collisionSystem.removeEntity(object)
         movementSystem.removeEntity(object)
         animationSystem.removeEntity(object)
+        playerSystem.removeEntity(object)
     }
 
     func addObject(_ object: GameEntity) {
@@ -243,6 +248,7 @@ class SinglePlayerGameManager: GameManager {
         animationSystem.updateEntities()
         collisionSystem.updateEntities()
         movementSystem.updateEntities()
+        playerSystem.updateEntities()
 
         entities.forEach({ $0.update() })
     }

@@ -59,7 +59,7 @@ class PaintGunAmmoDisplay: UIEntity, Transformable {
         guard event.playerId == self.associatedEntity else {
             return
         }
-        if type(of: event.weapon) == type(of: weaponData) {
+        if event.weapon == type(of: weaponData) {
             ammoDisplayView.animationComponent.animate(animation: WeaponAnimations.selectWeapon, interupt: true)
         } else {
             ammoDisplayView.animationComponent.animate(animation: WeaponAnimations.unselectWeapon, interupt: true)

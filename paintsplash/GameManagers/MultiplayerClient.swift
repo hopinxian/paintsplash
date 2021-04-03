@@ -82,6 +82,16 @@ class MultiplayerClient: GameManager {
         gameConnectionHandler.observeEvent(
             gameId: gameID,
             playerId: playerInfo.playerUUID,
+            onChange: { (event: PlayerChangedWeaponEvent) in
+                EventSystem.playerActionEvent.playerChangedWeaponEvent.post(event: event)
+                print("Hello")
+            },
+            onError: nil
+        )
+
+        gameConnectionHandler.observeEvent(
+            gameId: gameID,
+            playerId: playerInfo.playerUUID,
             onChange: {
                 EventSystem.playerActionEvent.playerAmmoUpdateEvent.post(event: $0)
             },

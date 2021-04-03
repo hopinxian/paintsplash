@@ -58,7 +58,7 @@ class PaintBucketAmmoDisplay: UIEntity, Transformable {
         guard event.playerId == associatedEntity else {
             return
         }
-        if type(of: event.weapon) == type(of: weaponData) {
+        if event.weapon == type(of: weaponData) {
             ammoDisplayView.animationComponent.animate(animation: WeaponAnimations.selectWeapon, interupt: true)
         } else {
             ammoDisplayView.animationComponent.animate(animation: WeaponAnimations.unselectWeapon, interupt: true)

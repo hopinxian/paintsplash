@@ -45,12 +45,15 @@ class MultiplayerServer: SinglePlayerGameManager {
     func setUpGuestPlayer(player: PlayerInfo) {
         // Initialize player
         let playerID = EntityID(id: player.playerUUID)
+        print("Client is")
+        print(playerID)
 
         let gameId = self.room.gameID
         let newPlayer = Player(initialPosition: Vector2D.zero + Vector2D.left * 50, playerUUID: playerID)
         newPlayer.spawn()
 
         setupPlayerStateSender(playerID, gameId)
+        setupPlayerWeaponSender(playerID, gameId)
         setupPlayerAmmoSender(playerID, gameId)
         setupMusicEventSender(gameId)
         setupSFXEventSender(gameId)
@@ -61,6 +64,23 @@ class MultiplayerServer: SinglePlayerGameManager {
         // Send player state updates to DB
         EventSystem.playerActionEvent
             .playerHealthUpdateEvent.subscribe(listener: { [weak self] event in
+                guard event.playerId == playerID else {
+                    return
+                }
+                self?.gameConnectionHandler?.sendEvent(
+                    gameId: gameId,
+                    playerId: playerID.id,
+                    action: event,
+                    onError: nil,
+                    onSuccess: nil
+                )
+            })
+    }
+
+    private func setupPlayerWeaponSender(_ playerID: EntityID, _ gameId: String) {
+        // Send player selected weapon updates to DB
+        EventSystem.playerActionEvent
+            .playerChangedWeaponEvent.subscribe(listener: { [weak self] event in
                 guard event.playerId == playerID else {
                     return
                 }
@@ -157,7 +177,9 @@ class MultiplayerServer: SinglePlayerGameManager {
         self.gameConnectionHandler?.observeEvent(
             gameId: gameId,
             playerId: playerID.id,
-            onChange: { EventSystem.processedInputEvents.playerShootEvent.post(event: $0) },
+            onChange: { (event: PlayerShootEvent) in
+                EventSystem.processedInputEvents.playerShootEvent.post(event: event)
+            },
             onError: nil
         )
 
@@ -165,7 +187,9 @@ class MultiplayerServer: SinglePlayerGameManager {
         self.gameConnectionHandler?.observeEvent(
             gameId: gameId,
             playerId: playerID.id,
-            onChange: { EventSystem.processedInputEvents.playerMoveEvent.post(event: $0) },
+            onChange: { (event: PlayerMoveEvent) in
+                EventSystem.processedInputEvents.playerMoveEvent.post(event: event)
+            },
             onError: nil
         )
 
@@ -173,7 +197,9 @@ class MultiplayerServer: SinglePlayerGameManager {
         self.gameConnectionHandler?.observeEvent(
             gameId: gameId,
             playerId: playerID.id,
-            onChange: { EventSystem.processedInputEvents.playerChangeWeaponEvent.post(event: $0) },
+            onChange: { (event: PlayerChangeWeaponEvent) in
+                EventSystem.processedInputEvents.playerChangeWeaponEvent.post(event: event)
+            },
             onError: nil
         )
     }
@@ -248,32 +274,17 @@ class MultiplayerServer: SinglePlayerGameManager {
     func sendGameState() {
         let uiEntityIDs = Set(uiEntities.map({ $0.id }))
         let entityData = EntityData(from: entities.filter({ !uiEntityIDs.contains($0.id) }))
-//        let renderSystemPath = FirebasePaths.joinPaths(FirebasePaths.games, room.gameID, FirebasePaths.render_system)
+
         let renderablesToSend = renderSystem.renderables.filter({ entityID, _ in
             !uiEntityIDs.contains(entityID)
         })
         let renderSystemData = RenderSystemData(from: renderablesToSend)
-//        connectionHandler.send(
-//            to: renderSystemPath,
-//            data: renderSystemData,
-//            mode: .single,
-//            shouldRemoveOnDisconnect: false,
-//            onComplete: nil,
-//            onError: nil
-//        )
+
         let animatablesToSend = animationSystem.animatables.filter({ entityID, _ in
             !uiEntityIDs.contains(entityID)
         })
-//        let animSystemPath = FirebasePaths.joinPaths(FirebasePaths.games, room.gameID, FirebasePaths.animation_system)
         let animationSystemData = AnimationSystemData(from: animatablesToSend)
-//        connectionHandler.send(
-//            to: animSystemPath,
-//            data: animationSystemData,
-//            mode: .single,
-//            shouldRemoveOnDisconnect: false,
-//            onComplete: nil,
-//            onError: nil
-//        )
+
         var colorables = [EntityID: Colorable]()
         entities.forEach({ entity in
             if let colorable = entity as? Colorable, !uiEntityIDs.contains(entity.id) {
@@ -281,16 +292,8 @@ class MultiplayerServer: SinglePlayerGameManager {
             }
         })
 
-//        let colorSystemPath = FirebasePaths.joinPaths(FirebasePaths.games, room.gameID, FirebasePaths.color_system)
         let colorSystemData = ColorSystemData(from: colorables)
-//        connectionHandler.send(
-//            to: colorSystemPath,
-//            data: colorSystemData,
-//            mode: .single,
-//            shouldRemoveOnDisconnect: false,
-//            onComplete: nil,
-//            onError: nil
-//        )
+
         let systemData = SystemData(
             entityData: entityData,
             renderSystemData: renderSystemData,
@@ -310,6 +313,7 @@ class MultiplayerServer: SinglePlayerGameManager {
         collisionSystem.updateEntities()
         movementSystem.updateEntities()
         entities.forEach({ $0.update() })
+        playerSystem.updateEntities()
 
         sendGameState()
 

@@ -56,3 +56,72 @@ WARNING: All illegal access operations will be denied in a future release
 
 Issues? Report them at https://github.com/firebase/firebase-tools/issues and attach the *-debug.log files.
  
+[debug] [2021-04-03T15:18:52.174Z] ----------------------------------------------------------------------
+[debug] [2021-04-03T15:18:52.210Z] Command:       /usr/local/bin/firebase /Users/farrellnah/.cache/firebase/tools/lib/node_modules/firebase-tools/lib/bin/firebase emulators:start
+[debug] [2021-04-03T15:18:52.210Z] CLI Version:   9.8.0
+[debug] [2021-04-03T15:18:52.210Z] Platform:      darwin
+[debug] [2021-04-03T15:18:52.210Z] Node Version:  v12.2.0
+[debug] [2021-04-03T15:18:52.277Z] Time:          Sat Apr 03 2021 23:18:52 GMT+0800 (Singapore Standard Time)
+[debug] [2021-04-03T15:18:52.277Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2021-04-03T15:18:52.543Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2021-04-03T15:18:52.753Z] > authorizing via signed-in user
+[info] i  emulators: Starting emulators: database {"metadata":{"emulator":{"name":"hub"},"message":"Starting emulators: database"}}
+[debug] [2021-04-03T15:18:53.528Z] [hub] writing locator at /var/folders/vb/c7xgz3hj50jdtms08nbxf0jc0000gn/T/hub-paintsplash-fe2d8.json
+[debug] [2021-04-03T15:18:53.739Z] > refreshing access token with scopes: []
+[debug] [2021-04-03T15:18:53.740Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2021-04-03T15:18:53.997Z] <<< HTTP RESPONSE 200 {"expires":"Mon, 01 Jan 1990 00:00:00 GMT","date":"Sat, 03 Apr 2021 15:18:54 GMT","cache-control":"no-cache, no-store, max-age=0, must-revalidate","pragma":"no-cache","content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","server":"scaffolding on HTTPServer2","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-04-03T15:18:54.021Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/paintsplash-fe2d8 [none]
+[debug] [2021-04-03T15:18:55.493Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/paintsplash-fe2d8 200
+[debug] [2021-04-03T15:18:55.493Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/paintsplash-fe2d8 {"projectId":"paintsplash-fe2d8","projectNumber":"478582449628","displayName":"paintsplash","name":"projects/paintsplash-fe2d8","resources":{"hostingSite":"paintsplash-fe2d8","realtimeDatabaseInstance":"paintsplash-fe2d8-default-rtdb"},"state":"ACTIVE"}
+[debug] [2021-04-03T15:18:55.495Z] database rules config:  [{"instance":"paintsplash-fe2d8-default-rtdb","rules":"/Users/farrellnah/Projects/cs3217/GroupProject/paintsplash/database.rules.json"}]
+[debug] [2021-04-03T15:18:55.503Z] Ignoring unsupported arg: projectId {"metadata":{"emulator":{"name":"database"},"message":"Ignoring unsupported arg: projectId"}}
+[debug] [2021-04-03T15:18:55.503Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"database"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2021-04-03T15:18:55.503Z] Ignoring unsupported arg: rules {"metadata":{"emulator":{"name":"database"},"message":"Ignoring unsupported arg: rules"}}
+[debug] [2021-04-03T15:18:55.503Z] Starting Database Emulator with command {"binary":"java","args":["-Duser.language=en","-jar","/Users/farrellnah/.cache/firebase/emulators/firebase-database-emulator-v4.7.2.jar","--host","localhost","--port",9000],"optionalArgs":["port","host","functions_emulator_port","functions_emulator_host"],"joinArgs":false} {"metadata":{"emulator":{"name":"database"},"message":"Starting Database Emulator with command {\"binary\":\"java\",\"args\":[\"-Duser.language=en\",\"-jar\",\"/Users/farrellnah/.cache/firebase/emulators/firebase-database-emulator-v4.7.2.jar\",\"--host\",\"localhost\",\"--port\",9000],\"optionalArgs\":[\"port\",\"host\",\"functions_emulator_port\",\"functions_emulator_host\"],\"joinArgs\":false}"}}
+[info] i  database: Database Emulator logging to database-debug.log {"metadata":{"emulator":{"name":"database"},"message":"Database Emulator logging to \u001b[1mdatabase-debug.log\u001b[22m"}}
+[debug] [2021-04-03T15:19:05.598Z] WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by io.netty.util.internal.ReflectionUtil (file:/Users/farrellnah/.cache/firebase/emulators/firebase-database-emulator-v4.7.2.jar) to field sun.nio.ch.SelectorImpl.selectedKeys
+WARNING: Please consider reporting this to the maintainers of io.netty.util.internal.ReflectionUtil
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release {"metadata":{"emulator":{"name":"database"},"message":"WARNING: An illegal reflective access operation has occurred\nWARNING: Illegal reflective access by io.netty.util.internal.ReflectionUtil (file:/Users/farrellnah/.cache/firebase/emulators/firebase-database-emulator-v4.7.2.jar) to field sun.nio.ch.SelectorImpl.selectedKeys\nWARNING: Please consider reporting this to the maintainers of io.netty.util.internal.ReflectionUtil\nWARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations\nWARNING: All illegal access operations will be denied in a future release"}}
+[debug] [2021-04-03T15:19:05.598Z] 
+ {"metadata":{"emulator":{"name":"database"},"message":"\n"}}
+[debug] [2021-04-03T15:19:06.809Z] 23:19:06.807 [NamespaceSystem-akka.actor.default-dispatcher-4] INFO akka.event.slf4j.Slf4jLogger - Slf4jLogger started
+ {"metadata":{"emulator":{"name":"database"},"message":"23:19:06.807 [NamespaceSystem-akka.actor.default-dispatcher-4] INFO akka.event.slf4j.Slf4jLogger - Slf4jLogger started\n"}}
+[debug] [2021-04-03T15:19:07.002Z] 23:19:07.002 [main] INFO com.firebase.server.forge.App$ - Listening at localhost:9000
+ {"metadata":{"emulator":{"name":"database"},"message":"23:19:07.002 [main] INFO com.firebase.server.forge.App$ - Listening at localhost:9000\n"}}
+[debug] [2021-04-03T15:19:07.259Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2021-04-03T15:19:07.259Z] Ignoring unsupported arg: port {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: port"}}
+[debug] [2021-04-03T15:19:07.259Z] Starting Emulator UI with command {"binary":"node","args":["/Users/farrellnah/.cache/firebase/emulators/ui-v1.4.2/server.bundle.js"],"optionalArgs":[],"joinArgs":false} {"metadata":{"emulator":{"name":"ui"},"message":"Starting Emulator UI with command {\"binary\":\"node\",\"args\":[\"/Users/farrellnah/.cache/firebase/emulators/ui-v1.4.2/server.bundle.js\"],\"optionalArgs\":[],\"joinArgs\":false}"}}
+[info] i  ui: Emulator UI logging to ui-debug.log {"metadata":{"emulator":{"name":"ui"},"message":"Emulator UI logging to \u001b[1mui-debug.log\u001b[22m"}}
+[debug] [2021-04-03T15:19:07.441Z] Web / API server started at http://localhost:4000
+ {"metadata":{"emulator":{"name":"ui"},"message":"Web / API server started at http://localhost:4000\n"}}
+[debug] [2021-04-03T15:19:07.530Z] >>> HTTP REQUEST PUT http://localhost:9000/.settings/rules.json?ns=paintsplash-fe2d8-default-rtdb  
+ {
+  "rules": {
+    ".read": "now < 1619280000000",  // 2021-4-25
+    ".write": "now < 1619280000000",  // 2021-4-25
+  }
+}
+[debug] [2021-04-03T15:19:08.074Z] <<< HTTP RESPONSE 200 {"content-length":"15","content-type":"application/json; charset=utf-8","access-control-allow-origin":"*","cache-control":"no-cache","x-firebase-project-id":"paintsplash-fe2d8-default-rtdb","x-firebase-project-number":"123456789","x-firebase-uuid":"7dd8ceb6-bab5-4ee1-98bf-2889d43306a0"}
+[info] 
+┌─────────────────────────────────────────────────────────────┐
+│ ✔  All emulators ready! It is now safe to connect your app. │
+│ i  View Emulator UI at http://localhost:4000                │
+└─────────────────────────────────────────────────────────────┘
+
+┌──────────┬────────────────┬────────────────────────────────┐
+│ Emulator │ Host:Port      │ View in Emulator UI            │
+├──────────┼────────────────┼────────────────────────────────┤
+│ Database │ localhost:9000 │ http://localhost:4000/database │
+└──────────┴────────────────┴────────────────────────────────┘
+  Emulator Hub running at localhost:4400
+  Other reserved ports: 4500
+
+Issues? Report them at https://github.com/firebase/firebase-tools/issues and attach the *-debug.log files.
+ 
+[debug] [2021-04-03T16:53:47.957Z] 00:53:47.909 [NamespaceSystem-akka.actor.default-dispatcher-33] INFO akka.actor.LocalActorRef - Message [com.firebase.core.namespace.client.DataPush] to Actor[akka://NamespaceSystem/user/paintsplash-fe2d8/$Z#1162558830] was not delivered. [1] dead letters encountered. If this is not an expected behavior then Actor[akka://NamespaceSystem/user/paintsplash-fe2d8/$Z#1162558830] may have terminated unexpectedly. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+00:53:47.914 [NamespaceSystem-akka.actor.default-dispatcher-33] INFO akka.actor.DeadLetterActorRef - Message [com.firebase.core.namespace.TooManyRequestsWithDelay] from Actor[akka://NamespaceSystem/user/$a#1057664037] to Actor[akka://NamespaceSystem/deadLetters] was not delivered. [2] dead letters encountered. If this is not an expected behavior then Actor[akka://NamespaceSystem/deadLetters] may have terminated unexpectedly. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+ {"metadata":{"emulator":{"name":"database"},"message":"00:53:47.909 [NamespaceSystem-akka.actor.default-dispatcher-33] INFO akka.actor.LocalActorRef - Message [com.firebase.core.namespace.client.DataPush] to Actor[akka://NamespaceSystem/user/paintsplash-fe2d8/$Z#1162558830] was not delivered. [1] dead letters encountered. If this is not an expected behavior then Actor[akka://NamespaceSystem/user/paintsplash-fe2d8/$Z#1162558830] may have terminated unexpectedly. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.\n00:53:47.914 [NamespaceSystem-akka.actor.default-dispatcher-33] INFO akka.actor.DeadLetterActorRef - Message [com.firebase.core.namespace.TooManyRequestsWithDelay] from Actor[akka://NamespaceSystem/user/$a#1057664037] to Actor[akka://NamespaceSystem/deadLetters] was not delivered. [2] dead letters encountered. If this is not an expected behavior then Actor[akka://NamespaceSystem/deadLetters] may have terminated unexpectedly. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.\n"}}

@@ -15,7 +15,8 @@ class Player: GameEntity,
               Collidable,
               Movable,
               Health,
-              HasMultiWeapon {
+              HasMultiWeapon,
+              PlayableCharacter {
 
     var lastDirection = Vector2D.zero
 
@@ -29,6 +30,7 @@ class Player: GameEntity,
     var collisionComponent: CollisionComponent
     var stateComponent: StateComponent
     var multiWeaponComponent: MultiWeaponComponent
+    var playableComponent: PlayableComponent
 
     let connectionHander = FirebaseConnectionHandler()
 
@@ -67,6 +69,9 @@ class Player: GameEntity,
             weapons: [PaintGun(), Bucket()]
         )
 
+        let playerComponent = PlayerComponent()
+        self.playableComponent = playerComponent
+
         super.init()
 
         self.stateComponent.currentState = PlayerState.IdleLeft(player: self)
@@ -82,64 +87,13 @@ class Player: GameEntity,
                                         PaintAmmo(color: .red),
                                         PaintAmmo(color: .yellow)])
 
-        EventSystem.processedInputEvents.playerMoveEvent.subscribe(listener: onMove)
-        EventSystem.processedInputEvents.playerShootEvent.subscribe(listener: onShoot)
-        EventSystem.processedInputEvents.playerChangeWeaponEvent.subscribe(listener: onWeaponChange)
+        playerComponent.player = self
+
     }
 
     convenience init(initialPosition: Vector2D, playerUUID: EntityID?) {
         self.init(initialPosition: initialPosition)
         id = playerUUID ?? id
-    }
-
-    func onMove(event: PlayerMoveEvent) {
-        guard event.playerId == id else {
-            return
-        }
-
-        moveableComponent.direction = event.direction
-
-        lastDirection = event.direction.magnitude == 0 ? lastDirection : event.direction
-        let event = PlayerMovementEvent(
-            location: transformComponent.localPosition,
-            playerId: event.playerId
-        )
-        EventSystem.playerActionEvent.playerMovementEvent.post(event: event)
-    }
-
-    func onShoot(event: PlayerShootEvent) {
-        guard event.playerId == id,
-              multiWeaponComponent.canShoot() else {
-            return
-        }
-
-        if multiWeaponComponent.canShoot() {
-            let direction = event.direction.magnitude > 0 ? event.direction : lastDirection
-
-            stateComponent.currentState = lastDirection.x > 0
-                ? PlayerState.AttackRight(player: self, attackDirection: direction)
-                : PlayerState.AttackLeft(player: self, attackDirection: direction)
-        }
-    }
-
-    func onWeaponChange(event: PlayerChangeWeaponEvent) {
-        guard event.playerId == self.id else {
-            return
-        }
-        switch event.newWeapon {
-        case is Bucket.Type:
-            _ = multiWeaponComponent.switchWeapon(to: Bucket.self)
-        case is PaintGun.Type:
-            _ = multiWeaponComponent.switchWeapon(to: PaintGun.self)
-        default:
-            break
-        }
-
-        let event = PlayerChangedWeaponEvent(
-            weapon: multiWeaponComponent.activeWeapon,
-            playerId: id
-        )
-        EventSystem.playerActionEvent.playerChangedWeaponEvent.post(event: event)
     }
 
     func heal(amount: Int) {
@@ -164,22 +118,6 @@ class Player: GameEntity,
         }
     }
 
-    func loadAmmoDrop(_ drop: PaintAmmoDrop) {
-        let ammo = drop.getAmmoObject()
-        if multiWeaponComponent.canLoad([ammo]) {
-            multiWeaponComponent.load([ammo])
-            let event = PlayerAmmoUpdateEvent(
-                weaponType: type(of: multiWeaponComponent.activeWeapon),
-                ammo: multiWeaponComponent.activeWeapon.getAmmo(),
-                playerId: self.id
-            )
-
-            EventSystem.playerActionEvent.playerAmmoUpdateEvent.post(
-                event: event
-            )
-        }
-    }
-
     func onCollide(with: Collidable) {
         if with.collisionComponent.tags.contains(.ammoDrop) {
             onCollideWithAmmoDrop(with: with)
@@ -196,6 +134,22 @@ class Player: GameEntity,
             loadAmmoDrop(ammoDrop)
         default:
             fatalError("Ammo Drop not conforming to AmmoDrop protocol")
+        }
+    }
+
+    private func loadAmmoDrop(_ drop: PaintAmmoDrop) {
+        let ammo = drop.getAmmoObject()
+        if multiWeaponComponent.canLoad([ammo]) {
+            multiWeaponComponent.load([ammo])
+            let event = PlayerAmmoUpdateEvent(
+                weaponType: type(of: multiWeaponComponent.activeWeapon),
+                ammo: multiWeaponComponent.activeWeapon.getAmmo(),
+                playerId: self.id
+            )
+
+            EventSystem.playerActionEvent.playerAmmoUpdateEvent.post(
+                event: event
+            )
         }
     }
 

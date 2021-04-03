@@ -72,12 +72,30 @@ class PlayerAmmoUpdateEvent: PlayerActionEvent, Codable {
     }
 }
 
-class PlayerChangedWeaponEvent: PlayerActionEvent {
-    let weapon: Weapon
+class PlayerChangedWeaponEvent: PlayerActionEvent, Codable {
+    let weapon: Weapon.Type
     let playerId: EntityID
+    let weaponType: WeaponType?
 
-    init(weapon: Weapon, playerId: EntityID) {
+    init(weapon: Weapon.Type, playerId: EntityID) {
         self.weapon = weapon
         self.playerId = playerId
+        self.weaponType = WeaponType.toEnum(weapon)
+    }
+
+    enum CodingKeys: String, CodingKey {
+        case playerId, weaponType
+    }
+
+    required init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        playerId = try values.decode(EntityID.self, forKey: .playerId)
+        weaponType = try values.decode(WeaponType.self, forKey: .weaponType)
+        guard let type = weaponType,
+              let newWeaponType = type.toWeapon() else {
+            fatalError("Cannot decode")
+        }
+
+        weapon = newWeaponType
     }
 }

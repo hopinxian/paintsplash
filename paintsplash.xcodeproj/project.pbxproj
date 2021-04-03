@@ -104,6 +104,7 @@
 		D50FD6CB2612084500491CAC /* SinglePlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50FD6CA2612084500491CAC /* SinglePlayerViewController.swift */; };
 		D50FD6CF26120A4800491CAC /* MultiplayerClientViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50FD6CE26120A4800491CAC /* MultiplayerClientViewController.swift */; };
 		D50FD6D326120ABC00491CAC /* MultiplayerServerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50FD6D226120ABC00491CAC /* MultiplayerServerViewController.swift */; };
+		D51079EA2618DB0E00D796D0 /* WeaponType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D51079E92618DB0E00D796D0 /* WeaponType.swift */; };
 		D536472026146C8200C2BCBB /* RawAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D536471F26146C8200C2BCBB /* RawAnimation.swift */; };
 		D53F5401260D636A00635B05 /* HasWeapon.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53F5400260D636A00635B05 /* HasWeapon.swift */; };
 		D53F540D260D93AC00635B05 /* Component.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53F540C260D93AC00635B05 /* Component.swift */; };
@@ -217,6 +218,11 @@
 		D596B1B625F8CF7400A5854F /* CollisionSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D596B1B525F8CF7400A5854F /* CollisionSystem.swift */; };
 		D598F53D26019E7300D7CACB /* SpaceConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D598F53C26019E7300D7CACB /* SpaceConverter.swift */; };
 		D598F55F2601C03600D7CACB /* PaintBucketAmmoDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D598F55E2601C03600D7CACB /* PaintBucketAmmoDisplay.swift */; };
+		D5B65C932618B39D00C132FE /* PlayerSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B65C922618B39D00C132FE /* PlayerSystem.swift */; };
+		D5B65C9D2618B55100C132FE /* UserInputReceiverComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B65C9C2618B55100C132FE /* UserInputReceiverComponent.swift */; };
+		D5B65CA12618B6FC00C132FE /* PlayerUserInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B65CA02618B6FC00C132FE /* PlayerUserInput.swift */; };
+		D5B65CA92618B83300C132FE /* PlayableCharacter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B65CA82618B83300C132FE /* PlayableCharacter.swift */; };
+		D5B65CAD2618B84200C132FE /* PlayerComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B65CAC2618B84200C132FE /* PlayerComponent.swift */; };
 		D5C568FF260A19C9009E5BD9 /* MovementSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C568FE260A19C9009E5BD9 /* MovementSystem.swift */; };
 		D5C56909260A3528009E5BD9 /* BidirectionalMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C56908260A3528009E5BD9 /* BidirectionalMap.swift */; };
 		D5C56911260AC3D8009E5BD9 /* DoNothingBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C56910260AC3D8009E5BD9 /* DoNothingBehaviour.swift */; };
@@ -406,6 +412,7 @@
 		D50FD6CA2612084500491CAC /* SinglePlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SinglePlayerViewController.swift; sourceTree = "<group>"; };
 		D50FD6CE26120A4800491CAC /* MultiplayerClientViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiplayerClientViewController.swift; sourceTree = "<group>"; };
 		D50FD6D226120ABC00491CAC /* MultiplayerServerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiplayerServerViewController.swift; sourceTree = "<group>"; };
+		D51079E92618DB0E00D796D0 /* WeaponType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeaponType.swift; sourceTree = "<group>"; };
 		D536471F26146C8200C2BCBB /* RawAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawAnimation.swift; sourceTree = "<group>"; };
 		D53F5400260D636A00635B05 /* HasWeapon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasWeapon.swift; sourceTree = "<group>"; };
 		D53F540C260D93AC00635B05 /* Component.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Component.swift; sourceTree = "<group>"; };
@@ -519,6 +526,11 @@
 		D596B1B525F8CF7400A5854F /* CollisionSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollisionSystem.swift; sourceTree = "<group>"; };
 		D598F53C26019E7300D7CACB /* SpaceConverter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpaceConverter.swift; sourceTree = "<group>"; };
 		D598F55E2601C03600D7CACB /* PaintBucketAmmoDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaintBucketAmmoDisplay.swift; sourceTree = "<group>"; };
+		D5B65C922618B39D00C132FE /* PlayerSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerSystem.swift; sourceTree = "<group>"; };
+		D5B65C9C2618B55100C132FE /* UserInputReceiverComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInputReceiverComponent.swift; sourceTree = "<group>"; };
+		D5B65CA02618B6FC00C132FE /* PlayerUserInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerUserInput.swift; sourceTree = "<group>"; };
+		D5B65CA82618B83300C132FE /* PlayableCharacter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayableCharacter.swift; sourceTree = "<group>"; };
+		D5B65CAC2618B84200C132FE /* PlayerComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerComponent.swift; sourceTree = "<group>"; };
 		D5C568FE260A19C9009E5BD9 /* MovementSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovementSystem.swift; sourceTree = "<group>"; };
 		D5C56908260A3528009E5BD9 /* BidirectionalMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BidirectionalMap.swift; sourceTree = "<group>"; };
 		D5C56910260AC3D8009E5BD9 /* DoNothingBehaviour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoNothingBehaviour.swift; sourceTree = "<group>"; };
@@ -739,6 +751,10 @@
 				D53F54F1260DA03500635B05 /* PlayerState+AttackRight.swift */,
 				D53F546B260D960100635B05 /* PlayerState+Idle.swift */,
 				D53F54ED260D9FE100635B05 /* PlayerState+IdleRight.swift */,
+				D5B65CA02618B6FC00C132FE /* PlayerUserInput.swift */,
+				D5B65CA82618B83300C132FE /* PlayableCharacter.swift */,
+				D5B65CAC2618B84200C132FE /* PlayerComponent.swift */,
+				D5B65C922618B39D00C132FE /* PlayerSystem.swift */,
 			);
 			path = Player;
 			sourceTree = "<group>";
@@ -892,6 +908,7 @@
 				D53F5410260D93BB00635B05 /* TransformComponent.swift */,
 				D53F540C260D93AC00635B05 /* Component.swift */,
 				D5500C012608E38800E21BF1 /* RenderComponent.swift */,
+				D5B65C9C2618B55100C132FE /* UserInputReceiverComponent.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -997,6 +1014,7 @@
 				ACFD820325F67113009D806B /* Weapon.swift */,
 				D53F5400260D636A00635B05 /* HasWeapon.swift */,
 				D53F545F260D95A400635B05 /* HasMultiWeapon.swift */,
+				D51079E92618DB0E00D796D0 /* WeaponType.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -1683,6 +1701,7 @@
 				D546280C2614DB45002527C3 /* ColorComponent.swift in Sources */,
 				D53F5448260D94F700635B05 /* SKAnimationSystem.swift in Sources */,
 				AC0A184D26052AF800A1338C /* Constants.swift in Sources */,
+				D5B65C9D2618B55100C132FE /* UserInputReceiverComponent.swift in Sources */,
 				AC097E082601FFE4000951B0 /* ProcessedInputEvent.swift in Sources */,
 				D536472026146C8200C2BCBB /* RawAnimation.swift in Sources */,
 				D53F5444260D94EB00635B05 /* SKRenderSystem.swift in Sources */,
@@ -1719,8 +1738,10 @@
 				AC11994426053CFB003BA54B /* AudioEvent.swift in Sources */,
 				D55EEB8626008AAE00ADC70B /* PaintAmmoDisplay.swift in Sources */,
 				D570452E261830DA004AF802 /* MovementJoystick.swift in Sources */,
+				D51079EA2618DB0E00D796D0 /* WeaponType.swift in Sources */,
 				DC16B41F25FDE64C00C58670 /* StateManagerSystem.swift in Sources */,
 				D583468E25FB8450005C344D /* PaintGun.swift in Sources */,
+				D5B65CA12618B6FC00C132FE /* PlayerUserInput.swift in Sources */,
 				D5C56909260A3528009E5BD9 /* BidirectionalMap.swift in Sources */,
 				D50A08592604F52E00822D67 /* WeaponAnimations.swift in Sources */,
 				D53F541D260D941A00635B05 /* CollisionComponent.swift in Sources */,
@@ -1747,6 +1768,7 @@
 				D58346AC25FB8636005C344D /* PaintAmmo.swift in Sources */,
 				D53F54EE260D9FE100635B05 /* PlayerState+IdleRight.swift in Sources */,
 				84D453D42615B98700864E38 /* GameInfoManager.swift in Sources */,
+				D5B65CA92618B83300C132FE /* PlayableCharacter.swift in Sources */,
 				D58346B125FB8653005C344D /* Ammo.swift in Sources */,
 				8402D28F25FE0BDB00493DDE /* ColorMixer.swift in Sources */,
 				D5DC909125FCC4210038DF71 /* AtlasAnimation.swift in Sources */,
@@ -1756,6 +1778,7 @@
 				ACB3607A25F661620016E240 /* GameViewController.swift in Sources */,
 				D50A08432604E26400822D67 /* HorizontalStack.swift in Sources */,
 				D55EEB5325FF98DD00ADC70B /* Animation.swift in Sources */,
+				D5B65CAD2618B84200C132FE /* PlayerComponent.swift in Sources */,
 				DC7B421925FF63350069B422 /* EventManager.swift in Sources */,
 				AC11904925FE7B7B00601CB9 /* Joystick.swift in Sources */,
 				AC07DE4F2605E63900B12840 /* Rect.swift in Sources */,
@@ -1767,6 +1790,7 @@
 				842B5CE92604885800FCF7BD /* ScoreEventManager.swift in Sources */,
 				DC2403192600D68900550E1E /* CanvasAnimations.swift in Sources */,
 				D546281E261594FE002527C3 /* EntityID.swift in Sources */,
+				D5B65C932618B39D00C132FE /* PlayerSystem.swift in Sources */,
 				DC24033D2600FEFE00550E1E /* CanvasSpawner.swift in Sources */,
 				D5500C062608E7E200E21BF1 /* System.swift in Sources */,
 				D5704532261830EA004AF802 /* AttackJoystick.swift in Sources */,

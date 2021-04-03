@@ -28,6 +28,8 @@ class FirebaseGameHandler: GameConnectionHandler {
             return FirebasePaths.player_soundEffect
         case is PlayMusicEvent.Type:
             return FirebasePaths.player_music
+        case is PlayerChangedWeaponEvent.Type:
+            return FirebasePaths.player_changedWeapon
         default:
             return nil
         }
