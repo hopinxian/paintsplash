@@ -8,7 +8,7 @@ import UIKit
 import SpriteKit
 
 class MultiplayerServerViewController: GameViewController {
-    var lobbyHandler: LobbyHandler!
+    weak var lobbyHandler: LobbyHandler?
     var roomInfo: RoomInfo!
 
     override func viewDidLoad() {
@@ -20,19 +20,20 @@ class MultiplayerServerViewController: GameViewController {
         scene.gameManager = gameManager
 
         // set up observer for game state
-        lobbyHandler.observeGame(roomInfo: roomInfo, onGameStop: onCloseGame, onError: nil)
+        lobbyHandler?.observeGame(roomInfo: roomInfo, onGameStop: onCloseGame, onError: nil)
     }
 
     @IBAction private func endMultplayerGame(_ sender: UIButton) {
-        lobbyHandler.stopGame(roomInfo: self.roomInfo, onSuccess: nil, onError: nil)
+        lobbyHandler?.stopGame(roomInfo: self.roomInfo, onSuccess: nil, onError: nil)
     }
 
     private func onCloseGame() {
-        print("closing multiplayer game")
+        print("closing server game")
+        self.navigationController?.popViewController(animated: true)
         self.navigationController?.popViewController(animated: true)
     }
 
     deinit {
-        print("deinitialized multiplayer server")
+        print("Deinitialized MultiplayerServerVC")
     }
 }

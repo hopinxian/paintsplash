@@ -5,7 +5,7 @@
 //  Created by Farrell Nah on 28/3/21.
 //
 
-protocol ConnectionHandler {
+protocol ConnectionHandler: AnyObject {
     func send<T: Codable>(
         to destination: String,
         data: T,
@@ -35,6 +35,7 @@ class FirebaseConnectionHandler: ConnectionHandler {
     private var observers: [FirebaseObserver] = []
 
     deinit {
+        print("Deinitializing FirebaseConnectionHandler")
         // detach all observers
         observers.forEach { observer in
             observer.reference.removeObserver(withHandle: observer.handle)

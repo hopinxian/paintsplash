@@ -70,39 +70,37 @@ class MultiplayerServer: SinglePlayerGameManager {
         })
 
         // Send background music information
-
-        EventSystem.audioEvent.playMusicEvent.subscribe { event in
-            guard let players = self.room.players else {
+        EventSystem.audioEvent.playMusicEvent.subscribe { [weak self] event in
+            guard let players = self?.room.players else {
                 return
             }
 
             guard let playerId = event.playerId else {
                 players.forEach {
-                    self.gameConnectionHandler?.sendEvent(gameId: gameId, playerId: $0.key, action: event)
+                    self?.gameConnectionHandler?.sendEvent(gameId: gameId, playerId: $0.key, action: event)
                 }
                 return
             }
 
-            self.gameConnectionHandler?.sendEvent(gameId: gameId, playerId: playerId.id, action: event)
+            self?.gameConnectionHandler?.sendEvent(gameId: gameId, playerId: playerId.id, action: event)
         }
 
-        EventSystem.audioEvent.playSoundEffectEvent.subscribe { event in
-            guard let players = self.room.players else {
+        EventSystem.audioEvent.playSoundEffectEvent.subscribe { [weak self] event in
+            guard let players = self?.room.players else {
                 return
             }
 
             guard let playerId = event.playerId else {
                 players.forEach {
-                    self.gameConnectionHandler?.sendEvent(gameId: gameId, playerId: $0.key, action: event)
+                    self?.gameConnectionHandler?.sendEvent(gameId: gameId, playerId: $0.key, action: event)
                 }
                 return
             }
 
-            self.gameConnectionHandler?.sendEvent(gameId: gameId, playerId: playerId.id, action: event)
+            self?.gameConnectionHandler?.sendEvent(gameId: gameId, playerId: playerId.id, action: event)
         }
 
         // Listen to user input from clients
-
         // Shooting input
         self.gameConnectionHandler?.observeEvent(
             gameId: gameId,
@@ -247,7 +245,8 @@ class MultiplayerServer: SinglePlayerGameManager {
             colorSystemData: colorSystemData
         )
         let systemPath = FirebasePaths.joinPaths(FirebasePaths.games, room.gameID, FirebasePaths.systems)
-        connectionHandler.send(to: systemPath, data: systemData, mode: .single, shouldRemoveOnDisconnect: false, onComplete: nil, onError: nil)
+        connectionHandler.send(to: systemPath, data: systemData, mode: .single, shouldRemoveOnDisconnect: false,
+                               onComplete: nil, onError: nil)
     }
 
     func receiveInput() {

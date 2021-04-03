@@ -80,7 +80,7 @@ class RoomViewController: UIViewController {
             return
         }
         lobbyHandler?.leaveRoom(playerInfo: player, roomId: roomInfo.roomId,
-                                onSuccess: nil, onError: onError)
+                                onSuccess: onRoomClose, onError: onError)
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

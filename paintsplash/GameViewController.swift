@@ -76,6 +76,6 @@ class GameViewController: UIViewController {
     }
 
     deinit {
-        print("deinit game view controller")
+        print("deinit GameViewController")
     }
 }

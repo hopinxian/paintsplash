@@ -202,6 +202,22 @@ class FirebaseLobbyHandler: LobbyHandler {
         let gamePath = FirebasePaths.joinPaths(FirebasePaths.games, roomInfo.gameID)
         let gameRunningPath = FirebasePaths.joinPaths(FirebasePaths.games, roomInfo.gameID,
                                                       FirebasePaths.game_isRunning)
+
+
+
+        func changeGameStatus() {
+            let gameStartedPath = FirebasePaths.joinPaths(FirebasePaths.rooms, roomInfo.roomId,
+                                                          FirebasePaths.rooms_gameStarted)
+            self.connectionHandler.sendSingleValue(to: gameStartedPath,
+                                                   data: false,
+                                                   shouldRemoveOnDisconnect: false,
+                                                   onComplete: {
+                                                    print("changed game status")
+                                                    onSuccess?()
+                                                   },
+                                                   onError: onError)
+        }
+
         connectionHandler.sendSingleValue(to: gameRunningPath, data: false,
                                           shouldRemoveOnDisconnect: false,
                                           onComplete: { [weak self] in
@@ -211,7 +227,7 @@ class FirebaseLobbyHandler: LobbyHandler {
                                                     return
                                                 }
                                                 print("stopped game, removed game data")
-                                                onSuccess?()
+                                                changeGameStatus()
                                             })
                                           }, onError: onError)
     }

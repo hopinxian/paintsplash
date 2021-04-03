@@ -7,7 +7,7 @@
 import UIKit
 
 class MultiplayerClientViewController: GameViewController {
-    var lobbyHandler: LobbyHandler!
+    weak var lobbyHandler: LobbyHandler?
     var playerInfo: PlayerInfo!
     var roomInfo: RoomInfo!
 
@@ -26,21 +26,21 @@ class MultiplayerClientViewController: GameViewController {
                                             roomInfo: roomInfo)
         scene.gameManager = gameManager
 
-        lobbyHandler.observeGame(roomInfo: roomInfo, onGameStop: onCloseGame, onError: { error in
-            print("Error observing game on client")
+        lobbyHandler?.observeGame(roomInfo: roomInfo, onGameStop: onCloseGame, onError: { error in
+            print("Error observing game on client: \(error)")
         })
     }
 
     @IBAction private func endMultiplayerGame(_ sender: UIButton) {
-        lobbyHandler.stopGame(roomInfo: self.roomInfo, onSuccess: nil, onError: nil)
+        lobbyHandler?.stopGame(roomInfo: self.roomInfo, onSuccess: nil, onError: nil)
     }
 
     private func onCloseGame() {
-        print("closing multiplayer game")
+        print("closing client multiplayer game")
         self.navigationController?.popViewController(animated: true)
     }
 
     deinit {
-        print("closed multiplayer client VC")
+        print("Deinit MultiplayerClientVC")
     }
 }

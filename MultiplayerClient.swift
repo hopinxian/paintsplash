@@ -8,11 +8,11 @@ import Foundation
 
 class MultiplayerClient: GameManager {
     var uiEntities = Set<GameEntity>()
-
     var entities = Set<GameEntity>()
     var room: RoomInfo
-    var connectionHandler: ConnectionHandler
-    var gameScene: GameScene
+    weak var gameScene: GameScene?
+
+    var connectionHandler: ConnectionHandler = FirebaseConnectionHandler()
     var gameConnectionHandler: GameConnectionHandler = FirebaseGameHandler()
 
     var playerInfo: PlayerInfo
@@ -25,7 +25,6 @@ class MultiplayerClient: GameManager {
     var transformSystem: TransformSystem!
 
     init(gameScene: GameScene, playerInfo: PlayerInfo, roomInfo: RoomInfo) {
-        self.connectionHandler = FirebaseConnectionHandler()
         self.gameScene = gameScene
         self.playerInfo = playerInfo
         self.room = roomInfo
@@ -81,31 +80,37 @@ class MultiplayerClient: GameManager {
         gameConnectionHandler.observeEvent(
             gameId: gameID,
             playerId: playerInfo.playerUUID,
-            onChange: { (event: PlayerAmmoUpdateEvent) in
-                EventSystem.playerActionEvent.playerAmmoUpdateEvent.post(event: event)
-            }
-        )
+            onChange: { EventSystem.playerActionEvent.playerAmmoUpdateEvent.post(event: $0) })
 
         gameConnectionHandler.observeEvent(
             gameId: gameID,
             playerId: playerInfo.playerUUID,
-            onChange: { (event: PlayMusicEvent) in
+            onChange: { [weak self] (event: PlayMusicEvent) in
                 EventSystem.audioEvent.playMusicEvent.post(event: event)
-                self.gameConnectionHandler.acknowledgeEvent(event, gameId: gameID, playerId: self.playerInfo.playerUUID)
+                guard let playerId = self?.playerInfo.playerUUID else {
+                    return
+                }
+                self?.gameConnectionHandler.acknowledgeEvent(event, gameId: gameID, playerId: playerId)
             }
         )
 
         gameConnectionHandler.observeEvent(
             gameId: gameID,
             playerId: playerInfo.playerUUID,
-            onChange: { (event: PlaySoundEffectEvent) in
+            onChange: { [weak self] (event: PlaySoundEffectEvent) in
                 EventSystem.audioEvent.playSoundEffectEvent.post(event: event)
-                self.gameConnectionHandler.acknowledgeEvent(event, gameId: gameID, playerId: self.playerInfo.playerUUID)
+                guard let playerId = self?.playerInfo.playerUUID else {
+                    return
+                }
+                self?.gameConnectionHandler.acknowledgeEvent(event, gameId: gameID, playerId: playerId)
             }
         )
     }
 
     func setUpSystems() {
+        guard let gameScene = self.gameScene else {
+            fatalError("Did not set up game scene properly for multiplayer client")
+        }
         let renderSystem = SKRenderSystem(scene: gameScene)
         self.renderSystem = renderSystem
         animationSystem = SKAnimationSystem(renderSystem: renderSystem)
