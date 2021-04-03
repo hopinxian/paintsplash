@@ -29,4 +29,7 @@ protocol GameConnectionHandler {
         onError: ((Error?) -> Void)?,
         onSuccess: (() -> Void)?
     ) where T: Event
+
+    func sendSystemData(data: SystemData, gameID: String)
+    func observeSystemData(gameID: String, callback: @escaping (SystemData?) -> Void)
 }

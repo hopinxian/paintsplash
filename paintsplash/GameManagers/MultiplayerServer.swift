@@ -247,9 +247,7 @@ class MultiplayerServer: SinglePlayerGameManager {
             animationSystemData: animationSystemData,
             colorSystemData: colorSystemData
         )
-        let systemPath = FirebasePaths.joinPaths(FirebasePaths.games, room.gameID, FirebasePaths.systems)
-        connectionHandler.send(to: systemPath, data: systemData, mode: .single, shouldRemoveOnDisconnect: false,
-                               onComplete: nil, onError: nil)
+        gameConnectionHandler?.sendSystemData(data: systemData, gameID: room.gameID)
     }
 
     func receiveInput() {

@@ -114,4 +114,19 @@ class FirebaseGameHandler: GameConnectionHandler {
             onError?(err)
         }
     }
+
+    func sendSystemData(data: SystemData, gameID: String) {
+        let systemPath = FirebasePaths.joinPaths(FirebasePaths.games, gameID, FirebasePaths.systems)
+        connectionHandler.send(to: systemPath, data: data, mode: .single, shouldRemoveOnDisconnect: false,
+                               onComplete: nil, onError: nil)
+    }
+
+    func observeSystemData(gameID: String, callback: @escaping (SystemData?) -> Void) {
+        let systemPath = FirebasePaths.joinPaths(
+            FirebasePaths.games,
+            gameID,
+            FirebasePaths.systems
+        )
+        connectionHandler.listen(to: systemPath, callBack: callback)
+    }
 }
