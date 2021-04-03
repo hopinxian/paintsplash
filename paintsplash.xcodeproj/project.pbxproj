@@ -245,6 +245,7 @@
 		DC247F5025F9C1CB001B814C /* ChasePlayerBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC247F4F25F9C1CB001B814C /* ChasePlayerBehaviour.swift */; };
 		DC247F5525F9E53C001B814C /* SpawnEnemyBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC247F5425F9E53C001B814C /* SpawnEnemyBehaviour.swift */; };
 		DC4CAC71261301790086CBCC /* NetworkEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4CAC70261301790086CBCC /* NetworkEntity.swift */; };
+		DC52FCCD2618AE72005D2887 /* PlayerHealthDisplayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC52FCCC2618AE72005D2887 /* PlayerHealthDisplayTests.swift */; };
 		DC6874CF260362C800CF89E4 /* CanvasRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC6874CE260362C800CF89E4 /* CanvasRequestManager.swift */; };
 		DC6921012605E20F008AEC2E /* PlayerDie.atlas in Resources */ = {isa = PBXBuildFile; fileRef = DC6921002605E20F008AEC2E /* PlayerDie.atlas */; };
 		DC6A07C5261304D0009FE7F6 /* GameStateInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC6A07C4261304D0009FE7F6 /* GameStateInfo.swift */; };
@@ -547,6 +548,7 @@
 		DC247F4F25F9C1CB001B814C /* ChasePlayerBehaviour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChasePlayerBehaviour.swift; sourceTree = "<group>"; };
 		DC247F5425F9E53C001B814C /* SpawnEnemyBehaviour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpawnEnemyBehaviour.swift; sourceTree = "<group>"; };
 		DC4CAC70261301790086CBCC /* NetworkEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkEntity.swift; sourceTree = "<group>"; };
+		DC52FCCC2618AE72005D2887 /* PlayerHealthDisplayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerHealthDisplayTests.swift; sourceTree = "<group>"; };
 		DC6874CE260362C800CF89E4 /* CanvasRequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasRequestManager.swift; sourceTree = "<group>"; };
 		DC6921002605E20F008AEC2E /* PlayerDie.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = PlayerDie.atlas; sourceTree = "<group>"; };
 		DC6A07C4261304D0009FE7F6 /* GameStateInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStateInfo.swift; sourceTree = "<group>"; };
@@ -830,6 +832,7 @@
 				D5553DC52607279800C1862E /* CanvasRenderableTests.swift */,
 				ACA1B3EF26184C1C004F210F /* FirebasePathsTests.swift */,
 				ACA1B40126185155004F210F /* FirebaseLobbyHandlerTests.swift */,
+				DC52FCCC2618AE72005D2887 /* PlayerHealthDisplayTests.swift */,
 			);
 			path = paintsplashTests;
 			sourceTree = "<group>";
@@ -1921,6 +1924,7 @@
 				8418A7A82606FA6D000BFBD4 /* LevelScoreTests.swift in Sources */,
 				84CF593326185D2A008FB1A7 /* HealthComponentTests.swift in Sources */,
 				ACF5676A2606E446009D0A28 /* AudioPlayerImplTests.swift in Sources */,
+				DC52FCCD2618AE72005D2887 /* PlayerHealthDisplayTests.swift in Sources */,
 				AC3EB7262606F58500B5B963 /* PlayerCollisionTests.swift in Sources */,
 				AC3EB72E260701D800B5B963 /* PlayerHealthTests.swift in Sources */,
 				AC3EB733260703ED00B5B963 /* PlayerWeaponChangeTests.swift in Sources */,
