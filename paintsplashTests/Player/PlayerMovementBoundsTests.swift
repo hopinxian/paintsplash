@@ -59,7 +59,7 @@ class PlayerMovementBoundsTests: XCTestCase {
         player.moveableComponent.speed = 1
         FrameMovementSystem().updateEntity(player, player)
         XCTAssertEqual(player.transformComponent.localPosition, Vector2D.up)
-        
+
         // Move down
         player.moveableComponent.direction = Vector2D.down
         FrameMovementSystem().updateEntity(player, player)
@@ -78,18 +78,18 @@ class PlayerMovementBoundsTests: XCTestCase {
         // Move past left bound
         FrameMovementSystem().updateEntity(player, player)
         XCTAssertEqual(player.transformComponent.localPosition, leftBound)
-        
+
         // Move right (back to zero)
         player.moveableComponent.direction = Vector2D.right
         FrameMovementSystem().updateEntity(player, player)
         XCTAssertEqual(player.transformComponent.worldPosition, .zero)
-        
+
         // Move right (to right bound)
         player.moveableComponent.direction = Vector2D.right
         player.moveableComponent.speed = rightBound.magnitude
         FrameMovementSystem().updateEntity(player, player)
         XCTAssertEqual(player.transformComponent.localPosition, rightBound)
-        
+
         // Move past right bound
         FrameMovementSystem().updateEntity(player, player)
         XCTAssertEqual(player.transformComponent.localPosition, rightBound)
@@ -103,16 +103,16 @@ class PlayerMovementBoundsTests: XCTestCase {
         player.moveableComponent.speed = topBound.magnitude
         FrameMovementSystem().updateEntity(player, player)
         XCTAssertEqual(player.transformComponent.localPosition, topBound)
-        
+
         // Move past top bound
         FrameMovementSystem().updateEntity(player, player)
         XCTAssertEqual(player.transformComponent.localPosition, topBound)
-        
+
         // Move down (back to zero)
         player.moveableComponent.direction = Vector2D.down
         FrameMovementSystem().updateEntity(player, player)
         XCTAssertEqual(player.transformComponent.localPosition, .zero)
-        
+
         // Move down (to bottom bound)
         player.moveableComponent.speed = bottomBound.magnitude
         FrameMovementSystem().updateEntity(player, player)

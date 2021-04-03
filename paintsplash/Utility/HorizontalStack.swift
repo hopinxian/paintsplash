@@ -43,7 +43,7 @@ class HorizontalStack<ItemType: Renderable>: GameEntity, Renderable, Animatable 
             rotation: rotation,
             size: size
         )
-        
+
         self.renderComponent = RenderComponent(
             renderType: .sprite(spriteName: backgroundSprite),
             zPosition: zPosition

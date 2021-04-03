@@ -23,7 +23,7 @@ class Level {
     private(set) var lastSpawnDate: Date!
 
     /// Runtime information
-    private(set) var isRunning: Bool = false
+    private(set) var isRunning = false
     private(set) var loopStartTime: Date!
     private(set) var nextSpawnEvent: Int = 0
     private(set) var currentLoop = 1

@@ -161,7 +161,7 @@ class FirebaseLobbyHandler: LobbyHandler {
     }
 
     func getAllRooms() {
-        connectionHandler.getData(at: FirebasePaths.rooms) { error, snapshot in
+        connectionHandler.getData(at: FirebasePaths.rooms) { error, _ in
             if let err = error {
                 print("Error fetching all rooms \(err)")
                 return

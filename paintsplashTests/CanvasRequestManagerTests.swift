@@ -78,7 +78,7 @@ class CanvasRequestManagerTests: XCTestCase {
 
         // Test that request is not removed when canvas is not yet complete
         let redProjectile = PaintProjectile(color: .red, position: Vector2D.zero, radius: 10, direction: .zero)
-        
+
         canvas.onCollide(with: redProjectile)
         XCTAssertFalse(canvasRequestManager.requestsDisplayView.items.isEmpty)
 

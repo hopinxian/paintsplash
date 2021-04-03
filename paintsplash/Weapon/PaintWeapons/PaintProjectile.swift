@@ -41,7 +41,7 @@ class PaintProjectile: GameEntity, Projectile, Renderable, Colorable, Transforma
     }
 
     func onCollide(with: Collidable) {
-        var destroy: Bool = false
+        var destroy = false
         switch with {
         case let enemy as Enemy:
             if self.color.contains(color: enemy.color) {

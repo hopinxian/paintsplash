@@ -5,10 +5,10 @@
 ////  Created by Praveen Bala on 3/4/21.
 ////
 //
-//import Foundation
-//@testable import paintsplash
+// import Foundation
+// @testable import paintsplash
 //
-//class GameConnectionHandlerStub: GameConnectionHandler {
+// class GameConnectionHandlerStub: GameConnectionHandler {
 
 //
 //
@@ -37,4 +37,4 @@
 //    func acknowledgeEvent<T: Codable>(_ event: T, gameId: String,
 //                                      playerId: String) where T: Event {
 //    }
-//}
+// }

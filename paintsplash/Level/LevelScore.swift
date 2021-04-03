@@ -10,7 +10,7 @@ class LevelScore: GameEntity, Renderable {
     var transformComponent: TransformComponent
 
     var score = 0
-    var freeze: Bool = true
+    var freeze = true
 
     override init() {
         let renderType = RenderType.label(text: "Level Score: \(score)")

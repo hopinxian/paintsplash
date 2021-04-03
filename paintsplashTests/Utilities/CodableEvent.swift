@@ -8,5 +8,5 @@
 @testable import paintsplash
 
 class CodableEvent: Event, Codable {
-    
+
 }
