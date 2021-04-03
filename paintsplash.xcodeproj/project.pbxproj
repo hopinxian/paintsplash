@@ -19,7 +19,6 @@
 		8418A7AC26070391000BFBD4 /* LevelSpawnEventTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8418A7AB26070391000BFBD4 /* LevelSpawnEventTests.swift */; };
 		8421CC612618A8B000932F5B /* AnimationComponentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8421CC602618A8B000932F5B /* AnimationComponentTests.swift */; };
 		8421CC652618B1FA00932F5B /* BoundedTransformComponentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8421CC642618B1FA00932F5B /* BoundedTransformComponentTests.swift */; };
-		8421CC692618B20D00932F5B /* TransformComponentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8421CC682618B20D00932F5B /* TransformComponentTests.swift */; };
 		842B5CDE260487BC00FCF7BD /* LevelScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842B5CDD260487BC00FCF7BD /* LevelScore.swift */; };
 		842B5CE42604882F00FCF7BD /* ScoreEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842B5CE32604882F00FCF7BD /* ScoreEvent.swift */; };
 		842B5CE92604885800FCF7BD /* ScoreEventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842B5CE82604885800FCF7BD /* ScoreEventManager.swift */; };
@@ -309,7 +308,6 @@
 		8418A7AB26070391000BFBD4 /* LevelSpawnEventTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelSpawnEventTests.swift; sourceTree = "<group>"; };
 		8421CC602618A8B000932F5B /* AnimationComponentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationComponentTests.swift; sourceTree = "<group>"; };
 		8421CC642618B1FA00932F5B /* BoundedTransformComponentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoundedTransformComponentTests.swift; sourceTree = "<group>"; };
-		8421CC682618B20D00932F5B /* TransformComponentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransformComponentTests.swift; sourceTree = "<group>"; };
 		842B5CDD260487BC00FCF7BD /* LevelScore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelScore.swift; sourceTree = "<group>"; };
 		842B5CE32604882F00FCF7BD /* ScoreEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreEvent.swift; sourceTree = "<group>"; };
 		842B5CE82604885800FCF7BD /* ScoreEventManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreEventManager.swift; sourceTree = "<group>"; };
@@ -683,7 +681,6 @@
 				84CF593226185D2A008FB1A7 /* HealthComponentTests.swift */,
 				8421CC602618A8B000932F5B /* AnimationComponentTests.swift */,
 				8421CC642618B1FA00932F5B /* BoundedTransformComponentTests.swift */,
-				8421CC682618B20D00932F5B /* TransformComponentTests.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -1895,7 +1892,6 @@
 				D5553DC62607279800C1862E /* CanvasRenderableTests.swift in Sources */,
 				ACA1B3FA26184F4B004F210F /* GameConnectionHandlerStub.swift in Sources */,
 				8421CC612618A8B000932F5B /* AnimationComponentTests.swift in Sources */,
-				8421CC692618B20D00932F5B /* TransformComponentTests.swift in Sources */,
 				84CF593E2618660C008FB1A7 /* MathTests.swift in Sources */,
 				848E3F5926188DE300C43EEB /* SpaceConverterTests.swift in Sources */,
 				849E63AD26179E9B00AFA9A7 /* MockGameManager.swift in Sources */,
