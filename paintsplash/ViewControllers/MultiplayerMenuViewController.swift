@@ -21,7 +21,7 @@ class MultiplayerMenuViewController: UIViewController {
 
     required init?(coder: NSCoder) {
         let connectionHandler = FirebaseConnectionHandler()
-        lobbyHandler = FirebaseLobbyHandler(connectionHandler: connectionHandler)
+        lobbyHandler = GameLobbyHandler(connectionHandler: connectionHandler)
         super.init(coder: coder)
     }
 

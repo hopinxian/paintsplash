@@ -5,7 +5,7 @@
 //  Created by Cynthia Lee on 30/3/21.
 //
 
-class FirebaseGameHandler: GameConnectionHandler {
+class PaintSplashGameHandler: GameConnectionHandler {
     let connectionHandler: ConnectionHandler
 
     init(connectionHandler: ConnectionHandler) {
@@ -15,21 +15,21 @@ class FirebaseGameHandler: GameConnectionHandler {
     private func getEventPath(_ event: Event.Type) -> String? {
         switch event {
         case is PlayerMoveEvent.Type:
-            return FirebasePaths.player_moveInput
+            return DataPaths.player_moveInput
         case is PlayerShootEvent.Type:
-            return FirebasePaths.player_shootInput
+            return DataPaths.player_shootInput
         case is PlayerChangeWeaponEvent.Type:
-            return FirebasePaths.player_weaponChoice
+            return DataPaths.player_weaponChoice
         case is PlayerAmmoUpdateEvent.Type:
-            return FirebasePaths.player_ammoUpdate
+            return DataPaths.player_ammoUpdate
         case is PlayerHealthUpdateEvent.Type:
-            return FirebasePaths.player_healthUpdate
+            return DataPaths.player_healthUpdate
         case is PlaySoundEffectEvent.Type:
-            return FirebasePaths.player_soundEffect
+            return DataPaths.player_soundEffect
         case is PlayMusicEvent.Type:
-            return FirebasePaths.player_music
+            return DataPaths.player_music
         case is PlayerChangedWeaponEvent.Type:
-            return FirebasePaths.player_changedWeapon
+            return DataPaths.player_changedWeapon
         default:
             return nil
         }
@@ -47,9 +47,9 @@ class FirebaseGameHandler: GameConnectionHandler {
             return
         }
 
-        let playerPath = FirebasePaths.joinPaths(
-            FirebasePaths.games, gameId,
-            FirebasePaths.game_players, playerId,
+        let playerPath = DataPaths.joinPaths(
+            DataPaths.games, gameId,
+            DataPaths.game_players, playerId,
             path
         )
 
@@ -71,9 +71,9 @@ class FirebaseGameHandler: GameConnectionHandler {
             return
         }
 
-        let playerPath = FirebasePaths.joinPaths(
-            FirebasePaths.games, gameId,
-            FirebasePaths.game_players, playerId,
+        let playerPath = DataPaths.joinPaths(
+            DataPaths.games, gameId,
+            DataPaths.game_players, playerId,
             path
         )
 
@@ -100,9 +100,9 @@ class FirebaseGameHandler: GameConnectionHandler {
             return
         }
 
-        let playerPath = FirebasePaths.joinPaths(
-            FirebasePaths.games, gameId,
-            FirebasePaths.game_players, playerId,
+        let playerPath = DataPaths.joinPaths(
+            DataPaths.games, gameId,
+            DataPaths.game_players, playerId,
             path
         )
 
@@ -117,16 +117,16 @@ class FirebaseGameHandler: GameConnectionHandler {
     }
 
     func sendSystemData(data: SystemData, gameID: String) {
-        let systemPath = FirebasePaths.joinPaths(FirebasePaths.games, gameID, FirebasePaths.systems)
+        let systemPath = DataPaths.joinPaths(DataPaths.games, gameID, DataPaths.systems)
         connectionHandler.send(to: systemPath, data: data, mode: .single, shouldRemoveOnDisconnect: false,
                                onComplete: nil, onError: nil)
     }
 
     func observeSystemData(gameID: String, callback: @escaping (SystemData?) -> Void) {
-        let systemPath = FirebasePaths.joinPaths(
-            FirebasePaths.games,
+        let systemPath = DataPaths.joinPaths(
+            DataPaths.games,
             gameID,
-            FirebasePaths.systems
+            DataPaths.systems
         )
         connectionHandler.listen(to: systemPath, callBack: callback)
     }

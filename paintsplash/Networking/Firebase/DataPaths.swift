@@ -5,7 +5,7 @@
 //  Created by Cynthia Lee on 27/3/21.
 //
 
-enum FirebasePaths {
+enum DataPaths {
     static let rooms = "rooms"
     static let rooms_id = "roomId"
     static let rooms_isOpen = "isOpen"

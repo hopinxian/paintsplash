@@ -18,7 +18,7 @@ class FirebaseLobbyHandlerTests: XCTestCase {
     override func setUp() {
         super.setUp()
         connectionHandler = ConnectionHandlerStub()
-        lobbyHandler = FirebaseLobbyHandler(connectionHandler: connectionHandler)
+        lobbyHandler = GameLobbyHandler(connectionHandler: connectionHandler)
     }
 
     func testCreateRoomSuccess() {

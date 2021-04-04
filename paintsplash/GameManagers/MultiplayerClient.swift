@@ -11,7 +11,7 @@ class MultiplayerClient: SinglePlayerGameManager {
 
     var connectionHandler: ConnectionHandler = FirebaseConnectionHandler()
     var gameConnectionHandler: GameConnectionHandler =
-        FirebaseGameHandler(connectionHandler: FirebaseConnectionHandler())
+        PaintSplashGameHandler(connectionHandler: FirebaseConnectionHandler())
 
     var playerInfo: PlayerInfo
 

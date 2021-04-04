@@ -17,7 +17,7 @@ class MultiplayerServer: SinglePlayerGameManager {
         self.room = roomInfo
         let connectionHandler = FirebaseConnectionHandler()
         self.connectionHandler = connectionHandler
-        self.gameConnectionHandler = FirebaseGameHandler(connectionHandler: connectionHandler)
+        self.gameConnectionHandler = PaintSplashGameHandler(connectionHandler: connectionHandler)
 
         super.init(gameScene: gameScene)
     }

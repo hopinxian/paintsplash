@@ -11,12 +11,12 @@ import XCTest
 class FirebaseGameHandlerTests: XCTestCase {
 
     var connectionHandler: ConnectionHandlerStub!
-    var gameHandler: FirebaseGameHandler!
+    var gameHandler: PaintSplashGameHandler!
 
     override func setUp() {
         super.setUp()
         connectionHandler = ConnectionHandlerStub()
-        gameHandler = FirebaseGameHandler(connectionHandler: connectionHandler)
+        gameHandler = PaintSplashGameHandler(connectionHandler: connectionHandler)
     }
 
     func testSendEventInvalidEventType() {
