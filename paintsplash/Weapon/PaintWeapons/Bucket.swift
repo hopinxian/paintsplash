@@ -51,8 +51,9 @@ class Bucket: WeaponComponent {
             return nil
         }
         let ammo = ammoQueue.removeFirst()
+        let spawnPosition = position + (direction.unitVector * 100)
 
-        return PaintProjectile(color: ammo.color, position: position, radius: 75, direction: Vector2D.zero)
+        return PaintProjectile(color: ammo.color, position: spawnPosition, radius: 75, direction: Vector2D.zero)
     }
 
     override func canShoot() -> Bool {

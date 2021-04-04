@@ -215,6 +215,7 @@
 		D596B19A25F8CF0800A5854F /* Renderable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D596B19925F8CF0800A5854F /* Renderable.swift */; };
 		D596B1AE25F8CF5B00A5854F /* ColliderShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = D596B1AD25F8CF5B00A5854F /* ColliderShape.swift */; };
 		D596B1B625F8CF7400A5854F /* CollisionSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D596B1B525F8CF7400A5854F /* CollisionSystem.swift */; };
+		D59879452619EE1900E8A9D3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D59879442619EE1900E8A9D3 /* GoogleService-Info.plist */; };
 		D598F53D26019E7300D7CACB /* SpaceConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D598F53C26019E7300D7CACB /* SpaceConverter.swift */; };
 		D598F55F2601C03600D7CACB /* PaintBucketAmmoDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D598F55E2601C03600D7CACB /* PaintBucketAmmoDisplay.swift */; };
 		D5B65C932618B39D00C132FE /* PlayerSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B65C922618B39D00C132FE /* PlayerSystem.swift */; };
@@ -266,7 +267,6 @@
 		DC7B421B25FF63350069B422 /* TouchInputEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7B421025FF63350069B422 /* TouchInputEvent.swift */; };
 		DC7B421C25FF63350069B422 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7B421125FF63350069B422 /* Event.swift */; };
 		DC7B422125FF63350069B422 /* EventSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7B421825FF63350069B422 /* EventSystem.swift */; };
-		DC8820FA260F2F150082ECC2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DC8820F9260F2F150082ECC2 /* GoogleService-Info.plist */; };
 		DC933112260671C700209712 /* CanvasRequestManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC933111260671C700209712 /* CanvasRequestManagerTests.swift */; };
 		DC93311A26067AD600209712 /* EnemyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC93311926067AD600209712 /* EnemyTests.swift */; };
 		DC93312726070F5300209712 /* EnemySpawnerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC93312626070F5300209712 /* EnemySpawnerTests.swift */; };
@@ -522,6 +522,7 @@
 		D596B19925F8CF0800A5854F /* Renderable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Renderable.swift; sourceTree = "<group>"; };
 		D596B1AD25F8CF5B00A5854F /* ColliderShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColliderShape.swift; sourceTree = "<group>"; };
 		D596B1B525F8CF7400A5854F /* CollisionSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollisionSystem.swift; sourceTree = "<group>"; };
+		D59879442619EE1900E8A9D3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D598F53C26019E7300D7CACB /* SpaceConverter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpaceConverter.swift; sourceTree = "<group>"; };
 		D598F55E2601C03600D7CACB /* PaintBucketAmmoDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaintBucketAmmoDisplay.swift; sourceTree = "<group>"; };
 		D5B65C922618B39D00C132FE /* PlayerSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerSystem.swift; sourceTree = "<group>"; };
@@ -574,7 +575,6 @@
 		DC7B421025FF63350069B422 /* TouchInputEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchInputEvent.swift; sourceTree = "<group>"; };
 		DC7B421125FF63350069B422 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		DC7B421825FF63350069B422 /* EventSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventSystem.swift; sourceTree = "<group>"; };
-		DC8820F9260F2F150082ECC2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DC933111260671C700209712 /* CanvasRequestManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasRequestManagerTests.swift; sourceTree = "<group>"; };
 		DC93311926067AD600209712 /* EnemyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyTests.swift; sourceTree = "<group>"; };
 		DC93312626070F5300209712 /* EnemySpawnerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemySpawnerTests.swift; sourceTree = "<group>"; };
@@ -775,7 +775,7 @@
 		ACB3606525F661620016E240 = {
 			isa = PBXGroup;
 			children = (
-				DC8820F9260F2F150082ECC2 /* GoogleService-Info.plist */,
+				D59879442619EE1900E8A9D3 /* GoogleService-Info.plist */,
 				ACB3607025F661620016E240 /* paintsplash */,
 				ACB3608825F661630016E240 /* paintsplashTests */,
 				ACB3606F25F661620016E240 /* Products */,
@@ -1556,7 +1556,7 @@
 				DC0EE8A725FE650200CBF414 /* SpawnerIdle.atlas in Resources */,
 				AC5F0B7E2601130500E28D49 /* PlayerBrushAttackRight.atlas in Resources */,
 				ACB3607425F661620016E240 /* GameScene.sks in Resources */,
-				DC8820FA260F2F150082ECC2 /* GoogleService-Info.plist in Resources */,
+				D59879452619EE1900E8A9D3 /* GoogleService-Info.plist in Resources */,
 				846D4FD9260241670079720F /* SlimeIdleGray.atlas in Resources */,
 				AC5F0B7D2601130500E28D49 /* PlayerBrushWalkLeft.atlas in Resources */,
 				AC5F0B802601130500E28D49 /* PlayerBrushIdleRight.atlas in Resources */,
@@ -2076,14 +2076,14 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 8B4N4F9FTJ;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = paintsplash/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = crawlers.paintsplashes3;
+				PRODUCT_BUNDLE_IDENTIFIER = crawlers.paintsplashes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -2099,14 +2099,14 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 8B4N4F9FTJ;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = paintsplash/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = crawlers.paintsplashes3;
+				PRODUCT_BUNDLE_IDENTIFIER = crawlers.paintsplashes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
