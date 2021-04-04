@@ -242,13 +242,13 @@ class SinglePlayerGameManager: GameManager {
 
     func update() {
         currentLevel?.update()
-        transformSystem.updateEntities()
-        aiSystem.updateEntities()
-        renderSystem.updateEntities()
-        animationSystem.updateEntities()
-        collisionSystem.updateEntities()
-        movementSystem.updateEntities()
-        playerSystem.updateEntities()
+        transformSystem?.updateEntities()
+        aiSystem?.updateEntities()
+        renderSystem?.updateEntities()
+        animationSystem?.updateEntities()
+        collisionSystem?.updateEntities()
+        movementSystem?.updateEntities()
+        playerSystem?.updateEntities()
 
         entities.forEach({ $0.update() })
     }

@@ -163,12 +163,13 @@ class MultiplayerClient: SinglePlayerGameManager {
         )
     }
 
-    override func update() {
-        transformSystem.updateEntities()
-        renderSystem.updateEntities()
-        animationSystem.updateEntities()
-        entities.forEach({ $0.update() })
-    }
+//    override func update() {
+//        super.update()
+//        transformSystem.updateEntities()
+//        renderSystem.updateEntities()
+//        animationSystem.updateEntities()
+//        entities.forEach({ $0.update() })
+//    }
 
     func updateSystemData(data: SystemData?) {
         guard let data = data else {

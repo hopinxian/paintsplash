@@ -15,9 +15,7 @@ class TransformComponent: Component, Codable {
 
     var localPosition: Vector2D {
         didSet {
-            if (localPosition - oldValue).magnitude > 50 {
-                wasModified = true
-            }
+            wasModified = true
         }
     }
 
