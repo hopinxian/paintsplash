@@ -69,5 +69,8 @@ struct Constants {
 
     static let AMMO_DROP_SIZE = Vector2D(75, 75)
 
+    static let ENEMY_SIZE = Vector2D(100, 100)
+    static let ENEMY_SPAWNER_SIZE = Vector2D(100, 100)
+
     static let CANVAS_REQUEST_SIZE = Vector2D(150, 150)
 }

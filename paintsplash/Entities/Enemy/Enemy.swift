@@ -34,7 +34,7 @@ class Enemy: GameEntity, StatefulEntity, Renderable, Animatable, Collidable, Mov
         self.transformComponent = TransformComponent(
             position: initialPosition,
             rotation: 0,
-            size: Vector2D(100, 100)
+            size: Constants.ENEMY_SIZE
         )
 
         let healthComp = EnemyHealthComponent(

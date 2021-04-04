@@ -14,7 +14,7 @@ class EnemySpawnerCommand: SpawnCommand {
             return
         }
 
-        let eventLocation = getLocation(location: location, gameInfo: gameInfo)
+        let eventLocation = getLocation(location: location, gameInfo: gameInfo, size: Constants.ENEMY_SPAWNER_SIZE)
         let eventColor = getColor(color: color, gameInfo: gameInfo)
 
         let enemySpawner = EnemySpawner(initialPosition: eventLocation, color: eventColor)

@@ -14,7 +14,7 @@ class EnemyCommand: SpawnCommand {
             return
         }
 
-        let eventLocation = getLocation(location: location, gameInfo: gameInfo)
+        let eventLocation = getLocation(location: location, gameInfo: gameInfo, size: Constants.ENEMY_SIZE)
         let eventColor = getColor(color: color, gameInfo: gameInfo)
 
         let enemy = Enemy(initialPosition: eventLocation, color: eventColor)

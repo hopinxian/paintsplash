@@ -25,7 +25,7 @@ class EnemySpawner: GameEntity, StatefulEntity, Transformable, Renderable, Anima
         self.transformComponent = TransformComponent(
             position: initialPosition,
             rotation: 0,
-            size: Vector2D(100, 100)
+            size: Constants.ENEMY_SPAWNER_SIZE
         )
 
         let healthComp = EnemySpawnerHealthComponent(

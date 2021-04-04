@@ -14,7 +14,7 @@ class AmmoDropCommand: SpawnCommand {
             return
         }
 
-        let eventLocation = getLocation(location: location, gameInfo: gameInfo)
+        let eventLocation = getLocation(location: location, gameInfo: gameInfo, size: Constants.AMMO_DROP_SIZE)
         let eventColor = getAmmoDropColor(color: color, gameInfo: gameInfo)
 
         let ammoDrop = PaintAmmoDrop(color: eventColor, position: eventLocation)

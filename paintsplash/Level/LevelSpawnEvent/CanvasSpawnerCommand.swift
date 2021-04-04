@@ -21,7 +21,7 @@ class CanvasSpawnerCommand: SpawnCommand {
             return
         }
 
-        let eventLocation = getLocation(location: location, gameInfo: gameInfo)
+        let eventLocation = getLocation(location: location, gameInfo: gameInfo, size: Constants.CANVAS_SPAWNER_SIZE)
         let eventVelocity = getVelocity(velocity: velocity, gameInfo: gameInfo)
         let eventSpawnInterval = getSpawnInterval(interval: spawnInterval, gameInfo: gameInfo)
         let canvasSpawner = CanvasSpawner(
