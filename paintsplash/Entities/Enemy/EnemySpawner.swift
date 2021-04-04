@@ -52,7 +52,7 @@ class EnemySpawner: GameEntity, StatefulEntity, Transformable, Renderable, Anima
 
         self.stateComponent.currentState = EnemySpawnerState.Idle(
             spawner: self,
-            idleTime: 100
+            idleTime: 50
         )
 
         // Assign weak references to components
