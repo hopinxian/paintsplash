@@ -131,7 +131,7 @@ class SinglePlayerGameManager: GameManager {
     func setUpUI() {
         let background = Background()
         background.spawn()
-        
+
         guard let paintGun = player.multiWeaponComponent
                 .availableWeapons.compactMap({ $0 as? PaintGun }).first else {
             fatalError("PaintGun not setup properly")

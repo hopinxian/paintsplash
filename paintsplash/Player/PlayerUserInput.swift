@@ -15,6 +15,6 @@ class PlayerUserInput: UserInputReceiverComponent {
     }
 
     override func onTouchMoved(event: TouchMovedEvent) {
-        
+
     }
 }
