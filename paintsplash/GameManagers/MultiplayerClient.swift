@@ -6,64 +6,33 @@
 //  swiftline:disable type_body_length
 import Foundation
 
-class MultiplayerClient: GameManager {
-    var uiEntities = Set<GameEntity>()
-    var entities = Set<GameEntity>()
+class MultiplayerClient: SinglePlayerGameManager {
     var room: RoomInfo
-    weak var gameScene: GameScene?
 
     var connectionHandler: ConnectionHandler = FirebaseConnectionHandler()
     var gameConnectionHandler: GameConnectionHandler =
         FirebaseGameHandler(connectionHandler: FirebaseConnectionHandler())
 
     var playerInfo: PlayerInfo
-    // Dummy player that allows the appropriate ammo stacks to appear
-    var player: Player
-
-    var renderSystem: RenderSystem!
-    var animationSystem: AnimationSystem!
-    var audioSystem: AudioSystem!
-    var transformSystem: TransformSystem!
 
     init(gameScene: GameScene, playerInfo: PlayerInfo, roomInfo: RoomInfo) {
-        self.gameScene = gameScene
         self.playerInfo = playerInfo
         self.room = roomInfo
 
-        let playerId = EntityID(id: playerInfo.playerUUID)
-        self.player = Player(initialPosition: .zero, playerUUID: playerId)
-        self.audioSystem = AudioManager()
-
-        setupEventListeners()
-        setupGame()
+        super.init(gameScene: gameScene)
     }
 
-    private func setupEventListeners() {
-        EventSystem.entityChangeEvents
-            .addEntityEvent.subscribe(listener: { [weak self] in
-            self?.onAddEntity(event: $0)
-        })
-        EventSystem.entityChangeEvents
-            .removeEntityEvent.subscribe(listener: { [weak self] in
-            self?.onRemoveEntity(event: $0)
-        })
-        EventSystem.entityChangeEvents
-            .addUIEntityEvent.subscribe(listener: { [weak self] in
-            self?.onAddUIEntity(event: $0)
-        })
-        EventSystem.entityChangeEvents
-            .removeUIEntityEvent.subscribe(listener: { [weak self] in
-            self?.onRemoveUIEntity(event: $0)
-        })
-    }
-
-    func setupGame() {
-        setUpSystems()
-        setUpEntities()
-        setUpUI()
-        setUpAudio()
+    override func setupGame() {
+        super.setupGame()
         setUpObservers()
         setUpInputListeners()
+    }
+
+    override func setUpPlayer() {
+        player = Player(
+            initialPosition: Vector2D.zero + Vector2D.right * 50,
+            playerUUID: EntityID(id: playerInfo.playerUUID)
+        )
     }
 
     func setUpObservers() {
@@ -84,7 +53,6 @@ class MultiplayerClient: GameManager {
             playerId: playerInfo.playerUUID,
             onChange: { (event: PlayerChangedWeaponEvent) in
                 EventSystem.playerActionEvent.playerChangedWeaponEvent.post(event: event)
-                print("Hello")
             },
             onError: nil
         )
@@ -140,18 +108,12 @@ class MultiplayerClient: GameManager {
         })
     }
 
-    func setUpSystems() {
-        guard let gameScene = self.gameScene else {
-            fatalError("Did not set up game scene properly for multiplayer client")
-        }
-        let renderSystem = SKRenderSystem(scene: gameScene)
-        self.renderSystem = renderSystem
-        animationSystem = SKAnimationSystem(renderSystem: renderSystem)
-        audioSystem = AudioManager(associatedDeviceId: player.id)
-        self.transformSystem = WorldTransformSystem()
+    override func setUpSystems() {
+        super.setUpSystems()
+        audioManager = AudioManager(associatedDeviceId: EntityID(id: playerInfo.playerUUID))
     }
 
-    func setUpEntities() {
+    override func setUpEntities() {
 
     }
 
@@ -201,112 +163,11 @@ class MultiplayerClient: GameManager {
         )
     }
 
-    func setUpUI() {
-        let background = Background()
-        background.spawn()
-
-        let playerId = EntityID(id: playerInfo.playerUUID)
-
-        guard let paintGun = player.multiWeaponComponent
-            .availableWeapons.compactMap({ $0 as? PaintGun }).first else {
-            fatalError("Paintgun not setup properly")
-        }
-
-        let paintGunUI = PaintGunAmmoDisplay(weaponData: paintGun, associatedEntity: playerId)
-        paintGunUI.spawn()
-        paintGunUI.ammoDisplayView.animationComponent.animate(
-            animation: WeaponAnimations.selectWeapon,
-            interupt: true
-        )
-
-        guard let paintBucket = player.multiWeaponComponent
-            .availableWeapons.compactMap({ $0 as? Bucket }).first else {
-            fatalError("PaintBucket not setup properly")
-        }
-
-        let paintBucketUI = PaintBucketAmmoDisplay(weaponData: paintBucket, associatedEntity: playerId)
-        paintBucketUI.spawn()
-        paintBucketUI.ammoDisplayView.animationComponent.animate(
-            animation: WeaponAnimations.unselectWeapon,
-            interupt: true
-        )
-
-        let joystick = MovementJoystick(associatedEntityID: playerId, position: Constants.JOYSTICK_POSITION)
-        joystick.spawn()
-
-        let attackButton = AttackJoystick(associatedEntityID: playerId, position: Constants.ATTACK_BUTTON_POSITION)
-        attackButton.spawn()
-
-        // TODO: player health is currently hardcoded: should be listening to player state
-        let playerHealthUI = PlayerHealthDisplay(startingHealth: 3, associatedEntityId: playerId)
-        playerHealthUI.spawn()
-
-        let bottombar = UIBar(
-            position: Constants.BOTTOM_BAR_POSITION,
-            size: Constants.BOTTOM_BAR_SIZE,
-            spritename: Constants.BOTTOM_BAR_SPRITE
-        )
-        bottombar.spawn()
-
-        let topBar = UIBar(
-            position: Constants.TOP_BAR_POSITION,
-            size: Constants.TOP_BAR_SIZE,
-            spritename: Constants.TOP_BAR_SPRITE
-        )
-        topBar.spawn()
-    }
-
-    func setUpAudio() {
-        self.audioSystem = AudioManager(associatedDeviceId: player.id)
-        EventSystem.audioEvent
-            .playMusicEvent.post(event: PlayMusicEvent(music: Music.backgroundMusic))
-    }
-
-    func update() {
+    override func update() {
         transformSystem.updateEntities()
         renderSystem.updateEntities()
         animationSystem.updateEntities()
         entities.forEach({ $0.update() })
-    }
-
-    func addObject(_ object: GameEntity) {
-        entities.insert(object)
-        addObjectToSystems(object)
-    }
-
-    private func onAddEntity(event: AddEntityEvent) {
-        addObject(event.entity)
-    }
-
-    func removeObject(_ object: GameEntity) {
-        entities.remove(object)
-        removeObjectFromSystems(object)
-    }
-
-    private func onRemoveEntity(event: RemoveEntityEvent) {
-        removeObject(event.entity)
-    }
-
-    private func onAddUIEntity(event: AddUIEntityEvent) {
-        uiEntities.insert(event.entity)
-        addObjectToSystems(event.entity)
-    }
-
-    private func onRemoveUIEntity(event: RemoveUIEntityEvent) {
-        uiEntities.remove(event.entity)
-        removeObjectFromSystems(event.entity)
-    }
-
-    private func addObjectToSystems(_ object: GameEntity) {
-        transformSystem.addEntity(object)
-        renderSystem.addEntity(object)
-        animationSystem.addEntity(object)
-    }
-
-    private func removeObjectFromSystems(_ object: GameEntity) {
-        transformSystem.removeEntity(object)
-        renderSystem.removeEntity(object)
-        animationSystem.removeEntity(object)
     }
 
     func updateRenderSystem(data: RenderSystemData?) {

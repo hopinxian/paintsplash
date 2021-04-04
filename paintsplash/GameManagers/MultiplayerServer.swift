@@ -15,19 +15,11 @@ class MultiplayerServer: SinglePlayerGameManager {
 
     init(roomInfo: RoomInfo, gameScene: GameScene) {
         self.room = roomInfo
-        self.connectionHandler = FirebaseConnectionHandler()
+        let connectionHandler = FirebaseConnectionHandler()
+        self.connectionHandler = connectionHandler
+        self.gameConnectionHandler = FirebaseGameHandler(connectionHandler: connectionHandler)
 
         super.init(gameScene: gameScene)
-    }
-
-    override func setupGame() {
-        self.gameConnectionHandler =
-            FirebaseGameHandler(connectionHandler: FirebaseConnectionHandler())
-        setUpSystems()
-        setUpEntities()
-        setUpPlayer()
-        setUpUI()
-        super.setUpAudio()
     }
 
     override func setUpPlayer() {
@@ -204,73 +196,6 @@ class MultiplayerServer: SinglePlayerGameManager {
         )
     }
 
-    override func setUpEntities() {
-        let background = Background()
-        background.spawn()
-
-        let canvasSpawner = CanvasSpawner(
-            initialPosition: Constants.CANVAS_SPAWNER_POSITION,
-            canvasVelocity: Vector2D(0.4, 0),
-            spawnInterval: 10
-        )
-        canvasSpawner.spawn()
-
-        let canvasManager = CanvasRequestManager()
-        canvasManager.spawn()
-
-        let canvasEndMarker = CanvasEndMarker(size: Constants.CANVAS_END_MARKER_SIZE,
-                                              position: Constants.CANVAS_END_MARKER_POSITION)
-        canvasEndMarker.spawn()
-
-        currentLevel = Level.getDefaultLevel(canvasManager: canvasManager, gameInfo: gameInfoManager.gameInfo)
-        currentLevel?.run()
-    }
-
-    override func setUpUI() {
-        guard let paintGun = player.multiWeaponComponent.availableWeapons.compactMap({ $0 as? PaintGun }).first else {
-            fatalError("PaintGun not setup properly")
-        }
-
-        let paintGunUI = PaintGunAmmoDisplay(weaponData: paintGun, associatedEntity: player.id)
-        paintGunUI.spawn()
-        paintGunUI.ammoDisplayView.animationComponent.animate(animation: WeaponAnimations.selectWeapon, interupt: true)
-
-        guard let paintBucket = player.multiWeaponComponent.availableWeapons.compactMap({ $0 as? Bucket }).first else {
-            fatalError("PaintBucket not setup properly")
-        }
-
-        let paintBucketUI = PaintBucketAmmoDisplay(weaponData: paintBucket, associatedEntity: player.id)
-        paintBucketUI.spawn()
-        paintBucketUI.ammoDisplayView.animationComponent.animate(
-            animation: WeaponAnimations.unselectWeapon,
-            interupt: true
-        )
-
-        let joystick = MovementJoystick(associatedEntityID: player.id, position: Constants.JOYSTICK_POSITION)
-        joystick.spawn()
-
-        let attackButton = AttackJoystick(associatedEntityID: player.id, position: Constants.ATTACK_BUTTON_POSITION)
-        attackButton.spawn()
-
-        let playerHealthUI = PlayerHealthDisplay(startingHealth: player.healthComponent.currentHealth,
-                                                 associatedEntityId: player.id)
-        playerHealthUI.spawn()
-
-        let bottombar = UIBar(
-            position: Constants.BOTTOM_BAR_POSITION,
-            size: Constants.BOTTOM_BAR_SIZE,
-            spritename: Constants.BOTTOM_BAR_SPRITE
-        )
-        bottombar.spawn()
-
-        let topBar = UIBar(
-            position: Constants.TOP_BAR_POSITION,
-            size: Constants.TOP_BAR_SIZE,
-            spritename: Constants.TOP_BAR_SPRITE
-        )
-        topBar.spawn()
-    }
-
     func sendGameState() {
         let uiEntityIDs = Set(uiEntities.map({ $0.id }))
         let entityData = EntityData(from: entities.filter({ !uiEntityIDs.contains($0.id) }))
@@ -303,10 +228,6 @@ class MultiplayerServer: SinglePlayerGameManager {
         gameConnectionHandler?.sendSystemData(data: systemData, gameID: room.gameID)
     }
 
-    func receiveInput() {
-
-    }
-
     override func update() {
         currentLevel?.update()
         aiSystem.updateEntities()
@@ -321,49 +242,4 @@ class MultiplayerServer: SinglePlayerGameManager {
         renderSystem.updateEntities()
         animationSystem.updateEntities()
     }
-
-    private func onAddEntity(event: AddEntityEvent) {
-        addObject(event.entity)
-    }
-
-//
-//    func addObject(_ object: GameEntity) {
-//        entities.insert(object)
-//        renderSystem.addEntity(object)
-//        aiSystem.addEntity(object)
-//        collisionSystem.addEntity(object)
-//        movementSystem.addEntity(object)
-//        animationSystem.addEntity(object)
-//
-//        // TODO: adding child
-//
-//    }
-    private func onRemoveEntity(event: RemoveEntityEvent) {
-        removeObject(event.entity)
-    }
-
-//    func removeObject(_ object: GameEntity) {
-//        entities.remove(object)
-//        renderSystem.removeEntity(object)
-//        aiSystem.removeEntity(object)
-//        collisionSystem.removeEntity(object)
-//        movementSystem.removeEntity(object)
-//        animationSystem.removeEntity(object)
-//
-//        // remove child
-//    }
-//
-//    func update() {
-//        currentLevel?.update()
-//        let entityList = Array(entities)
-//        aiSystem.updateEntities()
-//        renderSystem.updateEntities()
-//        animationSystem.updateEntities()
-//        collisionSystem.updateEntities()
-//        movementSystem.updateEntities()
-//        entityList.forEach({
-//            $0.update()
-//            // TODO update child
-//        })
-//    }
 }

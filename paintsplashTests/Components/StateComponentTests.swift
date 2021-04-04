@@ -21,11 +21,7 @@ class StateComponentTests: XCTestCase {
         XCTAssertTrue(component.getCurrentBehaviour() is DoNothingBehaviour)
         XCTAssertNil(component.getNextState())
     }
-<<<<<<< HEAD
-    
-=======
 
->>>>>>> 6ae123731ab4f32a8f8bac44277ef9c93e0a4a67
 //    func testGetCurrentBehaviour() {
 //        component.currentState = state
 //        XCTAssertTrue(component.getCurrentBehaviour() is ChasePlayerBehaviour)

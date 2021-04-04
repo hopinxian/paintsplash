@@ -19,13 +19,13 @@ class PlayerWeaponChangeTests: XCTestCase {
 
     private func changeToBucket() {
         let event = PlayerChangeWeaponEvent(newWeapon: Bucket.self, playerId: player.id)
-        player.onWeaponChange(event: event)
+        player.playableComponent.onWeaponChange(event: event)
         checkIfBucket()
     }
 
     private func changeToPaintGun() {
         let event = PlayerChangeWeaponEvent(newWeapon: PaintGun.self, playerId: player.id)
-        player.onWeaponChange(event: event)
+        player.playableComponent.onWeaponChange(event: event)
         checkIfPaintGun()
     }
 

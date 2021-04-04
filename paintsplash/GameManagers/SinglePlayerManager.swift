@@ -100,9 +100,6 @@ class SinglePlayerGameManager: GameManager {
     }
 
     func setUpEntities() {
-        let background = Background()
-        background.spawn()
-
         let canvasSpawner = CanvasSpawner(
             initialPosition: Constants.CANVAS_SPAWNER_POSITION,
             canvasVelocity: Vector2D(0.4, 0),
@@ -132,6 +129,9 @@ class SinglePlayerGameManager: GameManager {
     }
 
     func setUpUI() {
+        let background = Background()
+        background.spawn()
+        
         guard let paintGun = player.multiWeaponComponent
                 .availableWeapons.compactMap({ $0 as? PaintGun }).first else {
             fatalError("PaintGun not setup properly")
@@ -192,25 +192,25 @@ class SinglePlayerGameManager: GameManager {
         topBar.spawn()
     }
 
-    private func onAddEntity(event: AddEntityEvent) {
+    func onAddEntity(event: AddEntityEvent) {
         addObject(event.entity)
     }
 
-    private func onRemoveEntity(event: RemoveEntityEvent) {
+    func onRemoveEntity(event: RemoveEntityEvent) {
         removeObject(event.entity)
     }
 
-    private func onAddUIEntity(event: AddUIEntityEvent) {
+    func onAddUIEntity(event: AddUIEntityEvent) {
         uiEntities.insert(event.entity)
         addObjectToSystems(event.entity)
     }
 
-    private func onRemoveUIEntity(event: RemoveUIEntityEvent) {
+    func onRemoveUIEntity(event: RemoveUIEntityEvent) {
         uiEntities.remove(event.entity)
         removeObjectFromSystems(event.entity)
     }
 
-    private func addObjectToSystems(_ object: GameEntity) {
+    func addObjectToSystems(_ object: GameEntity) {
         transformSystem.addEntity(object)
         renderSystem.addEntity(object)
         aiSystem.addEntity(object)
@@ -220,7 +220,7 @@ class SinglePlayerGameManager: GameManager {
         playerSystem.addEntity(object)
     }
 
-    private func removeObjectFromSystems(_ object: GameEntity) {
+    func removeObjectFromSystems(_ object: GameEntity) {
         transformSystem.removeEntity(object)
         renderSystem.removeEntity(object)
         aiSystem.removeEntity(object)
