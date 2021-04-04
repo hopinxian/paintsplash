@@ -7,7 +7,7 @@
 
 struct SystemData: Codable {
     let entityData: EntityData
-    let renderSystemData: RenderSystemData
-    let animationSystemData: AnimationSystemData
-    let colorSystemData: ColorSystemData
+    let renderSystemData: RenderSystemData?
+    let animationSystemData: AnimationSystemData?
+    let colorSystemData: ColorSystemData?
 }

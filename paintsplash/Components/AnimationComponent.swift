@@ -6,10 +6,26 @@
 //
 
 class AnimationComponent: Component, Codable {
-    var currentAnimation: String?
-    var animationToPlay: String?
-    var animationIsPlaying = false
-    var callBack: (() -> Void)?
+    var currentAnimation: String? {
+        didSet {
+            wasModified = true
+        }
+    }
+    var animationToPlay: String? {
+        didSet {
+            wasModified = true
+        }
+    }
+    var animationIsPlaying = false {
+        didSet {
+            wasModified = true
+        }
+    }
+    var callBack: (() -> Void)? {
+        didSet {
+            wasModified = true
+        }
+    }
 
     override init() {
 

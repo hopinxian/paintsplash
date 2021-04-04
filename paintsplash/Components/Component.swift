@@ -7,4 +7,5 @@
 
 class Component {
     var active = true
+    var wasModified = false
 }

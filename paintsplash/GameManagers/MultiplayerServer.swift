@@ -7,6 +7,8 @@
 import Foundation
 
 class MultiplayerServer: SinglePlayerGameManager {
+    var addedEntities = [EntityID: GameEntity]()
+    var removedEntities = [EntityID: GameEntity]()
     var room: RoomInfo
     var connectionHandler: ConnectionHandler
     var gameConnectionHandler: GameConnectionHandler?
@@ -37,8 +39,6 @@ class MultiplayerServer: SinglePlayerGameManager {
     func setUpGuestPlayer(player: PlayerInfo) {
         // Initialize player
         let playerID = EntityID(id: player.playerUUID)
-        print("Client is")
-        print(playerID)
 
         let gameId = self.room.gameID
         let newPlayer = Player(initialPosition: Vector2D.zero + Vector2D.left * 50, playerUUID: playerID)
@@ -200,18 +200,19 @@ class MultiplayerServer: SinglePlayerGameManager {
         let uiEntityIDs = Set(uiEntities.map({ $0.id }))
         let entityData = EntityData(from: entities.filter({ !uiEntityIDs.contains($0.id) }))
 
-        let renderablesToSend = renderSystem.renderables.filter({ entityID, _ in
+        let renderablesToSend = renderSystem.wasModified.filter({ entityID, _ in
             !uiEntityIDs.contains(entityID)
         })
+
         let renderSystemData = RenderSystemData(from: renderablesToSend)
 
-        let animatablesToSend = animationSystem.animatables.filter({ entityID, _ in
+        let animatablesToSend = animationSystem.wasModified.filter({ entityID, _ in
             !uiEntityIDs.contains(entityID)
         })
         let animationSystemData = AnimationSystemData(from: animatablesToSend)
 
         var colorables = [EntityID: Colorable]()
-        entities.forEach({ entity in
+        addedEntities.forEach({ _, entity in
             if let colorable = entity as? Colorable, !uiEntityIDs.contains(entity.id) {
                 colorables[entity.id] = colorable
             }
@@ -241,5 +242,18 @@ class MultiplayerServer: SinglePlayerGameManager {
         transformSystem.updateEntities()
         renderSystem.updateEntities()
         animationSystem.updateEntities()
+
+        addedEntities = [:]
+        removedEntities = [:]
+    }
+
+    override func addObject(_ object: GameEntity) {
+        super.addObject(object)
+        addedEntities[object.id] = object
+    }
+
+    override func removeObject(_ object: GameEntity) {
+        super.removeObject(object)
+        removedEntities[object.id] = object
     }
 }

@@ -7,4 +7,5 @@
 
 protocol AnimationSystem: System {
     var animatables: [EntityID: Animatable] { get set }
+    var wasModified: [EntityID: Animatable] { get set }
 }

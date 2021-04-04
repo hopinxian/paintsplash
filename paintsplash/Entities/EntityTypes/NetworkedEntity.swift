@@ -12,14 +12,20 @@ class NetworkedEntity: GameEntity, Renderable, Animatable, Colorable {
     var color: PaintColor
 
     init(id: EntityID,
-         renderComponent: RenderComponent,
-         transformComponent: TransformComponent,
-         animationComponent: AnimationComponent,
-         color: PaintColor) {
-        self.renderComponent = renderComponent
-        self.animationComponent = animationComponent
-        self.transformComponent = transformComponent
-        self.color = color
+         renderComponent: RenderComponent?,
+         transformComponent: TransformComponent?,
+         animationComponent: AnimationComponent?,
+         color: PaintColor?) {
+        self.renderComponent = renderComponent ??
+            RenderComponent(renderType: .sprite(spriteName: ""), zPosition: 0)
+
+        self.animationComponent = animationComponent ??
+            AnimationComponent()
+
+        self.transformComponent = transformComponent ??
+            TransformComponent(position: .zero, rotation: 0, size: .zero)
+
+        self.color = color ?? .white
 
         super.init()
 

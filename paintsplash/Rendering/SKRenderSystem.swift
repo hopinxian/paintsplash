@@ -8,6 +8,7 @@ import SpriteKit
 
 class SKRenderSystem: RenderSystem {
     var renderables = [EntityID: Renderable]()
+    var wasModified = [EntityID: Renderable]()
     private weak var scene: GameScene?
     private var nodeEntityMap = BidirectionalMap<EntityID, SKNode>()
 
@@ -33,6 +34,7 @@ class SKRenderSystem: RenderSystem {
     private func addAsRenderable(entity: GameEntity, renderable: Renderable) -> SKNode {
         let node = buildNode(for: renderable)
         renderables[entity.id] = renderable
+        wasModified[entity.id] = renderable
 
         return node
     }
@@ -98,19 +100,31 @@ class SKRenderSystem: RenderSystem {
     }
 
     func updateEntities() {
+        wasModified = [:]
         for (entity, renderable) in renderables {
             updateEntity(entity, renderable)
         }
     }
 
     func updateEntity(_ entity: EntityID, _ renderable: Renderable) {
-        guard let node = nodeEntityMap[entity] else {
+        let transformComponent = renderable.transformComponent
+        let renderComponent = renderable.renderComponent
+
+        guard transformComponent.wasModified || renderComponent.wasModified,
+              let node = nodeEntityMap[entity] else {
             return
         }
 
-        let transformComponent = renderable.transformComponent
-        node.position = SpaceConverter.modelToScreen(transformComponent.worldPosition)
-        node.zRotation = CGFloat(transformComponent.rotation)
+        wasModified[entity] = renderable
+        transformComponent.wasModified = false
+        renderComponent.wasModified = false
+
+        let newPosition: CGPoint =
+            SpaceConverter.modelToScreen(transformComponent.worldPosition)
+        node.position = newPosition
+
+        let newRotation = CGFloat(transformComponent.rotation)
+        node.zRotation = newRotation
 
         updateSpecificNodeTypes(node, renderable)
     }
@@ -139,9 +153,7 @@ class SKRenderSystem: RenderSystem {
 
         let screenSize: CGSize = SpaceConverter.modelToScreen(renderable.transformComponent.size)
 
-        if node.size != screenSize {
-            node.size = screenSize
-        }
+        node.size = screenSize
     }
 
     private func updateLabelNode(_ node: SKLabelNode, text: String) {

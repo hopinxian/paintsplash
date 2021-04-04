@@ -75,7 +75,6 @@
 		ACB3607425F661620016E240 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = ACB3607325F661620016E240 /* GameScene.sks */; };
 		ACB3607625F661620016E240 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = ACB3607525F661620016E240 /* Actions.sks */; };
 		ACB3607825F661620016E240 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB3607725F661620016E240 /* GameScene.swift */; };
-		ACB3607A25F661620016E240 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB3607925F661620016E240 /* GameViewController.swift */; };
 		ACB3607D25F661620016E240 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ACB3607B25F661620016E240 /* Main.storyboard */; };
 		ACB3607F25F661630016E240 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACB3607E25F661630016E240 /* Assets.xcassets */; };
 		ACC154F126012F560000775C /* PlayerActionEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC154F026012F560000775C /* PlayerActionEvent.swift */; };
@@ -376,7 +375,6 @@
 		ACB3607325F661620016E240 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		ACB3607525F661620016E240 /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
 		ACB3607725F661620016E240 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
-		ACB3607925F661620016E240 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		ACB3607C25F661620016E240 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		ACB3607E25F661630016E240 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		ACB3608025F661630016E240 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1116,7 +1114,6 @@
 		D57044DF261829F3004AF802 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				ACB3607925F661620016E240 /* GameViewController.swift */,
 				D50FD6CA2612084500491CAC /* SinglePlayerViewController.swift */,
 				D50FD6CE26120A4800491CAC /* MultiplayerClientViewController.swift */,
 				D50FD6D226120ABC00491CAC /* MultiplayerServerViewController.swift */,
@@ -1775,7 +1772,6 @@
 				D50A07EC260499E900822D67 /* PlayerHealthDisplay.swift in Sources */,
 				D57044EA26182A8A004AF802 /* RenderSystemData.swift in Sources */,
 				ACFD820F25F6773B009D806B /* Vector2D.swift in Sources */,
-				ACB3607A25F661620016E240 /* GameViewController.swift in Sources */,
 				D50A08432604E26400822D67 /* HorizontalStack.swift in Sources */,
 				D55EEB5325FF98DD00ADC70B /* Animation.swift in Sources */,
 				D5B65CAD2618B84200C132FE /* PlayerComponent.swift in Sources */,
@@ -2080,7 +2076,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = X872J9X7F2;
+				DEVELOPMENT_TEAM = 5Q6AP63883;
 				INFOPLIST_FILE = paintsplash/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				LD_RUNPATH_SEARCH_PATHS = (
