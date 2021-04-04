@@ -3,7 +3,8 @@
 //  paintsplash
 //
 //  Created by Cynthia Lee on 14/3/21.
-//
+// 
+
 import Foundation
 
 protocol AIState {

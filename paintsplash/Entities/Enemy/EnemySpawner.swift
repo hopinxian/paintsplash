@@ -39,7 +39,7 @@ class EnemySpawner: GameEntity, StatefulEntity, Transformable, Renderable, Anima
             colliderShape: .circle(radius: 50),
             tags: []
         )
-        
+
         self.collisionComponent = collisionComp
 
         self.stateComponent = StateComponent()

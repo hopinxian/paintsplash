@@ -3,6 +3,7 @@
 //  paintsplash
 //
 //  Created by Cynthia Lee on 1/4/21.
+// swiftlint:disable function_body_length
 
 import Foundation
 

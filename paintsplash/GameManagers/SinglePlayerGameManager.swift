@@ -3,7 +3,7 @@
 //  paintsplash
 //
 //  Created by Praveen Bala on 8/3/21.
-//
+// swiftlint:disable function_body_length
 
 import SpriteKit
 
