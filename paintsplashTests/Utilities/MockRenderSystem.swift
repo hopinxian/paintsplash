@@ -11,6 +11,7 @@ import XCTest
 
 class MockRenderSystem: RenderSystem {
     var renderables: [EntityID: Renderable] = [:]
+    var wasModified: [EntityID : Renderable] = [:]
 
     var activeRenderables = [Renderable]()
     var updatedRenderables = [Renderable]()

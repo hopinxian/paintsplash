@@ -3,7 +3,7 @@
 //  paintsplash
 //
 //  Created by Cynthia Lee on 1/4/21.
-//  swiftline:disable type_body_length
+//  swiftlint:disable type_body_length
 import Foundation
 
 class MultiplayerClient: SinglePlayerGameManager {
@@ -170,58 +170,7 @@ class MultiplayerClient: SinglePlayerGameManager {
         entities.forEach({ $0.update() })
     }
 
-    func updateRenderSystem(data: RenderSystemData?) {
-        guard let renderableData = data else {
-            return
-        }
-
-        renderableData.renderables.forEach({ entity, encodedRenderable in
-            if let (_, renderable) = renderSystem.renderables.first(
-                    where: { $0.key == entity }) {
-                renderable.renderComponent = encodedRenderable.renderComponent
-                renderable.transformComponent = encodedRenderable.transformComponent
-                renderable.renderComponent.wasModified = true
-                renderable.transformComponent.wasModified = true
-            }
-        })
-    }
-
-    func updateAnimationSystem(data: AnimationSystemData?) {
-        guard let animatableData = data else {
-            return
-        }
-
-        animatableData.animatables.forEach({ entity, encodedAnimatable in
-            if let (_, animatable) = animationSystem.animatables.first(
-                    where: { $0.key == entity }) {
-                animatable.animationComponent = encodedAnimatable.animationComponent
-                animatable.animationComponent.animationToPlay = encodedAnimatable.animationComponent.currentAnimation
-                animatable.animationComponent.wasModified = true
-            }
-        })
-    }
-
-    func updateColorSystem(data: ColorSystemData?) {
-        guard let colorData = data else {
-            return
-        }
-
-        var colorables = [GameEntity: Colorable]()
-        entities.forEach({ entity in
-            if let colorable = entity as? Colorable {
-                colorables[entity] = colorable
-            }
-        })
-
-        colorData.colorables.forEach({ entity, encodedColorable in
-            if var (_, colorable) = colorables.first(where: { $0.0.id == entity }) {
-                colorable.color = encodedColorable.color
-            }
-        })
-    }
-
     func updateSystemData(data: SystemData?) {
-        print("received")
         guard let data = data else {
             return
         }
@@ -240,30 +189,10 @@ class MultiplayerClient: SinglePlayerGameManager {
         })
 
         for entity in data.entityData.entities {
-            if let renderable = data.renderSystemData?.renderables[entity] {
-                let renderComponent = renderable.renderComponent
-                let transformComponent = renderable.transformComponent
-                renderComponent.wasModified = true
-                transformComponent.wasModified = true
-                renderSystem.renderables[entity]?.renderComponent = renderComponent
-                renderSystem.renderables[entity]?.transformComponent = transformComponent
-            }
-
-            if let animatable = data.animationSystemData?.animatables[entity] {
-                let animationComponent = animatable.animationComponent
-                animationComponent.wasModified = true
-                animationComponent.animationToPlay = animationComponent.currentAnimation
-                animationSystem.animatables[entity]?.animationComponent = animationComponent
-            }
-
-            if let colorable = data.colorSystemData?.colorables[entity] {
-                let color = colorable.color
-                colorables[entity]?.color = color
-            }
+            updateNetworkedRenderable(data, entity)
+            updateNetworkedAnimatable(data, entity)
+            updateNetworkedColorable(data, entity, &colorables)
         }
-//        updateRenderSystem(data: data.renderSystemData)
-//        updateAnimationSystem(data: data.animationSystemData)
-//        updateColorSystem(data: data.colorSystemData)
 
         for entity in entityIDs where !data.entityData.entities.contains(entity) {
             entities.first(where: { gameEntity in gameEntity.id == entity })?.destroy()
@@ -273,13 +202,10 @@ class MultiplayerClient: SinglePlayerGameManager {
     private func addNetowrkedEntity(entity: EntityID, data: SystemData) {
         let renderComponent =
             data.renderSystemData?.renderables[entity]?.renderComponent
-
         let animationComponent =
             data.animationSystemData?.animatables[entity]?.animationComponent
-
         let transformComponent =
             data.renderSystemData?.renderables[entity]?.transformComponent
-
         let colorComponent = data.colorSystemData?.colorables[entity]?.color
 
         let newEntity = NetworkedEntity(
@@ -290,5 +216,32 @@ class MultiplayerClient: SinglePlayerGameManager {
             color: colorComponent
         )
         newEntity.spawn()
+    }
+
+    private func updateNetworkedRenderable(_ data: SystemData, _ entity: EntityID) {
+        if let renderable = data.renderSystemData?.renderables[entity] {
+            let renderComponent = renderable.renderComponent
+            let transformComponent = renderable.transformComponent
+            renderComponent.wasModified = true
+            transformComponent.wasModified = true
+            renderSystem.renderables[entity]?.renderComponent = renderComponent
+            renderSystem.renderables[entity]?.transformComponent = transformComponent
+        }
+    }
+
+    private func updateNetworkedAnimatable(_ data: SystemData, _ entity: EntityID) {
+        if let animatable = data.animationSystemData?.animatables[entity] {
+            let animationComponent = animatable.animationComponent
+            animationComponent.wasModified = true
+            animationComponent.animationToPlay = animationComponent.currentAnimation
+            animationSystem.animatables[entity]?.animationComponent = animationComponent
+        }
+    }
+
+    private func updateNetworkedColorable(_ data: SystemData, _ entity: EntityID, _ colorables: inout [EntityID : Colorable]) {
+        if let colorable = data.colorSystemData?.colorables[entity] {
+            let color = colorable.color
+            colorables[entity]?.color = color
+        }
     }
 }
