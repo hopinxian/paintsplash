@@ -31,7 +31,7 @@ class MultiplayerClientViewController: UIViewController {
         lobbyHandler?.observeGame(
             roomInfo: roomInfo,
             onGameStop: { [weak self] in self?.onCloseGame() },
-            onError: { print("Error observing game on client: \($0)") }
+            onError: onError
         )
 
         gameView.ignoresSiblingOrder = true
@@ -46,6 +46,12 @@ class MultiplayerClientViewController: UIViewController {
             onRoomClose: { [weak self] in self?.onCloseGame() },
             onError: nil
         )
+    }
+
+    private func onError(error: Error?) {
+        if let err = error {
+            print("Error observing game on client: \(err)")
+        }
     }
 
     @IBAction private func endMultiplayerGame(_ sender: UIButton) {

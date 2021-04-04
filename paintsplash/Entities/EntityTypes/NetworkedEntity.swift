@@ -24,7 +24,7 @@ class NetworkedEntity: GameEntity, Renderable, Animatable, Colorable {
 
         self.transformComponent = transformComponent ??
             TransformComponent(position: .zero, rotation: 0, size: .zero)
-        
+
         self.color = color ?? .white
 
         super.init()

@@ -52,12 +52,16 @@ class MultiplayerMenuViewController: UIViewController {
             onSuccess: { roomInfo in
                 self.onCreateRoom(roomInfo: roomInfo)
             },
-            onError: { error in
-                print("Failed to host room: \(error)")
-            }
+            onError: onError
         )
     }
 
+    private func onError(error: Error?) {
+        if let err = error {
+            print("Failed to host room: \(error)")
+        }
+    }
+    
     private func onCreateRoom(roomInfo: RoomInfo) {
         self.currentRoom = roomInfo
         lobbyHandler.getAllRooms()

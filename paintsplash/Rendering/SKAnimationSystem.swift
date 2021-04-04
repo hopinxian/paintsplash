@@ -46,7 +46,7 @@ class SKAnimationSystem: AnimationSystem {
         animatable.animationComponent.wasModified = false
 
         print(entity)
-        print(animationComponent.animationToPlay)
+        print(animationComponent.animationToPlay as Any)
 
         guard let node = renderSystem.getNodeEntityMap()[entity],
               let animationToPlay = animationComponent.animationToPlay else {

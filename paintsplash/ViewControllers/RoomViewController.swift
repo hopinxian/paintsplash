@@ -90,7 +90,9 @@ class RoomViewController: UIViewController {
     }
 
     func onError(error: Error?) {
-        print("Error encountered: \(error)")
+        if let err = error {
+            print("Error encountered: \(err)")
+        }
     }
 
     @IBAction private func startGame(_ sender: UIButton) {
