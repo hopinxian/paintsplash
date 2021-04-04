@@ -45,8 +45,8 @@ class SKCollisionSystem: CollisionSystem {
     }
 
     func collisionBetweenEntity(first: Collidable, second: Collidable) {
-        first.onCollide(with: second)
-        second.onCollide(with: first)
+        first.collisionComponent.onCollide(with: second)
+        second.collisionComponent.onCollide(with: first)
     }
 
     func updateEntities() {}

@@ -28,12 +28,20 @@ class EnemySpawner: GameEntity, StatefulEntity, Transformable, Renderable, Anima
             size: Vector2D(100, 100)
         )
 
-        self.healthComponent = HealthComponent(currentHealth: 3, maxHealth: 3)
+        let healthComp = EnemySpawnerHealthComponent(
+            currentHealth: 3,
+            maxHealth: 3
+        )
 
-        self.collisionComponent = CollisionComponent(
+        self.healthComponent = healthComp
+
+        let collisionComp = EnemySpawnerCollisionComponent(
             colliderShape: .circle(radius: 50),
             tags: []
         )
+        
+        self.collisionComponent = collisionComp
+
         self.stateComponent = StateComponent()
 
         self.animationComponent = AnimationComponent()
@@ -46,36 +54,22 @@ class EnemySpawner: GameEntity, StatefulEntity, Transformable, Renderable, Anima
             spawner: self,
             idleTime: 100
         )
+
+        // Assign weak references to components
+        collisionComp.spawner = self
+        healthComp.spawner = self
     }
 
-    func onCollide(with: Collidable) {
-        if with.collisionComponent.tags.contains(.playerProjectile) {
-            switch with {
-            case let projectile as PaintProjectile:
-                if projectile.color.contains(color: self.color) || projectile.color == PaintColor.white {
-                    takeDamage(amount: 1)
-                }
-            default:
-                fatalError("Projectile not conforming to projectile protocol")
-            }
-        }
-    }
-
-    func heal(amount: Int) {
-        healthComponent.currentHealth += amount
-    }
-
-    func takeDamage(amount: Int) {
-        healthComponent.currentHealth -= amount
-
-        if healthComponent.currentHealth <= 0 {
-            die()
-            return
-        }
-    }
-
-    private func die() {
-        let event = RemoveEntityEvent(entity: self)
-        EventSystem.entityChangeEvents.removeEntityEvent.post(event: event)
-    }
+//    func onCollide(with: Collidable) {
+//        if with.collisionComponent.tags.contains(.playerProjectile) {
+//            switch with {
+//            case let projectile as PaintProjectile:
+//                if projectile.color.contains(color: self.color) || projectile.color == PaintColor.white {
+//                    takeDamage(amount: 1)
+//                }
+//            default:
+//                fatalError("Projectile not conforming to projectile protocol")
+//            }
+//        }
+//    }
 }

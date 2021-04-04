@@ -37,12 +37,18 @@ class Enemy: GameEntity, StatefulEntity, Renderable, Animatable, Collidable, Mov
             size: Vector2D(100, 100)
         )
 
-        self.healthComponent = HealthComponent(currentHealth: 1, maxHealth: 1)
+        let healthComp = EnemyHealthComponent(
+            currentHealth: 1,
+            maxHealth: 1
+        )
 
-        self.collisionComponent = CollisionComponent(
+        self.healthComponent = healthComp
+
+        let collisionComp = EnemyCollisionComponent(
             colliderShape: .circle(radius: 50),
             tags: [.enemy]
         )
+        self.collisionComponent = collisionComp
 
         self.moveableComponent = MoveableComponent(
             direction: Vector2D.zero,
@@ -56,51 +62,47 @@ class Enemy: GameEntity, StatefulEntity, Renderable, Animatable, Collidable, Mov
         super.init()
 
         self.stateComponent.currentState = EnemyState.Idle(enemy: self)
+
+        // Assign weak references to components
+        collisionComp.enemy = self
+        healthComp.enemy = self
     }
 
-    func onCollide(with: Collidable) {
-        if with.collisionComponent.tags.contains(.playerProjectile) {
-            onCollideWithPlayerProjectile(with: with)
-        }
+//    func onCollide(with: Collidable) {
+//        if with.collisionComponent.tags.contains(.playerProjectile) {
+//            onCollideWithPlayerProjectile(with: with)
+//        }
+//
+//        if with.collisionComponent.tags.contains(.player) {
+//            takeDamage(amount: 1)
+//        }
+//    }
+//
+//    private func onCollideWithPlayerProjectile(with: Collidable) {
+//        switch with {
+//        case let projectile as PaintProjectile:
+//            if projectile.color.contains(color: self.color) || projectile.color == PaintColor.white {
+//                takeDamage(amount: 1)
+//            }
+//        default:
+//            fatalError("Projectile not conforming to projectile protocol")
+//        }
+//    }
 
-        if with.collisionComponent.tags.contains(.player) {
-            takeDamage(amount: 1)
-        }
-    }
-
-    private func onCollideWithPlayerProjectile(with: Collidable) {
-        switch with {
-        case let projectile as PaintProjectile:
-            if projectile.color.contains(color: self.color) || projectile.color == PaintColor.white {
-                takeDamage(amount: 1)
-            }
-        default:
-            fatalError("Projectile not conforming to projectile protocol")
-        }
-    }
-
-    func heal(amount: Int) {
-        healthComponent.currentHealth += amount
-    }
-
-    func takeDamage(amount: Int) {
-        healthComponent.currentHealth -= amount
-
-        if healthComponent.currentHealth <= 0 {
-            die()
-            return
-        }
-
-        animationComponent.animate(animation: SlimeAnimations.slimeHitGray, interupt: true)
-    }
-
-    private func die() {
-        moveableComponent.speed = 0
-        collisionComponent.active = false
-        stateComponent.currentState = EnemyState.Die(enemy: self)
-
-        EventSystem.scoreEvent.post(event: ScoreEvent(value: Points.enemyKill))
-    }
+//    func heal(amount: Int) {
+//        healthComponent.currentHealth += amount
+//    }
+//
+//    func takeDamage(amount: Int) {
+//        healthComponent.currentHealth -= amount
+//
+//        if healthComponent.currentHealth <= 0 {
+//            die()
+//            return
+//        }
+//
+//        animationComponent.animate(animation: SlimeAnimations.slimeHitGray, interupt: true)
+//    }
 
     // TODO: figure out if and why this isn't being called
     deinit {

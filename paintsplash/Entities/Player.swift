@@ -47,7 +47,8 @@ class Player: GameEntity,
             speed: moveSpeed
         )
 
-        self.healthComponent = HealthComponent(currentHealth: 3, maxHealth: 3)
+        let healthComp = PlayerHealthComponent(currentHealth: 3, maxHealth: 3)
+        self.healthComponent = healthComp
 
         self.renderComponent = RenderComponent(
             renderType: .sprite(spriteName: "Player"),
@@ -56,10 +57,12 @@ class Player: GameEntity,
 
         self.animationComponent = AnimationComponent()
 
-        self.collisionComponent = CollisionComponent(
+        let collisionComp = PlayerCollisionComponent(
             colliderShape: .circle(radius: 50),
             tags: [.player]
         )
+
+        self.collisionComponent = collisionComp
 
         self.lastDirection = Vector2D.left
 
@@ -87,8 +90,10 @@ class Player: GameEntity,
                                         PaintAmmo(color: .red),
                                         PaintAmmo(color: .yellow)])
 
+        // Add weak references to player componenets
         playerComponent.player = self
-
+        healthComp.player = self
+        collisionComp.player = self
     }
 
     convenience init(initialPosition: Vector2D, playerUUID: EntityID?) {
@@ -96,70 +101,71 @@ class Player: GameEntity,
         id = playerUUID ?? id
     }
 
-    func heal(amount: Int) {
-        healthComponent.currentHealth += amount
+//    func heal(amount: Int) {
+//        healthComponent.currentHealth += amount
+//
+//        let event = PlayerHealthUpdateEvent(
+//            newHealth: healthComponent.currentHealth,
+//            playerId: id
+//        )
+//        EventSystem.playerActionEvent.playerHealthUpdateEvent.post(event: event)
+//    }
+//
+//    func takeDamage(amount: Int) {
+//        healthComponent.currentHealth -= amount
+//
+//        EventSystem.playerActionEvent.playerHealthUpdateEvent.post(
+//            event: PlayerHealthUpdateEvent(newHealth: healthComponent.currentHealth, playerId: id)
+//        )
+//
+//        if healthComponent.currentHealth <= 0 {
+//            stateComponent.currentState = PlayerState.Die(player: self)
+//        }
+//    }
 
-        let event = PlayerHealthUpdateEvent(
-            newHealth: healthComponent.currentHealth,
-            playerId: id
-        )
-        EventSystem.playerActionEvent.playerHealthUpdateEvent.post(event: event)
-    }
-
-    func takeDamage(amount: Int) {
-        healthComponent.currentHealth -= amount
-
-        EventSystem.playerActionEvent.playerHealthUpdateEvent.post(
-            event: PlayerHealthUpdateEvent(newHealth: healthComponent.currentHealth, playerId: id)
-        )
-
-        if healthComponent.currentHealth <= 0 {
-            stateComponent.currentState = PlayerState.Die(player: self)
-        }
-    }
-
-    func onCollide(with: Collidable) {
-        if with.collisionComponent.tags.contains(.ammoDrop) {
-            onCollideWithAmmoDrop(with: with)
-        }
-
-        if with.collisionComponent.tags.contains(.enemy) {
-            onCollideWithEnemy(with: with)
-        }
-    }
-
-    private func onCollideWithAmmoDrop(with: Collidable) {
-        switch with {
-        case let ammoDrop as PaintAmmoDrop:
-            loadAmmoDrop(ammoDrop)
-        default:
-            fatalError("Ammo Drop not conforming to AmmoDrop protocol")
-        }
-    }
-
-    private func loadAmmoDrop(_ drop: PaintAmmoDrop) {
-        let ammo = drop.getAmmoObject()
-        if multiWeaponComponent.canLoad([ammo]) {
-            multiWeaponComponent.load([ammo])
-            let event = PlayerAmmoUpdateEvent(
-                weaponType: type(of: multiWeaponComponent.activeWeapon),
-                ammo: multiWeaponComponent.activeWeapon.getAmmo(),
-                playerId: self.id
-            )
-
-            EventSystem.playerActionEvent.playerAmmoUpdateEvent.post(
-                event: event
-            )
-        }
-    }
-
-    private func onCollideWithEnemy(with: Collidable) {
-        // TODO: ensure that enemy collide with enemy spawner/other objects is ok
-        switch with {
-        case _ as Enemy:
-            takeDamage(amount: 1)
-        default:
-            fatalError("Enemy does not conform to any enemy type")
-        }
-    }
+//    func onCollide(with: Collidable) {
+//        if with.collisionComponent.tags.contains(.ammoDrop) {
+//            onCollideWithAmmoDrop(with: with)
+//        }
+//
+//        if with.collisionComponent.tags.contains(.enemy) {
+//            onCollideWithEnemy(with: with)
+//        }
+//    }
+//
+//    private func onCollideWithAmmoDrop(with: Collidable) {
+//        switch with {
+//        case let ammoDrop as PaintAmmoDrop:
+//            loadAmmoDrop(ammoDrop)
+//        default:
+//            fatalError("Ammo Drop not conforming to AmmoDrop protocol")
+//        }
+//    }
+//
+//    private func loadAmmoDrop(_ drop: PaintAmmoDrop) {
+//        let ammo = drop.getAmmoObject()
+//        if multiWeaponComponent.canLoad([ammo]) {
+//            multiWeaponComponent.load([ammo])
+//            let event = PlayerAmmoUpdateEvent(
+//                weaponType: type(of: multiWeaponComponent.activeWeapon),
+//                ammo: multiWeaponComponent.activeWeapon.getAmmo(),
+//                playerId: self.id
+//            )
+//
+//            EventSystem.playerActionEvent.playerAmmoUpdateEvent.post(
+//                event: event
+//            )
+//        }
+//    }
+//
+//    private func onCollideWithEnemy(with: Collidable) {
+//        // TODO: ensure that enemy collide with enemy spawner/other objects is ok
+//        switch with {
+//        case _ as Enemy:
+////            takeDamage(amount: 1)
+//            break
+//        default:
+//            fatalError("Enemy does not conform to any enemy type")
+//        }
+//    }
 }

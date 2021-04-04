@@ -14,9 +14,9 @@ class Canvas: GameEntity, StatefulEntity, Renderable, Collidable, Transformable,
     var animationComponent: AnimationComponent
 
     var endX: Double
-    private(set) var colors: Set<PaintColor> = []
+    var colors: Set<PaintColor> = []
     private let moveSpeed = 1.0
-    private(set) var paintedColors: Set<PaintBlob> = []
+    var paintedColors: Set<PaintBlob> = []
 
     init(
         initialPosition: Vector2D,
@@ -38,10 +38,11 @@ class Canvas: GameEntity, StatefulEntity, Renderable, Collidable, Transformable,
             size: size
         )
 
-        self.collisionComponent = CollisionComponent(
+        let collisionComp = CanvasCollisionComponent(
             colliderShape: .rectangle(size: size),
             tags: [.canvas]
         )
+        self.collisionComponent = collisionComp
 
         self.moveableComponent = MoveableComponent(
             direction: direction,
@@ -53,24 +54,9 @@ class Canvas: GameEntity, StatefulEntity, Renderable, Collidable, Transformable,
         super.init()
 
         self.stateComponent.currentState = CanvasState.Moving(canvas: self)
-    }
 
-    func onCollide(with: Collidable) {
-        switch with {
-        case let ammo as PaintProjectile:
-            let color = ammo.color
-            self.colors.insert(color)
-
-            let blob = PaintBlob(color: color, canvas: self)
-            blob.spawn()
-            paintedColors.insert(blob)
-
-            // post notification to alert system about colours on the current canvas
-            let canvasHitEvent = CanvasHitEvent(canvas: self)
-            EventSystem.canvasEvent.canvasHitEvent.post(event: canvasHitEvent)
-        default:
-            break
-        }
+        // Assign weak references to components
+        collisionComp.canvas = self
     }
 
     override func destroy() {

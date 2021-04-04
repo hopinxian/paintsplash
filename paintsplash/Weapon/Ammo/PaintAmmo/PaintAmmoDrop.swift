@@ -26,27 +26,31 @@ class PaintAmmoDrop: GameEntity, Renderable, Collidable, AmmoDrop, Colorable {
             zPosition: Constants.ZPOSITION_AMMO_DROP
         )
 
-        self.collisionComponent = CollisionComponent(
+        let collisionComp = PaintAmmoDropCollisionComponent(
             colliderShape: .rectangle(size: Constants.AMMO_DROP_SIZE),
             tags: [.ammoDrop]
         )
+        self.collisionComponent = collisionComp
 
         super.init()
+
+        // Assign weak references to components
+        collisionComp.ammoDrop = self
     }
 
-    func onCollide(with: Collidable) {
-        if with.collisionComponent.tags.contains(.player) {
-            switch with {
-            case let player as Player:
-                if player.multiWeaponComponent.canLoad([getAmmoObject()]) {
-                    EventSystem.entityChangeEvents.removeEntityEvent.post(event: RemoveEntityEvent(entity: self))
-                }
-            default:
-                fatalError("Player does not conform to Player")
-            }
-        }
-    }
-
+//    func onCollide(with: Collidable) {
+//        if with.collisionComponent.tags.contains(.player) {
+//            switch with {
+//            case let player as Player:
+//                if player.multiWeaponComponent.canLoad([getAmmoObject()]) {
+//                    EventSystem.entityChangeEvents.removeEntityEvent.post(event: RemoveEntityEvent(entity: self))
+//                }
+//            default:
+//                fatalError("Player does not conform to Player")
+//            }
+//        }
+//    }
+//
     func getAmmoObject() -> Ammo {
         PaintAmmo(color: color)
     }
