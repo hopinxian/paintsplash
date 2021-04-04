@@ -35,6 +35,7 @@ xcuserdata/
 
 ## Google key
 GoogleService-Info.plist
+firebase-debug.log
 
 ## Obj-C/Swift specific
 *.hmap
