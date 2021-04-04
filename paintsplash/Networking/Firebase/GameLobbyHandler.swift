@@ -3,7 +3,7 @@
 //  paintsplash
 //
 //  Created by Cynthia Lee on 27/3/21.
-//
+// swiftlint:disable function_parameter_count
 
 import Firebase
 
@@ -226,7 +226,7 @@ class GameLobbyHandler: LobbyHandler {
     func stopGame(roomInfo: RoomInfo, onSuccess: (() -> Void)?, onError: ((Error?) -> Void)?) {
         let gamePath = DataPaths.joinPaths(DataPaths.games, roomInfo.gameID)
         let gameRunningPath = DataPaths.joinPaths(DataPaths.games, roomInfo.gameID,
-                                                      DataPaths.game_isRunning)
+                                                  DataPaths.game_isRunning)
 
         func changeGameStatus() {
             let gameStartedPath = DataPaths.joinPaths(

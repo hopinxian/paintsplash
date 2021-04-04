@@ -17,8 +17,8 @@ class LevelSpawnEventTests: XCTestCase {
         let event = EnemyCommand()
         event.time = 2
         XCTAssertEqual(event.time, 2)
-        XCTAssertEqual(event.color, nil)
-        XCTAssertEqual(event.location, nil)
+        XCTAssertNil(event.color)
+        XCTAssertNil(event.location)
     }
 
     func testEqual() {

@@ -3,7 +3,7 @@
 //  paintsplash
 //
 //  Created by Farrell Nah on 28/3/21.
-//
+// swiftlint:disable function_parameter_count
 
 protocol ConnectionHandler {
     func send<T: Codable>(

@@ -15,7 +15,8 @@ class MultiWeaponComponentTests: XCTestCase {
     let ammoA = PaintAmmo(color: .red)
     let ammoB = PaintAmmo(color: .orange)
 
-    override func setUpWithError() throws {
+    override func setUp() {
+        super.setUp()
         activeWeapon = PaintGun()
         component = MultiWeaponComponent(weapons: [activeWeapon, Bucket()])
     }
@@ -32,7 +33,7 @@ class MultiWeaponComponentTests: XCTestCase {
         if let ammos = activeWeapon.getAmmo() as? [PaintAmmo] {
             XCTAssertEqual(ammos, [ammoA, ammoB])
         } else {
-            XCTFail()
+            XCTFail("Ammo should be paintammo")
         }
 
         component.load(to: Bucket.self, ammo: [ammoA, ammoB])
@@ -40,7 +41,7 @@ class MultiWeaponComponentTests: XCTestCase {
         if let ammos = actualAmmos as? [PaintAmmo] {
             XCTAssertEqual(ammos, [ammoA, ammoB])
         } else {
-            XCTFail()
+            XCTFail("Ammo should be paintammo")
         }
     }
 

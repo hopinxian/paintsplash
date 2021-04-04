@@ -3,7 +3,7 @@
 //  paintsplashTests
 //
 //  Created by Praveen Bala on 3/4/21.
-//
+// swiftlint:disable type_body_length
 
 import XCTest
 @testable import paintsplash
@@ -51,24 +51,6 @@ class FirebaseLobbyHandlerTests: XCTestCase {
 
         XCTAssertTrue(onFailExecuted)
         XCTAssertFalse(onSuccessExecuted)
-    }
-
-    func testCreateRoomDuplicateIDRecreate() {
-//        connectionHandler.disableErrorOnGet()
-//        let roomDict: [String: Any] = [playerInfo.playerUUID: playerInfo]
-//        connectionHandler.setGetObject(roomDict)
-//
-//        var onSuccessExecuted = false
-//        var onFailExecuted = false
-//
-//        lobbyHandler.createRoom(
-//            player: playerInfo,
-//            onSuccess: { _ in onSuccessExecuted = true }, // should not execute
-//            onError: { _ in onFailExecuted = true } // should execute
-//        )
-//
-//        XCTAssertTrue(onFailExecuted)
-//        XCTAssertFalse(onSuccessExecuted)
     }
 
     func testJoinRoomNotExist() {
@@ -335,7 +317,7 @@ class FirebaseLobbyHandlerTests: XCTestCase {
             var onSuccessCalled = false
             var onErrorCalled = false
 
-            connectionHandler.setGetObject(room)
+            connectionHandler.setGetObject(room as Any)
 
             lobbyHandler.startGame(
                 roomId: "0",

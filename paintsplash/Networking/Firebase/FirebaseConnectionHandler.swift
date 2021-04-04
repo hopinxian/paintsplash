@@ -3,7 +3,8 @@
 //  paintsplash
 //
 //  Created by Farrell Nah on 3/4/21.
-//
+// swiftlint:disable function_parameter_count
+
 import Firebase
 
 class FirebaseConnectionHandler: ConnectionHandler {

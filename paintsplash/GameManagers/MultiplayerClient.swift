@@ -3,7 +3,7 @@
 //  paintsplash
 //
 //  Created by Cynthia Lee on 1/4/21.
-//  swiftlint:disable type_body_length
+
 import Foundation
 
 class MultiplayerClient: SinglePlayerGameManager {
@@ -239,7 +239,9 @@ class MultiplayerClient: SinglePlayerGameManager {
         }
     }
 
-    private func updateNetworkedColorable(_ data: SystemData, _ entity: EntityID, _ colorables: inout [EntityID : Colorable]) {
+    private func updateNetworkedColorable(_ data: SystemData,
+                                          _ entity: EntityID,
+                                          _ colorables: inout [EntityID: Colorable]) {
         if let colorable = data.colorSystemData?.colorables[entity] {
             let color = colorable.color
             colorables[entity]?.color = color

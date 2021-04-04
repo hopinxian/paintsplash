@@ -15,7 +15,8 @@ class AnimationComponentTests: XCTestCase {
     let animationToPlay = "playerBrushAttackRight"
     let nextAnimation = "playerBrushIdleLeft"
 
-    override func setUpWithError() throws {
+    override func setUp() {
+        super.setUp()
         component.currentAnimation = currentAnimation
         component.animationToPlay = animationToPlay
         component.animationIsPlaying = true

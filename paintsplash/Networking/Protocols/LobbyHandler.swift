@@ -3,7 +3,7 @@
 //  paintsplash
 //
 //  Created by Cynthia Lee on 27/3/21.
-//
+// swiftlint:disable function_parameter_count
 
 protocol LobbyHandler: AnyObject {
     func createRoom(player: PlayerInfo,

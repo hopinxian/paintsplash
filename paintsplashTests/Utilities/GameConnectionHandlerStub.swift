@@ -1,9 +1,9 @@
 //
-////  GameConnectionHandlerStub.swift
-////  paintsplashTests
-////
-////  Created by Praveen Bala on 3/4/21.
-////
+//  GameConnectionHandlerStub.swift
+//  paintsplashTests
+//
+//  Created by Praveen Bala on 3/4/21.
+//
 //
 // import Foundation
 // @testable import paintsplash

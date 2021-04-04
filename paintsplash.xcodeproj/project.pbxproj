@@ -98,7 +98,7 @@
 		D50A08592604F52E00822D67 /* WeaponAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50A08582604F52E00822D67 /* WeaponAnimations.swift */; };
 		D50FD68226104B7400491CAC /* ConnectionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50FD68126104B7400491CAC /* ConnectionHandler.swift */; };
 		D50FD69C261056AF00491CAC /* MultiplayerServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50FD69B261056AF00491CAC /* MultiplayerServer.swift */; };
-		D50FD6C3261204F800491CAC /* SinglePlayerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50FD6C2261204F800491CAC /* SinglePlayerManager.swift */; };
+		D50FD6C3261204F800491CAC /* SinglePlayerGameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50FD6C2261204F800491CAC /* SinglePlayerGameManager.swift */; };
 		D50FD6C72612058B00491CAC /* Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50FD6C62612058B00491CAC /* Background.swift */; };
 		D50FD6CB2612084500491CAC /* SinglePlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50FD6CA2612084500491CAC /* SinglePlayerViewController.swift */; };
 		D50FD6CF26120A4800491CAC /* MultiplayerClientViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50FD6CE26120A4800491CAC /* MultiplayerClientViewController.swift */; };
@@ -405,7 +405,7 @@
 		D50A08582604F52E00822D67 /* WeaponAnimations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeaponAnimations.swift; sourceTree = "<group>"; };
 		D50FD68126104B7400491CAC /* ConnectionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionHandler.swift; sourceTree = "<group>"; };
 		D50FD69B261056AF00491CAC /* MultiplayerServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiplayerServer.swift; sourceTree = "<group>"; };
-		D50FD6C2261204F800491CAC /* SinglePlayerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SinglePlayerManager.swift; sourceTree = "<group>"; };
+		D50FD6C2261204F800491CAC /* SinglePlayerGameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SinglePlayerGameManager.swift; sourceTree = "<group>"; };
 		D50FD6C62612058B00491CAC /* Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Background.swift; sourceTree = "<group>"; };
 		D50FD6CA2612084500491CAC /* SinglePlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SinglePlayerViewController.swift; sourceTree = "<group>"; };
 		D50FD6CE26120A4800491CAC /* MultiplayerClientViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiplayerClientViewController.swift; sourceTree = "<group>"; };
@@ -1131,7 +1131,7 @@
 			isa = PBXGroup;
 			children = (
 				D55A8AAC25FC933A00BBE210 /* GameManager.swift */,
-				D50FD6C2261204F800491CAC /* SinglePlayerManager.swift */,
+				D50FD6C2261204F800491CAC /* SinglePlayerGameManager.swift */,
 				DCF66400261592490046AFC1 /* MultiplayerClient.swift */,
 				D50FD69B261056AF00491CAC /* MultiplayerServer.swift */,
 			);
@@ -1830,7 +1830,7 @@
 				D596B1AE25F8CF5B00A5854F /* ColliderShape.swift in Sources */,
 				D53F546C260D960100635B05 /* PlayerState+Idle.swift in Sources */,
 				D5C56932260CD7D2009E5BD9 /* PlayerState.swift in Sources */,
-				D50FD6C3261204F800491CAC /* SinglePlayerManager.swift in Sources */,
+				D50FD6C3261204F800491CAC /* SinglePlayerGameManager.swift in Sources */,
 				DC0C02D42603B84400656E49 /* CanvasEvent.swift in Sources */,
 				D5D9201425FB9ACB00E70364 /* PaintAmmoDrop.swift in Sources */,
 				D570452A26182ED5004AF802 /* UIEntity.swift in Sources */,

@@ -4,7 +4,6 @@
 //
 //  Created by Cynthia Lee on 21/3/21.
 //
-//  swiftlint:disable type_body_length
 
 import XCTest
 @testable import paintsplash
@@ -85,7 +84,9 @@ class EnemyTests: XCTestCase {
     }
 
     func testOnCollide_PaintProjectile_sameColor() {
-        let lightRedPaint = PaintProjectile(color: .lightred, position: Vector2D.zero, radius: 10, direction: Vector2D.zero)
+        let lightRedPaint = PaintProjectile(
+            color: .lightred, position: Vector2D.zero,
+            radius: 10, direction: Vector2D.zero)
         lightRedEnemy.onCollide(with: lightRedPaint)
         XCTAssertTrue(lightRedEnemy.stateComponent.currentState is EnemyState.Die)
         XCTAssertEqual(lightRedEnemy.healthComponent.currentHealth, 0)

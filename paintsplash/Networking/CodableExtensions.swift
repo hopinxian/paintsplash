@@ -1,9 +1,9 @@
-//
+// swiftlint:disable:this file_name
 //  CodableExtensions.swift
 //  paintsplash
 //
 //  Created by Farrell Nah on 3/4/21.
-//  swiftlint:disable file_name
+
 import Foundation
 
 extension Encodable {

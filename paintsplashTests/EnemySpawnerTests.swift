@@ -40,7 +40,8 @@ class EnemySpawnerTests: XCTestCase {
     func testOnCollide_PaintProjectile_correctColour() {
         for color in PaintColor.allCases {
             for subColor in color.getSubColors() {
-                let projectile = PaintProjectile(color: color, position: Vector2D.zero, radius: 10, direction: Vector2D.zero)
+                let projectile = PaintProjectile(color: color, position: Vector2D.zero,
+                                                 radius: 10, direction: Vector2D.zero)
                 let spawner = EnemySpawner(initialPosition: Vector2D.zero, color: subColor)
                 spawner.onCollide(with: projectile)
 
@@ -55,7 +56,8 @@ class EnemySpawnerTests: XCTestCase {
         for color in colors {
             let nonSubColors = PaintColor.allCases.filter { !color.getSubColors().contains($0) }
             for enemyColor in nonSubColors {
-                let projectile = PaintProjectile(color: color, position: Vector2D.zero, radius: 10, direction: Vector2D.left)
+                let projectile = PaintProjectile(color: color, position: Vector2D.zero,
+                                                 radius: 10, direction: Vector2D.left)
                 let spawner = EnemySpawner(initialPosition: Vector2D.zero, color: enemyColor)
                 spawner.onCollide(with: projectile)
                 XCTAssertEqual(spawner.healthComponent.currentHealth, spawner.healthComponent.maxHealth)
@@ -66,7 +68,8 @@ class EnemySpawnerTests: XCTestCase {
 
     func testOnCollide_PaintProjectile_whiteColour() {
         for color in PaintColor.allCases {
-            let projectile = PaintProjectile(color: color, position: Vector2D.zero, radius: 10, direction: Vector2D.left)
+            let projectile = PaintProjectile(color: color, position: Vector2D.zero,
+                                             radius: 10, direction: Vector2D.left)
             let spawner = EnemySpawner(initialPosition: Vector2D.zero, color: color)
             spawner.onCollide(with: projectile)
             GameStateManagerSystem(gameInfo: gameInfo).updateEntity(spawner, spawner)

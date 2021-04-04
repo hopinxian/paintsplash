@@ -108,7 +108,9 @@ extension EnemyState {
         }
 
         func getBehaviour(aiEntity: AIEntity) -> AIBehaviour {
-            BehaviourSequence(behaviours: [DoNothingBehaviour(), UpdateAnimationBehaviour(animation: SlimeAnimations.slimeIdleGray, interupt: false)])
+            BehaviourSequence(behaviours: [DoNothingBehaviour(),
+                                           UpdateAnimationBehaviour(animation: SlimeAnimations.slimeIdleGray,
+                                                                    interupt: false)])
 
         }
     }

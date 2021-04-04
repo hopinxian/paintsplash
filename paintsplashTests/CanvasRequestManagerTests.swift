@@ -82,7 +82,9 @@ class CanvasRequestManagerTests: XCTestCase {
         canvas.onCollide(with: redProjectile)
         XCTAssertFalse(canvasRequestManager.requestsDisplayView.items.isEmpty)
 
-        let lightBlueProjectile = PaintProjectile(color: .lightblue, position: Vector2D.zero, radius: 10, direction: .zero)
+        let lightBlueProjectile = PaintProjectile(
+            color: .lightblue, position: Vector2D.zero,
+            radius: 10, direction: .zero)
         canvas.onCollide(with: lightBlueProjectile)
         XCTAssertFalse(canvasRequestManager.requestsDisplayView.items.isEmpty)
 
@@ -104,7 +106,9 @@ class CanvasRequestManagerTests: XCTestCase {
         canvas.onCollide(with: redProjectile)
         XCTAssertFalse(canvasRequestManager.requestsDisplayView.items.isEmpty)
 
-        let lightBlueProjectile = PaintProjectile(color: .lightblue, position: Vector2D.zero, radius: 10, direction: .zero)
+        let lightBlueProjectile = PaintProjectile(
+            color: .lightblue, position: Vector2D.zero,
+            radius: 10, direction: .zero)
         canvas.onCollide(with: lightBlueProjectile)
         XCTAssertFalse(canvasRequestManager.requestsDisplayView.items.isEmpty)
 

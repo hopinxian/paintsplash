@@ -21,7 +21,9 @@ class LevelTests: XCTestCase {
     override func setUp() {
         super.setUp()
 
-        level = Level(canvasManager: canvasRequestManager, gameInfo: GameInfo(playerPosition: Vector2D.zero, numberOfEnemies: 0))
+        level = Level(canvasManager: canvasRequestManager,
+                      gameInfo: GameInfo(playerPosition: Vector2D.zero,
+                                         numberOfEnemies: 0))
 
         enemyEvent = EnemyCommand()
         enemyEvent.time = 2
