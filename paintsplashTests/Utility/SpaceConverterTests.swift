@@ -10,7 +10,8 @@ import XCTest
 
 class SpaceConverterTests: XCTestCase {
 
-    override func setUpWithError() throws {
+    override func setUp() {
+        super.setUp()
         SpaceConverter.modelSize = Vector2D(150, 100)
         SpaceConverter.screenSize = Vector2D(200, 200)
     }

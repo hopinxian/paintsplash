@@ -3,7 +3,7 @@
 //  paintsplashTests
 //
 //  Created by Praveen Bala on 3/4/21.
-// swiftlint:disable type_body_length
+// swiftlint:disable type_body_length file_length
 
 import XCTest
 @testable import paintsplash
