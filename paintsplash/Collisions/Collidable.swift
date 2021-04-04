@@ -7,5 +7,4 @@
 
 protocol Collidable: GameEntity {
     var collisionComponent: CollisionComponent { get }
-//    func onCollide(with otherObject: Collidable)
 }

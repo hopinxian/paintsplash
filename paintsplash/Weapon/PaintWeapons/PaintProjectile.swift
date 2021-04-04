@@ -25,10 +25,11 @@ class PaintProjectile: GameEntity, Projectile, Renderable, Colorable, Transforma
 
         self.moveableComponent = MoveableComponent(direction: direction, speed: moveSpeed)
 
-        self.collisionComponent = CollisionComponent(
+        let collisionComp = PaintProjectileCollisionComponent(
             colliderShape: .circle(radius: radius),
             tags: [.playerProjectile]
         )
+        self.collisionComponent = collisionComp
 
         self.renderComponent = RenderComponent(
             renderType: .sprite(spriteName: "Projectile"),
@@ -38,28 +39,9 @@ class PaintProjectile: GameEntity, Projectile, Renderable, Colorable, Transforma
         self.color = color
 
         super.init()
-    }
 
-    func onCollide(with: Collidable) {
-        var destroy = false
-        switch with {
-        case let enemy as Enemy:
-            if self.color.contains(color: enemy.color) {
-                destroy = true
-            }
-        case let enemy as EnemySpawner:
-            if self.color.contains(color: enemy.color) {
-                destroy = true
-            }
-        case _ as Canvas:
-            destroy = true
-        default:
-            destroy = false
-        }
-
-        if destroy {
-            self.destroy()
-        }
+        // Assign weak references to components
+        collisionComp.projectile = self
     }
 
     override func update() {

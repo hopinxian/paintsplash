@@ -59,17 +59,4 @@ class EnemySpawner: GameEntity, StatefulEntity, Transformable, Renderable, Anima
         collisionComp.spawner = self
         healthComp.spawner = self
     }
-
-//    func onCollide(with: Collidable) {
-//        if with.collisionComponent.tags.contains(.playerProjectile) {
-//            switch with {
-//            case let projectile as PaintProjectile:
-//                if projectile.color.contains(color: self.color) || projectile.color == PaintColor.white {
-//                    takeDamage(amount: 1)
-//                }
-//            default:
-//                fatalError("Projectile not conforming to projectile protocol")
-//            }
-//        }
-//    }
 }

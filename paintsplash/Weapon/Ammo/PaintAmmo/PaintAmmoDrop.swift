@@ -38,19 +38,6 @@ class PaintAmmoDrop: GameEntity, Renderable, Collidable, AmmoDrop, Colorable {
         collisionComp.ammoDrop = self
     }
 
-//    func onCollide(with: Collidable) {
-//        if with.collisionComponent.tags.contains(.player) {
-//            switch with {
-//            case let player as Player:
-//                if player.multiWeaponComponent.canLoad([getAmmoObject()]) {
-//                    EventSystem.entityChangeEvents.removeEntityEvent.post(event: RemoveEntityEvent(entity: self))
-//                }
-//            default:
-//                fatalError("Player does not conform to Player")
-//            }
-//        }
-//    }
-//
     func getAmmoObject() -> Ammo {
         PaintAmmo(color: color)
     }
