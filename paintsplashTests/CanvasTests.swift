@@ -35,19 +35,19 @@ class CanvasTests: XCTestCase {
     func testOnCollide_PaintProjectile() {
         let paint1 = PaintProjectile(color: .blue, position: Vector2D.zero, radius: 10, direction: .zero)
 
-        canvas.onCollide(with: paint1)
+        canvas.collisionComponent.onCollide(with: paint1)
 
         XCTAssertEqual(canvas.colors.count, 1)
         XCTAssertTrue(canvas.colors.contains(.blue))
 
         let paint2 = PaintProjectile(color: .lightpurple, position: Vector2D.zero, radius: 10, direction: .zero)
-        canvas.onCollide(with: paint2)
+        canvas.collisionComponent.onCollide(with: paint2)
         XCTAssertEqual(canvas.colors.count, 2)
         XCTAssertTrue(canvas.colors.contains(.blue))
         XCTAssertTrue(canvas.colors.contains(.lightpurple))
 
         let paint3 = PaintProjectile(color: .white, position: Vector2D.zero, radius: 10, direction: .zero)
-        canvas.onCollide(with: paint3)
+        canvas.collisionComponent.onCollide(with: paint3)
         XCTAssertEqual(canvas.colors.count, 3)
         XCTAssertTrue(canvas.colors.contains(.blue))
         XCTAssertTrue(canvas.colors.contains(.lightpurple))
@@ -56,7 +56,7 @@ class CanvasTests: XCTestCase {
 
     func testOnCollide_EnemyBlob() {
         let blob = Enemy(initialPosition: .zero, color: .red)
-        canvas.onCollide(with: blob)
+        canvas.collisionComponent.onCollide(with: blob)
 
         // Test that canvas colliding with enemy blob does not change canvas colors
         XCTAssertEqual(canvas.colors.count, 0)
@@ -65,7 +65,7 @@ class CanvasTests: XCTestCase {
 
     func testOnCollide_EnemySpawner() {
         let spawner = EnemySpawner(initialPosition: .zero, color: .green)
-        canvas.onCollide(with: spawner)
+        canvas.collisionComponent.onCollide(with: spawner)
 
         // Test that canvas colliding with enemy spawner does not change canvas colors
         XCTAssertEqual(canvas.colors.count, 0)
@@ -74,7 +74,7 @@ class CanvasTests: XCTestCase {
 
     func testOnCollide_Player() {
         let player = Player(initialPosition: .zero)
-        canvas.onCollide(with: player)
+        canvas.collisionComponent.onCollide(with: player)
         // Test that canvas colliding with player does not change canvas colors
         XCTAssertEqual(canvas.colors.count, 0)
     }

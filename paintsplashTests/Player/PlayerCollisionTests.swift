@@ -21,7 +21,7 @@ class PlayerCollisionTests: XCTestCase {
         XCTAssertEqual(player.healthComponent.currentHealth, player.healthComponent.maxHealth)
 
         let enemy = Enemy(initialPosition: Vector2D.zero, color: .blue)
-        player.onCollide(with: enemy)
+        player.collisionComponent.onCollide(with: enemy)
 
         XCTAssertEqual(player.healthComponent.currentHealth, player.healthComponent.maxHealth - 1)
     }
@@ -30,7 +30,7 @@ class PlayerCollisionTests: XCTestCase {
         XCTAssertEqual(player.healthComponent.currentHealth, player.healthComponent.maxHealth)
 
         let enemy = EnemySpawner(initialPosition: Vector2D.zero, color: .blue)
-        player.onCollide(with: enemy)
+        player.collisionComponent.onCollide(with: enemy)
 
         XCTAssertEqual(player.healthComponent.currentHealth, player.healthComponent.maxHealth)
     }
@@ -46,7 +46,7 @@ class PlayerCollisionTests: XCTestCase {
         let canLoad = weaponSystem.canLoad([ammo.getAmmoObject()])
         XCTAssertTrue(canLoad) // weapon can be loaded
 
-        player.onCollide(with: ammo) // weapon should load
+        player.collisionComponent.onCollide(with: ammo) // weapon should load
         XCTAssertTrue(weaponSystem.canShoot())
         // weapon should be able to fire
     }

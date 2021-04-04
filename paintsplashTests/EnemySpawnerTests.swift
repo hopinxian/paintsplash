@@ -43,7 +43,7 @@ class EnemySpawnerTests: XCTestCase {
                 let projectile = PaintProjectile(color: color, position: Vector2D.zero,
                                                  radius: 10, direction: Vector2D.zero)
                 let spawner = EnemySpawner(initialPosition: Vector2D.zero, color: subColor)
-                spawner.onCollide(with: projectile)
+                spawner.collisionComponent.onCollide(with: projectile)
 
                 XCTAssertEqual(spawner.healthComponent.currentHealth, spawner.healthComponent.maxHealth - 1)
                 XCTAssertTrue(spawner.stateComponent.currentState is EnemySpawnerState.Idle)
@@ -59,7 +59,7 @@ class EnemySpawnerTests: XCTestCase {
                 let projectile = PaintProjectile(color: color, position: Vector2D.zero,
                                                  radius: 10, direction: Vector2D.left)
                 let spawner = EnemySpawner(initialPosition: Vector2D.zero, color: enemyColor)
-                spawner.onCollide(with: projectile)
+                spawner.collisionComponent.onCollide(with: projectile)
                 XCTAssertEqual(spawner.healthComponent.currentHealth, spawner.healthComponent.maxHealth)
                 XCTAssertTrue(spawner.stateComponent.currentState is EnemySpawnerState.Idle)
             }
@@ -71,7 +71,7 @@ class EnemySpawnerTests: XCTestCase {
             let projectile = PaintProjectile(color: color, position: Vector2D.zero,
                                              radius: 10, direction: Vector2D.left)
             let spawner = EnemySpawner(initialPosition: Vector2D.zero, color: color)
-            spawner.onCollide(with: projectile)
+            spawner.collisionComponent.onCollide(with: projectile)
             GameStateManagerSystem(gameInfo: gameInfo).updateEntity(spawner, spawner)
 
             XCTAssertEqual(spawner.healthComponent.currentHealth, spawner.healthComponent.maxHealth - 1)
@@ -82,11 +82,11 @@ class EnemySpawnerTests: XCTestCase {
     func testOnCollide_Player() {
         // Test that colliding with player does nothing
         let player = Player(initialPosition: .zero)
-        redSpawner.onCollide(with: player)
+        redSpawner.collisionComponent.onCollide(with: player)
         XCTAssertTrue(redSpawner.stateComponent.currentState is EnemySpawnerState.Idle)
         XCTAssertEqual(redSpawner.healthComponent.currentHealth, redSpawner.healthComponent.maxHealth)
 
-        blueSpawner.onCollide(with: player)
+        blueSpawner.collisionComponent.onCollide(with: player)
         XCTAssertTrue(blueSpawner.stateComponent.currentState is EnemySpawnerState.Idle)
         XCTAssertEqual(blueSpawner.healthComponent.currentHealth, blueSpawner.healthComponent.maxHealth)
     }
@@ -94,31 +94,31 @@ class EnemySpawnerTests: XCTestCase {
     func testOnCollide_Enemy() {
         // Test that colliding with enemy does nothing
         let player = Player(initialPosition: .zero)
-        redSpawner.onCollide(with: player)
+        redSpawner.collisionComponent.onCollide(with: player)
         XCTAssertTrue(redSpawner.stateComponent.currentState is EnemySpawnerState.Idle)
         XCTAssertEqual(redSpawner.healthComponent.currentHealth, redSpawner.healthComponent.maxHealth)
     }
 
     func testHeal() {
-        redSpawner.takeDamage(amount: 3)
+        redSpawner.healthComponent.takeDamage(amount: 3)
         GameStateManagerSystem(gameInfo: gameInfo).updateEntity(redSpawner, redSpawner)
         XCTAssertTrue(redSpawner.stateComponent.currentState is EnemySpawnerState.Idle)
         XCTAssertEqual(redSpawner.healthComponent.currentHealth, 0)
 
         // Test that healing by 0 does nothing
-        redSpawner.heal(amount: 0)
+        redSpawner.healthComponent.heal(amount: 0)
         GameStateManagerSystem(gameInfo: gameInfo).updateEntity(redSpawner, redSpawner)
         XCTAssertTrue(redSpawner.stateComponent.currentState is EnemySpawnerState.Idle)
         XCTAssertEqual(redSpawner.healthComponent.currentHealth, 0)
 
         // Test that healing
-        redSpawner.heal(amount: 2)
+        redSpawner.healthComponent.heal(amount: 2)
         GameStateManagerSystem(gameInfo: gameInfo).updateEntity(redSpawner, redSpawner)
         XCTAssertTrue(redSpawner.stateComponent.currentState is EnemySpawnerState.Idle)
         XCTAssertEqual(redSpawner.healthComponent.currentHealth, 2)
 
         // Test that healing is only up to max health
-        redSpawner.heal(amount: 10)
+        redSpawner.healthComponent.heal(amount: 10)
         GameStateManagerSystem(gameInfo: gameInfo).updateEntity(redSpawner, redSpawner)
         XCTAssertTrue(redSpawner.stateComponent.currentState is EnemySpawnerState.Idle)
         XCTAssertEqual(redSpawner.healthComponent.currentHealth, redSpawner.healthComponent.maxHealth)
@@ -126,19 +126,19 @@ class EnemySpawnerTests: XCTestCase {
 
     func testTakeDamage() {
         // Test that taking 0 damage does nothing
-        redSpawner.takeDamage(amount: 0)
+        redSpawner.healthComponent.takeDamage(amount: 0)
         GameStateManagerSystem(gameInfo: gameInfo).updateEntity(redSpawner, redSpawner)
         XCTAssertTrue(redSpawner.stateComponent.currentState is EnemySpawnerState.Idle)
         XCTAssertEqual(redSpawner.healthComponent.currentHealth, redSpawner.healthComponent.maxHealth)
 
         // Test that correct amount of damage is taken
-        redSpawner.takeDamage(amount: 2)
+        redSpawner.healthComponent.takeDamage(amount: 2)
         GameStateManagerSystem(gameInfo: gameInfo).updateEntity(redSpawner, redSpawner)
         XCTAssertTrue(redSpawner.stateComponent.currentState is EnemySpawnerState.Idle)
         XCTAssertEqual(redSpawner.healthComponent.currentHealth, redSpawner.healthComponent.maxHealth - 2)
 
         // Test that health never goes to negative
-        redSpawner.takeDamage(amount: 10)
+        redSpawner.healthComponent.takeDamage(amount: 10)
         GameStateManagerSystem(gameInfo: gameInfo).updateEntity(redSpawner, redSpawner)
         XCTAssertTrue(redSpawner.stateComponent.currentState is EnemySpawnerState.Idle)
         XCTAssertEqual(redSpawner.healthComponent.currentHealth, 0)
