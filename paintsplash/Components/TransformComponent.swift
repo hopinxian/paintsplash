@@ -7,12 +7,37 @@
 import Foundation
 
 class TransformComponent: Component, Codable {
-    var parentID: EntityID?
-    var localPosition: Vector2D
-    var rotation: Double
-    var size: Vector2D
+    var parentID: EntityID? {
+        didSet {
+            wasModified = true
+        }
+    }
 
-    var worldPosition: Vector2D
+    var localPosition: Vector2D {
+        didSet {
+            if (localPosition - oldValue).magnitude > 50 {
+                wasModified = true
+            }
+        }
+    }
+
+    var rotation: Double {
+        didSet {
+            wasModified = true
+        }
+    }
+
+    var size: Vector2D {
+        didSet {
+            wasModified = true
+        }
+    }
+
+    var worldPosition: Vector2D {
+        didSet {
+            wasModified = true
+        }
+    }
 
     init(position: Vector2D, rotation: Double, size: Vector2D) {
         self.localPosition = position

@@ -8,6 +8,7 @@ import SpriteKit
 
 class SKAnimationSystem: AnimationSystem {
     var animatables = [EntityID: Animatable]()
+    var wasModified = [EntityID: Animatable]()
     let renderSystem: SKRenderSystem
 
     init(renderSystem: SKRenderSystem) {
@@ -20,6 +21,7 @@ class SKAnimationSystem: AnimationSystem {
         }
 
         animatables[entity.id] = animatable
+        wasModified[entity.id] = animatable
     }
 
     func removeEntity(_ entity: GameEntity) {
@@ -27,6 +29,7 @@ class SKAnimationSystem: AnimationSystem {
     }
 
     func updateEntities() {
+        wasModified = [:]
         for (entity, animatable) in animatables {
             updateEntity(entity, animatable)
         }
@@ -34,6 +37,16 @@ class SKAnimationSystem: AnimationSystem {
 
     func updateEntity(_ entity: EntityID, _ animatable: Animatable) {
         let animationComponent = animatable.animationComponent
+
+        guard animationComponent.wasModified else {
+            return
+        }
+
+        wasModified[entity] = animatable
+        animatable.animationComponent.wasModified = false
+
+        print(entity)
+        print(animationComponent.animationToPlay)
 
         guard let node = renderSystem.getNodeEntityMap()[entity],
               let animationToPlay = animationComponent.animationToPlay else {

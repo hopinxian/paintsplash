@@ -180,6 +180,8 @@ class MultiplayerClient: SinglePlayerGameManager {
                     where: { $0.key == entity }) {
                 renderable.renderComponent = encodedRenderable.renderComponent
                 renderable.transformComponent = encodedRenderable.transformComponent
+                renderable.renderComponent.wasModified = true
+                renderable.transformComponent.wasModified = true
             }
         })
     }
@@ -193,6 +195,8 @@ class MultiplayerClient: SinglePlayerGameManager {
             if let (_, animatable) = animationSystem.animatables.first(
                     where: { $0.key == entity }) {
                 animatable.animationComponent = encodedAnimatable.animationComponent
+                animatable.animationComponent.animationToPlay = encodedAnimatable.animationComponent.currentAnimation
+                animatable.animationComponent.wasModified = true
             }
         })
     }
@@ -217,6 +221,7 @@ class MultiplayerClient: SinglePlayerGameManager {
     }
 
     func updateSystemData(data: SystemData?) {
+        print("received")
         guard let data = data else {
             return
         }
@@ -227,9 +232,38 @@ class MultiplayerClient: SinglePlayerGameManager {
             addNetowrkedEntity(entity: entity, data: data)
         }
 
-        updateRenderSystem(data: data.renderSystemData)
-        updateAnimationSystem(data: data.animationSystemData)
-        updateColorSystem(data: data.colorSystemData)
+        var colorables = [EntityID: Colorable]()
+        entities.forEach({ entity in
+            if let colorable = entity as? Colorable {
+                colorables[entity.id] = colorable
+            }
+        })
+
+        for entity in data.entityData.entities {
+            if let renderable = data.renderSystemData?.renderables[entity] {
+                let renderComponent = renderable.renderComponent
+                let transformComponent = renderable.transformComponent
+                renderComponent.wasModified = true
+                transformComponent.wasModified = true
+                renderSystem.renderables[entity]?.renderComponent = renderComponent
+                renderSystem.renderables[entity]?.transformComponent = transformComponent
+            }
+
+            if let animatable = data.animationSystemData?.animatables[entity] {
+                let animationComponent = animatable.animationComponent
+                animationComponent.wasModified = true
+                animationComponent.animationToPlay = animationComponent.currentAnimation
+                animationSystem.animatables[entity]?.animationComponent = animationComponent
+            }
+
+            if let colorable = data.colorSystemData?.colorables[entity] {
+                let color = colorable.color
+                colorables[entity]?.color = color
+            }
+        }
+//        updateRenderSystem(data: data.renderSystemData)
+//        updateAnimationSystem(data: data.animationSystemData)
+//        updateColorSystem(data: data.colorSystemData)
 
         for entity in entityIDs where !data.entityData.entities.contains(entity) {
             entities.first(where: { gameEntity in gameEntity.id == entity })?.destroy()
@@ -238,19 +272,15 @@ class MultiplayerClient: SinglePlayerGameManager {
 
     private func addNetowrkedEntity(entity: EntityID, data: SystemData) {
         let renderComponent =
-            data.renderSystemData.renderables[entity]?.renderComponent
-            ?? RenderComponent(renderType: .sprite(spriteName: ""), zPosition: 0)
+            data.renderSystemData?.renderables[entity]?.renderComponent
 
         let animationComponent =
-            data.animationSystemData.animatables[entity]?.animationComponent
-            ?? AnimationComponent()
+            data.animationSystemData?.animatables[entity]?.animationComponent
 
         let transformComponent =
-            data.renderSystemData.renderables[entity]?.transformComponent
-            ?? TransformComponent(position: .zero, rotation: 0, size: .zero)
+            data.renderSystemData?.renderables[entity]?.transformComponent
 
-        let colorComponent = data.colorSystemData.colorables[entity]?.color
-            ?? .white
+        let colorComponent = data.colorSystemData?.colorables[entity]?.color
 
         let newEntity = NetworkedEntity(
             id: entity,

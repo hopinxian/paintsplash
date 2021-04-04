@@ -17,6 +17,11 @@ class SinglePlayerViewController: UIViewController {
         }
         let gameManager = SinglePlayerGameManager(gameScene: gameScene)
         gameScene.gameManager = gameManager
+
+        gameView.ignoresSiblingOrder = true
+
+        gameView.showsFPS = true
+        gameView.showsNodeCount = true
     }
 
     @IBAction private func onCloseGame(_ sender: UIButton) {

@@ -26,6 +26,11 @@ class MultiplayerServerViewController: UIViewController {
         lobbyHandler.observeGame(roomInfo: roomInfo, onGameStop: { [weak self] in self?.onCloseGame() },
                                  onError: nil)
 
+        gameView.ignoresSiblingOrder = true
+
+        gameView.showsFPS = true
+        gameView.showsNodeCount = true
+
         // set up observer for room
         lobbyHandler?.observeRoom(
             roomId: roomInfo.roomId,

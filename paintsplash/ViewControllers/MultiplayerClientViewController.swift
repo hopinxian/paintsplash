@@ -34,6 +34,11 @@ class MultiplayerClientViewController: UIViewController {
             onError: { print("Error observing game on client: \($0)") }
         )
 
+        gameView.ignoresSiblingOrder = true
+
+        gameView.showsFPS = true
+        gameView.showsNodeCount = true
+
         // Observe room: If host quits, close the game
         lobbyHandler?.observeRoom(
             roomId: roomInfo.roomId,
