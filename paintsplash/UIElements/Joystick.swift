@@ -66,13 +66,21 @@ class Joystick: UIEntity, Renderable {
     }
 
     func onTouchDown(event: TouchDownEvent) {
+        guard event.associatedId == associatedEntity else {
+            print("fail")
+            print(event.associatedId)
+            print(associatedEntity)
+            return
+        }
+
         if Vector2D.magnitude(of: event.location - transformComponent.localPosition) < backgroundRadius {
             tracking = true
         }
     }
 
     func onTouchMoved(event: TouchMovedEvent) {
-        guard tracking else {
+        guard tracking,
+              event.associatedId == associatedEntity else {
             return
         }
 
@@ -90,6 +98,10 @@ class Joystick: UIEntity, Renderable {
     }
 
     func onTouchUp(event: TouchUpEvent) {
+        guard event.associatedId == associatedEntity else {
+            return
+        }
+
         tracking = false
         foregroundNode.transformComponent.localPosition =
             transformComponent.localPosition
