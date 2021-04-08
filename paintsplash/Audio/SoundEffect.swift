@@ -32,6 +32,8 @@ struct SoundEffect: PlayableAudio {
     static let paintBucketAttack = SoundEffect(name: "PaintSplatter", fileExtension: "mp3")
     static let playerStep = SoundEffect(name: "PlayerStep", fileExtension: "mp3", loops: -1)
     static let weaponSwap = SoundEffect(name: "WeaponSwap", fileExtension: "wav")
+    static let playerHit = SoundEffect(name: "PlayerHit", fileExtension: "wav")
+    static let playerDie = SoundEffect(name: "PlayerDie", fileExtension: "wav")
 }
 
 extension SoundEffect: Codable { }

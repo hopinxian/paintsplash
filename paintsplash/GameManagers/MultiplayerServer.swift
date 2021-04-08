@@ -49,6 +49,7 @@ class MultiplayerServer: SinglePlayerGameManager {
         setupPlayerAmmoSender(playerID, gameId)
         setupMusicEventSender(gameId)
         setupSFXEventSender(gameId)
+        setupGameOverEventSender(playerID: playerID, gameId)
         setupClientObservers(playerID: playerID, gameId: gameId)
     }
 
@@ -156,6 +157,25 @@ class MultiplayerServer: SinglePlayerGameManager {
                 self?.gameConnectionHandler?.sendEvent(
                     gameId: gameId,
                     playerId: playerId.id,
+                    action: event,
+                    onError: nil,
+                    onSuccess: nil
+                )
+            }
+    }
+
+    private func setupGameOverEventSender(playerID: EntityID, _ gameId: String) {
+        EventSystem.gameStateEvents
+            .gameOverEvent.subscribe { [weak self] event in
+                guard let players = self?.room.players else {
+                    return
+                }
+
+                print("sending")
+
+                self?.gameConnectionHandler?.sendEvent(
+                    gameId: gameId,
+                    playerId: playerID.id,
                     action: event,
                     onError: nil,
                     onSuccess: nil

@@ -107,6 +107,26 @@ class MultiplayerClient: SinglePlayerGameManager {
         gameConnectionHandler.observeSystemData(gameID: gameID, callback: { [weak self] data in
             self?.updateSystemData(data: data)
         })
+
+        gameConnectionHandler.observeEvent(
+            gameId: gameID,
+            playerId: playerInfo.playerUUID,
+            onChange: { [weak self] (event: GameOverEvent) in
+                print("hello")
+                EventSystem.gameStateEvents.gameOverEvent.post(event: event)
+                guard let playerId = self?.playerInfo.playerUUID else {
+                    return
+                }
+                self?.gameConnectionHandler.acknowledgeEvent(
+                    event,
+                    gameId: gameID,
+                    playerId: playerId,
+                    onError: nil,
+                    onSuccess: nil
+                )
+            },
+            onError: nil
+        )
     }
 
     override func setUpSystems() {

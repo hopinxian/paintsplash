@@ -30,6 +30,8 @@ class PaintSplashGameHandler: GameConnectionHandler {
             return DataPaths.player_music
         case is PlayerChangedWeaponEvent.Type:
             return DataPaths.player_changedWeapon
+        case is GameOverEvent.Type:
+            return DataPaths.game_over
         default:
             return nil
         }

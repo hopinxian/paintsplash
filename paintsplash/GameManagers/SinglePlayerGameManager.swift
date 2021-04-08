@@ -59,6 +59,8 @@ class SinglePlayerGameManager: GameManager {
         EventSystem.entityChangeEvents.removeUIEntityEvent.subscribe(listener: { [weak self] event in
             self?.onRemoveUIEntity(event: event)
         })
+
+        EventSystem.gameStateEvents.gameOverEvent.subscribe(listener: onGameOver)
     }
 
     func setupGame() {
@@ -120,8 +122,7 @@ class SinglePlayerGameManager: GameManager {
 
         currentLevel = Level.getDefaultLevel(
             canvasManager: canvasManager,
-            gameInfo: gameInfoManager.gameInfo,
-            onGameOver: {[weak self] in self?.onGameOver()}
+            gameInfo: gameInfoManager.gameInfo
         )
         currentLevel?.run()
     }
@@ -258,9 +259,15 @@ class SinglePlayerGameManager: GameManager {
         }
     }
 
-    private func onGameOver() {
+    private func onGameOver(event: GameOverEvent) {
         let gameOverUI = GameOverUI(score: currentLevel?.score.score ?? 0, onQuit: { [weak self] in self?.onQuit() })
         gameOverUI.spawn()
+        
+        if event.isWin {
+            EventSystem.audioEvent.playMusicEvent.post(event: PlayMusicEvent(music: Music.gameOverWin))
+        } else {
+            EventSystem.audioEvent.playMusicEvent.post(event: PlayMusicEvent(music: Music.gameOverLose))
+        }
     }
 
     private func onQuit() {

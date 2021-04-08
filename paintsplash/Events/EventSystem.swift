@@ -13,4 +13,5 @@ class EventSystem {
     static let canvasEvent = CanvasEventManager()
     static let scoreEvent = ScoreEventManager()
     static let audioEvent = AudioEventManager()
+    static let gameStateEvents = GameStateEventManager()
 }

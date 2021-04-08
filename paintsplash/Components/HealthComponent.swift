@@ -69,6 +69,9 @@ class PlayerHealthComponent: HealthComponent {
 
         if currentHealth <= 0 {
             player?.stateComponent.currentState = PlayerState.Die(player: player)
+            EventSystem.audioEvent.playSoundEffectEvent.post(event: PlaySoundEffectEvent(effect: .playerDie, playerId: id))
+        } else {
+            EventSystem.audioEvent.playSoundEffectEvent.post(event: PlaySoundEffectEvent(effect: .playerHit, playerId: id))
         }
     }
 }

@@ -5,7 +5,7 @@
 //  Created by Farrell Nah on 8/4/21.
 //
 
-class GameOverUI: GameEntity, Renderable {
+class GameOverUI: UIEntity, Renderable {
     var renderComponent: RenderComponent
     var transformComponent: TransformComponent
     var onQuit: () -> Void
@@ -32,7 +32,7 @@ class GameOverUI: GameEntity, Renderable {
         backButton.spawn()
     }
 
-    class TitleLabel: GameEntity, Renderable {
+    class TitleLabel: UIEntity, Renderable {
         var renderComponent: RenderComponent
         var transformComponent: TransformComponent
 
@@ -43,7 +43,7 @@ class GameOverUI: GameEntity, Renderable {
         }
     }
 
-    class ScoreLabel: GameEntity, Renderable {
+    class ScoreLabel: UIEntity, Renderable {
         var renderComponent: RenderComponent
         var transformComponent: TransformComponent
 
@@ -54,7 +54,7 @@ class GameOverUI: GameEntity, Renderable {
         }
     }
 
-    class BackButton: GameEntity, Renderable {
+    class BackButton: UIEntity, Renderable {
         var renderComponent: RenderComponent
         var transformComponent: TransformComponent
         var onPress: () -> Void

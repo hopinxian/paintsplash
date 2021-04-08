@@ -16,7 +16,6 @@ class AudioPlayerImpl: AudioPlayer {
     }
 
     deinit {
-        print("Deinit")
         player?.stop()
         player = nil
     }

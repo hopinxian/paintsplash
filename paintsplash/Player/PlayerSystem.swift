@@ -59,7 +59,6 @@ class PaintSplashPlayerSystem: PlayerSystem {
     }
 
     func onChangeWeapon(event: PlayerChangeWeaponEvent) {
-        print("received")
         onWeaponChangeEvents.append(event)
     }
 }

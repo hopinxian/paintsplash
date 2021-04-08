@@ -31,6 +31,7 @@ enum DataPaths {
     static let player_music = "music"
     static let player_soundEffect = "soundEffect"
     static let player_changedWeapon = "changedWeapon"
+    static let game_over = "gameOver"
 
     static let entity_renderable = "renderable"
     static let entity_transform = "transform"
