@@ -184,6 +184,16 @@
 		D55EEBA82600929500ADC70B /* EntityChangeEventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55EEBA72600929500ADC70B /* EntityChangeEventManager.swift */; };
 		D55EEBAD260096FB00ADC70B /* VerticalStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55EEBAC260096FB00ADC70B /* VerticalStack.swift */; };
 		D566E77626189FF20089FB41 /* ViewControllerIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D566E77526189FF20089FB41 /* ViewControllerIdentifiers.swift */; };
+		D567332D261EA37300FD1D15 /* PaintSplatter.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D5673324261EA37300FD1D15 /* PaintSplatter.mp3 */; };
+		D567332E261EA37300FD1D15 /* CompleteRequest.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D5673325261EA37300FD1D15 /* CompleteRequest.mp3 */; };
+		D567332F261EA37300FD1D15 /* PlayerAttack.wav in Resources */ = {isa = PBXBuildFile; fileRef = D5673326261EA37300FD1D15 /* PlayerAttack.wav */; };
+		D5673330261EA37300FD1D15 /* EnemySpawn.wav in Resources */ = {isa = PBXBuildFile; fileRef = D5673327261EA37300FD1D15 /* EnemySpawn.wav */; };
+		D5673331261EA37300FD1D15 /* EnemyStep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D5673328261EA37300FD1D15 /* EnemyStep.mp3 */; };
+		D5673332261EA37300FD1D15 /* CanvasEnd.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D5673329261EA37300FD1D15 /* CanvasEnd.mp3 */; };
+		D5673333261EA37300FD1D15 /* EnemyDie.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D567332A261EA37300FD1D15 /* EnemyDie.mp3 */; };
+		D5673334261EA37300FD1D15 /* PlayerStep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D567332B261EA37300FD1D15 /* PlayerStep.mp3 */; };
+		D5673335261EA37300FD1D15 /* AmmoPickup.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D567332C261EA37300FD1D15 /* AmmoPickup.mp3 */; };
+		D5673339261EC44A00FD1D15 /* WeaponSwap.wav in Resources */ = {isa = PBXBuildFile; fileRef = D5673338261EC44A00FD1D15 /* WeaponSwap.wav */; };
 		D57044E426182A7B004AF802 /* EncodableRenderable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57044E326182A7B004AF802 /* EncodableRenderable.swift */; };
 		D57044EA26182A8A004AF802 /* RenderSystemData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57044E926182A8A004AF802 /* RenderSystemData.swift */; };
 		D57044EF26182A9E004AF802 /* EncodableAnimatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57044EE26182A9E004AF802 /* EncodableAnimatable.swift */; };
@@ -491,6 +501,16 @@
 		D55EEBA72600929500ADC70B /* EntityChangeEventManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityChangeEventManager.swift; sourceTree = "<group>"; };
 		D55EEBAC260096FB00ADC70B /* VerticalStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalStack.swift; sourceTree = "<group>"; };
 		D566E77526189FF20089FB41 /* ViewControllerIdentifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerIdentifiers.swift; sourceTree = "<group>"; };
+		D5673324261EA37300FD1D15 /* PaintSplatter.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = PaintSplatter.mp3; sourceTree = "<group>"; };
+		D5673325261EA37300FD1D15 /* CompleteRequest.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = CompleteRequest.mp3; sourceTree = "<group>"; };
+		D5673326261EA37300FD1D15 /* PlayerAttack.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = PlayerAttack.wav; sourceTree = "<group>"; };
+		D5673327261EA37300FD1D15 /* EnemySpawn.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = EnemySpawn.wav; sourceTree = "<group>"; };
+		D5673328261EA37300FD1D15 /* EnemyStep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = EnemyStep.mp3; sourceTree = "<group>"; };
+		D5673329261EA37300FD1D15 /* CanvasEnd.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = CanvasEnd.mp3; sourceTree = "<group>"; };
+		D567332A261EA37300FD1D15 /* EnemyDie.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = EnemyDie.mp3; sourceTree = "<group>"; };
+		D567332B261EA37300FD1D15 /* PlayerStep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = PlayerStep.mp3; sourceTree = "<group>"; };
+		D567332C261EA37300FD1D15 /* AmmoPickup.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = AmmoPickup.mp3; sourceTree = "<group>"; };
+		D5673338261EC44A00FD1D15 /* WeaponSwap.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = WeaponSwap.wav; sourceTree = "<group>"; };
 		D57044E326182A7B004AF802 /* EncodableRenderable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncodableRenderable.swift; sourceTree = "<group>"; };
 		D57044E926182A8A004AF802 /* RenderSystemData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderSystemData.swift; sourceTree = "<group>"; };
 		D57044EE26182A9E004AF802 /* EncodableAnimatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncodableAnimatable.swift; sourceTree = "<group>"; };
@@ -1079,6 +1099,7 @@
 		D5553D9126062D1000C1862E /* Audio */ = {
 			isa = PBXGroup;
 			children = (
+				D5673323261EA35D00FD1D15 /* Audio FIles */,
 				D5553D9226062D1000C1862E /* AudioPlayer.swift */,
 				D5553D9326062D1000C1862E /* PlayableAudio.swift */,
 				D5553D9426062D1000C1862E /* Music.swift */,
@@ -1109,6 +1130,23 @@
 				D55EEB8526008AAE00ADC70B /* PaintAmmoDisplay.swift */,
 			);
 			path = Weapons;
+			sourceTree = "<group>";
+		};
+		D5673323261EA35D00FD1D15 /* Audio FIles */ = {
+			isa = PBXGroup;
+			children = (
+				D5673338261EC44A00FD1D15 /* WeaponSwap.wav */,
+				D567332C261EA37300FD1D15 /* AmmoPickup.mp3 */,
+				D5673329261EA37300FD1D15 /* CanvasEnd.mp3 */,
+				D5673325261EA37300FD1D15 /* CompleteRequest.mp3 */,
+				D567332A261EA37300FD1D15 /* EnemyDie.mp3 */,
+				D5673327261EA37300FD1D15 /* EnemySpawn.wav */,
+				D5673328261EA37300FD1D15 /* EnemyStep.mp3 */,
+				D5673324261EA37300FD1D15 /* PaintSplatter.mp3 */,
+				D5673326261EA37300FD1D15 /* PlayerAttack.wav */,
+				D567332B261EA37300FD1D15 /* PlayerStep.mp3 */,
+			);
+			path = "Audio FIles";
 			sourceTree = "<group>";
 		};
 		D57044DF261829F3004AF802 /* ViewControllers */ = {
@@ -1550,10 +1588,14 @@
 				DC0EE8A825FE650200CBF414 /* SpawnerSpawn.atlas in Resources */,
 				D5DC90AB25FCE5280038DF71 /* SlimeMoveRight.atlas in Resources */,
 				AC5F0B7F2601130500E28D49 /* PlayerBrushWalkRight.atlas in Resources */,
+				D5673331261EA37300FD1D15 /* EnemyStep.mp3 in Resources */,
 				DC16B42E25FDEE6200C58670 /* SlimeIdle.atlas in Resources */,
 				ACB3607D25F661620016E240 /* Main.storyboard in Resources */,
 				AC5F0B812601130500E28D49 /* PlayerBrushAttackLeft.atlas in Resources */,
 				DC0EE8A725FE650200CBF414 /* SpawnerIdle.atlas in Resources */,
+				D5673333261EA37300FD1D15 /* EnemyDie.mp3 in Resources */,
+				D5673330261EA37300FD1D15 /* EnemySpawn.wav in Resources */,
+				D5673334261EA37300FD1D15 /* PlayerStep.mp3 in Resources */,
 				AC5F0B7E2601130500E28D49 /* PlayerBrushAttackRight.atlas in Resources */,
 				ACB3607425F661620016E240 /* GameScene.sks in Resources */,
 				D59879452619EE1900E8A9D3 /* GoogleService-Info.plist in Resources */,
@@ -1563,14 +1605,20 @@
 				DC6921012605E20F008AEC2E /* PlayerDie.atlas in Resources */,
 				DC2403142600D66D00550E1E /* CanvasIdle.atlas in Resources */,
 				ACB3607F25F661630016E240 /* Assets.xcassets in Resources */,
+				D5673335261EA37300FD1D15 /* AmmoPickup.mp3 in Resources */,
 				D5553D9E26062D1000C1862E /* background-music.mp3 in Resources */,
 				D5DC90AA25FCE5280038DF71 /* SlimeMoveLeft.atlas in Resources */,
 				846D4FDA260241670079720F /* SlimeMoveLeftGray.atlas in Resources */,
 				DC16B42425FDE88800C58670 /* SlimeDie.atlas in Resources */,
 				846D4FD6260241670079720F /* SlimeDieGray.atlas in Resources */,
+				D567332F261EA37300FD1D15 /* PlayerAttack.wav in Resources */,
+				D567332E261EA37300FD1D15 /* CompleteRequest.mp3 in Resources */,
+				D5673339261EC44A00FD1D15 /* WeaponSwap.wav in Resources */,
 				D5553DA126062D1000C1862E /* attack.mp3 in Resources */,
 				AC5F0B7C2601130500E28D49 /* PlayerBrushIdleLeft.atlas in Resources */,
 				846D4FD8260241670079720F /* SlimeHitGray.atlas in Resources */,
+				D5673332261EA37300FD1D15 /* CanvasEnd.mp3 in Resources */,
+				D567332D261EA37300FD1D15 /* PaintSplatter.mp3 in Resources */,
 				ACB3607625F661620016E240 /* Actions.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -29,6 +29,9 @@ struct Constants {
         maxY: 1_000
     )
 
+    // Gameplay
+    static let ENEMY_SPAWNER_INTERVAL = 50.0
+
     // View Information
     static let ATTACK_BUTTON_SPRITE = "attack-button"
     static let ATTACK_BUTTON_POSITION = Vector2D(800, -600)
