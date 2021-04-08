@@ -12,5 +12,5 @@ protocol GameManager: AnyObject {
     func addObject(_ object: GameEntity)
     func removeObject(_ object: GameEntity)
 
-    func update()
+    func update(_ deltaTime: Double)
 }

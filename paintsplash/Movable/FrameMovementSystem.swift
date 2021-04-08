@@ -19,16 +19,16 @@ class FrameMovementSystem: MovementSystem {
         moveables[entity] = nil
     }
 
-    func updateEntity(_ entity: GameEntity, _ movable: Movable) {
+    func updateEntity(_ entity: GameEntity, _ movable: Movable, _ deltaTime: Double) {
         let transformComponent = movable.transformComponent
         let movementComponent = movable.moveableComponent
 
-        transformComponent.localPosition += movementComponent.direction * movementComponent.speed
+        transformComponent.localPosition += movementComponent.direction * movementComponent.speed * deltaTime
     }
 
-    func updateEntities() {
+    func updateEntities(_ deltaTime: Double) {
         for (entity, moveable) in moveables {
-            updateEntity(entity, moveable)
+            updateEntity(entity, moveable, deltaTime)
         }
     }
 }

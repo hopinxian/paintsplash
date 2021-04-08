@@ -49,5 +49,5 @@ class SKCollisionSystem: CollisionSystem {
         second.collisionComponent.onCollide(with: first)
     }
 
-    func updateEntities() {}
+    func updateEntities(_ deltaTime: Double) {}
 }

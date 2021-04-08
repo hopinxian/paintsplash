@@ -28,7 +28,7 @@ class SKAnimationSystem: AnimationSystem {
         animatables[entity.id] = nil
     }
 
-    func updateEntities() {
+    func updateEntities(_ deltaTime: Double) {
         wasModified = [:]
         for (entity, animatable) in animatables {
             updateEntity(entity, animatable)

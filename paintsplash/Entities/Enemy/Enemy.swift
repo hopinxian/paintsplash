@@ -19,7 +19,7 @@ class Enemy: GameEntity, StatefulEntity, Renderable, Animatable, Collidable, Mov
     var animationComponent: AnimationComponent
 
     var color: PaintColor
-    private let moveSpeed = 1.0
+    private let moveSpeed = Constants.ENEMY_MOVE_SPEED
 
     var lastDirection = Vector2D.zero
 

@@ -20,7 +20,7 @@ class Player: GameEntity,
 
     var lastDirection = Vector2D.zero
 
-    private let moveSpeed = 10.0
+    private let moveSpeed = Constants.PLAYER_MOVE_SPEED
 
     var transformComponent: TransformComponent
     var renderComponent: RenderComponent

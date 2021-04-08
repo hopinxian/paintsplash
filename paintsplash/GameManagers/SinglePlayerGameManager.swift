@@ -240,17 +240,18 @@ class SinglePlayerGameManager: GameManager {
         removeObjectFromSystems(object)
     }
 
-    func update() {
+    func update(_ deltaTime: Double) {
+        print(deltaTime)
         currentLevel?.update()
-        transformSystem?.updateEntities()
-        aiSystem?.updateEntities()
-        renderSystem?.updateEntities()
-        animationSystem?.updateEntities()
-        collisionSystem?.updateEntities()
-        movementSystem?.updateEntities()
-        playerSystem?.updateEntities()
+        transformSystem?.updateEntities(deltaTime)
+        aiSystem?.updateEntities(deltaTime)
+        renderSystem?.updateEntities(deltaTime)
+        animationSystem?.updateEntities(deltaTime)
+        collisionSystem?.updateEntities(deltaTime)
+        movementSystem?.updateEntities(deltaTime)
+        playerSystem?.updateEntities(deltaTime)
 
-        entities.forEach({ $0.update() })
+        entities.forEach({ $0.update(deltaTime) })
     }
 
     deinit {

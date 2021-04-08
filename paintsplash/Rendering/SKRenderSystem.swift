@@ -99,7 +99,7 @@ class SKRenderSystem: RenderSystem {
         nodeEntityMap
     }
 
-    func updateEntities() {
+    func updateEntities(_ deltaTime: Double) {
         wasModified = [:]
         for (entity, renderable) in renderables {
             updateEntity(entity, renderable)

@@ -43,12 +43,12 @@ class PlayerMovementBoundsTests: XCTestCase {
         XCTAssertEqual(player.transformComponent.worldPosition, Vector2D.zero)
         player.moveableComponent.direction = Vector2D.left
         player.moveableComponent.speed = 1
-        FrameMovementSystem().updateEntity(player, player)
+        FrameMovementSystem().updateEntity(player, player, 1)
         XCTAssertEqual(player.transformComponent.localPosition, Vector2D.left)
 
         // Move right
         player.moveableComponent.direction = Vector2D.right
-        FrameMovementSystem().updateEntity(player, player)
+        FrameMovementSystem().updateEntity(player, player, 1)
         XCTAssertEqual(player.transformComponent.worldPosition, Vector2D.zero)
     }
 
@@ -57,12 +57,12 @@ class PlayerMovementBoundsTests: XCTestCase {
         XCTAssertEqual(player.transformComponent.worldPosition, Vector2D.zero)
         player.moveableComponent.direction = Vector2D.up
         player.moveableComponent.speed = 1
-        FrameMovementSystem().updateEntity(player, player)
+        FrameMovementSystem().updateEntity(player, player, 1)
         XCTAssertEqual(player.transformComponent.localPosition, Vector2D.up)
 
         // Move down
         player.moveableComponent.direction = Vector2D.down
-        FrameMovementSystem().updateEntity(player, player)
+        FrameMovementSystem().updateEntity(player, player, 1)
         XCTAssertEqual(player.transformComponent.worldPosition, Vector2D.zero)
     }
 
@@ -72,26 +72,26 @@ class PlayerMovementBoundsTests: XCTestCase {
         // Move left
         player.moveableComponent.direction = Vector2D.left
         player.moveableComponent.speed = leftBound.magnitude
-        FrameMovementSystem().updateEntity(player, player)
+        FrameMovementSystem().updateEntity(player, player, 1)
         XCTAssertEqual(player.transformComponent.localPosition, leftBound)
 
         // Move past left bound
-        FrameMovementSystem().updateEntity(player, player)
+        FrameMovementSystem().updateEntity(player, player, 1)
         XCTAssertEqual(player.transformComponent.localPosition, leftBound)
 
         // Move right (back to zero)
         player.moveableComponent.direction = Vector2D.right
-        FrameMovementSystem().updateEntity(player, player)
+        FrameMovementSystem().updateEntity(player, player, 1)
         XCTAssertEqual(player.transformComponent.worldPosition, .zero)
 
         // Move right (to right bound)
         player.moveableComponent.direction = Vector2D.right
         player.moveableComponent.speed = rightBound.magnitude
-        FrameMovementSystem().updateEntity(player, player)
+        FrameMovementSystem().updateEntity(player, player, 1)
         XCTAssertEqual(player.transformComponent.localPosition, rightBound)
 
         // Move past right bound
-        FrameMovementSystem().updateEntity(player, player)
+        FrameMovementSystem().updateEntity(player, player, 1)
         XCTAssertEqual(player.transformComponent.localPosition, rightBound)
     }
 
@@ -101,25 +101,25 @@ class PlayerMovementBoundsTests: XCTestCase {
         // Move up
         player.moveableComponent.direction = Vector2D.up
         player.moveableComponent.speed = topBound.magnitude
-        FrameMovementSystem().updateEntity(player, player)
+        FrameMovementSystem().updateEntity(player, player, 1)
         XCTAssertEqual(player.transformComponent.localPosition, topBound)
 
         // Move past top bound
-        FrameMovementSystem().updateEntity(player, player)
+        FrameMovementSystem().updateEntity(player, player, 1)
         XCTAssertEqual(player.transformComponent.localPosition, topBound)
 
         // Move down (back to zero)
         player.moveableComponent.direction = Vector2D.down
-        FrameMovementSystem().updateEntity(player, player)
+        FrameMovementSystem().updateEntity(player, player, 1)
         XCTAssertEqual(player.transformComponent.localPosition, .zero)
 
         // Move down (to bottom bound)
         player.moveableComponent.speed = bottomBound.magnitude
-        FrameMovementSystem().updateEntity(player, player)
+        FrameMovementSystem().updateEntity(player, player, 1)
         XCTAssertEqual(player.transformComponent.localPosition, bottomBound)
 
         // Move past bottom bound
-        FrameMovementSystem().updateEntity(player, player)
+        FrameMovementSystem().updateEntity(player, player, 1)
         XCTAssertEqual(player.transformComponent.localPosition, bottomBound)
     }
 }

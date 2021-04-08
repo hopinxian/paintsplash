@@ -22,7 +22,7 @@ class CanvasState: State {
         }
 
         func getBehaviour(aiEntity: StatefulEntity) -> StateBehaviour {
-            MoveBehaviour(direction: Vector2D(1, 0), speed: 1)
+            MoveBehaviour(direction: Vector2D(1, 0), speed: Constants.CANVAS_MOVE_SPEED)
         }
     }
 
@@ -37,7 +37,7 @@ class CanvasState: State {
         }
 
         override func getBehaviour() -> StateBehaviour {
-            MoveBehaviour(direction: Vector2D(0, -1), speed: 1)
+            MoveBehaviour(direction: Vector2D(0, -1), speed: Constants.CANVAS_MOVE_SPEED)
         }
     }
 }

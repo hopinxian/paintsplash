@@ -25,7 +25,7 @@ class GameStateManagerSystem: StateManagerSystem {
         aiEntities[entity] = nil
     }
 
-    func updateEntities() {
+    func updateEntities(_ deltaTime: Double) {
         for (entity, aiEntity) in aiEntities {
             updateEntity(entity, aiEntity)
         }

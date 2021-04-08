@@ -14,7 +14,7 @@ class PaintProjectile: GameEntity, Projectile, Renderable, Colorable, Transforma
 
     var color: PaintColor
 
-    private let moveSpeed = 15.0
+    private let moveSpeed = Constants.PROJECTILE_MOVE_SPEED
 
     init(color: PaintColor, position: Vector2D, radius: Double, direction: Vector2D) {
         self.transformComponent = TransformComponent(
@@ -44,7 +44,7 @@ class PaintProjectile: GameEntity, Projectile, Renderable, Colorable, Transforma
         collisionComp.projectile = self
     }
 
-    override func update() {
+    override func update(_ deltaTime: Double) {
         if !Constants.PROJECTILE_MOVEMENT_BOUNDS
             .contains(transformComponent.worldPosition) {
             destroy()

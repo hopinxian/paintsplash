@@ -60,8 +60,8 @@ class MockGameManager: GameManager {
         removeObjectFromSystems(object)
     }
 
-    func update() {
-        renderSystem.updateEntities()
-        collisionSystem.updateEntities()
+    func update(_ deltaTime: Double) {
+        renderSystem.updateEntities(deltaTime)
+        collisionSystem.updateEntities(deltaTime)
     }
 }

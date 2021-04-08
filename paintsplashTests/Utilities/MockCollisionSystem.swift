@@ -20,7 +20,7 @@ class MockCollisionSystem: CollisionSystem {
 
     }
 
-    func updateEntities() {
+    func updateEntities(_ deltaTime: Double) {
 
     }
 }

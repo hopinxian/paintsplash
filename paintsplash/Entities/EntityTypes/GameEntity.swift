@@ -21,7 +21,7 @@ class GameEntity {
         EventSystem.entityChangeEvents.removeEntityEvent.post(event: RemoveEntityEvent(entity: self))
     }
 
-    func update() {
+    func update(_ deltaTime: Double) {
         // Do nothing by default
     }
 }

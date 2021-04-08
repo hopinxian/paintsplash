@@ -8,5 +8,5 @@
 protocol System {
     func addEntity(_ entity: GameEntity)
     func removeEntity(_ entity: GameEntity)
-    func updateEntities()
+    func updateEntities(_ deltaTime: Double)
 }

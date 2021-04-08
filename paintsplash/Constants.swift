@@ -29,6 +29,12 @@ struct Constants {
         maxY: 1_000
     )
 
+    // Gameplay
+    static let CANVAS_MOVE_SPEED = 70.0
+    static let PLAYER_MOVE_SPEED = 700.0
+    static let ENEMY_MOVE_SPEED = 70.0
+    static let PROJECTILE_MOVE_SPEED = 1_050.0
+
     // View Information
     static let ATTACK_BUTTON_SPRITE = "attack-button"
     static let ATTACK_BUTTON_POSITION = Vector2D(800, -600)
@@ -73,4 +79,6 @@ struct Constants {
     static let ENEMY_SPAWNER_SIZE = Vector2D(100, 100)
 
     static let CANVAS_REQUEST_SIZE = Vector2D(150, 150)
+
+    static let CANVAS_SIZE = Vector2D(50, 50)
 }

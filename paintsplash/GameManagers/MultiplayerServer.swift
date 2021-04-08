@@ -229,19 +229,19 @@ class MultiplayerServer: SinglePlayerGameManager {
         gameConnectionHandler?.sendSystemData(data: systemData, gameID: room.gameID)
     }
 
-    override func update() {
+    override func update(_ deltaTime: Double) {
         currentLevel?.update()
-        aiSystem.updateEntities()
-        collisionSystem.updateEntities()
-        movementSystem.updateEntities()
-        entities.forEach({ $0.update() })
-        playerSystem.updateEntities()
+        aiSystem.updateEntities(deltaTime)
+        collisionSystem.updateEntities(deltaTime)
+        movementSystem.updateEntities(deltaTime)
+        entities.forEach({ $0.update(deltaTime) })
+        playerSystem.updateEntities(deltaTime)
 
         sendGameState()
 
-        transformSystem.updateEntities()
-        renderSystem.updateEntities()
-        animationSystem.updateEntities()
+        transformSystem.updateEntities(deltaTime)
+        renderSystem.updateEntities(deltaTime)
+        animationSystem.updateEntities(deltaTime)
 
         addedEntities = [:]
         removedEntities = [:]

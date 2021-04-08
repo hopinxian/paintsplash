@@ -33,7 +33,7 @@ class PaintSplashPlayerSystem: PlayerSystem {
         players[entity.id] = nil
     }
 
-    func updateEntities() {
+    func updateEntities(_ deltaTime: Double) {
         for (_, player) in players {
             for event in onMoveEvents {
                 player.playableComponent.onMove(event: event)

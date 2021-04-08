@@ -24,7 +24,7 @@ class WorldTransformSystem: TransformSystem {
         transformables[entity.id] = nil
     }
 
-    func updateEntities() {
+    func updateEntities(_ deltaTime: Double) {
         for (_, transformable) in transformables {
             updateEntity(transformable)
         }

@@ -69,7 +69,7 @@ class EnemyTests: XCTestCase {
         XCTAssertEqual(redEnemy.transformComponent.worldPosition, .zero)
         XCTAssertEqual(redEnemy.moveableComponent.direction, .zero)
         XCTAssertEqual(redEnemy.healthComponent.maxHealth, 1)
-        XCTAssertEqual(redEnemy.moveableComponent.speed, 1)
+        XCTAssertEqual(redEnemy.moveableComponent.speed, Constants.ENEMY_MOVE_SPEED)
         XCTAssertTrue(redEnemy.stateComponent.getCurrentBehaviour() is DoNothingBehaviour)
     }
 

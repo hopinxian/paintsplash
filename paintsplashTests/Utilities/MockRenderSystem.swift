@@ -35,7 +35,7 @@ class MockRenderSystem: RenderSystem {
         activeRenderables.removeAll(where: { $0 === entity })
     }
 
-    func updateEntities() {
+    func updateEntities(_ deltaTime: Double) {
 
     }
 }

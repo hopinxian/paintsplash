@@ -15,7 +15,7 @@ class Canvas: GameEntity, StatefulEntity, Renderable, Collidable, Transformable,
 
     var endX: Double
     var colors: Set<PaintColor> = []
-    private let moveSpeed = 1.0
+    private let moveSpeed = Constants.CANVAS_MOVE_SPEED
     var paintedColors: Set<PaintBlob> = []
 
     init(
