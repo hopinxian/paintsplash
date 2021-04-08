@@ -13,29 +13,30 @@ class AudioManager: AudioSystem {
     // be merged into one.
     // However, they are kept separate to allow the user to only stop effects or to
     // only stop music
-    private var musicPlayer: AudioPlayer?
-    private var effectPlayer: AudioPlayer?
+    private var musicPlayer: AudioPlayer
+    private var effectPlayer: AudioPlayer
     var associatedDevice: EntityID?
 
     var isPlayingMusic: Bool {
-        musicPlayer?.isPlaying ?? false
+        musicPlayer.isPlaying
     }
 
     var isPlayingEffect: Bool {
-        effectPlayer?.isPlaying ?? false
+        effectPlayer.isPlaying
     }
 
     init() {
+        musicPlayer = AVAudioPlayerImpl()
+        effectPlayer = AVAudioPlayerImpl()
+
         EventSystem.audioEvent.subscribe(listener: { [weak self] event in
             self?.audioEventListener(event: event)
         })
     }
 
     deinit {
-        musicPlayer?.stop()
-        effectPlayer?.stop()
-        musicPlayer = nil
-        effectPlayer = nil
+        musicPlayer.stop()
+        effectPlayer.stop()
     }
 
     convenience init(associatedDeviceId: EntityID?) {
@@ -49,9 +50,7 @@ class AudioManager: AudioSystem {
         }
 
         let url = URL(fileURLWithPath: path)
-
-        musicPlayer = AVAudioPlayerImpl()
-        musicPlayer?.playAudio(from: url, loops: music.loops, volume: music.volume)
+        musicPlayer.playAudio(from: url, loops: music.loops, volume: music.volume)
     }
 
     func playEffect(_ effect: SoundEffect) {
@@ -60,17 +59,15 @@ class AudioManager: AudioSystem {
         }
 
         let url = URL(fileURLWithPath: path)
-
-        effectPlayer = AVAudioPlayerImpl()
-        effectPlayer?.playAudio(from: url, loops: effect.loops, volume: effect.volume)
+        effectPlayer.playAudio(from: url, loops: effect.loops, volume: effect.volume)
     }
 
     func stopMusic() {
-        musicPlayer?.stop()
+        musicPlayer.stop()
     }
 
     func stopEffect() {
-        effectPlayer?.stop()
+        effectPlayer.stop()
     }
 
     private func processPlayMusicEvent(_ event: PlayMusicEvent) {
