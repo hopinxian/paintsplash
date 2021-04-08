@@ -48,7 +48,7 @@ class AudioManager: AudioSystem {
 
         stopMusic()
         musicPlayer = AudioPlayerImpl()
-        musicPlayer?.playAudio(from: url, loops: music.loops)
+        musicPlayer?.playAudio(from: url, loops: music.loops, volume: music.volume)
     }
 
     func playEffect(_ effect: SoundEffect) {
@@ -60,7 +60,7 @@ class AudioManager: AudioSystem {
 
         stopEffect()
         effectPlayer = AudioPlayerImpl()
-        effectPlayer?.playAudio(from: url, loops: effect.loops)
+        effectPlayer?.playAudio(from: url, loops: effect.loops, volume: effect.volume)
     }
 
     func stopMusic() {

@@ -63,6 +63,10 @@ class CanvasRequestManager: GameEntity, Transformable {
             let event = ScoreEvent(value: points)
             EventSystem.scoreEvent.post(event: event)
 
+            EventSystem.audioEvent.playSoundEffectEvent.post(
+                event: PlaySoundEffectEvent(effect: SoundEffect.completeRequest)
+            )
+
             requestsDisplayView.remove(at: index)
 
             canvas.destroy()

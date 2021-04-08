@@ -68,11 +68,15 @@ class PlayerComponent: PlayableComponent {
             break
         }
 
-        let event = PlayerChangedWeaponEvent(
+        let weaponChangeEvent = PlayerChangedWeaponEvent(
             weapon: event.newWeapon,
             playerId: player.id
         )
 
-        EventSystem.playerActionEvent.playerChangedWeaponEvent.post(event: event)
+        EventSystem.playerActionEvent.playerChangedWeaponEvent.post(event: weaponChangeEvent)
+
+        let sfxEvent = PlaySoundEffectEvent(effect: SoundEffect.weaponSwap, playerId: player.id)
+        EventSystem.audioEvent.playSoundEffectEvent.post(event: sfxEvent)
+
     }
 }
