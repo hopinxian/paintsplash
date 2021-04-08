@@ -16,11 +16,11 @@ class MultiplayerClient: SinglePlayerGameManager {
 
     var playerInfo: PlayerInfo
 
-    init(gameScene: GameScene, playerInfo: PlayerInfo, roomInfo: RoomInfo) {
+    init(gameScene: GameScene, vc: GameViewController, playerInfo: PlayerInfo, roomInfo: RoomInfo) {
         self.playerInfo = playerInfo
         self.room = roomInfo
 
-        super.init(gameScene: gameScene)
+        super.init(gameScene: gameScene, vc: vc)
     }
 
     override func setupGame() {
@@ -115,7 +115,7 @@ class MultiplayerClient: SinglePlayerGameManager {
     }
 
     override func setUpEntities() {
-
+        
     }
 
     func setUpInputListeners() {
@@ -164,13 +164,10 @@ class MultiplayerClient: SinglePlayerGameManager {
         )
     }
 
-//    override func update() {
-//        super.update()
-//        transformSystem.updateEntities()
-//        renderSystem.updateEntities()
-//        animationSystem.updateEntities()
-//        entities.forEach({ $0.update() })
-//    }
+    override func update(_ deltaTime: Double) {
+        currentLevel?.gameOver = false
+        super.update(deltaTime)
+    }
 
     func updateSystemData(data: SystemData?) {
         guard let data = data else {

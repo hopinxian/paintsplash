@@ -7,7 +7,7 @@
 import UIKit
 import SpriteKit
 
-class MultiplayerClientViewController: UIViewController {
+class MultiplayerClientViewController: UIViewController, GameViewController {
     weak var lobbyHandler: LobbyHandler?
     var playerInfo: PlayerInfo!
     var roomInfo: RoomInfo!
@@ -23,6 +23,7 @@ class MultiplayerClientViewController: UIViewController {
 
         let gameManager = MultiplayerClient(
             gameScene: scene,
+            vc: self,
             playerInfo: playerInfo,
             roomInfo: roomInfo
         )
@@ -30,7 +31,7 @@ class MultiplayerClientViewController: UIViewController {
 
         lobbyHandler?.observeGame(
             roomInfo: roomInfo,
-            onGameStop: { [weak self] in self?.onCloseGame() },
+            onGameStop: { [weak self] in self?.closeGameWindow() },
             onError: onError
         )
 
@@ -43,7 +44,7 @@ class MultiplayerClientViewController: UIViewController {
         lobbyHandler?.observeRoom(
             roomId: roomInfo.roomId,
             onRoomChange: nil,
-            onRoomClose: { [weak self] in self?.onCloseGame() },
+            onRoomClose: { [weak self] in self?.closeGameWindow() },
             onError: nil
         )
     }
@@ -55,10 +56,14 @@ class MultiplayerClientViewController: UIViewController {
     }
 
     @IBAction private func endMultiplayerGame(_ sender: UIButton) {
+        closeGame()
+    }
+
+    func closeGame() {
         lobbyHandler?.stopGame(roomInfo: self.roomInfo, onSuccess: nil, onError: nil)
     }
 
-    private func onCloseGame() {
+    func closeGameWindow() {
         self.navigationController?.popViewController(animated: true)
     }
 

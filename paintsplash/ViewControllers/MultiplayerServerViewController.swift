@@ -7,7 +7,7 @@
 import UIKit
 import SpriteKit
 
-class MultiplayerServerViewController: UIViewController {
+class MultiplayerServerViewController: UIViewController, GameViewController {
     var lobbyHandler: LobbyHandler!
     var roomInfo: RoomInfo!
 
@@ -19,11 +19,11 @@ class MultiplayerServerViewController: UIViewController {
         guard let scene = gameView.scene as? GameScene else {
             fatalError("Game Scene not setup properly")
         }
-        let gameManager = MultiplayerServer(roomInfo: roomInfo, gameScene: scene)
+        let gameManager = MultiplayerServer(roomInfo: roomInfo, gameScene: scene, vc: self)
         scene.gameManager = gameManager
 
         // set up observer for game state
-        lobbyHandler.observeGame(roomInfo: roomInfo, onGameStop: { [weak self] in self?.onCloseGame() },
+        lobbyHandler.observeGame(roomInfo: roomInfo, onGameStop: { [weak self] in self?.closeGameWindow() },
                                  onError: nil)
 
         gameView.ignoresSiblingOrder = true
@@ -35,23 +35,26 @@ class MultiplayerServerViewController: UIViewController {
         lobbyHandler?.observeRoom(
             roomId: roomInfo.roomId,
             onRoomChange: { [weak self] in self?.handleRoomChange(roomInfo: $0) },
-            onRoomClose: { [weak self] in self?.onCloseGame() },
+            onRoomClose: { [weak self] in self?.closeGameWindow() },
             onError: nil
         )
     }
 
     private func handleRoomChange(roomInfo: RoomInfo) {
         if roomInfo.players == nil {
-            onCloseGame()
+            closeGameWindow()
         }
     }
 
     @IBAction private func endMultplayerGame(_ sender: UIButton) {
+        closeGame()
+    }
+
+    func closeGame() {
         lobbyHandler.stopGame(roomInfo: self.roomInfo, onSuccess: nil, onError: nil)
     }
 
-    private func onCloseGame() {
-        print("closing server game")
+    func closeGameWindow() {
         self.navigationController?.popViewController(animated: true)
     }
 

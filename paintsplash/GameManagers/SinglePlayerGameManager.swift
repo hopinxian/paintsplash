@@ -9,6 +9,7 @@ import SpriteKit
 
 class SinglePlayerGameManager: GameManager {
     weak var gameScene: GameScene?
+    weak var viewController: GameViewController?
 
     // game entities that should change
     var entities = Set<GameEntity>()
@@ -32,8 +33,9 @@ class SinglePlayerGameManager: GameManager {
     var player: Player!
     var gameInfoManager: GameInfoManager
 
-    init(gameScene: GameScene) {
+    init(gameScene: GameScene, vc: GameViewController) {
         self.gameScene = gameScene
+        self.viewController = vc
         let gameInfo = GameInfo(playerPosition: Vector2D.zero, numberOfEnemies: 0)
         self.gameInfoManager = GameInfoManager(gameInfo: gameInfo)
 
@@ -118,7 +120,8 @@ class SinglePlayerGameManager: GameManager {
 
         currentLevel = Level.getDefaultLevel(
             canvasManager: canvasManager,
-            gameInfo: gameInfoManager.gameInfo
+            gameInfo: gameInfoManager.gameInfo,
+            onGameOver: {[weak self] in self?.onGameOver()}
         )
         currentLevel?.run()
     }
@@ -241,17 +244,27 @@ class SinglePlayerGameManager: GameManager {
     }
 
     func update(_ deltaTime: Double) {
-        print(deltaTime)
-        currentLevel?.update()
-        transformSystem?.updateEntities(deltaTime)
-        aiSystem?.updateEntities(deltaTime)
-        renderSystem?.updateEntities(deltaTime)
-        animationSystem?.updateEntities(deltaTime)
-        collisionSystem?.updateEntities(deltaTime)
-        movementSystem?.updateEntities(deltaTime)
-        playerSystem?.updateEntities(deltaTime)
+        if currentLevel?.gameOver == false || currentLevel == nil {
+            currentLevel?.update(deltaTime)
+            transformSystem?.updateEntities(deltaTime)
+            aiSystem?.updateEntities(deltaTime)
+            renderSystem?.updateEntities(deltaTime)
+            animationSystem?.updateEntities(deltaTime)
+            collisionSystem?.updateEntities(deltaTime)
+            movementSystem?.updateEntities(deltaTime)
+            playerSystem?.updateEntities(deltaTime)
 
-        entities.forEach({ $0.update(deltaTime) })
+            entities.forEach({ $0.update(deltaTime) })
+        }
+    }
+
+    private func onGameOver() {
+        let gameOverUI = GameOverUI(score: currentLevel?.score.score ?? 0, onQuit: { [weak self] in self?.onQuit() })
+        gameOverUI.spawn()
+    }
+
+    private func onQuit() {
+        viewController?.closeGame()
     }
 
     deinit {

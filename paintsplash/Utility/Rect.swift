@@ -22,6 +22,13 @@ struct Rect: Codable, Equatable {
         self.maxY = maxY
     }
 
+    init(from transform: TransformComponent) {
+        self.minX = transform.worldPosition.x - transform.size.x / 2
+        self.maxX = transform.worldPosition.x + transform.size.x / 2
+        self.minY = transform.worldPosition.y - transform.size.y / 2
+        self.maxY = transform.worldPosition.y + transform.size.y / 2
+    }
+
     func contains(_ point: Vector2D) -> Bool {
         point.x >= minX && point.x <= maxX && point.y >= minY && point.y <= maxY
     }

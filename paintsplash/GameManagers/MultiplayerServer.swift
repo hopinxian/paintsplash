@@ -15,13 +15,13 @@ class MultiplayerServer: SinglePlayerGameManager {
 
     private var collisionDetector: SKCollisionDetector!
 
-    init(roomInfo: RoomInfo, gameScene: GameScene) {
+    init(roomInfo: RoomInfo, gameScene: GameScene, vc: GameViewController) {
         self.room = roomInfo
         let connectionHandler = FirebaseConnectionHandler()
         self.connectionHandler = connectionHandler
         self.gameConnectionHandler = PaintSplashGameHandler(connectionHandler: connectionHandler)
 
-        super.init(gameScene: gameScene)
+        super.init(gameScene: gameScene, vc: vc)
     }
 
     override func setUpPlayer() {
@@ -230,21 +230,23 @@ class MultiplayerServer: SinglePlayerGameManager {
     }
 
     override func update(_ deltaTime: Double) {
-        currentLevel?.update()
-        aiSystem.updateEntities(deltaTime)
-        collisionSystem.updateEntities(deltaTime)
-        movementSystem.updateEntities(deltaTime)
-        entities.forEach({ $0.update(deltaTime) })
-        playerSystem.updateEntities(deltaTime)
+        if currentLevel?.gameOver == false {
+            currentLevel?.update(deltaTime)
+            aiSystem.updateEntities(deltaTime)
+            collisionSystem.updateEntities(deltaTime)
+            movementSystem.updateEntities(deltaTime)
+            entities.forEach({ $0.update(deltaTime) })
+            playerSystem.updateEntities(deltaTime)
 
-        sendGameState()
+            sendGameState()
 
-        transformSystem.updateEntities(deltaTime)
-        renderSystem.updateEntities(deltaTime)
-        animationSystem.updateEntities(deltaTime)
+            transformSystem.updateEntities(deltaTime)
+            renderSystem.updateEntities(deltaTime)
+            animationSystem.updateEntities(deltaTime)
 
-        addedEntities = [:]
-        removedEntities = [:]
+            addedEntities = [:]
+            removedEntities = [:]
+        }
     }
 
     override func addObject(_ object: GameEntity) {

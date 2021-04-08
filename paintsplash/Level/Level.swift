@@ -34,9 +34,13 @@ class Level {
 
     let bounds = Constants.PLAYER_MOVEMENT_BOUNDS
 
-    init(canvasManager: CanvasRequestManager, gameInfo: GameInfo) {
+    var gameOver = false
+    var onGameOver: (() -> Void)?
+
+    init(canvasManager: CanvasRequestManager, gameInfo: GameInfo, onGameOver: (() -> Void)? = nil) {
         self.canvasRequestManager = canvasManager
         self.gameInfo = gameInfo
+        self.onGameOver = onGameOver
 
         // TODO: comment out
         canvasRequestManager.addRequest(colors: [.yellow])
@@ -58,7 +62,7 @@ class Level {
         lastSpawnDate = Date()
     }
 
-    func update() {
+    func update(_ deltaTime: Double) {
         guard isRunning else {
             return
         }
@@ -72,6 +76,8 @@ class Level {
                 nextSpawnEvent = 0
                 if let limit = repeatLimit, currentLoop > limit {
                     isRunning = false
+                    gameOver = true
+                    onGameOver?()
                     break
                 }
                 loopStartTime = Date() + bufferBetweenLoop
@@ -142,8 +148,8 @@ class Level {
         }
     }
 
-    static func getDefaultLevel(canvasManager: CanvasRequestManager, gameInfo: GameInfo) -> Level {
-        let level = Level(canvasManager: canvasManager, gameInfo: gameInfo)
+    static func getDefaultLevel(canvasManager: CanvasRequestManager, gameInfo: GameInfo, onGameOver: (() -> Void)?) -> Level {
+        let level = Level(canvasManager: canvasManager, gameInfo: gameInfo, onGameOver: onGameOver)
 
         level.repeatLimit = 1
 

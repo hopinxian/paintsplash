@@ -10,7 +10,7 @@ import SpriteKit
 class GameScene: SKScene {
     var gameManager: GameManager!
 
-    var lastUpdateTime: TimeInterval = 0
+    var lastUpdateTime: TimeInterval = -1
 
     override func didMove(to view: SKView) {
         isAccessibilityElement = false
@@ -20,6 +20,10 @@ class GameScene: SKScene {
     }
 
     override func update(_ currentTime: TimeInterval) {
+        if lastUpdateTime < 0 {
+            lastUpdateTime = currentTime
+        }
+
         let deltaTime = currentTime - lastUpdateTime
         lastUpdateTime = currentTime
         gameManager.update(deltaTime)

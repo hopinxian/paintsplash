@@ -184,6 +184,8 @@
 		D55EEBA82600929500ADC70B /* EntityChangeEventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55EEBA72600929500ADC70B /* EntityChangeEventManager.swift */; };
 		D55EEBAD260096FB00ADC70B /* VerticalStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55EEBAC260096FB00ADC70B /* VerticalStack.swift */; };
 		D566E77626189FF20089FB41 /* ViewControllerIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D566E77526189FF20089FB41 /* ViewControllerIdentifiers.swift */; };
+		D567333F261EE11700FD1D15 /* GameOverUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D567333E261EE11700FD1D15 /* GameOverUI.swift */; };
+		D5673343261EE58A00FD1D15 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5673342261EE58A00FD1D15 /* GameViewController.swift */; };
 		D57044E426182A7B004AF802 /* EncodableRenderable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57044E326182A7B004AF802 /* EncodableRenderable.swift */; };
 		D57044EA26182A8A004AF802 /* RenderSystemData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57044E926182A8A004AF802 /* RenderSystemData.swift */; };
 		D57044EF26182A9E004AF802 /* EncodableAnimatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57044EE26182A9E004AF802 /* EncodableAnimatable.swift */; };
@@ -491,6 +493,8 @@
 		D55EEBA72600929500ADC70B /* EntityChangeEventManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityChangeEventManager.swift; sourceTree = "<group>"; };
 		D55EEBAC260096FB00ADC70B /* VerticalStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalStack.swift; sourceTree = "<group>"; };
 		D566E77526189FF20089FB41 /* ViewControllerIdentifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerIdentifiers.swift; sourceTree = "<group>"; };
+		D567333E261EE11700FD1D15 /* GameOverUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverUI.swift; sourceTree = "<group>"; };
+		D5673342261EE58A00FD1D15 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		D57044E326182A7B004AF802 /* EncodableRenderable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncodableRenderable.swift; sourceTree = "<group>"; };
 		D57044E926182A8A004AF802 /* RenderSystemData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderSystemData.swift; sourceTree = "<group>"; };
 		D57044EE26182A9E004AF802 /* EncodableAnimatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncodableAnimatable.swift; sourceTree = "<group>"; };
@@ -1040,6 +1044,7 @@
 				D5704531261830EA004AF802 /* AttackJoystick.swift */,
 				D570452D261830DA004AF802 /* MovementJoystick.swift */,
 				AC0A18662605304100A1338C /* UIBar.swift */,
+				D567333E261EE11700FD1D15 /* GameOverUI.swift */,
 			);
 			path = UIElements;
 			sourceTree = "<group>";
@@ -1123,6 +1128,7 @@
 				DCCF8CEB26102DDA006F6964 /* RoomViewController.swift */,
 				DCCF8CEF26103412006F6964 /* SegueIdentifiers.swift */,
 				D566E77526189FF20089FB41 /* ViewControllerIdentifiers.swift */,
+				D5673342261EE58A00FD1D15 /* GameViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -1750,6 +1756,7 @@
 				DCFBF89A260F66EC00BA1216 /* LobbyHandler.swift in Sources */,
 				D50FD68226104B7400491CAC /* ConnectionHandler.swift in Sources */,
 				D5553D74260629D100C1862E /* CallbackAnimation.swift in Sources */,
+				D5673343261EE58A00FD1D15 /* GameViewController.swift in Sources */,
 				AC5F0B712601112C00E28D49 /* PlayerAnimations.swift in Sources */,
 				DC04EAB4260EECFB00D7DDFF /* MenuViewController.swift in Sources */,
 				D54628042614C071002527C3 /* AnimationManager.swift in Sources */,
@@ -1785,6 +1792,7 @@
 				D53F54F8260DA0D400635B05 /* EnemyState+ChasingRight.swift in Sources */,
 				842B5CE92604885800FCF7BD /* ScoreEventManager.swift in Sources */,
 				DC2403192600D68900550E1E /* CanvasAnimations.swift in Sources */,
+				D567333F261EE11700FD1D15 /* GameOverUI.swift in Sources */,
 				D546281E261594FE002527C3 /* EntityID.swift in Sources */,
 				D5B65C932618B39D00C132FE /* PlayerSystem.swift in Sources */,
 				DC24033D2600FEFE00550E1E /* CanvasSpawner.swift in Sources */,

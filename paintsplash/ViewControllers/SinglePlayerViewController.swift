@@ -7,7 +7,7 @@
 import UIKit
 import SpriteKit
 
-class SinglePlayerViewController: UIViewController {
+class SinglePlayerViewController: UIViewController, GameViewController {
     @IBOutlet private var gameView: SKView!
 
     override func viewDidLoad() {
@@ -15,7 +15,7 @@ class SinglePlayerViewController: UIViewController {
         guard let gameScene = gameView.scene as? GameScene else {
             fatalError("GameScene not setup properly")
         }
-        let gameManager = SinglePlayerGameManager(gameScene: gameScene)
+        let gameManager = SinglePlayerGameManager(gameScene: gameScene, vc: self)
         gameScene.gameManager = gameManager
 
         gameView.ignoresSiblingOrder = true
@@ -25,6 +25,10 @@ class SinglePlayerViewController: UIViewController {
     }
 
     @IBAction private func onCloseGame(_ sender: UIButton) {
+        closeGame()
+    }
+
+    func closeGame() {
         self.navigationController?.popViewController(animated: true)
     }
 
