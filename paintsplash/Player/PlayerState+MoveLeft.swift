@@ -8,7 +8,17 @@
 extension PlayerState {
     class MoveLeft: PlayerState {
         override func onEnterState() {
+            EventSystem.audioEvent.playSoundEffectEvent.post(
+                event: PlaySoundEffectEvent(effect: SoundEffect.playerStep)
+            )
+
             player.animationComponent.animate(animation: PlayerAnimations.playerBrushWalkLeft, interupt: true)
+        }
+
+        override func onLeaveState() {
+            EventSystem.audioEvent.stopSoundEffectEvent.post(
+                event: StopSoundEffectEvent()
+            )
         }
 
         override func getStateTransition() -> State? {

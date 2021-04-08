@@ -61,11 +61,15 @@ class PlaySoundEffectEvent: AudioEvent, Codable {
 }
 
 class StopMusicEvent: AudioEvent {
-    let playerId: EntityID
+    let playerId: EntityID?
 
-    init(playerId: EntityID) {
+    init(playerId: EntityID?) {
         self.playerId = playerId
         super.init()
+    }
+
+    convenience override init() {
+        self.init(playerId: nil)
     }
 
     enum CodingKeys: String, CodingKey {
@@ -80,11 +84,15 @@ class StopMusicEvent: AudioEvent {
 }
 
 class StopSoundEffectEvent: AudioEvent {
-    let playerId: EntityID
+    let playerId: EntityID?
 
-    init(playerId: EntityID) {
+    init(playerId: EntityID?) {
         self.playerId = playerId
         super.init()
+    }
+
+    convenience override init() {
+        self.init(playerId: nil)
     }
 
     enum CodingKeys: String, CodingKey {

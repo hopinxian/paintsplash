@@ -66,4 +66,8 @@ class MultiWeaponComponent: WeaponComponent {
     override func canLoad(_ ammo: [Ammo]) -> Bool {
         activeWeapon.canLoad(ammo)
     }
+
+    override func getShootSFX() -> SoundEffect? {
+        activeWeapon.getShootSFX()
+    }
 }

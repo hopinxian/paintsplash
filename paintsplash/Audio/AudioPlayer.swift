@@ -7,9 +7,9 @@
 
 import Foundation
 
-protocol AudioPlayer {
+protocol AudioPlayer: AnyObject {
     var isPlaying: Bool { get }
 
-    @discardableResult func playAudio(from url: URL, loops: Int) -> Bool
+    @discardableResult func playAudio(from url: URL, loops: Int, volume: Float) -> Bool
     func stop()
 }

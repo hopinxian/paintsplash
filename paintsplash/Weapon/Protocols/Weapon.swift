@@ -12,4 +12,5 @@ protocol Weapon: AnyObject {
     func canShoot() -> Bool
     func getAmmo() -> [Ammo]
     func canLoad(_ ammo: [Ammo]) -> Bool
+    func getShootSFX() -> SoundEffect?
 }

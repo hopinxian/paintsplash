@@ -49,15 +49,18 @@ class PlayerCollisionComponent: CollisionComponent {
         let ammo = drop.getAmmoObject()
         if player.multiWeaponComponent.canLoad([ammo]) {
             player.multiWeaponComponent.load([ammo])
-            let event = PlayerAmmoUpdateEvent(
+            let ammoUpdateEvent = PlayerAmmoUpdateEvent(
                 weaponType: type(of: player.multiWeaponComponent.activeWeapon),
                 ammo: player.multiWeaponComponent.activeWeapon.getAmmo(),
                 playerId: player.id
             )
 
             EventSystem.playerActionEvent.playerAmmoUpdateEvent.post(
-                event: event
+                event: ammoUpdateEvent
             )
+
+            let sfxEvent = PlaySoundEffectEvent(effect: SoundEffect.ammoPickup, playerId: player.id)
+            EventSystem.audioEvent.playSoundEffectEvent.post(event: sfxEvent)
         }
     }
 
@@ -151,6 +154,9 @@ class CanvasCollisionComponent: CollisionComponent {
             // post notification to alert system about colours on the current canvas
             let canvasHitEvent = CanvasHitEvent(canvas: canvas)
             EventSystem.canvasEvent.canvasHitEvent.post(event: canvasHitEvent)
+
+            let sfxEvent = PlaySoundEffectEvent(effect: SoundEffect.paintSplatter)
+            EventSystem.audioEvent.playSoundEffectEvent.post(event: sfxEvent)
         default:
             break
         }

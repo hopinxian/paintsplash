@@ -64,4 +64,8 @@ class PaintGun: WeaponComponent {
     override func canLoad(_ ammo: [Ammo]) -> Bool {
         ammoStack.count < capacity
     }
+
+    override func getShootSFX() -> SoundEffect? {
+        SoundEffect.paintGunAttack
+    }
 }
