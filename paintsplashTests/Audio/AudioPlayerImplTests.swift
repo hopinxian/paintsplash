@@ -10,11 +10,11 @@ import XCTest
 
 class AudioPlayerImplTests: XCTestCase {
 
-    private var player: AudioPlayerImpl!
+    private var player: AVAudioPlayerImpl!
 
     override func setUp() {
         super.setUp()
-        player = AudioPlayerImpl()
+        player = AVAudioPlayerImpl()
     }
 
     private func getValidURL() -> URL {

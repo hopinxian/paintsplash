@@ -168,7 +168,7 @@
 		D5553DA026062D1000C1862E /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5553D9726062D1000C1862E /* AudioManager.swift */; };
 		D5553DA126062D1000C1862E /* attack.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D5553D9826062D1000C1862E /* attack.mp3 */; };
 		D5553DA226062D1000C1862E /* SoundEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5553D9926062D1000C1862E /* SoundEffect.swift */; };
-		D5553DA326062D1000C1862E /* AudioPlayerImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5553D9A26062D1000C1862E /* AudioPlayerImpl.swift */; };
+		D5553DA326062D1000C1862E /* AVAudioPlayerImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5553D9A26062D1000C1862E /* AVAudioPlayerImpl.swift */; };
 		D5553DAC26071C0100C1862E /* MockRenderSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5553DAB26071C0100C1862E /* MockRenderSystem.swift */; };
 		D5553DB026071E0700C1862E /* MockCollisionSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5553DAF26071E0700C1862E /* MockCollisionSystem.swift */; };
 		D5553DBA2607218B00C1862E /* PlayerRenderableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5553DB92607218B00C1862E /* PlayerRenderableTests.swift */; };
@@ -485,7 +485,7 @@
 		D5553D9726062D1000C1862E /* AudioManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
 		D5553D9826062D1000C1862E /* attack.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = attack.mp3; sourceTree = "<group>"; };
 		D5553D9926062D1000C1862E /* SoundEffect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundEffect.swift; sourceTree = "<group>"; };
-		D5553D9A26062D1000C1862E /* AudioPlayerImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioPlayerImpl.swift; sourceTree = "<group>"; };
+		D5553D9A26062D1000C1862E /* AVAudioPlayerImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AVAudioPlayerImpl.swift; sourceTree = "<group>"; };
 		D5553DAB26071C0100C1862E /* MockRenderSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRenderSystem.swift; sourceTree = "<group>"; };
 		D5553DAF26071E0700C1862E /* MockCollisionSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCollisionSystem.swift; sourceTree = "<group>"; };
 		D5553DB92607218B00C1862E /* PlayerRenderableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerRenderableTests.swift; sourceTree = "<group>"; };
@@ -1108,7 +1108,7 @@
 				D5553D9726062D1000C1862E /* AudioManager.swift */,
 				D5553D9826062D1000C1862E /* attack.mp3 */,
 				D5553D9926062D1000C1862E /* SoundEffect.swift */,
-				D5553D9A26062D1000C1862E /* AudioPlayerImpl.swift */,
+				D5553D9A26062D1000C1862E /* AVAudioPlayerImpl.swift */,
 			);
 			path = Audio;
 			sourceTree = "<group>";
@@ -1909,7 +1909,7 @@
 				840A334826060626007BC34D /* AmmoType.swift in Sources */,
 				D53F54F2260DA03500635B05 /* PlayerState+AttackRight.swift in Sources */,
 				D53F543A260D94A800635B05 /* Animatable.swift in Sources */,
-				D5553DA326062D1000C1862E /* AudioPlayerImpl.swift in Sources */,
+				D5553DA326062D1000C1862E /* AVAudioPlayerImpl.swift in Sources */,
 				ACFD81FA25F667EB009D806B /* RenderSystem.swift in Sources */,
 				D5553D6A2606299B00C1862E /* CompoundAnimation.swift in Sources */,
 				ACFD820425F67113009D806B /* Weapon.swift in Sources */,
@@ -2124,14 +2124,14 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = VX9JN3A7N9;
 				INFOPLIST_FILE = paintsplash/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = crawlers.paintsplashes;
+				PRODUCT_BUNDLE_IDENTIFIER = crawlers.paintsplashes100;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -2147,14 +2147,14 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = VX9JN3A7N9;
 				INFOPLIST_FILE = paintsplash/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = crawlers.paintsplashes;
+				PRODUCT_BUNDLE_IDENTIFIER = crawlers.paintsplashes100;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
