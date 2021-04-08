@@ -43,35 +43,32 @@ class SKUserInputSystem: UserInputSystem {
     }
 
     private func onTouchDown(of touchable: Touchable, at location: Vector2D) {
-        guard let node = touchable as? SKNode else {
-            return
-        }
-        guard let id = renderSystem.getNodeEntityMap().backward[node] else {
-            print("guard fail") // this guard is failing
+        guard let node = touchable as? SKNode,
+            let id = renderSystem.getNodeEntityMap().backward[node] else {
             return
         }
 
         let event = TouchDownEvent(location: location, associatedId: id)
-        EventSystem.inputEvents.post(event: event)
+        EventSystem.inputEvents.touchDownEvent.post(event: event)
     }
 
     private func onTouchMoved(of touchable: Touchable, at location: Vector2D) {
         guard let node = touchable as? SKNode,
-              let id = renderSystem.getNodeEntityMap().backward[node] else {
+            let id = renderSystem.getNodeEntityMap().backward[node] else {
             return
         }
 
         let event = TouchMovedEvent(location: location, associatedId: id)
-        EventSystem.inputEvents.post(event: event)
+        EventSystem.inputEvents.touchMovedEvent.post(event: event)
     }
 
     private func onTouchUp(of touchable: Touchable, at location: Vector2D) {
         guard let node = touchable as? SKNode,
-              let id = renderSystem.getNodeEntityMap().backward[node] else {
+            let id = renderSystem.getNodeEntityMap().backward[node] else {
             return
         }
 
         let event = TouchUpEvent(location: location, associatedId: id)
-        EventSystem.inputEvents.post(event: event)
+        EventSystem.inputEvents.touchUpEvent.post(event: event)
     }
 }

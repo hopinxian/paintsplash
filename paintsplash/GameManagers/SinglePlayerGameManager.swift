@@ -7,7 +7,7 @@
 
 import SpriteKit
 
-class SinglePlayerGameManager: GameManager {
+class  SinglePlayerGameManager: GameManager {
     weak var gameScene: GameScene?
 
     // game entities that should change

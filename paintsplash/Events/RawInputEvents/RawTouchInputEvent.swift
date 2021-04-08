@@ -5,6 +5,8 @@
 //  Created by Praveen Bala on 6/4/21.
 //
 
+import SpriteKit
+
 class RawTouchInputEvent: Event {
     let location: Vector2D
     let touchable: Touchable
@@ -26,4 +28,3 @@ class RawTouchDownEvent: RawTouchInputEvent {
 class RawTouchMovedEvent: RawTouchInputEvent {
 
 }
-
