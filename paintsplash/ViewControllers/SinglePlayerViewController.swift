@@ -22,7 +22,6 @@ class SinglePlayerViewController: UIViewController {
 
         gameView.showsFPS = true
         gameView.showsNodeCount = true
-        gameView.preferredFramesPerSecond = 15
     }
 
     @IBAction private func onCloseGame(_ sender: UIButton) {
