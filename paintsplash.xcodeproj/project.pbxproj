@@ -201,7 +201,7 @@
 		D5673351261EF10200FD1D15 /* PlayerDie.wav in Resources */ = {isa = PBXBuildFile; fileRef = D5673350261EF10200FD1D15 /* PlayerDie.wav */; };
 		D5673355261EF1D800FD1D15 /* GameStateEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5673354261EF1D800FD1D15 /* GameStateEvent.swift */; };
 		D5673359261EF22200FD1D15 /* GameStateEventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5673358261EF22200FD1D15 /* GameStateEventManager.swift */; };
-		D567335D261EF7C900FD1D15 /* GameOverLose.wav in Resources */ = {isa = PBXBuildFile; fileRef = D567335C261EF7C900FD1D15 /* GameOverLose.wav */; };
+		D5673365261EF8EE00FD1D15 /* GameOverLose.wav in Resources */ = {isa = PBXBuildFile; fileRef = D5673364261EF8EE00FD1D15 /* GameOverLose.wav */; };
 		D57044E426182A7B004AF802 /* EncodableRenderable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57044E326182A7B004AF802 /* EncodableRenderable.swift */; };
 		D57044EA26182A8A004AF802 /* RenderSystemData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57044E926182A8A004AF802 /* RenderSystemData.swift */; };
 		D57044EF26182A9E004AF802 /* EncodableAnimatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57044EE26182A9E004AF802 /* EncodableAnimatable.swift */; };
@@ -526,7 +526,7 @@
 		D5673350261EF10200FD1D15 /* PlayerDie.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = PlayerDie.wav; sourceTree = "<group>"; };
 		D5673354261EF1D800FD1D15 /* GameStateEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStateEvent.swift; sourceTree = "<group>"; };
 		D5673358261EF22200FD1D15 /* GameStateEventManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStateEventManager.swift; sourceTree = "<group>"; };
-		D567335C261EF7C900FD1D15 /* GameOverLose.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = GameOverLose.wav; sourceTree = "<group>"; };
+		D5673364261EF8EE00FD1D15 /* GameOverLose.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = GameOverLose.wav; sourceTree = "<group>"; };
 		D57044E326182A7B004AF802 /* EncodableRenderable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncodableRenderable.swift; sourceTree = "<group>"; };
 		D57044E926182A8A004AF802 /* RenderSystemData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderSystemData.swift; sourceTree = "<group>"; };
 		D57044EE26182A9E004AF802 /* EncodableAnimatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncodableAnimatable.swift; sourceTree = "<group>"; };
@@ -1157,8 +1157,8 @@
 				D5673338261EC44A00FD1D15 /* WeaponSwap.wav */,
 				D567332C261EA37300FD1D15 /* AmmoPickup.mp3 */,
 				D5673329261EA37300FD1D15 /* CanvasEnd.mp3 */,
-				D567335C261EF7C900FD1D15 /* GameOverLose.wav */,
 				D5673325261EA37300FD1D15 /* CompleteRequest.mp3 */,
+				D5673364261EF8EE00FD1D15 /* GameOverLose.wav */,
 				D567332A261EA37300FD1D15 /* EnemyDie.mp3 */,
 				D5673327261EA37300FD1D15 /* EnemySpawn.wav */,
 				D5673328261EA37300FD1D15 /* EnemyStep.mp3 */,
@@ -1619,7 +1619,7 @@
 				AC5F0B812601130500E28D49 /* PlayerBrushAttackLeft.atlas in Resources */,
 				DC0EE8A725FE650200CBF414 /* SpawnerIdle.atlas in Resources */,
 				D5673333261EA37300FD1D15 /* EnemyDie.mp3 in Resources */,
-				D567335D261EF7C900FD1D15 /* GameOverLose.wav in Resources */,
+				D5673365261EF8EE00FD1D15 /* GameOverLose.wav in Resources */,
 				D5673330261EA37300FD1D15 /* EnemySpawn.wav in Resources */,
 				D5673334261EA37300FD1D15 /* PlayerStep.mp3 in Resources */,
 				AC5F0B7E2601130500E28D49 /* PlayerBrushAttackRight.atlas in Resources */,
