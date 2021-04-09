@@ -8,7 +8,7 @@
 
 import SpriteKit
 
-extension GameScene: UserInput {
+extension SKNode: UserInput {
     func touchDown(atPoint pos: CGPoint) {
         let convertedPos = SpaceConverter.screenToModel(pos)
         for node in nodes(at: pos) {
@@ -34,19 +34,19 @@ extension GameScene: UserInput {
         }
     }
 
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches { self.touchDown(atPoint: touch.location(in: self)) }
     }
 
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+    open override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches { self.touchMoved(toPoint: touch.location(in: self)) }
     }
 
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+    open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches { self.touchUp(atPoint: touch.location(in: self)) }
     }
 
-    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+    open override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches { self.touchUp(atPoint: touch.location(in: self)) }
     }
 }
