@@ -262,7 +262,8 @@ class SinglePlayerGameManager: GameManager {
     private func onGameOver(event: GameOverEvent) {
         let gameOverUI = GameOverUI(score: currentLevel?.score.score ?? 0, onQuit: { [weak self] in self?.onQuit() })
         gameOverUI.spawn()
-        
+
+        EventSystem.audioEvent.stopMusicEvent.post(event: StopMusicEvent())
         if event.isWin {
             EventSystem.audioEvent.playMusicEvent.post(event: PlayMusicEvent(music: Music.gameOverWin))
         } else {
