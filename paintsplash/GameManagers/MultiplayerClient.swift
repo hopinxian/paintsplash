@@ -35,7 +35,7 @@ class MultiplayerClient: SinglePlayerGameManager {
 
     override func setUpPlayer() {
         player = Player(
-            initialPosition: Vector2D.zero + Vector2D.right * 50,
+            initialPosition: Vector2D.zero + Vector2D.left * 50,
             playerUUID: EntityID(id: playerInfo.playerUUID)
         )
         player.spawn()
@@ -55,7 +55,7 @@ class MultiplayerClient: SinglePlayerGameManager {
         // Initialize player
         let playerID = EntityID(id: player.playerUUID)
 
-        let newPlayer = Player(initialPosition: Vector2D.zero + Vector2D.left * 50, playerUUID: playerID)
+        let newPlayer = Player(initialPosition: Vector2D.zero + Vector2D.right * 50, playerUUID: playerID)
         newPlayer.spawn()
     }
 

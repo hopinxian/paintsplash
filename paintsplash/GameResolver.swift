@@ -51,7 +51,27 @@ class GameResolver {
         newEntity.spawn()
     }
 
+    static func resolvePlayer(_ data: SystemData, _ entity: EntityID, _ manager: MultiplayerClient) {
+//        if let renderable = data.renderSystemData?.renderables[entity] {
+//            let renderComponent = renderable.renderComponent
+//            let transformComponent = renderable.transformComponent
+//            renderComponent.wasModified = true
+//            transformComponent.wasModified = true
+//            let compensatedVelocity = transformComponent.worldPosition - manager.player.transformComponent.worldPosition
+//            if compensatedVelocity.magnitude < 10 {
+//
+//            } else {
+//
+//            }
+//        }
+    }
+
     static func updateNetworkedRenderable(_ data: SystemData, _ entity: EntityID, _ manager: MultiplayerClient) {
+        if entity.id == manager.player.id.id {
+            resolvePlayer(data, entity, manager)
+            return
+        }
+
         if let renderable = data.renderSystemData?.renderables[entity] {
             let renderComponent = renderable.renderComponent
             let transformComponent = renderable.transformComponent
