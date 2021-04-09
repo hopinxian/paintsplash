@@ -221,6 +221,7 @@ class MultiplayerServer: SinglePlayerGameManager {
         let colorSystemData = ColorSystemData(from: colorables)
 
         let systemData = SystemData(
+            date: Date(),
             entityData: entityData,
             renderSystemData: renderSystemData,
             animationSystemData: animationSystemData,
