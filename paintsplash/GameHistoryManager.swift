@@ -13,4 +13,16 @@ class GameHistoryManager {
     func addState(_ state: SystemData, at date: Date) {
         history[date] = state
     }
+
+    func getStateClosest(to source: Date) -> SystemData {
+        var closestDate = Date()
+        var closestState: SystemData!
+        for (date, data) in history {
+            if source.distance(to: date) <= closestDate.distance(to: source) {
+                closestDate = date
+                closestState = data
+            }
+        }
+        return closestState
+    }
  }

@@ -241,7 +241,6 @@ class SinglePlayerGameManager: GameManager {
     }
 
     func update(_ deltaTime: Double) {
-        print(deltaTime)
         currentLevel?.update()
         transformSystem?.updateEntities(deltaTime)
         aiSystem?.updateEntities(deltaTime)

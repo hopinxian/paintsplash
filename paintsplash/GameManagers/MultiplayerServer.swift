@@ -194,6 +194,13 @@ class MultiplayerServer: SinglePlayerGameManager {
             },
             onError: nil
         )
+        
+        //player state observing
+        let path = DataPaths.joinPaths(
+            DataPaths.games, gameId,
+            DataPaths.game_players, playerID.id,
+            "clientPlayer")
+        self.connectionHandler.listen(to: path, callBack: readClientPlayerData)
     }
 
     func sendGameState() {
@@ -256,5 +263,12 @@ class MultiplayerServer: SinglePlayerGameManager {
     override func removeObject(_ object: GameEntity) {
         super.removeObject(object)
         removedEntities[object.id] = object
+    }
+    
+    func readClientPlayerData(data: SystemData?) {
+        guard let data = data else {
+            return
+        }
+        GameResolver.resolve(manager: self, with: data)
     }
 }

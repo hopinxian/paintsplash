@@ -187,15 +187,15 @@ class MultiplayerClient: SinglePlayerGameManager {
         guard let data = data else {
             return
         }
-        
         GameResolver.resolve(manager: self, with: data)
     }
 
     override func update(_ deltaTime: Double) {
         super.update(deltaTime)
+        sendPlayerData()
         let gameState = prepareGameState()
         historyManager.addState(gameState, at: gameState.date)
-
+        print(player.transformComponent.worldPosition)
         addedEntities = [:]
         removedEntities = [:]
     }
@@ -242,5 +242,31 @@ class MultiplayerClient: SinglePlayerGameManager {
     override func removeObject(_ object: GameEntity) {
         super.removeObject(object)
         removedEntities[object.id] = object
+    }
+    
+    func sendPlayerData() {
+        let entityData = EntityData(from: [player])
+        let renderableToSend: [EntityID: Renderable] = [player.id: player]
+        let renderSystemData = RenderSystemData(from: renderableToSend)
+
+        let systemData = SystemData(
+            date: Date(),
+            entityData: entityData,
+            renderSystemData: renderSystemData,
+            animationSystemData: nil,
+            colorSystemData: nil
+        )
+        let path = DataPaths.joinPaths(
+            DataPaths.games, room.gameID,
+            DataPaths.game_players, player.id.id,
+            "clientPlayer")
+        connectionHandler.send(
+            to: path,
+            data: systemData,
+            mode: .single,
+            shouldRemoveOnDisconnect: true,
+            onComplete: nil,
+            onError: nil
+        )
     }
 }

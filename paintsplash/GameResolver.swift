@@ -6,7 +6,11 @@
 //
 
 class GameResolver {
-    static func resolve(manager: MultiplayerClient, with data: SystemData) {
+    static func resolve(manager: SinglePlayerGameManager, with data: SystemData) {
+//        let sourceDate = data.date
+//        let history = manager.historyManager
+//        let clientHistory = history.getStateClosest(to: sourceDate)
+//        let new
         let entityIDs = Set(manager.entities.map({ $0.id }))
 
         for entity in data.entityData.entities where !entityIDs.contains(entity) {
@@ -29,7 +33,6 @@ class GameResolver {
         for entity in entityIDs where !data.entityData.entities.contains(entity) {
             manager.entities.first(where: { gameEntity in gameEntity.id == entity })?.destroy()
         }
-
     }
     
     static func addNetowrkedEntity(entity: EntityID, data: SystemData) {
@@ -51,24 +54,8 @@ class GameResolver {
         newEntity.spawn()
     }
 
-    static func resolvePlayer(_ data: SystemData, _ entity: EntityID, _ manager: MultiplayerClient) {
-//        if let renderable = data.renderSystemData?.renderables[entity] {
-//            let renderComponent = renderable.renderComponent
-//            let transformComponent = renderable.transformComponent
-//            renderComponent.wasModified = true
-//            transformComponent.wasModified = true
-//            let compensatedVelocity = transformComponent.worldPosition - manager.player.transformComponent.worldPosition
-//            if compensatedVelocity.magnitude < 10 {
-//
-//            } else {
-//
-//            }
-//        }
-    }
-
-    static func updateNetworkedRenderable(_ data: SystemData, _ entity: EntityID, _ manager: MultiplayerClient) {
+    static func updateNetworkedRenderable(_ data: SystemData, _ entity: EntityID, _ manager: SinglePlayerGameManager) {
         if entity.id == manager.player.id.id {
-            resolvePlayer(data, entity, manager)
             return
         }
 
@@ -82,7 +69,10 @@ class GameResolver {
         }
     }
 
-    static func updateNetworkedAnimatable(_ data: SystemData, _ entity: EntityID, _ manager: MultiplayerClient) {
+    static func updateNetworkedAnimatable(_ data: SystemData, _ entity: EntityID, _ manager: SinglePlayerGameManager) {
+        if entity.id == manager.player.id.id {
+            return
+        }
         if let animatable = data.animationSystemData?.animatables[entity] {
             let animationComponent = animatable.animationComponent
             animationComponent.wasModified = true
