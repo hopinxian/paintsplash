@@ -196,11 +196,11 @@ class MultiplayerServer: SinglePlayerGameManager {
         )
         
         //player state observing
-        let path = DataPaths.joinPaths(
-            DataPaths.games, gameId,
-            DataPaths.game_players, playerID.id,
-            "clientPlayer")
-        self.connectionHandler.listen(to: path, callBack: readClientPlayerData)
+//        let path = DataPaths.joinPaths(
+//            DataPaths.games, gameId,
+//            DataPaths.game_players, playerID.id,
+//            "clientPlayer")
+//        self.connectionHandler.listen(to: path, callBack: readClientPlayerData)
     }
 
     func sendGameState() {

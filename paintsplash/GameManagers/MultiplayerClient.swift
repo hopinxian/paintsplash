@@ -154,6 +154,7 @@ class MultiplayerClient: SinglePlayerGameManager {
     }
 
     private func sendPlayerMoveEvent(_ event: PlayerMoveEvent, gameId: String) {
+        event.playerLocation = player.transformComponent.worldPosition
         self.gameConnectionHandler.sendEvent(
             gameId: gameId,
             playerId: event.playerId.id,
@@ -164,6 +165,7 @@ class MultiplayerClient: SinglePlayerGameManager {
     }
 
     private func sendPlayerShootEvent(_ event: PlayerShootEvent, gameId: String) {
+        event.playerLocation = player.transformComponent.worldPosition
         self.gameConnectionHandler.sendEvent(
             gameId: gameId,
             playerId: event.playerId.id,
@@ -192,7 +194,7 @@ class MultiplayerClient: SinglePlayerGameManager {
 
     override func update(_ deltaTime: Double) {
         super.update(deltaTime)
-        sendPlayerData()
+        // sendPlayerData()
         let gameState = prepareGameState()
         historyManager.addState(gameState, at: gameState.date)
         print(player.transformComponent.worldPosition)
