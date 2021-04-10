@@ -151,7 +151,7 @@ class Level {
     static func getDefaultLevel(canvasManager: CanvasRequestManager, gameInfo: GameInfo) -> Level {
         let level = Level(canvasManager: canvasManager, gameInfo: gameInfo)
 
-        level.repeatLimit = 1
+        level.repeatLimit = 10
 
         let enemyCommand = EnemyCommand()
         enemyCommand.time = 2
@@ -163,7 +163,7 @@ class Level {
 //        spawnerCommand.time = 5
 //        level.addSpawnEvent(spawnerCommand)
 
-        for i in 1..<3 {
+        for i in 1..<6 {
             let dropCommand = AmmoDropCommand()
             dropCommand.color = .red
             dropCommand.location = Vector2D.init(150 * i, 150 * i)

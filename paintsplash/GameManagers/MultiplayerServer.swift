@@ -269,6 +269,13 @@ class MultiplayerServer: SinglePlayerGameManager {
         guard let data = data else {
             return
         }
-        GameResolver.resolve(manager: self, with: data)
+        let clientId = data.entityData.entities[0]
+        if let client = entities.first(where: {$0.id.id == clientId.id}) as? Player,
+        let renderComponent = data.renderSystemData?.renderables[clientId] {
+            print("has done render")
+            print("\(client.transformComponent.worldPosition)")
+            client.transformComponent = renderComponent.transformComponent
+            print("\(client.transformComponent.worldPosition)")
+        }
     }
 }
