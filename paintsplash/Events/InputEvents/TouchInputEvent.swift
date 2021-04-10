@@ -7,9 +7,11 @@
 
 class TouchInputEvent: Event {
     let location: Vector2D
+    let associatedId: EntityID
 
-    init(location: Vector2D) {
+    init(location: Vector2D, associatedId: EntityID) {
         self.location = location
+        self.associatedId = associatedId
     }
 }
 

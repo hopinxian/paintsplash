@@ -14,6 +14,7 @@ class GameScene: SKScene {
 
     override func didMove(to view: SKView) {
         isAccessibilityElement = false
+        view.isMultipleTouchEnabled = true
 
         SpaceConverter.modelSize = Constants.MODEL_WORLD_SIZE
         SpaceConverter.screenSize = Vector2D(self.size.width, self.size.height)

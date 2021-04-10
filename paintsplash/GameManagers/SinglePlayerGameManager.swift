@@ -7,7 +7,7 @@
 
 import SpriteKit
 
-class SinglePlayerGameManager: GameManager {
+class  SinglePlayerGameManager: GameManager {
     weak var gameScene: GameScene?
     weak var viewController: GameViewController?
 
@@ -27,6 +27,7 @@ class SinglePlayerGameManager: GameManager {
     var movementSystem: MovementSystem!
     var transformSystem: TransformSystem!
     var playerSystem: PlayerSystem!
+    var userInputSystem: UserInputSystem!
 
     private var collisionDetector: SKCollisionDetector!
 
@@ -96,6 +97,8 @@ class SinglePlayerGameManager: GameManager {
         self.transformSystem = WorldTransformSystem()
 
         self.playerSystem = PaintSplashPlayerSystem()
+
+        self.userInputSystem = SKUserInputSystem(renderSystem: skRenderSystem)
     }
 
     func setUpPlayer() {
@@ -168,12 +171,14 @@ class SinglePlayerGameManager: GameManager {
             position: Constants.JOYSTICK_POSITION
         )
         joystick.spawn()
+        userInputSystem.addTouchable(joystick)
 
         let attackJoystick = AttackJoystick(
             associatedEntityID: player.id,
             position: Constants.ATTACK_BUTTON_POSITION
         )
         attackJoystick.spawn()
+        userInputSystem.addTouchable(attackJoystick)
 
         let playerHealthUI = PlayerHealthDisplay(
             startingHealth: player.healthComponent.currentHealth,

@@ -54,6 +54,12 @@
 		AC11904925FE7B7B00601CB9 /* Joystick.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC11904825FE7B7B00601CB9 /* Joystick.swift */; };
 		AC11994426053CFB003BA54B /* AudioEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC11994326053CFB003BA54B /* AudioEvent.swift */; };
 		AC11994C26053D04003BA54B /* AudioEventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC11994B26053D04003BA54B /* AudioEventManager.swift */; };
+		AC2B3AFA261B92E5001B8FCF /* RawTouchInputEventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2B3AF9261B92E5001B8FCF /* RawTouchInputEventManager.swift */; };
+		AC2B3AFE261B92F1001B8FCF /* RawTouchInputEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2B3AFD261B92F1001B8FCF /* RawTouchInputEvent.swift */; };
+		AC2B3B02261B933D001B8FCF /* UserInputSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2B3B01261B933D001B8FCF /* UserInputSystem.swift */; };
+		AC2B3B06261B9359001B8FCF /* SKUserInputSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2B3B05261B9359001B8FCF /* SKUserInputSystem.swift */; };
+		AC2B3B0A261B9371001B8FCF /* Touchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2B3B09261B9371001B8FCF /* Touchable.swift */; };
+		AC2B3B0E261B9385001B8FCF /* SKNode+Touchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2B3B0D261B9385001B8FCF /* SKNode+Touchable.swift */; };
 		AC3EB7212606F57300B5B963 /* PlayerMovementBoundsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3EB7202606F57300B5B963 /* PlayerMovementBoundsTests.swift */; };
 		AC3EB7262606F58500B5B963 /* PlayerCollisionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3EB7252606F58500B5B963 /* PlayerCollisionTests.swift */; };
 		AC3EB72E260701D800B5B963 /* PlayerHealthTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3EB72D260701D800B5B963 /* PlayerHealthTests.swift */; };
@@ -372,6 +378,12 @@
 		AC11904825FE7B7B00601CB9 /* Joystick.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Joystick.swift; sourceTree = "<group>"; };
 		AC11994326053CFB003BA54B /* AudioEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioEvent.swift; sourceTree = "<group>"; };
 		AC11994B26053D04003BA54B /* AudioEventManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioEventManager.swift; sourceTree = "<group>"; };
+		AC2B3AF9261B92E5001B8FCF /* RawTouchInputEventManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawTouchInputEventManager.swift; sourceTree = "<group>"; };
+		AC2B3AFD261B92F1001B8FCF /* RawTouchInputEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawTouchInputEvent.swift; sourceTree = "<group>"; };
+		AC2B3B01261B933D001B8FCF /* UserInputSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInputSystem.swift; sourceTree = "<group>"; };
+		AC2B3B05261B9359001B8FCF /* SKUserInputSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKUserInputSystem.swift; sourceTree = "<group>"; };
+		AC2B3B09261B9371001B8FCF /* Touchable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Touchable.swift; sourceTree = "<group>"; };
+		AC2B3B0D261B9385001B8FCF /* SKNode+Touchable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SKNode+Touchable.swift"; sourceTree = "<group>"; };
 		AC3EB7202606F57300B5B963 /* PlayerMovementBoundsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerMovementBoundsTests.swift; sourceTree = "<group>"; };
 		AC3EB7252606F58500B5B963 /* PlayerCollisionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCollisionTests.swift; sourceTree = "<group>"; };
 		AC3EB72D260701D800B5B963 /* PlayerHealthTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerHealthTests.swift; sourceTree = "<group>"; };
@@ -765,6 +777,15 @@
 				AC11994B26053D04003BA54B /* AudioEventManager.swift */,
 			);
 			path = Audio;
+			sourceTree = "<group>";
+		};
+		AC2B3AF8261B92C5001B8FCF /* RawInputEvents */ = {
+			isa = PBXGroup;
+			children = (
+				AC2B3AF9261B92E5001B8FCF /* RawTouchInputEventManager.swift */,
+				AC2B3AFD261B92F1001B8FCF /* RawTouchInputEvent.swift */,
+			);
+			path = RawInputEvents;
 			sourceTree = "<group>";
 		};
 		AC3EB71F2606F55F00B5B963 /* Player */ = {
@@ -1363,6 +1384,10 @@
 			children = (
 				D596B17325F7C0F500A5854F /* UserInput.swift */,
 				D55EEB4A25FF8B6500ADC70B /* GameScene+UserInput.swift */,
+				AC2B3B01261B933D001B8FCF /* UserInputSystem.swift */,
+				AC2B3B05261B9359001B8FCF /* SKUserInputSystem.swift */,
+				AC2B3B09261B9371001B8FCF /* Touchable.swift */,
+				AC2B3B0D261B9385001B8FCF /* SKNode+Touchable.swift */,
 			);
 			path = UserInput;
 			sourceTree = "<group>";
@@ -1482,6 +1507,7 @@
 		DC7B420C25FF63350069B422 /* Events */ = {
 			isa = PBXGroup;
 			children = (
+				AC2B3AF8261B92C5001B8FCF /* RawInputEvents */,
 				DC7B421825FF63350069B422 /* EventSystem.swift */,
 				DC7B421125FF63350069B422 /* Event.swift */,
 				DC7B420D25FF63350069B422 /* EventManager.swift */,
@@ -1784,6 +1810,7 @@
 				D546280C2614DB45002527C3 /* ColorComponent.swift in Sources */,
 				D53F5448260D94F700635B05 /* SKAnimationSystem.swift in Sources */,
 				AC0A184D26052AF800A1338C /* Constants.swift in Sources */,
+				AC2B3AFA261B92E5001B8FCF /* RawTouchInputEventManager.swift in Sources */,
 				D5B65C9D2618B55100C132FE /* UserInputReceiverComponent.swift in Sources */,
 				AC097E082601FFE4000951B0 /* ProcessedInputEvent.swift in Sources */,
 				D536472026146C8200C2BCBB /* RawAnimation.swift in Sources */,
@@ -1867,6 +1894,7 @@
 				AC11904925FE7B7B00601CB9 /* Joystick.swift in Sources */,
 				AC07DE4F2605E63900B12840 /* Rect.swift in Sources */,
 				D50C88DC26215FA3001DBDD6 /* GunAimGuide.swift in Sources */,
+				AC2B3AFE261B92F1001B8FCF /* RawTouchInputEvent.swift in Sources */,
 				D53F54AC260D979300635B05 /* CanvasState.swift in Sources */,
 				D53F5488260D96A900635B05 /* EnemySpawnerState+Die.swift in Sources */,
 				D598F55F2601C03600D7CACB /* PaintBucketAmmoDisplay.swift in Sources */,
@@ -1879,6 +1907,7 @@
 				D5B65C932618B39D00C132FE /* PlayerSystem.swift in Sources */,
 				DC24033D2600FEFE00550E1E /* CanvasSpawner.swift in Sources */,
 				D5500C062608E7E200E21BF1 /* System.swift in Sources */,
+				AC2B3B0E261B9385001B8FCF /* SKNode+Touchable.swift in Sources */,
 				D5704532261830EA004AF802 /* AttackJoystick.swift in Sources */,
 				D57044E426182A7B004AF802 /* EncodableRenderable.swift in Sources */,
 				ACB3607225F661620016E240 /* AppDelegate.swift in Sources */,
@@ -1890,9 +1919,11 @@
 				D53F5411260D93BB00635B05 /* TransformComponent.swift in Sources */,
 				D570451A26182CA2004AF802 /* FirebaseConnectionHandler.swift in Sources */,
 				842B5CE42604882F00FCF7BD /* ScoreEvent.swift in Sources */,
+				AC2B3B02261B933D001B8FCF /* UserInputSystem.swift in Sources */,
 				D596B17425F7C0F500A5854F /* UserInput.swift in Sources */,
 				D5673359261EF22200FD1D15 /* GameStateEventManager.swift in Sources */,
 				D570450426182AE1004AF802 /* EntityData.swift in Sources */,
+				AC2B3B0A261B9371001B8FCF /* Touchable.swift in Sources */,
 				D53F5474260D963F00635B05 /* PlayerState+MoveLeft.swift in Sources */,
 				840A334D26060655007BC34D /* AmmoDrop.swift in Sources */,
 				D55EEBA02600927800ADC70B /* EntityChangeEvent.swift in Sources */,
@@ -1901,6 +1932,7 @@
 				D55A8AAD25FC933A00BBE210 /* GameManager.swift in Sources */,
 				D53F5425260D943600635B05 /* MoveableComponent.swift in Sources */,
 				D5500C0A2608E8FE00E21BF1 /* RenderType.swift in Sources */,
+				AC2B3B06261B9359001B8FCF /* SKUserInputSystem.swift in Sources */,
 				D596B19A25F8CF0800A5854F /* Renderable.swift in Sources */,
 				DC94351726019EA1001046BB /* CanvasRequest.swift in Sources */,
 				D546281A26158F37002527C3 /* PaintBlob.swift in Sources */,
@@ -2169,6 +2201,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8B4N4F9FTJ;
+				DEVELOPMENT_TEAM = VX9JN3A7N9;
 				INFOPLIST_FILE = paintsplash/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2176,6 +2209,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = crawlers.paintsplashes6;
+				PRODUCT_BUNDLE_IDENTIFIER = crawlers.paintsplashes100;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -2192,6 +2226,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8B4N4F9FTJ;
+				DEVELOPMENT_TEAM = VX9JN3A7N9;
 				INFOPLIST_FILE = paintsplash/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2199,6 +2234,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = crawlers.paintsplashes6;
+				PRODUCT_BUNDLE_IDENTIFIER = crawlers.paintsplashes100;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;

@@ -5,7 +5,6 @@
 //  Created by Farrell Nah on 9/3/21.
 //
 
-import Foundation
 import CoreGraphics
 
 protocol UserInput {
