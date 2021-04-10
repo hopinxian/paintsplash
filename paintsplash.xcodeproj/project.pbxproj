@@ -106,6 +106,8 @@
 		D50C88D826215E53001DBDD6 /* TEstView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D50C88D726215E53001DBDD6 /* TEstView.xib */; };
 		D50C88DC26215FA3001DBDD6 /* GunAimGuide.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50C88DB26215FA3001DBDD6 /* GunAimGuide.swift */; };
 		D50C88E0262178E2001DBDD6 /* PaintBucketSplash.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50C88DF262178E2001DBDD6 /* PaintBucketSplash.swift */; };
+		D50C88EF26217E43001DBDD6 /* AimGuide.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50C88EE26217E43001DBDD6 /* AimGuide.swift */; };
+		D50C88F326217E52001DBDD6 /* BucketAimGuide.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50C88F226217E52001DBDD6 /* BucketAimGuide.swift */; };
 		D50FD68226104B7400491CAC /* ConnectionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50FD68126104B7400491CAC /* ConnectionHandler.swift */; };
 		D50FD69C261056AF00491CAC /* MultiplayerServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50FD69B261056AF00491CAC /* MultiplayerServer.swift */; };
 		D50FD6C3261204F800491CAC /* SinglePlayerGameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50FD6C2261204F800491CAC /* SinglePlayerGameManager.swift */; };
@@ -440,6 +442,8 @@
 		D50C88D726215E53001DBDD6 /* TEstView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TEstView.xib; sourceTree = "<group>"; };
 		D50C88DB26215FA3001DBDD6 /* GunAimGuide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GunAimGuide.swift; sourceTree = "<group>"; };
 		D50C88DF262178E2001DBDD6 /* PaintBucketSplash.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaintBucketSplash.swift; sourceTree = "<group>"; };
+		D50C88EE26217E43001DBDD6 /* AimGuide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AimGuide.swift; sourceTree = "<group>"; };
+		D50C88F226217E52001DBDD6 /* BucketAimGuide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketAimGuide.swift; sourceTree = "<group>"; };
 		D50FD68126104B7400491CAC /* ConnectionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionHandler.swift; sourceTree = "<group>"; };
 		D50FD69B261056AF00491CAC /* MultiplayerServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiplayerServer.swift; sourceTree = "<group>"; };
 		D50FD6C2261204F800491CAC /* SinglePlayerGameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SinglePlayerGameManager.swift; sourceTree = "<group>"; };
@@ -1105,7 +1109,6 @@
 				D570452D261830DA004AF802 /* MovementJoystick.swift */,
 				AC0A18662605304100A1338C /* UIBar.swift */,
 				D567333E261EE11700FD1D15 /* GameOverUI.swift */,
-				D50C88DB26215FA3001DBDD6 /* GunAimGuide.swift */,
 			);
 			path = UIElements;
 			sourceTree = "<group>";
@@ -1174,6 +1177,9 @@
 				D55EEB7D260089C200ADC70B /* PaintGunAmmoDisplay.swift */,
 				D598F55E2601C03600D7CACB /* PaintBucketAmmoDisplay.swift */,
 				D55EEB8526008AAE00ADC70B /* PaintAmmoDisplay.swift */,
+				D50C88EE26217E43001DBDD6 /* AimGuide.swift */,
+				D50C88F226217E52001DBDD6 /* BucketAimGuide.swift */,
+				D50C88DB26215FA3001DBDD6 /* GunAimGuide.swift */,
 			);
 			path = Weapons;
 			sourceTree = "<group>";
@@ -1810,6 +1816,7 @@
 				D546280C2614DB45002527C3 /* ColorComponent.swift in Sources */,
 				D53F5448260D94F700635B05 /* SKAnimationSystem.swift in Sources */,
 				AC0A184D26052AF800A1338C /* Constants.swift in Sources */,
+				D50C88F326217E52001DBDD6 /* BucketAimGuide.swift in Sources */,
 				AC2B3AFA261B92E5001B8FCF /* RawTouchInputEventManager.swift in Sources */,
 				D5B65C9D2618B55100C132FE /* UserInputReceiverComponent.swift in Sources */,
 				AC097E082601FFE4000951B0 /* ProcessedInputEvent.swift in Sources */,
@@ -1922,6 +1929,7 @@
 				AC2B3B02261B933D001B8FCF /* UserInputSystem.swift in Sources */,
 				D596B17425F7C0F500A5854F /* UserInput.swift in Sources */,
 				D5673359261EF22200FD1D15 /* GameStateEventManager.swift in Sources */,
+				D50C88EF26217E43001DBDD6 /* AimGuide.swift in Sources */,
 				D570450426182AE1004AF802 /* EntityData.swift in Sources */,
 				AC2B3B0A261B9371001B8FCF /* Touchable.swift in Sources */,
 				D53F5474260D963F00635B05 /* PlayerState+MoveLeft.swift in Sources */,
@@ -2201,7 +2209,6 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8B4N4F9FTJ;
-				DEVELOPMENT_TEAM = VX9JN3A7N9;
 				INFOPLIST_FILE = paintsplash/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2209,7 +2216,6 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = crawlers.paintsplashes6;
-				PRODUCT_BUNDLE_IDENTIFIER = crawlers.paintsplashes100;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -2226,7 +2232,6 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8B4N4F9FTJ;
-				DEVELOPMENT_TEAM = VX9JN3A7N9;
 				INFOPLIST_FILE = paintsplash/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2234,7 +2239,6 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = crawlers.paintsplashes6;
-				PRODUCT_BUNDLE_IDENTIFIER = crawlers.paintsplashes100;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
