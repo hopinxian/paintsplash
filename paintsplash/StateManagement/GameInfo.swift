@@ -20,16 +20,3 @@ class GameInfo {
         self.numberOfEnemies = numberOfEnemies
     }
 }
-
-extension GameInfo: Copyable {
-    func copy() -> Any {
-        let info = GameInfo(
-            playerPosition: self.playerPosition,
-            numberOfEnemies: self.numberOfEnemies)
-        info.numberOfDrops = self.numberOfDrops
-        info.existingEnemyColors = self.existingEnemyColors
-        info.requiredCanvasColors = self.requiredCanvasColors
-        info.existingDropColors = self.existingDropColors
-        return info
-    }
-}

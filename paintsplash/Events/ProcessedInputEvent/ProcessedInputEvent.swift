@@ -13,7 +13,6 @@ class ProcessedInputEvent: Event {
 class PlayerMoveEvent: ProcessedInputEvent, Codable {
     let direction: Vector2D
     let playerId: EntityID
-    var playerLocation: Vector2D?
 
     init(direction: Vector2D, playerID: EntityID) {
         self.direction = direction
@@ -24,7 +23,6 @@ class PlayerMoveEvent: ProcessedInputEvent, Codable {
 class PlayerShootEvent: ProcessedInputEvent, Codable {
     let direction: Vector2D
     let playerId: EntityID
-    var playerLocation: Vector2D?
 
     init(direction: Vector2D, playerID: EntityID) {
         self.direction = direction

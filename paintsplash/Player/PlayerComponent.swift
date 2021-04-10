@@ -27,13 +27,6 @@ class PlayerComponent: PlayableComponent {
               event.playerId == player.id else {
             return
         }
-        
-        if let location = event.playerLocation {
-            print("update position with move")
-            print("\(player.transformComponent.worldPosition)")
-            player.transformComponent.worldPosition = location
-            print("\(player.transformComponent.worldPosition)")
-        }
 
         player.moveableComponent.direction = event.direction
 
@@ -51,14 +44,6 @@ class PlayerComponent: PlayableComponent {
               player.multiWeaponComponent.canShoot() else {
             return
         }
-        
-        if let location = event.playerLocation {
-            print("update position with shoot")
-            print("\(player.transformComponent.worldPosition)")
-            player.transformComponent.worldPosition = location
-            print("\(player.transformComponent.worldPosition)")
-        }
-
 
         if player.multiWeaponComponent.canShoot() {
             let direction = event.direction.magnitude > 0 ? event.direction : player.lastDirection

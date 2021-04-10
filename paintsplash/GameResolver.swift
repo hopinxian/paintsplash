@@ -34,7 +34,7 @@ class GameResolver {
             manager.entities.first(where: { gameEntity in gameEntity.id == entity })?.destroy()
         }
     }
-    
+
     static func addNetowrkedEntity(entity: EntityID, data: SystemData) {
         let renderComponent =
             data.renderSystemData?.renderables[entity]?.renderComponent
@@ -82,8 +82,8 @@ class GameResolver {
     }
 
     static func updateNetworkedColorable(_ data: SystemData,
-                                          _ entity: EntityID,
-                                          _ colorables: inout [EntityID: Colorable]) {
+                                         _ entity: EntityID,
+                                         _ colorables: inout [EntityID: Colorable]) {
         if let colorable = data.colorSystemData?.colorables[entity] {
             let color = colorable.color
             colorables[entity]?.color = color

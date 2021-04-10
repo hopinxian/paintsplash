@@ -92,7 +92,7 @@ class Level {
         request.insert(.red)
         return request
     }
-    
+
     func getRandomRequest() -> Set<PaintColor> {
         let randomNumber = Int.random(in: 1..<4)
         let colors = PaintColor.allCases.shuffled().filter { $0 != PaintColor.white }
@@ -156,7 +156,7 @@ class Level {
         let enemyCommand = EnemyCommand()
         enemyCommand.time = 2
         enemyCommand.color = .red
-        enemyCommand.location = Vector2D.init(400, 400)
+        enemyCommand.location = Vector2D(400, 400)
         level.addSpawnEvent(enemyCommand)
 
 //        let spawnerCommand = EnemySpawnerCommand()
@@ -166,7 +166,7 @@ class Level {
         for i in 1..<6 {
             let dropCommand = AmmoDropCommand()
             dropCommand.color = .red
-            dropCommand.location = Vector2D.init(150 * i, 150 * i)
+            dropCommand.location = Vector2D(150 * i, 150 * i)
             dropCommand.time = Double(i * 5)
             level.addSpawnEvent(dropCommand)
         }
