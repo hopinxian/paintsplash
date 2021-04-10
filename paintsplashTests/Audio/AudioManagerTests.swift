@@ -11,7 +11,7 @@ import XCTest
 class AudioManagerTests: XCTestCase {
 
     private let validMusic = Music.backgroundMusic
-    private let validEffect = SoundEffect.attack
+    private let validEffect = SoundEffect.paintGunAttack
     private let invalidMusic = Music(name: "invalid", fileExtension: "mp3", loops: 1)
     private let invalidEffect = SoundEffect(name: "invalid", fileExtension: "mp3", loops: 1)
 
@@ -94,14 +94,14 @@ class AudioManagerTests: XCTestCase {
 
     func testPlayEffectThroughEventCorrectId() {
         XCTAssertFalse(audioManager.isPlayingEffect)
-        let event = PlaySoundEffectEvent(effect: .attack, playerId: managerId)
+        let event = PlaySoundEffectEvent(effect: .paintGunAttack, playerId: managerId)
         EventSystem.audioEvent.post(event: event)
         XCTAssertTrue(audioManager.isPlayingEffect)
     }
 
     func testPlayEffectThroughEventIncorrectId() {
         XCTAssertFalse(audioManager.isPlayingEffect)
-        let event = PlaySoundEffectEvent(effect: .attack, playerId: differentId)
+        let event = PlaySoundEffectEvent(effect: .paintGunAttack, playerId: differentId)
         EventSystem.audioEvent.post(event: event)
         XCTAssertFalse(audioManager.isPlayingEffect)
     }
@@ -123,7 +123,7 @@ class AudioManagerTests: XCTestCase {
     }
 
     func testStopEffectThroughEventCorrectId() {
-        audioManager.playEffect(.attack)
+        audioManager.playEffect(.paintGunAttack)
         XCTAssertTrue(audioManager.isPlayingEffect)
         let event = StopSoundEffectEvent(playerId: managerId)
         EventSystem.audioEvent.post(event: event)
@@ -131,7 +131,7 @@ class AudioManagerTests: XCTestCase {
     }
 
     func testStopEffectThroughEventIncorrectId() {
-        audioManager.playEffect(.attack)
+        audioManager.playEffect(.paintGunAttack)
         XCTAssertTrue(audioManager.isPlayingEffect)
         let event = StopSoundEffectEvent(playerId: differentId)
         EventSystem.audioEvent.post(event: event)
