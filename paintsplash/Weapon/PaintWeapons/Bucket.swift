@@ -8,6 +8,7 @@
 class Bucket: WeaponComponent {
     private let maxCoolDown = 100.0
     private var currentCoolDown = 0.0
+    private let shootDistance = 100.0
 
     private var ammoQueue = [PaintAmmo]()
 
@@ -51,9 +52,9 @@ class Bucket: WeaponComponent {
             return nil
         }
         let ammo = ammoQueue.removeFirst()
-        let spawnPosition = position + (direction.unitVector * 100)
+        let spawnPosition = position + (direction.unitVector * shootDistance)
 
-        return PaintProjectile(color: ammo.color, position: spawnPosition, radius: 75, direction: Vector2D.zero)
+        return PaintBucketSplash(color: ammo.color, position: spawnPosition, radius: 75, direction: Vector2D.zero)
     }
 
     override func canShoot() -> Bool {
@@ -70,5 +71,13 @@ class Bucket: WeaponComponent {
 
     override func getShootSFX() -> SoundEffect? {
         SoundEffect.paintBucketAttack
+    }
+
+    override func getAimGuide() -> AimGuide? {
+        guard let owner = owner,
+              let next = ammoQueue.first else {
+            return nil
+        }
+        return BucketAimGuide(owner: owner, color: next.color)
     }
 }

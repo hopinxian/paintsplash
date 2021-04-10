@@ -14,11 +14,13 @@ protocol PlayerSystem: System {
 class PaintSplashPlayerSystem: PlayerSystem {
     var players = [EntityID: PlayableCharacter]()
     var onMoveEvents = [PlayerMoveEvent]()
+    var onAimEvents = [PlayerAimEvent]()
     var onShootEvents = [PlayerShootEvent]()
     var onWeaponChangeEvents = [PlayerChangeWeaponEvent]()
 
     init() {
         EventSystem.processedInputEvents.playerMoveEvent.subscribe(listener: onMove)
+        EventSystem.processedInputEvents.playerAimEvent.subscribe(listener: onAim)
         EventSystem.processedInputEvents.playerShootEvent.subscribe(listener: onShoot)
         EventSystem.processedInputEvents.playerChangeWeaponEvent.subscribe(listener: onChangeWeapon)
     }
@@ -38,6 +40,9 @@ class PaintSplashPlayerSystem: PlayerSystem {
             for event in onMoveEvents {
                 player.playableComponent.onMove(event: event)
             }
+            for event in onAimEvents {
+                player.playableComponent.onAim(event: event)
+            }
             for event in onShootEvents {
                 player.playableComponent.onShoot(event: event)
             }
@@ -46,12 +51,17 @@ class PaintSplashPlayerSystem: PlayerSystem {
             }
         }
         onMoveEvents = []
+        onAimEvents = []
         onShootEvents = []
         onWeaponChangeEvents = []
     }
 
     func onMove(event: PlayerMoveEvent) {
         onMoveEvents.append(event)
+    }
+
+    func onAim(event: PlayerAimEvent) {
+        onAimEvents.append(event)
     }
 
     func onShoot(event: PlayerShootEvent) {

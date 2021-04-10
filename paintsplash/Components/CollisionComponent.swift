@@ -87,8 +87,13 @@ class EnemySpawnerCollisionComponent: CollisionComponent {
         if with.collisionComponent.tags.contains(.playerProjectile) {
             switch with {
             case let projectile as PaintProjectile:
-                // send event here
-                if projectile.color.contains(color: spawner.color) || projectile.color == PaintColor.white {
+                if projectile.color.contains(color: spawner.color) ||
+                    projectile.color == PaintColor.white {
+                    spawner.healthComponent.takeDamage(amount: 1)
+                }
+            case let splash as PaintBucketSplash:
+                if splash.color.contains(color: spawner.color) ||
+                    splash.color == PaintColor.white {
                     spawner.healthComponent.takeDamage(amount: 1)
                 }
             default:
@@ -123,7 +128,13 @@ class EnemyCollisionComponent: CollisionComponent {
 
         switch with {
         case let projectile as PaintProjectile:
-            if projectile.color.contains(color: enemy.color) || projectile.color == PaintColor.white {
+            if projectile.color.contains(color: enemy.color) ||
+                projectile.color == PaintColor.white {
+                enemy.healthComponent.takeDamage(amount: 1)
+            }
+        case let splash as PaintBucketSplash:
+            if splash.color.contains(color: enemy.color) ||
+                splash.color == PaintColor.white {
                 enemy.healthComponent.takeDamage(amount: 1)
             }
         default:
@@ -213,6 +224,36 @@ class PaintProjectileCollisionComponent: CollisionComponent {
 
         if destroy {
             projectile.destroy()
+        }
+    }
+}
+
+class PaintBucketSplashCollisionComponent: CollisionComponent {
+    weak var splash: PaintBucketSplash?
+
+    override func onCollide(with: Collidable) {
+        guard let splash = splash else {
+            return
+        }
+
+        var destroy = false
+        switch with {
+        case let enemy as Enemy:
+            if splash.color.contains(color: enemy.color) {
+                destroy = true
+            }
+        case let enemy as EnemySpawner:
+            if splash.color.contains(color: enemy.color) {
+                destroy = true
+            }
+        case _ as Canvas:
+            destroy = true
+        default:
+            destroy = false
+        }
+
+        if destroy {
+            splash.destroy()
         }
     }
 }

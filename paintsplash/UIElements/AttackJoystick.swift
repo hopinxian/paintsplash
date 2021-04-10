@@ -15,6 +15,9 @@ class AttackJoystick: Joystick {
 
         super.onTouchMoved(event: event)
         lastDisplacement = displacement
+
+        let event = PlayerAimEvent(direction: lastDisplacement, playerID: associatedEntity)
+        EventSystem.processedInputEvents.playerAimEvent.post(event: event)
     }
 
     override func onTouchUp(event: TouchUpEvent) {

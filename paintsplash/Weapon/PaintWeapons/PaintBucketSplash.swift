@@ -1,20 +1,18 @@
 //
-//  PaintProjectile.swift
+//  PaintBucketSplash.swift
 //  paintsplash
 //
-//  Created by Farrell Nah on 12/3/21.
+//  Created by Farrell Nah on 10/4/21.
 //
 import Foundation
 
-class PaintProjectile: GameEntity, Projectile, Renderable, Colorable, Transformable, Movable {
+class PaintBucketSplash: GameEntity, Projectile, Renderable, Colorable, Transformable, Animatable {
     var transformComponent: TransformComponent
-    var moveableComponent: MoveableComponent
     var collisionComponent: CollisionComponent
     var renderComponent: RenderComponent
+    var animationComponent: AnimationComponent
 
     var color: PaintColor
-
-    private let moveSpeed = Constants.PROJECTILE_MOVE_SPEED
 
     init(color: PaintColor, position: Vector2D, radius: Double, direction: Vector2D) {
         self.transformComponent = TransformComponent(
@@ -23,9 +21,7 @@ class PaintProjectile: GameEntity, Projectile, Renderable, Colorable, Transforma
             size: Vector2D(radius * 2, radius * 2)
         )
 
-        self.moveableComponent = MoveableComponent(direction: direction, speed: moveSpeed)
-
-        let collisionComp = PaintProjectileCollisionComponent(
+        let collisionComp = PaintBucketSplashCollisionComponent(
             colliderShape: .circle(radius: radius),
             tags: [.playerProjectile]
         )
@@ -38,10 +34,18 @@ class PaintProjectile: GameEntity, Projectile, Renderable, Colorable, Transforma
 
         self.color = color
 
+        self.animationComponent = AnimationComponent()
+
         super.init()
 
         // Assign weak references to components
-        collisionComp.projectile = self
+        collisionComp.splash = self
+
+        animationComponent.animate(
+            animation: "splashFade",
+            interupt: true,
+            callBack: { [weak self] in self?.destroy() }
+        )
     }
 
     override func update(_ deltaTime: Double) {
