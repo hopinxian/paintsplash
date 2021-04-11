@@ -50,7 +50,11 @@ class SKNodeFactory {
     }
 
     private static func buildLabelNode(text: String) -> SKLabelNode {
-        SKLabelNode(text: text)
+        let node = SKLabelNode(text: text)
+        // TODO: dynamic font configuration
+        node.fontName = "ChalkboardSE-Bold"
+        node.fontSize = 20
+        return node
     }
 
     private static func colorize(_ renderableEntity: Renderable) -> (color: UIColor, blendFactor: CGFloat)? {

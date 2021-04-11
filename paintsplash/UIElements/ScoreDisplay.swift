@@ -1,18 +1,19 @@
 //
-//  CanvasEndMarker.swift
+//  ScoreDisplay.swift
 //  paintsplash
 //
-//  Created by Cynthia Lee on 20/3/21.
+//  Created by Cynthia Lee on 12/4/21.
 //
-class CanvasEndMarker: GameEntity, Renderable {
+
+class ScoreDisplay: UIEntity, Renderable {
     var renderComponent: RenderComponent
     var transformComponent: TransformComponent
+
     init(size: Vector2D, position: Vector2D) {
-        // TODO: set zPostion to be higher than both canvas and its subviews
-        let renderType = RenderType.sprite(spriteName: Constants.CANVAS_END_MARKER_SPRITE)
+        let renderType = RenderType.sprite(spriteName: Constants.SCORE_DISPLAY_SPRITE)
         self.renderComponent = RenderComponent(
             renderType: renderType,
-            zPosition: 200
+            zPosition: Constants.ZPOSITION_UI_ELEMENT
         )
         self.transformComponent = TransformComponent(
             position: position,

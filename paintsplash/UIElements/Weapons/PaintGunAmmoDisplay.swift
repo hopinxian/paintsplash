@@ -25,7 +25,8 @@ class PaintGunAmmoDisplay: UIEntity, Transformable {
         let displayView = VerticalStack<PaintAmmoDisplay>(
             position: transformComponent.localPosition,
             size: transformComponent.size,
-            backgroundSprite: "BrushAmmoDisplay"
+            backgroundSprite: Constants.PAINT_GUN_AMMO_DISPLAY_SPRITE,
+            bottomPadding: 30
         )
 
         self.ammoDisplayView = displayView

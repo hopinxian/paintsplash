@@ -135,7 +135,7 @@ class MultiplayerClient: SinglePlayerGameManager {
     }
 
     override func setUpEntities() {
-        
+
     }
 
     func setUpInputListeners() {

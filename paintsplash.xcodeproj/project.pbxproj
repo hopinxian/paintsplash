@@ -291,6 +291,8 @@
 		DC94351726019EA1001046BB /* CanvasRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC94351626019EA1001046BB /* CanvasRequest.swift */; };
 		DC9BAACB26010EFE0011B26E /* SpawnCanvasBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9BAACA26010EFE0011B26E /* SpawnCanvasBehaviour.swift */; };
 		DC9D4A4825F92E2C000F07FF /* Enemy.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9D4A4725F92E2C000F07FF /* Enemy.swift */; };
+		DCA3098026235C7C00E06EFA /* ScoreDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCA3097F26235C7C00E06EFA /* ScoreDisplay.swift */; };
+		DCA30984262363EF00E06EFA /* LightDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCA30983262363EF00E06EFA /* LightDisplay.swift */; };
 		DCA9714B261F72D600631305 /* SHKColorize.fsh in Resources */ = {isa = PBXBuildFile; fileRef = DCA9714A261F72D600631305 /* SHKColorize.fsh */; };
 		DCA9714F261F740E00631305 /* ShaderKitExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCA9714E261F740E00631305 /* ShaderKitExtensions.swift */; };
 		DCB72DBA25FE18B100B183E0 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCB72DB925FE18B100B183E0 /* State.swift */; };
@@ -619,6 +621,8 @@
 		DC94351626019EA1001046BB /* CanvasRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasRequest.swift; sourceTree = "<group>"; };
 		DC9BAACA26010EFE0011B26E /* SpawnCanvasBehaviour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpawnCanvasBehaviour.swift; sourceTree = "<group>"; };
 		DC9D4A4725F92E2C000F07FF /* Enemy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enemy.swift; sourceTree = "<group>"; };
+		DCA3097F26235C7C00E06EFA /* ScoreDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreDisplay.swift; sourceTree = "<group>"; };
+		DCA30983262363EF00E06EFA /* LightDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightDisplay.swift; sourceTree = "<group>"; };
 		DCA9714A261F72D600631305 /* SHKColorize.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = SHKColorize.fsh; sourceTree = "<group>"; };
 		DCA9714E261F740E00631305 /* ShaderKitExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShaderKitExtensions.swift; sourceTree = "<group>"; };
 		DCB72DB925FE18B100B183E0 /* State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
@@ -1081,6 +1085,8 @@
 				D570452D261830DA004AF802 /* MovementJoystick.swift */,
 				AC0A18662605304100A1338C /* UIBar.swift */,
 				D567333E261EE11700FD1D15 /* GameOverUI.swift */,
+				DCA3097F26235C7C00E06EFA /* ScoreDisplay.swift */,
+				DCA30983262363EF00E06EFA /* LightDisplay.swift */,
 			);
 			path = UIElements;
 			sourceTree = "<group>";
@@ -1791,6 +1797,7 @@
 				AC0A184D26052AF800A1338C /* Constants.swift in Sources */,
 				D5B65C9D2618B55100C132FE /* UserInputReceiverComponent.swift in Sources */,
 				AC097E082601FFE4000951B0 /* ProcessedInputEvent.swift in Sources */,
+				DCA3098026235C7C00E06EFA /* ScoreDisplay.swift in Sources */,
 				D536472026146C8200C2BCBB /* RawAnimation.swift in Sources */,
 				D53F5444260D94EB00635B05 /* SKRenderSystem.swift in Sources */,
 				D5500C022608E38800E21BF1 /* RenderComponent.swift in Sources */,
@@ -1927,6 +1934,7 @@
 				D53F546C260D960100635B05 /* PlayerState+Idle.swift in Sources */,
 				D5C56932260CD7D2009E5BD9 /* PlayerState.swift in Sources */,
 				D50FD6C3261204F800491CAC /* SinglePlayerGameManager.swift in Sources */,
+				DCA30984262363EF00E06EFA /* LightDisplay.swift in Sources */,
 				DC0C02D42603B84400656E49 /* CanvasEvent.swift in Sources */,
 				D5D9201425FB9ACB00E70364 /* PaintAmmoDrop.swift in Sources */,
 				D570452A26182ED5004AF802 /* UIEntity.swift in Sources */,

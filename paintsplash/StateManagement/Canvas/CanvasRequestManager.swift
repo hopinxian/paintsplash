@@ -24,8 +24,9 @@ class CanvasRequestManager: GameEntity, Transformable {
         let displayView = HorizontalStack<CanvasRequest>(
             position: transformComponent.localPosition,
             size: transformComponent.size,
-            backgroundSprite: "CanvasRequestManager",
-            leftPadding: 120
+            backgroundSprite: Constants.CANVAS_REQUEST_MANAGER_SPRITE,
+            leftPadding: 120,
+            bottomPadding: -20
         )
 
         displayView.zPosition = Constants.ZPOSITION_UI_ELEMENT
