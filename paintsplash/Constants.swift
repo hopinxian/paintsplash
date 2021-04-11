@@ -53,18 +53,18 @@ struct Constants {
     static let BOTTOM_BAR_POSITION = Vector2D(0, -600)
     static let BOTTOM_BAR_SIZE = Vector2D(2_000, 400)
 
-    static let PAINT_GUN_AMMO_DISPLAY_POSITION = Vector2D(600, -600)
-    static let PAINT_GUN_AMMO_DISPLAY_SIZE = Vector2D(60, 200)
+    static let PAINT_GUN_AMMO_DISPLAY_POSITION = Vector2D(600, -575)
+    static let PAINT_GUN_AMMO_DISPLAY_SIZE = Vector2D(100, 275)
 
-    static let PAINT_BUCKET_AMMO_DISPLAY_POSITION = Vector2D(500, -600)
-    static let PAINT_BUCKET_AMMO_DISPLAY_SIZE = Vector2D(60, 200)
+    static let PAINT_BUCKET_AMMO_DISPLAY_POSITION = Vector2D(500, -575)
+    static let PAINT_BUCKET_AMMO_DISPLAY_SIZE = Vector2D(100, 275)
 
     static let PAINT_AMMO_DISPLAY_SIZE = Vector2D(50, 25)
 
-    static let HEALTH_DISPLAY_POSITION = Vector2D(275, -610)
-    static let HEALTH_DISPLAY_SIZE = Vector2D(300, 85)
+    static let HEALTH_DISPLAY_POSITION = Vector2D(275, -630)
+    static let HEALTH_DISPLAY_SIZE = Vector2D(275, 85)
 
-    static let HEART_DISPLAY_SIZE = Vector2D(75, 75)
+    static let HEART_DISPLAY_SIZE = Vector2D(65, 65)
 
     static let MODEL_WORLD_SIZE = Vector2D(2_000, 1_500)
 
@@ -73,11 +73,14 @@ struct Constants {
 
     static let CANVAS_SPAWNER_POSITION = Vector2D(-1_100, 620)
     static let CANVAS_SPAWNER_SIZE = Vector2D(200, 200)
-
+    
     static let AMMO_DROP_SIZE = Vector2D(75, 75)
 
     static let ENEMY_SIZE = Vector2D(100, 100)
-    static let ENEMY_SPAWNER_SIZE = Vector2D(100, 100)
+    static let ENEMY_SPAWNER_SIZE = Vector2D(200, 200)
+
+    static let CANVAS_REQUEST_MANAGER_POSITION = Vector2D(-300, -600)
+    static let CANVAS_REQUEST_MANAGER_SIZE = Vector2D(700, 200)
 
     static let CANVAS_REQUEST_SIZE = Vector2D(150, 150)
 

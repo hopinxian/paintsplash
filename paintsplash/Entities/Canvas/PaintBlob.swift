@@ -39,9 +39,12 @@ class PaintBlob: GameEntity, Renderable, Transformable, Colorable {
         let posY = Double.random(in: -(maxYPos)..<(maxYPos))
         let blobPos = Vector2D(posX, posY)
 
+        // TODO: rotation?
+        let rotation = Double.random(in: 0..<(Double.pi))
+
         self.transformComponent = TransformComponent(
             position: blobPos,
-            rotation: 0,
+            rotation: rotation,
             size: blobSize
         )
         self.transformComponent.addParent(canvas)

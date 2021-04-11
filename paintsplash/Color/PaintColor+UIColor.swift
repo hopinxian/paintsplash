@@ -11,31 +11,39 @@ extension PaintColor {
     var uiColor: UIColor {
         switch self {
         case .red:
-            return UIColor.red.darker()
+            return UIColor(rgbColorCodeRed: 255, green: 51, blue: 51, alpha: 1.0)
         case .blue:
-            return UIColor.blue.darker()
+            return UIColor(rgbColorCodeRed: 51, green: 133, blue: 255, alpha: 1.0)
         case .purple:
-            return UIColor.purple.darker()
+            return UIColor(rgbColorCodeRed: 136, green: 77, blue: 255, alpha: 1.0)
         case .green:
-            return UIColor.green.darker()
+            // 92, 214, 92
+            return UIColor(rgbColorCodeRed: 92, green: 214, blue: 92, alpha: 1.0)
         case .orange:
-            return UIColor.orange.darker()
+            // (255, 148, 77)
+            return UIColor(rgbColorCodeRed: 255, green: 148, blue: 77, alpha: 1.0)
         case .yellow:
-            return UIColor.yellow.darker()
+            // 255, 255, 128
+            return UIColor(rgbColorCodeRed: 255, green: 255, blue: 102, alpha: 1.0)
         case .white:
             return UIColor.white
         case .lightred:
-            return UIColor.red.lighter()
+            // 255, 128, 128
+            return UIColor(rgbColorCodeRed: 255, green: 128, blue: 128, alpha: 1.0)
         case .lightblue:
-            return UIColor.blue.lighter()
+            // 153, 194, 255
+            return UIColor(rgbColorCodeRed: 153, green: 194, blue: 255, alpha: 1.0)
         case .lightpurple:
-            return UIColor.purple.lighter()
+            // 204, 179, 255
+            return UIColor(rgbColorCodeRed: 204, green: 179, blue: 255, alpha: 1.0)
         case .lightgreen:
-            return UIColor.green.lighter()
+            // 187, 255, 153
+            return UIColor(rgbColorCodeRed: 187, green: 255, blue: 153, alpha: 1.0)
         case .lightorange:
-            return UIColor.orange.lighter()
+            // rgb(255, 191, 128)
+            return UIColor(rgbColorCodeRed: 255, green: 191, blue: 128, alpha: 1.0)
         case .lightyellow:
-            return UIColor.yellow.lighter()
+            return UIColor(rgbColorCodeRed: 255, green: 255, blue: 179, alpha: 1.0)
         }
     }
 }
@@ -63,4 +71,13 @@ extension UIColor {
     func darker(by value: CGFloat = 0.3) -> UIColor {
         adjustColor(-value)
     }
+
+    convenience init(rgbColorCodeRed red: Int, green: Int, blue: Int, alpha: CGFloat) {
+         let redPart: CGFloat = CGFloat(red) / 255
+         let greenPart: CGFloat = CGFloat(green) / 255
+         let bluePart: CGFloat = CGFloat(blue) / 255
+
+         self.init(red: redPart, green: greenPart, blue: bluePart, alpha: alpha)
+    }
+    
 }

@@ -37,9 +37,9 @@ void main( void ) {
 
     // if it's not transparent and if the colour values are close enough to white
     if (current_color.a > 0.0
-            && current_color.r > 0.85
-            && current_color.g > 0.85
-            && current_color.b > 0.85) {
+            && current_color.r > 0.80
+            && current_color.g > 0.80
+            && current_color.b > 0.80) {
         // these values correspond to how important each color is to the overall brightness
         vec3 gray_values = vec3(0.2125, 0.7154, 0.0721);
 
