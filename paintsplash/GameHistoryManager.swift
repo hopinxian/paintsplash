@@ -26,7 +26,7 @@ class GameHistoryManager {
             return
         }
         inputMapping[input] = inputId
-        print("Updated Input: \(type(of: input)) \(inputId.id)")
+        // print("Updated Input: \(type(of: input)) \(inputId.id)")
     }
 
     func addHistory(_ input: InputId, _ time: Double) {
@@ -34,7 +34,7 @@ class GameHistoryManager {
             return
         }
         history[input] = time
-        print("Updated history: \(input.id) \(time)")
+        // print("Updated history: \(input.id) \(time)")
     }
 }
 
@@ -52,8 +52,8 @@ class RePrediction {
 
         // now i need to rollback
         let lastProcessedInputId = state.data.lastProcessedInput
-        print("Last processed: \(lastProcessedInputId.id)")
-        print("Process up to: \(InputId.counter - 1)")
+        // print("Last processed: \(lastProcessedInputId.id)")
+        // print("Process up to: \(InputId.counter - 1)")
 
         assert(lastProcessedInputId.id <= InputId.counter)
 
@@ -69,7 +69,7 @@ class RePrediction {
         }
 
         inputsToApply.sort()
-        print("\(inputsToApply.compactMap { $0.inputId?.id })")
+        // print("\(inputsToApply.compactMap { $0.inputId?.id })")
         // get sequence of update loop times and the corresponding update events that were last processed then
         historyManager.history = historyManager.history.filter {
             $0.key > lastProcessedInputId
@@ -98,16 +98,20 @@ class RePrediction {
                 }
             }
 
-            print("Process update loop of time: \(deltaTime)")
+            // print("Process update loop of time: \(deltaTime)")
             // do update
 //          mgr.transformSystem?.updateEntities(deltaTime)
 //          mgr.aiSystem?.updateEntities(deltaTime)
-            mgr.playerSystem?.updateEntities(deltaTime)
-            mgr.renderSystem?.updateEntities(deltaTime)
 //            animationSystem?.updateEntities(deltaTime)
 //            collisionSystem?.updateEntities(deltaTime)
-            mgr.movementSystem?.updateEntities(deltaTime)
+            if let system = mgr.movementSystem as? FrameMovementSystem {
+                system.updateEntity(mgr.player, mgr.player, deltaTime)
+            } else {
+                fatalError("sth")
+            }
+            mgr.playerSystem?.updateEntities(deltaTime)
         }
-        print("One resolution is done")
+        mgr.renderSystem?.updateEntity(mgr.player.id, mgr.player)
+        // print("One resolution is done")
     }
 }

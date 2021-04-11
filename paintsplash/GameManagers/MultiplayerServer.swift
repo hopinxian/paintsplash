@@ -172,9 +172,10 @@ class MultiplayerServer: SinglePlayerGameManager {
             gameId: gameId,
             playerId: playerID.id,
             onChange: { (event: PlayerShootEvent) in
-                EventSystem.processedInputEvents.playerShootEvent.post(event: event)
                 if let inputId = event.inputId,
                    inputId > self.lastProcessedInput {
+                    print("\(inputId.id)")
+                    EventSystem.processedInputEvents.playerShootEvent.post(event: event)
                     self.lastProcessedInput = inputId
                 }
             },
@@ -186,9 +187,10 @@ class MultiplayerServer: SinglePlayerGameManager {
             gameId: gameId,
             playerId: playerID.id,
             onChange: { (event: PlayerMoveEvent) in
-                EventSystem.processedInputEvents.playerMoveEvent.post(event: event)
                 if let inputId = event.inputId,
                    inputId > self.lastProcessedInput {
+                    print("\(inputId.id)")
+                    EventSystem.processedInputEvents.playerMoveEvent.post(event: event)
                     self.lastProcessedInput = inputId
                 }
             },
@@ -200,8 +202,9 @@ class MultiplayerServer: SinglePlayerGameManager {
             gameId: gameId,
             playerId: playerID.id,
             onChange: { (event: PlayerChangeWeaponEvent) in
-                EventSystem.processedInputEvents.playerChangeWeaponEvent.post(event: event)
                 if let inputId = event.inputId, inputId > self.lastProcessedInput {
+                    print("\(inputId.id)")
+                    EventSystem.processedInputEvents.playerChangeWeaponEvent.post(event: event)
                     self.lastProcessedInput = inputId
                 }
             },

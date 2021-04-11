@@ -68,6 +68,26 @@ class PlayerMoveEvent: ProcessedInputEvent, Codable {
         self.playerId = playerID
         super.init(counter: inputId)
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case playerId, direction, inputId
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(inputId, forKey: .inputId)
+        try container.encode(playerId, forKey: .playerId)
+        try container.encode(direction, forKey: .direction)
+    }
+
+    required init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        playerId = try values.decode(EntityID.self, forKey: .playerId)
+        direction = try values.decode(Vector2D.self, forKey: .direction)
+        let inputId = try values.decode(InputId.self, forKey: .inputId)
+
+        super.init(counter: inputId)
+    }
 }
 
 class PlayerShootEvent: ProcessedInputEvent, Codable {
@@ -83,6 +103,26 @@ class PlayerShootEvent: ProcessedInputEvent, Codable {
     init(direction: Vector2D, playerID: EntityID, inputId: InputId) {
         self.direction = direction
         self.playerId = playerID
+        super.init(counter: inputId)
+    }
+    
+    enum CodingKeys: String, CodingKey {
+        case playerId, direction, inputId
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(inputId, forKey: .inputId)
+        try container.encode(playerId, forKey: .playerId)
+        try container.encode(direction, forKey: .direction)
+    }
+
+    required init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        playerId = try values.decode(EntityID.self, forKey: .playerId)
+        direction = try values.decode(Vector2D.self, forKey: .direction)
+        let inputId = try values.decode(InputId.self, forKey: .inputId)
+
         super.init(counter: inputId)
     }
 }

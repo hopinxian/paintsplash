@@ -51,6 +51,10 @@ class GameResolver {
     }
 
     static func updateNetworkedRenderable(_ data: SystemData, _ entity: EntityID, _ manager: MultiplayerClient) {
+//        if manager.player.id == entity {
+//            return
+//        }
+        
         if let renderable = data.renderSystemData?.renderables[entity] {
             let renderComponent = renderable.renderComponent
             let transformComponent = renderable.transformComponent
@@ -62,6 +66,10 @@ class GameResolver {
     }
 
     static func updateNetworkedAnimatable(_ data: SystemData, _ entity: EntityID, _ manager: MultiplayerClient) {
+//        if manager.player.id == entity {
+//            return
+//        }
+        
         if let animatable = data.animationSystemData?.animatables[entity] {
             let animationComponent = animatable.animationComponent
             animationComponent.wasModified = true

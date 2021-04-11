@@ -16,7 +16,9 @@ class MultiplayerClient: SinglePlayerGameManager {
 
     var playerInfo: PlayerInfo
     var gameHistoryManager = GameHistoryManager()
-
+    var isResolving = false
+    var isUpdating = false
+    
     init(gameScene: GameScene, playerInfo: PlayerInfo, roomInfo: RoomInfo) {
         self.playerInfo = playerInfo
         self.room = roomInfo
@@ -190,17 +192,35 @@ class MultiplayerClient: SinglePlayerGameManager {
         guard let data = data else {
             return
         }
+        isResolving = true
+        if isUpdating {
+            fatalError("attempted to resolve while updating")
+        }
+        print("is resolving")
+        let startPos = player.transformComponent.worldPosition
         // resets to oldstate via override
         GameResolver.resolve(manager: self, with: data)
 
         // process the prediction again from the previous authority state from server
         let gameState = GameState(data)
         RePrediction.resolve(gameState, self)
+        isResolving = false
+        let endPos = player.transformComponent.worldPosition
+        print("          diff: \(startPos.x - endPos.x), \(startPos.y - endPos.y)")
+        print("          expected Diff from: \(InputId.counter - data.lastProcessedInput.id)")
+        print("done resolving")
     }
 
     override func update(_ deltaTime: Double) {
         let inputId = InputId(InputId.counter - 1)
+        isUpdating = true
+        if isResolving {
+            fatalError("attempted to update while resolving")
+        }
+        print("is updating")
         super.update(deltaTime)
+        print("done updating")
+        isUpdating = false
         gameHistoryManager.addHistory(inputId, deltaTime)
     }
 }
