@@ -15,6 +15,7 @@ class MultiplayerClient: SinglePlayerGameManager {
         PaintSplashGameHandler(connectionHandler: FirebaseConnectionHandler())
 
     var playerInfo: PlayerInfo
+    var gameHistoryManager = GameHistoryManager()
 
     init(gameScene: GameScene, playerInfo: PlayerInfo, roomInfo: RoomInfo) {
         self.playerInfo = playerInfo
@@ -150,6 +151,8 @@ class MultiplayerClient: SinglePlayerGameManager {
     }
 
     private func sendPlayerMoveEvent(_ event: PlayerMoveEvent, gameId: String) {
+        event.inputId = InputId()
+        gameHistoryManager.addInput(event)
         self.gameConnectionHandler.sendEvent(
             gameId: gameId,
             playerId: event.playerId.id,
@@ -160,6 +163,8 @@ class MultiplayerClient: SinglePlayerGameManager {
     }
 
     private func sendPlayerShootEvent(_ event: PlayerShootEvent, gameId: String) {
+        event.inputId = InputId()
+        gameHistoryManager.addInput(event)
         self.gameConnectionHandler.sendEvent(
             gameId: gameId,
             playerId: event.playerId.id,
@@ -170,6 +175,8 @@ class MultiplayerClient: SinglePlayerGameManager {
     }
 
     private func sendPlayerWeaponChangeEvent(_ event: PlayerChangeWeaponEvent, gameId: String) {
+        event.inputId = InputId()
+        gameHistoryManager.addInput(event)
         self.gameConnectionHandler.sendEvent(
             gameId: gameId,
             playerId: event.playerId.id,
@@ -183,6 +190,17 @@ class MultiplayerClient: SinglePlayerGameManager {
         guard let data = data else {
             return
         }
+        // resets to oldstate via override
         GameResolver.resolve(manager: self, with: data)
+
+        // process the prediction again from the previous authority state from server
+        let gameState = GameState(data)
+        RePrediction.resolve(gameState, self)
+    }
+
+    override func update(_ deltaTime: Double) {
+        let inputId = InputId(InputId.counter - 1)
+        super.update(deltaTime)
+        gameHistoryManager.addHistory(inputId, deltaTime)
     }
 }

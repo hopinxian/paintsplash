@@ -15,6 +15,8 @@ class MultiplayerServer: SinglePlayerGameManager {
 
     private var collisionDetector: SKCollisionDetector!
 
+    var lastProcessedInput = InputId(0)
+
     init(roomInfo: RoomInfo, gameScene: GameScene) {
         self.room = roomInfo
         let connectionHandler = FirebaseConnectionHandler()
@@ -171,6 +173,10 @@ class MultiplayerServer: SinglePlayerGameManager {
             playerId: playerID.id,
             onChange: { (event: PlayerShootEvent) in
                 EventSystem.processedInputEvents.playerShootEvent.post(event: event)
+                if let inputId = event.inputId,
+                   inputId > self.lastProcessedInput {
+                    self.lastProcessedInput = inputId
+                }
             },
             onError: nil
         )
@@ -181,6 +187,10 @@ class MultiplayerServer: SinglePlayerGameManager {
             playerId: playerID.id,
             onChange: { (event: PlayerMoveEvent) in
                 EventSystem.processedInputEvents.playerMoveEvent.post(event: event)
+                if let inputId = event.inputId,
+                   inputId > self.lastProcessedInput {
+                    self.lastProcessedInput = inputId
+                }
             },
             onError: nil
         )
@@ -191,6 +201,9 @@ class MultiplayerServer: SinglePlayerGameManager {
             playerId: playerID.id,
             onChange: { (event: PlayerChangeWeaponEvent) in
                 EventSystem.processedInputEvents.playerChangeWeaponEvent.post(event: event)
+                if let inputId = event.inputId, inputId > self.lastProcessedInput {
+                    self.lastProcessedInput = inputId
+                }
             },
             onError: nil
         )
@@ -221,7 +234,7 @@ class MultiplayerServer: SinglePlayerGameManager {
         let colorSystemData = ColorSystemData(from: colorables)
 
         let systemData = SystemData(
-            date: Date(),
+            lastProcessedInput: lastProcessedInput,
             entityData: entityData,
             renderSystemData: renderSystemData,
             animationSystemData: animationSystemData,

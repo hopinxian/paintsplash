@@ -8,7 +8,7 @@
 import Foundation
 
 struct SystemData: Codable {
-    let date: Date
+    let lastProcessedInput: InputId
     let entityData: EntityData
     let renderSystemData: RenderSystemData?
     let animationSystemData: AnimationSystemData?
