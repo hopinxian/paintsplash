@@ -34,14 +34,14 @@ class PlayerCollisionComponent: CollisionComponent {
 
     private func onCollideWithAmmoDrop(with: Collidable) {
         switch with {
-        case let ammoDrop as PaintAmmoDrop:
+        case let ammoDrop as AmmoDrop:
             loadAmmoDrop(ammoDrop)
         default:
             fatalError("Ammo Drop not conforming to AmmoDrop protocol")
         }
     }
 
-    private func loadAmmoDrop(_ drop: PaintAmmoDrop) {
+    private func loadAmmoDrop(_ drop: AmmoDrop) {
         guard let player = player else {
             return
         }
