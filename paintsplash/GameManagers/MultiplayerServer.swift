@@ -305,8 +305,9 @@ class MultiplayerServer: SinglePlayerGameManager {
         }
 
         let clientDate = clientData.date
+        historyManager.stateHistory = historyManager.stateHistory.filter { $0.key > clientDate
+        }
         let pastStates = historyManager.stateHistory
-            .filter { $0.key > clientDate }
             .map { ($0.key, $0.value) }
             .sorted(by: { $0.0 < $1.0 })
             .map { $0.1 }
@@ -316,25 +317,27 @@ class MultiplayerServer: SinglePlayerGameManager {
         }
         // reset to old state
         GameResolver.resolve(manager: self, with: pastStates[0].startGameState)
-        EntityID.nextID = pastStates[0].entityIdCount
-        EntityID.existingIDs = pastStates[0].entityIdMapping
         // apply the client data
         applyClientData(clientData)
         // run the update loops
         playerSystem.onMoveEvents = []
         playerSystem.onShootEvents = []
         playerSystem.onWeaponChangeEvents = []
+        let clientId = clientData.entityData.entities[0]
+        guard let client = entities.first(where: { $0.id.id == clientId.id }) as? Player else {
+            fatalError("should be able to find client player")
+        }
         for state in pastStates {
             let deltaTime = state.updateDeltaTime
             for event in state.inputEvents {
                 EventSystem.processedInputEvents.post(event: event)
             }
-            aiSystem.updateEntities(deltaTime)
-            movementSystem.updateEntities(deltaTime)
-            playerSystem.updateEntities(deltaTime)
-            transformSystem.updateEntities(deltaTime)
-            addedEntities = [:]
-            removedEntities = [:]
+            if let system = movementSystem as? FrameMovementSystem {
+                system.updateEntity(client, client, deltaTime)
+            } else {
+                fatalError("sth")
+            }
+            playerSystem?.updateEntities(deltaTime)
         }
         renderSystem.updateEntities(0)
     }
