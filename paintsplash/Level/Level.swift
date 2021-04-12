@@ -12,7 +12,7 @@ class Level {
     private(set) var spawnEvents: [SpawnCommand] = []
 
     var rng = RandomNumber(100)
-    
+
     var repeatLimit: Int?
     var bufferBetweenLoop = 5.0 // in seconds
     private var gameInfo: GameInfo

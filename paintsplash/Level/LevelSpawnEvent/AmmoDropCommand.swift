@@ -35,7 +35,7 @@ class AmmoDropCommand: SpawnCommand {
                 colors.append(key)
             }
         }
-        
+
         let length = colors.count
         if length != 0 {
             let randomColor = colors[SpawnCommand.rng.nextInt(0..<length)]

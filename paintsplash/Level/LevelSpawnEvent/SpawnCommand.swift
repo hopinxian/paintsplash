@@ -7,7 +7,7 @@
 
 class SpawnCommand: Comparable, Identifiable {
     static let rng = RandomNumber(200)
-    
+
     static func == (lhs: SpawnCommand, rhs: SpawnCommand) -> Bool {
         lhs.time == rhs.time &&
             lhs.id == rhs.id

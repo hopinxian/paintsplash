@@ -30,13 +30,13 @@ class MultiplayerClient: SinglePlayerGameManager {
     }
 
     override func setUpPlayer() {
+        setUpGuestPlayer(player: room.host)
+
         player = Player(
             initialPosition: Vector2D.zero + Vector2D.left * 50,
             playerUUID: EntityID(id: playerInfo.playerUUID)
         )
         player.spawn()
-
-        setUpGuestPlayer(player: room.host)
 
         // set up other players
         room.players?.forEach { _, player in
