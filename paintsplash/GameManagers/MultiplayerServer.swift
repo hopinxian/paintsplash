@@ -17,6 +17,8 @@ class MultiplayerServer: SinglePlayerGameManager {
 
     var lastProcessedInput = InputId(0)
 
+    var historyManager = GameHistoryManager()
+
     init(roomInfo: RoomInfo, gameScene: GameScene) {
         self.room = roomInfo
         let connectionHandler = FirebaseConnectionHandler()
@@ -210,9 +212,16 @@ class MultiplayerServer: SinglePlayerGameManager {
             },
             onError: nil
         )
+
+        let path = DataPaths.joinPaths(
+            DataPaths.games, gameId,
+            DataPaths.game_players, playerID.id,
+            "clientPlayer")
+
+        self.connectionHandler.listen(to: path, callBack: readClientPlayerData)
     }
 
-    func sendGameState() {
+    func prepareGameState() -> SystemData {
         let uiEntityIDs = Set(uiEntities.map({ $0.id }))
         let entityData = EntityData(from: entities.filter({ !uiEntityIDs.contains($0.id) }))
 
@@ -237,13 +246,26 @@ class MultiplayerServer: SinglePlayerGameManager {
         let colorSystemData = ColorSystemData(from: colorables)
 
         let systemData = SystemData(
+            date: Date(),
             lastProcessedInput: lastProcessedInput,
             entityData: entityData,
             renderSystemData: renderSystemData,
             animationSystemData: animationSystemData,
             colorSystemData: colorSystemData
         )
-        gameConnectionHandler?.sendSystemData(data: systemData, gameID: room.gameID)
+        return systemData
+    }
+
+    func prepareGameHistory(_ deltaTime: Double, _ data: SystemData) {
+        let date = Date()
+        let inputEvents = playerSystem.onMoveEvents + playerSystem.onShootEvents + playerSystem.onWeaponChangeEvents
+        let updateLoopInfo = UpdateLoopInfo(
+            inputEvents: inputEvents,
+            updateDeltaTime: deltaTime,
+            startGameState: data,
+            entityIdCount: EntityID.nextID,
+            entityIdMapping: EntityID.existingIDs)
+        historyManager.stateHistory[date] = updateLoopInfo
     }
 
     override func update(_ deltaTime: Double) {
@@ -252,9 +274,12 @@ class MultiplayerServer: SinglePlayerGameManager {
         collisionSystem.updateEntities(deltaTime)
         movementSystem.updateEntities(deltaTime)
         entities.forEach({ $0.update(deltaTime) })
-        playerSystem.updateEntities(deltaTime)
 
-        sendGameState()
+        let systemData = prepareGameState()
+        prepareGameHistory(deltaTime, systemData)
+        gameConnectionHandler?.sendSystemData(data: systemData, gameID: room.gameID)
+
+        playerSystem.updateEntities(deltaTime)
 
         transformSystem.updateEntities(deltaTime)
         renderSystem.updateEntities(deltaTime)
@@ -272,5 +297,54 @@ class MultiplayerServer: SinglePlayerGameManager {
     override func removeObject(_ object: GameEntity) {
         super.removeObject(object)
         removedEntities[object.id] = object
+    }
+
+    func readClientPlayerData(data: SystemData?) {
+        guard let clientData = data else {
+            return
+        }
+
+        let clientDate = clientData.date
+        let pastStates = historyManager.stateHistory
+            .filter { $0.key > clientDate }
+            .map { ($0.key, $0.value) }
+            .sorted(by: { $0.0 < $1.0 })
+            .map { $0.1 }
+        guard !pastStates.isEmpty else {
+            applyClientData(clientData)
+            return
+        }
+        // reset to old state
+        GameResolver.resolve(manager: self, with: pastStates[0].startGameState)
+        EntityID.nextID = pastStates[0].entityIdCount
+        EntityID.existingIDs = pastStates[0].entityIdMapping
+        // apply the client data
+        applyClientData(clientData)
+        // run the update loops
+        playerSystem.onMoveEvents = []
+        playerSystem.onShootEvents = []
+        playerSystem.onWeaponChangeEvents = []
+        for state in pastStates {
+            let deltaTime = state.updateDeltaTime
+            for event in state.inputEvents {
+                EventSystem.processedInputEvents.post(event: event)
+            }
+            aiSystem.updateEntities(deltaTime)
+            movementSystem.updateEntities(deltaTime)
+            playerSystem.updateEntities(deltaTime)
+            transformSystem.updateEntities(deltaTime)
+            addedEntities = [:]
+            removedEntities = [:]
+        }
+        renderSystem.updateEntities(0)
+    }
+
+    func applyClientData(_ data: SystemData) {
+        // apply client data
+        let clientId = data.entityData.entities[0]
+        if let client = entities.first(where: { $0.id.id == clientId.id }) as? Player,
+           let renderComponent = data.renderSystemData?.renderables[clientId] {
+            client.transformComponent = renderComponent.transformComponent
+        }
     }
 }

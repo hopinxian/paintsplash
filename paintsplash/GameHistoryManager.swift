@@ -17,9 +17,18 @@ extension ProcessedInputEvent: Hashable {
     }
 }
 
+struct UpdateLoopInfo {
+    var inputEvents: [ProcessedInputEvent]
+    var updateDeltaTime: Double
+    var startGameState: SystemData
+    var entityIdCount: Int
+    var entityIdMapping: [String: EntityID]
+}
+
 class GameHistoryManager {
     var history = [InputId: Double]()
     var inputMapping = BidirectionalMap<InputId, ProcessedInputEvent>()
+    var stateHistory = [Date: UpdateLoopInfo]()
 
     func addInput(_ input: ProcessedInputEvent) {
         guard let inputId = input.inputId else {

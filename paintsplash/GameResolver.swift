@@ -6,7 +6,7 @@
 //
 
 class GameResolver {
-    static func resolve(manager: MultiplayerClient, with data: SystemData) {
+    static func resolve(manager: SinglePlayerGameManager, with data: SystemData) {
         let entityIDs = Set(manager.entities.map({ $0.id }))
 
         for entity in data.entityData.entities where !entityIDs.contains(entity) {
@@ -50,11 +50,11 @@ class GameResolver {
         newEntity.spawn()
     }
 
-    static func updateNetworkedRenderable(_ data: SystemData, _ entity: EntityID, _ manager: MultiplayerClient) {
-//        if manager.player.id == entity {
-//            return
-//        }
-        
+    static func updateNetworkedRenderable(_ data: SystemData, _ entity: EntityID, _ manager: SinglePlayerGameManager) {
+        if manager.player.id == entity {
+            return
+        }
+
         if let renderable = data.renderSystemData?.renderables[entity] {
             let renderComponent = renderable.renderComponent
             let transformComponent = renderable.transformComponent
@@ -65,11 +65,11 @@ class GameResolver {
         }
     }
 
-    static func updateNetworkedAnimatable(_ data: SystemData, _ entity: EntityID, _ manager: MultiplayerClient) {
-//        if manager.player.id == entity {
-//            return
-//        }
-        
+    static func updateNetworkedAnimatable(_ data: SystemData, _ entity: EntityID, _ manager: SinglePlayerGameManager) {
+        if manager.player.id == entity {
+            return
+        }
+
         if let animatable = data.animationSystemData?.animatables[entity] {
             let animationComponent = animatable.animationComponent
             animationComponent.wasModified = true

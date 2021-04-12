@@ -68,7 +68,7 @@ class PlayerMoveEvent: ProcessedInputEvent, Codable {
         self.playerId = playerID
         super.init(counter: inputId)
     }
-    
+
     enum CodingKeys: String, CodingKey {
         case playerId, direction, inputId
     }
@@ -105,7 +105,7 @@ class PlayerShootEvent: ProcessedInputEvent, Codable {
         self.playerId = playerID
         super.init(counter: inputId)
     }
-    
+
     enum CodingKeys: String, CodingKey {
         case playerId, direction, inputId
     }

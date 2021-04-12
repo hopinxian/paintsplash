@@ -18,7 +18,7 @@ class MultiplayerClient: SinglePlayerGameManager {
     var gameHistoryManager = GameHistoryManager()
     var isResolving = false
     var isUpdating = false
-    
+
     init(gameScene: GameScene, playerInfo: PlayerInfo, roomInfo: RoomInfo) {
         self.playerInfo = playerInfo
         self.room = roomInfo
@@ -197,17 +197,14 @@ class MultiplayerClient: SinglePlayerGameManager {
             fatalError("attempted to resolve while updating")
         }
         print("is resolving")
-        let startPos = player.transformComponent.worldPosition
+
         // resets to oldstate via override
         GameResolver.resolve(manager: self, with: data)
 
         // process the prediction again from the previous authority state from server
-        let gameState = GameState(data)
-        RePrediction.resolve(gameState, self)
+        // let gameState = GameState(data)
+        // RePrediction.resolve(gameState, self)
         isResolving = false
-        let endPos = player.transformComponent.worldPosition
-        print("          diff: \(startPos.x - endPos.x), \(startPos.y - endPos.y)")
-        print("          expected Diff from: \(InputId.counter - data.lastProcessedInput.id)")
         print("done resolving")
     }
 
@@ -221,6 +218,31 @@ class MultiplayerClient: SinglePlayerGameManager {
         super.update(deltaTime)
         print("done updating")
         isUpdating = false
+        sendPlayerData()
         gameHistoryManager.addHistory(inputId, deltaTime)
+    }
+
+    func sendPlayerData() {
+        let entityData = EntityData(from: [player])
+        let renderableToSend: [EntityID: Renderable] = [player.id: player]
+        let renderSystemData = RenderSystemData(from: renderableToSend)
+
+        let systemData = SystemData(
+            date: Date(),
+            lastProcessedInput: InputId(0),
+            entityData: entityData,
+            renderSystemData: renderSystemData,
+            animationSystemData: nil,
+            colorSystemData: nil)
+
+        let path = DataPaths.joinPaths(
+            DataPaths.games, room.gameID,
+            DataPaths.game_players, player.id.id,
+            "clientPlayer")
+        connectionHandler.send(
+            to: path, data: systemData,
+            mode: .single,
+            shouldRemoveOnDisconnect: true,
+            onComplete: nil, onError: nil)
     }
 }
