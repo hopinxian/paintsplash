@@ -82,7 +82,7 @@ class LevelReader {
     }
 
     private func parseCanvasSpawnerCommand(_ arg: [String]) -> CanvasSpawnerCommand {
-        assert(arg.count == 10)
+        assert(arg.count == 7)
         let command = CanvasSpawnerCommand()
         command.location = parseLocation([arg[1], arg[2]])
         command.velocity = parseVelocity([arg[3], arg[4]])
