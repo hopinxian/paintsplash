@@ -59,7 +59,6 @@
 		AC2B3B02261B933D001B8FCF /* UserInputSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2B3B01261B933D001B8FCF /* UserInputSystem.swift */; };
 		AC2B3B06261B9359001B8FCF /* SKUserInputSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2B3B05261B9359001B8FCF /* SKUserInputSystem.swift */; };
 		AC2B3B0A261B9371001B8FCF /* Touchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2B3B09261B9371001B8FCF /* Touchable.swift */; };
-		AC2B3B0E261B9385001B8FCF /* SKNode+Touchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2B3B0D261B9385001B8FCF /* SKNode+Touchable.swift */; };
 		AC3EB7212606F57300B5B963 /* PlayerMovementBoundsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3EB7202606F57300B5B963 /* PlayerMovementBoundsTests.swift */; };
 		AC3EB7262606F58500B5B963 /* PlayerCollisionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3EB7252606F58500B5B963 /* PlayerCollisionTests.swift */; };
 		AC3EB72E260701D800B5B963 /* PlayerHealthTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3EB72D260701D800B5B963 /* PlayerHealthTests.swift */; };
@@ -71,6 +70,7 @@
 		AC5F0B7F2601130500E28D49 /* PlayerBrushWalkRight.atlas in Resources */ = {isa = PBXBuildFile; fileRef = AC5F0B792601130500E28D49 /* PlayerBrushWalkRight.atlas */; };
 		AC5F0B802601130500E28D49 /* PlayerBrushIdleRight.atlas in Resources */ = {isa = PBXBuildFile; fileRef = AC5F0B7A2601130500E28D49 /* PlayerBrushIdleRight.atlas */; };
 		AC5F0B812601130500E28D49 /* PlayerBrushAttackLeft.atlas in Resources */ = {isa = PBXBuildFile; fileRef = AC5F0B7B2601130500E28D49 /* PlayerBrushAttackLeft.atlas */; };
+		AC8757E7262330B500B775AE /* UITouch+Touchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8757E6262330B500B775AE /* UITouch+Touchable.swift */; };
 		ACA1B3F026184C1C004F210F /* FirebasePathsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA1B3EF26184C1C004F210F /* FirebasePathsTests.swift */; };
 		ACA1B3FA26184F4B004F210F /* GameConnectionHandlerStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA1B3F926184F4B004F210F /* GameConnectionHandlerStub.swift */; };
 		ACA1B40226185155004F210F /* FirebaseLobbyHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA1B40126185155004F210F /* FirebaseLobbyHandlerTests.swift */; };
@@ -362,7 +362,6 @@
 		AC2B3B01261B933D001B8FCF /* UserInputSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInputSystem.swift; sourceTree = "<group>"; };
 		AC2B3B05261B9359001B8FCF /* SKUserInputSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKUserInputSystem.swift; sourceTree = "<group>"; };
 		AC2B3B09261B9371001B8FCF /* Touchable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Touchable.swift; sourceTree = "<group>"; };
-		AC2B3B0D261B9385001B8FCF /* SKNode+Touchable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SKNode+Touchable.swift"; sourceTree = "<group>"; };
 		AC3EB7202606F57300B5B963 /* PlayerMovementBoundsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerMovementBoundsTests.swift; sourceTree = "<group>"; };
 		AC3EB7252606F58500B5B963 /* PlayerCollisionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCollisionTests.swift; sourceTree = "<group>"; };
 		AC3EB72D260701D800B5B963 /* PlayerHealthTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerHealthTests.swift; sourceTree = "<group>"; };
@@ -376,6 +375,7 @@
 		AC5F0B792601130500E28D49 /* PlayerBrushWalkRight.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = PlayerBrushWalkRight.atlas; sourceTree = "<group>"; };
 		AC5F0B7A2601130500E28D49 /* PlayerBrushIdleRight.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = PlayerBrushIdleRight.atlas; sourceTree = "<group>"; };
 		AC5F0B7B2601130500E28D49 /* PlayerBrushAttackLeft.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = PlayerBrushAttackLeft.atlas; sourceTree = "<group>"; };
+		AC8757E6262330B500B775AE /* UITouch+Touchable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITouch+Touchable.swift"; sourceTree = "<group>"; };
 		ACA1B3EF26184C1C004F210F /* FirebasePathsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebasePathsTests.swift; sourceTree = "<group>"; };
 		ACA1B3F926184F4B004F210F /* GameConnectionHandlerStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameConnectionHandlerStub.swift; sourceTree = "<group>"; };
 		ACA1B40126185155004F210F /* FirebaseLobbyHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseLobbyHandlerTests.swift; sourceTree = "<group>"; };
@@ -1319,7 +1319,7 @@
 				AC2B3B01261B933D001B8FCF /* UserInputSystem.swift */,
 				AC2B3B05261B9359001B8FCF /* SKUserInputSystem.swift */,
 				AC2B3B09261B9371001B8FCF /* Touchable.swift */,
-				AC2B3B0D261B9385001B8FCF /* SKNode+Touchable.swift */,
+				AC8757E6262330B500B775AE /* UITouch+Touchable.swift */,
 			);
 			path = UserInput;
 			sourceTree = "<group>";
@@ -1762,6 +1762,7 @@
 				AC11994426053CFB003BA54B /* AudioEvent.swift in Sources */,
 				D55EEB8626008AAE00ADC70B /* PaintAmmoDisplay.swift in Sources */,
 				D570452E261830DA004AF802 /* MovementJoystick.swift in Sources */,
+				AC8757E7262330B500B775AE /* UITouch+Touchable.swift in Sources */,
 				D51079EA2618DB0E00D796D0 /* WeaponType.swift in Sources */,
 				DC16B41F25FDE64C00C58670 /* StateManagerSystem.swift in Sources */,
 				D583468E25FB8450005C344D /* PaintGun.swift in Sources */,
@@ -1817,7 +1818,6 @@
 				D5B65C932618B39D00C132FE /* PlayerSystem.swift in Sources */,
 				DC24033D2600FEFE00550E1E /* CanvasSpawner.swift in Sources */,
 				D5500C062608E7E200E21BF1 /* System.swift in Sources */,
-				AC2B3B0E261B9385001B8FCF /* SKNode+Touchable.swift in Sources */,
 				D5704532261830EA004AF802 /* AttackJoystick.swift in Sources */,
 				D57044E426182A7B004AF802 /* EncodableRenderable.swift in Sources */,
 				ACB3607225F661620016E240 /* AppDelegate.swift in Sources */,

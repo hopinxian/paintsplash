@@ -15,9 +15,8 @@ class Joystick: UIEntity, Renderable {
     private (set) var displacement: Vector2D = .zero
 
     private let foregroundNode: JoystickForeground
-    private let trackingNode: JoystickInvisibleNode
 
-    private (set) var tracking = false
+    private (set) var trackedId: EntityID?
 
     private var backgroundRadius: Double {
         transformComponent.size.x / 2
@@ -49,13 +48,6 @@ class Joystick: UIEntity, Renderable {
             zPosition: renderComponent.zPosition + 1
         )
 
-
-        trackingNode = JoystickInvisibleNode(
-            position: position,
-            size: Constants.JOYSTICK_SIZE * 0.6,
-            zPosition: renderComponent.zPosition + 2
-        )
-
         super.init()
 
         EventSystem.inputEvents.touchDownEvent.subscribe(listener: onTouchDown)
@@ -66,30 +58,25 @@ class Joystick: UIEntity, Renderable {
     override func spawn() {
         super.spawn()
         foregroundNode.spawn()
-        trackingNode.spawn()
     }
 
     override func destroy() {
         super.destroy()
         foregroundNode.destroy()
-        trackingNode.spawn()
     }
 
     func onTouchDown(event: TouchDownEvent) {
-        guard event.associatedId == trackingNode.id else {
+        guard trackedId == nil else {
             return
         }
 
         if Vector2D.magnitude(of: event.location - transformComponent.localPosition) < backgroundRadius {
-            tracking = true
+            trackedId = event.associatedId
         }
-
-        trackingNode.transformComponent.localPosition = event.location
     }
 
     func onTouchMoved(event: TouchMovedEvent) {
-        guard tracking,
-              event.associatedId == trackingNode.id else {
+        guard event.associatedId == trackedId else {
             return
         }
 
@@ -103,18 +90,16 @@ class Joystick: UIEntity, Renderable {
         }
 
         foregroundNode.transformComponent.localPosition = newLocation
-        trackingNode.transformComponent.localPosition = event.location
         self.displacement = displacement.unitVector
     }
 
     func onTouchUp(event: TouchUpEvent) {
-        guard event.associatedId == trackingNode.id else {
+        guard event.associatedId == trackedId else {
             return
         }
 
-        tracking = false
+        trackedId = nil
         foregroundNode.transformComponent.localPosition = transformComponent.localPosition
-        trackingNode.transformComponent.localPosition = transformComponent.localPosition
         self.displacement = .zero
     }
 
@@ -124,20 +109,6 @@ class Joystick: UIEntity, Renderable {
 
         init(position: Vector2D, size: Vector2D, zPosition: Int) {
             let renderType = RenderType.sprite(spriteName: "joystick-foreground")
-
-            self.renderComponent = RenderComponent(renderType: renderType, zPosition: zPosition)
-            self.transformComponent = TransformComponent(position: position, rotation: 0, size: size)
-
-            super.init()
-        }
-    }
-
-    class JoystickInvisibleNode: UIEntity, Renderable {
-        var renderComponent: RenderComponent
-        var transformComponent: TransformComponent
-
-        init(position: Vector2D, size: Vector2D, zPosition: Int) {
-            let renderType = RenderType.sprite(spriteName: "")
 
             self.renderComponent = RenderComponent(renderType: renderType, zPosition: zPosition)
             self.transformComponent = TransformComponent(position: position, rotation: 0, size: size)
