@@ -10,11 +10,11 @@ import XCTest
 
 class AudioPlayerImplTests: XCTestCase {
 
-    private var player: AudioPlayerImpl!
+    private var player: AVAudioPlayerImpl!
 
     override func setUp() {
         super.setUp()
-        player = AudioPlayerImpl()
+        player = AVAudioPlayerImpl()
     }
 
     private func getValidURL() -> URL {
@@ -33,20 +33,20 @@ class AudioPlayerImplTests: XCTestCase {
 
     func testPlayValidAudioFile() {
         let url = getValidURL()
-        XCTAssertTrue(player.playAudio(from: url, loops: 1))
+        XCTAssertTrue(player.playAudio(from: url, loops: 1, volume: 0))
         XCTAssertTrue(player.isPlaying)
     }
 
     func testPlayInvalidAudioFile() {
         let url = getInvalidURL()
-        XCTAssertFalse(player.playAudio(from: url, loops: 1))
+        XCTAssertFalse(player.playAudio(from: url, loops: 1, volume: 0))
         XCTAssertFalse(player.isPlaying)
     }
 
     func testStopAudioWhilePlaying() {
         let url = getValidURL()
         XCTAssertFalse(player.isPlaying)
-        player.playAudio(from: url, loops: 1)
+        player.playAudio(from: url, loops: 1, volume: 0)
         XCTAssertTrue(player.isPlaying)
         player.stop()
         XCTAssertFalse(player.isPlaying)

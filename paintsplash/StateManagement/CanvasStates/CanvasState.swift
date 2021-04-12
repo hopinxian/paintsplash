@@ -34,6 +34,10 @@ class CanvasState: State {
                 interupt: true,
                 callBack: { self.canvas.destroy() }
             )
+
+            EventSystem.audioEvent.playSoundEffectEvent.post(
+                event: PlaySoundEffectEvent(effect: SoundEffect.canvasEnd)
+            )
         }
 
         override func getBehaviour() -> StateBehaviour {

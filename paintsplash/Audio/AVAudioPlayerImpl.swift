@@ -1,5 +1,5 @@
 //
-//  AudioPlayerImpl.swift
+//  AVAudioPlayerImpl.swift
 //  paintsplash
 //
 //  Created by Praveen Bala on 20/3/21.
@@ -7,10 +7,7 @@
 
 import AVKit
 
-class AVAudioPlayerImpl: AudioPlayer {
-
-
-
+class AVAudioPlayerImpl: NSObject, AVAudioPlayerDelegate, AudioPlayer {
     private var players: [URL: AVAudioPlayer] = [:]
     private var duplicates: [AVAudioPlayer] = []
 
@@ -27,9 +24,8 @@ class AVAudioPlayerImpl: AudioPlayer {
     }
 
     deinit {
-
-//        player?.stop()
-//        player = nil
+        players.values.forEach { $0.stop() }
+        duplicates.forEach { $0.stop() }
     }
 
     @discardableResult func playAudio(from url: URL, loops: Int, volume: Float) -> Bool {
@@ -43,20 +39,11 @@ class AVAudioPlayerImpl: AudioPlayer {
         }
 
         return playFromExistingPlayer(player, loops: loops, volume: volume)
-
-
-//        player = try? AVAudioPlayer(contentsOf: url)
-//        player?.prepareToPlay()
-//        player?.numberOfLoops = loops
-//        player?.volume = volume
-//        let play = player?.play()
-//
-//        return play ?? false
     }
 
     func stop() {
-//        player?.stop()
-//        player = nil
+        players.values.forEach { $0.stop() }
+        duplicates.forEach { $0.stop() }
     }
 
     @discardableResult
@@ -96,14 +83,16 @@ class AVAudioPlayerImpl: AudioPlayer {
         return newPlayer.isPlaying
     }
 
-    private func cleanUpDuplicates() {
-
-    }
-
     private func createNewPlayer(_ url: URL, loops: Int, volume: Float) -> AVAudioPlayer? {
         let player = try? AVAudioPlayer(contentsOf: url)
         player?.numberOfLoops = loops
         player?.volume = volume
         return player
+    }
+
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        if let index = duplicates.firstIndex(of: player) {
+            duplicates.remove(at: index)
+        }
     }
 }

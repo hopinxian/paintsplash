@@ -67,4 +67,8 @@ class Bucket: WeaponComponent {
     override func canLoad(_ ammo: [Ammo]) -> Bool {
         ammoQueue.count < capacity
     }
+
+    override func getShootSFX() -> SoundEffect? {
+        SoundEffect.paintBucketAttack
+    }
 }

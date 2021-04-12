@@ -9,6 +9,10 @@ import Foundation
 
 class AudioManager: AudioSystem {
 
+    // The current implementation of AVAudioPlayerImpl allows these two audio players
+    // be merged into one.
+    // However, they are kept separate to allow the user to only stop effects or to
+    // only stop music
     private var musicPlayer: AudioPlayer?
     private var effectPlayer: AudioPlayer?
     var associatedDevice: EntityID?
@@ -46,9 +50,8 @@ class AudioManager: AudioSystem {
 
         let url = URL(fileURLWithPath: path)
 
-        stopMusic()
-        musicPlayer = AudioPlayerImpl()
-        musicPlayer?.playAudio(from: url, loops: music.loops)
+        musicPlayer = AVAudioPlayerImpl()
+        musicPlayer?.playAudio(from: url, loops: music.loops, volume: music.volume)
     }
 
     func playEffect(_ effect: SoundEffect) {
@@ -58,9 +61,8 @@ class AudioManager: AudioSystem {
 
         let url = URL(fileURLWithPath: path)
 
-        stopEffect()
-        effectPlayer = AudioPlayerImpl()
-        effectPlayer?.playAudio(from: url, loops: effect.loops)
+        effectPlayer = AVAudioPlayerImpl()
+        effectPlayer?.playAudio(from: url, loops: effect.loops, volume: effect.volume)
     }
 
     func stopMusic() {

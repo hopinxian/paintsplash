@@ -34,6 +34,7 @@ struct Constants {
     static let PLAYER_MOVE_SPEED = 700.0
     static let ENEMY_MOVE_SPEED = 70.0
     static let PROJECTILE_MOVE_SPEED = 1_050.0
+    static let ENEMY_SPAWNER_INTERVAL = 50.0
 
     // View Information
     static let ATTACK_BUTTON_SPRITE = "attack-button"

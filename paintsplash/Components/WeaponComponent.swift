@@ -27,4 +27,7 @@ class WeaponComponent: Component, Weapon {
     func canLoad(_ ammo: [Ammo]) -> Bool {
         false
     }
+    func getShootSFX() -> SoundEffect? {
+        nil
+    }
 }
