@@ -81,18 +81,12 @@ class Level {
 
         let timeSinceLastRquest = Date().timeIntervalSince(lastSpawnDate)
         if timeSinceLastRquest >= canvasSpawnInterval {
-            let request = getRedRequest()
+            let request = getRandomRequest()
             canvasRequestManager.addRequest(colors: request)
             lastSpawnDate = Date()
         }
     }
 
-    func getRedRequest() -> Set<PaintColor> {
-        var request = Set<PaintColor>()
-        request.insert(.red)
-        return request
-    }
-    
     func getRandomRequest() -> Set<PaintColor> {
         let randomNumber = Int.random(in: 1..<4)
         let colors = PaintColor.allCases.shuffled().filter { $0 != PaintColor.white }
@@ -155,18 +149,14 @@ class Level {
 
         let enemyCommand = EnemyCommand()
         enemyCommand.time = 2
-        enemyCommand.color = .red
-        enemyCommand.location = Vector2D.init(400, 400)
         level.addSpawnEvent(enemyCommand)
 
 //        let spawnerCommand = EnemySpawnerCommand()
 //        spawnerCommand.time = 5
 //        level.addSpawnEvent(spawnerCommand)
 
-        for i in 1..<6 {
+        for i in 1..<10 {
             let dropCommand = AmmoDropCommand()
-            dropCommand.color = .red
-            dropCommand.location = Vector2D.init(150 * i, 150 * i)
             dropCommand.time = Double(i * 5)
             level.addSpawnEvent(dropCommand)
         }

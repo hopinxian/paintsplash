@@ -14,10 +14,6 @@ class MultiplayerClient: SinglePlayerGameManager {
     var gameConnectionHandler: GameConnectionHandler =
         PaintSplashGameHandler(connectionHandler: FirebaseConnectionHandler())
 
-    var historyManager = GameHistoryManager()
-    var addedEntities = [EntityID: GameEntity]()
-    var removedEntities = [EntityID: GameEntity]()
-    
     var playerInfo: PlayerInfo
 
     init(gameScene: GameScene, playerInfo: PlayerInfo, roomInfo: RoomInfo) {
@@ -137,6 +133,9 @@ class MultiplayerClient: SinglePlayerGameManager {
         audioManager = AudioManager(associatedDeviceId: EntityID(id: playerInfo.playerUUID))
     }
 
+    override func setUpEntities() {
+    }
+
     func setUpInputListeners() {
         let gameId = self.room.gameID
 
@@ -193,64 +192,14 @@ class MultiplayerClient: SinglePlayerGameManager {
     override func update(_ deltaTime: Double) {
         super.update(deltaTime)
         sendPlayerData()
-        let gameState = prepareGameState()
-        historyManager.addState(gameState, at: gameState.date)
-        print(player.transformComponent.worldPosition)
-        addedEntities = [:]
-        removedEntities = [:]
     }
 
-    func prepareGameState() -> SystemData {
-        let uiEntityIDs = Set(uiEntities.map({ $0.id }))
-        let entityData = EntityData(from: entities.filter({ !uiEntityIDs.contains($0.id) }))
-
-        let renderablesToSend = renderSystem.wasModified.filter({ entityID, _ in
-            !uiEntityIDs.contains(entityID)
-        })
-
-        let renderSystemData = RenderSystemData(from: renderablesToSend)
-
-        let animatablesToSend = animationSystem.wasModified.filter({ entityID, _ in
-            !uiEntityIDs.contains(entityID)
-        })
-        let animationSystemData = AnimationSystemData(from: animatablesToSend)
-
-        var colorables = [EntityID: Colorable]()
-        addedEntities.forEach({ _, entity in
-            if let colorable = entity as? Colorable, !uiEntityIDs.contains(entity.id) {
-                colorables[entity.id] = colorable
-            }
-        })
-
-        let colorSystemData = ColorSystemData(from: colorables)
-
-        let systemData = SystemData(
-            date: Date(),
-            entityData: entityData,
-            renderSystemData: renderSystemData,
-            animationSystemData: animationSystemData,
-            colorSystemData: colorSystemData
-        )
-        return systemData
-    }
-    
-    override func addObject(_ object: GameEntity) {
-        super.addObject(object)
-        addedEntities[object.id] = object
-    }
-
-    override func removeObject(_ object: GameEntity) {
-        super.removeObject(object)
-        removedEntities[object.id] = object
-    }
-    
     func sendPlayerData() {
         let entityData = EntityData(from: [player])
         let renderableToSend: [EntityID: Renderable] = [player.id: player]
         let renderSystemData = RenderSystemData(from: renderableToSend)
 
         let systemData = SystemData(
-            date: Date(),
             entityData: entityData,
             renderSystemData: renderSystemData,
             animationSystemData: nil,

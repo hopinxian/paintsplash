@@ -15,11 +15,7 @@ class SinglePlayerViewController: UIViewController {
         guard let gameScene = gameView.scene as? GameScene else {
             fatalError("GameScene not setup properly")
         }
-//        let gameManager = SinglePlayerGameManager(gameScene: gameScene)
-        let hostInfo = PlayerInfo(playerUUID: "host", playerName: "host")
-        let clientInfo = PlayerInfo(playerUUID: "client", playerName: "client")
-        let roomInfo = RoomInfo(roomId: "roomId", host: hostInfo, players: [clientInfo.playerUUID: clientInfo], isOpen: true)
-        let gameManager = MultiplayerClient(gameScene: gameScene, playerInfo: clientInfo, roomInfo: roomInfo)
+        let gameManager = SinglePlayerGameManager(gameScene: gameScene)
 
         gameScene.gameManager = gameManager
 

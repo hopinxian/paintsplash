@@ -194,8 +194,8 @@ class MultiplayerServer: SinglePlayerGameManager {
             },
             onError: nil
         )
-        
-        //player state observing
+
+        // player state observing
         let path = DataPaths.joinPaths(
             DataPaths.games, gameId,
             DataPaths.game_players, playerID.id,
@@ -228,7 +228,6 @@ class MultiplayerServer: SinglePlayerGameManager {
         let colorSystemData = ColorSystemData(from: colorables)
 
         let systemData = SystemData(
-            date: Date(),
             entityData: entityData,
             renderSystemData: renderSystemData,
             animationSystemData: animationSystemData,
@@ -264,18 +263,15 @@ class MultiplayerServer: SinglePlayerGameManager {
         super.removeObject(object)
         removedEntities[object.id] = object
     }
-    
+
     func readClientPlayerData(data: SystemData?) {
         guard let data = data else {
             return
         }
         let clientId = data.entityData.entities[0]
-        if let client = entities.first(where: {$0.id.id == clientId.id}) as? Player,
+        if let client = entities.first(where: { $0.id.id == clientId.id }) as? Player,
         let renderComponent = data.renderSystemData?.renderables[clientId] {
-            print("has done render")
-            print("\(client.transformComponent.worldPosition)")
             client.transformComponent = renderComponent.transformComponent
-            print("\(client.transformComponent.worldPosition)")
         }
     }
 }
