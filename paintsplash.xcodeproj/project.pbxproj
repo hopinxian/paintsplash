@@ -11,6 +11,8 @@
 		8402D28F25FE0BDB00493DDE /* ColorMixer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8402D28E25FE0BDB00493DDE /* ColorMixer.swift */; };
 		8402D29725FE106800493DDE /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8402D29625FE106800493DDE /* Math.swift */; };
 		8405B4852624713600C36361 /* RandomGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8405B4842624713600C36361 /* RandomGenerator.swift */; };
+		8405B48B2624829E00C36361 /* LevelReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8405B48A2624829E00C36361 /* LevelReader.swift */; };
+		8405B48F262486A200C36361 /* level.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8405B48E262486A200C36361 /* level.txt */; };
 		840A334826060626007BC34D /* AmmoType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840A334726060626007BC34D /* AmmoType.swift */; };
 		840A334D26060655007BC34D /* AmmoDrop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840A334C26060655007BC34D /* AmmoDrop.swift */; };
 		840A336A2606256F007BC34D /* LevelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840A33692606256F007BC34D /* LevelTests.swift */; };
@@ -317,6 +319,8 @@
 		8402D28E25FE0BDB00493DDE /* ColorMixer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorMixer.swift; sourceTree = "<group>"; };
 		8402D29625FE106800493DDE /* Math.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Math.swift; sourceTree = "<group>"; };
 		8405B4842624713600C36361 /* RandomGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomGenerator.swift; sourceTree = "<group>"; };
+		8405B48A2624829E00C36361 /* LevelReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelReader.swift; sourceTree = "<group>"; };
+		8405B48E262486A200C36361 /* level.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = level.txt; sourceTree = "<group>"; };
 		840A334726060626007BC34D /* AmmoType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmmoType.swift; sourceTree = "<group>"; };
 		840A334C26060655007BC34D /* AmmoDrop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmmoDrop.swift; sourceTree = "<group>"; };
 		840A33692606256F007BC34D /* LevelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelTests.swift; sourceTree = "<group>"; };
@@ -656,6 +660,7 @@
 				8416DAEC260335A800926D01 /* Level.swift */,
 				842B5CDD260487BC00FCF7BD /* LevelScore.swift */,
 				842B5CED26048D2B00FCF7BD /* Points.swift */,
+				8405B48A2624829E00C36361 /* LevelReader.swift */,
 				8453F2C3260C846300FFD8AE /* LevelSpawnEvent */,
 			);
 			path = Level;
@@ -800,6 +805,7 @@
 			isa = PBXGroup;
 			children = (
 				ACE75106261F935600B3D371 /* GoogleService-Info.plist */,
+				8405B48E262486A200C36361 /* level.txt */,
 				ACB3607025F661620016E240 /* paintsplash */,
 				ACB3608825F661630016E240 /* paintsplashTests */,
 				ACB3606F25F661620016E240 /* Products */,
@@ -1612,6 +1618,7 @@
 				DC2403142600D66D00550E1E /* CanvasIdle.atlas in Resources */,
 				ACB3607F25F661630016E240 /* Assets.xcassets in Resources */,
 				D5673335261EA37300FD1D15 /* AmmoPickup.mp3 in Resources */,
+				8405B48F262486A200C36361 /* level.txt in Resources */,
 				D5553D9E26062D1000C1862E /* background-music.mp3 in Resources */,
 				D5DC90AA25FCE5280038DF71 /* SlimeMoveLeft.atlas in Resources */,
 				846D4FDA260241670079720F /* SlimeMoveLeftGray.atlas in Resources */,
@@ -1859,6 +1866,7 @@
 				D596B17425F7C0F500A5854F /* UserInput.swift in Sources */,
 				D570450426182AE1004AF802 /* EntityData.swift in Sources */,
 				D53F5474260D963F00635B05 /* PlayerState+MoveLeft.swift in Sources */,
+				8405B48B2624829E00C36361 /* LevelReader.swift in Sources */,
 				840A334D26060655007BC34D /* AmmoDrop.swift in Sources */,
 				D55EEBA02600927800ADC70B /* EntityChangeEvent.swift in Sources */,
 				DC08DA6A260516DE000F4F90 /* CanvasEndMarker.swift in Sources */,

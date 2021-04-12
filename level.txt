@@ -1,0 +1,19 @@
+3 2 nil nil
+slime 300 200 nil 5
+Ammodrop -300 -200 white 6
+slime 350 250 nil 8
+Ammodrop -350 -250 white 9
+slime 300 200 nil 10
+Ammodrop -350 -250 white 11
+slime 350 250 nil 13
+Ammodrop -350 -250 white 14
+slime 300 200 nil 15
+Ammodrop -350 -250 nil 16
+slime 350 250 nil 18
+Ammodrop -350 -250 white 19
+slime 300 200 nil 20
+Ammodrop -350 -250 white 21
+slime 350 250 nil 23
+Ammodrop -350 -250 white 24
+slime 300 200 nil 25
+Ammodrop -300 -200 nil 26

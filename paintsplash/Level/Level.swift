@@ -17,8 +17,8 @@ class Level {
     var bufferBetweenLoop = 5.0 // in seconds
     private var gameInfo: GameInfo
 
-    static let enemyCapacity = 5
-    static let dropCapacity = 5
+    static var enemyCapacity = 5
+    static var dropCapacity = 5
 
     private var canvasRequestManager: CanvasRequestManager
     private(set) var canvasSpawnInterval = 2.0
@@ -149,25 +149,8 @@ class Level {
     }
 
     static func getDefaultLevel(canvasManager: CanvasRequestManager, gameInfo: GameInfo) -> Level {
-        let level = Level(canvasManager: canvasManager, gameInfo: gameInfo)
-
-        level.repeatLimit = 10
-
-        let enemyCommand = EnemyCommand()
-        enemyCommand.time = 2
-        level.addSpawnEvent(enemyCommand)
-
-//        let spawnerCommand = EnemySpawnerCommand()
-//        spawnerCommand.time = 5
-//        level.addSpawnEvent(spawnerCommand)
-
-        for i in 1..<10 {
-            let dropCommand = AmmoDropCommand()
-            dropCommand.time = Double(i * 5)
-            level.addSpawnEvent(dropCommand)
-        }
-
+        let path = "level"
+        let level = LevelReader(filePath: path).readLevel(canvasManager: canvasManager, gameInfo: gameInfo)
         return level
     }
-
 }

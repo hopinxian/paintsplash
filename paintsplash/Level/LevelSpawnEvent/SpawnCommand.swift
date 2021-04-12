@@ -72,10 +72,6 @@ extension SpawnCommand {
         return velocity
     }
 
-    func getCanvasSize(size: Vector2D?, gameInfo: GameInfo) -> Vector2D {
-        size ?? Level.defaultCanvasSize
-    }
-
     func getSpawnInterval(interval: Double?, gameInfo: GameInfo) -> Double {
         interval ?? Level.defaultInterval
     }
