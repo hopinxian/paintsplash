@@ -9,7 +9,7 @@ class AttackJoystick: Joystick {
     private var lastDisplacement: Vector2D = .zero
 
     override func onTouchMoved(event: TouchMovedEvent) {
-        guard tracking else {
+        guard event.associatedId == trackedId else {
             return
         }
 
@@ -18,7 +18,7 @@ class AttackJoystick: Joystick {
     }
 
     override func onTouchUp(event: TouchUpEvent) {
-        guard tracking else {
+        guard event.associatedId == trackedId else {
             return
         }
 
