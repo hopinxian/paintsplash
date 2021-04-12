@@ -270,8 +270,13 @@ class MultiplayerServer: SinglePlayerGameManager {
         }
         let clientId = data.entityData.entities[0]
         if let client = entities.first(where: { $0.id.id == clientId.id }) as? Player,
-        let renderComponent = data.renderSystemData?.renderables[clientId] {
-            client.transformComponent = renderComponent.transformComponent
+           let transformComponent = data.renderSystemData?.renderables[clientId]?.transformComponent {
+            let boundedComponent = BoundedTransformComponent(
+                position: transformComponent.worldPosition,
+                rotation: transformComponent.rotation,
+                size: transformComponent.size,
+                bounds: Constants.PLAYER_MOVEMENT_BOUNDS)
+            client.transformComponent = boundedComponent
         }
     }
 }
