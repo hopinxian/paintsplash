@@ -9,8 +9,6 @@ import AVKit
 
 class AVAudioPlayerImpl: AudioPlayer {
 
-
-
     private var players: [URL: AVAudioPlayer] = [:]
     private var duplicates: [AVAudioPlayer] = []
 
@@ -43,7 +41,6 @@ class AVAudioPlayerImpl: AudioPlayer {
         }
 
         return playFromExistingPlayer(player, loops: loops, volume: volume)
-
 
 //        player = try? AVAudioPlayer(contentsOf: url)
 //        player?.prepareToPlay()

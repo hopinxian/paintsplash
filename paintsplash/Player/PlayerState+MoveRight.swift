@@ -11,7 +11,7 @@ extension PlayerState {
             EventSystem.audioEvent.playSoundEffectEvent.post(
                 event: PlaySoundEffectEvent(effect: SoundEffect.playerStep)
             )
-            
+
             player.animationComponent.animate(animation: PlayerAnimations.playerBrushWalkRight, interupt: true)
         }
 

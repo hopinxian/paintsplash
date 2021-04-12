@@ -11,7 +11,7 @@ extension EnemyState {
             EventSystem.audioEvent.playSoundEffectEvent.post(
                 event: PlaySoundEffectEvent(effect: SoundEffect.enemyStep)
             )
-            
+
             enemy.animationComponent.animate(
                 animation: SlimeAnimations.slimeMoveRightGray,
                 interupt: true
