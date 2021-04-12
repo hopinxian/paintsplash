@@ -11,6 +11,8 @@ import Foundation
 class Level {
     private(set) var spawnEvents: [SpawnCommand] = []
 
+    var rng = RandomNumber(100)
+    
     var repeatLimit: Int?
     var bufferBetweenLoop = 5.0 // in seconds
     private var gameInfo: GameInfo
@@ -88,16 +90,17 @@ class Level {
     }
 
     func getRandomRequest() -> Set<PaintColor> {
-        var set = Set<PaintColor>()
-        set.insert(.red)
-        return set
-        //        let randomNumber = Int.random(in: 1..<4)
-//        let colors = PaintColor.allCases.shuffled().filter { $0 != PaintColor.white }
-//        var request = Set<PaintColor>()
-//        for index in 1...randomNumber {
-//            request.insert(colors[index])
-//        }
-//        return request
+        let randomNumber = rng.nextInt(1..<4)
+        var request = Set<PaintColor>()
+        let colors = PaintColor.allCases.filter {
+            $0 != PaintColor.white
+        }
+        let length = colors.count
+        for _ in 1...randomNumber {
+            let randomColor = colors[rng.nextInt(0..<length)]
+            request.insert(randomColor)
+        }
+        return request
     }
 
     func stop() {
@@ -152,8 +155,6 @@ class Level {
 
         let enemyCommand = EnemyCommand()
         enemyCommand.time = 2
-        enemyCommand.color = .red
-        enemyCommand.location = Vector2D(100, 100)
         level.addSpawnEvent(enemyCommand)
 
 //        let spawnerCommand = EnemySpawnerCommand()
@@ -163,8 +164,6 @@ class Level {
         for i in 1..<10 {
             let dropCommand = AmmoDropCommand()
             dropCommand.time = Double(i * 5)
-            dropCommand.color = .red
-            dropCommand.location = Vector2D(100, 100)
             level.addSpawnEvent(dropCommand)
         }
 

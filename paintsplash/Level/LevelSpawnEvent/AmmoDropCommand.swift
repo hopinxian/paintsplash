@@ -35,6 +35,12 @@ class AmmoDropCommand: SpawnCommand {
                 colors.append(key)
             }
         }
-        return colors.shuffled().first ?? PaintColor.allCases.shuffled()[0]
+        
+        let length = colors.count
+        if length != 0 {
+            let randomColor = colors[SpawnCommand.rng.nextInt(0..<length)]
+            return randomColor
+        }
+        return super.getColor(color: nil, gameInfo: gameInfo)
     }
 }
