@@ -172,7 +172,7 @@ class MultiplayerServer: SinglePlayerGameManager {
                 }
 
                 print("sending")
-
+                event.score = self?.currentLevel?.score.score
                 self?.gameConnectionHandler?.sendEvent(
                     gameId: gameId,
                     playerId: playerID.id,
