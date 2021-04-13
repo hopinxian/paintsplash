@@ -35,7 +35,7 @@ class CanvasRequestManager: GameEntity, Transformable {
         super.init()
 
         displayView.spawn()
-        EventSystem.canvasEvent.canvasHitEvent.subscribe(listener: evaluateCanvases)
+        EventSystem.canvasEvent.canvasHitEvent.subscribe(listener: { [weak self] in self?.evaluateCanvases(canvasHitEvent: $0) })
     }
 
     func addRequest(colors: Set<PaintColor>) {

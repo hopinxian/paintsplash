@@ -74,7 +74,7 @@ class GameOverUI: UIEntity, Renderable {
 
             super.init()
 
-            EventSystem.inputEvents.touchUpEvent.subscribe(listener: onTouchUp)
+            EventSystem.inputEvents.touchUpEvent.subscribe(listener: { [weak self] in self?.onTouchUp(event: $0) })
         }
 
         private func onTouchUp(event: TouchUpEvent) {

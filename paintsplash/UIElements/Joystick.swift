@@ -51,9 +51,9 @@ class Joystick: UIEntity, Renderable {
 
         super.init()
 
-        EventSystem.inputEvents.touchDownEvent.subscribe(listener: onTouchDown)
-        EventSystem.inputEvents.touchMovedEvent.subscribe(listener: onTouchMoved)
-        EventSystem.inputEvents.touchUpEvent.subscribe(listener: onTouchUp)
+        EventSystem.inputEvents.touchDownEvent.subscribe(listener: { [weak self] in self?.onTouchDown(event: $0) })
+        EventSystem.inputEvents.touchMovedEvent.subscribe(listener: { [weak self] in self?.onTouchMoved(event: $0) })
+        EventSystem.inputEvents.touchUpEvent.subscribe(listener: { [weak self] in self?.onTouchUp(event: $0) })
     }
 
     override func spawn() {

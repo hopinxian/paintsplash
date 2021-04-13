@@ -29,16 +29,16 @@ class SKUserInputSystem: UserInputSystem {
     }
 
     private func initListeners() {
-        EventSystem.rawTouchInputEvent.rawTouchDownEvent.subscribe { event in
-            self.onTouchDown(of: event.touchable, at: event.location)
+        EventSystem.rawTouchInputEvent.rawTouchDownEvent.subscribe { [weak self] event in
+            self?.onTouchDown(of: event.touchable, at: event.location)
         }
 
-        EventSystem.rawTouchInputEvent.rawTouchMovedEvent.subscribe { event in
-            self.onTouchMoved(of: event.touchable, at: event.location)
+        EventSystem.rawTouchInputEvent.rawTouchMovedEvent.subscribe { [weak self] event in
+            self?.onTouchMoved(of: event.touchable, at: event.location)
         }
 
-        EventSystem.rawTouchInputEvent.rawTouchUpEvent.subscribe { event in
-            self.onTouchUp(of: event.touchable, at: event.location)
+        EventSystem.rawTouchInputEvent.rawTouchUpEvent.subscribe { [weak self] event in
+            self?.onTouchUp(of: event.touchable, at: event.location)
         }
     }
 

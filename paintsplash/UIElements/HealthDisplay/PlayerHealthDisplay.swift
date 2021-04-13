@@ -35,7 +35,7 @@ class PlayerHealthDisplay: UIEntity, Transformable {
 
         displayView.spawn()
         EventSystem.playerActionEvent
-            .playerHealthUpdateEvent.subscribe(listener: onHealthUpdate)
+            .playerHealthUpdateEvent.subscribe(listener: { [weak self] in self?.onHealthUpdate(event: $0) })
         updateViews(health: startingHealth)
     }
 

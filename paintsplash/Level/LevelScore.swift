@@ -28,7 +28,9 @@ class LevelScore: GameEntity, Renderable {
 
         super.init()
 
-        EventSystem.scoreEvent.subscribe(listener: onScoreEvent)
+        EventSystem.scoreEvent.subscribe(listener: { [weak self] in
+                                            self?.onScoreEvent(event: $0)
+        })
         self.spawn()
     }
 

@@ -23,11 +23,11 @@ class PaintSplashPlayerSystem: PlayerSystem {
     let eventLimit = 100
 
     init() {
-        EventSystem.processedInputEvents.playerMoveEvent.subscribe(listener: onMove)
-        EventSystem.processedInputEvents.playerAimEvent.subscribe(listener: onAim)
-        EventSystem.processedInputEvents.playerShootEvent.subscribe(listener: onShoot)
-        EventSystem.processedInputEvents.playerChangeWeaponEvent.subscribe(listener: onChangeWeapon)
-        EventSystem.processedInputEvents.playerBombEvent.subscribe(listener: onBomb)
+        EventSystem.processedInputEvents.playerMoveEvent.subscribe(listener: { [weak self] in self?.onMove(event: $0) })
+        EventSystem.processedInputEvents.playerAimEvent.subscribe(listener: { [weak self] in self?.onAim(event: $0) })
+        EventSystem.processedInputEvents.playerShootEvent.subscribe(listener: { [weak self] in self?.onShoot(event: $0) })
+        EventSystem.processedInputEvents.playerChangeWeaponEvent.subscribe(listener: { [weak self] in self?.onChangeWeapon(event: $0) })
+        EventSystem.processedInputEvents.playerBombEvent.subscribe(listener: { [weak self] in self?.onBomb(event: $0) })
     }
 
     func addEntity(_ entity: GameEntity) {

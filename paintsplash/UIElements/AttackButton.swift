@@ -33,8 +33,8 @@ class AttackButton: UIEntity, Renderable {
 
         super.init()
 
-        EventSystem.inputEvents.touchDownEvent.subscribe(listener: onTouchDown)
-        EventSystem.inputEvents.touchUpEvent.subscribe(listener: onTouchUp)
+        EventSystem.inputEvents.touchDownEvent.subscribe(listener: { [weak self] in self?.onTouchDown(event: $0) })
+        EventSystem.inputEvents.touchUpEvent.subscribe(listener: { [weak self] in self?.onTouchUp(event: $0) })
     }
 
     func onTouchDown(event: TouchDownEvent) {
