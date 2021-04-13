@@ -145,7 +145,10 @@ class SKRenderSystem: RenderSystem {
     private func updateSpriteNode(_ node: SKSpriteNode, _ renderable: Renderable) {
         if let colorData = renderable as? Colorable,
            node.color != colorData.color.uiColor {
+            // node.shader = SK
             node.color = colorData.color.uiColor
+            let shader = SKNodeFactory.createColorize(color: colorData.color.uiColor)
+            node.shader = shader
             node.children
                 .compactMap({ $0 as? SKSpriteNode })
                 .forEach({ $0.color = colorData.color.uiColor })

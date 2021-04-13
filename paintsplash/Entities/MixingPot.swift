@@ -11,7 +11,7 @@ class MixingPot: GameEntity, Renderable, Transformable, Collidable, AmmoDrop, Co
     var collisionComponent: CollisionComponent
     var color: PaintColor {
         get {
-            _color ?? .red
+            _color ?? .white
         }
         set {
             _color = newValue

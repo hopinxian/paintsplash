@@ -26,7 +26,7 @@ class SKNodeFactory {
         return node
     }
 
-    private static func createColorize(color: UIColor) -> SKShader {
+    static func createColorize(color: UIColor) -> SKShader {
         let uniforms: [SKUniform] = [
             SKUniform(name: "u_color", color: color),
             SKUniform(name: "u_strength", float: 1)
@@ -42,7 +42,7 @@ class SKNodeFactory {
         if let colorData = colorize(entity) {
             let shader = createColorize(color: colorData.color)
             node.shader = shader
-//            node.color = colorData.color
+            node.color = colorData.color
 //            node.colorBlendFactor = colorData.blendFactor
         }
 
