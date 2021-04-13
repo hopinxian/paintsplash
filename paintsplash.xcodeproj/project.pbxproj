@@ -289,6 +289,7 @@
 		DC247F5525F9E53C001B814C /* SpawnEnemyBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC247F5425F9E53C001B814C /* SpawnEnemyBehaviour.swift */; };
 		DC4CAC71261301790086CBCC /* NetworkEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4CAC70261301790086CBCC /* NetworkEntity.swift */; };
 		DC52FCCD2618AE72005D2887 /* PlayerHealthDisplayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC52FCCC2618AE72005D2887 /* PlayerHealthDisplayTests.swift */; };
+		DC686C21262608190035B6B3 /* SKShaderManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC686C20262608190035B6B3 /* SKShaderManager.swift */; };
 		DC6874CF260362C800CF89E4 /* CanvasRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC6874CE260362C800CF89E4 /* CanvasRequestManager.swift */; };
 		DC6921012605E20F008AEC2E /* PlayerDie.atlas in Resources */ = {isa = PBXBuildFile; fileRef = DC6921002605E20F008AEC2E /* PlayerDie.atlas */; };
 		DC6A07C5261304D0009FE7F6 /* GameStateInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC6A07C4261304D0009FE7F6 /* GameStateInfo.swift */; };
@@ -635,6 +636,7 @@
 		DC247F5425F9E53C001B814C /* SpawnEnemyBehaviour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpawnEnemyBehaviour.swift; sourceTree = "<group>"; };
 		DC4CAC70261301790086CBCC /* NetworkEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkEntity.swift; sourceTree = "<group>"; };
 		DC52FCCC2618AE72005D2887 /* PlayerHealthDisplayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerHealthDisplayTests.swift; sourceTree = "<group>"; };
+		DC686C20262608190035B6B3 /* SKShaderManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKShaderManager.swift; sourceTree = "<group>"; };
 		DC6874CE260362C800CF89E4 /* CanvasRequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasRequestManager.swift; sourceTree = "<group>"; };
 		DC6921002605E20F008AEC2E /* PlayerDie.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = PlayerDie.atlas; sourceTree = "<group>"; };
 		DC6A07C4261304D0009FE7F6 /* GameStateInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStateInfo.swift; sourceTree = "<group>"; };
@@ -1570,6 +1572,7 @@
 			children = (
 				DCA9714E261F740E00631305 /* ShaderKitExtensions.swift */,
 				DCA9714A261F72D600631305 /* SHKColorize.fsh */,
+				DC686C20262608190035B6B3 /* SKShaderManager.swift */,
 			);
 			path = Shaders;
 			sourceTree = "<group>";
@@ -1988,6 +1991,7 @@
 				D53F5435260D948500635B05 /* NoState.swift in Sources */,
 				D53F547C260D967100635B05 /* EnemySpawnerState.swift in Sources */,
 				DCCF8CEC26102DDA006F6964 /* RoomViewController.swift in Sources */,
+				DC686C21262608190035B6B3 /* SKShaderManager.swift in Sources */,
 				AC0A18672605304100A1338C /* UIBar.swift in Sources */,
 				D53F54E2260D9EA500635B05 /* FrameMovementSystem.swift in Sources */,
 				D5553D9D26062D1000C1862E /* Music.swift in Sources */,
@@ -2252,14 +2256,14 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5Q6AP63883;
+				DEVELOPMENT_TEAM = X872J9X7F2;
 				INFOPLIST_FILE = paintsplash/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = crawlers.paintsplashes;
+				PRODUCT_BUNDLE_IDENTIFIER = crawlers.paintsplashes2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -2275,14 +2279,14 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5Q6AP63883;
+				DEVELOPMENT_TEAM = X872J9X7F2;
 				INFOPLIST_FILE = paintsplash/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = crawlers.paintsplashes6;
+				PRODUCT_BUNDLE_IDENTIFIER = crawlers.paintsplashes2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;

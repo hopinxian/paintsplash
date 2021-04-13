@@ -28,24 +28,15 @@ class SKNodeFactory {
         return node
     }
 
-    static func createColorize(color: UIColor) -> SKShader {
-        let uniforms: [SKUniform] = [
-            SKUniform(name: "u_color", color: color),
-            SKUniform(name: "u_strength", float: 1)
-        ]
-
-        return SKShader(fromFile: "SHKColorize", uniforms: uniforms)
-    }
-
     private static func buildSpriteNode(entity: Renderable, spriteName: String, size: Vector2D) -> SKSpriteNode {
         let node = SKSpriteNode(imageNamed: spriteName)
         node.size = SpaceConverter.modelToScreen(size)
 
         if let colorData = colorize(entity) {
-//            let shader = createColorize(color: colorData.color)
-//            node.shader = shader
+            let shader = SKShaderManager.createColorize(color: colorData.color)
+            node.shader = shader
             node.color = colorData.color
-            node.colorBlendFactor = colorData.blendFactor
+            // node.colorBlendFactor = colorData.blendFactor
         }
 
         return node
