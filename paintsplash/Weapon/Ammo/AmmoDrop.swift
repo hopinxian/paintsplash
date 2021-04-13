@@ -6,5 +6,5 @@
 //
 
 protocol AmmoDrop {
-    func getAmmoObject() -> Ammo
+    func getAmmoObject() -> Ammo?
 }

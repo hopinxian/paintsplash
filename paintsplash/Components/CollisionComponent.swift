@@ -42,11 +42,11 @@ class PlayerCollisionComponent: CollisionComponent {
     }
 
     private func loadAmmoDrop(_ drop: AmmoDrop) {
-        guard let player = player else {
+        guard let player = player,
+              let ammo = drop.getAmmoObject() else {
             return
         }
 
-        let ammo = drop.getAmmoObject()
         if player.multiWeaponComponent.canLoad([ammo]) {
             player.multiWeaponComponent.load([ammo])
             let ammoUpdateEvent = PlayerAmmoUpdateEvent(
@@ -179,14 +179,15 @@ class PaintAmmoDropCollisionComponent: CollisionComponent {
     weak var ammoDrop: PaintAmmoDrop?
 
     override func onCollide(with: Collidable) {
-        guard let ammoDrop = ammoDrop else {
+        guard let ammoDrop = ammoDrop,
+              let ammo = ammoDrop.getAmmoObject() else {
             return
         }
 
         if with.collisionComponent.tags.contains(.player) {
             switch with {
             case let player as Player:
-                if player.multiWeaponComponent.canLoad([ammoDrop.getAmmoObject()]) {
+                if player.multiWeaponComponent.canLoad([ammo]) {
                     EventSystem.entityChangeEvents.removeEntityEvent.post(
                         event: RemoveEntityEvent(entity: ammoDrop)
                     )

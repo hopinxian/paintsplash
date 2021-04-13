@@ -18,13 +18,20 @@ class MixingPot: GameEntity, Renderable, Transformable, Collidable, AmmoDrop, Co
         }
     }
     private var _color: PaintColor?
+    private var toRemove = false
 
     init(position: Vector2D) {
-        self.renderComponent = RenderComponent(renderType: .sprite(spriteName: "WhiteSquare"), zPosition: Constants.ZPOSITION_UI_ELEMENT)
+        self.renderComponent = RenderComponent(
+            renderType: .sprite(spriteName: "WhiteSquare"),
+            zPosition: Constants.ZPOSITION_UI_ELEMENT
+        )
 
         self.transformComponent = TransformComponent(position: position, rotation: 0, size: Vector2D(100, 100))
 
-        let collisionComponent = MixingPotCollisionComponent(colliderShape: .rectangle(size: transformComponent.size), tags: [])
+        let collisionComponent = MixingPotCollisionComponent(
+            colliderShape: .rectangle(size: transformComponent.size),
+            tags: [.ammoDrop]
+        )
         self.collisionComponent = collisionComponent
 
         super.init()
@@ -44,16 +51,27 @@ class MixingPot: GameEntity, Renderable, Transformable, Collidable, AmmoDrop, Co
         }
     }
 
-    func canMixWith(_ color: PaintColor) -> Bool {
-        _color?.mix(with: [color]) != nil
+    func removeColor() {
+        toRemove = true
     }
 
-    func getAmmoObject() -> Ammo {
+    func canMixWith(_ color: PaintColor) -> Bool {
+        _color == nil || _color?.mix(with: [color]) != nil
+    }
+
+    func getAmmoObject() -> Ammo? {
         guard let color = _color else {
-            fatalError("Invalid Mixing Pot State")
+            return nil
         }
-        _color = nil
+
         return PaintAmmo(color: color)
+    }
+
+    override func update(_ deltaTime: Double) {
+        if toRemove {
+            _color = nil
+            toRemove = false
+        }
     }
 }
 
@@ -73,6 +91,15 @@ class MixingPotCollisionComponent: CollisionComponent {
                 }
             default:
                 fatalError("Player projectile does not conform to PlayerProjectile")
+            }
+        }
+
+        if with.collisionComponent.tags.contains(.player) {
+            switch with {
+            case _ as Player:
+                mixingPot?.removeColor()
+            default:
+                fatalError("Player does not conform to Player")
             }
         }
     }

@@ -123,6 +123,9 @@ class  SinglePlayerGameManager: GameManager {
         )
         canvasEndMarker.spawn()
 
+        let mixingPot = MixingPot(position: Vector2D(200, 200))
+        mixingPot.spawn()
+
         currentLevel = Level.getDefaultLevel(
             canvasManager: canvasManager,
             gameInfo: gameInfoManager.gameInfo

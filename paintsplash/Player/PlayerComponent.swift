@@ -53,7 +53,6 @@ class PlayerComponent: PlayableComponent {
         if aimGuide == nil {
             aimGuide = player.multiWeaponComponent.getAimGuide()
             aimGuide?.spawn()
-            print("Create aimer")
         }
 
         aimGuide?.aim(at: event.direction)
