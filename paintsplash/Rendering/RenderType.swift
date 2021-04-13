@@ -7,7 +7,7 @@
 
 enum RenderType {
     case sprite(spriteName: String)
-    case label(text: String)
+    case label(text: String, fontName: String, fontSize: Double, fontColor: Color)
     case scene(name: String)
 }
 
@@ -26,6 +26,9 @@ extension RenderType: Codable {
 
     private struct LabelParams: Codable {
         let text: String
+        let fontName: String
+        let fontSize: Double
+        let fontColor: Color
     }
 
     private struct SceneParams: Codable {
@@ -42,7 +45,7 @@ extension RenderType: Codable {
             self = .sprite(spriteName: spriteParams.spriteName)
         case .label:
             let labelParams = try container.decode(LabelParams.self, forKey: .labelParams)
-            self = .label(text: labelParams.text)
+            self = .label(text: labelParams.text, fontName: labelParams.fontName, fontSize: labelParams.fontSize, fontColor: labelParams.fontColor)
         case .scene:
             let sceneParams = try container.decode(SceneParams.self, forKey: .sceneParams)
             self = .scene(name: sceneParams.name)
@@ -56,9 +59,9 @@ extension RenderType: Codable {
         case .sprite(let spriteName):
             try container.encode(CaseType.sprite, forKey: .caseType)
             try container.encode(SpriteParams(spriteName: spriteName), forKey: .spriteParams)
-        case .label(let text):
+        case let .label(text, fontName, fontSize, fontColor):
             try container.encode(CaseType.label, forKey: .caseType)
-            try container.encode(LabelParams(text: text), forKey: .labelParams)
+            try container.encode(LabelParams(text: text, fontName: fontName, fontSize: fontSize, fontColor: fontColor), forKey: .labelParams)
         case .scene(let name):
             try container.encode(CaseType.scene, forKey: .caseType)
             try container.encode(SceneParams(name: name), forKey: .sceneParams)

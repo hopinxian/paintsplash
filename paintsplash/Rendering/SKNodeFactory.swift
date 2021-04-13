@@ -15,15 +15,23 @@ class SKNodeFactory {
         switch renderComponent.renderType {
         case .sprite(let spriteName):
             node = buildSpriteNode(entity: renderable, spriteName: spriteName, size: transformComponent.size)
-        case .label(let text):
-            node = buildLabelNode(text: text)
+        case let .label(text, fontName, fontSize, fontColor):
+            node = buildLabelNode(text: text, fontName: fontName, fontSize: fontSize, fontColor: fontColor)
         case .scene(let name):
             node = buildSceneNode(sceneName: name)
         }
 
         node.position = SpaceConverter.modelToScreen(transformComponent.worldPosition)
         node.zRotation = CGFloat(transformComponent.rotation)
-        node.zPosition = CGFloat(renderComponent.zPosition)
+
+        var zPosition = renderComponent.zPositionGroup.rawValue + renderComponent.zPosition
+        if renderComponent.zPositionGroup == .playfield {
+            zPosition += Int((transformComponent.worldPosition.y - Constants.MODEL_WORLD_SIZE.y - transformComponent.size.y / 2) * -1)
+            print(renderable)
+            print(node.zPosition)
+        }
+
+        node.zPosition = CGFloat(zPosition)
 
         return node
     }
@@ -42,11 +50,13 @@ class SKNodeFactory {
         return node
     }
 
-    private static func buildLabelNode(text: String) -> SKLabelNode {
+    private static func buildLabelNode(text: String, fontName: String, fontSize: Double, fontColor: Color) -> SKLabelNode {
         let node = SKLabelNode(text: text)
         // TODO: dynamic font configuration
-        node.fontName = "ChalkboardSE-Bold"
-        node.fontSize = 20
+        // "ChalkboardSE-Bold"
+        node.fontName = fontName
+        node.fontColor = fontColor.asUIColor()
+        node.fontSize = CGFloat(fontSize)
         return node
     }
 

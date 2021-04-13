@@ -10,42 +10,27 @@ class GameOverUI: UIEntity, Renderable {
     var transformComponent: TransformComponent
     var onQuit: () -> Void
 
-    var titleLabel: TitleLabel
     var scoreLabel: ScoreLabel
     var backButton: BackButton
 
     init(score: Int, onQuit: @escaping () -> Void) {
         self.onQuit = onQuit
         self.renderComponent = RenderComponent(
-            renderType: .sprite(spriteName: "BlackSquare"),
-            zPosition: 1_000,
+            renderType: .sprite(spriteName: "GameOverWindow"),
+            zPosition: 0,
             zPositionGroup: .ui
         )
 
-        self.transformComponent = TransformComponent(position: Vector2D.zero, rotation: 0, size: Vector2D(1_000, 1_000))
+        self.transformComponent = TransformComponent(position: Vector2D.zero, rotation: 0, size: Vector2D(800, 952))
 
-        self.titleLabel = TitleLabel()
         self.scoreLabel = ScoreLabel(score: score)
         self.backButton = BackButton(onPress: onQuit)
     }
 
     override func spawn() {
         super.spawn()
-        titleLabel.spawn()
         scoreLabel.spawn()
         backButton.spawn()
-    }
-
-    class TitleLabel: UIEntity, Renderable {
-        var renderComponent: RenderComponent
-        var transformComponent: TransformComponent
-
-        override init() {
-            self.renderComponent = RenderComponent(renderType: .label(text: "Game Over!"), zPosition: 1_001, zPositionGroup: .ui)
-
-            self.transformComponent = TransformComponent(
-                position: Vector2D(0, 200), rotation: 0, size: Vector2D(300, 100))
-        }
     }
 
     class ScoreLabel: UIEntity, Renderable {
@@ -53,9 +38,13 @@ class GameOverUI: UIEntity, Renderable {
         var transformComponent: TransformComponent
 
         init(score: Int) {
-            self.renderComponent = RenderComponent(renderType: .label(text: String(score)), zPosition: 1_001, zPositionGroup: .ui)
+            self.renderComponent = RenderComponent(
+                renderType: .label(text: "Score: \(score)", fontName: "Marker Felt", fontSize: 40, fontColor: .black),
+                zPosition: 1,
+                zPositionGroup: .ui
+            )
 
-            self.transformComponent = TransformComponent(position: Vector2D.zero, rotation: 0, size: Vector2D(300, 100))
+            self.transformComponent = TransformComponent(position: Vector2D.zero, rotation: 0, size: Vector2D(517, 133))
         }
     }
 
@@ -67,10 +56,10 @@ class GameOverUI: UIEntity, Renderable {
         init(onPress: @escaping () -> Void) {
             self.onPress = onPress
 
-            self.renderComponent = RenderComponent(renderType: .sprite(spriteName: "YellowSquare"), zPosition: 1_001, zPositionGroup: .ui)
+            self.renderComponent = RenderComponent(renderType: .sprite(spriteName: "GameOverButton"), zPosition: 1, zPositionGroup: .ui)
 
             self.transformComponent = TransformComponent(
-                position: Vector2D(0, -200), rotation: 0, size: Vector2D(300, 100))
+                position: Vector2D(0, -200), rotation: 0, size: Vector2D(517, 133))
 
             super.init()
 

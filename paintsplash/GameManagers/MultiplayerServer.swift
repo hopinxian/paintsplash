@@ -257,7 +257,7 @@ class MultiplayerServer: SinglePlayerGameManager {
     }
 
     override func update(_ deltaTime: Double) {
-        if currentLevel?.gameOver == false {
+        if !gameIsOver {
             currentLevel?.update(deltaTime)
             aiSystem.updateEntities(deltaTime)
             collisionSystem.updateEntities(deltaTime)
