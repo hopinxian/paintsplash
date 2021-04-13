@@ -216,6 +216,11 @@ class  SinglePlayerGameManager: GameManager {
                                         position: Constants.SCORE_DISPLAY_POSITION)
         scoreDisplay.spawn()
 
+        let sceneNode = SceneNode(sceneName: "Hello.sks",
+            size: Constants.SCORE_DISPLAY_SIZE,
+                                        position: Constants.SCORE_DISPLAY_POSITION)
+        sceneNode.spawn()
+
         let lights = LightDisplay(size: Constants.LIGHT_DISPLAY_SIZE,
                                   position: Constants.LIGHT_DISPLAY_POSITION)
         lights.spawn()
@@ -304,3 +309,5 @@ class  SinglePlayerGameManager: GameManager {
         print("deinit SinglePlayerGameManager")
     }
 }
+
+

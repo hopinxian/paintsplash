@@ -17,6 +17,8 @@ class SKNodeFactory {
             node = buildSpriteNode(entity: renderable, spriteName: spriteName, size: transformComponent.size)
         case .label(let text):
             node = buildLabelNode(text: text)
+        case .scene(let name):
+            node = buildSceneNode(sceneName: name)
         }
 
         node.position = SpaceConverter.modelToScreen(transformComponent.worldPosition)
@@ -54,6 +56,13 @@ class SKNodeFactory {
         // TODO: dynamic font configuration
         node.fontName = "ChalkboardSE-Bold"
         node.fontSize = 20
+        return node
+    }
+
+    private static func buildSceneNode(sceneName: String) -> SKNode {
+        guard let node = SKReferenceNode(fileNamed: sceneName) else {
+            return SKNode()
+        }
         return node
     }
 
