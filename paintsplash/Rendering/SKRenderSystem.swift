@@ -144,9 +144,9 @@ class SKRenderSystem: RenderSystem {
             if let spriteNode = node as? SKSpriteNode {
                 updateSpriteNode(spriteNode, renderable)
             }
-        case .label(let text):
+        case let .label(text, fontName, fontSize, fontColor):
             if let labelNode = node as? SKLabelNode {
-                updateLabelNode(labelNode, text: text)
+                updateLabelNode(labelNode, text: text, fontName: fontName, fontSize: fontSize, fontColor: fontColor)
             }
         case .scene(let name):
             if let referenceNode = node as? SKReferenceNode {
@@ -171,9 +171,21 @@ class SKRenderSystem: RenderSystem {
         node.size = screenSize
     }
 
-    private func updateLabelNode(_ node: SKLabelNode, text: String) {
+    private func updateLabelNode(_ node: SKLabelNode, text: String, fontName: String, fontSize: Double, fontColor: Color) {
         if node.text != text {
             node.text = text
+        }
+
+        if node.fontName != fontName {
+            node.fontName = fontName
+        }
+
+        if node.fontSize != CGFloat(fontSize) {
+            node.fontSize = CGFloat(fontSize)
+        }
+
+        if node.fontColor != fontColor.asUIColor() {
+            node.fontColor = fontColor.asUIColor()
         }
     }
 

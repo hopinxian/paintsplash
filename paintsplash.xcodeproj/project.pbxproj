@@ -269,6 +269,7 @@
 		D5C56932260CD7D2009E5BD9 /* PlayerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C56931260CD7D2009E5BD9 /* PlayerState.swift */; };
 		D5D9201425FB9ACB00E70364 /* PaintAmmoDrop.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D9201325FB9ACB00E70364 /* PaintAmmoDrop.swift */; };
 		D5DC909125FCC4210038DF71 /* AtlasAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5DC909025FCC4210038DF71 /* AtlasAnimation.swift */; };
+		D5E3962026261AA300250EEC /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E3961F26261AA300250EEC /* Color.swift */; };
 		DC04EAB4260EECFB00D7DDFF /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC04EAB3260EECFB00D7DDFF /* MenuViewController.swift */; };
 		DC08DA5C26051243000F4F90 /* CanvasHitEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC08DA5B26051243000F4F90 /* CanvasHitEvent.swift */; };
 		DC08DA6A260516DE000F4F90 /* CanvasEndMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC08DA69260516DE000F4F90 /* CanvasEndMarker.swift */; };
@@ -616,6 +617,7 @@
 		D5C56931260CD7D2009E5BD9 /* PlayerState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerState.swift; sourceTree = "<group>"; };
 		D5D9201325FB9ACB00E70364 /* PaintAmmoDrop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaintAmmoDrop.swift; sourceTree = "<group>"; };
 		D5DC909025FCC4210038DF71 /* AtlasAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AtlasAnimation.swift; sourceTree = "<group>"; };
+		D5E3961F26261AA300250EEC /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		DC04EAB3260EECFB00D7DDFF /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		DC08DA5B26051243000F4F90 /* CanvasHitEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasHitEvent.swift; sourceTree = "<group>"; };
 		DC08DA69260516DE000F4F90 /* CanvasEndMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasEndMarker.swift; sourceTree = "<group>"; };
@@ -1337,6 +1339,7 @@
 				D596B19925F8CF0800A5854F /* Renderable.swift */,
 				ACFD81F925F667EB009D806B /* RenderSystem.swift */,
 				D5500C0F2608F12800E21BF1 /* SKNodeFactory.swift */,
+				D5E3961F26261AA300250EEC /* Color.swift */,
 				D53F5439260D94A800635B05 /* Animatable.swift */,
 				D53F5443260D94EB00635B05 /* SKRenderSystem.swift */,
 				D53F5447260D94F700635B05 /* SKAnimationSystem.swift */,
@@ -1877,6 +1880,7 @@
 				DC4CAC71261301790086CBCC /* NetworkEntity.swift in Sources */,
 				D57045562618432C004AF802 /* MultiplayerError.swift in Sources */,
 				ACFD820925F676AB009D806B /* Movable.swift in Sources */,
+				D5E3962026261AA300250EEC /* Color.swift in Sources */,
 				D570452226182CD2004AF802 /* TransactionMode.swift in Sources */,
 				DC6874CF260362C800CF89E4 /* CanvasRequestManager.swift in Sources */,
 				ACC154F626012F640000775C /* PlayerActionEventManager.swift in Sources */,
@@ -2256,14 +2260,16 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = X872J9X7F2;
+				DEVELOPMENT_TEAM = 8B4N4F9FTJ;
+				DEVELOPMENT_TEAM = 5Q6AP63883;
 				INFOPLIST_FILE = paintsplash/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = crawlers.paintsplashes2;
+				PRODUCT_BUNDLE_IDENTIFIER = crawlers.paintsplashes6;
+				PRODUCT_BUNDLE_IDENTIFIER = crawlers.paintsplashes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -2279,14 +2285,16 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = X872J9X7F2;
+				DEVELOPMENT_TEAM = 8B4N4F9FTJ;
+				DEVELOPMENT_TEAM = 5Q6AP63883;
 				INFOPLIST_FILE = paintsplash/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = crawlers.paintsplashes2;
+				PRODUCT_BUNDLE_IDENTIFIER = crawlers.paintsplashes6;
+				PRODUCT_BUNDLE_IDENTIFIER = crawlers.paintsplashes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;

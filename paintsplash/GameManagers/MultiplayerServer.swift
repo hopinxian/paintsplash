@@ -172,7 +172,7 @@ class MultiplayerServer: SinglePlayerGameManager {
                 }
 
                 print("sending")
-
+                event.score = self?.currentLevel?.score.score
                 self?.gameConnectionHandler?.sendEvent(
                     gameId: gameId,
                     playerId: playerID.id,
@@ -257,7 +257,7 @@ class MultiplayerServer: SinglePlayerGameManager {
     }
 
     override func update(_ deltaTime: Double) {
-        if currentLevel?.gameOver == false {
+        if !gameIsOver {
             currentLevel?.update(deltaTime)
             aiSystem.updateEntities(deltaTime)
             collisionSystem.updateEntities(deltaTime)

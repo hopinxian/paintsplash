@@ -34,6 +34,8 @@ class  SinglePlayerGameManager: GameManager {
     var player: Player!
     var gameInfoManager: GameInfoManager
 
+    var gameIsOver = false
+
     init(gameScene: GameScene, vc: GameViewController) {
         self.gameScene = gameScene
         self.viewController = vc
@@ -216,10 +218,10 @@ class  SinglePlayerGameManager: GameManager {
                                         position: Constants.SCORE_DISPLAY_POSITION)
         scoreDisplay.spawn()
 
-        let sceneNode = SceneNode(sceneName: "Hello.sks",
-            size: Constants.SCORE_DISPLAY_SIZE,
-                                        position: Constants.SCORE_DISPLAY_POSITION)
-        sceneNode.spawn()
+//        let sceneNode = SceneNode(sceneName: "Hello.sks",
+//            size: Constants.SCORE_DISPLAY_SIZE,
+//                                        position: Constants.SCORE_DISPLAY_POSITION)
+//        sceneNode.spawn()
 
         let lights = LightDisplay(size: Constants.LIGHT_DISPLAY_SIZE,
                                   position: Constants.LIGHT_DISPLAY_POSITION)
@@ -275,7 +277,10 @@ class  SinglePlayerGameManager: GameManager {
     }
 
     func update(_ deltaTime: Double) {
-        if currentLevel?.gameOver == false || currentLevel == nil {
+        print("Game is over")
+        print(gameIsOver)
+        if !gameIsOver || currentLevel == nil {
+            print("run")
             currentLevel?.update(deltaTime)
             transformSystem?.updateEntities(deltaTime)
             aiSystem?.updateEntities(deltaTime)
@@ -290,7 +295,8 @@ class  SinglePlayerGameManager: GameManager {
     }
 
     private func onGameOver(event: GameOverEvent) {
-        let gameOverUI = GameOverUI(score: currentLevel?.score.score ?? 0, onQuit: { [weak self] in self?.onQuit() })
+        gameIsOver = true
+        let gameOverUI = GameOverUI(score: currentLevel?.score.score ?? event.score ?? 0, onQuit: { [weak self] in self?.onQuit() })
         gameOverUI.spawn()
 
         EventSystem.audioEvent.stopMusicEvent.post(event: StopMusicEvent())
