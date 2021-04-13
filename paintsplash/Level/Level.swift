@@ -11,12 +11,14 @@ import Foundation
 class Level {
     private(set) var spawnEvents: [SpawnCommand] = []
 
+    var rng = RandomNumber(100)
+
     var repeatLimit: Int?
     var bufferBetweenLoop = 5.0 // in seconds
     private var gameInfo: GameInfo
 
-    static let enemyCapacity = 5
-    static let dropCapacity = 5
+    static var enemyCapacity = 5
+    static var dropCapacity = 5
 
     private var canvasRequestManager: CanvasRequestManager
     private(set) var canvasSpawnInterval = 2.0
@@ -92,11 +94,15 @@ class Level {
     }
 
     func getRandomRequest() -> Set<PaintColor> {
-        let randomNumber = Int.random(in: 1..<4)
-        let colors = PaintColor.allCases.shuffled().filter { $0 != PaintColor.white }
+        let randomNumber = rng.nextInt(1..<4)
         var request = Set<PaintColor>()
-        for index in 1...randomNumber {
-            request.insert(colors[index])
+        let colors = PaintColor.allCases.filter {
+            $0 != PaintColor.white
+        }
+        let length = colors.count
+        for _ in 1...randomNumber {
+            let randomColor = colors[rng.nextInt(0..<length)]
+            request.insert(randomColor)
         }
         return request
     }
@@ -147,25 +153,8 @@ class Level {
     }
 
     static func getDefaultLevel(canvasManager: CanvasRequestManager, gameInfo: GameInfo) -> Level {
-        let level = Level(canvasManager: canvasManager, gameInfo: gameInfo)
-
-        level.repeatLimit = 1
-
-        let enemyCommand = EnemyCommand()
-        enemyCommand.time = 2
-        level.addSpawnEvent(enemyCommand)
-
-        let spawnerCommand = EnemySpawnerCommand()
-        spawnerCommand.time = 5
-        level.addSpawnEvent(spawnerCommand)
-
-        for i in 1..<10 {
-            let dropCommand = AmmoDropCommand()
-            dropCommand.time = Double(i * 5)
-            level.addSpawnEvent(dropCommand)
-        }
-
+        let path = "Level"
+        let level = LevelReader(filePath: path).readLevel(canvasManager: canvasManager, gameInfo: gameInfo)
         return level
     }
-
 }

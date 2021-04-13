@@ -34,7 +34,7 @@ class LevelTests: XCTestCase {
         ammoDropEvent = AmmoDropCommand()
         ammoDropEvent.time = 4
 
-        canvasSpawnerEvent = CanvasSpawnerCommand(endX: 10)
+        canvasSpawnerEvent = CanvasSpawnerCommand()
         canvasSpawnerEvent.time = 5
     }
 

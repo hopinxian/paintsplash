@@ -13,7 +13,7 @@ class LevelScore: GameEntity, Renderable {
     var freeze = true
 
     override init() {
-        let renderType = RenderType.label(text: "Level Score: \(score)")
+        let renderType = RenderType.label(text: "\(score)")
 
         self.renderComponent = RenderComponent(
             renderType: renderType,
@@ -21,9 +21,9 @@ class LevelScore: GameEntity, Renderable {
         )
 
         self.transformComponent = TransformComponent(
-            position: Vector2D(-300, -495),
+            position: Constants.LEVEL_SCORE_POSITION,
             rotation: 0,
-            size: Vector2D(90, 50)
+            size: Constants.LEVEL_SCORE_SIZE
         )
 
         super.init()
@@ -35,7 +35,7 @@ class LevelScore: GameEntity, Renderable {
     func onScoreEvent(event: ScoreEvent) {
         if !freeze {
             score += event.value
-            let renderType = RenderType.label(text: "Level Score: \(score)")
+            let renderType = RenderType.label(text: "\(score)")
             renderComponent.renderType = renderType
         }
     }

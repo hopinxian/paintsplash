@@ -8,10 +8,6 @@
 extension EnemyState {
     class ChasingRight: EnemyState {
         override func onEnterState() {
-            EventSystem.audioEvent.playSoundEffectEvent.post(
-                event: PlaySoundEffectEvent(effect: SoundEffect.enemyStep)
-            )
-            
             enemy.animationComponent.animate(
                 animation: SlimeAnimations.slimeMoveRightGray,
                 interupt: true

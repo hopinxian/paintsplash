@@ -61,7 +61,9 @@ class  SinglePlayerGameManager: GameManager {
             self?.onRemoveUIEntity(event: event)
         })
 
-        EventSystem.gameStateEvents.gameOverEvent.subscribe(listener: onGameOver)
+        EventSystem.gameStateEvents.gameOverEvent.subscribe(listener: { [weak self] in
+                                                                self?.onGameOver(event: $0)
+        })
     }
 
     func setupGame() {
@@ -125,6 +127,9 @@ class  SinglePlayerGameManager: GameManager {
 
         let mixingPot = MixingPot(position: Vector2D(200, 200))
         mixingPot.spawn()
+
+        let spawner = EnemySpawner(initialPosition: .zero, color: .blue)
+        spawner.spawn()
 
         currentLevel = Level.getDefaultLevel(
             canvasManager: canvasManager,
@@ -206,6 +211,14 @@ class  SinglePlayerGameManager: GameManager {
             spritename: Constants.TOP_BAR_SPRITE
         )
         topBar.spawn()
+
+        let scoreDisplay = ScoreDisplay(size: Constants.SCORE_DISPLAY_SIZE,
+                                        position: Constants.SCORE_DISPLAY_POSITION)
+        scoreDisplay.spawn()
+
+        let lights = LightDisplay(size: Constants.LIGHT_DISPLAY_SIZE,
+                                  position: Constants.LIGHT_DISPLAY_POSITION)
+        lights.spawn()
     }
 
     func onAddEntity(event: AddEntityEvent) {

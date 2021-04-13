@@ -22,8 +22,10 @@ class PlayerHealthDisplay: UIEntity, Transformable {
         let displayView = HorizontalStack<HeartDisplay>(
             position: transformComponent.localPosition,
             size: transformComponent.size,
-            backgroundSprite: "WhiteSquare",
-            zPosition: Constants.ZPOSITION_HEALTH_DISPLAY
+            backgroundSprite: Constants.HEALTH_DISPLAY_SPRITE,
+            zPosition: Constants.ZPOSITION_HEALTH_DISPLAY,
+            seperation: 10,
+            leftPadding: 55
         )
 
         self.healthDisplayView = displayView

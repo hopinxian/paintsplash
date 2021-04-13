@@ -10,7 +10,7 @@ class HeartDisplay: UIEntity, Renderable, Transformable {
     var renderComponent: RenderComponent
 
     init(position: Vector2D, zPosition: Int) {
-        let renderType = RenderType.sprite(spriteName: "heart")
+        let renderType = RenderType.sprite(spriteName: Constants.HEART_SPRITE)
 
         self.transformComponent = TransformComponent(
             position: position,

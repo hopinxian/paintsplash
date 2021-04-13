@@ -17,7 +17,7 @@ struct SpawnerAnimations: AnimationSource {
         "spawnerSpawn":
             AtlasAnimation(
                 name: "spawnerSpawn",
-                animationDuration: 1.2,
+                animationDuration: 2.0,
                 atlasName: "SpawnerSpawn",
                 isRepeating: false
             ),

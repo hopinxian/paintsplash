@@ -24,8 +24,9 @@ class PaintBucketAmmoDisplay: UIEntity, Transformable {
         let displayView = VerticalStack<PaintAmmoDisplay>(
             position: transformComponent.localPosition,
             size: transformComponent.size,
-            backgroundSprite: "WhiteSquare",
-            zPosition: Constants.ZPOSITION_AMMO_DISPLAY
+            backgroundSprite: Constants.PAINT_BUCKET_AMMO_DISPLAY_SPRITE,
+            zPosition: Constants.ZPOSITION_AMMO_DISPLAY,
+            bottomPadding: 30
         )
 
         self.ammoDisplayView = displayView

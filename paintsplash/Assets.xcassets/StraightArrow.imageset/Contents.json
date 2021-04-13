@@ -1,19 +1,8 @@
 {
   "images" : [
     {
-      "filename" : "straightArrow.png",
+      "filename" : "StraightArrow.png",
       "idiom" : "universal",
-      "resizing" : {
-        "cap-insets" : {
-          "left" : 19,
-          "right" : 65
-        },
-        "center" : {
-          "mode" : "stretch",
-          "width" : 216
-        },
-        "mode" : "3-part-horizontal"
-      },
       "scale" : "1x"
     },
     {

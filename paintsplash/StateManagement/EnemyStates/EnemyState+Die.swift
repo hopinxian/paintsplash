@@ -12,8 +12,8 @@ extension EnemyState {
             enemy.animationComponent.animate(
                 animation: SlimeAnimations.slimeDieGray,
                 interupt: true,
-                callBack: {
-                        self.enemy.destroy()
+                callBack: { [weak self] in
+                    self?.enemy.destroy()
                 }
             )
         }
