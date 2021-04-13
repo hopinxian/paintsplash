@@ -188,6 +188,10 @@ class  SinglePlayerGameManager: GameManager {
         attackJoystick.spawn()
         userInputSystem.addTouchable(attackJoystick)
 
+//        let bombButton = BombButton(associatedEntityID: player.id, position: Vector2D(300, -300))
+//        bombButton.spawn()
+//        userInputSystem.addTouchable(bombButton)
+
         let playerHealthUI = PlayerHealthDisplay(
             startingHealth: player.healthComponent.currentHealth,
             associatedEntityId: player.id

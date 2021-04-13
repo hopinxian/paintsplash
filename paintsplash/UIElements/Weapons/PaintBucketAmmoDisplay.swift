@@ -25,6 +25,7 @@ class PaintBucketAmmoDisplay: UIEntity, Transformable {
             position: transformComponent.localPosition,
             size: transformComponent.size,
             backgroundSprite: Constants.PAINT_BUCKET_AMMO_DISPLAY_SPRITE,
+            zPosition: Constants.ZPOSITION_AMMO_DISPLAY,
             bottomPadding: 30
         )
 
@@ -71,7 +72,7 @@ class PaintBucketAmmoDisplay: UIEntity, Transformable {
             .compactMap({ PaintAmmoDisplay(
                 paintAmmo: $0,
                 position: Vector2D.outOfScreen,
-                zPosition: Constants.ZPOSITION_UI_ELEMENT + 1)
+                zPosition: Constants.ZPOSITION_AMMO_DISPLAY + 1)
         })
 
         ammoDisplayView.changeItems(to: ammoDisplays)

@@ -17,7 +17,7 @@ class LevelScore: GameEntity, Renderable {
 
         self.renderComponent = RenderComponent(
             renderType: renderType,
-            zPosition: Constants.ZPOSITION_UI_ELEMENT + 1
+            zPosition: Constants.ZPOSITION_SCORE
         )
 
         self.transformComponent = TransformComponent(

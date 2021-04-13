@@ -21,6 +21,10 @@ class PlayableComponent: Component {
     func onWeaponChange(event: PlayerChangeWeaponEvent) {
         // Do Nothing by Default
     }
+
+    func onBomb(event: PlayerBombEvent) {
+        // Do Nothing by Default
+    }
 }
 
 class PlayerComponent: PlayableComponent {
@@ -99,5 +103,14 @@ class PlayerComponent: PlayableComponent {
         let sfxEvent = PlaySoundEffectEvent(effect: SoundEffect.weaponSwap, playerId: player.id)
         EventSystem.audioEvent.playSoundEffectEvent.post(event: sfxEvent)
 
+    }
+
+    override func onBomb(event: PlayerBombEvent) {
+        guard let player = player,
+              event.playerId == player.id else {
+            return
+        }
+
+        player.stateComponent.currentState = PlayerState.UseBomb(player: player, attackDirection: event.direction)
     }
 }

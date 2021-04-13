@@ -23,6 +23,7 @@ class PlayerHealthDisplay: UIEntity, Transformable {
             position: transformComponent.localPosition,
             size: transformComponent.size,
             backgroundSprite: Constants.HEALTH_DISPLAY_SPRITE,
+            zPosition: Constants.ZPOSITION_HEALTH_DISPLAY,
             seperation: 10,
             leftPadding: 55
         )
@@ -50,7 +51,7 @@ class PlayerHealthDisplay: UIEntity, Transformable {
 
         let healthDisplays = stride(from: 0, to: normalizedHealth, by: 1)
             .map { _ in
-                HeartDisplay(position: Vector2D.outOfScreen, zPosition: Constants.ZPOSITION_UI_ELEMENT)
+                HeartDisplay(position: Vector2D.outOfScreen, zPosition: Constants.ZPOSITION_HEALTH_DISPLAY + 1)
             }
 
         healthDisplayView.changeItems(to: healthDisplays)

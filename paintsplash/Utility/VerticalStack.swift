@@ -22,6 +22,7 @@ class VerticalStack<ItemType: Renderable>: UIEntity, Renderable, Animatable {
         position: Vector2D,
         size: Vector2D,
         backgroundSprite: String,
+        zPosition: Int,
         rotation: Double = 0.0,
         seperation: Double = 20.0,
         leftPadding: Double = 10.0,
@@ -33,7 +34,7 @@ class VerticalStack<ItemType: Renderable>: UIEntity, Renderable, Animatable {
         self.leftPadding = leftPadding
         self.rightPadding = rightPadding
         self.bottomPadding = bottomPadding
-        self.zPosition = Constants.ZPOSITION_UI_ELEMENT
+        self.zPosition = zPosition
 
         self.transformComponent = TransformComponent(
             position: position,
@@ -43,7 +44,8 @@ class VerticalStack<ItemType: Renderable>: UIEntity, Renderable, Animatable {
 
         self.renderComponent = RenderComponent(
             renderType: .sprite(spriteName: backgroundSprite),
-            zPosition: zPosition
+            zPosition: zPosition,
+            zPositionGroup: .ui
         )
 
         self.animationComponent = AnimationComponent()

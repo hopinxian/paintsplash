@@ -26,3 +26,7 @@ class TouchDownEvent: TouchInputEvent {
 class TouchMovedEvent: TouchInputEvent {
 
 }
+
+class DoubleTapEvent: TouchInputEvent {
+    
+}

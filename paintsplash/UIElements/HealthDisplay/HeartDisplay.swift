@@ -20,7 +20,8 @@ class HeartDisplay: UIEntity, Renderable, Transformable {
 
         self.renderComponent = RenderComponent(
             renderType: renderType,
-            zPosition: zPosition
+            zPosition: zPosition,
+            zPositionGroup: .ui
         )
 
         super.init()

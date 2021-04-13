@@ -25,6 +25,7 @@ class HorizontalStack<ItemType: Renderable>: GameEntity, Renderable, Animatable 
         position: Vector2D,
         size: Vector2D,
         backgroundSprite: String,
+        zPosition: Int,
         rotation: Double = 0.0,
         seperation: Double = 20.0,
         leftPadding: Double = 25.0,
@@ -36,7 +37,7 @@ class HorizontalStack<ItemType: Renderable>: GameEntity, Renderable, Animatable 
         self.leftPadding = leftPadding
         self.topPadding = topPadding
         self.bottomPadding = bottomPadding
-        self.zPosition = Constants.ZPOSITION_UI_ELEMENT
+        self.zPosition = zPosition
 
         self.transformComponent = TransformComponent(
             position: position,
@@ -46,7 +47,8 @@ class HorizontalStack<ItemType: Renderable>: GameEntity, Renderable, Animatable 
 
         self.renderComponent = RenderComponent(
             renderType: .sprite(spriteName: backgroundSprite),
-            zPosition: zPosition
+            zPosition: zPosition,
+            zPositionGroup: .ui
         )
 
         self.animationComponent = AnimationComponent()

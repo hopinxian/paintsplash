@@ -37,6 +37,17 @@ class MultiWeaponComponent: WeaponComponent {
         return projectile
     }
 
+    func shoot<T: Weapon>(weapon: T.Type, from position: Vector2D, in direction: Vector2D) -> Projectile? {
+        guard let weapon = availableWeapons.compactMap({ $0 as? T }).first,
+            let projectile = weapon.shoot(from: position, in: direction) else {
+            return nil
+        }
+
+        projectile.spawn()
+
+        return projectile
+    }
+
     func switchWeapon<T: Weapon>(to weapon: T.Type) -> Weapon? {
         guard let weapon = availableWeapons.compactMap({ $0 as? T }).first else {
             return nil

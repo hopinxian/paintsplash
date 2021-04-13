@@ -1,13 +1,11 @@
 //
-//  AttackButton.swift
+//  BombButton.swift
 //  paintsplash
 //
-//  Created by Praveen Bala on 17/3/21.
+//  Created by Farrell Nah on 13/4/21.
 //
 
-import Foundation
-
-class AttackButton: UIEntity, Renderable {
+class BombButton: UIEntity, Renderable {
     var renderComponent: RenderComponent
     var transformComponent: TransformComponent
 
@@ -17,16 +15,16 @@ class AttackButton: UIEntity, Renderable {
         transformComponent.size.x / 2
     }
 
-    init(associatedEntityID: EntityID) {
+    init(associatedEntityID: EntityID, position: Vector2D) {
         self.associatedEntity = associatedEntityID
 
         self.renderComponent = RenderComponent(
-            renderType: .sprite(spriteName: Constants.ATTACK_BUTTON_SPRITE),
+            renderType: .sprite(spriteName: "WhiteSquare"),
             zPosition: Constants.ZPOSITION_JOYSTICK
         )
 
         self.transformComponent = TransformComponent(
-            position: Constants.ATTACK_BUTTON_POSITION,
+            position: position,
             rotation: 0,
             size: Constants.ATTACK_BUTTON_SIZE
         )
@@ -49,10 +47,10 @@ class AttackButton: UIEntity, Renderable {
         }
 
         tracking = false
-        let event = PlayerShootEvent(
-            direction: Vector2D.up,
+        let event = PlayerBombEvent(
+            direction: Vector2D.right,
             playerID: associatedEntity
         )
-        EventSystem.processedInputEvents.playerShootEvent.post(event: event)
+        EventSystem.processedInputEvents.playerBombEvent.post(event: event)
     }
 }

@@ -172,6 +172,9 @@
 		D5500C0A2608E8FE00E21BF1 /* RenderType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5500C092608E8FE00E21BF1 /* RenderType.swift */; };
 		D5500C102608F12800E21BF1 /* SKNodeFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5500C0F2608F12800E21BF1 /* SKNodeFactory.swift */; };
 		D554068C26232C1C00F74E01 /* MixingPot.swift in Sources */ = {isa = PBXBuildFile; fileRef = D554068B26232C1C00F74E01 /* MixingPot.swift */; };
+		D55406AA2625A00800F74E01 /* Bomb.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55406A92625A00800F74E01 /* Bomb.swift */; };
+		D55406B42625ABF200F74E01 /* BombButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55406B32625ABF200F74E01 /* BombButton.swift */; };
+		D55406B82625AD8F00F74E01 /* PlayerState+Bomb.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55406B72625AD8F00F74E01 /* PlayerState+Bomb.swift */; };
 		D5553D6A2606299B00C1862E /* CompoundAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5553D692606299B00C1862E /* CompoundAnimation.swift */; };
 		D5553D6F260629AE00C1862E /* SequenceAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5553D6E260629AE00C1862E /* SequenceAnimation.swift */; };
 		D5553D74260629D100C1862E /* CallbackAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5553D73260629D100C1862E /* CallbackAnimation.swift */; };
@@ -512,6 +515,9 @@
 		D5500C092608E8FE00E21BF1 /* RenderType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderType.swift; sourceTree = "<group>"; };
 		D5500C0F2608F12800E21BF1 /* SKNodeFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKNodeFactory.swift; sourceTree = "<group>"; };
 		D554068B26232C1C00F74E01 /* MixingPot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixingPot.swift; sourceTree = "<group>"; };
+		D55406A92625A00800F74E01 /* Bomb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bomb.swift; sourceTree = "<group>"; };
+		D55406B32625ABF200F74E01 /* BombButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BombButton.swift; sourceTree = "<group>"; };
+		D55406B72625AD8F00F74E01 /* PlayerState+Bomb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlayerState+Bomb.swift"; sourceTree = "<group>"; };
 		D5553D692606299B00C1862E /* CompoundAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompoundAnimation.swift; sourceTree = "<group>"; };
 		D5553D6E260629AE00C1862E /* SequenceAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SequenceAnimation.swift; sourceTree = "<group>"; };
 		D5553D73260629D100C1862E /* CallbackAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallbackAnimation.swift; sourceTree = "<group>"; };
@@ -823,6 +829,7 @@
 				D53F54E7260D9F4600635B05 /* PlayerState+MoveRight.swift */,
 				D53F546F260D962300635B05 /* PlayerState+Attack.swift */,
 				D53F54F1260DA03500635B05 /* PlayerState+AttackRight.swift */,
+				D55406B72625AD8F00F74E01 /* PlayerState+Bomb.swift */,
 				D53F546B260D960100635B05 /* PlayerState+Idle.swift */,
 				D53F54ED260D9FE100635B05 /* PlayerState+IdleRight.swift */,
 				D5B65CA02618B6FC00C132FE /* PlayerUserInput.swift */,
@@ -1117,6 +1124,7 @@
 				846D4FB926023F770079720F /* AttackButton.swift */,
 				AC11904825FE7B7B00601CB9 /* Joystick.swift */,
 				D5704531261830EA004AF802 /* AttackJoystick.swift */,
+				D55406B32625ABF200F74E01 /* BombButton.swift */,
 				D570452D261830DA004AF802 /* MovementJoystick.swift */,
 				AC0A18662605304100A1338C /* UIBar.swift */,
 				D567333E261EE11700FD1D15 /* GameOverUI.swift */,
@@ -1465,6 +1473,7 @@
 				D583469225FB845F005C344D /* Bucket.swift */,
 				D58346A625FB8616005C344D /* PaintProjectile.swift */,
 				D50C88DF262178E2001DBDD6 /* PaintBucketSplash.swift */,
+				D55406A92625A00800F74E01 /* Bomb.swift */,
 			);
 			path = PaintWeapons;
 			sourceTree = "<group>";
@@ -1812,6 +1821,7 @@
 				D570451E26182CC7004AF802 /* FirebaseError.swift in Sources */,
 				DC0EE89125FE4C2300CBF414 /* EnemySpawner.swift in Sources */,
 				DCF1BEFA25FA6B6E00B56AD4 /* GameInfo.swift in Sources */,
+				D55406B42625ABF200F74E01 /* BombButton.swift in Sources */,
 				846D4FBA26023F770079720F /* AttackButton.swift in Sources */,
 				ACFD822725F67C76009D806B /* PaintColor.swift in Sources */,
 				ACFD822225F67C5B009D806B /* Projectile.swift in Sources */,
@@ -2002,12 +2012,14 @@
 				D53F5419260D93F200635B05 /* AnimationComponent.swift in Sources */,
 				8453F2CB260C8A0D00FFD8AE /* EnemyCommand.swift in Sources */,
 				D5553D6F260629AE00C1862E /* SequenceAnimation.swift in Sources */,
+				D55406B82625AD8F00F74E01 /* PlayerState+Bomb.swift in Sources */,
 				DCB72DBA25FE18B100B183E0 /* State.swift in Sources */,
 				D55EEB7E260089C200ADC70B /* PaintGunAmmoDisplay.swift in Sources */,
 				D53F548C260D96DB00635B05 /* CanvasSpawnerState.swift in Sources */,
 				D53F5421260D942800635B05 /* HealthComponent.swift in Sources */,
 				DCCF8CF4261038E4006F6964 /* JoinRoomViewController.swift in Sources */,
 				D53F5498260D970A00635B05 /* EnemyState.swift in Sources */,
+				D55406AA2625A00800F74E01 /* Bomb.swift in Sources */,
 				D55EEB4B25FF8B6500ADC70B /* GameScene+UserInput.swift in Sources */,
 				ACC154F126012F560000775C /* PlayerActionEvent.swift in Sources */,
 				D50FD6CB2612084500491CAC /* SinglePlayerViewController.swift in Sources */,

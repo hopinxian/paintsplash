@@ -12,7 +12,8 @@ class LightDisplay: UIEntity, Renderable {
         let renderType = RenderType.sprite(spriteName: Constants.LIGHT_DISPLAY_SPRITE)
         self.renderComponent = RenderComponent(
             renderType: renderType,
-            zPosition: Constants.ZPOSITION_UI_ELEMENT + 1
+            zPosition: Constants.ZPOSITION_LIGHT,
+            zPositionGroup: .background
         )
         self.transformComponent = TransformComponent(
             position: position,
