@@ -153,7 +153,7 @@ class Level {
     }
 
     static func getDefaultLevel(canvasManager: CanvasRequestManager, gameInfo: GameInfo) -> Level {
-        let path = "level"
+        let path = "Level"
         let level = LevelReader(filePath: path).readLevel(canvasManager: canvasManager, gameInfo: gameInfo)
         return level
     }
