@@ -17,27 +17,34 @@ class LevelReader {
     func readLevel(canvasManager: CanvasRequestManager, gameInfo: GameInfo) -> Level {
         let level = Level(canvasManager: canvasManager, gameInfo: gameInfo)
 
-        if let levelURL = Bundle.main.url(forResource: filePath, withExtension: "txt") {
+        if let levelURL = Bundle.main.url(forResource: filePath, withExtension: "csv") {
             if let levelDescription = try? String(contentsOf: levelURL) {
 
                 var commandsString = levelDescription.components(separatedBy: "\n")
 
+                // removes header labels
+                _ = commandsString.removeFirst()
                 let header = commandsString.removeFirst()
                 parseHeader(header, level)
 
+                // removes command labels
+                _ = commandsString.removeFirst()
                 for commandString in commandsString {
+                    if commandString.isEmpty {
+                        break
+                    }
                     let event = parseStringToCommand(commandString)
                     level.addSpawnEvent(event)
                 }
                 return level
             }
         }
-        fatalError("unable to parse level")
+        fatalError("unable to find file")
     }
 
     private func parseHeader(_ header: String, _ level: Level) {
-        let arg = header.components(separatedBy: " ")
-        assert(arg.count == 4)
+        var arg = header.components(separatedBy: ",")
+        arg = arg.map{removeWhitespace($0)}
         level.repeatLimit = parseLimit(arg[0])
         level.bufferBetweenLoop = parseLoopBuffer(arg[1]) ?? level.bufferBetweenLoop
         Level.enemyCapacity = parseEnemyCapacity(arg[2]) ?? Level.enemyCapacity
@@ -45,7 +52,8 @@ class LevelReader {
     }
 
     private func parseStringToCommand(_ commandString: String) -> SpawnCommand {
-        let arguments = commandString.components(separatedBy: " ")
+        var arguments = commandString.components(separatedBy: ",")
+        arguments = arguments.map{removeWhitespace($0)}
         let command: SpawnCommand
         switch arguments[0].lowercased() {
         case "slime":
@@ -64,44 +72,40 @@ class LevelReader {
     }
 
     private func parseEnemyCommand(_ arg: [String]) -> EnemyCommand {
-        assert(arg.count == 5)
         let command = EnemyCommand()
-        command.location = parseLocation([arg[1], arg[2]])
-        command.color = parseColor(arg[3])
-        command.time = parseTime(arg[4])
+        command.location = parseLocation([arg[3], arg[4]])
+        command.color = parseColor(arg[2])
+        command.time = parseTime(arg[1])
         return command
     }
 
     private func parseEnemySpawnerCommand(_ arg: [String]) -> EnemySpawnerCommand {
-        assert(arg.count == 5)
         let command = EnemySpawnerCommand()
-        command.location = parseLocation([arg[1], arg[2]])
-        command.color = parseColor(arg[3])
-        command.time = parseTime(arg[4])
+        command.location = parseLocation([arg[3], arg[4]])
+        command.color = parseColor(arg[2])
+        command.time = parseTime(arg[1])
         return command
     }
 
     private func parseCanvasSpawnerCommand(_ arg: [String]) -> CanvasSpawnerCommand {
-        assert(arg.count == 7)
         let command = CanvasSpawnerCommand()
-        command.location = parseLocation([arg[1], arg[2]])
-        command.velocity = parseVelocity([arg[3], arg[4]])
-        command.spawnInterval = parseSpawnInterval(arg[5])
-        command.time = parseTime(arg[6])
+        command.location = parseLocation([arg[3], arg[4]])
+        command.velocity = parseVelocity([arg[5], arg[6]])
+        command.spawnInterval = parseSpawnInterval(arg[7])
+        command.time = parseTime(arg[1])
         return command
     }
 
     private func parseAmmoDropCommand(_ arg: [String]) -> AmmoDropCommand {
-        assert(arg.count == 5)
         let command = AmmoDropCommand()
-        command.location = parseLocation([arg[1], arg[2]])
-        command.color = parseColor(arg[3])
-        command.time = parseTime(arg[4])
+        command.location = parseLocation([arg[3], arg[4]])
+        command.color = parseColor(arg[2])
+        command.time = parseTime(arg[1])
         return command
     }
 
     private func parseLocation(_ arg: [String]) -> Vector2D? {
-        if arg[0] == "random", arg[1] == "random" {
+        if arg[0].isEmpty && arg[1].isEmpty {
             return nil
         }
         return parseVector2D(arg)
@@ -116,7 +120,7 @@ class LevelReader {
     }
 
     private func parseColor(_ arg: String) -> PaintColor? {
-        if arg == "nil" {
+        if arg.isEmpty {
             return nil
         }
         if let color = PaintColor(rawValue: arg.lowercased()) {
@@ -134,14 +138,14 @@ class LevelReader {
     }
 
     private func parseVelocity(_ arg: [String]) -> Vector2D? {
-        if arg[0] == "random", arg[1] == "random" {
+        if arg[0].isEmpty && arg[1].isEmpty {
             return nil
         }
         return parseVector2D(arg)
     }
 
     private func parseSpawnInterval(_ arg: String) -> Double? {
-        if arg == "nil" {
+        if arg.isEmpty {
             return nil
         }
         return parsePositiveDouble(arg)
@@ -164,14 +168,14 @@ class LevelReader {
     }
 
     private func parseLimit(_ arg: String) -> Int? {
-        if arg == "nil" {
+        if arg.isEmpty {
             return nil
         }
         return parsePositiveInt(arg)
     }
 
     private func parseLoopBuffer(_ arg: String) -> Double? {
-        if arg == "nil" {
+        if arg.isEmpty {
             return nil
         }
         if let buffer = Double(arg),
@@ -182,16 +186,20 @@ class LevelReader {
     }
 
     private func parseEnemyCapacity(_ arg: String) -> Int? {
-        if arg == "nil" {
+        if arg.isEmpty {
             return nil
         }
         return parsePositiveInt(arg)
     }
 
     private func parseDropCapacity(_ arg: String) -> Int? {
-        if arg == "nil" {
+        if arg.isEmpty {
             return nil
         }
         return parsePositiveInt(arg)
+    }
+    
+    private func removeWhitespace(_ str: String) -> String {
+        return str.trimmingCharacters(in: .whitespaces)
     }
 }
