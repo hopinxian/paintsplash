@@ -68,8 +68,8 @@ class  SinglePlayerGameManager: GameManager {
 
     func setupGame() {
         setUpSystems()
-        setUpEntities()
         setUpPlayer()
+        setUpEntities()
         setUpUI()
         setUpAudio()
     }

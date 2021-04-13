@@ -7,10 +7,6 @@
 
 class GameResolver {
     static func resolve(manager: SinglePlayerGameManager, with data: SystemData) {
-//        let sourceDate = data.date
-//        let history = manager.historyManager
-//        let clientHistory = history.getStateClosest(to: sourceDate)
-//        let new
         let entityIDs = Set(manager.entities.map({ $0.id }))
 
         for entity in data.entityData.entities where !entityIDs.contains(entity) {

@@ -11,8 +11,8 @@ struct Constants {
     // Background
     static let ZPOSITION_FLOOR: Int = 0
     static let ZPOSITION_WALLS: Int = 1
-    static let ZPOSITION_CANVAS: Int = 1
-    static let ZPOSITION_LIGHT: Int = 2
+    static let ZPOSITION_CANVAS: Int = 2
+    static let ZPOSITION_LIGHT: Int = 3
 
     // Playfield
     static let ZPOSITION_PROJECTILE: Int = 0

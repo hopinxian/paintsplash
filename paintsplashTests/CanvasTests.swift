@@ -23,7 +23,7 @@ class CanvasTests: XCTestCase {
 
     func testInitialization() {
         XCTAssertEqual(canvas.transformComponent.worldPosition, Vector2D.zero)
-        XCTAssertEqual(canvas.renderComponent.zPosition, Constants.ZPOSITION_UI_ELEMENT)
+        XCTAssertEqual(canvas.renderComponent.zPosition, Constants.ZPOSITION_CANVAS)
         XCTAssertEqual(canvas.colors, [])
         XCTAssertEqual(canvas.moveableComponent.direction, .zero)
         XCTAssertEqual(canvas.moveableComponent.speed, Constants.CANVAS_MOVE_SPEED)
