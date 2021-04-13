@@ -6,7 +6,5 @@
 //
 
 protocol Touchable {
-//    func touchDown(at point: Vector2D)
-//    func touchMoved(to point: Vector2D)
-//    func touchUp(at point: Vector2D)
+    func getTouchId() -> EntityID
 }

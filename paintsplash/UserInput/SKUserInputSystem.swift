@@ -42,33 +42,29 @@ class SKUserInputSystem: UserInputSystem {
         }
     }
 
-    private func onTouchDown(of touchable: Touchable, at location: Vector2D) {
-        guard let node = touchable as? SKNode,
-            let id = renderSystem.getNodeEntityMap().backward[node] else {
-            return
-        }
+    private func getSpaceConvertedCoordinates(of vector: Vector2D) -> Vector2D {
+        let convertedPos = SpaceConverter.screenToModel(vector)
+        return convertedPos
+    }
 
-        let event = TouchDownEvent(location: location, associatedId: id)
+    private func onTouchDown(of touchable: Touchable, at location: Vector2D) {
+        let id = touchable.getTouchId()
+        let touchLocation = getSpaceConvertedCoordinates(of: location)
+        let event = TouchDownEvent(location: touchLocation, associatedId: id)
         EventSystem.inputEvents.touchDownEvent.post(event: event)
     }
 
     private func onTouchMoved(of touchable: Touchable, at location: Vector2D) {
-        guard let node = touchable as? SKNode,
-            let id = renderSystem.getNodeEntityMap().backward[node] else {
-            return
-        }
-
-        let event = TouchMovedEvent(location: location, associatedId: id)
+        let id = touchable.getTouchId()
+        let touchLocation = getSpaceConvertedCoordinates(of: location)
+        let event = TouchMovedEvent(location: touchLocation, associatedId: id)
         EventSystem.inputEvents.touchMovedEvent.post(event: event)
     }
 
     private func onTouchUp(of touchable: Touchable, at location: Vector2D) {
-        guard let node = touchable as? SKNode,
-            let id = renderSystem.getNodeEntityMap().backward[node] else {
-            return
-        }
-
-        let event = TouchUpEvent(location: location, associatedId: id)
+        let id = touchable.getTouchId()
+        let touchLocation = getSpaceConvertedCoordinates(of: location)
+        let event = TouchUpEvent(location: touchLocation, associatedId: id)
         EventSystem.inputEvents.touchUpEvent.post(event: event)
     }
 }

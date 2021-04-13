@@ -7,18 +7,17 @@
 
 class MovementJoystick: Joystick {
     override func onTouchMoved(event: TouchMovedEvent) {
-        guard tracking else {
+        guard event.associatedId == trackedId else {
             return
         }
 
         super.onTouchMoved(event: event)
-
         let event = PlayerMoveEvent(direction: displacement, playerID: associatedEntity)
         EventSystem.processedInputEvents.playerMoveEvent.post(event: event)
     }
 
     override func onTouchUp(event: TouchUpEvent) {
-        guard tracking else {
+        guard event.associatedId == trackedId else {
             return
         }
 

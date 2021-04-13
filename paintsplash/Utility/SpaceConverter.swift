@@ -27,11 +27,15 @@ struct SpaceConverter {
     }
 
     static func screenToModel(_ screen: CGPoint) -> Vector2D {
-        Vector2D(screen) / scaleFactor
+        screenToModel(Vector2D(screen))
     }
 
     static func screenToModel(_ screen: CGSize) -> Vector2D {
-        Vector2D(screen) / scaleFactor
+        screenToModel(Vector2D(screen))
+    }
+
+    static func screenToModel(_ screen: Vector2D) -> Vector2D {
+        screen / scaleFactor
     }
 
     static func screenToModel(_ screen: CGFloat) -> Double {
