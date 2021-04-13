@@ -29,7 +29,7 @@ class FirebaseGameHandlerTests: XCTestCase {
         sendEvent(PlayerChangeWeaponEvent(newWeapon: Bucket.self, playerId: EntityID()))
         sendEvent(PlayerAmmoUpdateEvent(weaponType: Bucket.self, ammo: [], playerId: EntityID()))
         sendEvent(PlayerHealthUpdateEvent(newHealth: 0, playerId: EntityID()))
-        sendEvent(PlaySoundEffectEvent(effect: .attack))
+        sendEvent(PlaySoundEffectEvent(effect: .paintGunAttack))
         sendEvent(PlayMusicEvent(music: .backgroundMusic))
     }
 
@@ -43,7 +43,7 @@ class FirebaseGameHandlerTests: XCTestCase {
         observeEvent(PlayerChangeWeaponEvent(newWeapon: Bucket.self, playerId: EntityID()))
         observeEvent(PlayerAmmoUpdateEvent(weaponType: Bucket.self, ammo: [], playerId: EntityID()))
         observeEvent(PlayerHealthUpdateEvent(newHealth: 0, playerId: EntityID()))
-        observeEvent(PlaySoundEffectEvent(effect: .attack))
+        observeEvent(PlaySoundEffectEvent(effect: .paintGunAttack))
         observeEvent(PlayMusicEvent(music: .backgroundMusic))
     }
 
@@ -57,7 +57,7 @@ class FirebaseGameHandlerTests: XCTestCase {
         acknowledgeEvent(PlayerChangeWeaponEvent(newWeapon: Bucket.self, playerId: EntityID()))
         acknowledgeEvent(PlayerAmmoUpdateEvent(weaponType: Bucket.self, ammo: [], playerId: EntityID()))
         acknowledgeEvent(PlayerHealthUpdateEvent(newHealth: 0, playerId: EntityID()))
-        acknowledgeEvent(PlaySoundEffectEvent(effect: .attack))
+        acknowledgeEvent(PlaySoundEffectEvent(effect: .paintGunAttack))
         acknowledgeEvent(PlayMusicEvent(music: .backgroundMusic))
     }
 

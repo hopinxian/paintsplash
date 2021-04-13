@@ -68,4 +68,12 @@ class PaintGun: WeaponComponent {
     override func getShootSFX() -> SoundEffect? {
         SoundEffect.paintGunAttack
     }
+
+    override func getAimGuide() -> AimGuide? {
+        guard let owner = owner,
+              let next = ammoStack.last else {
+            return nil
+        }
+        return GunAimGuide(owner: owner, color: next.color)
+    }
 }

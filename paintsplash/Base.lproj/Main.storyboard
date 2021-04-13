@@ -34,31 +34,35 @@
                         <rect key="frame" x="0.0" y="0.0" width="1180" height="820"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="64" translatesAutoresizingMaskIntoConstraints="NO" id="CGQ-6b-A2Q">
-                                <rect key="frame" x="0.0" y="185" width="1180" height="430"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="t9Q-Hy-X64">
+                                <rect key="frame" x="0.0" y="0.0" width="1180" height="820"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="64" translatesAutoresizingMaskIntoConstraints="NO" id="CGQ-6b-A2Q">
+                                <rect key="frame" x="0.0" y="160" width="1180" height="480"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PaintSplash!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dN8-Ts-OOY">
-                                        <rect key="frame" x="0.0" y="0.0" width="1180" height="53"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="44"/>
-                                        <nil key="textColor"/>
+                                        <rect key="frame" x="362.5" y="0.0" width="455" height="117.5"/>
+                                        <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="90"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NmP-Sr-Ti1">
-                                        <rect key="frame" x="0.0" y="117" width="1180" height="67"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                    </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oYq-Wa-HMB">
-                                        <rect key="frame" x="0.0" y="248" width="1180" height="59"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="39"/>
-                                        <state key="normal" title="Start Game"/>
+                                        <rect key="frame" x="236" y="181.5" width="708" height="117"/>
+                                        <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="45"/>
+                                        <state key="normal" title="Singleplayer" backgroundImage="BlueButtonUp">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
                                         <connections>
                                             <action selector="startSinglePlayer:" destination="SyQ-UE-Ovl" eventType="touchUpInside" id="Zu1-aL-ecY"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fvm-ss-zhl" userLabel="Multiplayer Button">
-                                        <rect key="frame" x="0.0" y="371" width="1180" height="59"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="39"/>
-                                        <state key="normal" title="Multiplayer"/>
+                                        <rect key="frame" x="236" y="362.5" width="708" height="117.5"/>
+                                        <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="45"/>
+                                        <state key="normal" title="Multiplayer" backgroundImage="BlueButtonUp">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
                                         <connections>
                                             <segue destination="Sjf-th-9Xh" kind="show" id="oD7-ml-2hr"/>
                                         </connections>
@@ -70,8 +74,10 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="CGQ-6b-A2Q" firstAttribute="centerX" secondItem="3sB-Xf-lfj" secondAttribute="centerX" id="8sO-WQ-20T"/>
+                            <constraint firstItem="oYq-Wa-HMB" firstAttribute="width" secondItem="vGT-JP-KQE" secondAttribute="width" multiplier="0.6" id="BgI-1C-LqW"/>
+                            <constraint firstItem="fvm-ss-zhl" firstAttribute="width" secondItem="vGT-JP-KQE" secondAttribute="width" multiplier="0.6" id="L1W-Tx-oAb"/>
                             <constraint firstItem="CGQ-6b-A2Q" firstAttribute="centerY" secondItem="3sB-Xf-lfj" secondAttribute="centerY" id="OJK-b0-Bif"/>
-                            <constraint firstItem="CGQ-6b-A2Q" firstAttribute="height" secondItem="3sB-Xf-lfj" secondAttribute="height" multiplier="0.5375" id="PIx-Rr-49o"/>
+                            <constraint firstItem="CGQ-6b-A2Q" firstAttribute="height" secondItem="3sB-Xf-lfj" secondAttribute="height" multiplier="0.6" id="PIx-Rr-49o"/>
                             <constraint firstItem="CGQ-6b-A2Q" firstAttribute="width" secondItem="3sB-Xf-lfj" secondAttribute="width" id="lFT-Ll-qhE"/>
                         </constraints>
                     </view>
@@ -90,46 +96,54 @@
                         <rect key="frame" x="0.0" y="0.0" width="1180" height="820"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="rij-7a-hQa">
-                                <rect key="frame" x="0.0" y="180" width="1180" height="440.5"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="fIG-Tq-7A8">
+                                <rect key="frame" x="0.0" y="0.0" width="1180" height="820"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="67" translatesAutoresizingMaskIntoConstraints="NO" id="rij-7a-hQa">
+                                <rect key="frame" x="0.0" y="160" width="1180" height="480"/>
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Yv0-CW-S8b">
-                                        <rect key="frame" x="295" y="0.0" width="590" height="52.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="36"/>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="center" minimumFontSize="17" background="TextField" translatesAutoresizingMaskIntoConstraints="NO" id="Yv0-CW-S8b">
+                                        <rect key="frame" x="177" y="0.0" width="826" height="80"/>
+                                        <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="40"/>
                                         <textInputTraits key="textInputTraits"/>
                                         <connections>
                                             <action selector="didNameTextFieldChange:" destination="Sjf-th-9Xh" eventType="editingChanged" id="aYh-ai-TGA"/>
                                         </connections>
                                     </textField>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="197" translatesAutoresizingMaskIntoConstraints="NO" id="ayX-mK-gu5" userLabel="Buttons">
-                                        <rect key="frame" x="309.5" y="102.5" width="561" height="55"/>
+                                        <rect key="frame" x="196.5" y="147" width="787" height="98"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1ps-3P-qYm">
-                                                <rect key="frame" x="0.0" y="0.0" width="201" height="55"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="36"/>
-                                                <state key="normal" title="Create Room"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1ps-3P-qYm">
+                                                <rect key="frame" x="0.0" y="0.0" width="295" height="98"/>
+                                                <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="40"/>
+                                                <state key="normal" title="Create Room" backgroundImage="BlueButtonUp"/>
                                                 <connections>
                                                     <action selector="createRoom:" destination="Sjf-th-9Xh" eventType="touchUpInside" id="0p0-6f-T40"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A5U-ij-gU6">
-                                                <rect key="frame" x="398" y="0.0" width="163" height="55"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="36"/>
-                                                <state key="normal" title="Join Room"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A5U-ij-gU6">
+                                                <rect key="frame" x="492" y="0.0" width="295" height="98"/>
+                                                <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="40"/>
+                                                <state key="normal" title="Join Room" backgroundImage="BlueButtonUp"/>
                                                 <connections>
                                                     <segue destination="3xa-g7-gsi" kind="show" identifier="ShowJoinRoomVCSegue" id="zby-33-kVJ"/>
                                                 </connections>
                                             </button>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstItem="A5U-ij-gU6" firstAttribute="width" secondItem="1ps-3P-qYm" secondAttribute="width" id="hgv-6t-kfw"/>
+                                            <constraint firstItem="A5U-ij-gU6" firstAttribute="height" secondItem="1ps-3P-qYm" secondAttribute="height" id="jAr-KB-3x4"/>
+                                        </constraints>
                                     </stackView>
                                     <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lvP-ZV-a1a">
-                                        <rect key="frame" x="470" y="207.5" width="240" height="128"/>
+                                        <rect key="frame" x="470" y="312" width="240" height="3"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wtN-s0-Tvq">
-                                        <rect key="frame" x="545.5" y="385.5" width="89" height="55"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="36"/>
-                                        <state key="normal" title="Close"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wtN-s0-Tvq">
+                                        <rect key="frame" x="442.5" y="382" width="295" height="98"/>
+                                        <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="40"/>
+                                        <state key="normal" title="Back" backgroundImage="BlueButtonUp"/>
                                         <connections>
                                             <action selector="closeMultiplayerMenu:" destination="Sjf-th-9Xh" eventType="touchUpInside" id="kkg-hr-aiV"/>
                                         </connections>
@@ -142,10 +156,14 @@
                         <constraints>
                             <constraint firstItem="rij-7a-hQa" firstAttribute="centerX" secondItem="HNd-bv-kXe" secondAttribute="centerX" id="8JU-Vw-EdH"/>
                             <constraint firstItem="rij-7a-hQa" firstAttribute="width" secondItem="HNd-bv-kXe" secondAttribute="width" id="IiI-5i-yrI"/>
-                            <constraint firstItem="rij-7a-hQa" firstAttribute="height" secondItem="HNd-bv-kXe" secondAttribute="height" multiplier="0.550625" id="JOg-Lh-Fgu"/>
+                            <constraint firstItem="wtN-s0-Tvq" firstAttribute="height" secondItem="qut-hV-0u6" secondAttribute="height" multiplier="0.119512" id="ImG-PW-iGu"/>
+                            <constraint firstItem="rij-7a-hQa" firstAttribute="height" secondItem="HNd-bv-kXe" secondAttribute="height" multiplier="0.6" id="JOg-Lh-Fgu"/>
+                            <constraint firstItem="wtN-s0-Tvq" firstAttribute="width" secondItem="qut-hV-0u6" secondAttribute="width" multiplier="0.25" id="SNh-7C-6X0"/>
+                            <constraint firstItem="1ps-3P-qYm" firstAttribute="height" secondItem="qut-hV-0u6" secondAttribute="height" multiplier="0.119512" id="Tqu-Om-66g"/>
                             <constraint firstItem="rij-7a-hQa" firstAttribute="centerY" secondItem="HNd-bv-kXe" secondAttribute="centerY" id="bfx-id-yTN"/>
-                            <constraint firstItem="Yv0-CW-S8b" firstAttribute="width" secondItem="HNd-bv-kXe" secondAttribute="width" multiplier="0.5" id="c3N-Gx-pEx"/>
-                            <constraint firstItem="Yv0-CW-S8b" firstAttribute="height" secondItem="HNd-bv-kXe" secondAttribute="height" multiplier="0.065625" id="ytR-qc-Ufc"/>
+                            <constraint firstItem="Yv0-CW-S8b" firstAttribute="width" secondItem="HNd-bv-kXe" secondAttribute="width" multiplier="0.7" id="c3N-Gx-pEx"/>
+                            <constraint firstItem="1ps-3P-qYm" firstAttribute="width" secondItem="qut-hV-0u6" secondAttribute="width" multiplier="0.25" id="pkS-7v-qvx"/>
+                            <constraint firstItem="Yv0-CW-S8b" firstAttribute="height" secondItem="HNd-bv-kXe" secondAttribute="height" multiplier="0.1" id="ytR-qc-Ufc"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="AEN-9Z-aVp"/>
@@ -458,9 +476,12 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="JGi-jN-m6e"/>
+        <segue reference="qP2-MV-Z7H"/>
     </inferredMetricsTieBreakers>
     <resources>
+        <image name="BlueButtonUp" width="25" height="98"/>
+        <image name="TextField" width="33" height="98"/>
+        <image name="background" width="1996" height="1592"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

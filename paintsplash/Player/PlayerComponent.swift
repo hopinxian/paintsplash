@@ -10,6 +10,10 @@ class PlayableComponent: Component {
         // Do Nothing by Default
     }
 
+    func onAim(event: PlayerAimEvent) {
+        // Do Nothing by Default
+    }
+
     func onShoot(event: PlayerShootEvent) {
         // Do Nothing by Default
     }
@@ -21,6 +25,7 @@ class PlayableComponent: Component {
 
 class PlayerComponent: PlayableComponent {
     weak var player: Player?
+    private var aimGuide: AimGuide?
 
     override func onMove(event: PlayerMoveEvent) {
         guard let player = player,
@@ -38,6 +43,21 @@ class PlayerComponent: PlayableComponent {
         EventSystem.playerActionEvent.playerMovementEvent.post(event: event)
     }
 
+    override func onAim(event: PlayerAimEvent) {
+        guard let player = player,
+              event.playerId == player.id,
+              player.multiWeaponComponent.canShoot() else {
+            return
+        }
+
+        if aimGuide == nil {
+            aimGuide = player.multiWeaponComponent.getAimGuide()
+            aimGuide?.spawn()
+        }
+
+        aimGuide?.aim(at: event.direction)
+    }
+
     override func onShoot(event: PlayerShootEvent) {
         guard let player = player,
               event.playerId == player.id,
@@ -45,13 +65,14 @@ class PlayerComponent: PlayableComponent {
             return
         }
 
-        if player.multiWeaponComponent.canShoot() {
-            let direction = event.direction.magnitude > 0 ? event.direction : player.lastDirection
+        let direction = event.direction.magnitude > 0 ? event.direction : player.lastDirection
 
-            player.stateComponent.currentState = player.lastDirection.x > 0
-                ? PlayerState.AttackRight(player: player, attackDirection: direction)
-                : PlayerState.AttackLeft(player: player, attackDirection: direction)
-        }
+        player.stateComponent.currentState = player.lastDirection.x > 0
+            ? PlayerState.AttackRight(player: player, attackDirection: direction)
+            : PlayerState.AttackLeft(player: player, attackDirection: direction)
+
+        aimGuide?.destroy()
+        aimGuide = nil
     }
 
     override func onWeaponChange(event: PlayerChangeWeaponEvent) {

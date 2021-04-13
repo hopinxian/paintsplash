@@ -7,6 +7,7 @@
 
 class WeaponComponent: Component, Weapon {
     var capacity: Int
+    weak var owner: Transformable?
 
     init(capacity: Int) {
         self.capacity = capacity
@@ -27,7 +28,13 @@ class WeaponComponent: Component, Weapon {
     func canLoad(_ ammo: [Ammo]) -> Bool {
         false
     }
+    func setOwner(_ owner: Transformable) {
+        self.owner = owner
+    }
     func getShootSFX() -> SoundEffect? {
+        nil
+    }
+    func getAimGuide() -> AimGuide? {
         nil
     }
 }

@@ -6,7 +6,7 @@
 //
 import Foundation
 
-class PaintProjectile: GameEntity, Projectile, Renderable, Colorable, Transformable {
+class PaintProjectile: GameEntity, Projectile, Renderable, Colorable, Transformable, Movable {
     var transformComponent: TransformComponent
     var moveableComponent: MoveableComponent
     var collisionComponent: CollisionComponent

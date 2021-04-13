@@ -118,11 +118,17 @@ struct Vector2D: Codable {
     }
 
     static func angleOf(_ vector: Vector2D) -> Double {
-        guard vector.y != 0 else {
-            return Double.pi / 2
+        guard vector.x != 0 else {
+            if vector.y > 0 {
+                return Double.pi / 2
+            } else if vector.y < 0 {
+                return -Double.pi / 2
+            } else {
+                return 0
+            }
         }
 
-        return atan(vector.x / vector.y)
+        return atan2(vector.y, vector.x)
     }
 
     static func dot(_ vector1: Vector2D, _ vector2: Vector2D) -> Double {

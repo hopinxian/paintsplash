@@ -30,10 +30,29 @@ class MultiplayerClient: SinglePlayerGameManager {
     }
 
     override func setUpPlayer() {
+        setUpGuestPlayer(player: room.host)
+
         player = Player(
-            initialPosition: Vector2D.zero + Vector2D.right * 50,
+            initialPosition: Vector2D.zero + Vector2D.left * 50,
             playerUUID: EntityID(id: playerInfo.playerUUID)
         )
+        player.spawn()
+
+        // set up other players
+        room.players?.forEach { _, player in
+            if player.playerUUID != self.player.id.id {
+                print("should not reach here since only 2 people")
+                setUpGuestPlayer(player: player)
+            }
+        }
+    }
+
+    func setUpGuestPlayer(player: PlayerInfo) {
+        // Initialize player
+        let playerID = EntityID(id: player.playerUUID)
+
+        let newPlayer = Player(initialPosition: Vector2D.zero + Vector2D.right * 50, playerUUID: playerID)
+        newPlayer.spawn()
     }
 
     func setUpObservers() {
@@ -134,16 +153,8 @@ class MultiplayerClient: SinglePlayerGameManager {
         audioManager = AudioManager(associatedDeviceId: EntityID(id: playerInfo.playerUUID))
     }
 
-    override func setUpEntities() {
-
-    }
-
     func setUpInputListeners() {
         let gameId = self.room.gameID
-
-        EventSystem.processedInputEvents.playerMoveEvent.subscribe { [weak self] in
-            self?.sendPlayerMoveEvent($0, gameId: gameId)
-        }
 
         EventSystem.processedInputEvents.playerShootEvent.subscribe { [weak self] in
             self?.sendPlayerShootEvent($0, gameId: gameId)
@@ -187,82 +198,38 @@ class MultiplayerClient: SinglePlayerGameManager {
     override func update(_ deltaTime: Double) {
         currentLevel?.gameOver = false
         super.update(deltaTime)
+        sendPlayerData()
     }
 
     func updateSystemData(data: SystemData?) {
         guard let data = data else {
             return
         }
-
-        let entityIDs = Set(entities.map({ $0.id }))
-
-        for entity in data.entityData.entities where !entityIDs.contains(entity) {
-            addNetowrkedEntity(entity: entity, data: data)
-        }
-
-        var colorables = [EntityID: Colorable]()
-        entities.forEach({ entity in
-            if let colorable = entity as? Colorable {
-                colorables[entity.id] = colorable
-            }
-        })
-
-        for entity in data.entityData.entities {
-            updateNetworkedRenderable(data, entity)
-            updateNetworkedAnimatable(data, entity)
-            updateNetworkedColorable(data, entity, &colorables)
-        }
-
-        for entity in entityIDs where !data.entityData.entities.contains(entity) {
-            entities.first(where: { gameEntity in gameEntity.id == entity })?.destroy()
-        }
+        GameResolver.resolve(manager: self, with: data)
     }
 
-    private func addNetowrkedEntity(entity: EntityID, data: SystemData) {
-        let renderComponent =
-            data.renderSystemData?.renderables[entity]?.renderComponent
-        let animationComponent =
-            data.animationSystemData?.animatables[entity]?.animationComponent
-        let transformComponent =
-            data.renderSystemData?.renderables[entity]?.transformComponent
-        let colorComponent = data.colorSystemData?.colorables[entity]?.color
+    func sendPlayerData() {
+        let entityData = EntityData(from: [player])
+        let renderableToSend: [EntityID: Renderable] = [player.id: player]
+        let renderSystemData = RenderSystemData(from: renderableToSend)
 
-        let newEntity = NetworkedEntity(
-            id: entity,
-            renderComponent: renderComponent,
-            transformComponent: transformComponent,
-            animationComponent: animationComponent,
-            color: colorComponent
+        let systemData = SystemData(
+            entityData: entityData,
+            renderSystemData: renderSystemData,
+            animationSystemData: nil,
+            colorSystemData: nil
         )
-        newEntity.spawn()
-    }
-
-    private func updateNetworkedRenderable(_ data: SystemData, _ entity: EntityID) {
-        if let renderable = data.renderSystemData?.renderables[entity] {
-            let renderComponent = renderable.renderComponent
-            let transformComponent = renderable.transformComponent
-            renderComponent.wasModified = true
-            transformComponent.wasModified = true
-            renderSystem.renderables[entity]?.renderComponent = renderComponent
-            renderSystem.renderables[entity]?.transformComponent = transformComponent
-        }
-    }
-
-    private func updateNetworkedAnimatable(_ data: SystemData, _ entity: EntityID) {
-        if let animatable = data.animationSystemData?.animatables[entity] {
-            let animationComponent = animatable.animationComponent
-            animationComponent.wasModified = true
-            animationComponent.animationToPlay = animationComponent.currentAnimation
-            animationSystem.animatables[entity]?.animationComponent = animationComponent
-        }
-    }
-
-    private func updateNetworkedColorable(_ data: SystemData,
-                                          _ entity: EntityID,
-                                          _ colorables: inout [EntityID: Colorable]) {
-        if let colorable = data.colorSystemData?.colorables[entity] {
-            let color = colorable.color
-            colorables[entity]?.color = color
-        }
+        let path = DataPaths.joinPaths(
+            DataPaths.games, room.gameID,
+            DataPaths.game_players, player.id.id,
+            "clientPlayer")
+        connectionHandler.send(
+            to: path,
+            data: systemData,
+            mode: .single,
+            shouldRemoveOnDisconnect: true,
+            onComplete: nil,
+            onError: nil
+        )
     }
 }

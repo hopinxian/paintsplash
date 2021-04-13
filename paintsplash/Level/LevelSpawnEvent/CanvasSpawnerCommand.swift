@@ -8,13 +8,7 @@
 class CanvasSpawnerCommand: SpawnCommand {
     var location: Vector2D?
     var velocity: Vector2D?
-    var canvasSize: Vector2D?
     var spawnInterval: Double?
-    var endX: Double
-
-    init(endX: Double) {
-        self.endX = endX
-    }
 
     override func spawnIntoLevel(gameInfo: GameInfo) {
         if gameInfo.numberOfEnemies >= Level.enemyCapacity {

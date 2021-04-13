@@ -38,7 +38,7 @@ class PaintAmmoDrop: GameEntity, Renderable, Collidable, AmmoDrop, Colorable {
         collisionComp.ammoDrop = self
     }
 
-    func getAmmoObject() -> Ammo {
+    func getAmmoObject() -> Ammo? {
         PaintAmmo(color: color)
     }
 }

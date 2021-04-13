@@ -70,4 +70,8 @@ class MultiWeaponComponent: WeaponComponent {
     override func getShootSFX() -> SoundEffect? {
         activeWeapon.getShootSFX()
     }
+
+    override func getAimGuide() -> AimGuide? {
+        activeWeapon.getAimGuide()
+    }
 }

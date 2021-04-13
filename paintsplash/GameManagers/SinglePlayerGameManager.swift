@@ -7,7 +7,7 @@
 
 import SpriteKit
 
-class SinglePlayerGameManager: GameManager {
+class  SinglePlayerGameManager: GameManager {
     weak var gameScene: GameScene?
     weak var viewController: GameViewController?
 
@@ -27,6 +27,7 @@ class SinglePlayerGameManager: GameManager {
     var movementSystem: MovementSystem!
     var transformSystem: TransformSystem!
     var playerSystem: PlayerSystem!
+    var userInputSystem: UserInputSystem!
 
     private var collisionDetector: SKCollisionDetector!
 
@@ -96,6 +97,8 @@ class SinglePlayerGameManager: GameManager {
         self.transformSystem = WorldTransformSystem()
 
         self.playerSystem = PaintSplashPlayerSystem()
+
+        self.userInputSystem = SKUserInputSystem(renderSystem: skRenderSystem)
     }
 
     func setUpPlayer() {
@@ -119,6 +122,9 @@ class SinglePlayerGameManager: GameManager {
             position: Constants.CANVAS_END_MARKER_POSITION
         )
         canvasEndMarker.spawn()
+
+        let mixingPot = MixingPot(position: Vector2D(200, 200))
+        mixingPot.spawn()
 
         currentLevel = Level.getDefaultLevel(
             canvasManager: canvasManager,
@@ -168,12 +174,14 @@ class SinglePlayerGameManager: GameManager {
             position: Constants.JOYSTICK_POSITION
         )
         joystick.spawn()
+        userInputSystem.addTouchable(joystick)
 
         let attackJoystick = AttackJoystick(
             associatedEntityID: player.id,
             position: Constants.ATTACK_BUTTON_POSITION
         )
         attackJoystick.spawn()
+        userInputSystem.addTouchable(attackJoystick)
 
         let playerHealthUI = PlayerHealthDisplay(
             startingHealth: player.healthComponent.currentHealth,
@@ -270,7 +278,8 @@ class SinglePlayerGameManager: GameManager {
     private func onGameOver(event: GameOverEvent) {
         let gameOverUI = GameOverUI(score: currentLevel?.score.score ?? 0, onQuit: { [weak self] in self?.onQuit() })
         gameOverUI.spawn()
-        
+
+        EventSystem.audioEvent.stopMusicEvent.post(event: StopMusicEvent())
         if event.isWin {
             EventSystem.audioEvent.playMusicEvent.post(event: PlayMusicEvent(music: Music.gameOverWin))
         } else {

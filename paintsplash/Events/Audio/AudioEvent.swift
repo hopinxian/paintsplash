@@ -68,7 +68,7 @@ class StopMusicEvent: AudioEvent {
         super.init()
     }
 
-    convenience override init() {
+    override convenience init() {
         self.init(playerId: nil)
     }
 
@@ -91,7 +91,7 @@ class StopSoundEffectEvent: AudioEvent {
         super.init()
     }
 
-    convenience override init() {
+    override convenience init() {
         self.init(playerId: nil)
     }
 

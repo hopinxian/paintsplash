@@ -16,7 +16,7 @@ class Joystick: UIEntity, Renderable {
 
     private let foregroundNode: JoystickForeground
 
-    private (set) var tracking = false
+    private (set) var trackedId: EntityID?
 
     private var backgroundRadius: Double {
         transformComponent.size.x / 2
@@ -66,13 +66,17 @@ class Joystick: UIEntity, Renderable {
     }
 
     func onTouchDown(event: TouchDownEvent) {
+        guard trackedId == nil else {
+            return
+        }
+
         if Vector2D.magnitude(of: event.location - transformComponent.localPosition) < backgroundRadius {
-            tracking = true
+            trackedId = event.associatedId
         }
     }
 
     func onTouchMoved(event: TouchMovedEvent) {
-        guard tracking else {
+        guard event.associatedId == trackedId else {
             return
         }
 
@@ -90,9 +94,12 @@ class Joystick: UIEntity, Renderable {
     }
 
     func onTouchUp(event: TouchUpEvent) {
-        tracking = false
-        foregroundNode.transformComponent.localPosition =
-            transformComponent.localPosition
+        guard event.associatedId == trackedId else {
+            return
+        }
+
+        trackedId = nil
+        foregroundNode.transformComponent.localPosition = transformComponent.localPosition
         self.displacement = .zero
     }
 

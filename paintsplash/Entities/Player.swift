@@ -68,8 +68,10 @@ class Player: GameEntity,
 
         self.stateComponent = StateComponent()
 
+        let paintGun = PaintGun()
+        let bucket = Bucket()
         self.multiWeaponComponent = MultiWeaponComponent(
-            weapons: [PaintGun(), Bucket()]
+            weapons: [paintGun, bucket]
         )
 
         let playerComponent = PlayerComponent()
@@ -79,6 +81,8 @@ class Player: GameEntity,
 
         self.stateComponent.currentState = PlayerState.IdleLeft(player: self)
 
+        paintGun.owner = self
+        bucket.owner = self
         self.multiWeaponComponent.load(
             to: Bucket.self,
             ammo: [PaintAmmo(color: .red),

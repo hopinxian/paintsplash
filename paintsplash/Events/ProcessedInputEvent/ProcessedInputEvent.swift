@@ -20,6 +20,16 @@ class PlayerMoveEvent: ProcessedInputEvent, Codable {
     }
 }
 
+class PlayerAimEvent: ProcessedInputEvent, Codable {
+    let direction: Vector2D
+    let playerId: EntityID
+
+    init(direction: Vector2D, playerID: EntityID) {
+        self.direction = direction
+        self.playerId = playerID
+    }
+}
+
 class PlayerShootEvent: ProcessedInputEvent, Codable {
     let direction: Vector2D
     let playerId: EntityID

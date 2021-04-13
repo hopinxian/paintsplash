@@ -167,7 +167,7 @@ class MultiplayerServer: SinglePlayerGameManager {
     private func setupGameOverEventSender(playerID: EntityID, _ gameId: String) {
         EventSystem.gameStateEvents
             .gameOverEvent.subscribe { [weak self] event in
-                guard let players = self?.room.players else {
+                guard (self?.room.players) != nil else {
                     return
                 }
 
@@ -214,6 +214,13 @@ class MultiplayerServer: SinglePlayerGameManager {
             },
             onError: nil
         )
+
+        // player state observing
+        let path = DataPaths.joinPaths(
+            DataPaths.games, gameId,
+            DataPaths.game_players, playerID.id,
+            "clientPlayer")
+        self.connectionHandler.listen(to: path, callBack: readClientPlayerData)
     }
 
     func sendGameState() {
@@ -277,5 +284,21 @@ class MultiplayerServer: SinglePlayerGameManager {
     override func removeObject(_ object: GameEntity) {
         super.removeObject(object)
         removedEntities[object.id] = object
+    }
+
+    func readClientPlayerData(data: SystemData?) {
+        guard let data = data else {
+            return
+        }
+        let clientId = data.entityData.entities[0]
+        if let client = entities.first(where: { $0.id.id == clientId.id }) as? Player,
+           let transformComponent = data.renderSystemData?.renderables[clientId]?.transformComponent {
+            let boundedComponent = BoundedTransformComponent(
+                position: transformComponent.worldPosition,
+                rotation: transformComponent.rotation,
+                size: transformComponent.size,
+                bounds: Constants.PLAYER_MOVEMENT_BOUNDS)
+            client.transformComponent = boundedComponent
+        }
     }
 }
