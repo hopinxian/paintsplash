@@ -148,6 +148,10 @@ class SKRenderSystem: RenderSystem {
             if let labelNode = node as? SKLabelNode {
                 updateLabelNode(labelNode, text: text)
             }
+        case .scene(let name):
+            if let referenceNode = node as? SKReferenceNode {
+                updateSceneNode(referenceNode, sceneName: name)
+            }
         }
     }
 
@@ -172,6 +176,10 @@ class SKRenderSystem: RenderSystem {
         if node.text != text {
             node.text = text
         }
+    }
+
+    private func updateSceneNode(_ node: SKReferenceNode, sceneName: String) {
+        // Do nothing
     }
 
     func renderableFromNode(_ node: SKNode) -> Renderable? {

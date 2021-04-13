@@ -8,15 +8,16 @@
 enum RenderType {
     case sprite(spriteName: String)
     case label(text: String)
+    case scene(name: String)
 }
 
 extension RenderType: Codable {
     private enum CodingKeys: String, CodingKey {
-      case caseType, spriteParams, labelParams
+      case caseType, spriteParams, labelParams, sceneParams
     }
 
     private enum CaseType: String, Codable {
-        case sprite, label
+        case sprite, label, scene
     }
 
     private struct SpriteParams: Codable {
@@ -25,6 +26,10 @@ extension RenderType: Codable {
 
     private struct LabelParams: Codable {
         let text: String
+    }
+
+    private struct SceneParams: Codable {
+        let name: String
     }
 
     init(from decoder: Decoder) throws {
@@ -38,6 +43,9 @@ extension RenderType: Codable {
         case .label:
             let labelParams = try container.decode(LabelParams.self, forKey: .labelParams)
             self = .label(text: labelParams.text)
+        case .scene:
+            let sceneParams = try container.decode(SceneParams.self, forKey: .sceneParams)
+            self = .scene(name: sceneParams.name)
         }
     }
 
@@ -51,6 +59,9 @@ extension RenderType: Codable {
         case .label(let text):
             try container.encode(CaseType.label, forKey: .caseType)
             try container.encode(LabelParams(text: text), forKey: .labelParams)
+        case .scene(let name):
+            try container.encode(CaseType.scene, forKey: .caseType)
+            try container.encode(SceneParams(name: name), forKey: .sceneParams)
         }
     }
 }
