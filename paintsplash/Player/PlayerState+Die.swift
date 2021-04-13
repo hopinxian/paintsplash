@@ -12,8 +12,8 @@ extension PlayerState {
             player.moveableComponent.speed = 0.0
             player.animationComponent.animate(
                 animation: PlayerAnimations.playerDie,
-                interupt: true, callBack: {
-                    self.player.destroy()
+                interupt: true, callBack: { [weak self] in
+                    self?.player.destroy()
                     EventSystem.gameStateEvents.gameOverEvent.post(event: GameOverEvent(isWin: false))
                 }
             )
