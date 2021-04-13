@@ -9,8 +9,6 @@ import AVKit
 
 class AVAudioPlayerImpl: AudioPlayer {
 
-
-
     private var players: [URL: AVAudioPlayer] = [:]
     private var duplicates: [AVAudioPlayer] = []
 
@@ -27,14 +25,8 @@ class AVAudioPlayerImpl: AudioPlayer {
     }
 
     deinit {
-<<<<<<< HEAD
         player?.stop()
         player = nil
-=======
-
-//        player?.stop()
-//        player = nil
->>>>>>> sound-effect
     }
 
     @discardableResult func playAudio(from url: URL, loops: Int, volume: Float) -> Bool {
@@ -48,7 +40,6 @@ class AVAudioPlayerImpl: AudioPlayer {
         }
 
         return playFromExistingPlayer(player, loops: loops, volume: volume)
-
 
 //        player = try? AVAudioPlayer(contentsOf: url)
 //        player?.prepareToPlay()

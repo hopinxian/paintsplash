@@ -16,9 +16,9 @@ class GameOverUI: UIEntity, Renderable {
 
     init(score: Int, onQuit: @escaping () -> Void) {
         self.onQuit = onQuit
-        self.renderComponent = RenderComponent(renderType: .sprite(spriteName: "BlackSquare"), zPosition: 1000)
+        self.renderComponent = RenderComponent(renderType: .sprite(spriteName: "BlackSquare"), zPosition: 1_000)
 
-        self.transformComponent = TransformComponent(position: Vector2D.zero, rotation: 0, size: Vector2D(1000, 1000))
+        self.transformComponent = TransformComponent(position: Vector2D.zero, rotation: 0, size: Vector2D(1_000, 1_000))
 
         self.titleLabel = TitleLabel()
         self.scoreLabel = ScoreLabel(score: score)
@@ -37,9 +37,10 @@ class GameOverUI: UIEntity, Renderable {
         var transformComponent: TransformComponent
 
         override init() {
-            self.renderComponent = RenderComponent(renderType: .label(text: "Game Over!"), zPosition: 1001)
+            self.renderComponent = RenderComponent(renderType: .label(text: "Game Over!"), zPosition: 1_001)
 
-            self.transformComponent = TransformComponent(position: Vector2D(0, 200), rotation: 0, size: Vector2D(300, 100))
+            self.transformComponent = TransformComponent(
+                position: Vector2D(0, 200), rotation: 0, size: Vector2D(300, 100))
         }
     }
 
@@ -48,7 +49,7 @@ class GameOverUI: UIEntity, Renderable {
         var transformComponent: TransformComponent
 
         init(score: Int) {
-            self.renderComponent = RenderComponent(renderType: .label(text: String(score)), zPosition: 1001)
+            self.renderComponent = RenderComponent(renderType: .label(text: String(score)), zPosition: 1_001)
 
             self.transformComponent = TransformComponent(position: Vector2D.zero, rotation: 0, size: Vector2D(300, 100))
         }
@@ -61,9 +62,10 @@ class GameOverUI: UIEntity, Renderable {
 
         init(onPress: @escaping () -> Void) {
             self.onPress = onPress
-            self.renderComponent = RenderComponent(renderType: .sprite(spriteName: "YellowSquare"), zPosition: 1001)
+            self.renderComponent = RenderComponent(renderType: .sprite(spriteName: "YellowSquare"), zPosition: 1_001)
 
-            self.transformComponent = TransformComponent(position: Vector2D(0, -200), rotation: 0, size: Vector2D(300, 100))
+            self.transformComponent = TransformComponent(
+                position: Vector2D(0, -200), rotation: 0, size: Vector2D(300, 100))
 
             super.init()
 

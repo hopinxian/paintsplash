@@ -10,6 +10,9 @@
 		028D3740E487FD28E48CDE35 /* Pods_paintsplashTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 832DA6DEF015D561938E8999 /* Pods_paintsplashTests.framework */; };
 		8402D28F25FE0BDB00493DDE /* ColorMixer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8402D28E25FE0BDB00493DDE /* ColorMixer.swift */; };
 		8402D29725FE106800493DDE /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8402D29625FE106800493DDE /* Math.swift */; };
+		8405B4852624713600C36361 /* RandomGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8405B4842624713600C36361 /* RandomGenerator.swift */; };
+		8405B48B2624829E00C36361 /* LevelReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8405B48A2624829E00C36361 /* LevelReader.swift */; };
+		8405B48F262486A200C36361 /* level.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8405B48E262486A200C36361 /* level.txt */; };
 		840A334826060626007BC34D /* AmmoType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840A334726060626007BC34D /* AmmoType.swift */; };
 		840A334D26060655007BC34D /* AmmoDrop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840A334C26060655007BC34D /* AmmoDrop.swift */; };
 		840A336A2606256F007BC34D /* LevelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840A33692606256F007BC34D /* LevelTests.swift */; };
@@ -35,6 +38,7 @@
 		846D4FD8260241670079720F /* SlimeHitGray.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 846D4FD3260241660079720F /* SlimeHitGray.atlas */; };
 		846D4FD9260241670079720F /* SlimeIdleGray.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 846D4FD4260241670079720F /* SlimeIdleGray.atlas */; };
 		846D4FDA260241670079720F /* SlimeMoveLeftGray.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 846D4FD5260241670079720F /* SlimeMoveLeftGray.atlas */; };
+		84820722262028DC00D4BA56 /* GameResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84820721262028DC00D4BA56 /* GameResolver.swift */; };
 		848E3F5926188DE300C43EEB /* SpaceConverterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848E3F5826188DE300C43EEB /* SpaceConverterTests.swift */; };
 		848E3F5D261897C100C43EEB /* RectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848E3F5C261897C100C43EEB /* RectTests.swift */; };
 		849E63AD26179E9B00AFA9A7 /* MockGameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849E63AC26179E9A00AFA9A7 /* MockGameManager.swift */; };
@@ -334,6 +338,9 @@
 		832DA6DEF015D561938E8999 /* Pods_paintsplashTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_paintsplashTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8402D28E25FE0BDB00493DDE /* ColorMixer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorMixer.swift; sourceTree = "<group>"; };
 		8402D29625FE106800493DDE /* Math.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Math.swift; sourceTree = "<group>"; };
+		8405B4842624713600C36361 /* RandomGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomGenerator.swift; sourceTree = "<group>"; };
+		8405B48A2624829E00C36361 /* LevelReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelReader.swift; sourceTree = "<group>"; };
+		8405B48E262486A200C36361 /* level.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = level.txt; sourceTree = "<group>"; };
 		840A334726060626007BC34D /* AmmoType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmmoType.swift; sourceTree = "<group>"; };
 		840A334C26060655007BC34D /* AmmoDrop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmmoDrop.swift; sourceTree = "<group>"; };
 		840A33692606256F007BC34D /* LevelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelTests.swift; sourceTree = "<group>"; };
@@ -362,6 +369,7 @@
 		846D4FD3260241660079720F /* SlimeHitGray.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = SlimeHitGray.atlas; sourceTree = "<group>"; };
 		846D4FD4260241670079720F /* SlimeIdleGray.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = SlimeIdleGray.atlas; sourceTree = "<group>"; };
 		846D4FD5260241670079720F /* SlimeMoveLeftGray.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = SlimeMoveLeftGray.atlas; sourceTree = "<group>"; };
+		84820721262028DC00D4BA56 /* GameResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameResolver.swift; sourceTree = "<group>"; };
 		848E3F5826188DE300C43EEB /* SpaceConverterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceConverterTests.swift; sourceTree = "<group>"; };
 		848E3F5C261897C100C43EEB /* RectTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectTests.swift; sourceTree = "<group>"; };
 		849E63AC26179E9A00AFA9A7 /* MockGameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockGameManager.swift; sourceTree = "<group>"; };
@@ -692,6 +700,7 @@
 				8416DAEC260335A800926D01 /* Level.swift */,
 				842B5CDD260487BC00FCF7BD /* LevelScore.swift */,
 				842B5CED26048D2B00FCF7BD /* Points.swift */,
+				8405B48A2624829E00C36361 /* LevelReader.swift */,
 				8453F2C3260C846300FFD8AE /* LevelSpawnEvent */,
 			);
 			path = Level;
@@ -845,6 +854,7 @@
 			isa = PBXGroup;
 			children = (
 				ACE75106261F935600B3D371 /* GoogleService-Info.plist */,
+				8405B48E262486A200C36361 /* level.txt */,
 				ACB3607025F661620016E240 /* paintsplash */,
 				ACB3608825F661630016E240 /* paintsplashTests */,
 				ACB3606F25F661620016E240 /* Products */,
@@ -891,6 +901,7 @@
 				ACB3607325F661620016E240 /* GameScene.sks */,
 				ACB3607125F661620016E240 /* AppDelegate.swift */,
 				ACB3607725F661620016E240 /* GameScene.swift */,
+				84820721262028DC00D4BA56 /* GameResolver.swift */,
 				ACB3607B25F661620016E240 /* Main.storyboard */,
 				D50C88D726215E53001DBDD6 /* TEstView.xib */,
 				ACB3607E25F661630016E240 /* Assets.xcassets */,
@@ -1348,6 +1359,7 @@
 			children = (
 				AC07DE4E2605E63900B12840 /* Rect.swift */,
 				D55EEBAC260096FB00ADC70B /* VerticalStack.swift */,
+				8405B4842624713600C36361 /* RandomGenerator.swift */,
 				D50A08422604E26400822D67 /* HorizontalStack.swift */,
 				D598F53C26019E7300D7CACB /* SpaceConverter.swift */,
 				ACFD820D25F6773B009D806B /* Vector2D.swift */,
@@ -1679,6 +1691,7 @@
 				DC2403142600D66D00550E1E /* CanvasIdle.atlas in Resources */,
 				ACB3607F25F661630016E240 /* Assets.xcassets in Resources */,
 				D5673335261EA37300FD1D15 /* AmmoPickup.mp3 in Resources */,
+				8405B48F262486A200C36361 /* level.txt in Resources */,
 				D5553D9E26062D1000C1862E /* background-music.mp3 in Resources */,
 				D5DC90AA25FCE5280038DF71 /* SlimeMoveLeft.atlas in Resources */,
 				846D4FDA260241670079720F /* SlimeMoveLeftGray.atlas in Resources */,
@@ -1877,11 +1890,13 @@
 				D50FD68226104B7400491CAC /* ConnectionHandler.swift in Sources */,
 				D5553D74260629D100C1862E /* CallbackAnimation.swift in Sources */,
 				D5673343261EE58A00FD1D15 /* GameViewController.swift in Sources */,
+				8405B4852624713600C36361 /* RandomGenerator.swift in Sources */,
 				AC5F0B712601112C00E28D49 /* PlayerAnimations.swift in Sources */,
 				DC04EAB4260EECFB00D7DDFF /* MenuViewController.swift in Sources */,
 				D54628042614C071002527C3 /* AnimationManager.swift in Sources */,
 				D570450E26182C56004AF802 /* CodableExtensions.swift in Sources */,
 				D53F5415260D93CB00635B05 /* BoundedTransformComponent.swift in Sources */,
+				84820722262028DC00D4BA56 /* GameResolver.swift in Sources */,
 				D5553D9C26062D1000C1862E /* PlayableAudio.swift in Sources */,
 				D53F5401260D636A00635B05 /* HasWeapon.swift in Sources */,
 				DC6A07C5261304D0009FE7F6 /* GameStateInfo.swift in Sources */,
@@ -1937,6 +1952,7 @@
 				D570450426182AE1004AF802 /* EntityData.swift in Sources */,
 				AC2B3B0A261B9371001B8FCF /* Touchable.swift in Sources */,
 				D53F5474260D963F00635B05 /* PlayerState+MoveLeft.swift in Sources */,
+				8405B48B2624829E00C36361 /* LevelReader.swift in Sources */,
 				840A334D26060655007BC34D /* AmmoDrop.swift in Sources */,
 				D55EEBA02600927800ADC70B /* EntityChangeEvent.swift in Sources */,
 				DC08DA6A260516DE000F4F90 /* CanvasEndMarker.swift in Sources */,
@@ -2213,6 +2229,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8B4N4F9FTJ;
+				DEVELOPMENT_TEAM = 5Q6AP63883;
 				INFOPLIST_FILE = paintsplash/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2220,6 +2237,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = crawlers.paintsplashes6;
+				PRODUCT_BUNDLE_IDENTIFIER = crawlers.paintsplashes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -2236,6 +2254,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8B4N4F9FTJ;
+				DEVELOPMENT_TEAM = 5Q6AP63883;
 				INFOPLIST_FILE = paintsplash/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				LD_RUNPATH_SEARCH_PATHS = (
