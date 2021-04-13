@@ -84,10 +84,12 @@ class MixingPotCollisionComponent: CollisionComponent {
             case let projectile as PaintProjectile:
                 if mixingPot?.canMixWith(projectile.color) == true {
                     mixingPot?.addColor(projectile.color)
+                    projectile.destroy()
                 }
             case let splash as PaintBucketSplash:
                 if mixingPot?.canMixWith(splash.color) == true {
                     mixingPot?.addColor(splash.color)
+                    splash.destroy()
                 }
             default:
                 fatalError("Player projectile does not conform to PlayerProjectile")
