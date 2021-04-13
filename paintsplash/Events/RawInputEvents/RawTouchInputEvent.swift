@@ -18,13 +18,10 @@ class RawTouchInputEvent: Event {
 }
 
 class RawTouchUpEvent: RawTouchInputEvent {
-
 }
 
 class RawTouchDownEvent: RawTouchInputEvent {
-
 }
 
 class RawTouchMovedEvent: RawTouchInputEvent {
-
 }
