@@ -19,6 +19,8 @@ class PaintSplashPlayerSystem: PlayerSystem {
     var onShootEvents = [PlayerShootEvent]()
     var onWeaponChangeEvents = [PlayerChangeWeaponEvent]()
     var onBombEvents = [PlayerBombEvent]()
+    
+    let eventLimit = 100
 
     init() {
         EventSystem.processedInputEvents.playerMoveEvent.subscribe(listener: onMove)
@@ -64,15 +66,21 @@ class PaintSplashPlayerSystem: PlayerSystem {
     }
 
     func onMove(event: PlayerMoveEvent) {
-        onMoveEvents.append(event)
+        if onMoveEvents.count < eventLimit {
+            onMoveEvents.append(event)
+        }
     }
 
     func onAim(event: PlayerAimEvent) {
-        onAimEvents.append(event)
+        if onAimEvents.count < eventLimit {
+            onAimEvents.append(event)
+        }
     }
 
     func onShoot(event: PlayerShootEvent) {
-        onShootEvents.append(event)
+        if onShootEvents.count < eventLimit {
+            onShootEvents.append(event)
+        }
     }
 
     func onChangeWeapon(event: PlayerChangeWeaponEvent) {
