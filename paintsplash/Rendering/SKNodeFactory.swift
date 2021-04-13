@@ -42,10 +42,10 @@ class SKNodeFactory {
         node.size = SpaceConverter.modelToScreen(size)
 
         if let colorData = colorize(entity) {
-            let shader = createColorize(color: colorData.color)
-            node.shader = shader
+//            let shader = createColorize(color: colorData.color)
+//            node.shader = shader
             node.color = colorData.color
-//            node.colorBlendFactor = colorData.blendFactor
+            node.colorBlendFactor = colorData.blendFactor
         }
 
         return node

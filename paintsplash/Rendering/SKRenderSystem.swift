@@ -160,8 +160,8 @@ class SKRenderSystem: RenderSystem {
            node.color != colorData.color.uiColor {
             // node.shader = SK
             node.color = colorData.color.uiColor
-            let shader = SKNodeFactory.createColorize(color: colorData.color.uiColor)
-            node.shader = shader
+            // let shader = SKNodeFactory.createColorize(color: colorData.color.uiColor)
+            // node.shader = shader
             node.children
                 .compactMap({ $0 as? SKSpriteNode })
                 .forEach({ $0.color = colorData.color.uiColor })
