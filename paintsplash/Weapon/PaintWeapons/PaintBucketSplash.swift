@@ -28,7 +28,7 @@ class PaintBucketSplash: GameEntity, Projectile, Renderable, Colorable, Transfor
         self.collisionComponent = collisionComp
 
         self.renderComponent = RenderComponent(
-            renderType: .sprite(spriteName: "Projectile"),
+            renderType: .sprite(spriteName: "Puddle"),
             zPosition: Constants.ZPOSITION_PROJECTILE
         )
 
