@@ -34,6 +34,10 @@ class Player: GameEntity,
 
     let connectionHander = FirebaseConnectionHandler()
 
+    var isDead: Bool {
+        healthComponent.currentHealth <= 0
+    }
+
     init(initialPosition: Vector2D) {
         self.transformComponent = BoundedTransformComponent(
             position: initialPosition,

@@ -20,7 +20,7 @@ extension EnemySpawnerState {
         override func onEnterState() {
             spawner.animationComponent.animate(
                 animation: SpawnerAnimations.spawnerIdle,
-                interupt: false
+                interupt: true
             )
         }
 

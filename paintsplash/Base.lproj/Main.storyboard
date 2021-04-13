@@ -37,11 +37,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7o1-gH-o6h">
                                 <rect key="frame" x="0.0" y="0.0" width="1180" height="820"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="floor" translatesAutoresizingMaskIntoConstraints="NO" id="t9Q-Hy-X64">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MenuBackground" translatesAutoresizingMaskIntoConstraints="NO" id="L07-I1-lZu">
                                         <rect key="frame" x="0.0" y="0.0" width="1180" height="820"/>
-                                    </imageView>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="topwall" translatesAutoresizingMaskIntoConstraints="NO" id="T8n-s1-kVl">
-                                        <rect key="frame" x="-410" y="0.0" width="2000" height="656"/>
                                     </imageView>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="paintsplash" translatesAutoresizingMaskIntoConstraints="NO" id="zBe-WE-z1o">
                                         <rect key="frame" x="295" y="50" width="590" height="328"/>
@@ -50,17 +47,14 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="zBe-WE-z1o" firstAttribute="centerX" secondItem="7o1-gH-o6h" secondAttribute="centerX" id="28W-Cs-hAQ"/>
-                                    <constraint firstItem="T8n-s1-kVl" firstAttribute="height" secondItem="7o1-gH-o6h" secondAttribute="height" multiplier="0.8" id="3Yq-rm-6y0"/>
-                                    <constraint firstItem="t9Q-Hy-X64" firstAttribute="top" secondItem="7o1-gH-o6h" secondAttribute="top" id="3kY-Y8-KXr"/>
-                                    <constraint firstItem="T8n-s1-kVl" firstAttribute="centerX" secondItem="7o1-gH-o6h" secondAttribute="centerX" id="Bxn-ej-rWX"/>
-                                    <constraint firstAttribute="trailing" secondItem="t9Q-Hy-X64" secondAttribute="trailing" id="f5a-7K-tkG"/>
-                                    <constraint firstItem="t9Q-Hy-X64" firstAttribute="leading" secondItem="7o1-gH-o6h" secondAttribute="leading" id="fba-Fm-4bC"/>
-                                    <constraint firstItem="T8n-s1-kVl" firstAttribute="top" secondItem="7o1-gH-o6h" secondAttribute="top" id="h5v-pT-pwd"/>
-                                    <constraint firstAttribute="bottom" secondItem="t9Q-Hy-X64" secondAttribute="bottom" id="hQV-Qv-L7X"/>
+                                    <constraint firstItem="L07-I1-lZu" firstAttribute="top" secondItem="7o1-gH-o6h" secondAttribute="top" id="Hfg-U9-kke"/>
+                                    <constraint firstAttribute="trailing" secondItem="L07-I1-lZu" secondAttribute="trailing" id="Hyo-mb-HEE"/>
+                                    <constraint firstAttribute="bottom" secondItem="L07-I1-lZu" secondAttribute="bottom" id="hjf-Gg-Q8d"/>
+                                    <constraint firstItem="L07-I1-lZu" firstAttribute="leading" secondItem="7o1-gH-o6h" secondAttribute="leading" id="mQk-yf-SC0"/>
                                     <constraint firstItem="zBe-WE-z1o" firstAttribute="top" secondItem="7o1-gH-o6h" secondAttribute="top" constant="50" id="vDC-2a-M6L"/>
                                 </constraints>
                             </view>
-                            <stackView opaque="NO" contentMode="scaleToFill" spacing="200" translatesAutoresizingMaskIntoConstraints="NO" id="3so-gX-enb">
+                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" spacing="200" translatesAutoresizingMaskIntoConstraints="NO" id="3so-gX-enb">
                                 <rect key="frame" x="147" y="351" width="886" height="98"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oYq-Wa-HMB">
@@ -100,7 +94,6 @@
                             <constraint firstItem="zBe-WE-z1o" firstAttribute="width" secondItem="vGT-JP-KQE" secondAttribute="width" multiplier="0.5" id="4I5-3Q-ULh"/>
                             <constraint firstAttribute="bottom" secondItem="7o1-gH-o6h" secondAttribute="bottom" id="Mwi-5U-fUd"/>
                             <constraint firstItem="7o1-gH-o6h" firstAttribute="leading" secondItem="3sB-Xf-lfj" secondAttribute="leading" id="RTH-U4-dNo"/>
-                            <constraint firstItem="3so-gX-enb" firstAttribute="centerY" secondItem="3sB-Xf-lfj" secondAttribute="centerY" id="Vel-wE-SsR"/>
                             <constraint firstItem="zBe-WE-z1o" firstAttribute="height" secondItem="vGT-JP-KQE" secondAttribute="height" multiplier="0.4" id="a3b-Ud-x8z"/>
                             <constraint firstItem="3sB-Xf-lfj" firstAttribute="trailing" secondItem="7o1-gH-o6h" secondAttribute="trailing" id="byl-ic-Ntg"/>
                         </constraints>
@@ -504,11 +497,10 @@
     </inferredMetricsTieBreakers>
     <resources>
         <image name="BlueButtonUp" width="25" height="98"/>
+        <image name="MenuBackground" width="2048" height="1536"/>
         <image name="TextField" width="33" height="98"/>
         <image name="background" width="1996" height="1592"/>
-        <image name="floor" width="2000" height="1592"/>
         <image name="paintsplash" width="2000" height="1500"/>
-        <image name="topwall" width="2000" height="375"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

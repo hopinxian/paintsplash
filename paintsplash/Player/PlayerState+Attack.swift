@@ -17,6 +17,9 @@ extension PlayerState {
         }
 
         override func onEnterState() {
+            guard !player.isDead else {
+                return
+            }
             if player.multiWeaponComponent.canShoot() {
                 player.animationComponent.animate(
                     animation: PlayerAnimations.playerBrushAttackLeft,
