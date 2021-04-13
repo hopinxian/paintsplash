@@ -23,7 +23,7 @@ class MixingPot: GameEntity, Renderable, Transformable, Collidable, AmmoDrop, Co
     init(position: Vector2D) {
         self.renderComponent = RenderComponent(
             renderType: .sprite(spriteName: "WhiteSquare"),
-            zPosition: Constants.ZPOSITION_UI_ELEMENT
+            zPosition: 0
         )
 
         self.transformComponent = TransformComponent(position: position, rotation: 0, size: Vector2D(100, 100))

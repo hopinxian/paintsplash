@@ -67,3 +67,13 @@ class PlayerChangeWeaponEvent: ProcessedInputEvent, Codable {
         newWeapon = newWeaponType
     }
 }
+
+class PlayerBombEvent: ProcessedInputEvent, Codable {
+    let direction: Vector2D
+    let playerId: EntityID
+
+    init(direction: Vector2D, playerID: EntityID) {
+        self.direction = direction
+        self.playerId = playerID
+    }
+}

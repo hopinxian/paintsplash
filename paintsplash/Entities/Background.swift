@@ -12,7 +12,8 @@ class Background: UIEntity, Renderable {
     override init() {
         self.renderComponent = RenderComponent(
             renderType: .sprite(spriteName: "floor"),
-            zPosition: Constants.ZPOSITION_FLOOR
+            zPosition: Constants.ZPOSITION_FLOOR,
+            zPositionGroup: .background
         )
 
         self.transformComponent = TransformComponent(

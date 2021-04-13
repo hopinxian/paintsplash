@@ -14,7 +14,8 @@ class UIBar: UIEntity, Renderable {
 
         self.renderComponent = RenderComponent(
             renderType: renderType,
-            zPosition: Constants.ZPOSITION_WALLS
+            zPosition: Constants.ZPOSITION_WALLS,
+            zPositionGroup: .background
         )
 
         self.transformComponent = TransformComponent(

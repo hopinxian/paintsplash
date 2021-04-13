@@ -21,7 +21,7 @@ class PaintAmmoDisplay: UIEntity, Renderable, Colorable, Transformable {
             size: Constants.PAINT_AMMO_DISPLAY_SIZE
         )
 
-        self.renderComponent = RenderComponent(renderType: renderType, zPosition: zPosition)
+        self.renderComponent = RenderComponent(renderType: renderType, zPosition: zPosition, zPositionGroup: .ui)
 
         super.init()
     }

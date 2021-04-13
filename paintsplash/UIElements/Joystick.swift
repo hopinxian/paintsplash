@@ -39,7 +39,8 @@ class Joystick: UIEntity, Renderable {
 
         self.renderComponent = RenderComponent(
             renderType: renderType,
-            zPosition: Constants.ZPOSITION_UI_ELEMENT
+            zPosition: Constants.ZPOSITION_JOYSTICK,
+            zPositionGroup: .ui
         )
 
         foregroundNode = JoystickForeground(
@@ -110,7 +111,7 @@ class Joystick: UIEntity, Renderable {
         init(position: Vector2D, size: Vector2D, zPosition: Int) {
             let renderType = RenderType.sprite(spriteName: "joystick-foreground")
 
-            self.renderComponent = RenderComponent(renderType: renderType, zPosition: zPosition)
+            self.renderComponent = RenderComponent(renderType: renderType, zPosition: zPosition, zPositionGroup: .ui)
             self.transformComponent = TransformComponent(position: position, rotation: 0, size: size)
 
             super.init()

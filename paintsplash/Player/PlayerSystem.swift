@@ -9,6 +9,7 @@ protocol PlayerSystem: System {
     var onMoveEvents: [PlayerMoveEvent] { get set }
     var onShootEvents: [PlayerShootEvent] { get set }
     var onWeaponChangeEvents: [PlayerChangeWeaponEvent] { get set }
+    var onBombEvents: [PlayerBombEvent] { get set }
 }
 
 class PaintSplashPlayerSystem: PlayerSystem {
@@ -17,12 +18,14 @@ class PaintSplashPlayerSystem: PlayerSystem {
     var onAimEvents = [PlayerAimEvent]()
     var onShootEvents = [PlayerShootEvent]()
     var onWeaponChangeEvents = [PlayerChangeWeaponEvent]()
+    var onBombEvents = [PlayerBombEvent]()
 
     init() {
         EventSystem.processedInputEvents.playerMoveEvent.subscribe(listener: onMove)
         EventSystem.processedInputEvents.playerAimEvent.subscribe(listener: onAim)
         EventSystem.processedInputEvents.playerShootEvent.subscribe(listener: onShoot)
         EventSystem.processedInputEvents.playerChangeWeaponEvent.subscribe(listener: onChangeWeapon)
+        EventSystem.processedInputEvents.playerBombEvent.subscribe(listener: onBomb)
     }
 
     func addEntity(_ entity: GameEntity) {
@@ -49,11 +52,15 @@ class PaintSplashPlayerSystem: PlayerSystem {
             for event in onWeaponChangeEvents {
                 player.playableComponent.onWeaponChange(event: event)
             }
+            for event in onBombEvents {
+                player.playableComponent.onBomb(event: event)
+            }
         }
         onMoveEvents = []
         onAimEvents = []
         onShootEvents = []
         onWeaponChangeEvents = []
+        onBombEvents = []
     }
 
     func onMove(event: PlayerMoveEvent) {
@@ -70,5 +77,9 @@ class PaintSplashPlayerSystem: PlayerSystem {
 
     func onChangeWeapon(event: PlayerChangeWeaponEvent) {
         onWeaponChangeEvents.append(event)
+    }
+
+    func onBomb(event: PlayerBombEvent) {
+        onBombEvents.append(event)
     }
 }

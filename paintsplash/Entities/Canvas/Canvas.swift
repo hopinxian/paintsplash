@@ -29,7 +29,8 @@ class Canvas: GameEntity, StatefulEntity, Renderable, Collidable, Transformable,
 
         self.renderComponent = RenderComponent(
             renderType: .sprite(spriteName: "canvas"),
-            zPosition: Constants.ZPOSITION_UI_ELEMENT
+            zPosition: 1,
+            zPositionGroup: .background
         )
 
         self.transformComponent = TransformComponent(

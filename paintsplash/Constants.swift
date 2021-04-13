@@ -7,13 +7,24 @@
 
 struct Constants {
     // Z Positions
+
+    // Background
     static let ZPOSITION_FLOOR: Int = 0
     static let ZPOSITION_WALLS: Int = 1
-    static let ZPOSITION_UI_ELEMENT: Int = 5
-    static let ZPOSITION_PROJECTILE: Int = 4
-    static let ZPOSITION_AMMO_DROP: Int = 3
-    static let ZPOSITION_PLAYER: Int = 10 // some UI elements have multiple layers
+    static let ZPOSITION_CANVAS = 1
+
+    // Playfield
+    static let ZPOSITION_PROJECTILE: Int = 0
+    static let ZPOSITION_AMMO_DROP: Int = 0
+    static let ZPOSITION_PLAYER: Int = 0
     static let POSITION_PLAYER = Vector2D(-250, 0)
+
+    // UI
+    static let ZPOSITION_JOYSTICK = 1
+    static let ZPOSITION_AMMO_DISPLAY = 1
+    static let ZPOSITION_HEALTH_DISPLAY = 1
+    static let ZPOSITION_SCORE = 1
+    static let ZPOSITION_REQUEST = 1
 
     // Movement Bounds
     static let PLAYER_MOVEMENT_BOUNDS = Rect(

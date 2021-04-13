@@ -25,10 +25,11 @@ class CanvasRequestManager: GameEntity, Transformable {
             position: transformComponent.localPosition,
             size: transformComponent.size,
             backgroundSprite: "CanvasRequestManager",
+            zPosition: Constants.ZPOSITION_REQUEST,
             leftPadding: 120
         )
 
-        displayView.zPosition = Constants.ZPOSITION_UI_ELEMENT
+        displayView.zPosition = Constants.ZPOSITION_REQUEST
         self.requestsDisplayView = displayView
         super.init()
 

@@ -70,9 +70,12 @@ class Player: GameEntity,
 
         let paintGun = PaintGun()
         let bucket = Bucket()
-        self.multiWeaponComponent = MultiWeaponComponent(
-            weapons: [paintGun, bucket]
+        let bomb = Bomb()
+        let multiWeaponComponent = MultiWeaponComponent(
+            weapons: [paintGun, bucket, bomb]
         )
+        self.multiWeaponComponent = multiWeaponComponent
+        bomb.ammoSource = multiWeaponComponent
 
         let playerComponent = PlayerComponent()
         self.playableComponent = playerComponent

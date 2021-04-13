@@ -24,7 +24,8 @@ class PaintBucketAmmoDisplay: UIEntity, Transformable {
         let displayView = VerticalStack<PaintAmmoDisplay>(
             position: transformComponent.localPosition,
             size: transformComponent.size,
-            backgroundSprite: "WhiteSquare"
+            backgroundSprite: "WhiteSquare",
+            zPosition: Constants.ZPOSITION_AMMO_DISPLAY
         )
 
         self.ammoDisplayView = displayView
@@ -70,7 +71,7 @@ class PaintBucketAmmoDisplay: UIEntity, Transformable {
             .compactMap({ PaintAmmoDisplay(
                 paintAmmo: $0,
                 position: Vector2D.outOfScreen,
-                zPosition: Constants.ZPOSITION_UI_ELEMENT + 1)
+                zPosition: Constants.ZPOSITION_AMMO_DISPLAY + 1)
         })
 
         ammoDisplayView.changeItems(to: ammoDisplays)

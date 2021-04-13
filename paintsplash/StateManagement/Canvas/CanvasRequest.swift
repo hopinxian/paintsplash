@@ -28,7 +28,8 @@ class CanvasRequest: GameEntity, Renderable, Transformable {
 
         self.renderComponent = RenderComponent(
             renderType: renderType,
-            zPosition: Constants.ZPOSITION_UI_ELEMENT
+            zPosition: Constants.ZPOSITION_REQUEST + 1,
+            zPositionGroup: .ui
         )
 
         super.init()
