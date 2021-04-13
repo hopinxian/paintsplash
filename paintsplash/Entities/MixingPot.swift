@@ -11,7 +11,7 @@ class MixingPot: GameEntity, Renderable, Transformable, Collidable, AmmoDrop, Co
     var collisionComponent: CollisionComponent
     var color: PaintColor {
         get {
-            _color ?? .white
+            _color ?? .red
         }
         set {
             _color = newValue
@@ -22,7 +22,7 @@ class MixingPot: GameEntity, Renderable, Transformable, Collidable, AmmoDrop, Co
 
     init(position: Vector2D) {
         self.renderComponent = RenderComponent(
-            renderType: .sprite(spriteName: "WhiteSquare"),
+            renderType: .sprite(spriteName: "Palette"),
             zPosition: Constants.ZPOSITION_UI_ELEMENT
         )
 
