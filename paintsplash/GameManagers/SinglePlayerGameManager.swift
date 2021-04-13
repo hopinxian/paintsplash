@@ -61,7 +61,9 @@ class  SinglePlayerGameManager: GameManager {
             self?.onRemoveUIEntity(event: event)
         })
 
-        EventSystem.gameStateEvents.gameOverEvent.subscribe(listener: onGameOver)
+        EventSystem.gameStateEvents.gameOverEvent.subscribe(listener: { [weak self] in
+                                                                self?.onGameOver(event: $0)
+        })
     }
 
     func setupGame() {
