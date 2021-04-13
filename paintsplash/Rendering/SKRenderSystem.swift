@@ -128,8 +128,6 @@ class SKRenderSystem: RenderSystem {
         var zPosition = renderComponent.zPositionGroup.rawValue + renderComponent.zPosition
         if renderComponent.zPositionGroup == .playfield {
             zPosition += Int((transformComponent.worldPosition.y - Constants.MODEL_WORLD_SIZE.y - transformComponent.size.y / 2) * -1)
-            print(renderable)
-            print(node.zPosition)
         }
 
         node.zPosition = CGFloat(zPosition)

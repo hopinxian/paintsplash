@@ -16,10 +16,10 @@ class MockGameManager: GameManager {
     var uiEntities = Set<GameEntity>()
 
     init() {
-        EventSystem.entityChangeEvents.addEntityEvent.subscribe(listener: onAddEntity)
-        EventSystem.entityChangeEvents.removeEntityEvent.subscribe(listener: onRemoveEntity)
-        EventSystem.entityChangeEvents.addUIEntityEvent.subscribe(listener: onAddUIEntity)
-        EventSystem.entityChangeEvents.removeUIEntityEvent.subscribe(listener: onRemoveUIEntity)
+        EventSystem.entityChangeEvents.addEntityEvent.subscribe(listener: { [weak self] event in self?.onAddEntity(event: event) })
+        EventSystem.entityChangeEvents.removeEntityEvent.subscribe(listener: { [weak self] event in self?.onRemoveEntity(event: event) })
+        EventSystem.entityChangeEvents.addUIEntityEvent.subscribe(listener: { [weak self] event in self?.onAddUIEntity(event: event) })
+        EventSystem.entityChangeEvents.removeUIEntityEvent.subscribe(listener: { [weak self] event in self?.onRemoveUIEntity(event: event) })
     }
 
     private func onAddEntity(event: AddEntityEvent) {
