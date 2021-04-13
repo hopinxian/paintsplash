@@ -41,7 +41,7 @@ class GameOverUI: UIEntity, Renderable {
         var transformComponent: TransformComponent
 
         override init() {
-            self.renderComponent = RenderComponent(renderType: .label(text: "Game Over!"), zPosition: 1_001)
+            self.renderComponent = RenderComponent(renderType: .label(text: "Game Over!"), zPosition: 1_001, zPositionGroup: .ui)
 
             self.transformComponent = TransformComponent(
                 position: Vector2D(0, 200), rotation: 0, size: Vector2D(300, 100))
