@@ -97,7 +97,8 @@ class Level {
         let randomNumber = rng.nextInt(1..<4)
         var request = Set<PaintColor>()
         let colors = PaintColor.allCases.filter {
-            $0 != PaintColor.white
+//            $0 != PaintColor.white
+            !$0.contains(color: .white)
         }
         let length = colors.count
         for _ in 1...randomNumber {
