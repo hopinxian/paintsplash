@@ -7,8 +7,6 @@
 import Foundation
 
 class MultiplayerServer: SinglePlayerGameManager {
-    var addedEntities = [EntityID: GameEntity]()
-    var removedEntities = [EntityID: GameEntity]()
     var room: RoomInfo
     var connectionHandler: ConnectionHandler
     var gameConnectionHandler: GameConnectionHandler?
@@ -239,7 +237,7 @@ class MultiplayerServer: SinglePlayerGameManager {
         let animationSystemData = AnimationSystemData(from: animatablesToSend)
 
         var colorables = [EntityID: Colorable]()
-        addedEntities.forEach({ _, entity in
+        entities.forEach({ entity in
             if let colorable = entity as? Colorable, !uiEntityIDs.contains(entity.id) {
                 colorables[entity.id] = colorable
             }
@@ -270,20 +268,7 @@ class MultiplayerServer: SinglePlayerGameManager {
             transformSystem.updateEntities(deltaTime)
             renderSystem.updateEntities(deltaTime)
             animationSystem.updateEntities(deltaTime)
-
-            addedEntities = [:]
-            removedEntities = [:]
         }
-    }
-
-    override func addObject(_ object: GameEntity) {
-        super.addObject(object)
-        addedEntities[object.id] = object
-    }
-
-    override func removeObject(_ object: GameEntity) {
-        super.removeObject(object)
-        removedEntities[object.id] = object
     }
 
     func readClientPlayerData(data: SystemData?) {
