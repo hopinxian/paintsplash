@@ -24,7 +24,7 @@ extension PlayerState {
                 player.animationComponent.animate(
                     animation: PlayerAnimations.playerBrushAttackLeft,
                     interupt: true,
-                    callBack: { self.animationComplete = true }
+                    callBack: { [weak self] in self?.animationComplete = true }
                 )
             }
         }

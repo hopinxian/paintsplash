@@ -49,8 +49,8 @@ class MultiplayerMenuViewController: UIViewController {
         let playerInfo = PlayerInfo(playerUUID: self.playerUUID, playerName: self.playerName)
         lobbyHandler.createRoom(
             player: playerInfo,
-            onSuccess: { roomInfo in
-                self.onCreateRoom(roomInfo: roomInfo)
+            onSuccess: { [weak self] roomInfo in
+                self?.onCreateRoom(roomInfo: roomInfo)
             },
             onError: onError
         )
