@@ -44,7 +44,7 @@ class LevelReader {
 
     private func parseHeader(_ header: String, _ level: Level) {
         var arg = header.components(separatedBy: ",")
-        arg = arg.map{ removeWhitespace($0) }
+        arg = arg.map { removeWhitespace($0) }
         level.repeatLimit = parseLimit(arg[0])
         level.bufferBetweenLoop = parseLoopBuffer(arg[1]) ?? level.bufferBetweenLoop
         Level.enemyCapacity = parseEnemyCapacity(arg[2]) ?? Level.enemyCapacity
@@ -53,7 +53,7 @@ class LevelReader {
 
     private func parseStringToCommand(_ commandString: String) -> SpawnCommand {
         var arguments = commandString.components(separatedBy: ",")
-        arguments = arguments.map{ removeWhitespace($0) }
+        arguments = arguments.map { removeWhitespace($0) }
         let command: SpawnCommand
         switch arguments[0].lowercased() {
         case "slime":

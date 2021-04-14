@@ -43,9 +43,9 @@ class LevelScore: GameEntity, Renderable {
         if !freeze {
             score += event.value
             let renderType = RenderType.label(
-                text: "\(score)", 
-                fontName: "ChalkboardSE-Bold", 
-                fontSize: 20, 
+                text: "\(score)",
+                fontName: "ChalkboardSE-Bold",
+                fontSize: 20,
                 fontColor: .white
             )
             renderComponent.renderType = renderType

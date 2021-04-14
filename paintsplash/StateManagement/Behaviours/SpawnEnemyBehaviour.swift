@@ -19,7 +19,8 @@ class SpawnEnemyBehaviour: StateBehaviour {
             fatalError("AIEntity does not conform to the required protocols for SpawnEnemyBehaviour")
         }
 
-        let spawnPosition = transformable.transformComponent.localPosition
+        let spawnPosition = transformable.transformComponent.localPosition -
+            Vector2D(0, transformable.transformComponent.size.y / 2 - 10)
 
         let subColors = colorable.color.getSubColors()
         for _ in 0..<spawnQuantity {

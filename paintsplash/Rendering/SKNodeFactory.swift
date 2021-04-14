@@ -53,9 +53,9 @@ class SKNodeFactory {
     }
 
     private static func buildLabelNode(
-        text: String, 
-        fontName: String, 
-        fontSize: Double, 
+        text: String,
+        fontName: String,
+        fontSize: Double,
         fontColor: Color
     ) -> SKLabelNode {
         let node = SKLabelNode(text: text)

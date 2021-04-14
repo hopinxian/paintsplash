@@ -174,10 +174,10 @@ class SKRenderSystem: RenderSystem {
     }
 
     private func updateLabelNode(
-        _ node: SKLabelNode, 
-        text: String, 
-        fontName: String, 
-        fontSize: Double, 
+        _ node: SKLabelNode,
+        text: String,
+        fontName: String,
+        fontSize: Double,
         fontColor: Color
     ) {
         if node.text != text {

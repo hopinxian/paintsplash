@@ -44,7 +44,7 @@ class PaintGunAmmoDisplay: UIEntity, Transformable {
         EventSystem.playerActionEvent
             .playerAmmoUpdateEvent.subscribe(listener: { [weak self] in self?.onAmmoUpdate(event: $0) })
         EventSystem.playerActionEvent
-            .playerChangedWeaponEvent.subscribe(listener: { [weak self] in self?.onChangeWeapon(event: $0)})
+            .playerChangedWeaponEvent.subscribe(listener: { [weak self] in self?.onChangeWeapon(event: $0) })
         EventSystem.inputEvents.touchDownEvent.subscribe(listener: { [weak self] in self?.touchDown(event: $0) })
     }
 

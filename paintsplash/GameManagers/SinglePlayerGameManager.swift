@@ -127,8 +127,14 @@ class  SinglePlayerGameManager: GameManager {
         )
         canvasEndMarker.spawn()
 
-        let mixingPot = MixingPot(position: Vector2D(200, 200))
-        mixingPot.spawn()
+        let mixingPot1 = MixingPot(position: Vector2D(-800, 0))
+        mixingPot1.spawn()
+
+        let mixingPot2 = MixingPot(position: Vector2D(800, 0))
+        mixingPot2.spawn()
+
+        let enemySpawner = EnemySpawner(initialPosition: Vector2D.zero, color: .red)
+        enemySpawner.spawn()
 
         currentLevel = Level.getDefaultLevel(
             canvasManager: canvasManager,
