@@ -133,9 +133,6 @@ class  SinglePlayerGameManager: GameManager {
         let mixingPot2 = MixingPot(position: Vector2D(800, 0))
         mixingPot2.spawn()
 
-        let enemySpawner = EnemySpawner(initialPosition: Vector2D.zero, color: .red)
-        enemySpawner.spawn()
-
         currentLevel = Level.getDefaultLevel(
             canvasManager: canvasManager,
             gameInfo: gameInfoManager.gameInfo
