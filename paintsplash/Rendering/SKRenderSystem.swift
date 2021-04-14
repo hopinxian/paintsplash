@@ -127,7 +127,9 @@ class SKRenderSystem: RenderSystem {
 
         var zPosition = renderComponent.zPositionGroup.rawValue + renderComponent.zPosition
         if renderComponent.zPositionGroup == .playfield {
-            zPosition += Int((transformComponent.worldPosition.y - Constants.MODEL_WORLD_SIZE.y - transformComponent.size.y / 2) * -1)
+            zPosition += Int((transformComponent.worldPosition.y -
+                                Constants.MODEL_WORLD_SIZE.y -
+                                transformComponent.size.y / 2) * -1)
         }
 
         node.zPosition = CGFloat(zPosition)
@@ -171,7 +173,13 @@ class SKRenderSystem: RenderSystem {
         node.size = screenSize
     }
 
-    private func updateLabelNode(_ node: SKLabelNode, text: String, fontName: String, fontSize: Double, fontColor: Color) {
+    private func updateLabelNode(
+        _ node: SKLabelNode, 
+        text: String, 
+        fontName: String, 
+        fontSize: Double, 
+        fontColor: Color
+    ) {
         if node.text != text {
             node.text = text
         }

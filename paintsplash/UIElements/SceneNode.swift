@@ -24,4 +24,3 @@ class SceneNode: GameEntity, Renderable {
         super.init()
     }
 }
-

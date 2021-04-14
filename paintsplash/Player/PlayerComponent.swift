@@ -45,6 +45,14 @@ class PlayerComponent: PlayableComponent {
             playerId: event.playerId
         )
         EventSystem.playerActionEvent.playerMovementEvent.post(event: event)
+
+        if var currentGuide = aimGuide as? Colorable {
+            if let nextGuide = player.multiWeaponComponent.activeWeapon.getAimGuide() as? Colorable {
+                if currentGuide.color != nextGuide.color {
+                    currentGuide.color = nextGuide.color
+                }
+            }
+        }
     }
 
     override func onAim(event: PlayerAimEvent) {

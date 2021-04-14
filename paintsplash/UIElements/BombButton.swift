@@ -31,8 +31,14 @@ class BombButton: UIEntity, Renderable {
 
         super.init()
 
-        EventSystem.inputEvents.touchDownEvent.subscribe(listener: { [weak self] event in self?.onTouchDown(event: event)})
-        EventSystem.inputEvents.touchUpEvent.subscribe(listener: { [weak self] event in self?.onTouchUp(event: event)})
+        EventSystem.inputEvents
+            .touchDownEvent.subscribe(
+                listener: { [weak self] event in self?.onTouchDown(event: event) }
+            )
+        EventSystem.inputEvents
+            .touchUpEvent.subscribe(
+                listener: { [weak self] event in self?.onTouchUp(event: event) }
+            )
     }
 
     func onTouchDown(event: TouchDownEvent) {

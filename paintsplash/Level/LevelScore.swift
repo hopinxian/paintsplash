@@ -13,7 +13,12 @@ class LevelScore: GameEntity, Renderable {
     var freeze = true
 
     override init() {
-        let renderType = RenderType.label(text: "\(score)", fontName: "ChalkboardSE-Bold", fontSize: 20, fontColor: .white)
+        let renderType = RenderType.label(
+            text: "\(score)",
+            fontName: "ChalkboardSE-Bold",
+            fontSize: 20,
+            fontColor: .white
+        )
 
         self.renderComponent = RenderComponent(
             renderType: renderType,
@@ -37,7 +42,12 @@ class LevelScore: GameEntity, Renderable {
     func onScoreEvent(event: ScoreEvent) {
         if !freeze {
             score += event.value
-            let renderType = RenderType.label(text: "\(score)", fontName: "ChalkboardSE-Bold", fontSize: 20, fontColor: .white)
+            let renderType = RenderType.label(
+                text: "\(score)", 
+                fontName: "ChalkboardSE-Bold", 
+                fontSize: 20, 
+                fontColor: .white
+            )
             renderComponent.renderType = renderType
         }
     }

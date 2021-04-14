@@ -36,7 +36,7 @@ class MultiplayerClient: SinglePlayerGameManager {
         )
         player.spawn()
     }
-    
+
     override func setUpEntities() {
     }
 

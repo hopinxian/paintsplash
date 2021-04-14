@@ -38,7 +38,7 @@ class SKShaderManager {
     }
 
     func getShader(color: PaintColor) -> SKShader {
-        switch(color) {
+        switch color {
         case .red:
             return redShader
         case .lightred:

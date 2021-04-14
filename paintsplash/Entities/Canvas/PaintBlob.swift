@@ -21,6 +21,9 @@ class PaintBlob: GameEntity, Renderable, Transformable, Colorable {
             zPositionGroup: renderComponent.zPositionGroup,
             cropInParent: true
         )
+        print("PaintBlob")
+        print(self.renderComponent.zPosition)
+        print(self.renderComponent.zPositionGroup)
 
         let canvasWidth = transformComponent.size.x
         let canvasHeight = transformComponent.size.y

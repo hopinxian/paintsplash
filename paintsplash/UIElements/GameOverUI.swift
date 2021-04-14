@@ -56,7 +56,11 @@ class GameOverUI: UIEntity, Renderable {
         init(onPress: @escaping () -> Void) {
             self.onPress = onPress
 
-            self.renderComponent = RenderComponent(renderType: .sprite(spriteName: "GameOverButton"), zPosition: 1, zPositionGroup: .ui)
+            self.renderComponent = RenderComponent(
+                renderType: .sprite(spriteName: "GameOverButton"), 
+                zPosition: 1, 
+                zPositionGroup: .ui
+            )
 
             self.transformComponent = TransformComponent(
                 position: Vector2D(0, -200), rotation: 0, size: Vector2D(517, 133))

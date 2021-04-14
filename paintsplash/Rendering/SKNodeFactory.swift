@@ -26,7 +26,9 @@ class SKNodeFactory {
 
         var zPosition = renderComponent.zPositionGroup.rawValue + renderComponent.zPosition
         if renderComponent.zPositionGroup == .playfield {
-            zPosition += Int((transformComponent.worldPosition.y - Constants.MODEL_WORLD_SIZE.y - transformComponent.size.y / 2) * -1)
+            zPosition += Int((transformComponent.worldPosition.y -
+                                Constants.MODEL_WORLD_SIZE.y -
+                                transformComponent.size.y / 2) * -1)
             print(renderable)
             print(node.zPosition)
         }
@@ -50,7 +52,12 @@ class SKNodeFactory {
         return node
     }
 
-    private static func buildLabelNode(text: String, fontName: String, fontSize: Double, fontColor: Color) -> SKLabelNode {
+    private static func buildLabelNode(
+        text: String, 
+        fontName: String, 
+        fontSize: Double, 
+        fontColor: Color
+    ) -> SKLabelNode {
         let node = SKLabelNode(text: text)
         // TODO: dynamic font configuration
         // "ChalkboardSE-Bold"

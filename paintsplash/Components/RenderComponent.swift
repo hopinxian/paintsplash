@@ -11,7 +11,12 @@ class RenderComponent: Component, Codable {
     var zPositionGroup: ZPositionGroup
     var cropInParent: Bool
 
-    init(renderType: RenderType, zPosition: Int, zPositionGroup: ZPositionGroup = .playfield, cropInParent: Bool = false) {
+    init(
+        renderType: RenderType,
+        zPosition: Int,
+        zPositionGroup: ZPositionGroup = .playfield,
+        cropInParent: Bool = false
+    ) {
         self.renderType = renderType
         self.zPosition = zPosition
         self.zPositionGroup = zPositionGroup
@@ -20,7 +25,7 @@ class RenderComponent: Component, Codable {
 }
 
 enum ZPositionGroup: Int, Codable {
-    case background = -2_000
-    case playfield = 0
-    case ui = 2_000
+    case background = 0
+    case playfield = 2_000
+    case ui = 4_000
 }

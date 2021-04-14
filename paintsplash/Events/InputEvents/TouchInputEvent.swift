@@ -28,5 +28,5 @@ class TouchMovedEvent: TouchInputEvent {
 }
 
 class DoubleTapEvent: TouchInputEvent {
-    
+
 }

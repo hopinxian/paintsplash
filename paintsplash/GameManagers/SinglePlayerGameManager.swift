@@ -277,10 +277,7 @@ class  SinglePlayerGameManager: GameManager {
     }
 
     func update(_ deltaTime: Double) {
-        print("Game is over")
-        print(gameIsOver)
         if !gameIsOver || currentLevel == nil {
-            print("run")
             currentLevel?.update(deltaTime)
             transformSystem?.updateEntities(deltaTime)
             aiSystem?.updateEntities(deltaTime)
@@ -296,7 +293,10 @@ class  SinglePlayerGameManager: GameManager {
 
     private func onGameOver(event: GameOverEvent) {
         gameIsOver = true
-        let gameOverUI = GameOverUI(score: currentLevel?.score.score ?? event.score ?? 0, onQuit: { [weak self] in self?.onQuit() })
+        let gameOverUI = GameOverUI(
+            score: currentLevel?.score.score ?? event.score ?? 0,
+            onQuit: { [weak self] in self?.onQuit() }
+        )
         gameOverUI.spawn()
 
         EventSystem.audioEvent.stopMusicEvent.post(event: StopMusicEvent())
@@ -315,5 +315,3 @@ class  SinglePlayerGameManager: GameManager {
         print("deinit SinglePlayerGameManager")
     }
 }
-
-
