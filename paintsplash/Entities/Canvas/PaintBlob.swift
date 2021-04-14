@@ -17,7 +17,8 @@ class PaintBlob: GameEntity, Renderable, Transformable, Colorable {
         self.color = color
         self.renderComponent = RenderComponent(
             renderType: .sprite(spriteName: "paint-splash-1"),
-            zPosition: renderComponent.zPosition,
+            zPosition: renderComponent.zPosition + 1,
+            zPositionGroup: renderComponent.zPositionGroup,
             cropInParent: true
         )
 
