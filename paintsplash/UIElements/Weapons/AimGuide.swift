@@ -6,5 +6,6 @@
 //
 
 protocol AimGuide: Renderable {
+    var direction: Vector2D { get set }
     func aim(at direction: Vector2D)
 }

@@ -117,7 +117,6 @@ class EnemyCollisionComponent: CollisionComponent {
 
         if with.collisionComponent.tags.contains(.player) {
             enemy.healthComponent.takeDamage(amount: 1)
-            print("take damage")
         }
     }
 

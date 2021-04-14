@@ -10,6 +10,7 @@ class GunAimGuide: UIEntity, Renderable, AimGuide, Colorable {
     var transformComponent: TransformComponent
     var owner: Transformable
     var color: PaintColor
+    var direction: Vector2D
 
     init(owner: Transformable, color: PaintColor, direction: Vector2D = Vector2D.right) {
         self.owner = owner
@@ -26,6 +27,8 @@ class GunAimGuide: UIEntity, Renderable, AimGuide, Colorable {
 
         self.color = color
 
+        self.direction = direction
+
         super.init()
 
         self.aim(at: direction)
@@ -34,5 +37,6 @@ class GunAimGuide: UIEntity, Renderable, AimGuide, Colorable {
     func aim(at direction: Vector2D) {
         transformComponent.rotation = Vector2D.angleOf(direction)
         transformComponent.localPosition = Vector2D.normalize(direction) * transformComponent.size.x / 2
+        self.direction = direction
     }
 }

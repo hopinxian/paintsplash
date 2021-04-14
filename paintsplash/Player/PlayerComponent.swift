@@ -111,6 +111,13 @@ class PlayerComponent: PlayableComponent {
         let sfxEvent = PlaySoundEffectEvent(effect: SoundEffect.weaponSwap, playerId: player.id)
         EventSystem.audioEvent.playSoundEffectEvent.post(event: sfxEvent)
 
+        if let oldGuide = aimGuide {
+            let direction = oldGuide.direction
+            oldGuide.destroy()
+            aimGuide = player.multiWeaponComponent.getAimGuide()
+            aimGuide?.spawn()
+            aimGuide?.aim(at: direction)
+        }
     }
 
     override func onBomb(event: PlayerBombEvent) {
