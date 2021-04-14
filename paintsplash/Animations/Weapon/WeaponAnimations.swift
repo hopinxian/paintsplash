@@ -18,7 +18,7 @@ struct WeaponAnimations: AnimationSource {
         ),
         "splashFade": RawAnimation(
             name: "splashFade",
-            action: SKAction.fadeOut(withDuration: 5)
+            action: SKAction.fadeOut(withDuration: 20)
         )
     ]
 

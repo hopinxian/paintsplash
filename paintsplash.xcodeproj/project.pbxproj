@@ -270,6 +270,7 @@
 		D5DC909125FCC4210038DF71 /* AtlasAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5DC909025FCC4210038DF71 /* AtlasAnimation.swift */; };
 		D5E3962026261AA300250EEC /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E3961F26261AA300250EEC /* Color.swift */; };
 		D5E3962826269BE800250EEC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D5E3962726269BE800250EEC /* GoogleService-Info.plist */; };
+		D5E3962E2626AA4C00250EEC /* Level2.csv in Resources */ = {isa = PBXBuildFile; fileRef = D5E3962D2626AA4C00250EEC /* Level2.csv */; };
 		DC04EAB4260EECFB00D7DDFF /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC04EAB3260EECFB00D7DDFF /* MenuViewController.swift */; };
 		DC08DA5C26051243000F4F90 /* CanvasHitEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC08DA5B26051243000F4F90 /* CanvasHitEvent.swift */; };
 		DC08DA6A260516DE000F4F90 /* CanvasEndMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC08DA69260516DE000F4F90 /* CanvasEndMarker.swift */; };
@@ -618,6 +619,7 @@
 		D5DC909025FCC4210038DF71 /* AtlasAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AtlasAnimation.swift; sourceTree = "<group>"; };
 		D5E3961F26261AA300250EEC /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		D5E3962726269BE800250EEC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		D5E3962D2626AA4C00250EEC /* Level2.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Level2.csv; sourceTree = "<group>"; };
 		DC04EAB3260EECFB00D7DDFF /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		DC08DA5B26051243000F4F90 /* CanvasHitEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasHitEvent.swift; sourceTree = "<group>"; };
 		DC08DA69260516DE000F4F90 /* CanvasEndMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasEndMarker.swift; sourceTree = "<group>"; };
@@ -868,6 +870,7 @@
 			children = (
 				D5E3962726269BE800250EEC /* GoogleService-Info.plist */,
 				844E9A512625AEF600A51E59 /* Level.csv */,
+				D5E3962D2626AA4C00250EEC /* Level2.csv */,
 				ACB3607025F661620016E240 /* paintsplash */,
 				ACB3608825F661630016E240 /* paintsplashTests */,
 				ACB3606F25F661620016E240 /* Products */,
@@ -1704,6 +1707,7 @@
 				D5673365261EF8EE00FD1D15 /* GameOverLose.wav in Resources */,
 				D5673330261EA37300FD1D15 /* EnemySpawn.wav in Resources */,
 				D5673334261EA37300FD1D15 /* PlayerStep.mp3 in Resources */,
+				D5E3962E2626AA4C00250EEC /* Level2.csv in Resources */,
 				DCA9714B261F72D600631305 /* SHKColorize.fsh in Resources */,
 				AC5F0B7E2601130500E28D49 /* PlayerBrushAttackRight.atlas in Resources */,
 				D5E3962826269BE800250EEC /* GoogleService-Info.plist in Resources */,

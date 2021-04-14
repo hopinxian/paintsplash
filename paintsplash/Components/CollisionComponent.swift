@@ -232,28 +232,6 @@ class PaintBucketSplashCollisionComponent: CollisionComponent {
     weak var splash: PaintBucketSplash?
 
     override func onCollide(with: Collidable) {
-        guard let splash = splash else {
-            return
-        }
 
-        var destroy = false
-        switch with {
-        case let enemy as Enemy:
-            if splash.color.contains(color: enemy.color) {
-                destroy = true
-            }
-        case let enemy as EnemySpawner:
-            if splash.color.contains(color: enemy.color) {
-                destroy = true
-            }
-        case _ as Canvas:
-            destroy = true
-        default:
-            destroy = false
-        }
-
-        if destroy {
-            splash.destroy()
-        }
     }
 }

@@ -92,14 +92,10 @@ class Player: GameEntity,
         bucket.owner = self
         self.multiWeaponComponent.load(
             to: Bucket.self,
-            ammo: [PaintAmmo(color: .red),
-                   PaintAmmo(color: .red),
-                   PaintAmmo(color: .red)]
+            ammo: [PaintAmmo(color: .red)]
         )
 
-        self.multiWeaponComponent.load([PaintAmmo(color: .blue),
-                                        PaintAmmo(color: .red),
-                                        PaintAmmo(color: .yellow)])
+        self.multiWeaponComponent.load([PaintAmmo(color: .blue)])
 
         // Add weak references to player componenets
         playerComponent.player = self
