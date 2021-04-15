@@ -116,12 +116,25 @@ class EnemyCollisionComponent: CollisionComponent {
         }
 
         if with.collisionComponent.tags.contains(.enemy) {
-            onCollideWithAnotherEnemy(with: enemy)
+            onCollideWithAnotherEnemy(with: with)
+        }
+
+        if with.collisionComponent.tags.contains(.ammoDrop) {
+            onCollideWithAmmoDrop(with: with)
         }
 
         if with.collisionComponent.tags.contains(.player) {
             enemy.healthComponent.takeDamage(amount: 1)
         }
+    }
+
+    private func onCollideWithAmmoDrop(with: Collidable) {
+        guard let enemy = enemy,
+              let ammoDrop = with as? PaintAmmoDrop,
+              let newColor = ammoDrop.color.mix(with: [enemy.color]) else {
+            return
+        }
+        enemy.color = newColor
     }
 
     private func onCollideWithAnotherEnemy(with: Collidable) {
@@ -130,8 +143,8 @@ class EnemyCollisionComponent: CollisionComponent {
               let newColor = enemy.color.mix(with: [otherEnemy.color]) else {
             return
         }
-        print("enemies mixed color")
         enemy.color = newColor
+        otherEnemy.color = newColor
     }
 
     private func onCollideWithPlayerProjectile(with: Collidable) {
@@ -208,6 +221,16 @@ class PaintAmmoDropCollisionComponent: CollisionComponent {
             default:
                 fatalError("Player does not conform to Player")
             }
+        }
+
+        if with.collisionComponent.tags.contains(.enemy) {
+            guard let enemy = with as? Enemy,
+                  enemy.color.mix(with: [ammoDrop.color]) != nil else {
+                return
+            }
+            EventSystem.entityChangeEvents.removeEntityEvent.post(
+                event: RemoveEntityEvent(entity: ammoDrop)
+            )
         }
     }
 }

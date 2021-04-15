@@ -160,7 +160,7 @@ class SKRenderSystem: RenderSystem {
 
     private func updateSpriteNode(_ node: SKSpriteNode, _ renderable: Renderable) {
         if let colorData = renderable as? Colorable,
-           node.color != colorData.color.uiColor {
+           node.color !== colorData.color.uiColor {
             node.color = colorData.color.uiColor
             node.shader = shaderManager.getShader(color: colorData.color)
             node.children
