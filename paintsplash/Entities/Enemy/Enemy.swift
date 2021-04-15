@@ -23,7 +23,8 @@ class Enemy: GameEntity, StatefulEntity, Renderable, Animatable, Collidable, Mov
 
     var lastDirection = Vector2D.zero
 
-    init(initialPosition: Vector2D, color: PaintColor) {
+    init(initialPosition: Vector2D, color: PaintColor, health: Int = Constants.ENEMY_HEALTH,
+         size: Vector2D = Constants.ENEMY_SIZE, radius: Double = Constants.ENEMY_RADIUS) {
         self.color = color
 
         self.renderComponent = RenderComponent(
@@ -34,18 +35,18 @@ class Enemy: GameEntity, StatefulEntity, Renderable, Animatable, Collidable, Mov
         self.transformComponent = TransformComponent(
             position: initialPosition,
             rotation: 0,
-            size: Constants.ENEMY_SIZE
+            size: size
         )
 
         let healthComp = EnemyHealthComponent(
-            currentHealth: 1,
-            maxHealth: 1
+            currentHealth: health,
+            maxHealth: health
         )
 
         self.healthComponent = healthComp
 
         let collisionComp = EnemyCollisionComponent(
-            colliderShape: .circle(radius: 50),
+            colliderShape: .circle(radius: radius),
             tags: [.enemy]
         )
         self.collisionComponent = collisionComp
