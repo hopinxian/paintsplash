@@ -165,6 +165,10 @@ struct Vector2D: Codable {
 
         return Vector2D(newX, newY)
     }
+
+    static func random(xRange: Range<Double>, yRange: Range<Double>) -> Vector2D {
+        Vector2D(Double.random(in: xRange), Double.random(in: yRange))
+    }
 }
 
 extension Vector2D: Hashable {

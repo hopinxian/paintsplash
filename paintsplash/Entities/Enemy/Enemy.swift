@@ -61,14 +61,19 @@ class Enemy: GameEntity, StatefulEntity, Renderable, Animatable, Collidable, Mov
 
         super.init()
 
-        self.stateComponent.currentState = EnemyState.Idle(enemy: self)
+        // 50% chance of entering random movement state, or chasing player state
+        let isChasing = Bool.random()
+        if isChasing {
+            self.stateComponent.currentState = EnemyState.ChasingLeft(enemy: self)
+        } else {
+            self.stateComponent.currentState = EnemyState.Idle(enemy: self)
+        }
 
         // Assign weak references to components
         collisionComp.enemy = self
         healthComp.enemy = self
     }
 
-    // TODO: figure out if and why this isn't being called
     deinit {
         print("removed enemy")
     }

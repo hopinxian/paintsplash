@@ -37,6 +37,22 @@ class TransformComponent: Component, Codable {
         }
     }
 
+    var maxX: Double {
+        self.worldPosition.x + self.size.x / 2
+    }
+
+    var minX: Double {
+        self.worldPosition.x - self.size.x / 2
+    }
+
+    var maxY: Double {
+        self.worldPosition.y + self.size.y / 2
+    }
+
+    var minY: Double {
+        self.worldPosition.y - self.size.y / 2
+    }
+
     init(position: Vector2D, rotation: Double, size: Vector2D) {
         self.localPosition = position
         self.rotation = rotation

@@ -9,7 +9,7 @@ extension EnemyState {
     class ChasingRight: EnemyState {
         override func onEnterState() {
             enemy.animationComponent.animate(
-                animation: SlimeAnimations.slimeMoveRightGray,
+                animation: SlimeAnimations.slimeMoveRight,
                 interupt: true
             )
 

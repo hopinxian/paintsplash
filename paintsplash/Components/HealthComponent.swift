@@ -95,7 +95,7 @@ class EnemyHealthComponent: HealthComponent {
         }
 
         enemy.animationComponent.animate(
-            animation: SlimeAnimations.slimeHitGray,
+            animation: SlimeAnimations.slimeHit,
             interupt: true
         )
     }
