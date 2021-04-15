@@ -615,7 +615,6 @@
 		D5C56908260A3528009E5BD9 /* BidirectionalMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BidirectionalMap.swift; sourceTree = "<group>"; };
 		D5C56910260AC3D8009E5BD9 /* DoNothingBehaviour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoNothingBehaviour.swift; sourceTree = "<group>"; };
 		D5C5691C260AE5BF009E5BD9 /* BehaviourSequence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BehaviourSequence.swift; sourceTree = "<group>"; };
-		D5C56924260B25F8009E5BD9 /* SpawnerDie.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = SpawnerDie.atlas; sourceTree = "<group>"; };
 		D5C56929260B7EBB009E5BD9 /* ShootProjectileBehaviour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShootProjectileBehaviour.swift; sourceTree = "<group>"; };
 		D5C56931260CD7D2009E5BD9 /* PlayerState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerState.swift; sourceTree = "<group>"; };
 		D5D9201325FB9ACB00E70364 /* PaintAmmoDrop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaintAmmoDrop.swift; sourceTree = "<group>"; };
@@ -671,6 +670,7 @@
 		DCCF8CF3261038E4006F6964 /* JoinRoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinRoomViewController.swift; sourceTree = "<group>"; };
 		DCDD073F262774DD00A49AA3 /* EnemyState+RandomMovementRight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EnemyState+RandomMovementRight.swift"; sourceTree = "<group>"; };
 		DCDD0765262807B600A49AA3 /* SlimeIdleRight.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = SlimeIdleRight.atlas; sourceTree = "<group>"; };
+		DCDD08252628975900A49AA3 /* SpawnerDie.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = SpawnerDie.atlas; sourceTree = "<group>"; };
 		DCDD2ADA262744B0005DD58B /* EnemyState+RandomMovementLeft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EnemyState+RandomMovementLeft.swift"; sourceTree = "<group>"; };
 		DCE17E4726258F0600AB0E80 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DCF1BEF925FA6B6E00B56AD4 /* GameInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameInfo.swift; sourceTree = "<group>"; };
@@ -1527,10 +1527,10 @@
 		DC0EE89F25FE4E7E00CBF414 /* Spawner */ = {
 			isa = PBXGroup;
 			children = (
-				DC0EE8A025FE4E8B00CBF414 /* SpawnerAnimations.swift */,
-				D5C56924260B25F8009E5BD9 /* SpawnerDie.atlas */,
+				DCDD08252628975900A49AA3 /* SpawnerDie.atlas */,
 				DC0EE8A525FE650200CBF414 /* SpawnerIdle.atlas */,
 				DC0EE8A625FE650200CBF414 /* SpawnerSpawn.atlas */,
+				DC0EE8A025FE4E8B00CBF414 /* SpawnerAnimations.swift */,
 			);
 			path = Spawner;
 			sourceTree = "<group>";

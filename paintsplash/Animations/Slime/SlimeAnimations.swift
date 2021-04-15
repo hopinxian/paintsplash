@@ -45,17 +45,27 @@ struct SlimeAnimations: AnimationSource {
                 ),
                 RawAnimation(
                     name: "slimeFade",
-                    action: SKAction.fadeOut(withDuration: 1.2)
+                    action: SKAction.fadeOut(withDuration: 0.5)
                 )
             ]
         ),
         "slimeHit":
-            AtlasAnimation(
-                name: "slimeHit",
-                animationDuration: 1.2,
-                atlasName: "SlimeHit",
-                isRepeating: false
-            )
+            RawAnimation(name: "slimeHit",
+                         action: SKAction.repeat(SKAction.sequence([
+                            SKAction.fadeAlpha(to: 0.4, duration: 0.1),
+                            SKAction.fadeAlpha(by: 1.0, duration: 0.1)
+                         ]), count: 3))
+//            CompoundAnimation(
+//                name: "slimeHit",
+//                animations: [
+//                    AtlasAnimation(
+//                        name: "slimeHit",
+//                        animationDuration: 1.2,
+//                        atlasName: "SlimeHit",
+//                        isRepeating: false
+//                    )
+//                ]
+//            )
     ]
 
     static let slimeMoveRight = "slimeMoveRight"

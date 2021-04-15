@@ -7,18 +7,14 @@
 extension EnemySpawnerState {
     class Die: EnemySpawnerState {
         override func onEnterState() {
+            EventSystem.audioEvent.playSoundEffectEvent.post(event: PlaySoundEffectEvent(effect: SoundEffect.enemySpawn))
             spawner.animationComponent.animate(
-                animation: SpawnerAnimations.spawnerSpawn,
-                interupt: true, callBack: { self.spawner.destroy() }
+                animation: SpawnerAnimations.spawnerDie,
+                interupt: true,
+                callBack: { [weak self] in
+                    self?.spawner.destroy()
+                }
             )
-        }
-
-        override func getStateTransition() -> State? {
-            Idle(spawner: spawner, idleTime: 50)
-        }
-
-        override func getBehaviour() -> StateBehaviour {
-            SpawnEnemyBehaviour(spawnQuantity: 1)
         }
     }
 }

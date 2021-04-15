@@ -50,6 +50,11 @@ extension EnemySpawnerState {
                 animation: SpawnerAnimations.spawnerHit,
                 interupt: true,
                 callBack: {
+                    if self.spawner.healthComponent.currentHealth <= 0 {
+                        self.spawner.stateComponent.currentState = Die(spawner: self.spawner)
+                        return
+                    }
+
                     self.spawner.stateComponent.currentState =
                         Idle(spawner: self.spawner, idleTime: Constants.ENEMY_SPAWNER_INTERVAL)
                 }

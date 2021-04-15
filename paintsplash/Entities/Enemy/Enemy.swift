@@ -7,8 +7,6 @@
 
 import SpriteKit
 
-let hitDuration: Double = 0.25
-
 class Enemy: GameEntity, StatefulEntity, Renderable, Animatable, Collidable, Movable, Colorable, Health {
     var renderComponent: RenderComponent
     var transformComponent: TransformComponent
