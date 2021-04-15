@@ -115,9 +115,23 @@ class EnemyCollisionComponent: CollisionComponent {
             onCollideWithPlayerProjectile(with: with)
         }
 
+        if with.collisionComponent.tags.contains(.enemy) {
+            onCollideWithAnotherEnemy(with: enemy)
+        }
+
         if with.collisionComponent.tags.contains(.player) {
             enemy.healthComponent.takeDamage(amount: 1)
         }
+    }
+
+    private func onCollideWithAnotherEnemy(with: Collidable) {
+        guard let enemy = enemy,
+              let otherEnemy = with as? Enemy,
+              let newColor = enemy.color.mix(with: [otherEnemy.color]) else {
+            return
+        }
+        print("enemies mixed color")
+        enemy.color = newColor
     }
 
     private func onCollideWithPlayerProjectile(with: Collidable) {

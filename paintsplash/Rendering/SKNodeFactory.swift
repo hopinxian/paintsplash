@@ -7,7 +7,9 @@
 import SpriteKit
 
 class SKNodeFactory {
-    static func getSKNode(from renderable: Renderable) -> SKNode {
+    let shaderManager = SKShaderManager()
+
+    func getSKNode(from renderable: Renderable) -> SKNode {
         let renderComponent = renderable.renderComponent
         let transformComponent = renderable.transformComponent
 
@@ -38,21 +40,21 @@ class SKNodeFactory {
         return node
     }
 
-    private static func buildSpriteNode(entity: Renderable, spriteName: String, size: Vector2D) -> SKSpriteNode {
+    private func buildSpriteNode(entity: Renderable, spriteName: String, size: Vector2D) -> SKSpriteNode {
         let node = SKSpriteNode(imageNamed: spriteName)
         node.size = SpaceConverter.modelToScreen(size)
 
         if let colorData = colorize(entity) {
-            let shader = SKShaderManager.createColorize(color: colorData.color)
-            node.shader = shader
-            node.color = colorData.color
+            // let shader = SKShaderManager.createColorize(color: colorData.color)
+            node.shader = shaderManager.getShader(color: colorData.paintcolor)
+            node.color = colorData.uiColor
             // node.colorBlendFactor = colorData.blendFactor
         }
 
         return node
     }
 
-    private static func buildLabelNode(
+    private func buildLabelNode(
         text: String,
         fontName: String,
         fontSize: Double,
@@ -67,16 +69,18 @@ class SKNodeFactory {
         return node
     }
 
-    private static func buildSceneNode(sceneName: String) -> SKNode {
+    private func buildSceneNode(sceneName: String) -> SKNode {
         guard let node = SKReferenceNode(fileNamed: sceneName) else {
             return SKNode()
         }
         return node
     }
 
-    private static func colorize(_ renderableEntity: Renderable) -> (color: UIColor, blendFactor: CGFloat)? {
+    private func colorize(_ renderableEntity: Renderable) -> (uiColor: UIColor,
+                                                              paintcolor: PaintColor,
+                                                              blendFactor: CGFloat)? {
         if let colorData = renderableEntity as? Colorable {
-            return (colorData.color.uiColor, 1)
+            return (colorData.color.uiColor, colorData.color, 1)
         } else {
             return nil
         }
