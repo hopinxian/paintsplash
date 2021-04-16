@@ -141,6 +141,10 @@ class MultiplayerClient: SinglePlayerGameManager {
     func setUpInputListeners() {
         let gameId = self.room.gameID
 
+        EventSystem.processedInputEvents.playerMoveEvent.subscribe { [weak self] in
+            self?.sendPlayerMoveEvent($0, gameId: gameId)
+        }
+
         EventSystem.processedInputEvents.playerShootEvent.subscribe { [weak self] in
             self?.sendPlayerShootEvent($0, gameId: gameId)
         }
