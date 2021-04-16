@@ -32,12 +32,6 @@
 		8453F2D7260C917000FFD8AE /* CanvasSpawnerCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8453F2D6260C917000FFD8AE /* CanvasSpawnerCommand.swift */; };
 		8453F2DB260C920C00FFD8AE /* AmmoDropCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8453F2DA260C920C00FFD8AE /* AmmoDropCommand.swift */; };
 		846D4FB526023F300079720F /* AmmoHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846D4FB126023F2F0079720F /* AmmoHelper.swift */; };
-		846D4FD6260241670079720F /* SlimeDieGray.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 846D4FD1260241660079720F /* SlimeDieGray.atlas */; };
-		846D4FD7260241670079720F /* SlimeMoveRightGray.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 846D4FD2260241660079720F /* SlimeMoveRightGray.atlas */; };
-		846D4FD8260241670079720F /* SlimeHitGray.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 846D4FD3260241660079720F /* SlimeHitGray.atlas */; };
-		846D4FD9260241670079720F /* SlimeIdleGray.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 846D4FD4260241670079720F /* SlimeIdleGray.atlas */; };
-		846D4FDA260241670079720F /* SlimeMoveLeftGray.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 846D4FD5260241670079720F /* SlimeMoveLeftGray.atlas */; };
-		846D4FBA26023F770079720F /* AttackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846D4FB926023F770079720F /* AttackButton.swift */; };
 		846D4FD6260241670079720F /* SlimeDie.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 846D4FD1260241660079720F /* SlimeDie.atlas */; };
 		846D4FD7260241670079720F /* SlimeMoveRight.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 846D4FD2260241660079720F /* SlimeMoveRight.atlas */; };
 		846D4FD8260241670079720F /* SlimeHit.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 846D4FD3260241660079720F /* SlimeHit.atlas */; };
@@ -374,12 +368,6 @@
 		846D4FAE26023F2F0079720F /* BucketTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BucketTests.swift; sourceTree = "<group>"; };
 		846D4FB026023F2F0079720F /* Projectile+getColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Projectile+getColor.swift"; sourceTree = "<group>"; };
 		846D4FB126023F2F0079720F /* AmmoHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AmmoHelper.swift; sourceTree = "<group>"; };
-		846D4FD1260241660079720F /* SlimeDieGray.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = SlimeDieGray.atlas; sourceTree = "<group>"; };
-		846D4FD2260241660079720F /* SlimeMoveRightGray.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = SlimeMoveRightGray.atlas; sourceTree = "<group>"; };
-		846D4FD3260241660079720F /* SlimeHitGray.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = SlimeHitGray.atlas; sourceTree = "<group>"; };
-		846D4FD4260241670079720F /* SlimeIdleGray.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = SlimeIdleGray.atlas; sourceTree = "<group>"; };
-		846D4FD5260241670079720F /* SlimeMoveLeftGray.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = SlimeMoveLeftGray.atlas; sourceTree = "<group>"; };
-		846D4FB926023F770079720F /* AttackButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttackButton.swift; sourceTree = "<group>"; };
 		846D4FD1260241660079720F /* SlimeDie.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = SlimeDie.atlas; sourceTree = "<group>"; };
 		846D4FD2260241660079720F /* SlimeMoveRight.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = SlimeMoveRight.atlas; sourceTree = "<group>"; };
 		846D4FD3260241660079720F /* SlimeHit.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = SlimeHit.atlas; sourceTree = "<group>"; };
@@ -2251,14 +2239,14 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 8B4N4F9FTJ;
+				DEVELOPMENT_TEAM = 5Q6AP63883;
 				INFOPLIST_FILE = paintsplash/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = crawlers.paintsplashes6;
+				PRODUCT_BUNDLE_IDENTIFIER = crawlers.paintsplashes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -2274,14 +2262,14 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 8B4N4F9FTJ;
+				DEVELOPMENT_TEAM = 5Q6AP63883;
 				INFOPLIST_FILE = paintsplash/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = crawlers.paintsplashes6;
+				PRODUCT_BUNDLE_IDENTIFIER = crawlers.paintsplashes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;

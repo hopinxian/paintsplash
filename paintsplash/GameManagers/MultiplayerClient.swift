@@ -202,10 +202,12 @@ class MultiplayerClient: SinglePlayerGameManager {
         let renderableToSend: [EntityID: Renderable] = [player.id: player]
         let renderSystemData = RenderSystemData(from: renderableToSend)
 
+        let animatableToSend: [EntityID: Animatable] = [player.id: player]
+        let animataionSystemData = AnimationSystemData(from: animatableToSend)
         let systemData = SystemData(
             entityData: entityData,
             renderSystemData: renderSystemData,
-            animationSystemData: nil,
+            animationSystemData: animataionSystemData,
             colorSystemData: nil
         )
         let path = DataPaths.joinPaths(
