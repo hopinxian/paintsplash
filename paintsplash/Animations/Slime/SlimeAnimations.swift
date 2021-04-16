@@ -8,54 +8,70 @@ import SpriteKit
 
 struct SlimeAnimations: AnimationSource {
     var animations: [String: Animation] = [
-        "slimeMoveRightGray":
+        "slimeMoveRight":
             AtlasAnimation(
-                name: "slimeMoveRightGray",
+                name: "slimeMoveRight",
                 animationDuration: 0.8,
-                atlasName: "SlimeMoveRightGray",
+                atlasName: "SlimeMoveRight",
                 isRepeating: true
             ),
-        "slimeMoveLeftGray":
+        "slimeMoveLeft":
             AtlasAnimation(
-                name: "slimeMoveLeftGray",
+                name: "slimeMoveLeft",
                 animationDuration: 0.8,
-                atlasName: "SlimeMoveLeftGray",
+                atlasName: "SlimeMoveLeft",
                 isRepeating: true
             ),
-        "slimeIdleGray":
+        "slimeIdleLeft":
             AtlasAnimation(
-                name: "slimeIdleGray",
+                name: "slimeIdleLeft",
                 animationDuration: 0.8,
-                atlasName: "SlimeIdleGray",
+                atlasName: "SlimeIdleLeft",
                 isRepeating: true
             ),
-        "slimeDieGray": CompoundAnimation(
-            name: "slideDieGray",
+        "slimeIdleRight":
+            AtlasAnimation(name: "slimeIdleRight",
+                           animationDuration: 0.8,
+                           atlasName: "SlimeIdleRight",
+                           isRepeating: true),
+        "slimeDie": CompoundAnimation(
+            name: "slideDie",
             animations: [
                 AtlasAnimation(
-                    name: "slimeDieGray",
+                    name: "slimeDie",
                     animationDuration: 0.5,
-                    atlasName: "SlimeDieGray",
+                    atlasName: "SlimeDie",
                     isRepeating: false
                 ),
                 RawAnimation(
                     name: "slimeFade",
-                    action: SKAction.fadeOut(withDuration: 1.2)
+                    action: SKAction.fadeOut(withDuration: 0.5)
                 )
             ]
         ),
-        "slimeHitGray":
-            AtlasAnimation(
-                name: "slimeHitGray",
-                animationDuration: 1.2,
-                atlasName: "SlimeHitGray",
-                isRepeating: false
-            )
+        "slimeHit":
+            RawAnimation(name: "slimeHit",
+                         action: SKAction.repeat(SKAction.sequence([
+                            SKAction.fadeAlpha(to: 0.4, duration: 0.1),
+                            SKAction.fadeAlpha(by: 1.0, duration: 0.1)
+                         ]), count: 3))
+//            CompoundAnimation(
+//                name: "slimeHit",
+//                animations: [
+//                    AtlasAnimation(
+//                        name: "slimeHit",
+//                        animationDuration: 1.2,
+//                        atlasName: "SlimeHit",
+//                        isRepeating: false
+//                    )
+//                ]
+//            )
     ]
 
-    static let slimeMoveRightGray = "slimeMoveRightGray"
-    static let slimeMoveLeftGray = "slimeMoveLeftGray"
-    static let slimeIdleGray = "slimeIdleGray"
-    static let slimeDieGray = "slimeDieGray"
-    static let slimeHitGray = "slimeHitGray"
+    static let slimeMoveRight = "slimeMoveRight"
+    static let slimeMoveLeft = "slimeMoveLeft"
+    static let slimeIdleLeft = "slimeIdleLeft"
+    static let slimeIdleRight = "slimeIdleRight"
+    static let slimeDie = "slimeDie"
+    static let slimeHit = "slimeHit"
 }

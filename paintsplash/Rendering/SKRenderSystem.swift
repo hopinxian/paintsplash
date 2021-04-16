@@ -13,6 +13,7 @@ class SKRenderSystem: RenderSystem {
     private var nodeEntityMap = BidirectionalMap<EntityID, SKNode>()
 
     let shaderManager = SKShaderManager()
+    let skNodeFactory = SKNodeFactory()
 
     init(scene: GameScene) {
         self.scene = scene
@@ -85,7 +86,7 @@ class SKRenderSystem: RenderSystem {
     }
 
     private func buildNode(for renderable: Renderable) -> SKNode {
-        var node = SKNodeFactory.getSKNode(from: renderable)
+        var node = skNodeFactory.getSKNode(from: renderable)
 
         if let parent = renderable.transformComponent.parentID,
            let parentNode = nodeEntityMap[parent],
@@ -159,11 +160,9 @@ class SKRenderSystem: RenderSystem {
 
     private func updateSpriteNode(_ node: SKSpriteNode, _ renderable: Renderable) {
         if let colorData = renderable as? Colorable,
-           node.color != colorData.color.uiColor {
+           node.color !== colorData.color.uiColor {
             node.color = colorData.color.uiColor
-            // let shader = SKNodeFactory.createColorize(color: colorData.color.uiColor)
-            let shader = self.shaderManager.getShader(color: colorData.color)
-            node.shader = shader
+            node.shader = shaderManager.getShader(color: colorData.color)
             node.children
                 .compactMap({ $0 as? SKSpriteNode })
                 .forEach({ $0.color = colorData.color.uiColor })

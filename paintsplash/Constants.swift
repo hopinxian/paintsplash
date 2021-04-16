@@ -102,6 +102,13 @@ struct Constants {
     static let AMMO_DROP_SIZE = Vector2D(75, 75)
 
     static let ENEMY_SIZE = Vector2D(100, 100)
+    static let ENEMY_RADIUS: Double = 50
+    static let ENEMY_HEALTH: Int = 1
+
+    static let ENEMY_BIG_SIZE = Vector2D(150, 150)
+    static let ENEMY_BIG_RADIUS: Double = 75
+    static let ENEMY_BIG_HEALTH: Int = 2
+
     static let ENEMY_SPAWNER_SIZE = Vector2D(200, 200)
 
     static let CANVAS_REQUEST_MANAGER_SPRITE = "CanvasRequestManager"

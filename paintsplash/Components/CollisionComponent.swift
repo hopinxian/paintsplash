@@ -115,9 +115,52 @@ class EnemyCollisionComponent: CollisionComponent {
             onCollideWithPlayerProjectile(with: with)
         }
 
+        if with.collisionComponent.tags.contains(.enemy) {
+            onCollideWithAnotherEnemy(with: with)
+        }
+
+        if with.collisionComponent.tags.contains(.ammoDrop) {
+            onCollideWithAmmoDrop(with: with)
+        }
+
         if with.collisionComponent.tags.contains(.player) {
             enemy.healthComponent.takeDamage(amount: 1)
         }
+    }
+
+    private func onCollideWithAmmoDrop(with: Collidable) {
+        guard let enemy = enemy,
+              let ammoDrop = with as? PaintAmmoDrop,
+              let newColor = ammoDrop.color.mix(with: [enemy.color]) else {
+            return
+        }
+        enemy.color = newColor
+    }
+
+    private func onCollideWithAnotherEnemy(with: Collidable) {
+        guard let enemy = enemy,
+              let otherEnemy = with as? Enemy,
+              let newColor = enemy.color.mix(with: [otherEnemy.color]) else {
+            return
+        }
+
+        // Set collision component to default to avoid repeated, unnecessary collisions
+        enemy.collisionComponent = CollisionComponent(colliderShape: enemy.collisionComponent.colliderShape,
+                                                      tags: [])
+        enemy.destroy()
+        otherEnemy.collisionComponent = CollisionComponent(colliderShape: enemy.collisionComponent.colliderShape,
+                                                           tags: [])
+        otherEnemy.destroy()
+
+        // Spawn a larger enemy with the mixed color
+        let midPoint = (enemy.transformComponent.worldPosition + otherEnemy.transformComponent.worldPosition) / 2
+        let biggerEnemy = Enemy(initialPosition: midPoint,
+                                color: newColor,
+                                health: Constants.ENEMY_BIG_HEALTH,
+                                size: Constants.ENEMY_BIG_SIZE,
+                                radius: Constants.ENEMY_BIG_RADIUS)
+        biggerEnemy.spawn()
+        biggerEnemy.stateComponent.currentState = EnemyState.Idle(enemy: biggerEnemy)
     }
 
     private func onCollideWithPlayerProjectile(with: Collidable) {
@@ -187,13 +230,19 @@ class PaintAmmoDropCollisionComponent: CollisionComponent {
             switch with {
             case let player as Player:
                 if player.multiWeaponComponent.canLoad([ammo]) {
-                    EventSystem.entityChangeEvents.removeEntityEvent.post(
-                        event: RemoveEntityEvent(entity: ammoDrop)
-                    )
+                    ammoDrop.destroy()
                 }
             default:
                 fatalError("Player does not conform to Player")
             }
+        }
+
+        if with.collisionComponent.tags.contains(.enemy) {
+            guard let enemy = with as? Enemy,
+                  enemy.color.mix(with: [ammoDrop.color]) != nil else {
+                return
+            }
+            ammoDrop.destroy()
         }
     }
 }

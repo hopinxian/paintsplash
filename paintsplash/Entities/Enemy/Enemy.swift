@@ -7,8 +7,6 @@
 
 import SpriteKit
 
-let hitDuration: Double = 0.25
-
 class Enemy: GameEntity, StatefulEntity, Renderable, Animatable, Collidable, Movable, Colorable, Health {
     var renderComponent: RenderComponent
     var transformComponent: TransformComponent
@@ -23,7 +21,8 @@ class Enemy: GameEntity, StatefulEntity, Renderable, Animatable, Collidable, Mov
 
     var lastDirection = Vector2D.zero
 
-    init(initialPosition: Vector2D, color: PaintColor) {
+    init(initialPosition: Vector2D, color: PaintColor, health: Int = Constants.ENEMY_HEALTH,
+         size: Vector2D = Constants.ENEMY_SIZE, radius: Double = Constants.ENEMY_RADIUS) {
         self.color = color
 
         self.renderComponent = RenderComponent(
@@ -34,18 +33,18 @@ class Enemy: GameEntity, StatefulEntity, Renderable, Animatable, Collidable, Mov
         self.transformComponent = TransformComponent(
             position: initialPosition,
             rotation: 0,
-            size: Constants.ENEMY_SIZE
+            size: size
         )
 
         let healthComp = EnemyHealthComponent(
-            currentHealth: 1,
-            maxHealth: 1
+            currentHealth: health,
+            maxHealth: health
         )
 
         self.healthComponent = healthComp
 
         let collisionComp = EnemyCollisionComponent(
-            colliderShape: .circle(radius: 50),
+            colliderShape: .circle(radius: radius),
             tags: [.enemy]
         )
         self.collisionComponent = collisionComp
@@ -61,14 +60,19 @@ class Enemy: GameEntity, StatefulEntity, Renderable, Animatable, Collidable, Mov
 
         super.init()
 
-        self.stateComponent.currentState = EnemyState.Idle(enemy: self)
+        // 50% chance of entering random movement state, or chasing player state
+        let isChasing = Bool.random()
+        if isChasing {
+            self.stateComponent.currentState = EnemyState.ChasingLeft(enemy: self)
+        } else {
+            self.stateComponent.currentState = EnemyState.Idle(enemy: self)
+        }
 
         // Assign weak references to components
         collisionComp.enemy = self
         healthComp.enemy = self
     }
 
-    // TODO: figure out if and why this isn't being called
     deinit {
         print("removed enemy")
     }

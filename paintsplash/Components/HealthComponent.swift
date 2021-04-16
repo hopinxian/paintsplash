@@ -95,7 +95,7 @@ class EnemyHealthComponent: HealthComponent {
         }
 
         enemy.animationComponent.animate(
-            animation: SlimeAnimations.slimeHitGray,
+            animation: SlimeAnimations.slimeHit,
             interupt: true
         )
     }
@@ -120,17 +120,27 @@ class EnemySpawnerHealthComponent: HealthComponent {
     override func takeDamage(amount: Int) {
         super.takeDamage(amount: amount)
 
+        print("spawner health: \(currentHealth)")
+
         if currentHealth <= 0 {
             die()
+            return
         }
+
+        guard let spawner = spawner else {
+            return
+        }
+        spawner.stateComponent.currentState = EnemySpawnerState.Hit(spawner: spawner)
     }
 
     private func die() {
+        print("spawner die")
         guard let spawner = spawner else {
             return
         }
 
-        let event = RemoveEntityEvent(entity: spawner)
-        EventSystem.entityChangeEvents.removeEntityEvent.post(event: event)
+        spawner.stateComponent.currentState = EnemySpawnerState.Die(spawner: spawner)
+//        let event = RemoveEntityEvent(entity: spawner)
+//        EventSystem.entityChangeEvents.removeEntityEvent.post(event: event)
     }
 }

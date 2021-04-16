@@ -10,7 +10,7 @@ extension EnemyState {
         override func onEnterState() {
             EventSystem.audioEvent.playSoundEffectEvent.post(event: PlaySoundEffectEvent(effect: SoundEffect.enemyDie))
             enemy.animationComponent.animate(
-                animation: SlimeAnimations.slimeDieGray,
+                animation: SlimeAnimations.slimeDie,
                 interupt: true,
                 callBack: { [weak self] in
                     self?.enemy.destroy()

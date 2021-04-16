@@ -4,6 +4,7 @@
 //
 //  Created by Cynthia Lee on 14/3/21.
 //
+import SpriteKit
 
 struct SpawnerAnimations: AnimationSource {
     var animations: [String: Animation] = [
@@ -14,27 +15,34 @@ struct SpawnerAnimations: AnimationSource {
                 atlasName: "SpawnerIdle",
                 isRepeating: true
             ),
-        "spawnerSpawn":
-            AtlasAnimation(
+        "spawnerSpawn": AtlasAnimation(
                 name: "spawnerSpawn",
                 animationDuration: 2.0,
                 atlasName: "SpawnerSpawn",
                 isRepeating: false
             ),
-        "spawnerDie":
-            AtlasAnimation(
-                name: "spawnerDie",
-                animationDuration: 1.2,
-                atlasName: "SpawnerDie",
-                isRepeating: false
-            ),
+        "spawnerDie": CompoundAnimation(
+            name: "spawnerDie",
+            animations: [
+                AtlasAnimation(
+                    name: "spawnerDie",
+                    animationDuration: 0.5,
+                    // TODO: spawner die atlas not recognised by xcode :(
+                    atlasName: "SpawnerIdle",
+                    isRepeating: false
+                ),
+                RawAnimation(
+                    name: "spawnerFade",
+                    action: SKAction.fadeOut(withDuration: 0.5)
+                )
+            ]
+        ),
         "spawnerHit":
-            AtlasAnimation(
-                name: "spawnerHit",
-                animationDuration: 1.2,
-                atlasName: "SpawnerHit",
-                isRepeating: true
-            )
+            RawAnimation(name: "spawnerHit",
+                         action: SKAction.repeat(SKAction.sequence([
+                            SKAction.fadeAlpha(to: 0.4, duration: 0.1),
+                            SKAction.fadeAlpha(by: 1.0, duration: 0.1)
+                         ]), count: 3))
     ]
 
     static let spawnerIdle = "spawnerIdle"
