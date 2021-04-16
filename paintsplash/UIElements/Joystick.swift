@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Joystick: UIEntity, Renderable {
+class Joystick: UIEntity, Renderable, UserInput {
     var renderComponent: RenderComponent
     var transformComponent: TransformComponent
     let associatedEntity: EntityID
@@ -50,10 +50,6 @@ class Joystick: UIEntity, Renderable {
         )
 
         super.init()
-
-        EventSystem.inputEvents.touchDownEvent.subscribe(listener: { [weak self] in self?.onTouchDown(event: $0) })
-        EventSystem.inputEvents.touchMovedEvent.subscribe(listener: { [weak self] in self?.onTouchMoved(event: $0) })
-        EventSystem.inputEvents.touchUpEvent.subscribe(listener: { [weak self] in self?.onTouchUp(event: $0) })
     }
 
     override func spawn() {
@@ -66,7 +62,7 @@ class Joystick: UIEntity, Renderable {
         foregroundNode.destroy()
     }
 
-    func onTouchDown(event: TouchDownEvent) {
+    func touchDown(event: TouchDownEvent) {
         guard trackedId == nil else {
             return
         }
@@ -76,7 +72,7 @@ class Joystick: UIEntity, Renderable {
         }
     }
 
-    func onTouchMoved(event: TouchMovedEvent) {
+    func touchMove(event: TouchMoveEvent) {
         guard event.associatedId == trackedId else {
             return
         }
@@ -94,7 +90,7 @@ class Joystick: UIEntity, Renderable {
         self.displacement = displacement.unitVector
     }
 
-    func onTouchUp(event: TouchUpEvent) {
+    func touchUp(event: TouchUpEvent) {
         guard event.associatedId == trackedId else {
             return
         }

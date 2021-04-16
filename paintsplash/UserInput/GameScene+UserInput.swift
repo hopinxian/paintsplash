@@ -8,20 +8,17 @@
 
 import SpriteKit
 
-extension GameScene: UserInput {
+extension GameScene {
     func touchDown(atPoint pos: CGPoint, touchable: Touchable) {
-        let event = RawTouchDownEvent(location: Vector2D(pos), touchable: touchable)
-        EventSystem.rawTouchInputEvent.rawTouchDownEvent.post(event: event)
+        inputSystem?.onTouchDown(of: touchable, at: Vector2D(pos))
     }
 
     func touchMoved(toPoint pos: CGPoint, touchable: Touchable) {
-        let event = RawTouchMovedEvent(location: Vector2D(pos), touchable: touchable)
-        EventSystem.rawTouchInputEvent.rawTouchMovedEvent.post(event: event)
+        inputSystem?.onTouchMoved(of: touchable, at: Vector2D(pos))
     }
 
     func touchUp(atPoint pos: CGPoint, touchable: Touchable) {
-        let event = RawTouchUpEvent(location: Vector2D(pos), touchable: touchable)
-        EventSystem.rawTouchInputEvent.rawTouchUpEvent.post(event: event)
+        inputSystem?.onTouchUp(of: touchable, at: Vector2D(pos))
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

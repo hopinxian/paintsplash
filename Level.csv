@@ -1,10 +1,4 @@
 repeat limit,buffer between loops,enemy capacity,drop capacity,,,,
-,5,4,3,,,,
+1000,5,4,3,,,,
 spawn type,time,color,x-location,y-location,x-velocity,y-velocity,spawn interval
-slime,0,red,100,200,    ,,
-slime,5,yellow,-100,-200,,,
-ammodrop,4,,0,0,,,
-ammodrop,3,green,,,,,
-slime,7,orange,50,-50,,,
-slime,7,orange,50,-50,,,
-slimespawner,10,lightblue,-200,100,,,
+slime,1000,red,100,200,,,

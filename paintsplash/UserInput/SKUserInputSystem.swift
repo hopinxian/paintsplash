@@ -9,37 +9,45 @@ import SpriteKit
 
 class SKUserInputSystem: UserInputSystem {
     let renderSystem: SKRenderSystem
-    var touchableEntities = Set<EntityID>()
+    var userInputs = [EntityID: UserInput]()
+    var touchDownEvents = [TouchDownEvent]()
+    var touchUpEvents = [TouchUpEvent]()
+    var touchMoveEvents = [TouchMoveEvent]()
 
     init(renderSystem: SKRenderSystem) {
         self.renderSystem = renderSystem
-        initListeners()
     }
 
-    func addTouchable(_ entity: GameEntity) {
-        touchableEntities.insert(entity.id)
-    }
-
-    func updateTouchable(_ entity: GameEntity) {
-        // do nothing
-    }
-
-    func removeTouchable(_ entity: GameEntity) {
-        touchableEntities.remove(entity.id)
-    }
-
-    private func initListeners() {
-        EventSystem.rawTouchInputEvent.rawTouchDownEvent.subscribe { [weak self] event in
-            self?.onTouchDown(of: event.touchable, at: event.location)
+    func addEntity(_ entity: GameEntity) {
+        guard let userInput = entity as? UserInput else {
+            return
         }
 
-        EventSystem.rawTouchInputEvent.rawTouchMovedEvent.subscribe { [weak self] event in
-            self?.onTouchMoved(of: event.touchable, at: event.location)
+        userInputs[entity.id] = userInput
+    }
+
+    func removeEntity(_ entity: GameEntity) {
+        userInputs[entity.id] = nil
+    }
+
+    func updateEntities(_ deltaTime: Double) {
+        for (_, input) in userInputs {
+            for event in touchDownEvents {
+                input.touchDown(event: event)
+            }
+
+            for event in touchUpEvents {
+                input.touchUp(event: event)
+            }
+
+            for event in touchMoveEvents {
+                input.touchMove(event: event)
+            }
         }
 
-        EventSystem.rawTouchInputEvent.rawTouchUpEvent.subscribe { [weak self] event in
-            self?.onTouchUp(of: event.touchable, at: event.location)
-        }
+        touchDownEvents = []
+        touchUpEvents = []
+        touchMoveEvents = []
     }
 
     private func getSpaceConvertedCoordinates(of vector: Vector2D) -> Vector2D {
@@ -47,24 +55,46 @@ class SKUserInputSystem: UserInputSystem {
         return convertedPos
     }
 
-    private func onTouchDown(of touchable: Touchable, at location: Vector2D) {
+     func onTouchDown(of touchable: Touchable, at location: Vector2D) {
         let id = touchable.getTouchId()
         let touchLocation = getSpaceConvertedCoordinates(of: location)
         let event = TouchDownEvent(location: touchLocation, associatedId: id)
-        EventSystem.inputEvents.touchDownEvent.post(event: event)
+        touchDownEvents.append(event)
     }
 
-    private func onTouchMoved(of touchable: Touchable, at location: Vector2D) {
+     func onTouchMoved(of touchable: Touchable, at location: Vector2D) {
         let id = touchable.getTouchId()
         let touchLocation = getSpaceConvertedCoordinates(of: location)
-        let event = TouchMovedEvent(location: touchLocation, associatedId: id)
-        EventSystem.inputEvents.touchMovedEvent.post(event: event)
+        let event = TouchMoveEvent(location: touchLocation, associatedId: id)
+        touchMoveEvents.append(event)
     }
 
-    private func onTouchUp(of touchable: Touchable, at location: Vector2D) {
+    func onTouchUp(of touchable: Touchable, at location: Vector2D) {
         let id = touchable.getTouchId()
         let touchLocation = getSpaceConvertedCoordinates(of: location)
         let event = TouchUpEvent(location: touchLocation, associatedId: id)
-        EventSystem.inputEvents.touchUpEvent.post(event: event)
+        touchUpEvents.append(event)
     }
+}
+
+class TouchEvent {
+    var location: Vector2D
+    var associatedId: EntityID
+
+    init(location: Vector2D, associatedId: EntityID) {
+        self.location = location
+        self.associatedId = associatedId
+    }
+}
+
+class TouchDownEvent: TouchEvent {
+
+}
+
+class TouchUpEvent: TouchEvent {
+
+}
+
+class TouchMoveEvent: TouchEvent {
+
 }

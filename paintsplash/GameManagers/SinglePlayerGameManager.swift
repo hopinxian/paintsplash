@@ -103,6 +103,8 @@ class  SinglePlayerGameManager: GameManager {
         self.playerSystem = PaintSplashPlayerSystem()
 
         self.userInputSystem = SKUserInputSystem(renderSystem: skRenderSystem)
+
+        gameScene.inputSystem = userInputSystem
     }
 
     func setUpPlayer() {
@@ -181,18 +183,12 @@ class  SinglePlayerGameManager: GameManager {
             position: Constants.JOYSTICK_POSITION
         )
         joystick.spawn()
-        userInputSystem.addTouchable(joystick)
 
         let attackJoystick = AttackJoystick(
             associatedEntityID: player.id,
             position: Constants.ATTACK_BUTTON_POSITION
         )
         attackJoystick.spawn()
-        userInputSystem.addTouchable(attackJoystick)
-
-//        let bombButton = BombButton(associatedEntityID: player.id, position: Vector2D(300, -300))
-//        bombButton.spawn()
-//        userInputSystem.addTouchable(bombButton)
 
         let playerHealthUI = PlayerHealthDisplay(
             startingHealth: player.healthComponent.currentHealth,
@@ -254,6 +250,7 @@ class  SinglePlayerGameManager: GameManager {
         movementSystem.addEntity(object)
         animationSystem.addEntity(object)
         playerSystem.addEntity(object)
+        userInputSystem.addEntity(object)
     }
 
     func removeObjectFromSystems(_ object: GameEntity) {
@@ -264,6 +261,7 @@ class  SinglePlayerGameManager: GameManager {
         movementSystem.removeEntity(object)
         animationSystem.removeEntity(object)
         playerSystem.removeEntity(object)
+        userInputSystem.removeEntity(object)
     }
 
     func addObject(_ object: GameEntity) {
@@ -289,6 +287,7 @@ class  SinglePlayerGameManager: GameManager {
 
             entities.forEach({ $0.update(deltaTime) })
         }
+        userInputSystem.updateEntities(deltaTime)
     }
 
     private func onGameOver(event: GameOverEvent) {

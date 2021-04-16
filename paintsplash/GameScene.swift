@@ -12,6 +12,8 @@ class GameScene: SKScene {
 
     var lastUpdateTime: TimeInterval = -1
 
+    var inputSystem: UserInputSystem?
+
     override func didMove(to view: SKView) {
         isAccessibilityElement = false
         view.isMultipleTouchEnabled = true

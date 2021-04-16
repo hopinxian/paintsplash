@@ -8,9 +8,13 @@
 import CoreGraphics
 
 protocol UserInput {
-    func touchDown(atPoint pos: CGPoint, touchable: Touchable)
+    func touchDown(event: TouchDownEvent)
+    func touchMove(event: TouchMoveEvent)
+    func touchUp(event: TouchUpEvent)
+}
 
-    func touchMoved(toPoint pos: CGPoint, touchable: Touchable)
-
-    func touchUp(atPoint pos: CGPoint, touchable: Touchable)
+extension UserInput {
+    func touchDown(event: TouchDownEvent) {}
+    func touchMove(event: TouchMoveEvent) {}
+    func touchUp(event: TouchUpEvent) {}
 }

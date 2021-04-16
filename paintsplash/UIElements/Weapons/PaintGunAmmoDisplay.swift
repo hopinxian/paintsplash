@@ -6,7 +6,7 @@
 //
 import Foundation
 
-class PaintGunAmmoDisplay: UIEntity, Transformable {
+class PaintGunAmmoDisplay: UIEntity, Transformable, UserInput {
     var transformComponent: TransformComponent
 
     var ammoDisplayView: VerticalStack<PaintAmmoDisplay>
@@ -45,7 +45,6 @@ class PaintGunAmmoDisplay: UIEntity, Transformable {
             .playerAmmoUpdateEvent.subscribe(listener: { [weak self] in self?.onAmmoUpdate(event: $0) })
         EventSystem.playerActionEvent
             .playerChangedWeaponEvent.subscribe(listener: { [weak self] in self?.onChangeWeapon(event: $0) })
-        EventSystem.inputEvents.touchDownEvent.subscribe(listener: { [weak self] in self?.touchDown(event: $0) })
     }
 
     private func onAmmoUpdate(event: PlayerAmmoUpdateEvent) {

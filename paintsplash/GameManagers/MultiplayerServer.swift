@@ -269,6 +269,8 @@ class MultiplayerServer: SinglePlayerGameManager {
             renderSystem.updateEntities(deltaTime)
             animationSystem.updateEntities(deltaTime)
         }
+
+        userInputSystem.updateEntities(deltaTime)
     }
 
     func readClientPlayerData(data: SystemData?) {

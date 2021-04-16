@@ -8,24 +8,24 @@
 class AttackJoystick: Joystick {
     private var lastDisplacement: Vector2D = .zero
 
-    override func onTouchMoved(event: TouchMovedEvent) {
+    override func touchMove(event: TouchMoveEvent) {
         guard event.associatedId == trackedId else {
             return
         }
 
-        super.onTouchMoved(event: event)
+        super.touchMove(event: event)
         lastDisplacement = displacement
 
         let event = PlayerAimEvent(direction: lastDisplacement, playerID: associatedEntity)
         EventSystem.processedInputEvents.playerAimEvent.post(event: event)
     }
 
-    override func onTouchUp(event: TouchUpEvent) {
+    override func touchUp(event: TouchUpEvent) {
         guard event.associatedId == trackedId else {
             return
         }
 
-        super.onTouchUp(event: event)
+        super.touchUp(event: event)
 
         let event = PlayerShootEvent(
             direction: lastDisplacement,

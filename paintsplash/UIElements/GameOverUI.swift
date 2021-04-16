@@ -48,7 +48,7 @@ class GameOverUI: UIEntity, Renderable {
         }
     }
 
-    class BackButton: UIEntity, Renderable {
+    class BackButton: UIEntity, Renderable, UserInput {
         var renderComponent: RenderComponent
         var transformComponent: TransformComponent
         var onPress: () -> Void
@@ -66,11 +66,9 @@ class GameOverUI: UIEntity, Renderable {
                 position: Vector2D(0, -200), rotation: 0, size: Vector2D(517, 133))
 
             super.init()
-
-            EventSystem.inputEvents.touchUpEvent.subscribe(listener: { [weak self] in self?.onTouchUp(event: $0) })
         }
 
-        private func onTouchUp(event: TouchUpEvent) {
+        func touchUp(event: TouchUpEvent) {
             let myBounds = Rect(from: transformComponent)
             if myBounds.contains(event.location) {
                 print("Exit")
