@@ -65,8 +65,9 @@ class MultiplayerClient: SinglePlayerGameManager {
         gameConnectionHandler.observeEvent(
             gameId: gameID,
             playerId: playerInfo.playerUUID,
-            onChange: {
-                EventSystem.playerActionEvent.playerAmmoUpdateEvent.post(event: $0)
+            onChange: { [weak self] (event: PlayerAmmoUpdateEvent) in
+                EventSystem.playerActionEvent.playerAmmoUpdateEvent.post(event: event)
+                self?.updatePlayerAmmo(event)
             },
             onError: nil
         )
@@ -131,6 +132,16 @@ class MultiplayerClient: SinglePlayerGameManager {
             },
             onError: nil
         )
+    }
+
+    func updatePlayerAmmo(_ event: PlayerAmmoUpdateEvent) {
+        if let weapon = player.multiWeaponComponent.availableWeapons.first(
+            where: { event.weaponType == type(of: $0) }) {
+            while weapon.canShoot() {
+                _ = weapon.shoot(from: Vector2D.zero, in: Vector2D.zero)
+            }
+            weapon.load(event.ammo)
+        }
     }
 
     override func setUpSystems() {
