@@ -5,8 +5,6 @@
 //  Created by Praveen Bala on 15/3/21.
 //
 
-import Foundation
-
 class Joystick: UIEntity, Renderable, UserInput {
     var renderComponent: RenderComponent
     var transformComponent: TransformComponent
@@ -45,7 +43,7 @@ class Joystick: UIEntity, Renderable, UserInput {
 
         foregroundNode = JoystickForeground(
             position: position,
-            size: Constants.JOYSTICK_SIZE * 0.60,
+            size: Constants.JOYSTICK_FOREGROUND_SIZE,
             zPosition: renderComponent.zPosition + 1
         )
 
@@ -68,12 +66,12 @@ class Joystick: UIEntity, Renderable, UserInput {
         }
 
         if Vector2D.magnitude(of: event.location - transformComponent.localPosition) < backgroundRadius {
-            trackedId = event.associatedId
+            trackedId = event.touchId
         }
     }
 
     func touchMove(event: TouchMoveEvent) {
-        guard event.associatedId == trackedId else {
+        guard event.touchId == trackedId else {
             return
         }
 
@@ -91,7 +89,7 @@ class Joystick: UIEntity, Renderable, UserInput {
     }
 
     func touchUp(event: TouchUpEvent) {
-        guard event.associatedId == trackedId else {
+        guard event.touchId == trackedId else {
             return
         }
 
@@ -105,10 +103,19 @@ class Joystick: UIEntity, Renderable, UserInput {
         var transformComponent: TransformComponent
 
         init(position: Vector2D, size: Vector2D, zPosition: Int) {
-            let renderType = RenderType.sprite(spriteName: "joystick-foreground")
+            let renderType = RenderType.sprite(spriteName: Constants.JOYSTICK_FOREGROUND_SPRITE)
 
-            self.renderComponent = RenderComponent(renderType: renderType, zPosition: zPosition, zPositionGroup: .ui)
-            self.transformComponent = TransformComponent(position: position, rotation: 0, size: size)
+            self.renderComponent = RenderComponent(
+                renderType: renderType,
+                zPosition: zPosition,
+                zPositionGroup: .ui
+            )
+
+            self.transformComponent = TransformComponent(
+                position: position,
+                rotation: 0,
+                size: size
+            )
 
             super.init()
         }

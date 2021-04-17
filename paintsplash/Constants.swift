@@ -60,6 +60,9 @@ struct Constants {
     static let JOYSTICK_POSITION = Vector2D(-820, -580)
     static let JOYSTICK_SIZE = Vector2D(200, 200)
 
+    static let JOYSTICK_FOREGROUND_SPRITE = "joystick-foreground"
+    static let JOYSTICK_FOREGROUND_SIZE = JOYSTICK_SIZE * 0.6
+
     static let TOP_BAR_SPRITE = "topwall"
     static let TOP_BAR_POSITION = Vector2D(0, 550)
     static let TOP_BAR_SIZE = Vector2D(2_000, 400)
@@ -125,4 +128,10 @@ struct Constants {
     static let LIGHT_DISPLAY_POSITION = Vector2D(0, 650)
     static let LIGHT_DISPLAY_SIZE = Vector2D(2_000, 150)
 
+}
+
+enum ZPositionGroup: Int, Codable {
+    case background = 0
+    case playfield = 2_000
+    case ui = 4_000
 }

@@ -68,7 +68,7 @@ class PlayerHealthComponent: HealthComponent {
         EventSystem.playerActionEvent.playerHealthUpdateEvent.post(event: event)
 
         if currentHealth <= 0 {
-            player?.stateComponent.currentState = PlayerState.Die(player: player)
+            player?.stateComponent.setState(PlayerState.Die(player: player))
             EventSystem.audioEvent.playSoundEffectEvent.post(
                 event: PlaySoundEffectEvent(effect: .playerDie, playerId: id))
         } else {
@@ -107,7 +107,7 @@ class EnemyHealthComponent: HealthComponent {
 
         enemy.moveableComponent.speed = 0
         enemy.collisionComponent.active = false
-        enemy.stateComponent.currentState = EnemyState.Die(enemy: enemy)
+        enemy.stateComponent.setState(EnemyState.Die(enemy: enemy))
 
         EventSystem.scoreEvent.post(event: ScoreEvent(value: Points.ENEMY_KILL))
     }
@@ -130,7 +130,7 @@ class EnemySpawnerHealthComponent: HealthComponent {
         guard let spawner = spawner else {
             return
         }
-        spawner.stateComponent.currentState = EnemySpawnerState.Hit(spawner: spawner)
+        spawner.stateComponent.setState(EnemySpawnerState.Hit(spawner: spawner))
     }
 
     private func die() {
@@ -139,9 +139,7 @@ class EnemySpawnerHealthComponent: HealthComponent {
             return
         }
 
-        spawner.stateComponent.currentState = EnemySpawnerState.Die(spawner: spawner)
         EventSystem.scoreEvent.post(event: ScoreEvent(value: Points.ENEMY_SPAWNER_KILL))
-//        let event = RemoveEntityEvent(entity: spawner)
-//        EventSystem.entityChangeEvents.removeEntityEvent.post(event: event)
+        spawner.stateComponent.setState(EnemySpawnerState.Die(spawner: spawner))
     }
 }

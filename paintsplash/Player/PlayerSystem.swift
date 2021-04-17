@@ -6,34 +6,18 @@
 //
 protocol PlayerSystem: System {
     var players: [EntityID: PlayableCharacter] { get set }
-    var onMoveEvents: [PlayerMoveEvent] { get set }
-    var onShootEvents: [PlayerShootEvent] { get set }
-    var onWeaponChangeEvents: [PlayerChangeWeaponEvent] { get set }
-    var onBombEvents: [PlayerBombEvent] { get set }
+    var processedInputEvents: [ProcessedInputEvent] { get set }
+
 }
 
 class PaintSplashPlayerSystem: PlayerSystem {
     var players = [EntityID: PlayableCharacter]()
-    var onMoveEvents = [PlayerMoveEvent]()
-    var onAimEvents = [PlayerAimEvent]()
-    var onShootEvents = [PlayerShootEvent]()
-    var onWeaponChangeEvents = [PlayerChangeWeaponEvent]()
-    var onBombEvents = [PlayerBombEvent]()
+    var processedInputEvents = [ProcessedInputEvent]()
 
     let eventLimit = 100
 
     init() {
-        EventSystem.processedInputEvents.playerMoveEvent.subscribe(listener: { [weak self] in self?.onMove(event: $0) })
-        EventSystem.processedInputEvents.playerAimEvent.subscribe(listener: { [weak self] in self?.onAim(event: $0) })
-        EventSystem.processedInputEvents
-            .playerShootEvent.subscribe(
-                listener: { [weak self] in self?.onShoot(event: $0) }
-            )
-        EventSystem.processedInputEvents
-            .playerChangeWeaponEvent.subscribe(
-                listener: { [weak self] in self?.onChangeWeapon(event: $0) }
-            )
-        EventSystem.processedInputEvents.playerBombEvent.subscribe(listener: { [weak self] in self?.onBomb(event: $0) })
+        EventSystem.processedInputEvents.subscribe(listener: { [weak self] in self?.addEvent(event: $0) })
     }
 
     func addEntity(_ entity: GameEntity) {
@@ -48,52 +32,32 @@ class PaintSplashPlayerSystem: PlayerSystem {
 
     func updateEntities(_ deltaTime: Double) {
         for (_, player) in players {
-            for event in onMoveEvents {
-                player.playableComponent.onMove(event: event)
-            }
-            for event in onAimEvents {
-                player.playableComponent.onAim(event: event)
-            }
-            for event in onShootEvents {
-                player.playableComponent.onShoot(event: event)
-            }
-            for event in onWeaponChangeEvents {
-                player.playableComponent.onWeaponChange(event: event)
-            }
-            for event in onBombEvents {
-                player.playableComponent.onBomb(event: event)
+            for event in processedInputEvents {
+                sendEvent(event: event, to: player)
             }
         }
-        onMoveEvents = []
-        onAimEvents = []
-        onShootEvents = []
-        onWeaponChangeEvents = []
-        onBombEvents = []
+
+        processedInputEvents = []
     }
 
-    func onMove(event: PlayerMoveEvent) {
-        if onMoveEvents.count < eventLimit {
-            onMoveEvents.append(event)
+    private func sendEvent(event: ProcessedInputEvent, to entity: PlayableCharacter) {
+        switch event {
+        case let playerMoveEvent as PlayerMoveEvent:
+            entity.playableComponent.onMove(event: playerMoveEvent)
+        case let playerShootEvent as PlayerShootEvent:
+            entity.playableComponent.onShoot(event: playerShootEvent)
+        case let playerAimEvent as PlayerAimEvent:
+            entity.playableComponent.onAim(event: playerAimEvent)
+        case let playerChangeWeaponEvent as PlayerChangeWeaponEvent:
+            entity.playableComponent.onWeaponChange(event: playerChangeWeaponEvent)
+        default:
+            fatalError("Unimplemented ProcessedInputEvent")
         }
     }
 
-    func onAim(event: PlayerAimEvent) {
-        if onAimEvents.count < eventLimit {
-            onAimEvents.append(event)
+    private func addEvent(event: ProcessedInputEvent) {
+        if processedInputEvents.count < eventLimit {
+            processedInputEvents.append(event)
         }
-    }
-
-    func onShoot(event: PlayerShootEvent) {
-        if onShootEvents.count < eventLimit {
-            onShootEvents.append(event)
-        }
-    }
-
-    func onChangeWeapon(event: PlayerChangeWeaponEvent) {
-        onWeaponChangeEvents.append(event)
-    }
-
-    func onBomb(event: PlayerBombEvent) {
-        onBombEvents.append(event)
     }
 }

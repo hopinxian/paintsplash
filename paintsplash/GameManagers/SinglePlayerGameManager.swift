@@ -102,7 +102,7 @@ class  SinglePlayerGameManager: GameManager {
 
         self.playerSystem = PaintSplashPlayerSystem()
 
-        self.userInputSystem = SKUserInputSystem(renderSystem: skRenderSystem)
+        self.userInputSystem = SKUserInputSystem()
 
         gameScene.inputSystem = userInputSystem
     }

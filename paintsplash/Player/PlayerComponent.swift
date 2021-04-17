@@ -68,9 +68,11 @@ class PlayerComponent: PlayableComponent {
     private func attack(direction: Vector2D) {
         let direction = direction.magnitude > 0 ? direction : player.lastDirection
 
-        player.stateComponent.currentState = player.lastDirection.x > 0
+        let attackState = player.lastDirection.x > 0
             ? PlayerState.AttackRight(player: player, attackDirection: direction)
             : PlayerState.AttackLeft(player: player, attackDirection: direction)
+
+        player.stateComponent.setState(attackState)
     }
 
     private func removeAimGuide() {

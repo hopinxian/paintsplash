@@ -23,9 +23,3 @@ class RenderComponent: Component, Codable {
         self.cropInParent = cropInParent
     }
 }
-
-enum ZPositionGroup: Int, Codable {
-    case background = 0
-    case playfield = 2_000
-    case ui = 4_000
-}

@@ -11,6 +11,7 @@ protocol TransformSystem: System {
 
 class WorldTransformSystem: TransformSystem {
     var transformables = [EntityID: Transformable]()
+    private var updatedThisFrame = [EntityID: Transformable]()
 
     func addEntity(_ entity: GameEntity) {
         guard let transformable = entity as? Transformable else {
@@ -28,22 +29,30 @@ class WorldTransformSystem: TransformSystem {
         for (_, transformable) in transformables {
             updateEntity(transformable)
         }
+
+        updatedThisFrame = [:]
     }
 
     private func updateEntity(_ transformable: Transformable) {
-        if let parent = transformable.transformComponent.parentID {
-            updateWithParent(parent: parent, transformable: transformable)
+        guard updatedThisFrame[transformable.id] == nil else {
+            return
+        }
+
+        if let parent = transformable.transformComponent.parentID,
+           let parentTransformable = transformables[parent] {
+            updateWithParent(parent: parentTransformable, transformable: transformable)
         } else {
             updateWithoutParent(transformable: transformable)
         }
+        updatedThisFrame[transformable.id] = transformable
     }
 
-    private func updateWithParent(parent: EntityID, transformable: Transformable) {
-        if let parentTransformable = transformables[parent] {
-            transformable.transformComponent.worldPosition =
-                parentTransformable.transformComponent.worldPosition +
-                transformable.transformComponent.localPosition
-        }
+    private func updateWithParent(parent: Transformable, transformable: Transformable) {
+        updateEntity(parent)
+
+        transformable.transformComponent.worldPosition =
+            parent.transformComponent.worldPosition +
+            transformable.transformComponent.localPosition
     }
 
     private func updateWithoutParent(transformable: Transformable) {

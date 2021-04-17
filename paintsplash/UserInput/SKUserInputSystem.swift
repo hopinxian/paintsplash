@@ -5,18 +5,9 @@
 //  Created by Praveen Bala on 6/4/21.
 //
 
-import SpriteKit
-
 class SKUserInputSystem: UserInputSystem {
-    let renderSystem: SKRenderSystem
-    var userInputs = [EntityID: UserInput]()
-    var touchDownEvents = [TouchDownEvent]()
-    var touchUpEvents = [TouchUpEvent]()
-    var touchMoveEvents = [TouchMoveEvent]()
-
-    init(renderSystem: SKRenderSystem) {
-        self.renderSystem = renderSystem
-    }
+    private var userInputs = [EntityID: UserInput]()
+    private var touchEvents = [TouchEvent]()
 
     func addEntity(_ entity: GameEntity) {
         guard let userInput = entity as? UserInput else {
@@ -31,23 +22,11 @@ class SKUserInputSystem: UserInputSystem {
     }
 
     func updateEntities(_ deltaTime: Double) {
-        for (_, input) in userInputs {
-            for event in touchDownEvents {
-                input.touchDown(event: event)
-            }
-
-            for event in touchUpEvents {
-                input.touchUp(event: event)
-            }
-
-            for event in touchMoveEvents {
-                input.touchMove(event: event)
-            }
+        for input in userInputs.values {
+            touchEvents.forEach { sendEvent($0, to: input) }
         }
 
-        touchDownEvents = []
-        touchUpEvents = []
-        touchMoveEvents = []
+        touchEvents = []
     }
 
     private func getSpaceConvertedCoordinates(of vector: Vector2D) -> Vector2D {
@@ -55,46 +34,48 @@ class SKUserInputSystem: UserInputSystem {
         return convertedPos
     }
 
-     func onTouchDown(of touchable: Touchable, at location: Vector2D) {
-        let id = touchable.getTouchId()
+    private func sendEvent(_ event: TouchEvent, to entity: UserInput) {
+        switch event {
+        case let event as TouchDownEvent:
+            entity.touchDown(event: event)
+        case let event as TouchMoveEvent:
+            entity.touchMove(event: event)
+        case let event as TouchUpEvent:
+            entity.touchUp(event: event)
+        default:
+            fatalError("Touch Event type not implemented")
+        }
+    }
+
+    private func createEvent(type: TouchEvent.Type, touchData: TouchData, at location: Vector2D) -> TouchEvent {
+        let id = touchData.getTouchId()
         let touchLocation = getSpaceConvertedCoordinates(of: location)
-        let event = TouchDownEvent(location: touchLocation, associatedId: id)
-        touchDownEvents.append(event)
+
+        switch type {
+        case is TouchDownEvent.Type:
+            return TouchDownEvent(location: touchLocation, touchId: id)
+        case is TouchMoveEvent.Type:
+            return TouchMoveEvent(location: touchLocation, touchId: id)
+        case is TouchUpEvent.Type:
+            return TouchUpEvent(location: touchLocation, touchId: id)
+        default:
+            fatalError("Touch Event type not implemented")
+        }
+
     }
 
-     func onTouchMoved(of touchable: Touchable, at location: Vector2D) {
-        let id = touchable.getTouchId()
-        let touchLocation = getSpaceConvertedCoordinates(of: location)
-        let event = TouchMoveEvent(location: touchLocation, associatedId: id)
-        touchMoveEvents.append(event)
+    func touchDown(touchData: TouchData, at location: Vector2D) {
+        let event = createEvent(type: TouchDownEvent.self, touchData: touchData, at: location)
+        touchEvents.append(event)
     }
 
-    func onTouchUp(of touchable: Touchable, at location: Vector2D) {
-        let id = touchable.getTouchId()
-        let touchLocation = getSpaceConvertedCoordinates(of: location)
-        let event = TouchUpEvent(location: touchLocation, associatedId: id)
-        touchUpEvents.append(event)
+    func touchMoved(touchData: TouchData, at location: Vector2D) {
+        let event = createEvent(type: TouchMoveEvent.self, touchData: touchData, at: location)
+        touchEvents.append(event)
     }
-}
 
-class TouchEvent {
-    var location: Vector2D
-    var associatedId: EntityID
-
-    init(location: Vector2D, associatedId: EntityID) {
-        self.location = location
-        self.associatedId = associatedId
+    func touchUp(touchData: TouchData, at location: Vector2D) {
+        let event = createEvent(type: TouchUpEvent.self, touchData: touchData, at: location)
+        touchEvents.append(event)
     }
-}
-
-class TouchDownEvent: TouchEvent {
-
-}
-
-class TouchUpEvent: TouchEvent {
-
-}
-
-class TouchMoveEvent: TouchEvent {
-
 }

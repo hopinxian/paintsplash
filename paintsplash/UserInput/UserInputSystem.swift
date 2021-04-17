@@ -6,7 +6,7 @@
 //
 
 protocol UserInputSystem: System {
-    func onTouchDown(of touchable: Touchable, at location: Vector2D)
-    func onTouchMoved(of touchable: Touchable, at location: Vector2D)
-    func onTouchUp(of touchable: Touchable, at location: Vector2D)
+    func touchDown(touchData: TouchData, at location: Vector2D)
+    func touchMoved(touchData: TouchData, at location: Vector2D)
+    func touchUp(touchData: TouchData, at location: Vector2D)
 }

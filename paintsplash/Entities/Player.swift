@@ -86,7 +86,7 @@ class Player: GameEntity,
 
         super.init()
 
-        self.stateComponent.currentState = PlayerState.IdleLeft(player: self)
+        self.stateComponent.setState(PlayerState.IdleLeft(player: self))
 
         paintGun.owner = self
         bucket.owner = self

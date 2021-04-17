@@ -42,13 +42,15 @@ class CanvasRequestManager: GameEntity, Transformable {
             listener: { [weak self] (event: AddEntityEvent) in
             if let canvas = event.entity as? Canvas {
                 self?.canvases.insert(canvas)
-            }}
+            }
+            }
         )
         EventSystem.entityChangeEvents.removeEntityEvent.subscribe(
             listener: { [weak self] (event: RemoveEntityEvent) in
             if let canvas = event.entity as? Canvas {
                 self?.canvases.remove(canvas)
-            }}
+            }
+            }
         )
     }
 
