@@ -7,7 +7,8 @@
 class CanvasEndMarker: GameEntity, Renderable {
     var renderComponent: RenderComponent
     var transformComponent: TransformComponent
-    init(size: Vector2D, position: Vector2D) {
+    init(size: Vector2D = Constants.CANVAS_END_MARKER_SIZE,
+         position: Vector2D = Constants.CANVAS_END_MARKER_POSITION) {
         // TODO: set zPostion to be higher than both canvas and its subviews
         let renderType = RenderType.sprite(spriteName: Constants.CANVAS_END_MARKER_SPRITE)
         self.renderComponent = RenderComponent(

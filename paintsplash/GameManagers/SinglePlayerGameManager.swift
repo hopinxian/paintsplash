@@ -113,20 +113,13 @@ class SinglePlayerGameManager: GameManager {
     }
 
     func setUpGeneralGameplayEntities() {
-        let canvasSpawner = CanvasSpawner(
-            initialPosition: Constants.CANVAS_SPAWNER_POSITION,
-            canvasVelocity: Vector2D(0.4, 0),
-            spawnInterval: 10
-        )
+        let canvasSpawner = CanvasSpawner()
         canvasSpawner.spawn()
 
         let canvasManager = CanvasRequestManager()
         canvasManager.spawn()
 
-        let canvasEndMarker = CanvasEndMarker(
-            size: Constants.CANVAS_END_MARKER_SIZE,
-            position: Constants.CANVAS_END_MARKER_POSITION
-        )
+        let canvasEndMarker = CanvasEndMarker()
         canvasEndMarker.spawn()
 
         let mixingPot1 = MixingPot(position: Vector2D(-800, 0))

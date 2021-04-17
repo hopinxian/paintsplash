@@ -68,7 +68,7 @@ class FirebaseGameHandlerTests: XCTestCase {
         gameHandler.sendEvent(
             gameId: "0",
             playerId: "0",
-            action: event,
+            event: event,
             onError: { _ in onErrorCalled = true },
             onSuccess: { onSuccessCalled = true }
         )

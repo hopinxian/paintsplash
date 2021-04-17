@@ -12,6 +12,8 @@ class MultiplayerServer: SinglePlayerGameManager {
     var gameConnectionHandler: GameConnectionHandler =
         PaintSplashGameHandler(connectionHandler: FirebaseConnectionHandler())
 
+    let networkHandler = FirebaseMPServerNetworkHandler()
+
     private var collisionDetector: SKCollisionDetector!
 
     init(roomInfo: RoomInfo, gameScene: GameScene, vc: GameViewController) {
@@ -25,78 +27,30 @@ class MultiplayerServer: SinglePlayerGameManager {
         player = Player(initialPosition: Vector2D.zero + Vector2D.right * 50, playerUUID: hostId)
         player.spawn()
 
-        // set up other players
+        // Set up other players
         room.players?.forEach { _, player in
             setUpGuestPlayer(player: player)
         }
     }
 
     func setUpGuestPlayer(player: PlayerInfo) {
-        // Initialize player
+        // Initialize each guest player
         let playerID = EntityID(id: player.playerUUID)
-
-        let gameId = self.room.gameID
         let newPlayer = Player(initialPosition: Vector2D.zero + Vector2D.left * 50, playerUUID: playerID)
         newPlayer.spawn()
 
-        setupPlayerStateSender(playerID, gameId)
-        setupPlayerWeaponSender(playerID, gameId)
-        setupPlayerAmmoSender(playerID, gameId)
+        // Allow server to send player-related events to the database for clients to observe
+        // and for server to listen to player-related events sent from client to update
+        // game state
+        let gameId = self.room.gameID
+        // networkHandler.setupClientPlayer(player: player, gameId: gameId)
+        networkHandler.setupPlayerEventSenders(player: player, gameId: gameId)
+
         setupMusicEventSender(gameId)
         setupSFXEventSender(gameId)
+
         setupGameOverEventSender(playerID: playerID, gameId)
         setupClientObservers(playerID: playerID, gameId: gameId)
-    }
-
-    private func setupPlayerStateSender(_ playerID: EntityID, _ gameId: String) {
-        // Send player state updates to DB
-        EventSystem.playerActionEvent
-            .playerHealthUpdateEvent.subscribe(listener: { [weak self] event in
-                guard event.playerId == playerID else {
-                    return
-                }
-                self?.gameConnectionHandler.sendEvent(
-                    gameId: gameId,
-                    playerId: playerID.id,
-                    action: event,
-                    onError: nil,
-                    onSuccess: nil
-                )
-            })
-    }
-
-    private func setupPlayerWeaponSender(_ playerID: EntityID, _ gameId: String) {
-        // Send player selected weapon updates to DB
-        EventSystem.playerActionEvent
-            .playerChangedWeaponEvent.subscribe(listener: { [weak self] event in
-                guard event.playerId == playerID else {
-                    return
-                }
-                self?.gameConnectionHandler.sendEvent(
-                    gameId: gameId,
-                    playerId: playerID.id,
-                    action: event,
-                    onError: nil,
-                    onSuccess: nil
-                )
-            })
-    }
-
-    private func setupPlayerAmmoSender(_ playerID: EntityID, _ gameId: String) {
-        // Update player ammo
-        EventSystem.playerActionEvent
-            .playerAmmoUpdateEvent.subscribe(listener: { [weak self] event in
-                guard event.playerId == playerID else {
-                    return
-                }
-                self?.gameConnectionHandler.sendEvent(
-                    gameId: gameId,
-                    playerId: playerID.id,
-                    action: event,
-                    onError: nil,
-                    onSuccess: nil
-                )
-            })
     }
 
     private func setupMusicEventSender(_ gameId: String) {
@@ -111,7 +65,7 @@ class MultiplayerServer: SinglePlayerGameManager {
                     self?.gameConnectionHandler.sendEvent(
                         gameId: gameId,
                         playerId: $0.key,
-                        action: event,
+                        event: event,
                         onError: nil,
                         onSuccess: nil
                     )
@@ -122,7 +76,7 @@ class MultiplayerServer: SinglePlayerGameManager {
             self?.gameConnectionHandler.sendEvent(
                 gameId: gameId,
                 playerId: playerId.id,
-                action: event,
+                event: event,
                 onError: nil,
                 onSuccess: nil
             )
@@ -141,7 +95,7 @@ class MultiplayerServer: SinglePlayerGameManager {
                         self?.gameConnectionHandler.sendEvent(
                             gameId: gameId,
                             playerId: $0.key,
-                            action: event,
+                            event: event,
                             onError: nil,
                             onSuccess: nil
                         )
@@ -152,7 +106,7 @@ class MultiplayerServer: SinglePlayerGameManager {
                 self?.gameConnectionHandler.sendEvent(
                     gameId: gameId,
                     playerId: playerId.id,
-                    action: event,
+                    event: event,
                     onError: nil,
                     onSuccess: nil
                 )
@@ -171,7 +125,7 @@ class MultiplayerServer: SinglePlayerGameManager {
                 self?.gameConnectionHandler.sendEvent(
                     gameId: gameId,
                     playerId: playerID.id,
-                    action: event,
+                    event: event,
                     onError: nil,
                     onSuccess: nil
                 )
@@ -218,6 +172,14 @@ class MultiplayerServer: SinglePlayerGameManager {
         self.connectionHandler.listen(to: path, callBack: readClientPlayerData)
     }
 
+    override func update(_ deltaTime: Double) {
+        super.update(deltaTime)
+
+        if !gameIsOver {
+            sendGameState()
+        }
+    }
+
     func sendGameState() {
         let uiEntityIDs = Set(uiEntities.map({ $0.id }))
         let entityData = EntityData(from: entities.filter({ !uiEntityIDs.contains($0.id) }))
@@ -249,14 +211,6 @@ class MultiplayerServer: SinglePlayerGameManager {
             colorSystemData: colorSystemData
         )
         gameConnectionHandler.sendSystemData(data: systemData, gameID: room.gameID)
-    }
-
-    override func update(_ deltaTime: Double) {
-        super.update(deltaTime)
-
-        if !gameIsOver {
-            sendGameState()
-        }
     }
 
     func readClientPlayerData(data: SystemData?) {

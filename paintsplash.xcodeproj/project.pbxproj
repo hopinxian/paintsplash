@@ -294,6 +294,8 @@
 		DC6A07CD261329B8009FE7F6 /* GameConnectionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC6A07CC261329B8009FE7F6 /* GameConnectionHandler.swift */; };
 		DC6A07D126132D26009FE7F6 /* PaintSplashGameHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC6A07D026132D26009FE7F6 /* PaintSplashGameHandler.swift */; };
 		DC6BD6A725FF46D100A33861 /* SlimeAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC6BD6A625FF46D100A33861 /* SlimeAnimations.swift */; };
+		DC749F03262B443800A614FA /* FirebaseMPServerNetworkHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC749F02262B443800A614FA /* FirebaseMPServerNetworkHandler.swift */; };
+		DC749F07262B572700A614FA /* MPServerNetworkHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC749F06262B572700A614FA /* MPServerNetworkHandler.swift */; };
 		DC7B421925FF63350069B422 /* EventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7B420D25FF63350069B422 /* EventManager.swift */; };
 		DC7B421C25FF63350069B422 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7B421125FF63350069B422 /* Event.swift */; };
 		DC7B422125FF63350069B422 /* EventSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7B421825FF63350069B422 /* EventSystem.swift */; };
@@ -639,6 +641,8 @@
 		DC6A07CC261329B8009FE7F6 /* GameConnectionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameConnectionHandler.swift; sourceTree = "<group>"; };
 		DC6A07D026132D26009FE7F6 /* PaintSplashGameHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaintSplashGameHandler.swift; sourceTree = "<group>"; };
 		DC6BD6A625FF46D100A33861 /* SlimeAnimations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlimeAnimations.swift; sourceTree = "<group>"; };
+		DC749F02262B443800A614FA /* FirebaseMPServerNetworkHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseMPServerNetworkHandler.swift; sourceTree = "<group>"; };
+		DC749F06262B572700A614FA /* MPServerNetworkHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPServerNetworkHandler.swift; sourceTree = "<group>"; };
 		DC7B420D25FF63350069B422 /* EventManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventManager.swift; sourceTree = "<group>"; };
 		DC7B421125FF63350069B422 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		DC7B421825FF63350069B422 /* EventSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventSystem.swift; sourceTree = "<group>"; };
@@ -1249,6 +1253,8 @@
 				D50FD6C2261204F800491CAC /* SinglePlayerGameManager.swift */,
 				DCF66400261592490046AFC1 /* MultiplayerClient.swift */,
 				D50FD69B261056AF00491CAC /* MultiplayerServer.swift */,
+				DC749F02262B443800A614FA /* FirebaseMPServerNetworkHandler.swift */,
+				DC749F06262B572700A614FA /* MPServerNetworkHandler.swift */,
 			);
 			path = GameManagers;
 			sourceTree = "<group>";
@@ -1823,6 +1829,7 @@
 				D5500C102608F12800E21BF1 /* SKNodeFactory.swift in Sources */,
 				D57044EF26182A9E004AF802 /* EncodableAnimatable.swift in Sources */,
 				D546281626158B2C002527C3 /* TransformSystem.swift in Sources */,
+				DC749F07262B572700A614FA /* MPServerNetworkHandler.swift in Sources */,
 				D53F5494260D96F900635B05 /* CanvasSpawnerState+Spawning.swift in Sources */,
 				DC247F5525F9E53C001B814C /* SpawnEnemyBehaviour.swift in Sources */,
 				DC9D4A4825F92E2C000F07FF /* Enemy.swift in Sources */,
@@ -2032,6 +2039,7 @@
 				840A889225FF13A100A07596 /* PaintColor+UIColor.swift in Sources */,
 				D53F5470260D962300635B05 /* PlayerState+Attack.swift in Sources */,
 				AC097E1126020005000951B0 /* ColorMakeup.swift in Sources */,
+				DC749F03262B443800A614FA /* FirebaseMPServerNetworkHandler.swift in Sources */,
 				D570451626182C8C004AF802 /* FirebaseOperation.swift in Sources */,
 				D5553D9F26062D1000C1862E /* AudioSystem.swift in Sources */,
 				D58346A725FB8616005C344D /* PaintProjectile.swift in Sources */,

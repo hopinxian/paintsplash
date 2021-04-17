@@ -27,6 +27,7 @@ struct Constants {
     static let ZPOSITION_HEALTH_DISPLAY = 1
     static let ZPOSITION_SCORE = 1
     static let ZPOSITION_REQUEST = 1
+    static let ZPOSITION_BOX = 2
 
     // Movement Bounds
     static let PLAYER_MOVEMENT_BOUNDS = Rect(
@@ -98,6 +99,8 @@ struct Constants {
 
     static let CANVAS_SPAWNER_POSITION = Vector2D(-1_100, 570)
     static let CANVAS_SPAWNER_SIZE = Vector2D(200, 200)
+    static let CANVAS_SPAWNER_SPAWN_INTERVAL: Double = 10
+    static let CANVAS_SPAWNER_VELOCITY = Vector2D(0.4, 0)
 
     static let AMMO_DROP_SIZE = Vector2D(75, 75)
 

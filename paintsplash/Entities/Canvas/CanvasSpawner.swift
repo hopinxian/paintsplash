@@ -10,7 +10,9 @@ class CanvasSpawner: GameEntity, StatefulEntity, Transformable {
     let stateComponent: StateComponent
     private var spawnInterval: Double
 
-    init(initialPosition: Vector2D, canvasVelocity: Vector2D, spawnInterval: Double) {
+    init(initialPosition: Vector2D = Constants.CANVAS_SPAWNER_POSITION,
+         canvasVelocity: Vector2D = Constants.CANVAS_SPAWNER_VELOCITY,
+         spawnInterval: Double = Constants.CANVAS_SPAWNER_SPAWN_INTERVAL) {
         self.spawnInterval = spawnInterval
         self.transformComponent = TransformComponent(
             position: initialPosition,

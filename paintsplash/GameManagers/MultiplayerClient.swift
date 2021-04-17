@@ -168,7 +168,7 @@ class MultiplayerClient: SinglePlayerGameManager {
         self.gameConnectionHandler.sendEvent(
             gameId: gameId,
             playerId: event.playerId.id,
-            action: event,
+            event: event,
             onError: nil,
             onSuccess: nil
         )
@@ -178,7 +178,7 @@ class MultiplayerClient: SinglePlayerGameManager {
         self.gameConnectionHandler.sendEvent(
             gameId: gameId,
             playerId: event.playerId.id,
-            action: event,
+            event: event,
             onError: nil,
             onSuccess: nil
         )
@@ -188,7 +188,7 @@ class MultiplayerClient: SinglePlayerGameManager {
         self.gameConnectionHandler.sendEvent(
             gameId: gameId,
             playerId: event.playerId.id,
-            action: event,
+            event: event,
             onError: nil,
             onSuccess: nil
         )

@@ -10,7 +10,7 @@ protocol GameConnectionHandler {
     func sendEvent<T: Codable>(
         gameId: String,
         playerId: String,
-        action: T,
+        event: T,
         onError: ((Error?) -> Void)?,
         onSuccess: (() -> Void)?
     ) where T: Event

@@ -37,9 +37,14 @@ class PaintSplashGameHandler: GameConnectionHandler {
         }
     }
 
+    // TODO: refactor this
+    private func getPlayerEventPath() {
+
+    }
+
     func sendEvent<T>(
         gameId: String,
-        playerId: String, action: T,
+        playerId: String, event: T,
         onError: ((Error?) -> Void)?,
         onSuccess: (() -> Void)?
     ) where T: Decodable, T: Encodable, T: Event {
@@ -56,7 +61,7 @@ class PaintSplashGameHandler: GameConnectionHandler {
         )
 
         connectionHandler.send(
-            to: playerPath, data: action,
+            to: playerPath, data: event,
             shouldRemoveOnDisconnect: false,
             onComplete: onSuccess, onError: onError
         )
