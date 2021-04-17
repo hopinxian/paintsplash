@@ -228,7 +228,6 @@ class MultiplayerClient: SinglePlayerGameManager {
         connectionHandler.send(
             to: path,
             data: systemData,
-            mode: .single,
             shouldRemoveOnDisconnect: true,
             onComplete: nil,
             onError: nil

@@ -34,7 +34,6 @@ class GameLobbyHandler: LobbyHandler {
             self?.connectionHandler.send(
                 to: roomPath,
                 data: newRoomInfo,
-                mode: .single,
                 shouldRemoveOnDisconnect: true,
                 onComplete: { onSuccess?(newRoomInfo) },
                 onError: onError
@@ -91,7 +90,7 @@ class GameLobbyHandler: LobbyHandler {
             self?.connectionHandler.send(
                 to: roomPath,
                 data: player,
-                mode: .single, shouldRemoveOnDisconnect: true,
+                shouldRemoveOnDisconnect: true,
                 onComplete: { onSuccess?(newRoomInfo) },
                 onError: onError
             )
@@ -204,7 +203,7 @@ class GameLobbyHandler: LobbyHandler {
 
             self?.connectionHandler.send(to: gamePath,
                                          data: newGame,
-                                         mode: .single, shouldRemoveOnDisconnect: true,
+                                         shouldRemoveOnDisconnect: true,
                                          onComplete: nil,
                                          onError: onError)
 
@@ -216,7 +215,7 @@ class GameLobbyHandler: LobbyHandler {
             self?.connectionHandler.send(
                 to: roomGamePath,
                 data: roomInfo,
-                mode: .single, shouldRemoveOnDisconnect: true,
+                shouldRemoveOnDisconnect: true,
                 onComplete: { onSuccess?(roomInfo) },
                 onError: onError
             )

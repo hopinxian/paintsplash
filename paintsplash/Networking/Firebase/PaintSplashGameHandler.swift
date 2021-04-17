@@ -57,7 +57,7 @@ class PaintSplashGameHandler: GameConnectionHandler {
 
         connectionHandler.send(
             to: playerPath, data: action,
-            mode: .single, shouldRemoveOnDisconnect: false,
+            shouldRemoveOnDisconnect: false,
             onComplete: onSuccess, onError: onError
         )
     }
@@ -120,7 +120,7 @@ class PaintSplashGameHandler: GameConnectionHandler {
 
     func sendSystemData(data: SystemData, gameID: String) {
         let systemPath = DataPaths.joinPaths(DataPaths.games, gameID, DataPaths.systems)
-        connectionHandler.send(to: systemPath, data: data, mode: .single, shouldRemoveOnDisconnect: false,
+        connectionHandler.send(to: systemPath, data: data, shouldRemoveOnDisconnect: false,
                                onComplete: nil, onError: nil)
     }
 

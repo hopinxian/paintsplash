@@ -8,7 +8,6 @@ import Firebase
 
 class FirebaseConnectionHandler: ConnectionHandler {
     var firebase: Database
-    var batchedOperations = [FirebaseOperation]()
     private var observers: [FirebaseObserver] = []
 
     init() {
@@ -29,7 +28,6 @@ class FirebaseConnectionHandler: ConnectionHandler {
     func send<T: Codable>(
         to destination: String,
         data: T,
-        mode: TransactionMode,
         shouldRemoveOnDisconnect: Bool = true,
         onComplete: (() -> Void)?,
         onError: ((Error?) -> Void)?) {
@@ -37,12 +35,7 @@ class FirebaseConnectionHandler: ConnectionHandler {
         let dataDict = data.dictionary
         let operation = FirebaseOperation(path: destination, data: dataDict, onSuccess: onComplete, onError: onError)
 
-        switch mode {
-        case .single:
-            handleSingleWriteOperation(operation: operation, shouldRemoveOnDisconnect: shouldRemoveOnDisconnect)
-        case .batched:
-            handleBatchedWriteOperation(operation: operation)
-        }
+        handleSingleWriteOperation(operation: operation, shouldRemoveOnDisconnect: shouldRemoveOnDisconnect)
     }
 
     /// Writes the given individual data valueto the path in the Firebase Real Time database
@@ -79,10 +72,6 @@ class FirebaseConnectionHandler: ConnectionHandler {
                 onComplete?()
             }
         })
-    }
-
-    private func handleBatchedWriteOperation(operation: FirebaseOperation) {
-        batchedOperations.append(operation)
     }
 
     /// Observes a dictionary value at the given path, and invokes the callback when the value changes
@@ -123,33 +112,6 @@ class FirebaseConnectionHandler: ConnectionHandler {
         firebase.reference().child(path).getData(completion: { error, snapshot in
             let rawData = snapshot.value as? [String: AnyObject]
             block(error, rawData)
-        })
-    }
-
-    func commitBatchedOperations() {
-        guard !batchedOperations.isEmpty else {
-            return
-        }
-
-        firebase.reference().runTransactionBlock({ mutableData in
-            for operation in self.batchedOperations {
-                mutableData.childData(byAppendingPath: operation.path).value = operation.data
-            }
-            return TransactionResult.success(withValue: mutableData)
-        }, andCompletionBlock: { error, success, _ in
-            if success {
-                for operation in self.batchedOperations {
-                    DispatchQueue.main.async {
-                        operation.onSuccess?()
-                    }
-                }
-            } else {
-                for operation in self.batchedOperations {
-                    DispatchQueue.main.async {
-                        operation.onError?(error)
-                    }
-                }
-            }
         })
     }
 

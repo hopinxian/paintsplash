@@ -232,7 +232,6 @@
 		D570451626182C8C004AF802 /* FirebaseOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D570451526182C8C004AF802 /* FirebaseOperation.swift */; };
 		D570451A26182CA2004AF802 /* FirebaseConnectionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D570451926182CA2004AF802 /* FirebaseConnectionHandler.swift */; };
 		D570451E26182CC7004AF802 /* FirebaseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D570451D26182CC7004AF802 /* FirebaseError.swift */; };
-		D570452226182CD2004AF802 /* TransactionMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D570452126182CD2004AF802 /* TransactionMode.swift */; };
 		D570452A26182ED5004AF802 /* UIEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D570452926182ED5004AF802 /* UIEntity.swift */; };
 		D570452E261830DA004AF802 /* MovementJoystick.swift in Sources */ = {isa = PBXBuildFile; fileRef = D570452D261830DA004AF802 /* MovementJoystick.swift */; };
 		D5704532261830EA004AF802 /* AttackJoystick.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5704531261830EA004AF802 /* AttackJoystick.swift */; };
@@ -578,7 +577,6 @@
 		D570451526182C8C004AF802 /* FirebaseOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseOperation.swift; sourceTree = "<group>"; };
 		D570451926182CA2004AF802 /* FirebaseConnectionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseConnectionHandler.swift; sourceTree = "<group>"; };
 		D570451D26182CC7004AF802 /* FirebaseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseError.swift; sourceTree = "<group>"; };
-		D570452126182CD2004AF802 /* TransactionMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionMode.swift; sourceTree = "<group>"; };
 		D570452926182ED5004AF802 /* UIEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIEntity.swift; sourceTree = "<group>"; };
 		D570452D261830DA004AF802 /* MovementJoystick.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovementJoystick.swift; sourceTree = "<group>"; };
 		D5704531261830EA004AF802 /* AttackJoystick.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttackJoystick.swift; sourceTree = "<group>"; };
@@ -1460,7 +1458,6 @@
 				D570452526182D66004AF802 /* Protocols */,
 				D57044E126182A4E004AF802 /* Models */,
 				DC4CAC70261301790086CBCC /* NetworkEntity.swift */,
-				D570452126182CD2004AF802 /* TransactionMode.swift */,
 				D570450D26182C56004AF802 /* CodableExtensions.swift */,
 				D57045552618432C004AF802 /* MultiplayerError.swift */,
 			);
@@ -1859,7 +1856,6 @@
 				D57045562618432C004AF802 /* MultiplayerError.swift in Sources */,
 				ACFD820925F676AB009D806B /* Movable.swift in Sources */,
 				D5E3962026261AA300250EEC /* Color.swift in Sources */,
-				D570452226182CD2004AF802 /* TransactionMode.swift in Sources */,
 				DC6874CF260362C800CF89E4 /* CanvasRequestManager.swift in Sources */,
 				ACC154F626012F640000775C /* PlayerActionEventManager.swift in Sources */,
 				D50C88E0262178E2001DBDD6 /* PaintBucketSplash.swift in Sources */,
