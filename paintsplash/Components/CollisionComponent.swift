@@ -160,7 +160,7 @@ class EnemyCollisionComponent: CollisionComponent {
                                 size: Constants.ENEMY_BIG_SIZE,
                                 radius: Constants.ENEMY_BIG_RADIUS)
         biggerEnemy.spawn()
-        biggerEnemy.stateComponent.currentState = EnemyState.Idle(enemy: biggerEnemy)
+        biggerEnemy.stateComponent.setState(EnemyState.Idle(enemy: biggerEnemy))
     }
 
     private func onCollideWithPlayerProjectile(with: Collidable) {
