@@ -57,8 +57,8 @@ class ConnectionHandlerStub: ConnectionHandler {
     }
 
     func getData<T>(at path: String,
-                    block: @escaping (Error?, T?) -> Void) where T: Decodable, T: Encodable {
-        block(error, (getObject as? T))
+                    callback: @escaping (Error?, T?) -> Void) where T: Decodable, T: Encodable {
+        callback(error, (getObject as? T))
     }
 
     func getData(at path: String,

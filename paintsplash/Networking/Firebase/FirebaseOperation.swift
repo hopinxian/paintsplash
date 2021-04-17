@@ -7,7 +7,7 @@
 
 struct FirebaseOperation {
     let path: String
-    let data: [String: Any]?
+    let data: Any?
     let onSuccess: (() -> Void)?
     let onError: ((Error?) -> Void)?
 }

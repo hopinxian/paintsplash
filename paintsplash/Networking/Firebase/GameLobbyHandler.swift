@@ -60,7 +60,7 @@ class GameLobbyHandler: LobbyHandler {
         // Try to join a room
         let roomPath = DataPaths.joinPaths(DataPaths.rooms, roomId)
 
-        connectionHandler.getData(at: roomPath, block: { [weak self] (_: Error?, roomInfo: RoomInfo?) in
+        connectionHandler.getData(at: roomPath, callback: { [weak self] (_: Error?, roomInfo: RoomInfo?) in
             guard let roomInfo = roomInfo else {
                 onRoomNotExist?()
                 return
@@ -123,7 +123,7 @@ class GameLobbyHandler: LobbyHandler {
     ) {
         let roomPath = DataPaths.joinPaths(DataPaths.rooms, roomId)
 
-        connectionHandler.getData(at: roomPath, block: { [weak self] (error: Error?, roomInfo: RoomInfo?) in
+        connectionHandler.getData(at: roomPath, callback: { [weak self] (error: Error?, roomInfo: RoomInfo?) in
             guard let roomInfo = roomInfo else {
                 onError?(error)
                 return
@@ -131,7 +131,7 @@ class GameLobbyHandler: LobbyHandler {
 
             // If player is host: remove room
             if roomInfo.host == playerInfo {
-                self?.connectionHandler.removeData(at: roomPath, block: { error in
+                self?.connectionHandler.removeData(at: roomPath, callBack: { error in
                     if error != nil {
                         print("host leave room error")
                         onError?(error)
@@ -145,7 +145,7 @@ class GameLobbyHandler: LobbyHandler {
 
             // If player is guest:
             let playerPath = DataPaths.joinPaths(roomPath, DataPaths.game_players, playerInfo.playerUUID)
-            self?.connectionHandler.removeData(at: playerPath, block: { error in
+            self?.connectionHandler.removeData(at: playerPath, callBack: { error in
                 if error != nil {
                     print("guest leave room error")
                     onError?(error)
@@ -177,7 +177,7 @@ class GameLobbyHandler: LobbyHandler {
     ) {
         let roomPath = DataPaths.joinPaths(DataPaths.rooms, roomId)
 
-        connectionHandler.getData(at: roomPath, block: { [weak self] (_: Error?, roomInfo: RoomInfo?) in
+        connectionHandler.getData(at: roomPath, callback: { [weak self] (_: Error?, roomInfo: RoomInfo?) in
             guard var roomInfo = roomInfo else {
                 print("Room does not exist anymore")
                 return
@@ -250,7 +250,7 @@ class GameLobbyHandler: LobbyHandler {
             to: gameRunningPath, data: false,
             shouldRemoveOnDisconnect: false,
             onComplete: { [weak self] in
-                self?.connectionHandler.removeData(at: gamePath, block: { error in
+                self?.connectionHandler.removeData(at: gamePath, callBack: { error in
                     if error != nil {
                         onError?(error)
                         return
@@ -267,7 +267,7 @@ class GameLobbyHandler: LobbyHandler {
             DataPaths.games, roomInfo.gameID,
             DataPaths.game_isRunning
         )
-        connectionHandler.observeSingleValue(to: gameRunningPath, callBack: { (isRunning: Bool?) in
+        connectionHandler.listenToSingleValue(to: gameRunningPath, callBack: { (isRunning: Bool?) in
             guard let isRunning = isRunning else {
                 return
             }
