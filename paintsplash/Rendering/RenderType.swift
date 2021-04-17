@@ -7,7 +7,7 @@
 
 enum RenderType {
     case sprite(spriteName: String)
-    case label(text: String, fontName: String, fontSize: Double, fontColor: Color)
+    case label(text: String, fontName: String, fontSize: Double, fontColor: FontColor)
     case scene(name: String)
 }
 
@@ -28,7 +28,7 @@ extension RenderType: Codable {
         let text: String
         let fontName: String
         let fontSize: Double
-        let fontColor: Color
+        let fontColor: FontColor
     }
 
     private struct SceneParams: Codable {
