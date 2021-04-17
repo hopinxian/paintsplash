@@ -97,7 +97,7 @@ class AVAudioPlayerImpl: NSObject, AVAudioPlayerDelegate, AudioPlayer {
     }
 
     private func setUpAndPlayAudio(_ player: AVAudioPlayer, loops: Int,
-                                     volume: Float, isDuplicate: Bool = false) -> Bool {
+                                   volume: Float, isDuplicate: Bool = false) -> Bool {
         player.numberOfLoops = loops
         player.volume = volume
         player.prepareToPlay()
@@ -126,4 +126,3 @@ class AVAudioPlayerImpl: NSObject, AVAudioPlayerDelegate, AudioPlayer {
         removePlayerIfDuplicate(player)
     }
 }
-
