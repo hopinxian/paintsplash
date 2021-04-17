@@ -9,7 +9,6 @@ import Foundation
 
 class MultiplayerClient: SinglePlayerGameManager {
     var room: RoomInfo
-
     var connectionHandler: ConnectionHandler = FirebaseConnectionHandler()
     var gameConnectionHandler: GameConnectionHandler =
         PaintSplashGameHandler(connectionHandler: FirebaseConnectionHandler())
@@ -37,7 +36,7 @@ class MultiplayerClient: SinglePlayerGameManager {
         player.spawn()
     }
 
-    override func setUpEntities() {
+    override func setUpGeneralGameplayEntities() {
     }
 
     func setUpObservers() {

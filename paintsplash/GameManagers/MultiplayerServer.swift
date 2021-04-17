@@ -8,17 +8,14 @@ import Foundation
 
 class MultiplayerServer: SinglePlayerGameManager {
     var room: RoomInfo
-    var connectionHandler: ConnectionHandler
-    var gameConnectionHandler: GameConnectionHandler?
+    var connectionHandler = FirebaseConnectionHandler()
+    var gameConnectionHandler: GameConnectionHandler =
+        PaintSplashGameHandler(connectionHandler: FirebaseConnectionHandler())
 
     private var collisionDetector: SKCollisionDetector!
 
     init(roomInfo: RoomInfo, gameScene: GameScene, vc: GameViewController) {
         self.room = roomInfo
-        let connectionHandler = FirebaseConnectionHandler()
-        self.connectionHandler = connectionHandler
-        self.gameConnectionHandler = PaintSplashGameHandler(connectionHandler: connectionHandler)
-
         super.init(gameScene: gameScene, vc: vc)
     }
 
@@ -58,7 +55,7 @@ class MultiplayerServer: SinglePlayerGameManager {
                 guard event.playerId == playerID else {
                     return
                 }
-                self?.gameConnectionHandler?.sendEvent(
+                self?.gameConnectionHandler.sendEvent(
                     gameId: gameId,
                     playerId: playerID.id,
                     action: event,
@@ -75,7 +72,7 @@ class MultiplayerServer: SinglePlayerGameManager {
                 guard event.playerId == playerID else {
                     return
                 }
-                self?.gameConnectionHandler?.sendEvent(
+                self?.gameConnectionHandler.sendEvent(
                     gameId: gameId,
                     playerId: playerID.id,
                     action: event,
@@ -92,7 +89,7 @@ class MultiplayerServer: SinglePlayerGameManager {
                 guard event.playerId == playerID else {
                     return
                 }
-                self?.gameConnectionHandler?.sendEvent(
+                self?.gameConnectionHandler.sendEvent(
                     gameId: gameId,
                     playerId: playerID.id,
                     action: event,
@@ -111,7 +108,7 @@ class MultiplayerServer: SinglePlayerGameManager {
 
             guard let playerId = event.playerId else {
                 players.forEach {
-                    self?.gameConnectionHandler?.sendEvent(
+                    self?.gameConnectionHandler.sendEvent(
                         gameId: gameId,
                         playerId: $0.key,
                         action: event,
@@ -122,7 +119,7 @@ class MultiplayerServer: SinglePlayerGameManager {
                 return
             }
 
-            self?.gameConnectionHandler?.sendEvent(
+            self?.gameConnectionHandler.sendEvent(
                 gameId: gameId,
                 playerId: playerId.id,
                 action: event,
@@ -141,7 +138,7 @@ class MultiplayerServer: SinglePlayerGameManager {
 
                 guard let playerId = event.playerId else {
                     players.forEach {
-                        self?.gameConnectionHandler?.sendEvent(
+                        self?.gameConnectionHandler.sendEvent(
                             gameId: gameId,
                             playerId: $0.key,
                             action: event,
@@ -152,7 +149,7 @@ class MultiplayerServer: SinglePlayerGameManager {
                     return
                 }
 
-                self?.gameConnectionHandler?.sendEvent(
+                self?.gameConnectionHandler.sendEvent(
                     gameId: gameId,
                     playerId: playerId.id,
                     action: event,
@@ -171,7 +168,7 @@ class MultiplayerServer: SinglePlayerGameManager {
 
                 print("sending")
                 event.score = self?.currentLevel?.score.score
-                self?.gameConnectionHandler?.sendEvent(
+                self?.gameConnectionHandler.sendEvent(
                     gameId: gameId,
                     playerId: playerID.id,
                     action: event,
@@ -184,7 +181,7 @@ class MultiplayerServer: SinglePlayerGameManager {
     private func setupClientObservers(playerID: EntityID, gameId: String) {
         // Listen to user input from clients
         // Shooting input
-        self.gameConnectionHandler?.observeEvent(
+        self.gameConnectionHandler.observeEvent(
             gameId: gameId,
             playerId: playerID.id,
             onChange: { (event: PlayerShootEvent) in
@@ -194,7 +191,7 @@ class MultiplayerServer: SinglePlayerGameManager {
         )
 
         // Movement input
-        self.gameConnectionHandler?.observeEvent(
+        self.gameConnectionHandler.observeEvent(
             gameId: gameId,
             playerId: playerID.id,
             onChange: { (event: PlayerMoveEvent) in
@@ -204,7 +201,7 @@ class MultiplayerServer: SinglePlayerGameManager {
         )
 
         // Weapon change
-        self.gameConnectionHandler?.observeEvent(
+        self.gameConnectionHandler.observeEvent(
             gameId: gameId,
             playerId: playerID.id,
             onChange: { (event: PlayerChangeWeaponEvent) in
@@ -251,26 +248,15 @@ class MultiplayerServer: SinglePlayerGameManager {
             animationSystemData: animationSystemData,
             colorSystemData: colorSystemData
         )
-        gameConnectionHandler?.sendSystemData(data: systemData, gameID: room.gameID)
+        gameConnectionHandler.sendSystemData(data: systemData, gameID: room.gameID)
     }
 
     override func update(_ deltaTime: Double) {
+        super.update(deltaTime)
+
         if !gameIsOver {
-            currentLevel?.update(deltaTime)
-            aiSystem.updateEntities(deltaTime)
-            collisionSystem.updateEntities(deltaTime)
-            movementSystem.updateEntities(deltaTime)
-            entities.forEach({ $0.update(deltaTime) })
-            playerSystem.updateEntities(deltaTime)
-
             sendGameState()
-
-            transformSystem.updateEntities(deltaTime)
-            renderSystem.updateEntities(deltaTime)
-            animationSystem.updateEntities(deltaTime)
         }
-
-        userInputSystem.updateEntities(deltaTime)
     }
 
     func readClientPlayerData(data: SystemData?) {

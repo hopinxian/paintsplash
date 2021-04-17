@@ -7,14 +7,14 @@
 
 import SpriteKit
 
-class  SinglePlayerGameManager: GameManager {
+class SinglePlayerGameManager: GameManager {
     weak var gameScene: GameScene?
     weak var viewController: GameViewController?
 
-    // game entities that should change
+    // Game entities that should change over time
     var entities = Set<GameEntity>()
 
-    // game entities that are specific to player and do not change
+    // Game entities that are specific to player and do not change over time
     var uiEntities = Set<GameEntity>()
 
     var currentLevel: Level?
@@ -71,7 +71,7 @@ class  SinglePlayerGameManager: GameManager {
     func setupGame() {
         setUpSystems()
         setUpPlayer()
-        setUpEntities()
+        setUpGeneralGameplayEntities()
         setUpUI()
         setUpAudio()
     }
@@ -112,7 +112,7 @@ class  SinglePlayerGameManager: GameManager {
         player.spawn()
     }
 
-    func setUpEntities() {
+    func setUpGeneralGameplayEntities() {
         let canvasSpawner = CanvasSpawner(
             initialPosition: Constants.CANVAS_SPAWNER_POSITION,
             canvasVelocity: Vector2D(0.4, 0),
@@ -214,11 +214,6 @@ class  SinglePlayerGameManager: GameManager {
                                         position: Constants.SCORE_DISPLAY_POSITION)
         scoreDisplay.spawn()
 
-//        let sceneNode = SceneNode(sceneName: "Hello.sks",
-//            size: Constants.SCORE_DISPLAY_SIZE,
-//                                        position: Constants.SCORE_DISPLAY_POSITION)
-//        sceneNode.spawn()
-
         let lights = LightDisplay(size: Constants.LIGHT_DISPLAY_SIZE,
                                   position: Constants.LIGHT_DISPLAY_POSITION)
         lights.spawn()
@@ -277,17 +272,17 @@ class  SinglePlayerGameManager: GameManager {
     func update(_ deltaTime: Double) {
         if !gameIsOver || currentLevel == nil {
             currentLevel?.update(deltaTime)
-            transformSystem?.updateEntities(deltaTime)
-            aiSystem?.updateEntities(deltaTime)
-            renderSystem?.updateEntities(deltaTime)
-            animationSystem?.updateEntities(deltaTime)
-            collisionSystem?.updateEntities(deltaTime)
-            movementSystem?.updateEntities(deltaTime)
-            playerSystem?.updateEntities(deltaTime)
+            aiSystem.updateEntities(deltaTime)
+            collisionSystem.updateEntities(deltaTime)
+            movementSystem.updateEntities(deltaTime)
+            playerSystem.updateEntities(deltaTime)
+            transformSystem.updateEntities(deltaTime)
+            renderSystem.updateEntities(deltaTime)
+            animationSystem.updateEntities(deltaTime)
+            userInputSystem.updateEntities(deltaTime)
 
             entities.forEach({ $0.update(deltaTime) })
         }
-        userInputSystem.updateEntities(deltaTime)
     }
 
     private func onGameOver(event: GameOverEvent) {
@@ -308,9 +303,5 @@ class  SinglePlayerGameManager: GameManager {
 
     private func onQuit() {
         viewController?.closeGame()
-    }
-
-    deinit {
-        print("deinit SinglePlayerGameManager")
     }
 }
