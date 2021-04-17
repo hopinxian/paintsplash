@@ -50,7 +50,7 @@ class AVAudioPlayerImpl: NSObject, AVAudioPlayerDelegate, AudioPlayer {
 
         return playFromExistingPlayer(player, loops: loops, volume: volume)
     }
-    
+
     /// Stops an audio track with the specified ID.
     ///
     /// - Parameters:
@@ -126,3 +126,4 @@ class AVAudioPlayerImpl: NSObject, AVAudioPlayerDelegate, AudioPlayer {
         removePlayerIfDuplicate(player)
     }
 }
+
