@@ -50,10 +50,10 @@ class EnemySpawner: GameEntity, StatefulEntity, Transformable, Renderable, Anima
 
         super.init()
 
-        self.stateComponent.currentState = EnemySpawnerState.Idle(
+        self.stateComponent.setState(EnemySpawnerState.Idle(
             spawner: self,
             idleTime: 3.0
-        )
+        ))
 
         // Assign weak references to components
         collisionComp.spawner = self

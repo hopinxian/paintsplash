@@ -54,7 +54,7 @@ class Canvas: GameEntity, StatefulEntity, Renderable, Collidable, Transformable,
 
         super.init()
 
-        self.stateComponent.currentState = CanvasState.Moving(canvas: self)
+        self.stateComponent.setState(CanvasState.Moving(canvas: self))
 
         // Assign weak references to components
         collisionComp.canvas = self

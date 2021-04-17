@@ -63,9 +63,9 @@ class Enemy: GameEntity, StatefulEntity, Renderable, Animatable, Collidable, Mov
         // 50% chance of entering random movement state, or chasing player state
         let isChasing = Bool.random()
         if isChasing {
-            self.stateComponent.currentState = EnemyState.ChasingLeft(enemy: self)
+            self.stateComponent.setState(EnemyState.ChasingLeft(enemy: self))
         } else {
-            self.stateComponent.currentState = EnemyState.Idle(enemy: self)
+            self.stateComponent.setState(EnemyState.Idle(enemy: self))
         }
 
         // Assign weak references to components

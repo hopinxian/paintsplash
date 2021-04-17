@@ -41,7 +41,7 @@ class GameStateManagerSystem: StateManagerSystem {
 
     private func updateEntityState(_ stateComponent: StateComponent) {
         if let newState = stateComponent.getNextState() {
-            stateComponent.currentState = newState
+            stateComponent.setState(newState)
         } else {
             stateComponent.currentState.onStayState()
         }

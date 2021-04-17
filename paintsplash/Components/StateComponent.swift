@@ -6,12 +6,7 @@
 //
 
 class StateComponent: Component {
-    var currentState: State {
-        didSet {
-            oldValue.onLeaveState()
-            currentState.onEnterState()
-        }
-    }
+    var currentState: State
 
     override init() {
         self.currentState = NoState()
@@ -23,5 +18,11 @@ class StateComponent: Component {
 
     func getNextState() -> State? {
         currentState.getStateTransition()
+    }
+
+    func setState(_ state: State) {
+        currentState.onLeaveState()
+        currentState = state
+        currentState.onEnterState()
     }
 }
