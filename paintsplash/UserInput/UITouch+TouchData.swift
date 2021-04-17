@@ -7,8 +7,12 @@
 
 import SpriteKit
 
-extension UITouch: Touchable {
+extension UITouch: TouchData {
     func getTouchId() -> EntityID {
-        EntityID(id: "TOUCH\(self.hash)")
+        EntityID(id: "TOUCH\(hash)")
+    }
+
+    func getTapCount() -> Int {
+        tapCount
     }
 }

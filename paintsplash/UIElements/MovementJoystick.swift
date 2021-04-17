@@ -7,7 +7,7 @@
 
 class MovementJoystick: Joystick {
     override func touchMove(event: TouchMoveEvent) {
-        guard event.associatedId == trackedId else {
+        guard event.touchId == trackedId else {
             return
         }
 
@@ -17,7 +17,7 @@ class MovementJoystick: Joystick {
     }
 
     override func touchUp(event: TouchUpEvent) {
-        guard event.associatedId == trackedId else {
+        guard event.touchId == trackedId else {
             return
         }
 
