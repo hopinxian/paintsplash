@@ -12,6 +12,13 @@ class AVAudioPlayerImpl: NSObject, AVAudioPlayerDelegate, AudioPlayer {
     private var duplicates: [AVAudioPlayer] = []
     private var audioPlayerIdMap = BidirectionalMap<AVAudioPlayer, EntityID>()
 
+    // MARK: Deinitializer
+    deinit {
+        players.values.forEach { $0.stop() }
+        duplicates.forEach { $0.stop() }
+    }
+
+    // MARK: Protocol Conformance
     var isPlaying: Bool {
         for player in players.values where player.isPlaying {
             return true
@@ -24,23 +31,30 @@ class AVAudioPlayerImpl: NSObject, AVAudioPlayerDelegate, AudioPlayer {
         return false
     }
 
-    deinit {
-        players.values.forEach { $0.stop() }
-        duplicates.forEach { $0.stop() }
-    }
-
+    /// Plays an audio file.
+    ///
+    /// - Parameters:
+    ///     - url: The URL of the track that is to be played.
+    ///     - loops: The number of times the audio track is to be looped. -1 for an endless loop.
+    ///     - volume: The volume of the track. 0 for minimum, 1 for maximum.
+    /// - Returns:
+    ///     - An optional ID if the audio playback is successful.
     @discardableResult func playAudio(from url: URL, loops: Int, volume: Float) -> EntityID? {
         guard let player = players[url] else {
-            return createNewPlayerAndPlay(url, loops: loops, volume: volume)
+            return playFromNewPlayer(url, loops: loops, volume: volume, isDuplicate: false)
         }
 
         guard !player.isPlaying else {
-            return playFromDuplicatePlayer(url, loops: loops, volume: volume)
+            return playFromNewPlayer(url, loops: loops, volume: volume, isDuplicate: true)
         }
 
         return playFromExistingPlayer(player, loops: loops, volume: volume)
     }
-
+    
+    /// Stops an audio track with the specified ID.
+    ///
+    /// - Parameters:
+    ///     - id: The EntityID of the audio track.
     func stop(_ id: EntityID) {
         guard let player = audioPlayerIdMap[id] else {
             return
@@ -50,52 +64,39 @@ class AVAudioPlayerImpl: NSObject, AVAudioPlayerDelegate, AudioPlayer {
         removePlayerIfDuplicate(player)
     }
 
+    /// Stops all audio tracks.
     func stopAll() {
         players.values.forEach { $0.stop() }
         duplicates.forEach { $0.stop() }
     }
 
+    // MARK: Utility Functions
+
     @discardableResult
     private func playFromExistingPlayer(_ player: AVAudioPlayer, loops: Int, volume: Float) -> EntityID? {
-        playAudioFromPlayer(player, loops: loops, volume: volume) ? audioPlayerIdMap[player] : nil
+        setUpAndPlayAudio(player, loops: loops, volume: volume) ? audioPlayerIdMap[player] : nil
     }
 
     @discardableResult
-    private func createNewPlayerAndPlay(_ url: URL, loops: Int, volume: Float) -> EntityID? {
-        assert(players[url] == nil)
-
+    private func playFromNewPlayer(_ url: URL, loops: Int, volume: Float, isDuplicate: Bool) -> EntityID? {
         guard let player = createNewPlayer(fromUrl: url),
-              playAudioFromPlayer(player, loops: loops, volume: volume) else {
+            setUpAndPlayAudio(player, loops: loops, volume: volume, isDuplicate: true) else {
             return nil
         }
 
         // Only store player if it is playing audio
-        players[url] = player
+        if isDuplicate {
+            duplicates.append(player)
+        } else {
+            players[url] = player
+        }
+
         let id = EntityID()
         audioPlayerIdMap[player] = id
         return id
     }
 
-    @discardableResult
-    private func playFromDuplicatePlayer(_ url: URL, loops: Int, volume: Float) -> EntityID? {
-        guard let newPlayer = createNewPlayer(fromUrl: url),
-              playAudioFromPlayer(newPlayer, loops: loops, volume: volume, isDuplicate: true) else {
-            return nil
-        }
-
-        // Only store player if it is playing audio
-        duplicates.append(newPlayer)
-        let id = EntityID()
-        audioPlayerIdMap[newPlayer] = id
-
-        return id
-    }
-
-    private func createNewPlayer(fromUrl url: URL) -> AVAudioPlayer? {
-        try? AVAudioPlayer(contentsOf: url)
-    }
-
-    private func playAudioFromPlayer(_ player: AVAudioPlayer, loops: Int,
+    private func setUpAndPlayAudio(_ player: AVAudioPlayer, loops: Int,
                                      volume: Float, isDuplicate: Bool = false) -> Bool {
         player.numberOfLoops = loops
         player.volume = volume
@@ -109,6 +110,10 @@ class AVAudioPlayerImpl: NSObject, AVAudioPlayerDelegate, AudioPlayer {
         return player.isPlaying
     }
 
+    private func createNewPlayer(fromUrl url: URL) -> AVAudioPlayer? {
+        try? AVAudioPlayer(contentsOf: url)
+    }
+
     private func removePlayerIfDuplicate(_ player: AVAudioPlayer) {
         if let index = duplicates.firstIndex(of: player) {
             duplicates.remove(at: index)
@@ -116,6 +121,7 @@ class AVAudioPlayerImpl: NSObject, AVAudioPlayerDelegate, AudioPlayer {
         }
     }
 
+    // MARK: Delegate Conformance
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         removePlayerIfDuplicate(player)
     }
