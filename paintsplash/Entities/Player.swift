@@ -42,7 +42,7 @@ class Player: GameEntity,
         self.transformComponent = BoundedTransformComponent(
             position: initialPosition,
             rotation: 0.0,
-            size: Vector2D(128, 128),
+            size: Constants.PLAYER_SIZE,
             bounds: Constants.PLAYER_MOVEMENT_BOUNDS
         )
 

@@ -25,12 +25,13 @@
 		842B5CE42604882F00FCF7BD /* ScoreEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842B5CE32604882F00FCF7BD /* ScoreEvent.swift */; };
 		842B5CE92604885800FCF7BD /* ScoreEventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842B5CE82604885800FCF7BD /* ScoreEventManager.swift */; };
 		842B5CEE26048D2B00FCF7BD /* Points.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842B5CED26048D2B00FCF7BD /* Points.swift */; };
-		844E9A522625AF0200A51E59 /* Level.csv in Resources */ = {isa = PBXBuildFile; fileRef = 844E9A512625AEF600A51E59 /* Level.csv */; };
 		8453F2C7260C89AE00FFD8AE /* SpawnCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8453F2C6260C89AE00FFD8AE /* SpawnCommand.swift */; };
 		8453F2CB260C8A0D00FFD8AE /* EnemyCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8453F2CA260C8A0D00FFD8AE /* EnemyCommand.swift */; };
 		8453F2D1260C911A00FFD8AE /* EnemySpawnerCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8453F2D0260C911A00FFD8AE /* EnemySpawnerCommand.swift */; };
-		8453F2D7260C917000FFD8AE /* CanvasSpawnerCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8453F2D6260C917000FFD8AE /* CanvasSpawnerCommand.swift */; };
+		8453F2D7260C917000FFD8AE /* CanvasRequestCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8453F2D6260C917000FFD8AE /* CanvasRequestCommand.swift */; };
 		8453F2DB260C920C00FFD8AE /* AmmoDropCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8453F2DA260C920C00FFD8AE /* AmmoDropCommand.swift */; };
+		84578FA6262B18A50069A9F9 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84578FA5262B18A50069A9F9 /* Parser.swift */; };
+		84578FB8262B4D260069A9F9 /* Level.csv in Resources */ = {isa = PBXBuildFile; fileRef = 84578FB7262B4D260069A9F9 /* Level.csv */; };
 		846D4FB526023F300079720F /* AmmoHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846D4FB126023F2F0079720F /* AmmoHelper.swift */; };
 		846D4FD6260241670079720F /* SlimeDie.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 846D4FD1260241660079720F /* SlimeDie.atlas */; };
 		846D4FD7260241670079720F /* SlimeMoveRight.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 846D4FD2260241660079720F /* SlimeMoveRight.atlas */; };
@@ -270,7 +271,6 @@
 		D5D9201425FB9ACB00E70364 /* PaintAmmoDrop.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D9201325FB9ACB00E70364 /* PaintAmmoDrop.swift */; };
 		D5DC909125FCC4210038DF71 /* AtlasAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5DC909025FCC4210038DF71 /* AtlasAnimation.swift */; };
 		D5E3962026261AA300250EEC /* FontColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E3961F26261AA300250EEC /* FontColor.swift */; };
-		D5E3962E2626AA4C00250EEC /* Level2.csv in Resources */ = {isa = PBXBuildFile; fileRef = D5E3962D2626AA4C00250EEC /* Level2.csv */; };
 		DC04EAB4260EECFB00D7DDFF /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC04EAB3260EECFB00D7DDFF /* MenuViewController.swift */; };
 		DC08DA5C26051243000F4F90 /* CanvasHitEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC08DA5B26051243000F4F90 /* CanvasHitEvent.swift */; };
 		DC08DA6A260516DE000F4F90 /* CanvasEndMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC08DA69260516DE000F4F90 /* CanvasEndMarker.swift */; };
@@ -361,12 +361,13 @@
 		842B5CE32604882F00FCF7BD /* ScoreEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreEvent.swift; sourceTree = "<group>"; };
 		842B5CE82604885800FCF7BD /* ScoreEventManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreEventManager.swift; sourceTree = "<group>"; };
 		842B5CED26048D2B00FCF7BD /* Points.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Points.swift; sourceTree = "<group>"; };
-		844E9A512625AEF600A51E59 /* Level.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Level.csv; sourceTree = "<group>"; };
 		8453F2C6260C89AE00FFD8AE /* SpawnCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpawnCommand.swift; sourceTree = "<group>"; };
 		8453F2CA260C8A0D00FFD8AE /* EnemyCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyCommand.swift; sourceTree = "<group>"; };
 		8453F2D0260C911A00FFD8AE /* EnemySpawnerCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemySpawnerCommand.swift; sourceTree = "<group>"; };
-		8453F2D6260C917000FFD8AE /* CanvasSpawnerCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasSpawnerCommand.swift; sourceTree = "<group>"; };
+		8453F2D6260C917000FFD8AE /* CanvasRequestCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasRequestCommand.swift; sourceTree = "<group>"; };
 		8453F2DA260C920C00FFD8AE /* AmmoDropCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmmoDropCommand.swift; sourceTree = "<group>"; };
+		84578FA5262B18A50069A9F9 /* Parser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
+		84578FB7262B4D260069A9F9 /* Level.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Level.csv; sourceTree = "<group>"; };
 		846D4FAD26023F2F0079720F /* PaintGunTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaintGunTests.swift; sourceTree = "<group>"; };
 		846D4FAE26023F2F0079720F /* BucketTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BucketTests.swift; sourceTree = "<group>"; };
 		846D4FB026023F2F0079720F /* Projectile+getColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Projectile+getColor.swift"; sourceTree = "<group>"; };
@@ -619,7 +620,6 @@
 		D5D9201325FB9ACB00E70364 /* PaintAmmoDrop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaintAmmoDrop.swift; sourceTree = "<group>"; };
 		D5DC909025FCC4210038DF71 /* AtlasAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AtlasAnimation.swift; sourceTree = "<group>"; };
 		D5E3961F26261AA300250EEC /* FontColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontColor.swift; sourceTree = "<group>"; };
-		D5E3962D2626AA4C00250EEC /* Level2.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Level2.csv; sourceTree = "<group>"; };
 		DC04EAB3260EECFB00D7DDFF /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		DC08DA5B26051243000F4F90 /* CanvasHitEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasHitEvent.swift; sourceTree = "<group>"; };
 		DC08DA69260516DE000F4F90 /* CanvasEndMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasEndMarker.swift; sourceTree = "<group>"; };
@@ -746,7 +746,7 @@
 			children = (
 				8453F2C6260C89AE00FFD8AE /* SpawnCommand.swift */,
 				8453F2CA260C8A0D00FFD8AE /* EnemyCommand.swift */,
-				8453F2D6260C917000FFD8AE /* CanvasSpawnerCommand.swift */,
+				8453F2D6260C917000FFD8AE /* CanvasRequestCommand.swift */,
 				8453F2DA260C920C00FFD8AE /* AmmoDropCommand.swift */,
 				8453F2D0260C911A00FFD8AE /* EnemySpawnerCommand.swift */,
 			);
@@ -851,8 +851,7 @@
 			isa = PBXGroup;
 			children = (
 				D58F92CB2629A9740021C812 /* GoogleService-Info.plist */,
-				844E9A512625AEF600A51E59 /* Level.csv */,
-				D5E3962D2626AA4C00250EEC /* Level2.csv */,
+				84578FB7262B4D260069A9F9 /* Level.csv */,
 				ACB3607025F661620016E240 /* paintsplash */,
 				ACB3608825F661630016E240 /* paintsplashTests */,
 				ACB3606F25F661620016E240 /* Products */,
@@ -1390,6 +1389,7 @@
 				D598F53C26019E7300D7CACB /* SpaceConverter.swift */,
 				ACFD820D25F6773B009D806B /* Vector2D.swift */,
 				ACFD820E25F6773B009D806B /* Vector2D+CoreGraphics.swift */,
+				84578FA5262B18A50069A9F9 /* Parser.swift */,
 				8402D29625FE106800493DDE /* Math.swift */,
 				D5C56908260A3528009E5BD9 /* BidirectionalMap.swift */,
 			);
@@ -1692,16 +1692,15 @@
 				AC5F0B7F2601130500E28D49 /* PlayerBrushWalkRight.atlas in Resources */,
 				ACF8D7942625E7A200DBE60C /* Hello.sks in Resources */,
 				D5673331261EA37300FD1D15 /* EnemyStep.mp3 in Resources */,
+				84578FB8262B4D260069A9F9 /* Level.csv in Resources */,
 				D50C88D826215E53001DBDD6 /* TEstView.xib in Resources */,
 				ACB3607D25F661620016E240 /* Main.storyboard in Resources */,
-				844E9A522625AF0200A51E59 /* Level.csv in Resources */,
 				AC5F0B812601130500E28D49 /* PlayerBrushAttackLeft.atlas in Resources */,
 				DC0EE8A725FE650200CBF414 /* SpawnerIdle.atlas in Resources */,
 				D5673333261EA37300FD1D15 /* EnemyDie.mp3 in Resources */,
 				D5673365261EF8EE00FD1D15 /* GameOverLose.wav in Resources */,
 				D5673330261EA37300FD1D15 /* EnemySpawn.wav in Resources */,
 				D5673334261EA37300FD1D15 /* PlayerStep.mp3 in Resources */,
-				D5E3962E2626AA4C00250EEC /* Level2.csv in Resources */,
 				DCA9714B261F72D600631305 /* SHKColorize.fsh in Resources */,
 				AC5F0B7E2601130500E28D49 /* PlayerBrushAttackRight.atlas in Resources */,
 				ACB3607425F661620016E240 /* GameScene.sks in Resources */,
@@ -1893,7 +1892,7 @@
 				D50FD6C72612058B00491CAC /* Background.swift in Sources */,
 				ACB3607825F661620016E240 /* GameScene.swift in Sources */,
 				D55A8AA225FBB4E000BBE210 /* Tags.swift in Sources */,
-				8453F2D7260C917000FFD8AE /* CanvasSpawnerCommand.swift in Sources */,
+				8453F2D7260C917000FFD8AE /* CanvasRequestCommand.swift in Sources */,
 				AC11994426053CFB003BA54B /* AudioEvent.swift in Sources */,
 				D55EEB8626008AAE00ADC70B /* PaintAmmoDisplay.swift in Sources */,
 				D570452E261830DA004AF802 /* MovementJoystick.swift in Sources */,
@@ -2039,6 +2038,7 @@
 				DC7B421C25FF63350069B422 /* Event.swift in Sources */,
 				D53F549C260D971B00635B05 /* EnemyState+Idle.swift in Sources */,
 				DCF66401261592490046AFC1 /* MultiplayerClient.swift in Sources */,
+				84578FA6262B18A50069A9F9 /* Parser.swift in Sources */,
 				840A334826060626007BC34D /* AmmoType.swift in Sources */,
 				D53F54F2260DA03500635B05 /* PlayerState+AttackRight.swift in Sources */,
 				D53F543A260D94A800635B05 /* Animatable.swift in Sources */,
@@ -2259,14 +2259,14 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = VX9JN3A7N9;
+				DEVELOPMENT_TEAM = 5Q6AP63883;
 				INFOPLIST_FILE = paintsplash/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = crawlers.paintsplashes100;
+				PRODUCT_BUNDLE_IDENTIFIER = crawlers.paintsplashes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -2282,14 +2282,14 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = VX9JN3A7N9;
+				DEVELOPMENT_TEAM = 5Q6AP63883;
 				INFOPLIST_FILE = paintsplash/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = crawlers.paintsplashes100;
+				PRODUCT_BUNDLE_IDENTIFIER = crawlers.paintsplashes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;

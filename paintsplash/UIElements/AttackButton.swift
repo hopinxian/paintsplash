@@ -1,13 +1,13 @@
-////
-////  AttackButton.swift
-////  paintsplash
-////
-////  Created by Praveen Bala on 17/3/21.
-////
 //
-//import Foundation
+//  AttackButton.swift
+//  paintsplash
 //
-//class AttackButton: UIEntity, Renderable {
+//  Created by Praveen Bala on 17/3/21.
+//
+//
+// import Foundation
+//
+// class AttackButton: UIEntity, Renderable {
 //    var renderComponent: RenderComponent
 //    var transformComponent: TransformComponent
 //
@@ -55,4 +55,4 @@
 //        )
 //        EventSystem.processedInputEvents.playerShootEvent.post(event: event)
 //    }
-//}
+// }

@@ -8,104 +8,89 @@
 import UIKit
 import Foundation
 
+/**
+ `Level` represents the set of events that happen during a level.
+ A level consists of a number of `SpawnCommands` that it will perform
+ when the event is running.
+ A level can be configured to have limits on the number of enemies or drops
+ on the scene, or to repeat itself for a set number of times.
+ */
 class Level {
-    private(set) var spawnEvents: [SpawnCommand] = []
-
-    var rng = RandomNumber(100)
-
-    var repeatLimit: Int?
-    var bufferBetweenLoop = 5.0 // in seconds
-    private var gameInfo: GameInfo
-
+    /// Sets a limit on the number of enemies and drops that can be on the screen
     static var enemyCapacity = 5
     static var dropCapacity = 5
 
-    private var canvasRequestManager: CanvasRequestManager
-    private(set) var canvasSpawnInterval = 2.0
-    private(set) var lastSpawnDate: Date!
+    /// Represents the number of times the level repeats itself
+    /// Nil when the level repeats infinitely
+    var repeatLimit: Int?
+    var bufferBetweenLoop = 5.0
+    private var gameInfo: GameInfo
+    private var requestManager: CanvasRequestManager
+    private(set) var spawnCmd: [SpawnCommand] = []
 
-    /// Runtime information
+    /// Information for when the level is running
     private(set) var isRunning = false
-    private(set) var loopStartTime: Date!
-    private(set) var nextSpawnEvent: Int = 0
+    private(set) var loopStartTime = Date()
+    private(set) var nextCmdIndex = 0
     private(set) var currentLoop = 1
     private(set) var score: LevelScore
 
-    static let defaultInterval = 10.0
-    static let defaultCanvasSize = Vector2D(200, 200)
-
-    let bounds = Constants.PLAYER_MOVEMENT_BOUNDS
-
-    var gameOver = false
-
     init(canvasManager: CanvasRequestManager, gameInfo: GameInfo) {
-        self.canvasRequestManager = canvasManager
+        self.requestManager = canvasManager
         self.gameInfo = gameInfo
-
-        // TODO: comment out
-        canvasRequestManager.addRequest(colors: [.yellow])
-
         score = LevelScore()
     }
 
-    func run() {
-        if spawnEvents.isEmpty {
+    func start() {
+        if spawnCmd.isEmpty {
             return
         }
-        score.reset()
-        score.freeze = false
+        setUp()
         isRunning = true
-        spawnEvents.sort()
-        currentLoop = 1
-        nextSpawnEvent = 0
-        loopStartTime = Date()
-        lastSpawnDate = Date()
     }
 
-    func update(_ deltaTime: Double) {
+    /// Resets the level information for running
+    func setUp() {
+        score.reset()
+        score.freeze = false
+        spawnCmd.sort()
+        currentLoop = 1
+        nextCmdIndex = 0
+        loopStartTime = Date()
+    }
+
+    /// Runs the level for the given amount of time.
+    func run(_ deltaTime: Double) {
         guard isRunning else {
             return
         }
 
+        // spawns all commands that should occur in the given time
         var timeSinceLoopStart = Date().timeIntervalSince(loopStartTime)
-        while timeSinceLoopStart >= spawnEvents[nextSpawnEvent].time {
-            spawnEvents[nextSpawnEvent].spawnIntoLevel(gameInfo: gameInfo)
-            nextSpawnEvent += 1
-            if nextSpawnEvent == spawnEvents.count {
-                currentLoop += 1
-                nextSpawnEvent = 0
-                if let limit = repeatLimit, currentLoop > limit {
-                    isRunning = false
-                    gameOver = true
+        while timeSinceLoopStart >= spawnCmd[nextCmdIndex].time {
+            spawnCmd[nextCmdIndex].spawnIntoLevel(gameInfo: gameInfo)
+
+            nextCmdIndex += 1
+            if nextCmdIndex == spawnCmd.count { // one loop has completed
+                moveToNextLoop()
+                if let limit = repeatLimit,
+                   currentLoop > limit {
+                    // the game has finished running all loops
+                    stop()
                     EventSystem.gameStateEvents.gameOverEvent.post(event: GameOverEvent(isWin: true))
                     break
                 }
-                loopStartTime = Date() + bufferBetweenLoop
             }
-            timeSinceLoopStart = Date().timeIntervalSince(loopStartTime)
-        }
 
-        let timeSinceLastRquest = Date().timeIntervalSince(lastSpawnDate)
-        if timeSinceLastRquest >= canvasSpawnInterval {
-            let request = getRandomRequest()
-            canvasRequestManager.addRequest(colors: request)
-            lastSpawnDate = Date()
+            timeSinceLoopStart = Date().timeIntervalSince(loopStartTime)
         }
     }
 
-    func getRandomRequest() -> Set<PaintColor> {
-        let randomNumber = rng.nextInt(1..<4)
-        var request = Set<PaintColor>()
-        let colors = PaintColor.allCases.filter {
-//            $0 != PaintColor.white
-            !$0.contains(color: .white)
-        }
-        let length = colors.count
-        for _ in 1...randomNumber {
-            let randomColor = colors[rng.nextInt(0..<length)]
-            request.insert(randomColor)
-        }
-        return request
+    /// Updates the level information to shift to next loop when running
+    private func moveToNextLoop() {
+        currentLoop += 1
+        nextCmdIndex = 0
+        loopStartTime = Date() + bufferBetweenLoop
     }
 
     func stop() {
@@ -118,44 +103,42 @@ class Level {
         score.freeze = false
     }
 
-    func addSpawnEvent(_ event: SpawnCommand) {
-        spawnEvents.append(event)
+    func addCommand(_ cmd: SpawnCommand) {
+        if let request = cmd as? CanvasRequestCommand {
+            request.requestManager = requestManager
+        }
+        spawnCmd.append(cmd)
     }
 
-    func removeSpawnEvent(_ event: SpawnCommand) {
-        if let index = spawnEvents.firstIndex(of: event) {
-            spawnEvents.remove(at: index)
+    func removeCommand(_ cmd: SpawnCommand) {
+        if let index = spawnCmd.firstIndex(of: cmd) {
+            spawnCmd.remove(at: index)
         }
     }
 
-    func clearAll() {
-        spawnEvents = []
+    func clearCommands() {
+        spawnCmd = []
     }
 
-    /// enemies from the given level will start appearing after enemies from the current level is done
+    /// Commands from the given level will appear after commands from the current level is done
     func append(level: Level) {
-        let delay = spawnEvents.map { $0.time }.max() ?? bufferBetweenLoop
-        for event in level.spawnEvents {
+        // delay is the time needed for one loop of this level to be completed
+        let delay = spawnCmd.map { $0.time }.max() ?? 0
+        for event in level.spawnCmd {
             event.time += delay
-            spawnEvents.append(event)
+            spawnCmd.append(event)
         }
     }
 
-    /// enemies from both levels are overlayed along the timeline
+    /// Commands from both levels are overlayed along the same timeline
     func overlay(level: Level) {
-        spawnEvents += level.spawnEvents
-    }
-
-    /// intended for mass appearance of identical enemies
-    func addSpawnEvent(_ event: SpawnCommand, times: Int) {
-        for _ in 0..<times {
-            addSpawnEvent(event)
-        }
+        spawnCmd += level.spawnCmd
     }
 
     static func getDefaultLevel(canvasManager: CanvasRequestManager, gameInfo: GameInfo) -> Level {
-        let path = "Level2"
-        let level = LevelReader(filePath: path).readLevel(canvasManager: canvasManager, gameInfo: gameInfo)
+        let path = "Level"
+        let level = LevelReader(filePath: path)
+            .readLevel(canvasManager: canvasManager, gameInfo: gameInfo)
         return level
     }
 }

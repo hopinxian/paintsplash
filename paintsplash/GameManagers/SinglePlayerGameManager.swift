@@ -39,7 +39,7 @@ class  SinglePlayerGameManager: GameManager {
     init(gameScene: GameScene, vc: GameViewController) {
         self.gameScene = gameScene
         self.viewController = vc
-        let gameInfo = GameInfo(playerPosition: Vector2D.zero, numberOfEnemies: 0)
+        let gameInfo = GameInfo(playerPosition: Vector2D.zero)
         self.gameInfoManager = GameInfoManager(gameInfo: gameInfo)
 
         setupEventListeners()
@@ -139,7 +139,7 @@ class  SinglePlayerGameManager: GameManager {
             canvasManager: canvasManager,
             gameInfo: gameInfoManager.gameInfo
         )
-        currentLevel?.run()
+        currentLevel?.start()
     }
 
     func setUpAudio() {
@@ -276,7 +276,7 @@ class  SinglePlayerGameManager: GameManager {
 
     func update(_ deltaTime: Double) {
         if !gameIsOver || currentLevel == nil {
-            currentLevel?.update(deltaTime)
+            currentLevel?.run(deltaTime)
             transformSystem?.updateEntities(deltaTime)
             aiSystem?.updateEntities(deltaTime)
             renderSystem?.updateEntities(deltaTime)

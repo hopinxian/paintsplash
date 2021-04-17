@@ -40,7 +40,7 @@ class PaintSplashPlayerSystem: PlayerSystem {
         processedInputEvents = []
     }
 
-    private func sendEvent(event: ProcessedInputEvent,to entity: PlayableCharacter) {
+    private func sendEvent(event: ProcessedInputEvent, to entity: PlayableCharacter) {
         switch event {
         case let playerMoveEvent as PlayerMoveEvent:
             entity.playableComponent.onMove(event: playerMoveEvent)

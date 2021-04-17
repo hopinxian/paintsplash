@@ -71,7 +71,7 @@ class PlayerComponent: PlayableComponent {
         let attackState = player.lastDirection.x > 0
             ? PlayerState.AttackRight(player: player, attackDirection: direction)
             : PlayerState.AttackLeft(player: player, attackDirection: direction)
-        
+
         player.stateComponent.setState(attackState)
     }
 

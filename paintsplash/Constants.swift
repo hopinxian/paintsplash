@@ -45,6 +45,7 @@ struct Constants {
     // Gameplay
     static let CANVAS_MOVE_SPEED = 25.0
     static let CANVAS_MOVE_DIRECTION = Vector2D(1, 0)
+    static let PLAYER_SIZE = Vector2D(128, 128)
     static let PLAYER_MOVE_SPEED = 700.0
     static let ENEMY_MOVE_SPEED = 40.0
     static let PROJECTILE_MOVE_SPEED = 1_050.0
