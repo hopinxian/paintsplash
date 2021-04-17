@@ -30,14 +30,14 @@ extension EnemySpawnerState {
 
         private func onHitOver() {
             if spawner.healthComponent.currentHealth <= 0 {
-                spawner.stateComponent.currentState = Die(spawner: spawner)
+                spawner.stateComponent.setState(Die(spawner: spawner))
                 return
             }
 
-            spawner.stateComponent.currentState = Idle(
+            spawner.stateComponent.setState(Idle(
                 spawner: spawner,
                 idleTime: Constants.ENEMY_SPAWNER_INTERVAL
-            )
+            ))
         }
     }
 }

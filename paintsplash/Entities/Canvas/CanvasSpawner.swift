@@ -22,7 +22,6 @@ class CanvasSpawner: GameEntity, StatefulEntity, Transformable {
 
         super.init()
 
-        self.stateComponent.currentState =
-            CanvasSpawnerState.Idle(spawner: self, idleTime: 1)
+        self.stateComponent.setState(CanvasSpawnerState.Idle(spawner: self, idleTime: 1))
     }
 }
