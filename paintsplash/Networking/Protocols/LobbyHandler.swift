@@ -10,8 +10,6 @@ protocol LobbyHandler: AnyObject {
                     onSuccess: ((RoomInfo) -> Void)?,
                     onError: ((Error?) -> Void)?)
 
-    func getAllRooms()
-
     func joinRoom(player: PlayerInfo,
                   roomId: String,
                   onSuccess: ((RoomInfo) -> Void)?,

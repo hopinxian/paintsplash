@@ -64,8 +64,6 @@ class MultiplayerMenuViewController: UIViewController {
 
     private func onCreateRoom(roomInfo: RoomInfo) {
         self.currentRoom = roomInfo
-        lobbyHandler.getAllRooms()
-
         performSegue(withIdentifier: SegueIdentifiers.multiplayerMenuToRoom, sender: nil)
     }
 

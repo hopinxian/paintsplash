@@ -14,9 +14,11 @@ class GameLobbyHandler: LobbyHandler {
         self.connectionHandler = connectionHandler
     }
 
+    /// Creates a room with a unique 4-digit ID code for another user to join in Multiplayer mode
     func createRoom(player: PlayerInfo, onSuccess: ((RoomInfo) -> Void)?, onError: ((Error?) -> Void)?) {
-        // Generate unique room code to return to player
-        let roomId = randomFourCharString()
+        // Generate unique room code
+        let roomId = randomFourDigitString()
+
         let roomPath = DataPaths.joinPaths(DataPaths.rooms, roomId)
         connectionHandler.getData(at: roomPath) { [weak self] error, roomInfo in
             guard error == nil else {
@@ -29,7 +31,8 @@ class GameLobbyHandler: LobbyHandler {
                 self?.createRoom(player: player, onSuccess: onSuccess, onError: onError)
                 return
             }
-            print("creating new room")
+
+            // Create and write new room information to database
             let newRoomInfo = RoomInfo(roomId: roomId, host: player, players: [:], isOpen: true)
             self?.connectionHandler.send(
                 to: roomPath,
@@ -41,7 +44,7 @@ class GameLobbyHandler: LobbyHandler {
         }
     }
 
-    private func randomFourCharString() -> String {
+    private func randomFourDigitString() -> String {
         var string = ""
         for _ in 0..<4 {
             string += String(Int.random(in: 0...9))
@@ -49,11 +52,13 @@ class GameLobbyHandler: LobbyHandler {
         return string
     }
 
+    /// Allows a player to join an existing room in Multiplayer mode
     func joinRoom(
         player: PlayerInfo,
         roomId: String,
         onSuccess: ((RoomInfo) -> Void)?,
-        onError: ((Error?) -> Void)?, onRoomIsClosed: (() -> Void)?,
+        onError: ((Error?) -> Void)?,
+        onRoomIsClosed: (() -> Void)?,
         onRoomNotExist: (() -> Void)?
     ) {
         // Try to join a room
@@ -69,26 +74,16 @@ class GameLobbyHandler: LobbyHandler {
                 onRoomIsClosed?()
                 return
             }
-            // TODO: check if we should close room immediately
-            let players = roomInfo.players ?? [:]
-            // check that player doesn't already exist
-            guard players[player.playerUUID] == nil else {
-                print("Player already exists")
+
+            guard let newRoomInfo = self?.addPlayerToRoomInfo(room: roomInfo, player: player) else {
                 onError?(nil)
                 return
             }
 
-            // Add guest as one of the players
-            var newRoomInfo = roomInfo
-            newRoomInfo.players = [:]
-            newRoomInfo.players?[player.playerUUID] = player
-            let roomPath = DataPaths.joinPaths(
-                DataPaths.rooms, roomId,
-                DataPaths.rooms_players, player.playerUUID
-            )
+            let roomPlayerPath = DataPaths.joinPaths(roomPath, DataPaths.rooms_players, player.playerUUID)
 
             self?.connectionHandler.send(
-                to: roomPath,
+                to: roomPlayerPath,
                 data: player,
                 shouldRemoveOnDisconnect: true,
                 onComplete: { onSuccess?(newRoomInfo) },
@@ -97,6 +92,24 @@ class GameLobbyHandler: LobbyHandler {
         })
     }
 
+    private func addPlayerToRoomInfo(room: RoomInfo, player: PlayerInfo) -> RoomInfo? {
+        let players = room.players ?? [:]
+
+        // Check that player doesn't already exist in room
+        guard players[player.playerUUID] == nil else {
+            return nil
+        }
+
+        // Add guest as one of the players and close game
+        var newRoomInfo = room
+        newRoomInfo.players = [:]
+        newRoomInfo.players?[player.playerUUID] = player
+        newRoomInfo.closeGame()
+
+        return newRoomInfo
+    }
+
+    /// Observe the room for any changes in state and invoke the relevant callbacks
     func observeRoom(
         roomId: String,
         onRoomChange: ((RoomInfo) -> Void)?,
@@ -106,14 +119,20 @@ class GameLobbyHandler: LobbyHandler {
         let roomPath = DataPaths.joinPaths(DataPaths.rooms, roomId)
 
         connectionHandler.listen(to: roomPath) { (roomInfo: RoomInfo?) in
+            // If room no longer exists
             guard let roomInfo = roomInfo else {
                 onRoomClose?()
                 return
             }
+
+            // If room still exists and has changed
             onRoomChange?(roomInfo)
         }
     }
 
+    /// Allows a player to leave the room
+    /// If the leaving player is the room's host, the room is removed from the database
+    /// If the leaving player is a guest, the player's info is erased and the room's status is set to open
     func leaveRoom(
         playerInfo: PlayerInfo,
         roomId: String,
@@ -122,75 +141,80 @@ class GameLobbyHandler: LobbyHandler {
     ) {
         let roomPath = DataPaths.joinPaths(DataPaths.rooms, roomId)
 
+        // Fetch room information from database
         connectionHandler.getData(at: roomPath, callback: { [weak self] (error: Error?, roomInfo: RoomInfo?) in
             guard let roomInfo = roomInfo else {
                 onError?(error)
                 return
             }
 
-            // If player is host: remove room
             if roomInfo.host == playerInfo {
-                self?.connectionHandler.removeData(at: roomPath, callBack: { error in
-                    if error != nil {
-                        print("host leave room error")
-                        onError?(error)
-                        return
-                    }
-                    print("Player was host and closed room")
-                    onSuccess?()
-                    return
-                })
+                self?.handleHostLeaveRoom(roomPath: roomPath, onSuccess: onSuccess, onError: onError)
+                return
             }
 
-            // If player is guest:
-            let playerPath = DataPaths.joinPaths(roomPath, DataPaths.game_players, playerInfo.playerUUID)
-            self?.connectionHandler.removeData(at: playerPath, callBack: { error in
-                if error != nil {
-                    print("guest leave room error")
-                    onError?(error)
-                    return
-                }
-                print("Player was guest and left room")
-                let roomIsOpenPath = DataPaths.joinPaths(roomPath, DataPaths.rooms_isOpen)
-                self?.connectionHandler.sendSingleValue(to: roomIsOpenPath, data: true,
-                                                        shouldRemoveOnDisconnect: false,
-                                                        onComplete: onSuccess, onError: onError)
-            })
+            // Player leaving the room is a guest
+            self?.handleGuestLeaveRoom(roomPath: roomPath, guestInfo: playerInfo,
+                                       onSuccess: onSuccess, onError: onError)
+
         })
     }
 
-    func getAllRooms() {
-        connectionHandler.getData(at: DataPaths.rooms) { error, _ in
-            if let err = error {
-                print("Error fetching all rooms \(err)")
+    private func handleHostLeaveRoom(roomPath: String, onSuccess: (() -> Void)?, onError: ((Error?) -> Void)?) {
+        // Remove room information upon host leaving
+        self.connectionHandler.removeData(at: roomPath, callBack: { error in
+            if error != nil {
+                onError?(error)
                 return
             }
-        }
+            onSuccess?()
+            return
+        })
     }
+
+    private func handleGuestLeaveRoom(roomPath: String,
+                                      guestInfo: PlayerInfo,
+                                      onSuccess: (() -> Void)?,
+                                      onError: ((Error?) -> Void)?) {
+
+        let playerPath = DataPaths.joinPaths(roomPath, DataPaths.game_players, guestInfo.playerUUID)
+
+        // Remove player information from room
+        self.connectionHandler.removeData(at: playerPath, callBack: { [weak self] error in
+            guard error == nil else {
+                onError?(error)
+                return
+            }
+            // Set room status to open once player has left
+            self?.changeRoomOpenStatus(roomPath: roomPath, isOpen: true,
+                                       onSuccess: onSuccess, onError: onError)
+
+        })
+    }
+
+    private func changeRoomOpenStatus(roomPath: String, isOpen: Bool, onSuccess: (() -> Void)?,
+                                      onError: ((Error?) -> Void)?) {
+        let roomIsOpenPath = DataPaths.joinPaths(roomPath, DataPaths.rooms_isOpen)
+        self.connectionHandler.sendSingleValue(to: roomIsOpenPath,
+                                               data: true,
+                                               shouldRemoveOnDisconnect: false,
+                                               onComplete: onSuccess, onError: onError)
+    }
+
 
     func startGame(
         roomId: String,
         player: PlayerInfo,
         onSuccess: ((RoomInfo) -> Void)?,
-        onError: ((Error?) -> Void)?
-    ) {
+        onError: ((Error?) -> Void)? ) {
+
         let roomPath = DataPaths.joinPaths(DataPaths.rooms, roomId)
 
         connectionHandler.getData(at: roomPath, callback: { [weak self] (_: Error?, roomInfo: RoomInfo?) in
-            guard var roomInfo = roomInfo else {
-                print("Room does not exist anymore")
-                return
-            }
-
-            // Check if player starting game is host
-            if player != roomInfo.host {
-                print("player is not host and cannot start game")
-                return
-            }
-
-            guard roomInfo.players != nil else {
-                // TODO: handle UI for this, condition unreachable
-                print("Insufficient players to start multiplayer game")
+            guard var roomInfo = roomInfo,
+                  let canStartGame = self?.canStartGame(roomInfo: roomInfo, player: player),
+                  canStartGame else {
+                onError?(nil)
                 return
             }
 
@@ -205,7 +229,10 @@ class GameLobbyHandler: LobbyHandler {
                                          data: newGame,
                                          shouldRemoveOnDisconnect: true,
                                          onComplete: nil,
-                                         onError: onError)
+                                         onError: { error in
+                                            onError?(error)
+                                            return
+                                         })
 
             // Update game state for room
             roomInfo.gameID = newGameId
@@ -220,6 +247,15 @@ class GameLobbyHandler: LobbyHandler {
                 onError: onError
             )
         })
+    }
+
+    private func canStartGame(roomInfo: RoomInfo, player: PlayerInfo) -> Bool {
+        player == roomInfo.host && roomInfo.players != nil
+    }
+
+    private func updateGameStateForRoom(roomInfo: RoomInfo, newGameId: String) {
+        let roomPath = DataPaths.joinPaths(DataPaths.rooms, roomInfo.roomId)
+
     }
 
     func stopGame(roomInfo: RoomInfo, onSuccess: (() -> Void)?, onError: ((Error?) -> Void)?) {
@@ -261,6 +297,7 @@ class GameLobbyHandler: LobbyHandler {
         )
     }
 
+    /// Observer game information for a given room
     func observeGame(roomInfo: RoomInfo, onGameStop: (() -> Void)?, onError: ((Error?) -> Void)?) {
         let gameRunningPath = DataPaths.joinPaths(
             DataPaths.games, roomInfo.gameID,
