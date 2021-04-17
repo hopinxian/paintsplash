@@ -3,7 +3,6 @@
 //  paintsplash
 //
 //  Created by Cynthia Lee on 27/3/21.
-// swiftlint:disable function_parameter_count closure_body_length
 
 import Firebase
 
@@ -53,15 +52,10 @@ class GameLobbyHandler: LobbyHandler {
     }
 
     /// Allows a player to join an existing room in Multiplayer mode
-    func joinRoom(
-        player: PlayerInfo,
-        roomId: String,
-        onSuccess: ((RoomInfo) -> Void)?,
-        onError: ((Error?) -> Void)?,
-        onRoomIsClosed: (() -> Void)?,
-        onRoomNotExist: (() -> Void)?
-    ) {
-        // Try to join a room
+    func joinRoom(player: PlayerInfo, roomId: String,
+                  onSuccess: ((RoomInfo) -> Void)?, onError: ((Error?) -> Void)?,
+                  onRoomIsClosed: (() -> Void)?, onRoomNotExist: (() -> Void)?) {
+
         let roomPath = DataPaths.joinPaths(DataPaths.rooms, roomId)
 
         connectionHandler.getData(at: roomPath, callback: { [weak self] (_: Error?, roomInfo: RoomInfo?) in
@@ -110,12 +104,8 @@ class GameLobbyHandler: LobbyHandler {
     }
 
     /// Observe the room for any changes in state and invoke the relevant callbacks
-    func observeRoom(
-        roomId: String,
-        onRoomChange: ((RoomInfo) -> Void)?,
-        onRoomClose: (() -> Void)?,
-        onError: ((Error?) -> Void)?
-    ) {
+    func observeRoom(roomId: String, onRoomChange: ((RoomInfo) -> Void)?,
+                     onRoomClose: (() -> Void)?, onError: ((Error?) -> Void)?) {
         let roomPath = DataPaths.joinPaths(DataPaths.rooms, roomId)
 
         connectionHandler.listen(to: roomPath) { (roomInfo: RoomInfo?) in
@@ -133,12 +123,9 @@ class GameLobbyHandler: LobbyHandler {
     /// Allows a player to leave the room
     /// If the leaving player is the room's host, the room is removed from the database
     /// If the leaving player is a guest, the player's info is erased and the room's status is set to open
-    func leaveRoom(
-        playerInfo: PlayerInfo,
-        roomId: String,
-        onSuccess: (() -> Void)?,
-        onError: ((Error?) -> Void)?
-    ) {
+    func leaveRoom(playerInfo: PlayerInfo, roomId: String,
+                   onSuccess: (() -> Void)?, onError: ((Error?) -> Void)?) {
+
         let roomPath = DataPaths.joinPaths(DataPaths.rooms, roomId)
 
         // Fetch room information from database
@@ -156,7 +143,6 @@ class GameLobbyHandler: LobbyHandler {
             // Player leaving the room is a guest
             self?.handleGuestLeaveRoom(roomPath: roomPath, guestInfo: playerInfo,
                                        onSuccess: onSuccess, onError: onError)
-
         })
     }
 
@@ -172,10 +158,8 @@ class GameLobbyHandler: LobbyHandler {
         })
     }
 
-    private func handleGuestLeaveRoom(roomPath: String,
-                                      guestInfo: PlayerInfo,
-                                      onSuccess: (() -> Void)?,
-                                      onError: ((Error?) -> Void)?) {
+    private func handleGuestLeaveRoom(roomPath: String, guestInfo: PlayerInfo,
+                                      onSuccess: (() -> Void)?, onError: ((Error?) -> Void)?) {
 
         let playerPath = DataPaths.joinPaths(roomPath, DataPaths.game_players, guestInfo.playerUUID)
 
@@ -192,8 +176,8 @@ class GameLobbyHandler: LobbyHandler {
         })
     }
 
-    private func changeRoomOpenStatus(roomPath: String, isOpen: Bool, onSuccess: (() -> Void)?,
-                                      onError: ((Error?) -> Void)?) {
+    private func changeRoomOpenStatus(roomPath: String, isOpen: Bool,
+                                      onSuccess: (() -> Void)?, onError: ((Error?) -> Void)?) {
         let roomIsOpenPath = DataPaths.joinPaths(roomPath, DataPaths.rooms_isOpen)
         self.connectionHandler.sendSingleValue(to: roomIsOpenPath,
                                                data: true,
@@ -201,17 +185,14 @@ class GameLobbyHandler: LobbyHandler {
                                                onComplete: onSuccess, onError: onError)
     }
 
-
-    func startGame(
-        roomId: String,
-        player: PlayerInfo,
-        onSuccess: ((RoomInfo) -> Void)?,
-        onError: ((Error?) -> Void)? ) {
+    /// Allows a host player to start the game for both the host and guest
+    func startGame(roomId: String, player: PlayerInfo,
+                   onSuccess: ((RoomInfo) -> Void)?, onError: ((Error?) -> Void)? ) {
 
         let roomPath = DataPaths.joinPaths(DataPaths.rooms, roomId)
 
         connectionHandler.getData(at: roomPath, callback: { [weak self] (_: Error?, roomInfo: RoomInfo?) in
-            guard var roomInfo = roomInfo,
+            guard let roomInfo = roomInfo,
                   let canStartGame = self?.canStartGame(roomInfo: roomInfo, player: player),
                   canStartGame else {
                 onError?(nil)
@@ -235,17 +216,8 @@ class GameLobbyHandler: LobbyHandler {
                                          })
 
             // Update game state for room
-            roomInfo.gameID = newGameId
-            roomInfo.started = true
-            roomInfo.closeGame()
-            let roomGamePath = DataPaths.joinPaths(roomPath)
-            self?.connectionHandler.send(
-                to: roomGamePath,
-                data: roomInfo,
-                shouldRemoveOnDisconnect: true,
-                onComplete: { onSuccess?(roomInfo) },
-                onError: onError
-            )
+            self?.updateGameStartedForRoom(roomInfo: roomInfo, newGameId: newGameId,
+                                           onSuccess: onSuccess, onError: onError)
         })
     }
 
@@ -253,47 +225,69 @@ class GameLobbyHandler: LobbyHandler {
         player == roomInfo.host && roomInfo.players != nil
     }
 
-    private func updateGameStateForRoom(roomInfo: RoomInfo, newGameId: String) {
+    private func updateGameStartedForRoom(roomInfo: RoomInfo,
+                                          newGameId: String,
+                                          onSuccess: ((RoomInfo) -> Void)?,
+                                          onError: ((Error?) -> Void)?) {
+
         let roomPath = DataPaths.joinPaths(DataPaths.rooms, roomInfo.roomId)
 
+        var updatedRoomInfo = roomInfo
+        updatedRoomInfo.gameID = newGameId
+        updatedRoomInfo.started = true
+        updatedRoomInfo.closeGame()
+
+        self.connectionHandler.send(
+            to: roomPath,
+            data: updatedRoomInfo,
+            shouldRemoveOnDisconnect: true,
+            onComplete: { onSuccess?(updatedRoomInfo) },
+            onError: onError
+        )
     }
 
+    /// Ends the game for both the host and the guest
     func stopGame(roomInfo: RoomInfo, onSuccess: (() -> Void)?, onError: ((Error?) -> Void)?) {
         let gamePath = DataPaths.joinPaths(DataPaths.games, roomInfo.gameID)
-        let gameRunningPath = DataPaths.joinPaths(DataPaths.games, roomInfo.gameID,
-                                                  DataPaths.game_isRunning)
-
-        func changeGameStatus() {
-            let gameStartedPath = DataPaths.joinPaths(
-                DataPaths.rooms, roomInfo.roomId,
-                DataPaths.rooms_gameStarted
-            )
-
-            self.connectionHandler.sendSingleValue(
-                to: gameStartedPath,
-                data: false,
-                shouldRemoveOnDisconnect: false,
-                onComplete: {
-                    print("changed game status")
-                    onSuccess?()
-                },
-                onError: onError
-            )
-        }
+        let gameRunningPath = DataPaths.joinPaths(gamePath, DataPaths.game_isRunning)
 
         connectionHandler.sendSingleValue(
-            to: gameRunningPath, data: false,
+            to: gameRunningPath,
+            data: false,
             shouldRemoveOnDisconnect: false,
             onComplete: { [weak self] in
-                self?.connectionHandler.removeData(at: gamePath, callBack: { error in
-                    if error != nil {
-                        onError?(error)
-                        return
-                    }
-                    print("stopped game, removed game data")
-                    changeGameStatus()
-                })
+                self?.removeGameData(roomInfo: roomInfo, gamePath: gamePath,
+                                     onSuccess: onSuccess, onError: onError)
             }, onError: onError
+        )
+    }
+
+    private func removeGameData(roomInfo: RoomInfo, gamePath: String,
+                                onSuccess: (() -> Void)?, onError: ((Error?) -> Void)?) {
+        self.connectionHandler.removeData(at: gamePath, callBack: { [weak self] error in
+            if error != nil {
+                onError?(error)
+                return
+            }
+            self?.changeGameStarted(roomInfo: roomInfo, gameStarted: false,
+                                    onSuccess: onSuccess, onError: onError)
+        })
+    }
+
+    private func changeGameStarted(roomInfo: RoomInfo, gameStarted: Bool,
+                                   onSuccess: (() -> Void)?, onError: ((Error?) -> Void)?) {
+        let gameStartedPath = DataPaths.joinPaths(
+            DataPaths.rooms, roomInfo.roomId,
+            DataPaths.rooms_gameStarted
+        )
+        self.connectionHandler.sendSingleValue(
+            to: gameStartedPath,
+            data: gameStarted,
+            shouldRemoveOnDisconnect: false,
+            onComplete: {
+                onSuccess?()
+            },
+            onError: onError
         )
     }
 
