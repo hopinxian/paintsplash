@@ -14,7 +14,8 @@ extension EnemyState {
         private let direction: Vector2D
 
         init(enemy: Enemy,
-             direction: Vector2D = Vector2D.random(xRange: 0.9 ..< 1.0, yRange: -1.0..<1.0).unitVector,
+             direction: Vector2D =
+                Vector2D.random(xRange: 0.9 ..< 1.0, yRange: -1.0..<1.0).unitVector,
              duration: Double = Double.random(in: 1.0..<3.0)) {
             self.randomMoveRightTime = duration
             self.startTime = Date()
@@ -25,7 +26,10 @@ extension EnemyState {
         override func onEnterState() {
             enemy.moveableComponent.direction = direction
 
-            enemy.animationComponent.animate(animation: SlimeAnimations.slimeMoveRight, interupt: true)
+            enemy.animationComponent.animate(
+                animation: SlimeAnimations.slimeMoveRight,
+                interupt: true
+            )
 
             enemy.lastDirection = enemy.moveableComponent.direction
         }
@@ -51,18 +55,7 @@ extension EnemyState {
                 return nil
             }
 
-            // Randomly decide next state
-            let randomNum = Int.random(in: -1...1)
-            switch randomNum {
-            case 0:
-                return Idle(enemy: enemy)
-            case 1:
-                return RandomMovementRight(enemy: enemy)
-            case -1:
-                return RandomMovementLeft(enemy: enemy)
-            default:
-                return nil
-            }
+            return getRandomState()
         }
     }
 }

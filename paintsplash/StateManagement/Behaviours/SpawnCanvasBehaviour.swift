@@ -6,9 +6,10 @@
 //
 import Foundation
 
-class SpawnCanvasBehaviour: StateBehaviour {
-    func updateAI(aiEntity: StatefulEntity, aiGameInfo: GameInfo) {
-        guard let transformable = aiEntity as? Transformable else {
+/// Spawns a Canvas
+struct SpawnCanvasBehaviour: StateBehaviour {
+    func run(statefulEntity: StatefulEntity, gameInfo: GameInfo) {
+        guard let transformable = statefulEntity as? Transformable else {
             fatalError("AIEntity does not conform to the required protocols for SpawnEnemyBehaviour")
         }
 

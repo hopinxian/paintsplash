@@ -55,6 +55,10 @@ class MultiWeaponComponent: WeaponComponent {
 
         activeWeapon = weapon
         capacity = weapon.capacity
+
+        let sfxEvent = PlaySoundEffectEvent(effect: SoundEffect.weaponSwap, playerId: owner?.id)
+        EventSystem.audioEvent.playSoundEffectEvent.post(event: sfxEvent)
+
         return activeWeapon
     }
 

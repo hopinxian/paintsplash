@@ -7,7 +7,10 @@
 extension EnemySpawnerState {
     class Die: EnemySpawnerState {
         override func onEnterState() {
-            EventSystem.audioEvent.playSoundEffectEvent.post(event: PlaySoundEffectEvent(effect: SoundEffect.enemySpawn))
+            EventSystem.audioEvent.playSoundEffectEvent.post(
+                event: PlaySoundEffectEvent(effect: SoundEffect.enemySpawn)
+            )
+
             spawner.animationComponent.animate(
                 animation: SpawnerAnimations.spawnerDie,
                 interupt: true,

@@ -36,7 +36,7 @@ class SKNodeFactory {
         }
 
         node.zPosition = CGFloat(zPosition)
-
+        
         return node
     }
 

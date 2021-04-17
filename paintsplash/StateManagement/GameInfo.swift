@@ -6,6 +6,7 @@
 //
 import CoreGraphics
 
+/// Contains important game data required for game mechanics to operate.
 class GameInfo {
     var playerPosition: Vector2D
     var numberOfEnemies: Int

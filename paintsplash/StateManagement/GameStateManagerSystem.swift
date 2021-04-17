@@ -5,8 +5,9 @@
 //  Created by Farrell Nah on 26/3/21.
 //
 
+/// An implementation of the StateManagerSystem protocol for PaintSplash.
 class GameStateManagerSystem: StateManagerSystem {
-    var aiEntities = [GameEntity: StatefulEntity]()
+    var statefulEntities = [EntityID: StatefulEntity]()
     var gameInfo: GameInfo
 
     init(gameInfo: GameInfo) {
@@ -14,31 +15,40 @@ class GameStateManagerSystem: StateManagerSystem {
     }
 
     func addEntity(_ entity: GameEntity) {
-        guard let aiEntity = entity as? StatefulEntity else {
+        guard let statefulEntity = entity as? StatefulEntity else {
             return
         }
 
-        aiEntities[entity] = aiEntity
+        statefulEntities[entity.id] = statefulEntity
     }
 
     func removeEntity(_ entity: GameEntity) {
-        aiEntities[entity] = nil
+        statefulEntities[entity.id] = nil
     }
 
     func updateEntities(_ deltaTime: Double) {
-        for (entity, aiEntity) in aiEntities {
-            updateEntity(entity, aiEntity)
+        for (entity, statefulEntity) in statefulEntities {
+            updateEntity(entity, statefulEntity)
         }
     }
 
-    func updateEntity(_ entity: GameEntity, _ aiEntity: StatefulEntity) {
-        let aiComponent = aiEntity.stateComponent
-        if let newState = aiComponent.getNextState() {
-            aiComponent.currentState = newState
+    func updateEntity(_ entity: EntityID, _ statefulEntity: StatefulEntity) {
+        let stateComponent = statefulEntity.stateComponent
+
+        updateEntityState(stateComponent)
+        runStateBehaviour(statefulEntity, stateComponent)
+    }
+
+    private func updateEntityState(_ stateComponent: StateComponent) {
+        if let newState = stateComponent.getNextState() {
+            stateComponent.currentState = newState
         } else {
-            aiComponent.currentState.onStayState()
+            stateComponent.currentState.onStayState()
         }
-        let behaviour = aiComponent.getCurrentBehaviour()
-        behaviour.updateAI(aiEntity: aiEntity, aiGameInfo: gameInfo)
+    }
+
+    private func runStateBehaviour(_ statefulEntity: StatefulEntity, _ stateComponent: StateComponent) {
+        let behaviour = stateComponent.getCurrentBehaviour()
+        behaviour.run(statefulEntity: statefulEntity, gameInfo: gameInfo)
     }
 }

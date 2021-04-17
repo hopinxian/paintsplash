@@ -10,20 +10,36 @@ class GameInfoManager {
 
     init(gameInfo: GameInfo) {
         self.gameInfo = gameInfo
-        EventSystem.entityChangeEvents
-            .addEntityEvent.subscribe(listener: { [weak self] in
-                                        self?.updateAddEntity(event: $0)
-            })
+        setupListeners()
+    }
 
-        EventSystem.entityChangeEvents
-            .removeEntityEvent.subscribe(listener: { [weak self] in
-                                            self?.updateRemoveEntity(event: $0)
-            })
+    private func setupListeners() {
+        EventSystem
+            .entityChangeEvents
+            .addEntityEvent
+            .subscribe(
+                listener: { [weak self] in
+                    self?.updateAddEntity(event: $0)
+                }
+            )
 
-        EventSystem.playerActionEvent
-            .playerMovementEvent.subscribe(listener: { [weak self] in
-                                            self?.updatePlayerMove(event: $0)
-            })
+        EventSystem
+            .entityChangeEvents
+            .removeEntityEvent
+            .subscribe(
+                listener: { [weak self] in
+                    self?.updateRemoveEntity(event: $0)
+                }
+            )
+
+        EventSystem
+            .playerActionEvent
+            .playerMovementEvent
+            .subscribe(
+                listener: { [weak self] in
+                    self?.updatePlayerMove(event: $0)
+                }
+            )
     }
 
     func updatePlayerMove(event: PlayerMovementEvent) {

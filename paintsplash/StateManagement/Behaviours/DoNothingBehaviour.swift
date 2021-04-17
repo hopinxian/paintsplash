@@ -5,8 +5,9 @@
 //  Created by Farrell Nah on 24/3/21.
 //
 
+/// A behaviour where the entity does nothing
 struct DoNothingBehaviour: StateBehaviour {
-    func updateAI(aiEntity: StatefulEntity, aiGameInfo: GameInfo) {
+    func run(statefulEntity: StatefulEntity, gameInfo: GameInfo) {
         // Does Nothing
     }
 }

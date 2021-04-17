@@ -40,25 +40,4 @@ extension EnemySpawnerState {
             return DoNothingBehaviour()
         }
     }
-
-    class Hit: EnemySpawnerState {
-        override func onEnterState() {
-            EventSystem.audioEvent.playSoundEffectEvent.post(
-                event: PlaySoundEffectEvent(effect: SoundEffect.enemySpawn)
-            )
-            spawner.animationComponent.animate(
-                animation: SpawnerAnimations.spawnerHit,
-                interupt: true,
-                callBack: {
-                    if self.spawner.healthComponent.currentHealth <= 0 {
-                        self.spawner.stateComponent.currentState = Die(spawner: self.spawner)
-                        return
-                    }
-
-                    self.spawner.stateComponent.currentState =
-                        Idle(spawner: self.spawner, idleTime: Constants.ENEMY_SPAWNER_INTERVAL)
-                }
-            )
-        }
-    }
 }

@@ -5,59 +5,44 @@
 //  Created by Farrell Nah on 3/4/21.
 //
 
-class PlayableComponent: Component {
-    func onMove(event: PlayerMoveEvent) {
-        // Do Nothing by Default
-    }
-
-    func onAim(event: PlayerAimEvent) {
-        // Do Nothing by Default
-    }
-
-    func onShoot(event: PlayerShootEvent) {
-        // Do Nothing by Default
-    }
-
-    func onWeaponChange(event: PlayerChangeWeaponEvent) {
-        // Do Nothing by Default
-    }
-
-    func onBomb(event: PlayerBombEvent) {
-        // Do Nothing by Default
-    }
-}
-
 class PlayerComponent: PlayableComponent {
-    weak var player: Player?
+    weak var player: Player!
     private var aimGuide: AimGuide?
 
     override func onMove(event: PlayerMoveEvent) {
-        guard let player = player,
-              event.playerId == player.id else {
+        guard event.playerId == player.id else {
             return
         }
 
         player.moveableComponent.direction = event.direction
 
         player.lastDirection = event.direction.magnitude == 0 ? player.lastDirection : event.direction
-        let event = PlayerMovementEvent(
-            location: player.transformComponent.localPosition,
-            playerId: event.playerId
-        )
-        EventSystem.playerActionEvent.playerMovementEvent.post(event: event)
 
-        if var currentGuide = aimGuide as? Colorable {
-            if let nextGuide = player.multiWeaponComponent.activeWeapon.getAimGuide() as? Colorable {
-                if currentGuide.color != nextGuide.color {
-                    currentGuide.color = nextGuide.color
-                }
-            }
+        sendMovementEvent(id: event.playerId)
+        if didAmmoChange() {
+            updateAimGuide()
         }
     }
 
+    private func sendMovementEvent(id: EntityID) {
+        let event = PlayerMovementEvent(
+            location: player.transformComponent.localPosition,
+            playerId: id
+        )
+        EventSystem.playerActionEvent.playerMovementEvent.post(event: event)
+    }
+
+    private func didAmmoChange() -> Bool {
+        guard let currentGuide = aimGuide as? Colorable,
+              let nextGuide = player.multiWeaponComponent.activeWeapon.getAimGuide() as? Colorable else {
+            return false
+        }
+
+        return currentGuide.color != nextGuide.color
+    }
+
     override func onAim(event: PlayerAimEvent) {
-        guard let player = player,
-              event.playerId == player.id,
+        guard event.playerId == player.id,
               player.multiWeaponComponent.canShoot() else {
             return
         }
@@ -71,28 +56,40 @@ class PlayerComponent: PlayableComponent {
     }
 
     override func onShoot(event: PlayerShootEvent) {
-        guard let player = player,
-              event.playerId == player.id,
+        guard event.playerId == player.id,
               player.multiWeaponComponent.canShoot() else {
             return
         }
 
-        let direction = event.direction.magnitude > 0 ? event.direction : player.lastDirection
+        attack(direction: event.direction)
+        removeAimGuide()
+    }
+
+    private func attack(direction: Vector2D) {
+        let direction = direction.magnitude > 0 ? direction : player.lastDirection
 
         player.stateComponent.currentState = player.lastDirection.x > 0
             ? PlayerState.AttackRight(player: player, attackDirection: direction)
             : PlayerState.AttackLeft(player: player, attackDirection: direction)
+    }
 
+    private func removeAimGuide() {
         aimGuide?.destroy()
         aimGuide = nil
     }
 
     override func onWeaponChange(event: PlayerChangeWeaponEvent) {
-        guard let player = player,
-              event.playerId == player.id else {
+        guard event.playerId == player.id else {
             return
         }
-        switch event.newWeapon {
+
+        changeWeapon(to: event.newWeapon)
+        sendWeaponChangeEvent(event.newWeapon)
+        updateAimGuide()
+    }
+
+    private func changeWeapon(to type: Weapon.Type) {
+        switch type {
         case is Bucket.Type:
             _ = player.multiWeaponComponent.switchWeapon(to: Bucket.self)
         case is PaintGun.Type:
@@ -100,32 +97,27 @@ class PlayerComponent: PlayableComponent {
         default:
             break
         }
+    }
 
+    private func sendWeaponChangeEvent(_ weaponType: Weapon.Type) {
         let weaponChangeEvent = PlayerChangedWeaponEvent(
-            weapon: event.newWeapon,
+            weapon: weaponType,
             playerId: player.id
         )
 
         EventSystem.playerActionEvent.playerChangedWeaponEvent.post(event: weaponChangeEvent)
 
-        let sfxEvent = PlaySoundEffectEvent(effect: SoundEffect.weaponSwap, playerId: player.id)
-        EventSystem.audioEvent.playSoundEffectEvent.post(event: sfxEvent)
-
-        if let oldGuide = aimGuide {
-            let direction = oldGuide.direction
-            oldGuide.destroy()
-            aimGuide = player.multiWeaponComponent.getAimGuide()
-            aimGuide?.spawn()
-            aimGuide?.aim(at: direction)
-        }
     }
 
-    override func onBomb(event: PlayerBombEvent) {
-        guard let player = player,
-              event.playerId == player.id else {
+    private func updateAimGuide() {
+        guard let oldGuide = aimGuide else {
             return
         }
 
-        player.stateComponent.currentState = PlayerState.UseBomb(player: player, attackDirection: event.direction)
+        let direction = oldGuide.direction
+        oldGuide.destroy()
+        aimGuide = player.multiWeaponComponent.getAimGuide()
+        aimGuide?.spawn()
+        aimGuide?.aim(at: direction)
     }
 }

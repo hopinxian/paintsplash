@@ -27,9 +27,5 @@ extension PlayerState {
 
             return nil
         }
-
-        override func getBehaviour() -> StateBehaviour {
-            DoNothingBehaviour()
-        }
     }
 }
