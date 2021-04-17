@@ -42,7 +42,12 @@ class AVAudioPlayerImpl: NSObject, AVAudioPlayerDelegate, AudioPlayer {
     }
 
     func stop(_ id: EntityID) {
-        audioPlayerIdMap[id]?.stop()
+        guard let player = audioPlayerIdMap[id] else {
+            return
+        }
+
+        player.stop()
+        removePlayerIfDuplicate(player)
     }
 
     func stopAll() {
@@ -104,10 +109,14 @@ class AVAudioPlayerImpl: NSObject, AVAudioPlayerDelegate, AudioPlayer {
         return player.isPlaying
     }
 
-    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+    private func removePlayerIfDuplicate(_ player: AVAudioPlayer) {
         if let index = duplicates.firstIndex(of: player) {
             duplicates.remove(at: index)
             audioPlayerIdMap[player] = nil
         }
+    }
+
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        removePlayerIfDuplicate(player)
     }
 }
