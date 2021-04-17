@@ -60,48 +60,75 @@ class PlaySoundEffectEvent: AudioEvent, Codable {
     }
 }
 
-class StopMusicEvent: AudioEvent {
+class StopAudioEvent: AudioEvent {
     let playerId: EntityID?
+    let audioId: EntityID?
 
-    init(playerId: EntityID?) {
+    init(playerId: EntityID?, audioId: EntityID?) {
         self.playerId = playerId
+        self.audioId = audioId
         super.init()
     }
 
     override convenience init() {
-        self.init(playerId: nil)
+        self.init(playerId: nil, audioId: nil)
     }
 
     enum CodingKeys: String, CodingKey {
-        case playerId
+        case playerId, audioId
     }
 
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         playerId = try values.decode(EntityID.self, forKey: .playerId)
+        audioId = try values.decode(EntityID.self, forKey: .audioId)
         super.init()
     }
 }
 
-class StopSoundEffectEvent: AudioEvent {
-    let playerId: EntityID?
-
-    init(playerId: EntityID?) {
-        self.playerId = playerId
-        super.init()
-    }
-
-    override convenience init() {
-        self.init(playerId: nil)
-    }
-
-    enum CodingKeys: String, CodingKey {
-        case playerId
-    }
-
-    required init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        playerId = try values.decode(EntityID.self, forKey: .playerId)
-        super.init()
-    }
-}
+//
+//class StopMusicEvent: AudioEvent {
+//    let playerId: EntityID?
+//
+//    init(playerId: EntityID?) {
+//        self.playerId = playerId
+//        super.init()
+//    }
+//
+//    override convenience init() {
+//        self.init(playerId: nil)
+//    }
+//
+//    enum CodingKeys: String, CodingKey {
+//        case playerId
+//    }
+//
+//    required init(from decoder: Decoder) throws {
+//        let values = try decoder.container(keyedBy: CodingKeys.self)
+//        playerId = try values.decode(EntityID.self, forKey: .playerId)
+//        super.init()
+//    }
+//}
+//
+//class StopSoundEffectEvent: AudioEvent {
+//    let playerId: EntityID?
+//
+//    init(playerId: EntityID?) {
+//        self.playerId = playerId
+//        super.init()
+//    }
+//
+//    override convenience init() {
+//        self.init(playerId: nil)
+//    }
+//
+//    enum CodingKeys: String, CodingKey {
+//        case playerId
+//    }
+//
+//    required init(from decoder: Decoder) throws {
+//        let values = try decoder.container(keyedBy: CodingKeys.self)
+//        playerId = try values.decode(EntityID.self, forKey: .playerId)
+//        super.init()
+//    }
+//}

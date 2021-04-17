@@ -298,7 +298,7 @@ class  SinglePlayerGameManager: GameManager {
         )
         gameOverUI.spawn()
 
-        EventSystem.audioEvent.stopMusicEvent.post(event: StopMusicEvent())
+        EventSystem.audioEvent.stopAudioEvent.post(event: StopAudioEvent())
         if event.isWin {
             EventSystem.audioEvent.playMusicEvent.post(event: PlayMusicEvent(music: Music.gameOverWin))
         } else {

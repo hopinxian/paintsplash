@@ -11,13 +11,8 @@ struct Music: PlayableAudio {
     var loops: Int = 0
     var volume: Float = 0.2 {
         didSet {
-            if volume > 1 {
-                volume = 1
-            }
-
-            if volume < 0 {
-                volume = 0
-            }
+            volume = max(volume, 0)
+            volume = min(volume, 1)
         }
     }
 
