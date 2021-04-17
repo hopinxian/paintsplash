@@ -5,6 +5,9 @@
 //  Created by admin on 1/4/21.
 //
 
+/**
+ `GameInfoManager` updates `GameInfo` by listening to events.
+ */
 class GameInfoManager {
     var gameInfo: GameInfo
 
@@ -13,6 +16,7 @@ class GameInfoManager {
         setupListeners()
     }
 
+    /// Subscribes to events that are important for updating gaminfo.
     private func setupListeners() {
         EventSystem
             .entityChangeEvents
@@ -42,11 +46,11 @@ class GameInfoManager {
             )
     }
 
-    func updatePlayerMove(event: PlayerMovementEvent) {
+    private func updatePlayerMove(event: PlayerMovementEvent) {
         gameInfo.playerPosition = event.location
     }
 
-    func updateAddEntity(event: AddEntityEvent) {
+    private func updateAddEntity(event: AddEntityEvent) {
         switch event.entity {
         case let enemy as Enemy:
             gameInfo.numberOfEnemies += 1
@@ -66,7 +70,7 @@ class GameInfoManager {
         }
     }
 
-    func updateRemoveEntity(event: RemoveEntityEvent) {
+    private func updateRemoveEntity(event: RemoveEntityEvent) {
         switch event.entity {
         case let enemy as Enemy:
             gameInfo.numberOfEnemies -= 1

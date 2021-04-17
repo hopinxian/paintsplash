@@ -9,7 +9,7 @@ extension PlayerState {
     class MoveLeft: PlayerState {
         override func onEnterState() {
             player.animationComponent.animate(
-                animation: PlayerAnimations.playerBrushWalkLeft, 
+                animation: PlayerAnimations.playerBrushWalkLeft,
                 interupt: true
             )
         }

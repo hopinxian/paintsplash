@@ -7,66 +7,72 @@
 
 import Foundation
 
+/**
+ `LevelReader` reads in level information from a csv file.
+ */
 class LevelReader {
+    /// File path where the level is stored
     let filePath: String
 
     init(filePath: String) {
         self.filePath = filePath
     }
 
+    /// Returns a level that is read from the file path and initialized with the given arguments
     func readLevel(canvasManager: CanvasRequestManager, gameInfo: GameInfo) -> Level {
         let level = Level(canvasManager: canvasManager, gameInfo: gameInfo)
 
-        if let levelURL = Bundle.main.url(forResource: filePath, withExtension: "csv") {
-            if let levelDescription = try? String(contentsOf: levelURL) {
-
-                var commandsString = levelDescription.components(separatedBy: "\n")
-
-                // removes header labels
-                _ = commandsString.removeFirst()
-                let header = commandsString.removeFirst()
-                parseHeader(header, level)
-
-                // removes command labels
-                _ = commandsString.removeFirst()
-                for commandString in commandsString {
-                    if commandString.isEmpty {
-                        break
-                    }
-                    let event = parseStringToCommand(commandString)
-                    level.addSpawnEvent(event)
-                }
-                return level
-            }
+        guard let levelURL = Bundle.main.url(forResource: filePath,
+                                             withExtension: "csv"),
+            let levelDescription = try? String(contentsOf: levelURL) else {
+                fatalError("unable to find level file")
         }
-        fatalError("unable to find file")
+
+        var levelStringList = levelDescription.components(separatedBy: "\n")
+
+        // process level configuration
+        _ = levelStringList.removeFirst() // removes header for level configuration
+        let header = levelStringList.removeFirst()
+        parseHeader(header, level)
+
+        // process level commands
+        _ = levelStringList.removeFirst() // removes header for commands
+        for commandString in levelStringList {
+            if commandString.isEmpty {
+                break
+            }
+            let cmd = parseStringToCommand(commandString)
+            level.addCommand(cmd)
+        }
+        return level
     }
 
     private func parseHeader(_ header: String, _ level: Level) {
         var arg = header.components(separatedBy: ",")
-        arg = arg.map { removeWhitespace($0) }
+        arg = arg.map { Parser.trimWhitespace($0) }
+
         level.repeatLimit = parseLimit(arg[0])
         level.bufferBetweenLoop = parseLoopBuffer(arg[1]) ?? level.bufferBetweenLoop
-        Level.enemyCapacity = parseEnemyCapacity(arg[2]) ?? Level.enemyCapacity
-        Level.dropCapacity = parseDropCapacity(arg[3]) ?? Level.dropCapacity
+        Level.enemyCapacity = parseCapacity(arg[2]) ?? Level.enemyCapacity
+        Level.dropCapacity = parseCapacity(arg[3]) ?? Level.dropCapacity
     }
 
     private func parseStringToCommand(_ commandString: String) -> SpawnCommand {
         var arguments = commandString.components(separatedBy: ",")
-        arguments = arguments.map { removeWhitespace($0) }
+        arguments = arguments.map { Parser.trimWhitespace($0) }
+
         let command: SpawnCommand
         switch arguments[0].lowercased() {
         case "slime":
             command = parseEnemyCommand(arguments)
         case "slimespawner":
             command = parseEnemySpawnerCommand(arguments)
-        case "canvas":
-            command = parseCanvasSpawnerCommand(arguments)
+        case "request":
+            command = parseCanvasRequestCommand(arguments)
         case "ammodrop":
             command = parseAmmoDropCommand(arguments)
         default:
-            print(commandString)
-            fatalError("unknown command inside text file")
+            fatalError("unknown command: \(commandString)")
         }
         return command
     }
@@ -87,11 +93,9 @@ class LevelReader {
         return command
     }
 
-    private func parseCanvasSpawnerCommand(_ arg: [String]) -> CanvasSpawnerCommand {
-        let command = CanvasSpawnerCommand()
-        command.location = parseLocation([arg[3], arg[4]])
-        command.velocity = parseVelocity([arg[5], arg[6]])
-        command.spawnInterval = parseSpawnInterval(arg[7])
+    private func parseCanvasRequestCommand(_ arg: [String]) -> CanvasRequestCommand {
+        let command = CanvasRequestCommand()
+        command.colors = parseCanvasColors(arg[2])
         command.time = parseTime(arg[1])
         return command
     }
@@ -108,15 +112,10 @@ class LevelReader {
         if arg[0].isEmpty && arg[1].isEmpty {
             return nil
         }
-        return parseVector2D(arg)
-    }
-
-    private func parseVector2D(_ arg: [String]) -> Vector2D {
-        if let x = Double(arg[0]),
-           let y = Double(arg[1]) {
-            return Vector2D(x, y)
+        if let location = Parser.parseVector2D(arg) {
+            return location
         }
-        fatalError("string does not represent vector2d")
+        fatalError("Location not given in proper format")
     }
 
     private func parseColor(_ arg: String) -> PaintColor? {
@@ -129,6 +128,18 @@ class LevelReader {
         fatalError("invalid color is given")
     }
 
+    private func parseCanvasColors(_ arg: String) -> Set<PaintColor>? {
+        if arg.isEmpty {
+            return nil
+        }
+
+        let colorString = arg.components(separatedBy: " ")
+        let colorsArray = colorString.map { Parser.trimWhitespace($0) }
+                                     .compactMap { parseColor($0) }
+        let colorSet = Set<PaintColor>(colorsArray)
+        return colorSet
+    }
+
     private func parseTime(_ arg: String) -> Double {
         if let time = Double(arg),
            time >= 0 {
@@ -137,41 +148,14 @@ class LevelReader {
         fatalError("invalid time is given")
     }
 
-    private func parseVelocity(_ arg: [String]) -> Vector2D? {
-        if arg[0].isEmpty && arg[1].isEmpty {
-            return nil
-        }
-        return parseVector2D(arg)
-    }
-
-    private func parseSpawnInterval(_ arg: String) -> Double? {
-        if arg.isEmpty {
-            return nil
-        }
-        return parsePositiveDouble(arg)
-    }
-
-    private func parsePositiveDouble(_ arg: String) -> Double {
-        if let double = Double(arg),
-           double > 0 {
-            return double
-        }
-        fatalError("string is not positive double")
-    }
-
-    private func parsePositiveInt(_ arg: String) -> Int {
-        if let integer = Int(arg),
-           integer > 0 {
-            return integer
-        }
-        fatalError("string is not positive integer")
-    }
-
     private func parseLimit(_ arg: String) -> Int? {
         if arg.isEmpty {
             return nil
         }
-        return parsePositiveInt(arg)
+        if let limit = Parser.parsePositiveInt(arg) {
+            return limit
+        }
+        fatalError("Limit should be positive int or empty")
     }
 
     private func parseLoopBuffer(_ arg: String) -> Double? {
@@ -185,21 +169,13 @@ class LevelReader {
         fatalError("buffer is not non negative")
     }
 
-    private func parseEnemyCapacity(_ arg: String) -> Int? {
+    private func parseCapacity(_ arg: String) -> Int? {
         if arg.isEmpty {
             return nil
         }
-        return parsePositiveInt(arg)
-    }
-
-    private func parseDropCapacity(_ arg: String) -> Int? {
-        if arg.isEmpty {
-            return nil
+        if let capacity = Parser.parsePositiveInt(arg) {
+            return capacity
         }
-        return parsePositiveInt(arg)
-    }
-
-    private func removeWhitespace(_ str: String) -> String {
-        str.trimmingCharacters(in: .whitespaces)
+        fatalError("Capacity should be positive int")
     }
 }

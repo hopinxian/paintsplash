@@ -74,7 +74,7 @@ class EnemyTests: XCTestCase {
     }
 
     func testSetState() {
-        let manager = GameStateManagerSystem(gameInfo: GameInfo(playerPosition: Vector2D.zero, numberOfEnemies: 0))
+        let manager = GameStateManagerSystem(gameInfo: GameInfo(playerPosition: Vector2D.zero))
         manager.updateEntity(redEnemy, redEnemy)
         manager.updateEntity(orangeEnemy, orangeEnemy)
         manager.updateEntity(yellowEnemy, yellowEnemy)

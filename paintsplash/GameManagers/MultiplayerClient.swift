@@ -196,7 +196,6 @@ class MultiplayerClient: SinglePlayerGameManager {
     }
 
     override func update(_ deltaTime: Double) {
-        currentLevel?.gameOver = false
         super.update(deltaTime)
         sendPlayerData()
     }

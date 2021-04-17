@@ -20,20 +20,20 @@ class PlayerStateChangeTests: XCTestCase {
     }
 
     func testPlayerStateChanges() {
-        let manager = GameStateManagerSystem(gameInfo: GameInfo(playerPosition: Vector2D.zero, numberOfEnemies: 0))
+        let manager = GameStateManagerSystem(gameInfo: GameInfo(playerPosition: Vector2D.zero))
 
         // move left
         var event = PlayerMoveEvent(direction: Vector2D.left, playerID: player.id)
         player.playableComponent.onMove(event: event)
         XCTAssertEqual(player.lastDirection, Vector2D.left)
-        manager.updateEntity(player, player)
+        manager.updateEntity(player.id, player)
         XCTAssertTrue(player.stateComponent.currentState is PlayerState.MoveLeft)
 
         // stop moving left
         event = PlayerMoveEvent(direction: Vector2D.zero, playerID: player.id)
         player.playableComponent.onMove(event: event)
         XCTAssertEqual(player.lastDirection, Vector2D.left)
-        manager.updateEntity(player, player)
+        manager.updateEntity(player.id, player)
         XCTAssertTrue(player.stateComponent.currentState is PlayerState.IdleLeft)
 
         // move right
@@ -47,7 +47,7 @@ class PlayerStateChangeTests: XCTestCase {
         event = PlayerMoveEvent(direction: Vector2D.zero, playerID: player.id)
         player.playableComponent.onMove(event: event)
         XCTAssertEqual(player.lastDirection, Vector2D.right)
-        manager.updateEntity(player, player)
+        manager.updateEntity(player.id, player)
         XCTAssertTrue(player.stateComponent.currentState is PlayerState.IdleRight)
 
         // move up

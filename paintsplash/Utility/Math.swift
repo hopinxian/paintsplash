@@ -6,7 +6,7 @@
 //
 
 /**
- `Math` contains useful utility functions.
+ `Math` contains useful mathematical functions.
  */
 struct Math {
     /// Returns the greatest common divisor among the given array of integers.

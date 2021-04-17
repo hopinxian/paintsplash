@@ -109,7 +109,7 @@ class EnemyHealthComponent: HealthComponent {
         enemy.collisionComponent.active = false
         enemy.stateComponent.currentState = EnemyState.Die(enemy: enemy)
 
-        EventSystem.scoreEvent.post(event: ScoreEvent(value: Points.enemyKill))
+        EventSystem.scoreEvent.post(event: ScoreEvent(value: Points.ENEMY_KILL))
     }
 }
 
@@ -140,6 +140,7 @@ class EnemySpawnerHealthComponent: HealthComponent {
         }
 
         spawner.stateComponent.currentState = EnemySpawnerState.Die(spawner: spawner)
+        EventSystem.scoreEvent.post(event: ScoreEvent(value: Points.ENEMY_SPAWNER_KILL))
 //        let event = RemoveEntityEvent(entity: spawner)
 //        EventSystem.entityChangeEvents.removeEntityEvent.post(event: event)
     }

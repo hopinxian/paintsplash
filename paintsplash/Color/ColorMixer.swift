@@ -6,11 +6,13 @@
 //
 
 /**
- `ColorMixer` represents a mixer that mixes colors to produce a color.
- ColorMixer mixes colors according to a stated set of rules that it has.
+ `ColorMixer` mixes a given set of colors to produce a color.
+ Colors are mixed according to a stated set of rules that it has.
+ Not all color combinations may produce a valid color.
  */
 class ColorMixer {
 
+    /// Keeps track of the mappings from a specific color combination to a PaintColor
     private var mapping: [ColorMakeup: PaintColor]
 
     /// Constructs a mixer containing default mixing rules for paint color.
@@ -18,28 +20,59 @@ class ColorMixer {
         mapping = [:]
         setDefaultMixRules()
     }
-    /// Sets the rules of the color mixer to the default set of rules.
+
     private func setDefaultMixRules() {
         mapping = [:]
         for color in PaintColor.allCases {
-            mapping[color.makeup] = color
+            setMix(from: [color], to: color)
         }
         for color in PaintColor.lightColors {
-            var makeup = color.makeup + ColorMakeup.white
-            makeup.simplify()
-            mapping[makeup] = PaintColor.white
+            setMix(from: [color, PaintColor.white], to: PaintColor.white)
         }
     }
+
+    /// Adds a rule that a specific color makeup will become another color.
+    func setMix(from mix: ColorMakeup, to color: PaintColor) {
+        var makeup = mix
+        makeup.simplify()
+        mapping[makeup] = color
+    }
+
+    /// Adds a rule that a specific combination of paint colors will become another color.
+    func setMix(from colors: [PaintColor], to color: PaintColor) {
+        guard !colors.isEmpty else {
+            return
+        }
+        let makeups = colors.map { $0.makeup }
+        let makeup = ColorMakeup.combine(makeups)
+        setMix(from: makeup, to: color)
+    }
+
+    /// Removes a mixing rule from the mixer.
+    func invalidate(mix: ColorMakeup) {
+        var makeup = mix
+        makeup.simplify()
+        mapping[makeup] = nil
+    }
+
+    /// Removes a mixing rule from the mixer.
+    func invalidate(mix: [PaintColor]) {
+        guard !mix.isEmpty else {
+            return
+        }
+        let makeups = mix.map { $0.makeup }
+        let makeup = ColorMakeup.combine(makeups)
+        invalidate(mix: makeup)
+    }
+
     /// Mixes the given colors and returns the new color.
     /// Returns nothing if no valid color is produced from the mix.
     func mix(colors: [PaintColor]) -> PaintColor? {
         guard !colors.isEmpty else {
             return nil
         }
-        var makeup = colors[0].makeup
-        for index in 1..<colors.count {
-            makeup += colors[index].makeup
-        }
+        let makeups = colors.map { $0.makeup }
+        var makeup = ColorMakeup.combine(makeups)
         makeup.simplify()
         return mapping[makeup]
     }
