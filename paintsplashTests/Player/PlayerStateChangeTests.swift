@@ -40,7 +40,7 @@ class PlayerStateChangeTests: XCTestCase {
         event = PlayerMoveEvent(direction: Vector2D.right, playerID: player.id)
         player.playableComponent.onMove(event: event)
         XCTAssertEqual(player.lastDirection, Vector2D.right)
-        manager.updateEntity(player, player)
+        manager.updateEntity(player.id, player)
         XCTAssertTrue(player.stateComponent.currentState is PlayerState.MoveRight)
 
         // stop moving right
@@ -54,7 +54,7 @@ class PlayerStateChangeTests: XCTestCase {
         event = PlayerMoveEvent(direction: Vector2D.up, playerID: player.id)
         player.playableComponent.onMove(event: event)
         XCTAssertEqual(player.lastDirection, Vector2D.up)
-        manager.updateEntity(player, player)
+        manager.updateEntity(player.id, player)
         XCTAssertTrue(player.stateComponent.currentState is PlayerState.IdleRight)
         // Player still facing right (last position)
 
@@ -62,7 +62,7 @@ class PlayerStateChangeTests: XCTestCase {
         event = PlayerMoveEvent(direction: Vector2D.zero, playerID: player.id)
         player.playableComponent.onMove(event: event)
         XCTAssertEqual(player.lastDirection, Vector2D.up)
-        manager.updateEntity(player, player)
+        manager.updateEntity(player.id, player)
         XCTAssertTrue(player.stateComponent.currentState
                         is PlayerState.IdleRight) // Player still facing right (last position)
     }

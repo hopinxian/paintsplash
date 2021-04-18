@@ -45,7 +45,8 @@ class SKRenderSystem: RenderSystem {
         SKNode()
     }
 
-    /// Crops a child node to its parent node using an SKCropNode, preserving the position of the child node relative to its parent.
+    /// Crops a child node to its parent node using an SKCropNode,
+    /// preserving the position of the child node relative to its parent.
     private func getCroppedToNode(maskNode: SKNode, childNode: SKNode) -> SKNode? {
         guard let mask = maskNode.copy() as? SKSpriteNode else {
             return nil
