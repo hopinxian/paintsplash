@@ -22,6 +22,7 @@ enum DataPaths {
     static let game_UUID = "gameId"
     static let game_entities = "entities"
     static let game_players = "players"
+    static let game_client_player = "clientPlayer"
     static let game_isRunning = "running"
     static let player_moveInput = "moveInput"
     static let player_shootInput = "shootInput"

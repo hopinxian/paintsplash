@@ -176,7 +176,7 @@ extension FirebaseMPServerNetworkHandler {
         let path = DataPaths.joinPaths(
             DataPaths.games, gameId,
             DataPaths.game_players, playerId,
-            "clientPlayer")
+            DataPaths.game_client_player)
         self.connectionHandler.listen(to: path, callBack: { [weak self] in
             self?.readClientPlayerData(data: $0)
         })

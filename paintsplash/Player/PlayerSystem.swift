@@ -56,24 +56,4 @@ class PaintSplashPlayerSystem: PlayerSystem {
     private func addEvent(event: ProcessedInputEvent) {
         processedInputEvents.append(event)
     }
-
-    func readClientPlayerData(data: SystemData?) {
-//        guard let data = data else {
-//            return
-//        }
-//        let clientId = data.entityData.entities[0]
-//        if let client = entities.first(where: { $0.id.id == clientId.id }) as? Player,
-//            let transformComponent = data.renderSystemData?.renderables[clientId]?.transformComponent,
-//            let animationComponent = data.animationSystemData?.animatables[clientId]?.animationComponent,
-//            let renderComponent = data.renderSystemData?.renderables[clientId]?.renderComponent {
-//            let boundedComponent = BoundedTransformComponent(
-//                position: transformComponent.worldPosition,
-//                rotation: transformComponent.rotation,
-//                size: transformComponent.size,
-//                bounds: Constants.PLAYER_MOVEMENT_BOUNDS)
-//            client.transformComponent = boundedComponent
-//            client.renderComponent = renderComponent
-//            client.animationComponent = animationComponent
-//        }
-    }
 }
