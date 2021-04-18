@@ -34,6 +34,8 @@ class Player: GameEntity,
 
     let connectionHander = FirebaseConnectionHandler()
 
+    var aimGuide: AimGuide?
+
     var isDead: Bool {
         healthComponent.currentHealth <= 0
     }
