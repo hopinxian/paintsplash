@@ -255,7 +255,7 @@ class SinglePlayerGameManager: GameManager {
     }
 
     func update(_ deltaTime: Double) {
-        if !gameIsOver || currentLevel == nil {
+        if !gameIsOver {
             currentLevel?.run(deltaTime)
             
             aiSystem.updateEntities(deltaTime)

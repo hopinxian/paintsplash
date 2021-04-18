@@ -116,7 +116,6 @@ class MultiplayerClient: SinglePlayerGameManager {
             gameId: gameID,
             playerId: playerInfo.playerUUID,
             onChange: { [weak self] (event: GameOverEvent) in
-                print("hello")
                 EventSystem.gameStateEvents.gameOverEvent.post(event: event)
                 guard let playerId = self?.playerInfo.playerUUID else {
                     return
@@ -196,7 +195,10 @@ class MultiplayerClient: SinglePlayerGameManager {
 
     override func update(_ deltaTime: Double) {
         super.update(deltaTime)
-        sendPlayerData()
+
+        if !gameIsOver {
+            sendPlayerData()
+        }
     }
 
     func updateSystemData(data: SystemData?) {

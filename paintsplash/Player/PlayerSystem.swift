@@ -29,7 +29,7 @@ class PaintSplashPlayerSystem: PlayerSystem {
     }
 
     func updateEntities(_ deltaTime: Double) {
-        for (_, player) in players {
+        for (_, player) in players where player.playableComponent.active {
             for event in processedInputEvents {
                 sendEvent(event: event, to: player)
             }
