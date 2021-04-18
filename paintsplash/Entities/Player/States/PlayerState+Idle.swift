@@ -1,18 +1,26 @@
 //
-//  PlayerState+IdleLeft.swift
+//  PlayerState+Idle.swift
 //  paintsplash
 //
-//  Created by Farrell Nah on 26/3/21.
+//  Created by Farrell Nah on 18/4/21.
 //
+
 extension PlayerState {
-    class IdleLeft: PlayerState {
+    class Idle: PlayerState {
+        var idleAnimation: String
+
+        override init(player: Player?) {
+            idleAnimation = PlayerAnimations.playerBrushIdleLeft
+            super.init(player: player)
+        }
+
         convenience init() {
             self.init(player: nil)
         }
 
         override func onEnterState() {
             player.animationComponent.animate(
-                animation: PlayerAnimations.playerBrushIdleLeft,
+                animation: idleAnimation,
                 interupt: true
             )
         }

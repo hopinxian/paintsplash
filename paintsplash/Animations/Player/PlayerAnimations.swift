@@ -23,7 +23,7 @@ struct PlayerAnimations: AnimationSource {
                            atlasName: "PlayerBrushIdleLeft",
                            isRepeating: true),
         "playerBrushIdleRight":
-            AtlasAnimation(name: "layerBrushIdleRight",
+            AtlasAnimation(name: "playerBrushIdleRight",
                            animationDuration: 1.2,
                            atlasName: "PlayerBrushIdleRight",
                            isRepeating: true),

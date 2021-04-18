@@ -1,15 +1,14 @@
 //
-//  PlayerState+IdleRight.swift
+//  PlayerState+IdleLeft.swift
 //  paintsplash
 //
 //  Created by Farrell Nah on 26/3/21.
 //
-
 extension PlayerState {
-    class IdleRight: Idle {
+    class IdleLeft: Idle {
         override init(player: Player?) {
             super.init(player: player)
-            self.idleAnimation = PlayerAnimations.playerBrushIdleRight
+            self.idleAnimation = PlayerAnimations.playerBrushIdleLeft
         }
     }
 }

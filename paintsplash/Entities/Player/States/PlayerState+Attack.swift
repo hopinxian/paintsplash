@@ -1,18 +1,20 @@
 //
-//  PlayerState+AttackLeft.swift
+//  PlayerState+Attack.swift
 //  paintsplash
 //
-//  Created by Farrell Nah on 26/3/21.
+//  Created by Farrell Nah on 18/4/21.
 //
 
 extension PlayerState {
-    class AttackLeft: PlayerState {
+    class Attack: PlayerState {
         var shootComplete = false
         var animationComplete = false
         var attackDirection: Vector2D
+        var shootAnimation: String
 
         init(player: Player?, attackDirection: Vector2D) {
             self.attackDirection = attackDirection
+            self.shootAnimation = PlayerAnimations.playerBrushAttackLeft
             super.init(player: player)
         }
 
@@ -23,7 +25,7 @@ extension PlayerState {
 
             if player.multiWeaponComponent.canShoot() {
                 player.animationComponent.animate(
-                    animation: PlayerAnimations.playerBrushAttackLeft,
+                    animation: shootAnimation,
                     interupt: true,
                     callBack: { [weak self] in self?.animationComplete = true }
                 )
@@ -32,7 +34,7 @@ extension PlayerState {
 
         override func getStateTransition() -> State? {
             if shootComplete && animationComplete {
-                return IdleLeft(player: player)
+                return getCompletionState()
             }
 
             return nil
@@ -44,6 +46,10 @@ extension PlayerState {
                 return ShootProjectileBehaviour(shootDirection: attackDirection)
             }
             return DoNothingBehaviour()
+        }
+
+        func getCompletionState() -> PlayerState? {
+            nil
         }
     }
 }

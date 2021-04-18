@@ -6,29 +6,19 @@
 //
 
 extension PlayerState {
-    class MoveRight: PlayerState {
-        override func onEnterState() {
-            player.animationComponent.animate(
-                animation: PlayerAnimations.playerBrushWalkRight,
-                interupt: true
-            )
+    class MoveRight: Move {
+        override init(player: Player?) {
+            super.init(player: player)
+            self.moveAnimation = PlayerAnimations.playerBrushWalkRight
+            self.direction = Vector2D.right
         }
 
-        override func getStateTransition() -> State? {
-            if player.moveableComponent.direction.magnitude <= 0 {
-                return IdleRight(player: player)
-            } else if player.moveableComponent.direction.x < 0 {
-                return MoveLeft(player: player)
-            } else {
-                return nil
-            }
+        override func getIdleState() -> PlayerState? {
+            IdleRight(player: player)
         }
 
-        override func getBehaviour() -> StateBehaviour {
-            MoveBehaviour(
-                direction: player.moveableComponent.direction,
-                speed: player.moveableComponent.speed
-            )
+        override func getOppositeState() -> PlayerState? {
+            MoveLeft(player: player)
         }
     }
 }

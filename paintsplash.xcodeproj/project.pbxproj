@@ -130,8 +130,8 @@
 		D53F5452260D952200635B05 /* SKCollisionSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53F5451260D952200635B05 /* SKCollisionSystem.swift */; };
 		D53F5456260D952F00635B05 /* SKCollisionDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53F5455260D952F00635B05 /* SKCollisionDetector.swift */; };
 		D53F5460260D95A400635B05 /* HasMultiWeapon.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53F545F260D95A400635B05 /* HasMultiWeapon.swift */; };
-		D53F546C260D960100635B05 /* PlayerState+Idle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53F546B260D960100635B05 /* PlayerState+Idle.swift */; };
-		D53F5470260D962300635B05 /* PlayerState+Attack.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53F546F260D962300635B05 /* PlayerState+Attack.swift */; };
+		D53F546C260D960100635B05 /* PlayerState+IdleLeft.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53F546B260D960100635B05 /* PlayerState+IdleLeft.swift */; };
+		D53F5470260D962300635B05 /* PlayerState+AttackLeft.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53F546F260D962300635B05 /* PlayerState+AttackLeft.swift */; };
 		D53F5474260D963F00635B05 /* PlayerState+MoveLeft.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53F5473260D963F00635B05 /* PlayerState+MoveLeft.swift */; };
 		D53F5478260D964F00635B05 /* PlayerState+Die.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53F5477260D964F00635B05 /* PlayerState+Die.swift */; };
 		D53F547C260D967100635B05 /* EnemySpawnerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53F547B260D967100635B05 /* EnemySpawnerState.swift */; };
@@ -179,6 +179,9 @@
 		D5553DBA2607218B00C1862E /* PlayerRenderableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5553DB92607218B00C1862E /* PlayerRenderableTests.swift */; };
 		D5553DC22607263400C1862E /* EnemyRenderableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5553DC12607263400C1862E /* EnemyRenderableTests.swift */; };
 		D5553DC62607279800C1862E /* CanvasRenderableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5553DC52607279800C1862E /* CanvasRenderableTests.swift */; };
+		D5593C3B262C7AF5006BC93B /* PlayerState+Attack.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5593C3A262C7AF5006BC93B /* PlayerState+Attack.swift */; };
+		D5593C43262C7BE1006BC93B /* PlayerState+Idle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5593C42262C7BE1006BC93B /* PlayerState+Idle.swift */; };
+		D5593C49262C7D24006BC93B /* EnemyState+Chasing.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5593C48262C7D24006BC93B /* EnemyState+Chasing.swift */; };
 		D55A8AA225FBB4E000BBE210 /* Tags.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55A8AA125FBB4E000BBE210 /* Tags.swift */; };
 		D55A8AAD25FC933A00BBE210 /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55A8AAC25FC933A00BBE210 /* GameManager.swift */; };
 		D55EEB4B25FF8B6500ADC70B /* GameScene+UserInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55EEB4A25FF8B6500ADC70B /* GameScene+UserInput.swift */; };
@@ -265,6 +268,7 @@
 		D5B7F0C8262C6DCD00882888 /* FontColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E3961F26261AA300250EEC /* FontColor.swift */; };
 		D5B7F0CC262C709200882888 /* BottomUIBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B7F0CB262C709200882888 /* BottomUIBar.swift */; };
 		D5B7F0D2262C709F00882888 /* TopUIBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B7F0D1262C709F00882888 /* TopUIBar.swift */; };
+		D5B7F0DC262C74B800882888 /* PlayerState+Move.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B7F0DB262C74B800882888 /* PlayerState+Move.swift */; };
 		D5C568FF260A19C9009E5BD9 /* MovementSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C568FE260A19C9009E5BD9 /* MovementSystem.swift */; };
 		D5C56909260A3528009E5BD9 /* BidirectionalMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C56908260A3528009E5BD9 /* BidirectionalMap.swift */; };
 		D5C56911260AC3D8009E5BD9 /* DoNothingBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C56910260AC3D8009E5BD9 /* DoNothingBehaviour.swift */; };
@@ -488,8 +492,8 @@
 		D53F5451260D952200635B05 /* SKCollisionSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKCollisionSystem.swift; sourceTree = "<group>"; };
 		D53F5455260D952F00635B05 /* SKCollisionDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKCollisionDetector.swift; sourceTree = "<group>"; };
 		D53F545F260D95A400635B05 /* HasMultiWeapon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasMultiWeapon.swift; sourceTree = "<group>"; };
-		D53F546B260D960100635B05 /* PlayerState+Idle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlayerState+Idle.swift"; sourceTree = "<group>"; };
-		D53F546F260D962300635B05 /* PlayerState+Attack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlayerState+Attack.swift"; sourceTree = "<group>"; };
+		D53F546B260D960100635B05 /* PlayerState+IdleLeft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlayerState+IdleLeft.swift"; sourceTree = "<group>"; };
+		D53F546F260D962300635B05 /* PlayerState+AttackLeft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlayerState+AttackLeft.swift"; sourceTree = "<group>"; };
 		D53F5473260D963F00635B05 /* PlayerState+MoveLeft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlayerState+MoveLeft.swift"; sourceTree = "<group>"; };
 		D53F5477260D964F00635B05 /* PlayerState+Die.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlayerState+Die.swift"; sourceTree = "<group>"; };
 		D53F547B260D967100635B05 /* EnemySpawnerState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemySpawnerState.swift; sourceTree = "<group>"; };
@@ -537,6 +541,9 @@
 		D5553DB92607218B00C1862E /* PlayerRenderableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerRenderableTests.swift; sourceTree = "<group>"; };
 		D5553DC12607263400C1862E /* EnemyRenderableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyRenderableTests.swift; sourceTree = "<group>"; };
 		D5553DC52607279800C1862E /* CanvasRenderableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasRenderableTests.swift; sourceTree = "<group>"; };
+		D5593C3A262C7AF5006BC93B /* PlayerState+Attack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlayerState+Attack.swift"; sourceTree = "<group>"; };
+		D5593C42262C7BE1006BC93B /* PlayerState+Idle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlayerState+Idle.swift"; sourceTree = "<group>"; };
+		D5593C48262C7D24006BC93B /* EnemyState+Chasing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EnemyState+Chasing.swift"; sourceTree = "<group>"; };
 		D55A8AA125FBB4E000BBE210 /* Tags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tags.swift; sourceTree = "<group>"; };
 		D55A8AAC25FC933A00BBE210 /* GameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
 		D55EEB4A25FF8B6500ADC70B /* GameScene+UserInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameScene+UserInput.swift"; sourceTree = "<group>"; };
@@ -622,6 +629,7 @@
 		D5B7F0C2262C6C9100882888 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		D5B7F0CB262C709200882888 /* BottomUIBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomUIBar.swift; sourceTree = "<group>"; };
 		D5B7F0D1262C709F00882888 /* TopUIBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopUIBar.swift; sourceTree = "<group>"; };
+		D5B7F0DB262C74B800882888 /* PlayerState+Move.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlayerState+Move.swift"; sourceTree = "<group>"; };
 		D5C568FE260A19C9009E5BD9 /* MovementSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovementSystem.swift; sourceTree = "<group>"; };
 		D5C56908260A3528009E5BD9 /* BidirectionalMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BidirectionalMap.swift; sourceTree = "<group>"; };
 		D5C56910260AC3D8009E5BD9 /* DoNothingBehaviour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoNothingBehaviour.swift; sourceTree = "<group>"; };
@@ -834,7 +842,6 @@
 			isa = PBXGroup;
 			children = (
 				D5B65CA82618B83300C132FE /* PlayableCharacter.swift */,
-				D5B65CAC2618B84200C132FE /* PlayerComponent.swift */,
 				D5B7EFE3262ADB9C00882888 /* PlayableComponent.swift */,
 				D5B65C922618B39D00C132FE /* PlayerSystem.swift */,
 			);
@@ -989,6 +996,7 @@
 			children = (
 				D53F5497260D970A00635B05 /* EnemyState.swift */,
 				D53F54A3260D973D00635B05 /* EnemyState+Die.swift */,
+				D5593C48262C7D24006BC93B /* EnemyState+Chasing.swift */,
 				D53F549F260D972C00635B05 /* EnemyState+ChasingLeft.swift */,
 				D53F54F7260DA0D400635B05 /* EnemyState+ChasingRight.swift */,
 				D53F549B260D971B00635B05 /* EnemyState+Idle.swift */,
@@ -1461,6 +1469,7 @@
 				D55EEB9A26008FB600ADC70B /* Player.swift */,
 				D5B7F08A262C6A5700882888 /* PlayerCollisionComponent.swift */,
 				D5B7F0AE262C6B6600882888 /* PlayerHealthComponent.swift */,
+				D5B65CAC2618B84200C132FE /* PlayerComponent.swift */,
 			);
 			path = Player;
 			sourceTree = "<group>";
@@ -1470,11 +1479,14 @@
 			children = (
 				D5C56931260CD7D2009E5BD9 /* PlayerState.swift */,
 				D53F5477260D964F00635B05 /* PlayerState+Die.swift */,
+				D5B7F0DB262C74B800882888 /* PlayerState+Move.swift */,
 				D53F5473260D963F00635B05 /* PlayerState+MoveLeft.swift */,
 				D53F54E7260D9F4600635B05 /* PlayerState+MoveRight.swift */,
-				D53F546F260D962300635B05 /* PlayerState+Attack.swift */,
+				D5593C3A262C7AF5006BC93B /* PlayerState+Attack.swift */,
+				D53F546F260D962300635B05 /* PlayerState+AttackLeft.swift */,
 				D53F54F1260DA03500635B05 /* PlayerState+AttackRight.swift */,
-				D53F546B260D960100635B05 /* PlayerState+Idle.swift */,
+				D5593C42262C7BE1006BC93B /* PlayerState+Idle.swift */,
+				D53F546B260D960100635B05 /* PlayerState+IdleLeft.swift */,
 				D53F54ED260D9FE100635B05 /* PlayerState+IdleRight.swift */,
 			);
 			path = States;
@@ -2007,6 +2019,7 @@
 				D536472026146C8200C2BCBB /* RawAnimation.swift in Sources */,
 				D53F5444260D94EB00635B05 /* SKRenderSystem.swift in Sources */,
 				D5B7EFE4262ADB9C00882888 /* PlayableComponent.swift in Sources */,
+				D5593C49262C7D24006BC93B /* EnemyState+Chasing.swift in Sources */,
 				D5500C022608E38800E21BF1 /* RenderComponent.swift in Sources */,
 				D57044F526182AA9004AF802 /* AnimationSystemData.swift in Sources */,
 				D5B7F09F262C6B1300882888 /* PaintProjectileCollisionComponent.swift in Sources */,
@@ -2109,6 +2122,7 @@
 				D5500C062608E7E200E21BF1 /* System.swift in Sources */,
 				D5704532261830EA004AF802 /* AttackJoystick.swift in Sources */,
 				D57044E426182A7B004AF802 /* EncodableRenderable.swift in Sources */,
+				D5593C3B262C7AF5006BC93B /* PlayerState+Attack.swift in Sources */,
 				ACB3607225F661620016E240 /* AppDelegate.swift in Sources */,
 				D53F5429260D944E00635B05 /* MultiWeaponComponent.swift in Sources */,
 				D5C5692A260B7EBB009E5BD9 /* ShootProjectileBehaviour.swift in Sources */,
@@ -2159,7 +2173,7 @@
 				8453F2D1260C911A00FFD8AE /* EnemySpawnerCommand.swift in Sources */,
 				DC26A93B262C44500065611B /* MPClientNetworkHandler.swift in Sources */,
 				D596B1AE25F8CF5B00A5854F /* ColliderShape.swift in Sources */,
-				D53F546C260D960100635B05 /* PlayerState+Idle.swift in Sources */,
+				D53F546C260D960100635B05 /* PlayerState+IdleLeft.swift in Sources */,
 				D5C56932260CD7D2009E5BD9 /* PlayerState.swift in Sources */,
 				D50FD6C3261204F800491CAC /* SinglePlayerGameManager.swift in Sources */,
 				DCA30984262363EF00E06EFA /* LightDisplay.swift in Sources */,
@@ -2167,11 +2181,13 @@
 				D5D9201425FB9ACB00E70364 /* PaintAmmoDrop.swift in Sources */,
 				D570452A26182ED5004AF802 /* UIEntity.swift in Sources */,
 				ACFD81FF25F670A2009D806B /* Colorable.swift in Sources */,
+				D5B7F0DC262C74B800882888 /* PlayerState+Move.swift in Sources */,
 				D53F5484260D969C00635B05 /* EnemySpawnerState+Spawning.swift in Sources */,
 				D53F54E8260D9F4600635B05 /* PlayerState+MoveRight.swift in Sources */,
 				D53F5456260D952F00635B05 /* SKCollisionDetector.swift in Sources */,
 				8453F2DB260C920C00FFD8AE /* AmmoDropCommand.swift in Sources */,
 				D57045362618314C004AF802 /* AnimationSource.swift in Sources */,
+				D5593C43262C7BE1006BC93B /* PlayerState+Idle.swift in Sources */,
 				D5B7F0AF262C6B6600882888 /* PlayerHealthComponent.swift in Sources */,
 				D570450026182AD2004AF802 /* ColorSystemData.swift in Sources */,
 				D50FD69C261056AF00491CAC /* MultiplayerServer.swift in Sources */,
@@ -2211,7 +2227,7 @@
 				D50FD6CF26120A4800491CAC /* MultiplayerClientViewController.swift in Sources */,
 				DC6A07CD261329B8009FE7F6 /* GameConnectionHandler.swift in Sources */,
 				840A889225FF13A100A07596 /* PaintColor+UIColor.swift in Sources */,
-				D53F5470260D962300635B05 /* PlayerState+Attack.swift in Sources */,
+				D53F5470260D962300635B05 /* PlayerState+AttackLeft.swift in Sources */,
 				AC097E1126020005000951B0 /* ColorMakeup.swift in Sources */,
 				D5B7F08F262C6A7400882888 /* EnemySpawnerCollisionComponent.swift in Sources */,
 				DC749F03262B443800A614FA /* FirebaseMPServerNetworkHandler.swift in Sources */,
@@ -2415,14 +2431,14 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = X872J9X7F2;
+				DEVELOPMENT_TEAM = 8B4N4F9FTJ;
 				INFOPLIST_FILE = paintsplash/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = crawlers.paintsplashes2;
+				PRODUCT_BUNDLE_IDENTIFIER = crawlers.paintsplashes6;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -2438,14 +2454,14 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = X872J9X7F2;
+				DEVELOPMENT_TEAM = 8B4N4F9FTJ;
 				INFOPLIST_FILE = paintsplash/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = crawlers.paintsplashes2;
+				PRODUCT_BUNDLE_IDENTIFIER = crawlers.paintsplashes6;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;

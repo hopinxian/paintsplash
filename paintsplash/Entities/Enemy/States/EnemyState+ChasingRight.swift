@@ -6,26 +6,15 @@
 //
 
 extension EnemyState {
-    class ChasingRight: EnemyState {
-        override func onEnterState() {
-            enemy.animationComponent.animate(
-                animation: SlimeAnimations.slimeMoveRight,
-                interupt: true
-            )
-
-            enemy.lastDirection = enemy.moveableComponent.direction
+    class ChasingRight: Chasing {
+        override init(enemy: Enemy) {
+            super.init(enemy: enemy)
+            self.moveAnimation = SlimeAnimations.slimeMoveRight
+            self.direction = Vector2D.right
         }
 
-        override func getStateTransition() -> State? {
-            if enemy.moveableComponent.direction.x <= 0 {
-                return ChasingLeft(enemy: enemy)
-            }
-
-            return nil
-        }
-
-        override func getBehaviour() -> StateBehaviour {
-            ChasePlayerBehaviour()
+        override func getOppositeState() -> EnemyState? {
+            ChasingLeft(enemy: enemy)
         }
     }
 }

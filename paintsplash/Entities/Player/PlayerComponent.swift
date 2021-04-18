@@ -67,7 +67,7 @@ class PlayerComponent: PlayableComponent {
     private func attack(direction: Vector2D) {
         let direction = direction.magnitude > 0 ? direction : player.lastDirection
 
-        let attackState = player.lastDirection.x > 0
+        let attackState = direction.x > 0
             ? PlayerState.AttackRight(player: player, attackDirection: direction)
             : PlayerState.AttackLeft(player: player, attackDirection: direction)
 
