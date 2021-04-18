@@ -103,14 +103,6 @@ class AudioManager: AudioSystem {
     }
 
     // MARK: Utility Functions
-//    private func playAudio(name: String, fileExtension: String, loops: Int, volume: Float) -> EntityID? {
-//        guard let url = getURL(forResource: name, ofType: fileExtension) else {
-//            return nil
-//        }
-//
-//        return audioPlayer.playAudio(from: url, loops: loops, volume: volume)
-//    }
-
     private func getURL(forResource name: String, ofType type: String) -> URL? {
         guard let path = Bundle.main.path(forResource: name, ofType: type) else {
             return nil
