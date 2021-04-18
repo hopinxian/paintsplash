@@ -15,7 +15,7 @@ class LevelScoreTests: XCTestCase {
 
         XCTAssertTrue(score.freeze)
         XCTAssertEqual(score.score, 0)
-        XCTAssertEqual(score.renderComponent.zPosition, Constants.ZPOSITION_UI_ELEMENT)
+        XCTAssertEqual(score.renderComponent.zPosition, Constants.ZPOSITION_SCORE)
     }
 
     func testReset() {

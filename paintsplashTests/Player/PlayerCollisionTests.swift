@@ -35,7 +35,7 @@ class PlayerCollisionTests: XCTestCase {
         XCTAssertEqual(player.healthComponent.currentHealth, player.healthComponent.maxHealth)
     }
 
-    func testCollideWithAmmoDrop() {
+    func testCollideWithAmmoDrop() throws {
         let weaponSystem = player.multiWeaponComponent
 
         while weaponSystem.canShoot() {
@@ -43,7 +43,8 @@ class PlayerCollisionTests: XCTestCase {
         }  // shoot until weapon has no ammo left
 
         let ammo = PaintAmmoDrop(color: .blue, position: Vector2D.zero)
-        let canLoad = weaponSystem.canLoad([ammo.getAmmoObject()])
+        let ammoObject = try XCTUnwrap(ammo.getAmmoObject())
+        let canLoad = weaponSystem.canLoad([ammoObject])
         XCTAssertTrue(canLoad) // weapon can be loaded
 
         player.collisionComponent.onCollide(with: ammo) // weapon should load

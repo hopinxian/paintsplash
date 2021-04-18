@@ -39,7 +39,7 @@ class AudioPlayerImplTests: XCTestCase {
 
     func testPlayInvalidAudioFile() {
         let url = getInvalidURL()
-        XCTAssertNotNil(player.playAudio(from: url, loops: 1, volume: 0))
+        XCTAssertNil(player.playAudio(from: url, loops: 1, volume: 0))
         XCTAssertFalse(player.isPlaying)
     }
 

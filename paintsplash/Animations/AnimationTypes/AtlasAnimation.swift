@@ -30,7 +30,7 @@ class AtlasAnimation: Animation {
 
         let animationSpeed = animationDuration / Double(animationFrames.count)
         let action = SKAction.animate(with: animationFrames, timePerFrame: animationSpeed)
-        
+
         return isRepeating ? SKAction.repeatForever(action) : action
     }
 }

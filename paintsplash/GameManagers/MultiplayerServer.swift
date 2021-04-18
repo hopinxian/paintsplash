@@ -135,50 +135,49 @@ class MultiplayerServer: SinglePlayerGameManager {
     private func setupSFXEventSender(_ gameId: String) {
         EventSystem.audioEvent
             .playSoundEffectEvent.subscribe { [weak self] event in
-            guard let players = self?.room.players else {
-                return
-            }
-
-            guard let playerId = event.playerId else {
-                players.forEach {
-                    self?.gameConnectionHandler?.sendEvent(
-                        gameId: gameId,
-                        playerId: $0.key,
-                        action: event,
-                        onError: nil,
-                        onSuccess: nil
-                    )
+                guard let players = self?.room.players else {
+                    return
                 }
-                return
-            }
 
-            self?.gameConnectionHandler?.sendEvent(
-                gameId: gameId,
-                playerId: playerId.id,
-                action: event,
-                onError: nil,
-                onSuccess: nil
-            )
-        }
+                guard let playerId = event.playerId else {
+                    players.forEach {
+                        self?.gameConnectionHandler?.sendEvent(
+                            gameId: gameId,
+                            playerId: $0.key,
+                            action: event,
+                            onError: nil,
+                            onSuccess: nil
+                        )
+                    }
+                    return
+                }
+
+                self?.gameConnectionHandler?.sendEvent(
+                    gameId: gameId,
+                    playerId: playerId.id,
+                    action: event,
+                    onError: nil,
+                    onSuccess: nil
+                )
+            }
     }
 
     private func setupGameOverEventSender(playerID: EntityID, _ gameId: String) {
         EventSystem.gameStateEvents
             .gameOverEvent.subscribe { [weak self] event in
-            guard (self?.room.players) != nil else {
-                return
-            }
+                guard (self?.room.players) != nil else {
+                    return
+                }
 
-            print("sending")
-            event.score = self?.currentLevel?.score.score
-            self?.gameConnectionHandler?.sendEvent(
-                gameId: gameId,
-                playerId: playerID.id,
-                action: event,
-                onError: nil,
-                onSuccess: nil
-            )
-        }
+                event.score = self?.currentLevel?.score.score
+                self?.gameConnectionHandler?.sendEvent(
+                    gameId: gameId,
+                    playerId: playerID.id,
+                    action: event,
+                    onError: nil,
+                    onSuccess: nil
+                )
+            }
     }
 
     private func setupClientObservers(playerID: EntityID, gameId: String) {
