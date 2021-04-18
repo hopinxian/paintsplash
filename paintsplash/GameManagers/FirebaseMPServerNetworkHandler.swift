@@ -171,7 +171,7 @@ extension FirebaseMPServerNetworkHandler {
             onError: nil
         )
     }
-    
+
     private func observeClientData(playerId: String, gameId: String) {
         let path = DataPaths.joinPaths(
             DataPaths.games, gameId,

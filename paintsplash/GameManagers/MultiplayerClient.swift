@@ -15,17 +15,24 @@ class MultiplayerClient: SinglePlayerGameManager {
 
     var playerInfo: PlayerInfo
 
+    var serverNetworkHandler: MPClientNetworkHandler
+
     init(gameScene: GameScene, vc: GameViewController, playerInfo: PlayerInfo, roomInfo: RoomInfo) {
         self.playerInfo = playerInfo
         self.room = roomInfo
+        self.serverNetworkHandler = FirebaseMPClientNetworkHandler(roomInfo: roomInfo)
 
         super.init(gameScene: gameScene, vc: vc)
+
+        serverNetworkHandler.multiplayerClient = self
     }
 
     override func setupGame() {
         super.setupGame()
         setUpObservers()
-        setUpInputListeners()
+
+        // Set up senders to send client player input to database
+        serverNetworkHandler.setupPlayerInputSenders()
     }
 
     override func setUpPlayer() {
@@ -145,52 +152,6 @@ class MultiplayerClient: SinglePlayerGameManager {
     override func setUpSystems() {
         super.setUpSystems()
         audioManager = AudioManager(associatedDeviceId: EntityID(id: playerInfo.playerUUID))
-    }
-
-    func setUpInputListeners() {
-        let gameId = self.room.gameID
-
-        EventSystem.processedInputEvents.playerMoveEvent.subscribe { [weak self] in
-            self?.sendPlayerMoveEvent($0, gameId: gameId)
-        }
-
-        EventSystem.processedInputEvents.playerShootEvent.subscribe { [weak self] in
-            self?.sendPlayerShootEvent($0, gameId: gameId)
-        }
-
-        EventSystem.processedInputEvents.playerChangeWeaponEvent.subscribe { [weak self] in
-            self?.sendPlayerWeaponChangeEvent($0, gameId: gameId)
-        }
-    }
-
-    private func sendPlayerMoveEvent(_ event: PlayerMoveEvent, gameId: String) {
-        self.gameConnectionHandler.sendEvent(
-            gameId: gameId,
-            playerId: event.playerId.id,
-            event: event,
-            onError: nil,
-            onSuccess: nil
-        )
-    }
-
-    private func sendPlayerShootEvent(_ event: PlayerShootEvent, gameId: String) {
-        self.gameConnectionHandler.sendEvent(
-            gameId: gameId,
-            playerId: event.playerId.id,
-            event: event,
-            onError: nil,
-            onSuccess: nil
-        )
-    }
-
-    private func sendPlayerWeaponChangeEvent(_ event: PlayerChangeWeaponEvent, gameId: String) {
-        self.gameConnectionHandler.sendEvent(
-            gameId: gameId,
-            playerId: event.playerId.id,
-            event: event,
-            onError: nil,
-            onSuccess: nil
-        )
     }
 
     override func update(_ deltaTime: Double) {

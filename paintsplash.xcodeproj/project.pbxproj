@@ -285,6 +285,8 @@
 		DC247F5025F9C1CB001B814C /* ChasePlayerBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC247F4F25F9C1CB001B814C /* ChasePlayerBehaviour.swift */; };
 		DC247F5525F9E53C001B814C /* SpawnEnemyBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC247F5425F9E53C001B814C /* SpawnEnemyBehaviour.swift */; };
 		DC26A909262C198F0065611B /* FirebaseMPServerNetworkHandler+SoundEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC26A908262C198F0065611B /* FirebaseMPServerNetworkHandler+SoundEvent.swift */; };
+		DC26A93B262C44500065611B /* MPClientNetworkHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC26A93A262C44500065611B /* MPClientNetworkHandler.swift */; };
+		DC26A941262C44D80065611B /* FirebaseMPClientNetworkHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC26A940262C44D80065611B /* FirebaseMPClientNetworkHandler.swift */; };
 		DC4CAC71261301790086CBCC /* NetworkEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4CAC70261301790086CBCC /* NetworkEntity.swift */; };
 		DC52FCCD2618AE72005D2887 /* PlayerHealthDisplayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC52FCCC2618AE72005D2887 /* PlayerHealthDisplayTests.swift */; };
 		DC686C21262608190035B6B3 /* SKShaderManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC686C20262608190035B6B3 /* SKShaderManager.swift */; };
@@ -633,6 +635,8 @@
 		DC247F4F25F9C1CB001B814C /* ChasePlayerBehaviour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChasePlayerBehaviour.swift; sourceTree = "<group>"; };
 		DC247F5425F9E53C001B814C /* SpawnEnemyBehaviour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpawnEnemyBehaviour.swift; sourceTree = "<group>"; };
 		DC26A908262C198F0065611B /* FirebaseMPServerNetworkHandler+SoundEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FirebaseMPServerNetworkHandler+SoundEvent.swift"; sourceTree = "<group>"; };
+		DC26A93A262C44500065611B /* MPClientNetworkHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPClientNetworkHandler.swift; sourceTree = "<group>"; };
+		DC26A940262C44D80065611B /* FirebaseMPClientNetworkHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseMPClientNetworkHandler.swift; sourceTree = "<group>"; };
 		DC4CAC70261301790086CBCC /* NetworkEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkEntity.swift; sourceTree = "<group>"; };
 		DC52FCCC2618AE72005D2887 /* PlayerHealthDisplayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerHealthDisplayTests.swift; sourceTree = "<group>"; };
 		DC686C20262608190035B6B3 /* SKShaderManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKShaderManager.swift; sourceTree = "<group>"; };
@@ -1260,6 +1264,8 @@
 				D55A8AAC25FC933A00BBE210 /* GameManager.swift */,
 				D50FD6C2261204F800491CAC /* SinglePlayerGameManager.swift */,
 				DCF66400261592490046AFC1 /* MultiplayerClient.swift */,
+				DC26A93A262C44500065611B /* MPClientNetworkHandler.swift */,
+				DC26A940262C44D80065611B /* FirebaseMPClientNetworkHandler.swift */,
 				D50FD69B261056AF00491CAC /* MultiplayerServer.swift */,
 				DC749F06262B572700A614FA /* MPServerNetworkHandler.swift */,
 				DC749F02262B443800A614FA /* FirebaseMPServerNetworkHandler.swift */,
@@ -1923,6 +1929,7 @@
 				D50FD6D326120ABC00491CAC /* MultiplayerServerViewController.swift in Sources */,
 				DC9BAACB26010EFE0011B26E /* SpawnCanvasBehaviour.swift in Sources */,
 				8453F2C7260C89AE00FFD8AE /* SpawnCommand.swift in Sources */,
+				DC26A941262C44D80065611B /* FirebaseMPClientNetworkHandler.swift in Sources */,
 				D53F544C260D950500635B05 /* AnimationSystem.swift in Sources */,
 				D58346AC25FB8636005C344D /* PaintAmmo.swift in Sources */,
 				D53F54EE260D9FE100635B05 /* PlayerState+IdleRight.swift in Sources */,
@@ -1999,6 +2006,7 @@
 				D5673355261EF1D800FD1D15 /* GameStateEvent.swift in Sources */,
 				D53F54B4260D97EC00635B05 /* GameStateManagerSystem.swift in Sources */,
 				8453F2D1260C911A00FFD8AE /* EnemySpawnerCommand.swift in Sources */,
+				DC26A93B262C44500065611B /* MPClientNetworkHandler.swift in Sources */,
 				D596B1AE25F8CF5B00A5854F /* ColliderShape.swift in Sources */,
 				D53F546C260D960100635B05 /* PlayerState+Idle.swift in Sources */,
 				D5C56932260CD7D2009E5BD9 /* PlayerState.swift in Sources */,
