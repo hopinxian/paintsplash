@@ -255,7 +255,7 @@ class SinglePlayerGameManager: GameManager {
     }
 
     func update(_ deltaTime: Double) {
-        if !gameIsOver || currentLevel == nil {
+        if !gameIsOver {
             currentLevel?.run(deltaTime)
             transformSystem?.updateEntities(deltaTime)
             aiSystem?.updateEntities(deltaTime)
@@ -270,6 +270,9 @@ class SinglePlayerGameManager: GameManager {
     }
 
     private func onGameOver(event: GameOverEvent) {
+        guard !gameIsOver else {
+            return
+        }
         gameIsOver = true
         let gameOverUI = GameOverUI(
             score: currentLevel?.score.score ?? event.score ?? 0,
