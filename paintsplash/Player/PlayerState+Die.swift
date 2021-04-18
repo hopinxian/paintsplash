@@ -8,7 +8,6 @@
 extension PlayerState {
     class Die: PlayerState {
         override func onEnterState() {
-            print("Died")
             player.playableComponent.active = false
             player.collisionComponent.active = false
             player.moveableComponent.speed = 0.0
@@ -24,7 +23,6 @@ extension PlayerState {
         private func onDieAnimationOver() {
             player.destroy()
             EventSystem.gameStateEvents.gameOverEvent.post(event: GameOverEvent(isWin: false))
-            print("Posted")
         }
     }
 }

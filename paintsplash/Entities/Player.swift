@@ -74,12 +74,10 @@ class Player: GameEntity,
 
         let paintGun = PaintGun()
         let bucket = Bucket()
-//        let bomb = Bomb()
         let multiWeaponComponent = MultiWeaponComponent(
             weapons: [paintGun, bucket]
         )
         self.multiWeaponComponent = multiWeaponComponent
-//        bomb.ammoSource = multiWeaponComponent
 
         let playerComponent = PlayerComponent()
         self.playableComponent = playerComponent
@@ -106,11 +104,5 @@ class Player: GameEntity,
     convenience init(initialPosition: Vector2D, playerUUID: EntityID?) {
         self.init(initialPosition: initialPosition)
         id = playerUUID ?? id
-    }
-
-    override func update(_ deltaTime: Double) {
-        print(id.id)
-        print(stateComponent.currentState)
-        print(playableComponent.active)
     }
 }

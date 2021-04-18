@@ -35,7 +35,6 @@ class AnimationComponentTests: XCTestCase {
     }
 
     func testAnimate() {
-        let callback = { print("callback") }
         component.animate(animation: nextAnimation, interupt: false, callBack: callback)
         XCTAssertEqual(component.currentAnimation, currentAnimation)
         XCTAssertEqual(component.animationToPlay, animationToPlay)
