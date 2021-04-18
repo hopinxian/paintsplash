@@ -3,6 +3,7 @@
 //  paintsplash
 //
 //  Created by Cynthia Lee on 27/3/21.
+// swiftlint:disable function_parameter_count
 
 import Firebase
 

@@ -197,7 +197,7 @@ extension FirebaseMPServerNetworkHandler {
             return
         }
 
-        let boundedComponent = BoundedTransformComponent (
+        let boundedComponent = BoundedTransformComponent(
             position: transformComponent.worldPosition,
             rotation: transformComponent.rotation,
             size: transformComponent.size,

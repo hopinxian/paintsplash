@@ -262,6 +262,7 @@
 		D5B7F0B3262C6B7800882888 /* EnemyHealthComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B7F0B2262C6B7800882888 /* EnemyHealthComponent.swift */; };
 		D5B7F0B7262C6B8B00882888 /* EnemySpawnerHealthComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B7F0B6262C6B8B00882888 /* EnemySpawnerHealthComponent.swift */; };
 		D5B7F0C3262C6C9100882888 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D5B7F0C2262C6C9100882888 /* GameScene.sks */; };
+		D5B7F0C8262C6DCD00882888 /* FontColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E3961F26261AA300250EEC /* FontColor.swift */; };
 		D5C568FF260A19C9009E5BD9 /* MovementSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C568FE260A19C9009E5BD9 /* MovementSystem.swift */; };
 		D5C56909260A3528009E5BD9 /* BidirectionalMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C56908260A3528009E5BD9 /* BidirectionalMap.swift */; };
 		D5C56911260AC3D8009E5BD9 /* DoNothingBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C56910260AC3D8009E5BD9 /* DoNothingBehaviour.swift */; };
@@ -270,7 +271,6 @@
 		D5C56932260CD7D2009E5BD9 /* PlayerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C56931260CD7D2009E5BD9 /* PlayerState.swift */; };
 		D5D9201425FB9ACB00E70364 /* PaintAmmoDrop.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D9201325FB9ACB00E70364 /* PaintAmmoDrop.swift */; };
 		D5DC909125FCC4210038DF71 /* AtlasAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5DC909025FCC4210038DF71 /* AtlasAnimation.swift */; };
-		D5E3962026261AA300250EEC /* FontColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E3961F26261AA300250EEC /* FontColor.swift */; };
 		DC04EAB4260EECFB00D7DDFF /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC04EAB3260EECFB00D7DDFF /* MenuViewController.swift */; };
 		DC08DA5C26051243000F4F90 /* CanvasHitEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC08DA5B26051243000F4F90 /* CanvasHitEvent.swift */; };
 		DC08DA6A260516DE000F4F90 /* CanvasEndMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC08DA69260516DE000F4F90 /* CanvasEndMarker.swift */; };
@@ -1963,6 +1963,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D5B7F0C8262C6DCD00882888 /* FontColor.swift in Sources */,
 				8416DAED260335A800926D01 /* Level.swift in Sources */,
 				D554068C26232C1C00F74E01 /* MixingPot.swift in Sources */,
 				D596B16725F7AE4500A5854F /* Collidable.swift in Sources */,
@@ -2019,8 +2020,6 @@
 				DC4CAC71261301790086CBCC /* NetworkEntity.swift in Sources */,
 				D57045562618432C004AF802 /* MultiplayerError.swift in Sources */,
 				ACFD820925F676AB009D806B /* Movable.swift in Sources */,
-				D5E3962026261AA300250EEC /* FontColor.swift in Sources */,
-				D5E3962026261AA300250EEC /* FontColor.swift in Sources */,
 				DC6874CF260362C800CF89E4 /* CanvasRequestManager.swift in Sources */,
 				ACC154F626012F640000775C /* PlayerActionEventManager.swift in Sources */,
 				D50C88E0262178E2001DBDD6 /* PaintBucketSplash.swift in Sources */,
