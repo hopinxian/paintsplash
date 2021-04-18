@@ -88,7 +88,6 @@
 		ACF5677A2606E491009D0A28 /* AudioManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF567792606E491009D0A28 /* AudioManagerTests.swift */; };
 		ACF567942606EF3F009D0A28 /* PlayerStateChangeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF567932606EF3F009D0A28 /* PlayerStateChangeTests.swift */; };
 		ACF8765B262B0B6700C03119 /* TouchEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF8765A262B0B6700C03119 /* TouchEvent.swift */; };
-		ACF8D7942625E7A200DBE60C /* Hello.sks in Resources */ = {isa = PBXBuildFile; fileRef = ACF8D7932625E7A200DBE60C /* Hello.sks */; };
 		ACF8D7982625EF9800DBE60C /* SceneNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF8D7972625EF9800DBE60C /* SceneNode.swift */; };
 		ACFD81FA25F667EB009D806B /* RenderSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFD81F925F667EB009D806B /* RenderSystem.swift */; };
 		ACFD81FF25F670A2009D806B /* Colorable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFD81FE25F670A2009D806B /* Colorable.swift */; };
@@ -104,7 +103,6 @@
 		D50A07F126049A3A00822D67 /* HeartDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50A07F026049A3A00822D67 /* HeartDisplay.swift */; };
 		D50A08432604E26400822D67 /* HorizontalStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50A08422604E26400822D67 /* HorizontalStack.swift */; };
 		D50A08592604F52E00822D67 /* WeaponAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50A08582604F52E00822D67 /* WeaponAnimations.swift */; };
-		D50C88D826215E53001DBDD6 /* TEstView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D50C88D726215E53001DBDD6 /* TEstView.xib */; };
 		D50C88DC26215FA3001DBDD6 /* GunAimGuide.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50C88DB26215FA3001DBDD6 /* GunAimGuide.swift */; };
 		D50C88E0262178E2001DBDD6 /* PaintBucketSplash.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50C88DF262178E2001DBDD6 /* PaintBucketSplash.swift */; };
 		D50C88EF26217E43001DBDD6 /* AimGuide.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50C88EE26217E43001DBDD6 /* AimGuide.swift */; };
@@ -199,7 +197,6 @@
 		D55EEBAD260096FB00ADC70B /* VerticalStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55EEBAC260096FB00ADC70B /* VerticalStack.swift */; };
 		D5651CC42629AF34009D84FD /* ProcessedInputEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5651CC22629AF34009D84FD /* ProcessedInputEvent.swift */; };
 		D5651CC52629AF34009D84FD /* ProcessedInputEventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5651CC32629AF34009D84FD /* ProcessedInputEventManager.swift */; };
-		D5651CD52629B032009D84FD /* AttackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5651CD42629B032009D84FD /* AttackButton.swift */; };
 		D566E77626189FF20089FB41 /* ViewControllerIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D566E77526189FF20089FB41 /* ViewControllerIdentifiers.swift */; };
 		D567332D261EA37300FD1D15 /* PaintSplatter.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D5673324261EA37300FD1D15 /* PaintSplatter.mp3 */; };
 		D567332E261EA37300FD1D15 /* CompleteRequest.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D5673325261EA37300FD1D15 /* CompleteRequest.mp3 */; };
@@ -433,7 +430,6 @@
 		ACF567792606E491009D0A28 /* AudioManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioManagerTests.swift; sourceTree = "<group>"; };
 		ACF567932606EF3F009D0A28 /* PlayerStateChangeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerStateChangeTests.swift; sourceTree = "<group>"; };
 		ACF8765A262B0B6700C03119 /* TouchEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchEvent.swift; sourceTree = "<group>"; };
-		ACF8D7932625E7A200DBE60C /* Hello.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Hello.sks; sourceTree = "<group>"; };
 		ACF8D7972625EF9800DBE60C /* SceneNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneNode.swift; sourceTree = "<group>"; };
 		ACFD81F925F667EB009D806B /* RenderSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderSystem.swift; sourceTree = "<group>"; };
 		ACFD81FE25F670A2009D806B /* Colorable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colorable.swift; sourceTree = "<group>"; };
@@ -452,7 +448,6 @@
 		D50A07F026049A3A00822D67 /* HeartDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartDisplay.swift; sourceTree = "<group>"; };
 		D50A08422604E26400822D67 /* HorizontalStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalStack.swift; sourceTree = "<group>"; };
 		D50A08582604F52E00822D67 /* WeaponAnimations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeaponAnimations.swift; sourceTree = "<group>"; };
-		D50C88D726215E53001DBDD6 /* TEstView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TEstView.xib; sourceTree = "<group>"; };
 		D50C88DB26215FA3001DBDD6 /* GunAimGuide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GunAimGuide.swift; sourceTree = "<group>"; };
 		D50C88DF262178E2001DBDD6 /* PaintBucketSplash.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaintBucketSplash.swift; sourceTree = "<group>"; };
 		D50C88EE26217E43001DBDD6 /* AimGuide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AimGuide.swift; sourceTree = "<group>"; };
@@ -547,7 +542,6 @@
 		D55EEBAC260096FB00ADC70B /* VerticalStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalStack.swift; sourceTree = "<group>"; };
 		D5651CC22629AF34009D84FD /* ProcessedInputEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProcessedInputEvent.swift; sourceTree = "<group>"; };
 		D5651CC32629AF34009D84FD /* ProcessedInputEventManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProcessedInputEventManager.swift; sourceTree = "<group>"; };
-		D5651CD42629B032009D84FD /* AttackButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttackButton.swift; sourceTree = "<group>"; };
 		D566E77526189FF20089FB41 /* ViewControllerIdentifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerIdentifiers.swift; sourceTree = "<group>"; };
 		D5673324261EA37300FD1D15 /* PaintSplatter.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = PaintSplatter.mp3; sourceTree = "<group>"; };
 		D5673325261EA37300FD1D15 /* CompleteRequest.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = CompleteRequest.mp3; sourceTree = "<group>"; };
@@ -893,14 +887,12 @@
 				D57044E026182A1C004AF802 /* GameManagers */,
 				D53F5438260D948C00635B05 /* Components */,
 				ACB3607525F661620016E240 /* Actions.sks */,
-				ACF8D7932625E7A200DBE60C /* Hello.sks */,
 				ACB3607325F661620016E240 /* GameScene.sks */,
 				DCE17E4726258F0600AB0E80 /* Assets.xcassets */,
 				ACB3607125F661620016E240 /* AppDelegate.swift */,
 				ACB3607725F661620016E240 /* GameScene.swift */,
 				84820721262028DC00D4BA56 /* GameResolver.swift */,
 				ACB3607B25F661620016E240 /* Main.storyboard */,
-				D50C88D726215E53001DBDD6 /* TEstView.xib */,
 				ACB3608025F661630016E240 /* Info.plist */,
 				AC0A184C26052AF800A1338C /* Constants.swift */,
 				D5500C052608E7E200E21BF1 /* System.swift */,
@@ -1129,7 +1121,6 @@
 				D5704531261830EA004AF802 /* AttackJoystick.swift */,
 				D570452D261830DA004AF802 /* MovementJoystick.swift */,
 				AC0A18662605304100A1338C /* UIBar.swift */,
-				D5651CD42629B032009D84FD /* AttackButton.swift */,
 				D567333E261EE11700FD1D15 /* GameOverUI.swift */,
 				DCA3097F26235C7C00E06EFA /* ScoreDisplay.swift */,
 				DCA30983262363EF00E06EFA /* LightDisplay.swift */,
@@ -1687,10 +1678,8 @@
 				846D4FD7260241670079720F /* SlimeMoveRight.atlas in Resources */,
 				DC0EE8A825FE650200CBF414 /* SpawnerSpawn.atlas in Resources */,
 				AC5F0B7F2601130500E28D49 /* PlayerBrushWalkRight.atlas in Resources */,
-				ACF8D7942625E7A200DBE60C /* Hello.sks in Resources */,
 				D5673331261EA37300FD1D15 /* EnemyStep.mp3 in Resources */,
 				84578FB8262B4D260069A9F9 /* Level.csv in Resources */,
-				D50C88D826215E53001DBDD6 /* TEstView.xib in Resources */,
 				ACB3607D25F661620016E240 /* Main.storyboard in Resources */,
 				AC5F0B812601130500E28D49 /* PlayerBrushAttackLeft.atlas in Resources */,
 				DC0EE8A725FE650200CBF414 /* SpawnerIdle.atlas in Resources */,
@@ -1924,7 +1913,6 @@
 				DC9BAACB26010EFE0011B26E /* SpawnCanvasBehaviour.swift in Sources */,
 				8453F2C7260C89AE00FFD8AE /* SpawnCommand.swift in Sources */,
 				D53F544C260D950500635B05 /* AnimationSystem.swift in Sources */,
-				D5651CD52629B032009D84FD /* AttackButton.swift in Sources */,
 				D58346AC25FB8636005C344D /* PaintAmmo.swift in Sources */,
 				D53F54EE260D9FE100635B05 /* PlayerState+IdleRight.swift in Sources */,
 				84D453D42615B98700864E38 /* GameInfoManager.swift in Sources */,
@@ -2255,14 +2243,14 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 8B4N4F9FTJ;
+				DEVELOPMENT_TEAM = VX9JN3A7N9;
 				INFOPLIST_FILE = paintsplash/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = crawlers.paintsplashes6;
+				PRODUCT_BUNDLE_IDENTIFIER = crawlers.paintsplashes100;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -2278,14 +2266,14 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 8B4N4F9FTJ;
+				DEVELOPMENT_TEAM = VX9JN3A7N9;
 				INFOPLIST_FILE = paintsplash/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = crawlers.paintsplashes6;
+				PRODUCT_BUNDLE_IDENTIFIER = crawlers.paintsplashes100;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;

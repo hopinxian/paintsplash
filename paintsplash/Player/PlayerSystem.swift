@@ -14,8 +14,6 @@ class PaintSplashPlayerSystem: PlayerSystem {
     var players = [EntityID: PlayableCharacter]()
     var processedInputEvents = [ProcessedInputEvent]()
 
-    let eventLimit = 100
-
     init() {
         EventSystem.processedInputEvents.subscribe(listener: { [weak self] in self?.addEvent(event: $0) })
     }
@@ -56,8 +54,6 @@ class PaintSplashPlayerSystem: PlayerSystem {
     }
 
     private func addEvent(event: ProcessedInputEvent) {
-        if processedInputEvents.count < eventLimit {
-            processedInputEvents.append(event)
-        }
+        processedInputEvents.append(event)
     }
 }
