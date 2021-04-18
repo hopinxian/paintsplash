@@ -3,7 +3,6 @@
 //  paintsplash
 //
 //  Created by Cynthia Lee on 1/4/21.
-// swiftlint:disable function_body_length
 
 import Foundation
 
@@ -33,6 +32,9 @@ class MultiplayerClient: SinglePlayerGameManager {
 
         // Set up senders to send client player input to database
         serverNetworkHandler.setupPlayerInputSenders()
+
+        // Set up listeners to observe changes from server side
+        serverNetworkHandler.setupPlayerEventObservers(player: playerInfo)
     }
 
     override func setUpPlayer() {
@@ -49,104 +51,9 @@ class MultiplayerClient: SinglePlayerGameManager {
     func setUpObservers() {
         let gameID = room.gameID
 
-        gameConnectionHandler.observeEvent(
-            gameId: gameID,
-            playerId: playerInfo.playerUUID,
-            onChange: {
-                EventSystem.playerActionEvent.playerHealthUpdateEvent.post(event: $0)
-
-            },
-            onError: nil
-        )
-
-        gameConnectionHandler.observeEvent(
-            gameId: gameID,
-            playerId: playerInfo.playerUUID,
-            onChange: { (event: PlayerChangedWeaponEvent) in
-                EventSystem.playerActionEvent.playerChangedWeaponEvent.post(event: event)
-            },
-            onError: nil
-        )
-
-        gameConnectionHandler.observeEvent(
-            gameId: gameID,
-            playerId: playerInfo.playerUUID,
-            onChange: { [weak self] (event: PlayerAmmoUpdateEvent) in
-                EventSystem.playerActionEvent.playerAmmoUpdateEvent.post(event: event)
-                self?.updatePlayerAmmo(event)
-            },
-            onError: nil
-        )
-
-        gameConnectionHandler.observeEvent(
-            gameId: gameID,
-            playerId: playerInfo.playerUUID,
-            onChange: { [weak self] (event: PlayMusicEvent) in
-                EventSystem.audioEvent.playMusicEvent.post(event: event)
-                guard let playerId = self?.playerInfo.playerUUID else {
-                    return
-                }
-                self?.gameConnectionHandler.acknowledgeEvent(
-                    event,
-                    gameId: gameID,
-                    playerId: playerId,
-                    onError: nil,
-                    onSuccess: nil
-                )
-            },
-            onError: nil
-        )
-
-        gameConnectionHandler.observeEvent(
-            gameId: gameID,
-            playerId: playerInfo.playerUUID,
-            onChange: { [weak self] (event: PlaySoundEffectEvent) in
-                EventSystem.audioEvent.playSoundEffectEvent.post(event: event)
-                guard let playerId = self?.playerInfo.playerUUID else {
-                    return
-                }
-                self?.gameConnectionHandler.acknowledgeEvent(
-                    event,
-                    gameId: gameID,
-                    playerId: playerId,
-                    onError: nil,
-                    onSuccess: nil)
-            },
-            onError: nil
-        )
-
         gameConnectionHandler.observeSystemData(gameID: gameID, callback: { [weak self] data in
             self?.updateSystemData(data: data)
         })
-
-        gameConnectionHandler.observeEvent(
-            gameId: gameID,
-            playerId: playerInfo.playerUUID,
-            onChange: { [weak self] (event: GameOverEvent) in
-                EventSystem.gameStateEvents.gameOverEvent.post(event: event)
-                guard let playerId = self?.playerInfo.playerUUID else {
-                    return
-                }
-                self?.gameConnectionHandler.acknowledgeEvent(
-                    event,
-                    gameId: gameID,
-                    playerId: playerId,
-                    onError: nil,
-                    onSuccess: nil
-                )
-            },
-            onError: nil
-        )
-    }
-
-    func updatePlayerAmmo(_ event: PlayerAmmoUpdateEvent) {
-        if let weapon = player.multiWeaponComponent.availableWeapons.first(
-            where: { event.weaponType == type(of: $0) }) {
-            while weapon.canShoot() {
-                _ = weapon.shoot(from: Vector2D.zero, in: Vector2D.zero)
-            }
-            weapon.load(event.ammo)
-        }
     }
 
     override func setUpSystems() {
@@ -185,7 +92,7 @@ class MultiplayerClient: SinglePlayerGameManager {
         let path = DataPaths.joinPaths(
             DataPaths.games, room.gameID,
             DataPaths.game_players, player.id.id,
-            "clientPlayer")
+            DataPaths.game_client_player)
         connectionHandler.send(
             to: path,
             data: systemData,

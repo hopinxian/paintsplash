@@ -26,8 +26,17 @@ class FirebaseMPClientNetworkHandler: MPClientNetworkHandler {
     }
 
     func setupPlayerEventObservers(player: PlayerInfo) {
+        let playerId = player.playerUUID
+        let gameId = self.gameId
+
+        observePlayerHealthEvent(playerId: playerId, gameId: gameId)
+        observePlayerChangedWeaponEvent(playerId: playerId, gameId: gameId)
+        observePlayerAmmoUpdateEvent(playerId: playerId, gameId: gameId)
+
+        observeGameOver(playerId: playerId, gameId: gameId)
+        observePlayMusicEvent(playerId: playerId, gameId: gameId)
+        observePlaySoundEffectEvent(playerId: playerId, gameId: gameId)
     }
-    
 }
 
 // MARK: Client Input Senders
@@ -66,5 +75,108 @@ extension FirebaseMPClientNetworkHandler {
                 onSuccess: nil
             )
         }
+    }
+}
+
+// MARK: Client Event Observers
+extension FirebaseMPClientNetworkHandler {
+    private func observePlayerHealthEvent(playerId: String, gameId: String) {
+        gameConnectionHandler.observeEvent(
+            gameId: gameId,
+            playerId: playerId,
+            onChange: { (event: PlayerHealthUpdateEvent) in
+                EventSystem.playerActionEvent.playerHealthUpdateEvent.post(event: event)
+            },
+            onError: nil
+        )
+    }
+
+    private func observePlayerChangedWeaponEvent(playerId: String, gameId: String) {
+        gameConnectionHandler.observeEvent(
+            gameId: gameId,
+            playerId: playerId,
+            onChange: { (event: PlayerChangedWeaponEvent) in
+                EventSystem.playerActionEvent.playerChangedWeaponEvent.post(event: event)
+            },
+            onError: nil
+        )
+    }
+
+    private func observePlayerAmmoUpdateEvent(playerId: String, gameId: String) {
+        gameConnectionHandler.observeEvent(
+            gameId: gameId,
+            playerId: playerId,
+            onChange: { [weak self] (event: PlayerAmmoUpdateEvent) in
+                EventSystem.playerActionEvent.playerAmmoUpdateEvent.post(event: event)
+                self?.updatePlayerAmmo(event)
+            },
+            onError: nil
+        )
+    }
+
+    private func updatePlayerAmmo(_ event: PlayerAmmoUpdateEvent) {
+        guard let player = multiplayerClient?.player else {
+            return
+        }
+        if let weapon = player.multiWeaponComponent.availableWeapons.first(
+            where: { event.weaponType == type(of: $0) }) {
+            while weapon.canShoot() {
+                _ = weapon.shoot(from: Vector2D.zero, in: Vector2D.zero)
+            }
+            weapon.load(event.ammo)
+        }
+    }
+
+    private func observeGameOver(playerId: String, gameId: String) {
+        gameConnectionHandler.observeEvent(
+            gameId: gameId,
+            playerId: playerId,
+            onChange: { [weak self] (event: GameOverEvent) in
+                EventSystem.gameStateEvents.gameOverEvent.post(event: event)
+                self?.gameConnectionHandler.acknowledgeEvent(
+                    event,
+                    gameId: gameId,
+                    playerId: playerId,
+                    onError: nil,
+                    onSuccess: nil
+                )
+            },
+            onError: nil
+        )
+    }
+
+    private func observePlayMusicEvent(playerId: String, gameId: String) {
+        gameConnectionHandler.observeEvent(
+            gameId: gameId,
+            playerId: playerId,
+            onChange: { [weak self] (event: PlayMusicEvent) in
+                EventSystem.audioEvent.playMusicEvent.post(event: event)
+                self?.gameConnectionHandler.acknowledgeEvent(
+                    event,
+                    gameId: gameId,
+                    playerId: playerId,
+                    onError: nil,
+                    onSuccess: nil
+                )
+            },
+            onError: nil
+        )
+    }
+
+    private func observePlaySoundEffectEvent(playerId: String, gameId: String) {
+        gameConnectionHandler.observeEvent(
+            gameId: gameId,
+            playerId: playerId,
+            onChange: { [weak self] (event: PlaySoundEffectEvent) in
+                EventSystem.audioEvent.playSoundEffectEvent.post(event: event)
+                self?.gameConnectionHandler.acknowledgeEvent(
+                    event,
+                    gameId: gameId,
+                    playerId: playerId,
+                    onError: nil,
+                    onSuccess: nil)
+            },
+            onError: nil
+        )
     }
 }
