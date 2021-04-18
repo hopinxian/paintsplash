@@ -33,13 +33,13 @@ class AudioPlayerImplTests: XCTestCase {
 
     func testPlayValidAudioFile() {
         let url = getValidURL()
-        XCTAssertTrue(player.playAudio(from: url, loops: 1, volume: 0))
+        XCTAssertNotNil(player.playAudio(from: url, loops: 1, volume: 0))
         XCTAssertTrue(player.isPlaying)
     }
 
     func testPlayInvalidAudioFile() {
         let url = getInvalidURL()
-        XCTAssertFalse(player.playAudio(from: url, loops: 1, volume: 0))
+        XCTAssertNotNil(player.playAudio(from: url, loops: 1, volume: 0))
         XCTAssertFalse(player.isPlaying)
     }
 
@@ -48,13 +48,13 @@ class AudioPlayerImplTests: XCTestCase {
         XCTAssertFalse(player.isPlaying)
         player.playAudio(from: url, loops: 1, volume: 0)
         XCTAssertTrue(player.isPlaying)
-        player.stop()
+        player.stopAll()
         XCTAssertFalse(player.isPlaying)
     }
 
     func testStopAudioWhileNotPlaying() {
         XCTAssertFalse(player.isPlaying)
-        player.stop()
+        player.stopAll()
         XCTAssertFalse(player.isPlaying)
     }
 }

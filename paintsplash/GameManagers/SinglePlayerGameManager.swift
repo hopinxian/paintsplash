@@ -144,7 +144,7 @@ class  SinglePlayerGameManager: GameManager {
 
     func setUpAudio() {
         self.audioManager.associatedDevice = player.id
-        self.audioManager.playMusic(Music.backgroundMusic)
+        self.audioManager.playAudio(Music.backgroundMusic)
     }
 
     func setUpUI() {
