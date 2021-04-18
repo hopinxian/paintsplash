@@ -7,14 +7,26 @@
 
 import GameplayKit
 
+/**
+ `RandomGenerator` is a type that can generate random values.
+ It is seeded so that random values can be replicated if need be.
+ */
 protocol RandomGenerator {
     var seed: UInt64 { get }
 
+    /// Generates a random integer from the range of integers given.
     func nextInt(_ range: Range<Int>) -> Int
+
+    /// Generates a random double from the range of doubles given.
     func nextUniform(_ range: Range<Double>) -> Double
+
+    /// Generates a random boolean.
     func nextBool() -> Bool
 }
 
+/**
+ `RandomNumber` generates random numbers using the linear congruential generator algorithm.
+ */
 class RandomNumber: RandomGenerator {
     let source: GKLinearCongruentialRandomSource
     let seed: UInt64

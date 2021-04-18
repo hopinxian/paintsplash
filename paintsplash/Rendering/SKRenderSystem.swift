@@ -9,6 +9,7 @@ import SpriteKit
 class SKRenderSystem: RenderSystem {
     var renderables = [EntityID: Renderable]()
     var wasModified = [EntityID: Renderable]()
+
     private weak var scene: GameScene?
     private var nodeEntityMap = BidirectionalMap<EntityID, SKNode>()
 
@@ -27,9 +28,7 @@ class SKRenderSystem: RenderSystem {
             node = addAsNonRenderable()
         }
 
-        if node.parent == nil {
-            scene?.addChild(node)
-        }
+        scene?.addChild(node)
 
         nodeEntityMap[entity.id] = node
     }
@@ -46,6 +45,8 @@ class SKRenderSystem: RenderSystem {
         SKNode()
     }
 
+    /// Crops a child node to its parent node using an SKCropNode,
+    /// preserving the position of the child node relative to its parent.
     private func getCroppedToNode(maskNode: SKNode, childNode: SKNode) -> SKNode? {
         guard let mask = maskNode.copy() as? SKSpriteNode else {
             return nil
@@ -122,23 +123,29 @@ class SKRenderSystem: RenderSystem {
         transformComponent.wasModified = false
         renderComponent.wasModified = false
 
+        updateCommonNodeProperties(node: node, renderable: renderable)
+        updateSpecificNodeTypes(node, renderable)
+    }
+
+    private func updateCommonNodeProperties(node: SKNode, renderable: Renderable) {
+        let transformComponent = renderable.transformComponent
+        let renderComponent = renderable.renderComponent
+
         let newPosition: CGPoint =
             SpaceConverter.modelToScreen(transformComponent.worldPosition)
         node.position = newPosition
 
         var zPosition = renderComponent.zPositionGroup.rawValue + renderComponent.zPosition
         if renderComponent.zPositionGroup == .playfield {
-            zPosition += Int((transformComponent.worldPosition.y -
-                                Constants.MODEL_WORLD_SIZE.y -
-                                transformComponent.size.y / 2) * -1)
+            let yPosition = transformComponent.worldPosition.y
+            let yDisplacement = transformComponent.size.y / 2
+            zPosition += Int(yPosition - Constants.MODEL_WORLD_SIZE.y - yDisplacement) * -1
         }
 
         node.zPosition = CGFloat(zPosition)
 
         let newRotation = CGFloat(transformComponent.rotation)
         node.zRotation = newRotation
-
-        updateSpecificNodeTypes(node, renderable)
     }
 
     private func updateSpecificNodeTypes(_ node: SKNode, _ renderable: Renderable) {
@@ -177,7 +184,7 @@ class SKRenderSystem: RenderSystem {
         text: String,
         fontName: String,
         fontSize: Double,
-        fontColor: Color
+        fontColor: FontColor
     ) {
         if node.text != text {
             node.text = text
@@ -197,9 +204,10 @@ class SKRenderSystem: RenderSystem {
     }
 
     private func updateSceneNode(_ node: SKReferenceNode, sceneName: String) {
-        // Do nothing
+        // Do nothing because a scene node will never change
     }
 
+    /// Get the renderable corresponding the the SKNode
     func renderableFromNode(_ node: SKNode) -> Renderable? {
         guard let id = nodeEntityMap[node] else {
             return nil

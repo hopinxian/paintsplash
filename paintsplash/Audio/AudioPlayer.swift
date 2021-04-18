@@ -10,6 +10,7 @@ import Foundation
 protocol AudioPlayer: AnyObject {
     var isPlaying: Bool { get }
 
-    @discardableResult func playAudio(from url: URL, loops: Int, volume: Float) -> Bool
-    func stop()
+    @discardableResult func playAudio(from url: URL, loops: Int, volume: Float) -> EntityID?
+    func stop(_ id: EntityID)
+    func stopAll()
 }

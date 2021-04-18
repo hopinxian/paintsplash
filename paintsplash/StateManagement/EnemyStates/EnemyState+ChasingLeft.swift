@@ -8,7 +8,10 @@
 extension EnemyState {
     class ChasingLeft: EnemyState {
         override func onEnterState() {
-            enemy.animationComponent.animate(animation: SlimeAnimations.slimeMoveLeft, interupt: true)
+            enemy.animationComponent.animate(
+                animation: SlimeAnimations.slimeMoveLeft,
+                interupt: true
+            )
 
             enemy.lastDirection = enemy.moveableComponent.direction
         }

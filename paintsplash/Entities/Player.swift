@@ -42,7 +42,7 @@ class Player: GameEntity,
         self.transformComponent = BoundedTransformComponent(
             position: initialPosition,
             rotation: 0.0,
-            size: Vector2D(128, 128),
+            size: Constants.PLAYER_SIZE,
             bounds: Constants.PLAYER_MOVEMENT_BOUNDS
         )
 
@@ -86,7 +86,7 @@ class Player: GameEntity,
 
         super.init()
 
-        self.stateComponent.currentState = PlayerState.IdleLeft(player: self)
+        self.stateComponent.setState(PlayerState.IdleLeft(player: self))
 
         paintGun.owner = self
         bucket.owner = self

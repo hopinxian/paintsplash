@@ -35,17 +35,7 @@ extension EnemyState {
                 return nil
             }
 
-            let randomNum = Int.random(in: -1...1)
-            switch randomNum {
-            case 0:
-                return nil
-            case 1:
-                return RandomMovementRight(enemy: enemy)
-            case -1:
-                return RandomMovementLeft(enemy: enemy)
-            default:
-                return nil
-            }
+            return getRandomState()
         }
     }
 }

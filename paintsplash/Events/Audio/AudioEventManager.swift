@@ -8,14 +8,12 @@
 class AudioEventManager: EventManager<AudioEvent> {
     let playMusicEvent = EventManager<PlayMusicEvent>()
     let playSoundEffectEvent = EventManager<PlaySoundEffectEvent>()
-    let stopMusicEvent = EventManager<StopMusicEvent>()
-    let stopSoundEffectEvent = EventManager<StopSoundEffectEvent>()
+    let stopAudioEvent = EventManager<StopAudioEvent>()
 
     override func subscribe(listener: @escaping (AudioEvent) -> Void) {
         super.subscribe(listener: listener)
         playMusicEvent.subscribe(listener: listener)
         playSoundEffectEvent.subscribe(listener: listener)
-        stopMusicEvent.subscribe(listener: listener)
-        stopSoundEffectEvent.subscribe(listener: listener)
+        stopAudioEvent.subscribe(listener: listener)
     }
 }

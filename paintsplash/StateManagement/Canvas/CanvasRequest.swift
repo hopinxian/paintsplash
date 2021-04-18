@@ -37,7 +37,6 @@ class CanvasRequest: GameEntity, Renderable, Transformable {
 
     func paintRequiredColours() {
         for color in requiredColors {
-            // add visible paint blob to canvas
             let blob = PaintBlob(color: color, canvas: self)
             blob.spawn()
             paintBlobs.insert(blob)

@@ -7,16 +7,17 @@
 
 import CoreGraphics
 
+/// Move towards the player's location
 struct ChasePlayerBehaviour: StateBehaviour {
-    func updateAI(aiEntity: StatefulEntity, aiGameInfo: GameInfo) {
-        // move towards player location
-        guard let movable = aiEntity as? Movable else {
-            fatalError("AIEntity does not conform to the required protocols for ApproachPointBehaviour")
+    func run(statefulEntity: StatefulEntity, gameInfo: GameInfo) {
+        guard let movable = statefulEntity as? Movable else {
+            fatalError(
+                "AIEntity does not conform to the required protocols for ChasePlayerBehaviour"
+            )
         }
 
         let enemyCurrentPosition = movable.transformComponent.localPosition
-        let playerPosition = aiGameInfo.playerPosition
-
+        let playerPosition = gameInfo.playerPosition
         let direction = playerPosition - enemyCurrentPosition
 
         var newDirection = direction.unitVector

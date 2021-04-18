@@ -6,12 +6,12 @@
 //
 
 protocol AudioSystem {
-    var isPlayingMusic: Bool { get }
-    var isPlayingEffect: Bool { get }
+    var isPlaying: Bool { get }
     var associatedDevice: EntityID? { get set }
 
-    func playMusic(_ music: Music)
-    func playEffect(_ effect: SoundEffect)
-    func stopMusic()
-    func stopEffect()
+    @discardableResult func playMusic(_ music: Music) -> EntityID?
+    @discardableResult func playEffect(_ effect: SoundEffect) -> EntityID?
+
+    func stopAudio(with id: EntityID)
+    func stopAllAudio()
 }

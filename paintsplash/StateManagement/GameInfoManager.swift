@@ -5,32 +5,52 @@
 //  Created by admin on 1/4/21.
 //
 
+/**
+ `GameInfoManager` updates `GameInfo` by listening to events.
+ */
 class GameInfoManager {
     var gameInfo: GameInfo
 
     init(gameInfo: GameInfo) {
         self.gameInfo = gameInfo
-        EventSystem.entityChangeEvents
-            .addEntityEvent.subscribe(listener: { [weak self] in
-                                        self?.updateAddEntity(event: $0)
-            })
-
-        EventSystem.entityChangeEvents
-            .removeEntityEvent.subscribe(listener: { [weak self] in
-                                            self?.updateRemoveEntity(event: $0)
-            })
-
-        EventSystem.playerActionEvent
-            .playerMovementEvent.subscribe(listener: { [weak self] in
-                                            self?.updatePlayerMove(event: $0)
-            })
+        setupListeners()
     }
 
-    func updatePlayerMove(event: PlayerMovementEvent) {
+    /// Subscribes to events that are important for updating gaminfo.
+    private func setupListeners() {
+        EventSystem
+            .entityChangeEvents
+            .addEntityEvent
+            .subscribe(
+                listener: { [weak self] in
+                    self?.updateAddEntity(event: $0)
+                }
+            )
+
+        EventSystem
+            .entityChangeEvents
+            .removeEntityEvent
+            .subscribe(
+                listener: { [weak self] in
+                    self?.updateRemoveEntity(event: $0)
+                }
+            )
+
+        EventSystem
+            .playerActionEvent
+            .playerMovementEvent
+            .subscribe(
+                listener: { [weak self] in
+                    self?.updatePlayerMove(event: $0)
+                }
+            )
+    }
+
+    private func updatePlayerMove(event: PlayerMovementEvent) {
         gameInfo.playerPosition = event.location
     }
 
-    func updateAddEntity(event: AddEntityEvent) {
+    private func updateAddEntity(event: AddEntityEvent) {
         switch event.entity {
         case let enemy as Enemy:
             gameInfo.numberOfEnemies += 1
@@ -50,7 +70,7 @@ class GameInfoManager {
         }
     }
 
-    func updateRemoveEntity(event: RemoveEntityEvent) {
+    private func updateRemoveEntity(event: RemoveEntityEvent) {
         switch event.entity {
         case let enemy as Enemy:
             gameInfo.numberOfEnemies -= 1

@@ -31,6 +31,12 @@ enum PaintColor: String, CaseIterable, Codable {
     /// An array of all light colors
     static let lightColors = [lightred, lightblue, lightgreen, lightyellow, lightpurple, lightorange]
 
+    /// An array of base colors
+    static let baseColors = [red, blue, yellow, white]
+
+    /// An array of secondary colors
+    static let secondaryColors = [purple, orange, green]
+
     /// Returns the makeup of the color as a composition of base colors.
     var makeup: ColorMakeup {
         var makeup: ColorMakeup
@@ -66,7 +72,7 @@ enum PaintColor: String, CaseIterable, Codable {
         return makeup
     }
 
-    /// Returns the result of mixing all the given colors.
+    /// Returns the result of mixing self with all the given colors.
     /// Returns nothing if there is no valid color from the mixture.
     func mix(with colors: [PaintColor]) -> PaintColor? {
         var mix = colors
@@ -74,7 +80,6 @@ enum PaintColor: String, CaseIterable, Codable {
         return PaintColor.mixer.mix(colors: mix)
     }
 
-    /// Returns true if this color contains the given color.
     func contains(color other: PaintColor) -> Bool {
         self.makeup.contains(other.makeup)
     }

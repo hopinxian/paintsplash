@@ -8,35 +8,21 @@
 import Foundation
 
 class AudioManager: AudioSystem {
+    private var audioPlayer: AudioPlayer
 
-    // The current implementation of AVAudioPlayerImpl allows these two audio players
-    // be merged into one.
-    // However, they are kept separate to allow the user to only stop effects or to
-    // only stop music
-    private var musicPlayer: AudioPlayer
-    private var effectPlayer: AudioPlayer
     var associatedDevice: EntityID?
 
-    var isPlayingMusic: Bool {
-        musicPlayer.isPlaying
+    var isPlaying: Bool {
+        audioPlayer.isPlaying
     }
 
-    var isPlayingEffect: Bool {
-        effectPlayer.isPlaying
-    }
-
+    // MARK: Initializers/Deinitializers
     init() {
-        musicPlayer = AVAudioPlayerImpl()
-        effectPlayer = AVAudioPlayerImpl()
+        audioPlayer = AVAudioPlayerImpl()
 
         EventSystem.audioEvent.subscribe(listener: { [weak self] event in
             self?.audioEventListener(event: event)
         })
-    }
-
-    deinit {
-        musicPlayer.stop()
-        effectPlayer.stop()
     }
 
     convenience init(associatedDeviceId: EntityID?) {
@@ -44,83 +30,107 @@ class AudioManager: AudioSystem {
         self.associatedDevice = associatedDeviceId
     }
 
-    func playMusic(_ music: Music) {
-        guard let path = Bundle.main.path(forResource: music.name, ofType: music.fileExtension) else {
-            return
-        }
-
-        let url = URL(fileURLWithPath: path)
-        musicPlayer.playAudio(from: url, loops: music.loops, volume: music.volume)
+    deinit {
+        audioPlayer.stopAll()
     }
 
-    func playEffect(_ effect: SoundEffect) {
-        guard let path = Bundle.main.path(forResource: effect.name, ofType: effect.fileExtension) else {
-            return
-        }
+    // MARK: Protocol Conforming Methods
 
-        let url = URL(fileURLWithPath: path)
-        effectPlayer.playAudio(from: url, loops: effect.loops, volume: effect.volume)
+    /// Plays a music track.
+    ///
+    /// - Parameters:
+    ///     - music: The music track to be played..
+    /// - Returns:
+    ///     - An optional ID if the audio playback is successful.
+    @discardableResult func playMusic(_ music: Music) -> EntityID? {
+        playAudio(name: music.name, fileExtension: music.fileExtension, loops: music.loops, volume: music.volume)
     }
 
-    func stopMusic() {
-        musicPlayer.stop()
+    /// Plays a sound effect.
+    ///
+    /// - Parameters:
+    ///     - effect: The sound effect to be played.
+    /// - Returns:
+    ///     - An optional ID if the audio playback is successful.
+    @discardableResult func playEffect(_ effect: SoundEffect) -> EntityID? {
+        playAudio(name: effect.name, fileExtension: effect.fileExtension, loops: effect.loops, volume: effect.volume)
     }
 
-    func stopEffect() {
-        effectPlayer.stop()
+    /// Stops an audio track with the specified ID.
+    ///
+    /// - Parameters:
+    ///     - id: The EntityID of the audio track.
+    func stopAudio(with id: EntityID) {
+        audioPlayer.stop(id)
     }
 
-    private func processPlayMusicEvent(_ event: PlayMusicEvent) {
-        guard shouldExecuteForEntity(event.playerId) else {
-            return
-        }
-        playMusic(event.music)
+    /// Stops all audio tracks.
+    func stopAllAudio() {
+        audioPlayer.stopAll()
     }
 
-    private func processPlaySoundEffectEvent(_ event: PlaySoundEffectEvent) {
-        guard shouldExecuteForEntity(event.playerId) else {
-            return
-        }
-        playEffect(event.effect)
-    }
-
-    private func processStopMusicEvent(_ event: StopMusicEvent) {
-        guard shouldExecuteForEntity(event.playerId) else {
-            return
-        }
-
-        stopMusic()
-    }
-
-    private func processStopSoundEffectEvent(_ event: StopSoundEffectEvent) {
-        guard shouldExecuteForEntity(event.playerId) else {
-            return
-        }
-
-        stopEffect()
-    }
-
-    private func shouldExecuteForEntity(_ entitiyId: EntityID?) -> Bool {
-        guard let eventId = entitiyId,
-              let managerId = self.associatedDevice else {
-            return true // if no id specified, all audio managers should play
-        }
-
-        return eventId == managerId
-    }
-
+    // MARK: Event Handlers
     private func audioEventListener(event: AudioEvent) {
         switch event {
         case let event as PlayMusicEvent:
             processPlayMusicEvent(event)
         case let event as PlaySoundEffectEvent:
             processPlaySoundEffectEvent(event)
-        case let event as StopMusicEvent:
-            processStopMusicEvent(event)
-        case let event as StopSoundEffectEvent:
-            processStopSoundEffectEvent(event)
+        case let event as StopAudioEvent:
+            processStopAudioEvent(event)
         default:
             break
         }
+    }
+
+    private func processPlayMusicEvent(_ event: PlayMusicEvent) {
+        if shouldExecuteForEntity(event.playerId) {
+            playMusic(event.music)
+        }
+    }
+
+    private func processPlaySoundEffectEvent(_ event: PlaySoundEffectEvent) {
+        if shouldExecuteForEntity(event.playerId) {
+            playEffect(event.effect)
+        }
+    }
+
+    private func processStopAudioEvent(_ event: StopAudioEvent) {
+        guard shouldExecuteForEntity(event.playerId) else {
+            return
+        }
+
+        guard let id = event.audioId else {
+            stopAllAudio()
+            return
+        }
+
+        stopAudio(with: id)
+    }
+
+    // MARK: Utility Functions
+    private func playAudio(name: String, fileExtension: String, loops: Int, volume: Float) -> EntityID? {
+        guard let url = getURL(forResource: name, ofType: fileExtension) else {
+            return nil
+        }
+
+        return audioPlayer.playAudio(from: url, loops: loops, volume: volume)
+    }
+
+    private func getURL(forResource name: String, ofType type: String) -> URL? {
+        guard let path = Bundle.main.path(forResource: name, ofType: type) else {
+            return nil
+        }
+
+        return URL(fileURLWithPath: path)
+    }
+
+    private func shouldExecuteForEntity(_ entitiyId: EntityID?) -> Bool {
+        guard let eventId = entitiyId,
+            let managerId = self.associatedDevice else {
+            return true // if no id specified, all audio managers should play
+        }
+
+        return eventId == managerId
     }
 }

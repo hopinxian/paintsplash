@@ -12,11 +12,10 @@ class FirebaseConnectionHandler: ConnectionHandler {
 
     init() {
         // Uncomment to use Firebase Emulator (development)
-        self.firebase =
-            Database.database(url: "http://localhost:9000/?ns=paintsplash-fe2d8")
+        // self.firebase = Database.database(url: "http://localhost:9000/?ns=paintsplash-fe2d8")
 
         // Uncomment to use Firebase Real Time Database (production)
-        // self.firebase = Database.database()
+        self.firebase = Database.database()
     }
 
     /// Writes the given data dictionary to the path in the Firebase Real Time database,

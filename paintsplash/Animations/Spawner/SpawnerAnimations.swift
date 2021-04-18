@@ -40,8 +40,8 @@ struct SpawnerAnimations: AnimationSource {
         "spawnerHit":
             RawAnimation(name: "spawnerHit",
                          action: SKAction.repeat(SKAction.sequence([
-                            SKAction.fadeAlpha(to: 0.4, duration: 0.1),
-                            SKAction.fadeAlpha(by: 1.0, duration: 0.1)
+                            SKAction.fadeAlpha(to: 0.4, duration: 0.05),
+                            SKAction.fadeAlpha(to: 1.0, duration: 0.05)
                          ]), count: 3))
     ]
 

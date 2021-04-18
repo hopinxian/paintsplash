@@ -6,7 +6,7 @@
 //
 import UIKit
 
-enum Color: String, Codable {
+enum FontColor: String, Codable {
     case black
     case white
 

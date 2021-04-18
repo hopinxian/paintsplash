@@ -6,18 +6,19 @@
 //
 
 protocol MPServerNetworkHandler {
-    func sendGameState()
+    func sendGameState(uiEntities: Set<GameEntity>, entities: Set<GameEntity>,
+                       renderSystem: RenderSystem, animationSystem: AnimationSystem)
 
-    func setupPlayerEventSenders(player: PlayerInfo, gameId: String)
+    func setupPlayerEventSenders(player: PlayerInfo)
 
-    func setupPlayerEventObservers(player: PlayerInfo, gameId: String)
+    func setupPlayerEventObservers(player: PlayerInfo)
 
-    func setupClientPlayer(player: PlayerInfo, gameId: String)
+    func setupClientPlayer(player: PlayerInfo)
 }
 
 extension MPServerNetworkHandler {
-    func setupClientPlayer(player: PlayerInfo, gameId: String) {
-        setupPlayerEventObservers(player: player, gameId: gameId)
-        setupPlayerEventSenders(player: player, gameId: gameId)
+    func setupClientPlayer(player: PlayerInfo) {
+        setupPlayerEventObservers(player: player)
+        setupPlayerEventSenders(player: player)
     }
 }

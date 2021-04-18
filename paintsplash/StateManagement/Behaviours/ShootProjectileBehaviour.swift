@@ -5,16 +5,12 @@
 //  Created by Farrell Nah on 24/3/21.
 //
 
-class ShootProjectileBehaviour: StateBehaviour {
-
+/// Shoots a projectile in the provided direction.
+struct ShootProjectileBehaviour: StateBehaviour {
     var shootDirection: Vector2D
 
-    init(shootDirection: Vector2D) {
-        self.shootDirection = shootDirection
-    }
-
-    func updateAI(aiEntity: StatefulEntity, aiGameInfo: GameInfo) {
-        guard let player = aiEntity as? Player else {
+    func run(statefulEntity: StatefulEntity, gameInfo: GameInfo) {
+        guard let player = statefulEntity as? Player else {
             return
         }
 

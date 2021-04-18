@@ -39,7 +39,7 @@ class SinglePlayerGameManager: GameManager {
     init(gameScene: GameScene, vc: GameViewController) {
         self.gameScene = gameScene
         self.viewController = vc
-        let gameInfo = GameInfo(playerPosition: Vector2D.zero, numberOfEnemies: 0)
+        let gameInfo = GameInfo(playerPosition: Vector2D.zero)
         self.gameInfoManager = GameInfoManager(gameInfo: gameInfo)
 
         setupEventListeners()
@@ -102,7 +102,7 @@ class SinglePlayerGameManager: GameManager {
 
         self.playerSystem = PaintSplashPlayerSystem()
 
-        self.userInputSystem = SKUserInputSystem(renderSystem: skRenderSystem)
+        self.userInputSystem = SKUserInputSystem()
 
         gameScene.inputSystem = userInputSystem
     }
@@ -132,7 +132,7 @@ class SinglePlayerGameManager: GameManager {
             canvasManager: canvasManager,
             gameInfo: gameInfoManager.gameInfo
         )
-        currentLevel?.run()
+        currentLevel?.start()
     }
 
     func setUpAudio() {
@@ -264,7 +264,7 @@ class SinglePlayerGameManager: GameManager {
 
     func update(_ deltaTime: Double) {
         if !gameIsOver || currentLevel == nil {
-            currentLevel?.update(deltaTime)
+            currentLevel?.run(deltaTime)
             aiSystem.updateEntities(deltaTime)
             collisionSystem.updateEntities(deltaTime)
             movementSystem.updateEntities(deltaTime)
@@ -286,7 +286,7 @@ class SinglePlayerGameManager: GameManager {
         )
         gameOverUI.spawn()
 
-        EventSystem.audioEvent.stopMusicEvent.post(event: StopMusicEvent())
+        EventSystem.audioEvent.stopAudioEvent.post(event: StopAudioEvent())
         if event.isWin {
             EventSystem.audioEvent.playMusicEvent.post(event: PlayMusicEvent(music: Music.gameOverWin))
         } else {

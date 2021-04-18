@@ -5,16 +5,13 @@
 //  Created by Farrell Nah on 24/3/21.
 //
 
-class BehaviourSequence: StateBehaviour {
+/// A behaviour that is composed of a sequence of other behaviours.
+struct BehaviourSequence: StateBehaviour {
     let behaviours: [StateBehaviour]
 
-    init(behaviours: [StateBehaviour]) {
-        self.behaviours = behaviours
-    }
-
-    func updateAI(aiEntity: StatefulEntity, aiGameInfo: GameInfo) {
+    func run(statefulEntity: StatefulEntity, gameInfo: GameInfo) {
         for behaviour in behaviours {
-            behaviour.updateAI(aiEntity: aiEntity, aiGameInfo: aiGameInfo)
+            behaviour.run(statefulEntity: statefulEntity, gameInfo: gameInfo)
         }
     }
 }

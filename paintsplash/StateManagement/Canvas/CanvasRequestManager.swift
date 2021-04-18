@@ -13,6 +13,7 @@ class CanvasRequestManager: GameEntity, Transformable {
     var requests: [CanvasRequest] {
         requestsDisplayView.items
     }
+    var canvases = Set<Canvas?>()
 
     override init() {
         self.transformComponent = TransformComponent(
@@ -30,27 +31,44 @@ class CanvasRequestManager: GameEntity, Transformable {
             bottomPadding: -20
         )
 
-        displayView.zPosition = Constants.ZPOSITION_REQUEST
         self.requestsDisplayView = displayView
+
         super.init()
 
-        displayView.spawn()
-        EventSystem.canvasEvent
-            .canvasHitEvent.subscribe(
-                listener: { [weak self] in self?.evaluateCanvases(canvasHitEvent: $0) }
-            )
+        EventSystem.canvasEvent.canvasHitEvent.subscribe(
+            listener: { [weak self] in self?.evaluateCanvases(canvasHitEvent: $0) }
+        )
+        EventSystem.entityChangeEvents.addEntityEvent.subscribe(
+            listener: { [weak self] (event: AddEntityEvent) in
+            if let canvas = event.entity as? Canvas {
+                self?.canvases.insert(canvas)
+            }
+            }
+        )
+        EventSystem.entityChangeEvents.removeEntityEvent.subscribe(
+            listener: { [weak self] (event: RemoveEntityEvent) in
+            if let canvas = event.entity as? Canvas {
+                self?.canvases.remove(canvas)
+            }
+            }
+        )
     }
 
     func addRequest(colors: Set<PaintColor>) {
         guard requestsDisplayView.items.count < maxRequests,
-              let canvasRequest = CanvasRequest(requiredColors: colors, position: Vector2D.outOfScreen) else {
+              let canvasRequest =
+                CanvasRequest(requiredColors: colors, position: Vector2D.outOfScreen) else {
             return
         }
 
         requestsDisplayView.insertTop(item: canvasRequest)
-
-        // Should only paint colours after being added to render system
         canvasRequest.paintRequiredColours()
+        canvases = canvases.filter { $0 != nil }
+        for canvasOpt in canvases {
+            if let canvas = canvasOpt {
+                evaluateCanvases(canvasHitEvent: CanvasHitEvent(canvas: canvas))
+            }
+        }
     }
 
     func evaluateCanvases(canvasHitEvent: CanvasHitEvent) {
@@ -59,32 +77,34 @@ class CanvasRequestManager: GameEntity, Transformable {
 
         for (index, request) in requestsDisplayView.items.enumerated() {
             let requestColors = request.requiredColors
-
-            if requestColors != colors {
-                continue
+            if requestColors == colors {
+                completeCanvas(index: index, request: request, canvas: canvas)
+                break
             }
-
-            let points = scoreCanvas(request: request)
-            let event = ScoreEvent(value: points)
-            EventSystem.scoreEvent.post(event: event)
-
-            EventSystem.audioEvent.playSoundEffectEvent.post(
-                event: PlaySoundEffectEvent(effect: SoundEffect.completeRequest)
-            )
-
-            requestsDisplayView.remove(at: index)
-
-            canvas.destroy()
-
-            break
         }
     }
 
-    func scoreCanvas(request: CanvasRequest) -> Int {
-        var point = 0
-        for color in request.requiredColors {
-            point += Points.getPoints(for: color)
-        }
-        return point
+    private func completeCanvas(index: Int, request: CanvasRequest, canvas: Canvas) {
+        let points = Points.scoreCanvas(request: request)
+        let event = ScoreEvent(value: points)
+        EventSystem.scoreEvent.post(event: event)
+
+        EventSystem.audioEvent.playSoundEffectEvent.post(
+            event: PlaySoundEffectEvent(effect: SoundEffect.completeRequest)
+        )
+
+        requestsDisplayView.remove(at: index)
+
+        canvas.destroy()
+    }
+
+    override func spawn() {
+        super.spawn()
+        requestsDisplayView.spawn()
+    }
+
+    override func destroy() {
+        super.destroy()
+        requestsDisplayView.destroy()
     }
 }

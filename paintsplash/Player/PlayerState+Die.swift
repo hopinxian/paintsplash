@@ -12,19 +12,16 @@ extension PlayerState {
             player.moveableComponent.speed = 0.0
             player.animationComponent.animate(
                 animation: PlayerAnimations.playerDie,
-                interupt: true, callBack: { [weak self] in
-                    self?.player.destroy()
-                    EventSystem.gameStateEvents.gameOverEvent.post(event: GameOverEvent(isWin: false))
+                interupt: true,
+                callBack: { [weak self] in
+                    self?.onDieAnimationOver()
                 }
             )
         }
 
-        override func getStateTransition() -> State? {
-            nil
-        }
-
-        override func getBehaviour() -> StateBehaviour {
-            DoNothingBehaviour()
+        private func onDieAnimationOver() {
+            player.destroy()
+            EventSystem.gameStateEvents.gameOverEvent.post(event: GameOverEvent(isWin: false))
         }
     }
 }

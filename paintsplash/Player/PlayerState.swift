@@ -4,10 +4,6 @@
 //
 //  Created by Farrell Nah on 25/3/21.
 //
-protocol StateType {
-
-}
-
 class PlayerState: State {
     unowned var player: Player!
 

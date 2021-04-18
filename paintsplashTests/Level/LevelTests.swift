@@ -16,14 +16,12 @@ class LevelTests: XCTestCase {
     var enemyEvent: EnemyCommand!
     var enemySpawnerEvent: EnemySpawnerCommand!
     var ammoDropEvent: AmmoDropCommand!
-    var canvasSpawnerEvent: CanvasSpawnerCommand!
 
     override func setUp() {
         super.setUp()
 
         level = Level(canvasManager: canvasRequestManager,
-                      gameInfo: GameInfo(playerPosition: Vector2D.zero,
-                                         numberOfEnemies: 0))
+                      gameInfo: GameInfo(playerPosition: Vector2D.zero))
 
         enemyEvent = EnemyCommand()
         enemyEvent.time = 2
@@ -33,37 +31,33 @@ class LevelTests: XCTestCase {
 
         ammoDropEvent = AmmoDropCommand()
         ammoDropEvent.time = 4
-
-        canvasSpawnerEvent = CanvasSpawnerCommand()
-        canvasSpawnerEvent.time = 5
     }
 
     func testConstruct() {
         XCTAssertEqual(level.bufferBetweenLoop, 5.0)
         XCTAssertNil(level.repeatLimit)
-        XCTAssertEqual(level.canvasSpawnInterval, 2.0)
         XCTAssertFalse(level.isRunning)
         XCTAssertEqual(level.score.score, 0)
-        XCTAssertEqual(level.spawnEvents.count, 0)
+        XCTAssertEqual(level.spawnCmd.count, 0)
     }
 
     func testGetRandomRequest() {
         for _ in 1...20 {
-            let request: Set<PaintColor> = level.getRandomRequest()
+            let request: Set<PaintColor> = SpawnCommand().getRandomRequest()
             XCTAssertLessThan(request.count, 5)
             XCTAssertNotEqual(request.count, 0)
         }
     }
 
     func testStop() {
-        level.run()
+        level.start()
         level.stop()
         XCTAssertFalse(level.isRunning)
         XCTAssertTrue(level.score.freeze)
     }
 
     func testContinueSpawn() {
-        level.run()
+        level.start()
         level.stop()
         level.continueSpawn()
         XCTAssertTrue(level.isRunning)
@@ -71,60 +65,53 @@ class LevelTests: XCTestCase {
     }
 
     func testAddSpawnEvent_singleEvent() {
-        level.addSpawnEvent(enemyEvent)
-        XCTAssertEqual(level.spawnEvents, [enemyEvent])
+        level.addCommand(enemyEvent)
+        XCTAssertEqual(level.spawnCmd, [enemyEvent])
 
-        level.addSpawnEvent(enemySpawnerEvent)
-        XCTAssertEqual(level.spawnEvents, [enemyEvent, enemySpawnerEvent])
+        level.addCommand(enemySpawnerEvent)
+        XCTAssertEqual(level.spawnCmd, [enemyEvent, enemySpawnerEvent])
     }
 
     func testAddSpawnEvent_differentEvents() {
-        let events: [SpawnCommand] = [enemyEvent, enemySpawnerEvent, ammoDropEvent, canvasSpawnerEvent]
+        let events: [SpawnCommand] = [enemyEvent, enemySpawnerEvent, ammoDropEvent]
 
         for event in events {
-            level.addSpawnEvent(event)
+            level.addCommand(event)
         }
 
-        XCTAssertEqual(level.spawnEvents, events)
+        XCTAssertEqual(level.spawnCmd, events)
     }
 
     func testRemoveSpawnEvent() {
-        level.addSpawnEvent(enemyEvent)
-        level.addSpawnEvent(enemySpawnerEvent)
-        level.addSpawnEvent(enemyEvent)
-        XCTAssertEqual(level.spawnEvents, [enemyEvent, enemySpawnerEvent, enemyEvent])
+        level.addCommand(enemyEvent)
+        level.addCommand(enemySpawnerEvent)
+        level.addCommand(enemyEvent)
+        XCTAssertEqual(level.spawnCmd, [enemyEvent, enemySpawnerEvent, enemyEvent])
 
-        level.removeSpawnEvent(enemyEvent)
-        XCTAssertEqual(level.spawnEvents, [enemySpawnerEvent, enemyEvent])
+        level.removeCommand(enemyEvent)
+        XCTAssertEqual(level.spawnCmd, [enemySpawnerEvent, enemyEvent])
 
-        level.removeSpawnEvent(enemyEvent)
-        XCTAssertEqual(level.spawnEvents, [enemySpawnerEvent])
+        level.removeCommand(enemyEvent)
+        XCTAssertEqual(level.spawnCmd, [enemySpawnerEvent])
 
-        level.removeSpawnEvent(enemyEvent)
-        XCTAssertEqual(level.spawnEvents, [enemySpawnerEvent])
+        level.removeCommand(enemyEvent)
+        XCTAssertEqual(level.spawnCmd, [enemySpawnerEvent])
 
-        level.removeSpawnEvent(enemySpawnerEvent)
-        XCTAssertEqual(level.spawnEvents, [])
+        level.removeCommand(enemySpawnerEvent)
+        XCTAssertEqual(level.spawnCmd, [])
 
-        level.removeSpawnEvent(enemySpawnerEvent)
-        XCTAssertEqual(level.spawnEvents, [])
+        level.removeCommand(enemySpawnerEvent)
+        XCTAssertEqual(level.spawnCmd, [])
     }
 
     func testClearAll() {
-        level.addSpawnEvent(enemyEvent)
-        level.addSpawnEvent(enemySpawnerEvent)
+        level.addCommand(enemyEvent)
+        level.addCommand(enemySpawnerEvent)
 
-        level.clearAll()
-        XCTAssertEqual(level.spawnEvents, [])
+        level.clearCommands()
+        XCTAssertEqual(level.spawnCmd, [])
 
-        level.clearAll()
-        XCTAssertEqual(level.spawnEvents, [])
-    }
-
-    func addSpawnEvent_multipleEventsAtOnce() {
-        level.addSpawnEvent(enemyEvent, times: 10)
-        let expectedEvents = [SpawnCommand](repeating: enemyEvent, count: 10)
-
-        XCTAssertEqual(level.spawnEvents, expectedEvents)
+        level.clearCommands()
+        XCTAssertEqual(level.spawnCmd, [])
     }
 }

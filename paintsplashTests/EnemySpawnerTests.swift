@@ -13,7 +13,7 @@ class EnemySpawnerTests: XCTestCase {
     var blueSpawner: EnemySpawner!
     var yellowSpawner: EnemySpawner!
 
-    let gameInfo = GameInfo(playerPosition: Vector2D.zero, numberOfEnemies: 0)
+    let gameInfo = GameInfo(playerPosition: Vector2D.zero)
 
     override func setUp() {
         super.setUp()
@@ -72,7 +72,7 @@ class EnemySpawnerTests: XCTestCase {
                                              radius: 10, direction: Vector2D.left)
             let spawner = EnemySpawner(initialPosition: Vector2D.zero, color: color)
             spawner.collisionComponent.onCollide(with: projectile)
-            GameStateManagerSystem(gameInfo: gameInfo).updateEntity(spawner, spawner)
+            GameStateManagerSystem(gameInfo: gameInfo).updateEntity(spawner.id, spawner)
 
             XCTAssertEqual(spawner.healthComponent.currentHealth, spawner.healthComponent.maxHealth - 1)
             XCTAssertTrue(spawner.stateComponent.currentState is EnemySpawnerState.Idle)
@@ -101,7 +101,7 @@ class EnemySpawnerTests: XCTestCase {
 
     func testHeal() {
         redSpawner.healthComponent.takeDamage(amount: 3)
-        GameStateManagerSystem(gameInfo: gameInfo).updateEntity(redSpawner, redSpawner)
+        GameStateManagerSystem(gameInfo: gameInfo).updateEntity(redSpawner.id, redSpawner)
         XCTAssertTrue(redSpawner.stateComponent.currentState is EnemySpawnerState.Idle)
         XCTAssertEqual(redSpawner.healthComponent.currentHealth, 0)
 

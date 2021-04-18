@@ -45,6 +45,8 @@ struct Constants {
 
     // Gameplay
     static let CANVAS_MOVE_SPEED = 25.0
+    static let CANVAS_MOVE_DIRECTION = Vector2D(1, 0)
+    static let PLAYER_SIZE = Vector2D(128, 128)
     static let PLAYER_MOVE_SPEED = 700.0
     static let ENEMY_MOVE_SPEED = 40.0
     static let PROJECTILE_MOVE_SPEED = 1_050.0
@@ -58,6 +60,9 @@ struct Constants {
     static let JOYSTICK_SPRITE = "joystick-background"
     static let JOYSTICK_POSITION = Vector2D(-820, -580)
     static let JOYSTICK_SIZE = Vector2D(200, 200)
+
+    static let JOYSTICK_FOREGROUND_SPRITE = "joystick-foreground"
+    static let JOYSTICK_FOREGROUND_SIZE = JOYSTICK_SIZE * 0.6
 
     static let TOP_BAR_SPRITE = "topwall"
     static let TOP_BAR_POSITION = Vector2D(0, 550)
@@ -126,4 +131,10 @@ struct Constants {
     static let LIGHT_DISPLAY_POSITION = Vector2D(0, 650)
     static let LIGHT_DISPLAY_SIZE = Vector2D(2_000, 150)
 
+}
+
+enum ZPositionGroup: Int, Codable {
+    case background = 0
+    case playfield = 2_000
+    case ui = 4_000
 }
