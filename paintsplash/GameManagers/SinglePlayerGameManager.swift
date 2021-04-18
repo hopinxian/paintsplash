@@ -243,7 +243,6 @@ class SinglePlayerGameManager: GameManager {
     func update(_ deltaTime: Double) {
         if !gameIsOver {
             currentLevel?.run(deltaTime)
-            
             aiSystem.updateEntities(deltaTime)
             collisionSystem.updateEntities(deltaTime)
             movementSystem.updateEntities(deltaTime)
@@ -251,10 +250,10 @@ class SinglePlayerGameManager: GameManager {
             transformSystem.updateEntities(deltaTime)
             renderSystem.updateEntities(deltaTime)
             animationSystem.updateEntities(deltaTime)
-            userInputSystem.updateEntities(deltaTime)
-
-            entities.forEach({ $0.update(deltaTime) })
         }
+
+        userInputSystem.updateEntities(deltaTime)
+        entities.forEach({ $0.update(deltaTime) })
     }
 
     private func onGameOver(event: GameOverEvent) {
