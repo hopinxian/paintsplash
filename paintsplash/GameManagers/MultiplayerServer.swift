@@ -8,10 +8,6 @@ import Foundation
 
 class MultiplayerServer: SinglePlayerGameManager {
     var room: RoomInfo
-    var connectionHandler = FirebaseConnectionHandler()
-    var gameConnectionHandler: GameConnectionHandler =
-        PaintSplashGameHandler(connectionHandler: FirebaseConnectionHandler())
-
     var serverNetworkHandler: MPServerNetworkHandler
 
     private var collisionDetector: SKCollisionDetector!

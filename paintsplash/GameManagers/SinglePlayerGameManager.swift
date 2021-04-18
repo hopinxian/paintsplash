@@ -35,20 +35,6 @@ class SinglePlayerGameManager: GameManager {
 
     var gameIsOver = false
 
-    private var inGameSystems: [System] {
-        [transformSystem,
-         renderSystem,
-         aiSystem,
-         collisionSystem,
-         movementSystem,
-         animationSystem,
-         playerSystem]
-    }
-
-    private var allSystems: [System] {
-        inGameSystems + [userInputSystem]
-    }
-
     init(gameScene: GameScene, vc: GameViewController) {
         self.gameScene = gameScene
         self.viewController = vc
