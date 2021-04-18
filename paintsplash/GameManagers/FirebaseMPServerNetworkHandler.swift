@@ -13,9 +13,11 @@ class FirebaseMPServerNetworkHandler: MPServerNetworkHandler {
         PaintSplashGameHandler(connectionHandler: FirebaseConnectionHandler())
 
     let gameId: String
+    let roomInfo: RoomInfo
 
-    init(gameId: String) {
-        self.gameId = gameId
+    init(roomInfo: RoomInfo) {
+        self.roomInfo = roomInfo
+        self.gameId = roomInfo.gameID
     }
 
     func sendGameState(uiEntities: Set<GameEntity>, entities: Set<GameEntity>,
@@ -32,11 +34,22 @@ class FirebaseMPServerNetworkHandler: MPServerNetworkHandler {
         setupPlayerStateSender(playerId, gameId)
     }
 
+    func setupPlayerGameOverEventSender(player: PlayerInfo, level: Level?) {
+        let playerId = EntityID(id: player.playerUUID)
+
+        setupGameOverEventSender(playerId, gameId, level: level)
+    }
+
     func setupPlayerEventObservers(player: PlayerInfo) {
         let playerId = EntityID(id: player.playerUUID).id
         observeClientMoveEvent(playerId: playerId, gameId: gameId)
         observeClientShootEvent(playerId: playerId, gameId: gameId)
         observeClientChangeWeaponEvent(playerId: playerId, gameId: gameId)
+    }
+
+    func setUpGameEventSenders() {
+        setupMusicEventSender(gameId)
+        setupSFXEventSender(gameId)
     }
 }
 
@@ -90,6 +103,22 @@ extension FirebaseMPServerNetworkHandler {
                 onSuccess: nil
             )
         })
+    }
+
+    private func setupGameOverEventSender(_ playerID: EntityID, _ gameId: String, level: Level?) {
+        EventSystem.gameStateEvents.gameOverEvent.subscribe { [weak self] event in
+            guard (self?.roomInfo.players) != nil else {
+                return
+            }
+            event.score = level?.currentScore
+            self?.gameConnectionHandler.sendEvent(
+                gameId: gameId,
+                playerId: playerID.id,
+                event: event,
+                onError: nil,
+                onSuccess: nil
+            )
+        }
     }
 }
 

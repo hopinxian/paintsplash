@@ -18,7 +18,7 @@ class MultiplayerServer: SinglePlayerGameManager {
 
     init(roomInfo: RoomInfo, gameScene: GameScene, vc: GameViewController) {
         self.room = roomInfo
-        self.serverNetworkHandler = FirebaseMPServerNetworkHandler(gameId: roomInfo.gameID)
+        self.serverNetworkHandler = FirebaseMPServerNetworkHandler(roomInfo: roomInfo)
         super.init(gameScene: gameScene, vc: vc)
     }
 
@@ -45,6 +45,7 @@ class MultiplayerServer: SinglePlayerGameManager {
         // game state
         let gameId = self.room.gameID
         serverNetworkHandler.setupClientPlayer(player: player)
+        serverNetworkHandler.setUpGameEventSenders()
 
         setupGameOverEventSender(playerID: playerID, gameId)
         setupClientObservers(playerID: playerID, gameId: gameId)

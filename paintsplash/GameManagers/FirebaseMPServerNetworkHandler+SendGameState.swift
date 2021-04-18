@@ -41,5 +41,5 @@ extension FirebaseMPServerNetworkHandler {
         )
         gameConnectionHandler.sendSystemData(data: systemData, gameID: self.gameId)
     }
-    
+
 }

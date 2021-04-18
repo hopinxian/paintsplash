@@ -34,6 +34,10 @@ class Level {
     private(set) var currentLoop = 1
     private(set) var score: LevelScore
 
+    var currentScore: Int {
+        score.score
+    }
+
     init(canvasManager: CanvasRequestManager, gameInfo: GameInfo) {
         self.requestManager = canvasManager
         self.gameInfo = gameInfo
