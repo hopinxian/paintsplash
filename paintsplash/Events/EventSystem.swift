@@ -13,4 +13,14 @@ class EventSystem {
     static let scoreEvent = ScoreEventManager()
     static let audioEvent = AudioEventManager()
     static let gameStateEvents = GameStateEventManager()
+
+    static func reset() {
+        EventSystem.processedInputEvents.reset()
+        EventSystem.playerActionEvent.reset()
+        EventSystem.entityChangeEvents.reset()
+        EventSystem.canvasEvent.reset()
+        EventSystem.scoreEvent.reset()
+        EventSystem.audioEvent.reset()
+        EventSystem.gameStateEvents.reset()
+    }
 }
