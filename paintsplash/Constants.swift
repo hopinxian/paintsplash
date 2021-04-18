@@ -132,9 +132,3 @@ struct Constants {
     static let LIGHT_DISPLAY_SIZE = Vector2D(2_000, 150)
 
 }
-
-enum ZPositionGroup: Int, Codable {
-    case background = 0
-    case playfield = 2_000
-    case ui = 4_000
-}
