@@ -46,16 +46,19 @@ class SKAnimationSystem: AnimationSystem {
         animatable.animationComponent.wasModified = false
 
         guard let node = renderSystem.getNodeEntityMap()[entity],
-              let animationToPlay = animationComponent.animationToPlay else {
+            let animationToPlay = animationComponent.animationToPlay else {
             return
         }
 
         node.removeAllActions()
         let animation = AnimationManager.getAnimation(from: animationToPlay)
-        let actionToRun = SKAction.sequence([animation.getAction(), SKAction.run({
-            animationComponent.callBack?()
-            animationComponent.animationIsPlaying = false
-        })])
+        let actionToRun = SKAction.sequence([
+            animation.getAction(), SKAction.run({
+                animationComponent.callBack?()
+                animationComponent.animationIsPlaying = false
+            })
+        ])
+
         node.run(actionToRun, withKey: animation.name)
 
         animationComponent.animationIsPlaying = true

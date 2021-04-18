@@ -37,6 +37,7 @@ class SKShaderManager {
         self.whiteShader = SKShaderManager.createColorize(color: PaintColor.white.uiColor)
     }
 
+    // swiftlint:disable cyclomatic_complexity
     func getShader(color: PaintColor) -> SKShader {
         switch color {
         case .red:
@@ -67,6 +68,7 @@ class SKShaderManager {
             return whiteShader
         }
     }
+    // swiftlint:enable cyclomatic_complexity
 
     static func createColorize(color: UIColor) -> SKShader {
         let uniforms: [SKUniform] = [

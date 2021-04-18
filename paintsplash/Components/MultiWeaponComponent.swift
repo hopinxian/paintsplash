@@ -62,6 +62,10 @@ class MultiWeaponComponent: WeaponComponent {
         return activeWeapon
     }
 
+    func weaponOfType<T: Weapon>(_ type: T.Type = T.self) -> T? {
+        availableWeapons.first { $0 is T } as? T
+    }
+
     override func canShoot() -> Bool {
         activeWeapon.canShoot()
     }

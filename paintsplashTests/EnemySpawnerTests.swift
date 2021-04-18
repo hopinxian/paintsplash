@@ -46,7 +46,7 @@ class EnemySpawnerTests: XCTestCase {
                 spawner.collisionComponent.onCollide(with: projectile)
 
                 XCTAssertEqual(spawner.healthComponent.currentHealth, spawner.healthComponent.maxHealth - 1)
-                XCTAssertTrue(spawner.stateComponent.currentState is EnemySpawnerState.Idle)
+                XCTAssertTrue(spawner.stateComponent.currentState is EnemySpawnerState.Hit)
             }
         }
     }
@@ -75,7 +75,7 @@ class EnemySpawnerTests: XCTestCase {
             GameStateManagerSystem(gameInfo: gameInfo).updateEntity(spawner.id, spawner)
 
             XCTAssertEqual(spawner.healthComponent.currentHealth, spawner.healthComponent.maxHealth - 1)
-            XCTAssertTrue(spawner.stateComponent.currentState is EnemySpawnerState.Idle)
+            XCTAssertTrue(spawner.stateComponent.currentState is EnemySpawnerState.Hit)
         }
     }
 
@@ -102,45 +102,45 @@ class EnemySpawnerTests: XCTestCase {
     func testHeal() {
         redSpawner.healthComponent.takeDamage(amount: 3)
         GameStateManagerSystem(gameInfo: gameInfo).updateEntity(redSpawner.id, redSpawner)
-        XCTAssertTrue(redSpawner.stateComponent.currentState is EnemySpawnerState.Idle)
+        XCTAssertTrue(redSpawner.stateComponent.currentState is EnemySpawnerState.Die)
         XCTAssertEqual(redSpawner.healthComponent.currentHealth, 0)
 
         // Test that healing by 0 does nothing
         redSpawner.healthComponent.heal(amount: 0)
-        GameStateManagerSystem(gameInfo: gameInfo).updateEntity(redSpawner, redSpawner)
-        XCTAssertTrue(redSpawner.stateComponent.currentState is EnemySpawnerState.Idle)
+        GameStateManagerSystem(gameInfo: gameInfo).updateEntity(redSpawner.id, redSpawner)
+        XCTAssertTrue(redSpawner.stateComponent.currentState is EnemySpawnerState.Die)
         XCTAssertEqual(redSpawner.healthComponent.currentHealth, 0)
 
         // Test that healing
         redSpawner.healthComponent.heal(amount: 2)
-        GameStateManagerSystem(gameInfo: gameInfo).updateEntity(redSpawner, redSpawner)
-        XCTAssertTrue(redSpawner.stateComponent.currentState is EnemySpawnerState.Idle)
+        GameStateManagerSystem(gameInfo: gameInfo).updateEntity(redSpawner.id, redSpawner)
+        XCTAssertTrue(redSpawner.stateComponent.currentState is EnemySpawnerState.Die)
         XCTAssertEqual(redSpawner.healthComponent.currentHealth, 2)
 
         // Test that healing is only up to max health
         redSpawner.healthComponent.heal(amount: 10)
-        GameStateManagerSystem(gameInfo: gameInfo).updateEntity(redSpawner, redSpawner)
-        XCTAssertTrue(redSpawner.stateComponent.currentState is EnemySpawnerState.Idle)
+        GameStateManagerSystem(gameInfo: gameInfo).updateEntity(redSpawner.id, redSpawner)
+        XCTAssertTrue(redSpawner.stateComponent.currentState is EnemySpawnerState.Die)
         XCTAssertEqual(redSpawner.healthComponent.currentHealth, redSpawner.healthComponent.maxHealth)
     }
 
     func testTakeDamage() {
         // Test that taking 0 damage does nothing
         redSpawner.healthComponent.takeDamage(amount: 0)
-        GameStateManagerSystem(gameInfo: gameInfo).updateEntity(redSpawner, redSpawner)
-        XCTAssertTrue(redSpawner.stateComponent.currentState is EnemySpawnerState.Idle)
+        GameStateManagerSystem(gameInfo: gameInfo).updateEntity(redSpawner.id, redSpawner)
+        XCTAssertTrue(redSpawner.stateComponent.currentState is EnemySpawnerState.Hit)
         XCTAssertEqual(redSpawner.healthComponent.currentHealth, redSpawner.healthComponent.maxHealth)
 
         // Test that correct amount of damage is taken
         redSpawner.healthComponent.takeDamage(amount: 2)
-        GameStateManagerSystem(gameInfo: gameInfo).updateEntity(redSpawner, redSpawner)
-        XCTAssertTrue(redSpawner.stateComponent.currentState is EnemySpawnerState.Idle)
+        GameStateManagerSystem(gameInfo: gameInfo).updateEntity(redSpawner.id, redSpawner)
+        XCTAssertTrue(redSpawner.stateComponent.currentState is EnemySpawnerState.Hit)
         XCTAssertEqual(redSpawner.healthComponent.currentHealth, redSpawner.healthComponent.maxHealth - 2)
 
         // Test that health never goes to negative
         redSpawner.healthComponent.takeDamage(amount: 10)
-        GameStateManagerSystem(gameInfo: gameInfo).updateEntity(redSpawner, redSpawner)
-        XCTAssertTrue(redSpawner.stateComponent.currentState is EnemySpawnerState.Idle)
+        GameStateManagerSystem(gameInfo: gameInfo).updateEntity(redSpawner.id, redSpawner)
+        XCTAssertTrue(redSpawner.stateComponent.currentState is EnemySpawnerState.Die)
         XCTAssertEqual(redSpawner.healthComponent.currentHealth, 0)
     }
 

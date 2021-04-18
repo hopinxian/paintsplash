@@ -75,9 +75,9 @@ class SKNodeFactory {
 
     /// If a renderable is also colorable, get the shader that colorizes the SKNode.
     private func colorize(_ renderableEntity: Renderable)
-    -> (uiColor: UIColor, paintcolor: PaintColor, blendFactor: CGFloat)? {
+    -> (uiColor: UIColor, paintcolor: PaintColor)? {
         if let colorData = renderableEntity as? Colorable {
-            return (colorData.color.uiColor, colorData.color, 1)
+            return (colorData.color.uiColor, colorData.color)
         } else {
             return nil
         }
