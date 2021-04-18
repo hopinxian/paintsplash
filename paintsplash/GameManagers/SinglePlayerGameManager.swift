@@ -223,27 +223,25 @@ class SinglePlayerGameManager: GameManager {
     }
 
     func addObjectToSystems(_ object: GameEntity) {
-        allSystems.forEach { $0.addEntity(object) }
-//        transformSystem.addEntity(object)
-//        renderSystem.addEntity(object)
-//        aiSystem.addEntity(object)
-//        collisionSystem.addEntity(object)
-//        movementSystem.addEntity(object)
-//        animationSystem.addEntity(object)
-//        playerSystem.addEntity(object)
-//        userInputSystem.addEntity(object)
+        transformSystem.addEntity(object)
+        renderSystem.addEntity(object)
+        aiSystem.addEntity(object)
+        collisionSystem.addEntity(object)
+        movementSystem.addEntity(object)
+        animationSystem.addEntity(object)
+        playerSystem.addEntity(object)
+        userInputSystem.addEntity(object)
     }
 
     func removeObjectFromSystems(_ object: GameEntity) {
-        allSystems.forEach { $0.removeEntity(object) }
-//        transformSystem.removeEntity(object)
-//        renderSystem.removeEntity(object)
-//        aiSystem.removeEntity(object)
-//        collisionSystem.removeEntity(object)
-//        movementSystem.removeEntity(object)
-//        animationSystem.removeEntity(object)
-//        playerSystem.removeEntity(object)
-//        userInputSystem.removeEntity(object)
+        transformSystem.removeEntity(object)
+        renderSystem.removeEntity(object)
+        aiSystem.removeEntity(object)
+        collisionSystem.removeEntity(object)
+        movementSystem.removeEntity(object)
+        animationSystem.removeEntity(object)
+        playerSystem.removeEntity(object)
+        userInputSystem.removeEntity(object)
     }
 
     func addObject(_ object: GameEntity) {
