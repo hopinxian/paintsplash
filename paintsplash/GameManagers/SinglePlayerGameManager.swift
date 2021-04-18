@@ -270,9 +270,6 @@ class SinglePlayerGameManager: GameManager {
     }
 
     private func onGameOver(event: GameOverEvent) {
-        guard !gameIsOver else {
-            return
-        }
         gameIsOver = true
         let gameOverUI = GameOverUI(
             score: currentLevel?.score.score ?? event.score ?? 0,
