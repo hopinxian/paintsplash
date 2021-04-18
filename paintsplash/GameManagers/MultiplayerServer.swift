@@ -12,7 +12,7 @@ class MultiplayerServer: SinglePlayerGameManager {
     var gameConnectionHandler: GameConnectionHandler =
         PaintSplashGameHandler(connectionHandler: FirebaseConnectionHandler())
 
-    let serverNetworkHandler: MPServerNetworkHandler
+    var serverNetworkHandler: MPServerNetworkHandler
 
     private var collisionDetector: SKCollisionDetector!
 
@@ -20,6 +20,8 @@ class MultiplayerServer: SinglePlayerGameManager {
         self.room = roomInfo
         self.serverNetworkHandler = FirebaseMPServerNetworkHandler(roomInfo: roomInfo)
         super.init(gameScene: gameScene, vc: vc)
+
+        serverNetworkHandler.multiplayerServer = self
     }
 
     override func setUpPlayer() {
@@ -49,7 +51,6 @@ class MultiplayerServer: SinglePlayerGameManager {
         serverNetworkHandler.setUpGameEventSenders()
 
         setupGameOverEventSender(playerInfo: player, gameId)
-        setupClientObservers(playerID: playerID, gameId: gameId)
     }
 
     private func setupGameOverEventSender(playerInfo: PlayerInfo, _ gameId: String) {
@@ -60,17 +61,6 @@ class MultiplayerServer: SinglePlayerGameManager {
             event.score = self?.currentLevel?.currentScore
             self?.serverNetworkHandler.sendGameOverEvent(event: event, playerInfo: playerInfo)
         }
-    }
-
-    private func setupClientObservers(playerID: EntityID, gameId: String) {
-        // player state observing
-        let path = DataPaths.joinPaths(
-            DataPaths.games, gameId,
-            DataPaths.game_players, playerID.id,
-            "clientPlayer")
-        self.connectionHandler.listen(to: path, callBack: { [weak self] in
-            self?.readClientPlayerData(data: $0)
-        })
     }
 
     override func update(_ deltaTime: Double) {
@@ -84,25 +74,5 @@ class MultiplayerServer: SinglePlayerGameManager {
     func sendGameState() {
         serverNetworkHandler.sendGameState(uiEntities: uiEntities, entities: entities,
                                            renderSystem: renderSystem, animationSystem: animationSystem)
-    }
-
-    func readClientPlayerData(data: SystemData?) {
-        guard let data = data else {
-            return
-        }
-        let clientId = data.entityData.entities[0]
-        if let client = entities.first(where: { $0.id.id == clientId.id }) as? Player,
-            let transformComponent = data.renderSystemData?.renderables[clientId]?.transformComponent,
-            let animationComponent = data.animationSystemData?.animatables[clientId]?.animationComponent,
-            let renderComponent = data.renderSystemData?.renderables[clientId]?.renderComponent {
-            let boundedComponent = BoundedTransformComponent(
-                position: transformComponent.worldPosition,
-                rotation: transformComponent.rotation,
-                size: transformComponent.size,
-                bounds: Constants.PLAYER_MOVEMENT_BOUNDS)
-            client.transformComponent = boundedComponent
-            client.renderComponent = renderComponent
-            client.animationComponent = animationComponent
-        }
     }
 }

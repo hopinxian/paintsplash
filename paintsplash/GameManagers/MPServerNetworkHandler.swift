@@ -6,6 +6,8 @@
 //
 
 protocol MPServerNetworkHandler {
+    var multiplayerServer: MultiplayerServer? { get set }
+
     func sendGameState(uiEntities: Set<GameEntity>, entities: Set<GameEntity>,
                        renderSystem: RenderSystem, animationSystem: AnimationSystem)
 

@@ -8,6 +8,8 @@
 import Foundation
 
 class FirebaseMPServerNetworkHandler: MPServerNetworkHandler {
+    weak var multiplayerServer: MultiplayerServer?
+
     var connectionHandler = FirebaseConnectionHandler()
     var gameConnectionHandler: GameConnectionHandler =
         PaintSplashGameHandler(connectionHandler: FirebaseConnectionHandler())
@@ -45,6 +47,8 @@ class FirebaseMPServerNetworkHandler: MPServerNetworkHandler {
         observeClientMoveEvent(playerId: playerId, gameId: gameId)
         observeClientShootEvent(playerId: playerId, gameId: gameId)
         observeClientChangeWeaponEvent(playerId: playerId, gameId: gameId)
+
+        observeClientData(playerId: playerId, gameId: gameId)
     }
 
     func setUpGameEventSenders() {
@@ -167,9 +171,37 @@ extension FirebaseMPServerNetworkHandler {
             onError: nil
         )
     }
-
+    
     private func observeClientData(playerId: String, gameId: String) {
+        let path = DataPaths.joinPaths(
+            DataPaths.games, gameId,
+            DataPaths.game_players, playerId,
+            "clientPlayer")
+        self.connectionHandler.listen(to: path, callBack: { [weak self] in
+            self?.readClientPlayerData(data: $0)
+        })
+    }
 
+    func readClientPlayerData(data: SystemData?) {
+        guard let data = data,
+              let entities = self.multiplayerServer?.entities else {
+            return
+        }
+
+        let clientId = data.entityData.entities[0]
+        if let client = entities.first(where: { $0.id.id == clientId.id }) as? Player,
+            let transformComponent = data.renderSystemData?.renderables[clientId]?.transformComponent,
+            let animationComponent = data.animationSystemData?.animatables[clientId]?.animationComponent,
+            let renderComponent = data.renderSystemData?.renderables[clientId]?.renderComponent {
+            let boundedComponent = BoundedTransformComponent(
+                position: transformComponent.worldPosition,
+                rotation: transformComponent.rotation,
+                size: transformComponent.size,
+                bounds: Constants.PLAYER_MOVEMENT_BOUNDS)
+            client.transformComponent = boundedComponent
+            client.renderComponent = renderComponent
+            client.animationComponent = animationComponent
+        }
     }
 
 }
