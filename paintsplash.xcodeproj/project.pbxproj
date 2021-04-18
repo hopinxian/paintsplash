@@ -287,6 +287,7 @@
 		DC26A909262C198F0065611B /* FirebaseMPServerNetworkHandler+SoundEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC26A908262C198F0065611B /* FirebaseMPServerNetworkHandler+SoundEvent.swift */; };
 		DC26A93B262C44500065611B /* MPClientNetworkHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC26A93A262C44500065611B /* MPClientNetworkHandler.swift */; };
 		DC26A941262C44D80065611B /* FirebaseMPClientNetworkHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC26A940262C44D80065611B /* FirebaseMPClientNetworkHandler.swift */; };
+		DC26A95A262C5B9A0065611B /* FirebaseMPClientNetworkHandler+SendPlayerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC26A959262C5B9A0065611B /* FirebaseMPClientNetworkHandler+SendPlayerData.swift */; };
 		DC4CAC71261301790086CBCC /* NetworkEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC4CAC70261301790086CBCC /* NetworkEntity.swift */; };
 		DC52FCCD2618AE72005D2887 /* PlayerHealthDisplayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC52FCCC2618AE72005D2887 /* PlayerHealthDisplayTests.swift */; };
 		DC686C21262608190035B6B3 /* SKShaderManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC686C20262608190035B6B3 /* SKShaderManager.swift */; };
@@ -637,6 +638,7 @@
 		DC26A908262C198F0065611B /* FirebaseMPServerNetworkHandler+SoundEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FirebaseMPServerNetworkHandler+SoundEvent.swift"; sourceTree = "<group>"; };
 		DC26A93A262C44500065611B /* MPClientNetworkHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPClientNetworkHandler.swift; sourceTree = "<group>"; };
 		DC26A940262C44D80065611B /* FirebaseMPClientNetworkHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseMPClientNetworkHandler.swift; sourceTree = "<group>"; };
+		DC26A959262C5B9A0065611B /* FirebaseMPClientNetworkHandler+SendPlayerData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FirebaseMPClientNetworkHandler+SendPlayerData.swift"; sourceTree = "<group>"; };
 		DC4CAC70261301790086CBCC /* NetworkEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkEntity.swift; sourceTree = "<group>"; };
 		DC52FCCC2618AE72005D2887 /* PlayerHealthDisplayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerHealthDisplayTests.swift; sourceTree = "<group>"; };
 		DC686C20262608190035B6B3 /* SKShaderManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKShaderManager.swift; sourceTree = "<group>"; };
@@ -1266,6 +1268,7 @@
 				DCF66400261592490046AFC1 /* MultiplayerClient.swift */,
 				DC26A93A262C44500065611B /* MPClientNetworkHandler.swift */,
 				DC26A940262C44D80065611B /* FirebaseMPClientNetworkHandler.swift */,
+				DC26A959262C5B9A0065611B /* FirebaseMPClientNetworkHandler+SendPlayerData.swift */,
 				D50FD69B261056AF00491CAC /* MultiplayerServer.swift */,
 				DC749F06262B572700A614FA /* MPServerNetworkHandler.swift */,
 				DC749F02262B443800A614FA /* FirebaseMPServerNetworkHandler.swift */,
@@ -2025,6 +2028,7 @@
 				D50FD69C261056AF00491CAC /* MultiplayerServer.swift in Sources */,
 				AC11994C26053D04003BA54B /* AudioEventManager.swift in Sources */,
 				D53F5419260D93F200635B05 /* AnimationComponent.swift in Sources */,
+				DC26A95A262C5B9A0065611B /* FirebaseMPClientNetworkHandler+SendPlayerData.swift in Sources */,
 				8453F2CB260C8A0D00FFD8AE /* EnemyCommand.swift in Sources */,
 				D5553D6F260629AE00C1862E /* SequenceAnimation.swift in Sources */,
 				DCB72DBA25FE18B100B183E0 /* State.swift in Sources */,

@@ -22,11 +22,6 @@ class FirebaseMPServerNetworkHandler: MPServerNetworkHandler {
         self.gameId = roomInfo.gameID
     }
 
-    func sendGameState(uiEntities: Set<GameEntity>, entities: Set<GameEntity>,
-                       renderSystem: RenderSystem, animationSystem: AnimationSystem) {
-        sendGameStateToDatabase()
-    }
-
     /// Allow the server to send player events to the database for clients to observe
     func setupPlayerEventSenders(player: PlayerInfo) {
         let playerId = EntityID(id: player.playerUUID)

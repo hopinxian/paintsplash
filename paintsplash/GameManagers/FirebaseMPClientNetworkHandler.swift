@@ -37,6 +37,24 @@ class FirebaseMPClientNetworkHandler: MPClientNetworkHandler {
         observePlayMusicEvent(playerId: playerId, gameId: gameId)
         observePlaySoundEffectEvent(playerId: playerId, gameId: gameId)
     }
+
+    func sendPlayerData() {
+        sendPlayerDataToDatabase()
+    }
+
+    func observeSystemData() {
+        gameConnectionHandler.observeSystemData(gameID: gameId, callback: { [weak self] data in
+            self?.updateSystemData(data: data)
+        })
+    }
+
+    private func updateSystemData(data: SystemData?) {
+        guard let data = data,
+              let client = multiplayerClient else {
+            return
+        }
+        GameResolver.resolve(manager: client, with: data)
+    }
 }
 
 // MARK: Client Input Senders
