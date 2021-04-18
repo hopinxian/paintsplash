@@ -3,11 +3,10 @@
 //  paintsplash
 //
 //  Created by Praveen Bala on 8/3/21.
-// swiftlint:disable function_body_length
 
 import SpriteKit
 
-class  SinglePlayerGameManager: GameManager {
+class SinglePlayerGameManager: GameManager {
     weak var gameScene: GameScene?
     weak var viewController: GameViewController?
 
@@ -20,14 +19,14 @@ class  SinglePlayerGameManager: GameManager {
     var currentLevel: Level?
 
     var aiSystem: StateManagerSystem!
-    var audioManager: AudioSystem!
+    var audioManager: AudioSystem! = AudioManager()
     var renderSystem: RenderSystem!
     var animationSystem: AnimationSystem!
     var collisionSystem: CollisionSystem!
-    var movementSystem: MovementSystem!
-    var transformSystem: TransformSystem!
-    var playerSystem: PlayerSystem!
-    var userInputSystem: UserInputSystem!
+    var movementSystem: MovementSystem! = FrameMovementSystem()
+    var transformSystem: TransformSystem! = WorldTransformSystem()
+    var playerSystem: PlayerSystem! = PaintSplashPlayerSystem()
+    var userInputSystem: UserInputSystem! = SKUserInputSystem()
 
     private var collisionDetector: SKCollisionDetector!
 
@@ -35,6 +34,20 @@ class  SinglePlayerGameManager: GameManager {
     var gameInfoManager: GameInfoManager
 
     var gameIsOver = false
+
+    private var inGameSystems: [System] {
+        [transformSystem,
+         renderSystem,
+         aiSystem,
+         collisionSystem,
+         movementSystem,
+         animationSystem,
+         playerSystem]
+    }
+
+    private var allSystems: [System] {
+        inGameSystems + [userInputSystem]
+    }
 
     init(gameScene: GameScene, vc: GameViewController) {
         self.gameScene = gameScene
@@ -64,7 +77,7 @@ class  SinglePlayerGameManager: GameManager {
         })
 
         EventSystem.gameStateEvents.gameOverEvent.subscribe(listener: { [weak self] in
-                                                                self?.onGameOver(event: $0)
+            self?.onGameOver(event: $0)
         })
     }
 
@@ -94,15 +107,15 @@ class  SinglePlayerGameManager: GameManager {
 
         self.aiSystem = GameStateManagerSystem(gameInfo: gameInfoManager.gameInfo)
 
-        self.audioManager = AudioManager()
-
-        self.movementSystem = FrameMovementSystem()
-
-        self.transformSystem = WorldTransformSystem()
-
-        self.playerSystem = PaintSplashPlayerSystem()
-
-        self.userInputSystem = SKUserInputSystem()
+//        self.audioManager = AudioManager()
+//
+//        self.movementSystem = FrameMovementSystem()
+//
+//        self.transformSystem = WorldTransformSystem()
+//
+//        self.playerSystem = PaintSplashPlayerSystem()
+//
+//        self.userInputSystem = SKUserInputSystem()
 
         gameScene.inputSystem = userInputSystem
     }
@@ -113,20 +126,13 @@ class  SinglePlayerGameManager: GameManager {
     }
 
     func setUpEntities() {
-        let canvasSpawner = CanvasSpawner(
-            initialPosition: Constants.CANVAS_SPAWNER_POSITION,
-            canvasVelocity: Vector2D(0.4, 0),
-            spawnInterval: 10
-        )
+        let canvasSpawner = CanvasSpawner(canvasVelocity: Vector2D(0.4, 0), spawnInterval: 10)
         canvasSpawner.spawn()
 
         let canvasManager = CanvasRequestManager()
         canvasManager.spawn()
 
-        let canvasEndMarker = CanvasEndMarker(
-            size: Constants.CANVAS_END_MARKER_SIZE,
-            position: Constants.CANVAS_END_MARKER_POSITION
-        )
+        let canvasEndMarker = CanvasEndMarker()
         canvasEndMarker.spawn()
 
         let mixingPot1 = MixingPot(position: Vector2D(-800, 0))
@@ -135,10 +141,7 @@ class  SinglePlayerGameManager: GameManager {
         let mixingPot2 = MixingPot(position: Vector2D(800, 0))
         mixingPot2.spawn()
 
-        currentLevel = Level.getDefaultLevel(
-            canvasManager: canvasManager,
-            gameInfo: gameInfoManager.gameInfo
-        )
+        currentLevel = Level.getDefaultLevel(canvasManager: canvasManager, gameInfo: gameInfoManager.gameInfo)
         currentLevel?.start()
     }
 
@@ -151,8 +154,7 @@ class  SinglePlayerGameManager: GameManager {
         let background = Background()
         background.spawn()
 
-        guard let paintGun = player.multiWeaponComponent
-                .availableWeapons.compactMap({ $0 as? PaintGun }).first else {
+        guard let paintGun = player.multiWeaponComponent.weaponOfType(PaintGun.self) else {
             fatalError("PaintGun not setup properly")
         }
 
@@ -166,8 +168,7 @@ class  SinglePlayerGameManager: GameManager {
             interupt: true
         )
 
-        guard let paintBucket = player.multiWeaponComponent
-                .availableWeapons.compactMap({ $0 as? Bucket }).first else {
+        guard let paintBucket = player.multiWeaponComponent.weaponOfType(Bucket.self) else {
             fatalError("PaintBucket not setup properly")
         }
 
@@ -178,16 +179,10 @@ class  SinglePlayerGameManager: GameManager {
             interupt: true
         )
 
-        let joystick = MovementJoystick(
-            associatedEntityID: player.id,
-            position: Constants.JOYSTICK_POSITION
-        )
+        let joystick = MovementJoystick(associatedEntityID: player.id)
         joystick.spawn()
 
-        let attackJoystick = AttackJoystick(
-            associatedEntityID: player.id,
-            position: Constants.ATTACK_BUTTON_POSITION
-        )
+        let attackJoystick = AttackJoystick(associatedEntityID: player.id)
         attackJoystick.spawn()
 
         let playerHealthUI = PlayerHealthDisplay(
@@ -196,31 +191,16 @@ class  SinglePlayerGameManager: GameManager {
         )
         playerHealthUI.spawn()
 
-        let bottombar = UIBar(
-            position: Constants.BOTTOM_BAR_POSITION,
-            size: Constants.BOTTOM_BAR_SIZE,
-            spritename: Constants.BOTTOM_BAR_SPRITE
-        )
+        let bottombar = BottomUIBar()
         bottombar.spawn()
 
-        let topBar = UIBar(
-            position: Constants.TOP_BAR_POSITION,
-            size: Constants.TOP_BAR_SIZE,
-            spritename: Constants.TOP_BAR_SPRITE
-        )
+        let topBar = TopUIBar()
         topBar.spawn()
 
-        let scoreDisplay = ScoreDisplay(size: Constants.SCORE_DISPLAY_SIZE,
-                                        position: Constants.SCORE_DISPLAY_POSITION)
+        let scoreDisplay = ScoreDisplay()
         scoreDisplay.spawn()
 
-//        let sceneNode = SceneNode(sceneName: "Hello.sks",
-//            size: Constants.SCORE_DISPLAY_SIZE,
-//                                        position: Constants.SCORE_DISPLAY_POSITION)
-//        sceneNode.spawn()
-
-        let lights = LightDisplay(size: Constants.LIGHT_DISPLAY_SIZE,
-                                  position: Constants.LIGHT_DISPLAY_POSITION)
+        let lights = LightDisplay()
         lights.spawn()
     }
 
@@ -243,25 +223,27 @@ class  SinglePlayerGameManager: GameManager {
     }
 
     func addObjectToSystems(_ object: GameEntity) {
-        transformSystem.addEntity(object)
-        renderSystem.addEntity(object)
-        aiSystem.addEntity(object)
-        collisionSystem.addEntity(object)
-        movementSystem.addEntity(object)
-        animationSystem.addEntity(object)
-        playerSystem.addEntity(object)
-        userInputSystem.addEntity(object)
+        allSystems.forEach { $0.addEntity(object) }
+//        transformSystem.addEntity(object)
+//        renderSystem.addEntity(object)
+//        aiSystem.addEntity(object)
+//        collisionSystem.addEntity(object)
+//        movementSystem.addEntity(object)
+//        animationSystem.addEntity(object)
+//        playerSystem.addEntity(object)
+//        userInputSystem.addEntity(object)
     }
 
     func removeObjectFromSystems(_ object: GameEntity) {
-        transformSystem.removeEntity(object)
-        renderSystem.removeEntity(object)
-        aiSystem.removeEntity(object)
-        collisionSystem.removeEntity(object)
-        movementSystem.removeEntity(object)
-        animationSystem.removeEntity(object)
-        playerSystem.removeEntity(object)
-        userInputSystem.removeEntity(object)
+        allSystems.forEach { $0.removeEntity(object) }
+//        transformSystem.removeEntity(object)
+//        renderSystem.removeEntity(object)
+//        aiSystem.removeEntity(object)
+//        collisionSystem.removeEntity(object)
+//        movementSystem.removeEntity(object)
+//        animationSystem.removeEntity(object)
+//        playerSystem.removeEntity(object)
+//        userInputSystem.removeEntity(object)
     }
 
     func addObject(_ object: GameEntity) {
@@ -277,15 +259,16 @@ class  SinglePlayerGameManager: GameManager {
     func update(_ deltaTime: Double) {
         if !gameIsOver || currentLevel == nil {
             currentLevel?.run(deltaTime)
-            transformSystem?.updateEntities(deltaTime)
-            aiSystem?.updateEntities(deltaTime)
-            renderSystem?.updateEntities(deltaTime)
-            animationSystem?.updateEntities(deltaTime)
-            collisionSystem?.updateEntities(deltaTime)
-            movementSystem?.updateEntities(deltaTime)
-            playerSystem?.updateEntities(deltaTime)
-
-            entities.forEach({ $0.update(deltaTime) })
+//            transformSystem?.updateEntities(deltaTime)
+//            aiSystem?.updateEntities(deltaTime)
+//            renderSystem?.updateEntities(deltaTime)
+//            animationSystem?.updateEntities(deltaTime)
+//            collisionSystem?.updateEntities(deltaTime)
+//            movementSystem?.updateEntities(deltaTime)
+//            playerSystem?.updateEntities(deltaTime)
+            inGameSystems.forEach { $0.updateEntities(deltaTime) }
+            
+            entities.forEach { $0.update(deltaTime) }
         }
         userInputSystem.updateEntities(deltaTime)
     }
@@ -299,11 +282,8 @@ class  SinglePlayerGameManager: GameManager {
         gameOverUI.spawn()
 
         EventSystem.audioEvent.stopAudioEvent.post(event: StopAudioEvent())
-        if event.isWin {
-            EventSystem.audioEvent.playMusicEvent.post(event: PlayMusicEvent(music: Music.gameOverWin))
-        } else {
-            EventSystem.audioEvent.playMusicEvent.post(event: PlayMusicEvent(music: Music.gameOverLose))
-        }
+        let newMusic = event.isWin ? Music.gameOverWin : Music.gameOverLose
+        EventSystem.audioEvent.playMusicEvent.post(event: PlayMusicEvent(music: newMusic))
     }
 
     private func onQuit() {

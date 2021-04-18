@@ -6,6 +6,12 @@
 //
 
 class MovementJoystick: Joystick {
+
+    override init(associatedEntityID: EntityID,
+                  position: Vector2D = Constants.JOYSTICK_POSITION) {
+        super.init(associatedEntityID: associatedEntityID, position: position)
+    }
+
     override func touchMove(event: TouchMoveEvent) {
         guard event.touchId == trackedId else {
             return

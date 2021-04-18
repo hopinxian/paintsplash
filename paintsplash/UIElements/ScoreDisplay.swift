@@ -9,7 +9,8 @@ class ScoreDisplay: UIEntity, Renderable {
     var renderComponent: RenderComponent
     var transformComponent: TransformComponent
 
-    init(size: Vector2D, position: Vector2D) {
+    init(size: Vector2D = Constants.SCORE_DISPLAY_SIZE,
+         position: Vector2D = Constants.SCORE_DISPLAY_POSITION) {
         let renderType = RenderType.sprite(spriteName: Constants.SCORE_DISPLAY_SPRITE)
         self.renderComponent = RenderComponent(
             renderType: renderType,
