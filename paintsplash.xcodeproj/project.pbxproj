@@ -161,7 +161,6 @@
 		D53F54F2260DA03500635B05 /* PlayerState+AttackRight.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53F54F1260DA03500635B05 /* PlayerState+AttackRight.swift */; };
 		D53F54F8260DA0D400635B05 /* EnemyState+ChasingRight.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53F54F7260DA0D400635B05 /* EnemyState+ChasingRight.swift */; };
 		D54628042614C071002527C3 /* AnimationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54628032614C071002527C3 /* AnimationManager.swift */; };
-		D546280C2614DB45002527C3 /* ColorComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D546280B2614DB44002527C3 /* ColorComponent.swift */; };
 		D546281626158B2C002527C3 /* TransformSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D546281526158B2C002527C3 /* TransformSystem.swift */; };
 		D546281A26158F37002527C3 /* PaintBlob.swift in Sources */ = {isa = PBXBuildFile; fileRef = D546281926158F37002527C3 /* PaintBlob.swift */; };
 		D546281E261594FE002527C3 /* EntityID.swift in Sources */ = {isa = PBXBuildFile; fileRef = D546281D261594FE002527C3 /* EntityID.swift */; };
@@ -510,7 +509,6 @@
 		D53F54F1260DA03500635B05 /* PlayerState+AttackRight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlayerState+AttackRight.swift"; sourceTree = "<group>"; };
 		D53F54F7260DA0D400635B05 /* EnemyState+ChasingRight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EnemyState+ChasingRight.swift"; sourceTree = "<group>"; };
 		D54628032614C071002527C3 /* AnimationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationManager.swift; sourceTree = "<group>"; };
-		D546280B2614DB44002527C3 /* ColorComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorComponent.swift; sourceTree = "<group>"; };
 		D546281526158B2C002527C3 /* TransformSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransformSystem.swift; sourceTree = "<group>"; };
 		D546281926158F37002527C3 /* PaintBlob.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaintBlob.swift; sourceTree = "<group>"; };
 		D546281D261594FE002527C3 /* EntityID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityID.swift; sourceTree = "<group>"; };
@@ -1374,7 +1372,6 @@
 				AC097E1026020005000951B0 /* ColorMakeup.swift */,
 				ACFD822625F67C76009D806B /* PaintColor.swift */,
 				8402D28E25FE0BDB00493DDE /* ColorMixer.swift */,
-				D546280B2614DB44002527C3 /* ColorComponent.swift */,
 			);
 			path = Color;
 			sourceTree = "<group>";
@@ -1851,7 +1848,6 @@
 				D50A0779260346C000822D67 /* Health.swift in Sources */,
 				D5553DA226062D1000C1862E /* SoundEffect.swift in Sources */,
 				D598F53D26019E7300D7CACB /* SpaceConverter.swift in Sources */,
-				D546280C2614DB45002527C3 /* ColorComponent.swift in Sources */,
 				D53F5448260D94F700635B05 /* SKAnimationSystem.swift in Sources */,
 				AC0A184D26052AF800A1338C /* Constants.swift in Sources */,
 				D50C88F326217E52001DBDD6 /* BucketAimGuide.swift in Sources */,
