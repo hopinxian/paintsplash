@@ -199,7 +199,6 @@ extension FirebaseMPServerNetworkHandler {
                 bounds: Constants.PLAYER_MOVEMENT_BOUNDS)
             client.transformComponent = boundedComponent
             client.renderComponent = renderComponent
-            client.animationComponent = animationComponent
         }
     }
 

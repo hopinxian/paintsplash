@@ -107,4 +107,10 @@ class Player: GameEntity,
         self.init(initialPosition: initialPosition)
         id = playerUUID ?? id
     }
+
+    override func update(_ deltaTime: Double) {
+        print(id.id)
+        print(stateComponent.currentState)
+        print(playableComponent.active)
+    }
 }
