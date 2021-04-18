@@ -11,4 +11,8 @@ protocol MPClientNetworkHandler {
     func setupPlayerInputSenders()
 
     func setupPlayerEventObservers(player: PlayerInfo)
+
+    func sendPlayerData()
+
+    func observeSystemData()
 }
