@@ -76,8 +76,8 @@ class StopAudioEvent: AudioEvent {
 
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        playerId = try values.decode(EntityID.self, forKey: .playerId)
-        audioId = try values.decode(EntityID.self, forKey: .audioId)
+        playerId = try? values.decode(EntityID.self, forKey: .playerId)
+        audioId = try? values.decode(EntityID.self, forKey: .audioId)
         super.init()
     }
 }
