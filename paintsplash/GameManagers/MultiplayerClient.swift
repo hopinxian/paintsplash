@@ -34,7 +34,6 @@ class MultiplayerClient: SinglePlayerGameManager {
             initialPosition: Vector2D.zero + Vector2D.left * 50,
             playerUUID: EntityID(id: playerInfo.playerUUID)
         )
-        player.spawn()
     }
 
     override func setUpEntities() {
@@ -197,7 +196,6 @@ class MultiplayerClient: SinglePlayerGameManager {
 
     override func update(_ deltaTime: Double) {
         super.update(deltaTime)
-        sendPlayerData()
     }
 
     func updateSystemData(data: SystemData?) {
@@ -205,32 +203,5 @@ class MultiplayerClient: SinglePlayerGameManager {
             return
         }
         GameResolver.resolve(manager: self, with: data)
-    }
-
-    func sendPlayerData() {
-        let entityData = EntityData(from: [player])
-        let renderableToSend: [EntityID: Renderable] = [player.id: player]
-        let renderSystemData = RenderSystemData(from: renderableToSend)
-
-        let animatableToSend: [EntityID: Animatable] = [player.id: player]
-        let animataionSystemData = AnimationSystemData(from: animatableToSend)
-        let systemData = SystemData(
-            entityData: entityData,
-            renderSystemData: renderSystemData,
-            animationSystemData: animataionSystemData,
-            colorSystemData: nil
-        )
-        let path = DataPaths.joinPaths(
-            DataPaths.games, room.gameID,
-            DataPaths.game_players, player.id.id,
-            "clientPlayer")
-        connectionHandler.send(
-            to: path,
-            data: systemData,
-            mode: .single,
-            shouldRemoveOnDisconnect: true,
-            onComplete: nil,
-            onError: nil
-        )
     }
 }
