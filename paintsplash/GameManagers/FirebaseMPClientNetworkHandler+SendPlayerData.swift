@@ -11,18 +11,8 @@ extension FirebaseMPClientNetworkHandler {
             return
         }
 
-        let entityData = EntityData(from: [player])
-        let renderableToSend: [EntityID: Renderable] = [player.id: player]
-        let renderSystemData = RenderSystemData(from: renderableToSend)
+        let systemData = getSystemDataToSend(player: player)
 
-        let animatableToSend: [EntityID: Animatable] = [player.id: player]
-        let animataionSystemData = AnimationSystemData(from: animatableToSend)
-        let systemData = SystemData(
-            entityData: entityData,
-            renderSystemData: renderSystemData,
-            animationSystemData: animataionSystemData,
-            colorSystemData: nil
-        )
         let path = DataPaths.joinPaths(
             DataPaths.games, roomInfo.gameID,
             DataPaths.game_players, player.id.id,
@@ -35,6 +25,31 @@ extension FirebaseMPClientNetworkHandler {
             onComplete: nil,
             onError: nil
         )
+    }
+
+    private func getSystemDataToSend(player: Player) -> SystemData {
+        let entityData = EntityData(from: [player])
+        let renderSystemData = getRenderSystemData(player: player)
+        let animationSystemData = getAnimationSystemData(player: player)
+
+        let systemData = SystemData(
+            entityData: entityData,
+            renderSystemData: renderSystemData,
+            animationSystemData: animationSystemData,
+            colorSystemData: nil
+        )
+
+        return systemData
+    }
+
+    private func getRenderSystemData(player: Player) -> RenderSystemData {
+        let renderableToSend: [EntityID: Renderable] = [player.id: player]
+        return RenderSystemData(from: renderableToSend)
+    }
+
+    private func getAnimationSystemData(player: Player) -> AnimationSystemData {
+        let animatableToSend: [EntityID: Animatable] = [player.id: player]
+        return AnimationSystemData(from: animatableToSend)
     }
 
 }
