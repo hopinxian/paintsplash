@@ -3,7 +3,6 @@
 //  paintsplash
 //
 //  Created by Praveen Bala on 8/3/21.
-// swiftlint:disable function_body_length
 
 import SpriteKit
 
@@ -36,6 +35,20 @@ class SinglePlayerGameManager: GameManager {
 
     var gameIsOver = false
 
+    private var inGameSystems: [System] {
+        [transformSystem,
+         renderSystem,
+         aiSystem,
+         collisionSystem,
+         movementSystem,
+         animationSystem,
+         playerSystem]
+    }
+
+    private var allSystems: [System] {
+        inGameSystems + [userInputSystem]
+    }
+
     init(gameScene: GameScene, vc: GameViewController) {
         self.gameScene = gameScene
         self.viewController = vc
@@ -64,7 +77,7 @@ class SinglePlayerGameManager: GameManager {
         })
 
         EventSystem.gameStateEvents.gameOverEvent.subscribe(listener: { [weak self] in
-                                                                self?.onGameOver(event: $0)
+            self?.onGameOver(event: $0)
         })
     }
 
@@ -128,24 +141,20 @@ class SinglePlayerGameManager: GameManager {
         let mixingPot2 = MixingPot(position: Vector2D(800, 0))
         mixingPot2.spawn()
 
-        currentLevel = Level.getDefaultLevel(
-            canvasManager: canvasManager,
-            gameInfo: gameInfoManager.gameInfo
-        )
+        currentLevel = Level.getDefaultLevel(canvasManager: canvasManager, gameInfo: gameInfoManager.gameInfo)
         currentLevel?.start()
     }
 
     func setUpAudio() {
         self.audioManager.associatedDevice = player.id
-        self.audioManager.playMusic(Music.backgroundMusic)
+        self.audioManager.playAudio(Music.backgroundMusic)
     }
 
     func setUpUI() {
         let background = Background()
         background.spawn()
 
-        guard let paintGun = player.multiWeaponComponent
-                .availableWeapons.compactMap({ $0 as? PaintGun }).first else {
+        guard let paintGun = player.multiWeaponComponent.weaponOfType(PaintGun.self) else {
             fatalError("PaintGun not setup properly")
         }
 
@@ -159,8 +168,7 @@ class SinglePlayerGameManager: GameManager {
             interupt: true
         )
 
-        guard let paintBucket = player.multiWeaponComponent
-                .availableWeapons.compactMap({ $0 as? Bucket }).first else {
+        guard let paintBucket = player.multiWeaponComponent.weaponOfType(Bucket.self) else {
             fatalError("PaintBucket not setup properly")
         }
 
@@ -171,16 +179,10 @@ class SinglePlayerGameManager: GameManager {
             interupt: true
         )
 
-        let joystick = MovementJoystick(
-            associatedEntityID: player.id,
-            position: Constants.JOYSTICK_POSITION
-        )
+        let joystick = MovementJoystick(associatedEntityID: player.id)
         joystick.spawn()
 
-        let attackJoystick = AttackJoystick(
-            associatedEntityID: player.id,
-            position: Constants.ATTACK_BUTTON_POSITION
-        )
+        let attackJoystick = AttackJoystick(associatedEntityID: player.id)
         attackJoystick.spawn()
 
         let playerHealthUI = PlayerHealthDisplay(
@@ -189,26 +191,16 @@ class SinglePlayerGameManager: GameManager {
         )
         playerHealthUI.spawn()
 
-        let bottombar = UIBar(
-            position: Constants.BOTTOM_BAR_POSITION,
-            size: Constants.BOTTOM_BAR_SIZE,
-            spritename: Constants.BOTTOM_BAR_SPRITE
-        )
+        let bottombar = BottomUIBar()
         bottombar.spawn()
 
-        let topBar = UIBar(
-            position: Constants.TOP_BAR_POSITION,
-            size: Constants.TOP_BAR_SIZE,
-            spritename: Constants.TOP_BAR_SPRITE
-        )
+        let topBar = TopUIBar()
         topBar.spawn()
 
-        let scoreDisplay = ScoreDisplay(size: Constants.SCORE_DISPLAY_SIZE,
-                                        position: Constants.SCORE_DISPLAY_POSITION)
+        let scoreDisplay = ScoreDisplay()
         scoreDisplay.spawn()
 
-        let lights = LightDisplay(size: Constants.LIGHT_DISPLAY_SIZE,
-                                  position: Constants.LIGHT_DISPLAY_POSITION)
+        let lights = LightDisplay()
         lights.spawn()
     }
 
@@ -265,6 +257,7 @@ class SinglePlayerGameManager: GameManager {
     func update(_ deltaTime: Double) {
         if !gameIsOver || currentLevel == nil {
             currentLevel?.run(deltaTime)
+            
             aiSystem.updateEntities(deltaTime)
             collisionSystem.updateEntities(deltaTime)
             movementSystem.updateEntities(deltaTime)
@@ -287,11 +280,8 @@ class SinglePlayerGameManager: GameManager {
         gameOverUI.spawn()
 
         EventSystem.audioEvent.stopAudioEvent.post(event: StopAudioEvent())
-        if event.isWin {
-            EventSystem.audioEvent.playMusicEvent.post(event: PlayMusicEvent(music: Music.gameOverWin))
-        } else {
-            EventSystem.audioEvent.playMusicEvent.post(event: PlayMusicEvent(music: Music.gameOverLose))
-        }
+        let newMusic = event.isWin ? Music.gameOverWin : Music.gameOverLose
+        EventSystem.audioEvent.playMusicEvent.post(event: PlayMusicEvent(music: newMusic))
     }
 
     private func onQuit() {

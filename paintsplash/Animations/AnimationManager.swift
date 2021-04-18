@@ -15,7 +15,7 @@ class AnimationManager {
     ]
 
     static func getAnimation(from identifier: String) -> Animation {
-        let animations = animationSources.compactMap({ $0.getAnimation(from: identifier) })
+        let animations = animationSources.compactMap { $0.getAnimation(from: identifier) }
         guard let animation = animations.first else {
             fatalError("Unknown Animation \(identifier)")
         }

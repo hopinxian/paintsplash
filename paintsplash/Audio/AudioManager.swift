@@ -36,24 +36,18 @@ class AudioManager: AudioSystem {
 
     // MARK: Protocol Conforming Methods
 
-    /// Plays a music track.
+    /// Plays an audio track.
     ///
     /// - Parameters:
-    ///     - music: The music track to be played..
+    ///     - audio: The audio track to be played.
     /// - Returns:
     ///     - An optional ID if the audio playback is successful.
-    @discardableResult func playMusic(_ music: Music) -> EntityID? {
-        playAudio(name: music.name, fileExtension: music.fileExtension, loops: music.loops, volume: music.volume)
-    }
+    @discardableResult func playAudio<T: PlayableAudio>(_ audio: T) -> EntityID? {
+        guard let url = getURL(forResource: audio.name, ofType: audio.fileExtension) else {
+            return nil
+        }
 
-    /// Plays a sound effect.
-    ///
-    /// - Parameters:
-    ///     - effect: The sound effect to be played.
-    /// - Returns:
-    ///     - An optional ID if the audio playback is successful.
-    @discardableResult func playEffect(_ effect: SoundEffect) -> EntityID? {
-        playAudio(name: effect.name, fileExtension: effect.fileExtension, loops: effect.loops, volume: effect.volume)
+        return audioPlayer.playAudio(from: url, loops: audio.loops, volume: audio.volume)
     }
 
     /// Stops an audio track with the specified ID.
@@ -85,13 +79,13 @@ class AudioManager: AudioSystem {
 
     private func processPlayMusicEvent(_ event: PlayMusicEvent) {
         if shouldExecuteForEntity(event.playerId) {
-            playMusic(event.music)
+            playAudio(event.music)
         }
     }
 
     private func processPlaySoundEffectEvent(_ event: PlaySoundEffectEvent) {
         if shouldExecuteForEntity(event.playerId) {
-            playEffect(event.effect)
+            playAudio(event.effect)
         }
     }
 
@@ -109,13 +103,13 @@ class AudioManager: AudioSystem {
     }
 
     // MARK: Utility Functions
-    private func playAudio(name: String, fileExtension: String, loops: Int, volume: Float) -> EntityID? {
-        guard let url = getURL(forResource: name, ofType: fileExtension) else {
-            return nil
-        }
-
-        return audioPlayer.playAudio(from: url, loops: loops, volume: volume)
-    }
+//    private func playAudio(name: String, fileExtension: String, loops: Int, volume: Float) -> EntityID? {
+//        guard let url = getURL(forResource: name, ofType: fileExtension) else {
+//            return nil
+//        }
+//
+//        return audioPlayer.playAudio(from: url, loops: loops, volume: volume)
+//    }
 
     private func getURL(forResource name: String, ofType type: String) -> URL? {
         guard let path = Bundle.main.path(forResource: name, ofType: type) else {

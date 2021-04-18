@@ -135,8 +135,8 @@ class CanvasRequestManagerTests: XCTestCase {
         }
 
         let score1 = Points.scoreCanvas(request: request1)
-        XCTAssertEqual(score1, 300)
+        XCTAssertEqual(score1, 400)
         let score2 = Points.scoreCanvas(request: request2)
-        XCTAssertEqual(score2, 600)
+        XCTAssertEqual(score2, 700)
     }
 }

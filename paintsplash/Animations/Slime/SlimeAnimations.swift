@@ -55,17 +55,6 @@ struct SlimeAnimations: AnimationSource {
                             SKAction.fadeAlpha(to: 0.4, duration: 0.1),
                             SKAction.fadeAlpha(by: 1.0, duration: 0.1)
                          ]), count: 3))
-//            CompoundAnimation(
-//                name: "slimeHit",
-//                animations: [
-//                    AtlasAnimation(
-//                        name: "slimeHit",
-//                        animationDuration: 1.2,
-//                        atlasName: "SlimeHit",
-//                        isRepeating: false
-//                    )
-//                ]
-//            )
     ]
 
     static let slimeMoveRight = "slimeMoveRight"

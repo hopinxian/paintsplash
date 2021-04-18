@@ -46,76 +46,15 @@ class MultiplayerServer: SinglePlayerGameManager {
         let gameId = self.room.gameID
         serverNetworkHandler.setupClientPlayer(player: player)
 
-        setupMusicEventSender(gameId)
-        setupSFXEventSender(gameId)
-
         setupGameOverEventSender(playerID: playerID, gameId)
         setupClientObservers(playerID: playerID, gameId: gameId)
-    }
-
-    private func setupMusicEventSender(_ gameId: String) {
-        // Send background music information
-        EventSystem.audioEvent.playMusicEvent.subscribe { [weak self] event in
-            guard let players = self?.room.players else {
-                return
-            }
-
-            guard let playerId = event.playerId else {
-                players.forEach {
-                    self?.gameConnectionHandler.sendEvent(
-                        gameId: gameId,
-                        playerId: $0.key,
-                        event: event,
-                        onError: nil,
-                        onSuccess: nil
-                    )
-                }
-                return
-            }
-
-            self?.gameConnectionHandler.sendEvent(
-                gameId: gameId,
-                playerId: playerId.id,
-                event: event,
-                onError: nil,
-                onSuccess: nil
-            )
-        }
-    }
-
-    private func setupSFXEventSender(_ gameId: String) {
-        EventSystem.audioEvent.playSoundEffectEvent.subscribe { [weak self] event in
-            guard let players = self?.room.players else {
-                return
-            }
-
-            guard let playerId = event.playerId else {
-                players.forEach {
-                    self?.gameConnectionHandler.sendEvent(
-                        gameId: gameId,
-                        playerId: $0.key,
-                        event: event,
-                        onError: nil,
-                        onSuccess: nil
-                    )
-                }
-                return
-            }
-
-            self?.gameConnectionHandler.sendEvent(
-                gameId: gameId,
-                playerId: playerId.id,
-                event: event,
-                onError: nil,
-                onSuccess: nil
-            )
-        }
     }
 
     private func setupGameOverEventSender(playerID: EntityID, _ gameId: String) {
         EventSystem.gameStateEvents.gameOverEvent.subscribe { [weak self] event in
             guard (self?.room.players) != nil else {
                 return
+
             }
             event.score = self?.currentLevel?.score.score
             self?.gameConnectionHandler.sendEvent(
@@ -135,7 +74,7 @@ class MultiplayerServer: SinglePlayerGameManager {
             DataPaths.game_players, playerID.id,
             "clientPlayer")
         self.connectionHandler.listen(to: path, callBack: { [weak self] in
-                                        self?.readClientPlayerData(data: $0)
+            self?.readClientPlayerData(data: $0)
         })
     }
 
@@ -158,9 +97,9 @@ class MultiplayerServer: SinglePlayerGameManager {
         }
         let clientId = data.entityData.entities[0]
         if let client = entities.first(where: { $0.id.id == clientId.id }) as? Player,
-           let transformComponent = data.renderSystemData?.renderables[clientId]?.transformComponent,
-           let animationComponent = data.animationSystemData?.animatables[clientId]?.animationComponent,
-           let renderComponent = data.renderSystemData?.renderables[clientId]?.renderComponent {
+            let transformComponent = data.renderSystemData?.renderables[clientId]?.transformComponent,
+            let animationComponent = data.animationSystemData?.animatables[clientId]?.animationComponent,
+            let renderComponent = data.renderSystemData?.renderables[clientId]?.renderComponent {
             let boundedComponent = BoundedTransformComponent(
                 position: transformComponent.worldPosition,
                 rotation: transformComponent.rotation,

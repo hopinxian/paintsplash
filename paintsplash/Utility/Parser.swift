@@ -34,7 +34,7 @@ struct Parser {
         return nil
     }
 
-    static func trimWhitespace(_ str: String) -> String {
-        str.trimmingCharacters(in: .whitespaces)
+    static func trimWhitespaceNewLine(_ str: String) -> String {
+        str.trimmingCharacters(in: .whitespacesAndNewlines)
     }
 }

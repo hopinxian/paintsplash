@@ -64,14 +64,10 @@ class StopAudioEvent: AudioEvent {
     let playerId: EntityID?
     let audioId: EntityID?
 
-    init(playerId: EntityID?, audioId: EntityID?) {
+    init(playerId: EntityID? = nil, audioId: EntityID? = nil) {
         self.playerId = playerId
         self.audioId = audioId
         super.init()
-    }
-
-    override convenience init() {
-        self.init(playerId: nil, audioId: nil)
     }
 
     enum CodingKeys: String, CodingKey {

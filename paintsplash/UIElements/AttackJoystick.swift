@@ -8,6 +8,11 @@
 class AttackJoystick: Joystick {
     private var lastDisplacement: Vector2D = .zero
 
+    override init(associatedEntityID: EntityID,
+                  position: Vector2D = Constants.ATTACK_BUTTON_POSITION) {
+        super.init(associatedEntityID: associatedEntityID, position: position)
+    }
+
     override func touchMove(event: TouchMoveEvent) {
         guard event.touchId == trackedId else {
             return

@@ -9,8 +9,7 @@ protocol AudioSystem {
     var isPlaying: Bool { get }
     var associatedDevice: EntityID? { get set }
 
-    @discardableResult func playMusic(_ music: Music) -> EntityID?
-    @discardableResult func playEffect(_ effect: SoundEffect) -> EntityID?
+    @discardableResult func playAudio<T: PlayableAudio>(_ audio: T) -> EntityID?
 
     func stopAudio(with id: EntityID)
     func stopAllAudio()

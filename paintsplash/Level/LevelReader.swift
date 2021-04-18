@@ -49,7 +49,7 @@ class LevelReader {
 
     private func parseHeader(_ header: String, _ level: Level) {
         var arg = header.components(separatedBy: ",")
-        arg = arg.map { Parser.trimWhitespace($0) }
+        arg = arg.map { Parser.trimWhitespaceNewLine($0) }
 
         level.repeatLimit = parseLimit(arg[0])
         level.bufferBetweenLoop = parseLoopBuffer(arg[1]) ?? level.bufferBetweenLoop
@@ -59,7 +59,7 @@ class LevelReader {
 
     private func parseStringToCommand(_ commandString: String) -> SpawnCommand {
         var arguments = commandString.components(separatedBy: ",")
-        arguments = arguments.map { Parser.trimWhitespace($0) }
+        arguments = arguments.map { Parser.trimWhitespaceNewLine($0) }
 
         let command: SpawnCommand
         switch arguments[0].lowercased() {
@@ -134,7 +134,7 @@ class LevelReader {
         }
 
         let colorString = arg.components(separatedBy: " ")
-        let colorsArray = colorString.map { Parser.trimWhitespace($0) }
+        let colorsArray = colorString.map { Parser.trimWhitespaceNewLine($0) }
                                      .compactMap { parseColor($0) }
         let colorSet = Set<PaintColor>(colorsArray)
         return colorSet
