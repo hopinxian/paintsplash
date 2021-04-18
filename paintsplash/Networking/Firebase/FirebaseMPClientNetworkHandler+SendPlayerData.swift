@@ -51,5 +51,4 @@ extension FirebaseMPClientNetworkHandler {
         let animatableToSend: [EntityID: Animatable] = [player.id: player]
         return AnimationSystemData(from: animatableToSend)
     }
-
 }

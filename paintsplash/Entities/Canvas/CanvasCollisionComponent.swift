@@ -23,7 +23,7 @@ class CanvasCollisionComponent: CollisionComponent {
             blob.spawn()
             canvas.paintedColors.insert(blob)
 
-            // post notification to alert system about colours on the current canvas
+            // post notification to event system about colours on the current canvas
             let canvasHitEvent = CanvasHitEvent(canvas: canvas)
             EventSystem.canvasEvent.canvasHitEvent.post(event: canvasHitEvent)
 

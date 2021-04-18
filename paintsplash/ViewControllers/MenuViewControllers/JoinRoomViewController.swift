@@ -17,8 +17,7 @@ class JoinRoomViewController: UIViewController {
     @IBOutlet private var enterRoomIdTextField: UITextField!
 
     @IBAction private func didChangeRoomIdTextField(_ sender: UITextField) {
-        // TODO: check input for numbers only (tbc)
-        // TODO: disable button join button if empty
+
     }
 
     @IBAction private func joinRoom(_ sender: Any) {
@@ -44,7 +43,6 @@ class JoinRoomViewController: UIViewController {
 
     func onJoinRoom(roomInfo: RoomInfo) {
         print("successfully joined room: transitioning")
-        // TODO: reset to nil when room VC is closed
         self.roomToJoin = roomInfo
         performSegue(withIdentifier: SegueIdentifiers.joinMenuToRoom, sender: nil)
     }

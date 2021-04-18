@@ -8,7 +8,6 @@
 import Foundation
 
 extension FirebaseMPServerNetworkHandler {
-
     func sendGameStateToDatabase() {
         guard let uiEntities = multiplayerServer?.uiEntities,
             let entities = multiplayerServer?.entities,

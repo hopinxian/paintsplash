@@ -13,7 +13,6 @@ struct RoomInfo: Codable {
     var gameID: String
 
     init(roomId: String, host: PlayerInfo, players: [String: PlayerInfo], isOpen: Bool) {
-        // assert(!players.contains(host))
         self.roomId = roomId
         self.host = host
         self.players = players

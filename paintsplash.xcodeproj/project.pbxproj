@@ -263,6 +263,8 @@
 		D5B7F0B7262C6B8B00882888 /* EnemySpawnerHealthComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B7F0B6262C6B8B00882888 /* EnemySpawnerHealthComponent.swift */; };
 		D5B7F0C3262C6C9100882888 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D5B7F0C2262C6C9100882888 /* GameScene.sks */; };
 		D5B7F0C8262C6DCD00882888 /* FontColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E3961F26261AA300250EEC /* FontColor.swift */; };
+		D5B7F0CC262C709200882888 /* BottomUIBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B7F0CB262C709200882888 /* BottomUIBar.swift */; };
+		D5B7F0D2262C709F00882888 /* TopUIBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B7F0D1262C709F00882888 /* TopUIBar.swift */; };
 		D5C568FF260A19C9009E5BD9 /* MovementSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C568FE260A19C9009E5BD9 /* MovementSystem.swift */; };
 		D5C56909260A3528009E5BD9 /* BidirectionalMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C56908260A3528009E5BD9 /* BidirectionalMap.swift */; };
 		D5C56911260AC3D8009E5BD9 /* DoNothingBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C56910260AC3D8009E5BD9 /* DoNothingBehaviour.swift */; };
@@ -618,6 +620,8 @@
 		D5B7F0B2262C6B7800882888 /* EnemyHealthComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyHealthComponent.swift; sourceTree = "<group>"; };
 		D5B7F0B6262C6B8B00882888 /* EnemySpawnerHealthComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemySpawnerHealthComponent.swift; sourceTree = "<group>"; };
 		D5B7F0C2262C6C9100882888 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
+		D5B7F0CB262C709200882888 /* BottomUIBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomUIBar.swift; sourceTree = "<group>"; };
+		D5B7F0D1262C709F00882888 /* TopUIBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopUIBar.swift; sourceTree = "<group>"; };
 		D5C568FE260A19C9009E5BD9 /* MovementSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovementSystem.swift; sourceTree = "<group>"; };
 		D5C56908260A3528009E5BD9 /* BidirectionalMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BidirectionalMap.swift; sourceTree = "<group>"; };
 		D5C56910260AC3D8009E5BD9 /* DoNothingBehaviour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoNothingBehaviour.swift; sourceTree = "<group>"; };
@@ -1164,10 +1168,8 @@
 				D5553D9226062D1000C1862E /* AudioPlayer.swift */,
 				D5553D9326062D1000C1862E /* PlayableAudio.swift */,
 				D5553D9426062D1000C1862E /* Music.swift */,
-				D5553D9526062D1000C1862E /* background-music.mp3 */,
 				D5553D9626062D1000C1862E /* AudioSystem.swift */,
 				D5553D9726062D1000C1862E /* AudioManager.swift */,
-				D5553D9826062D1000C1862E /* attack.mp3 */,
 				D5553D9926062D1000C1862E /* SoundEffect.swift */,
 				D5553D9A26062D1000C1862E /* AVAudioPlayerImpl.swift */,
 			);
@@ -1222,6 +1224,8 @@
 				D5673324261EA37300FD1D15 /* PaintSplatter.mp3 */,
 				D5673326261EA37300FD1D15 /* PlayerAttack.wav */,
 				D567332B261EA37300FD1D15 /* PlayerStep.mp3 */,
+				D5553D9526062D1000C1862E /* background-music.mp3 */,
+				D5553D9826062D1000C1862E /* attack.mp3 */,
 			);
 			path = "Audio FIles";
 			sourceTree = "<group>";
@@ -1490,7 +1494,9 @@
 			isa = PBXGroup;
 			children = (
 				AC0A18662605304100A1338C /* UIBar.swift */,
+				D5B7F0D1262C709F00882888 /* TopUIBar.swift */,
 				DCA30983262363EF00E06EFA /* LightDisplay.swift */,
+				D5B7F0CB262C709200882888 /* BottomUIBar.swift */,
 			);
 			path = Background;
 			sourceTree = "<group>";
@@ -2124,6 +2130,7 @@
 				D5B7F0B7262C6B8B00882888 /* EnemySpawnerHealthComponent.swift in Sources */,
 				8405B48B2624829E00C36361 /* LevelReader.swift in Sources */,
 				840A334D26060655007BC34D /* AmmoDrop.swift in Sources */,
+				D5B7F0CC262C709200882888 /* BottomUIBar.swift in Sources */,
 				D55EEBA02600927800ADC70B /* EntityChangeEvent.swift in Sources */,
 				D5B7F0B3262C6B7800882888 /* EnemyHealthComponent.swift in Sources */,
 				DC08DA6A260516DE000F4F90 /* CanvasEndMarker.swift in Sources */,
@@ -2137,6 +2144,7 @@
 				D57044FA26182AC6004AF802 /* EncodableColorable.swift in Sources */,
 				D53F5435260D948500635B05 /* NoState.swift in Sources */,
 				D53F547C260D967100635B05 /* EnemySpawnerState.swift in Sources */,
+				D5B7F0D2262C709F00882888 /* TopUIBar.swift in Sources */,
 				DCCF8CEC26102DDA006F6964 /* RoomViewController.swift in Sources */,
 				DC686C21262608190035B6B3 /* SKShaderManager.swift in Sources */,
 				AC0A18672605304100A1338C /* UIBar.swift in Sources */,
