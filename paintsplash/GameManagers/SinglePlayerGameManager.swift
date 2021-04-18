@@ -267,7 +267,6 @@ class SinglePlayerGameManager: GameManager {
 //            movementSystem?.updateEntities(deltaTime)
 //            playerSystem?.updateEntities(deltaTime)
             inGameSystems.forEach { $0.updateEntities(deltaTime) }
-            
             entities.forEach { $0.update(deltaTime) }
         }
         userInputSystem.updateEntities(deltaTime)
