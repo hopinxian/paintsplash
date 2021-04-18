@@ -51,6 +51,16 @@ class FirebaseMPServerNetworkHandler: MPServerNetworkHandler {
         setupMusicEventSender(gameId)
         setupSFXEventSender(gameId)
     }
+
+    func sendGameOverEvent(event: GameOverEvent, playerInfo: PlayerInfo) {
+        self.gameConnectionHandler.sendEvent(
+            gameId: gameId,
+            playerId: playerInfo.playerUUID,
+            event: event,
+            onError: nil,
+            onSuccess: nil
+        )
+    }
 }
 
 // MARK: Client event senders

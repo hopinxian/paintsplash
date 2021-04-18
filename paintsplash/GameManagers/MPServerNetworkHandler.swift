@@ -11,13 +11,13 @@ protocol MPServerNetworkHandler {
 
     func setupPlayerEventSenders(player: PlayerInfo)
 
-    func setupPlayerGameOverEventSender(player: PlayerInfo, level: Level?)
-
     func setupPlayerEventObservers(player: PlayerInfo)
 
     func setupClientPlayer(player: PlayerInfo)
 
     func setUpGameEventSenders()
+
+    func sendGameOverEvent(event: GameOverEvent, playerInfo: PlayerInfo)
 }
 
 extension MPServerNetworkHandler {

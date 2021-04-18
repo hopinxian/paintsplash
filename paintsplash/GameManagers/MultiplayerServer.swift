@@ -45,26 +45,20 @@ class MultiplayerServer: SinglePlayerGameManager {
         // game state
         let gameId = self.room.gameID
         serverNetworkHandler.setupClientPlayer(player: player)
+
         serverNetworkHandler.setUpGameEventSenders()
 
-        setupGameOverEventSender(playerID: playerID, gameId)
+        setupGameOverEventSender(playerInfo: player, gameId)
         setupClientObservers(playerID: playerID, gameId: gameId)
     }
 
-    private func setupGameOverEventSender(playerID: EntityID, _ gameId: String) {
+    private func setupGameOverEventSender(playerInfo: PlayerInfo, _ gameId: String) {
         EventSystem.gameStateEvents.gameOverEvent.subscribe { [weak self] event in
             guard (self?.room.players) != nil else {
                 return
-
             }
-            event.score = self?.currentLevel?.score.score
-            self?.gameConnectionHandler.sendEvent(
-                gameId: gameId,
-                playerId: playerID.id,
-                event: event,
-                onError: nil,
-                onSuccess: nil
-            )
+            event.score = self?.currentLevel?.currentScore
+            self?.serverNetworkHandler.sendGameOverEvent(event: event, playerInfo: playerInfo)
         }
     }
 
