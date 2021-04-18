@@ -37,7 +37,6 @@ class PaintSplashGameHandler: GameConnectionHandler {
         }
     }
 
-    // TODO: refactor this
     private func getPlayerEventPath() {
 
     }

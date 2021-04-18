@@ -51,7 +51,6 @@ class PlayerCollisionComponent: CollisionComponent {
     }
 
     private func onCollideWithEnemy(with: Collidable) {
-        // TODO: ensure that enemy collide with enemy spawner/other objects is ok
         switch with {
         case _ as Enemy:
             player?.healthComponent.takeDamage(amount: 1)

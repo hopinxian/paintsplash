@@ -27,7 +27,6 @@ struct SpawnerAnimations: AnimationSource {
                 AtlasAnimation(
                     name: "spawnerDie",
                     animationDuration: 0.5,
-                    // TODO: spawner die atlas not recognised by xcode :(
                     atlasName: "SpawnerIdle",
                     isRepeating: false
                 ),

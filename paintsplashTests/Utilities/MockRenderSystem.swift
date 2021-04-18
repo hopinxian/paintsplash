@@ -16,7 +16,6 @@ class MockRenderSystem: RenderSystem {
     var activeRenderables = [Renderable]()
     var updatedRenderables = [Renderable]()
     var renderableAnimations = [UUID: Animation]()
-//    var renderableSubviews = [UUID: [RenderInfo]]()
 
     func updateEntity(_ entity: EntityID, _ renderable: Renderable) {
         guard activeRenderables.contains(where: { $0 === renderable }) else {

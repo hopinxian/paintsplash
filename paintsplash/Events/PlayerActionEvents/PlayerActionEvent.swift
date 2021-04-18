@@ -61,7 +61,6 @@ class PlayerAmmoUpdateEvent: PlayerActionEvent, Codable {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         playerId = try values.decode(EntityID.self, forKey: .playerId)
         let paintAmmo = try? values.decode([PaintAmmo].self, forKey: .ammo)
-        // TODO: Change [PaintAmmo] to [Ammo]
         ammo = paintAmmo ?? []
         weaponTypeEnum = try values.decode(WeaponType.self, forKey: .weaponTypeEnum)
         guard let type = weaponTypeEnum,

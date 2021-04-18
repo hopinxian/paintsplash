@@ -72,7 +72,6 @@
 		AC5F0B812601130500E28D49 /* PlayerBrushAttackLeft.atlas in Resources */ = {isa = PBXBuildFile; fileRef = AC5F0B7B2601130500E28D49 /* PlayerBrushAttackLeft.atlas */; };
 		AC8757E7262330B500B775AE /* UITouch+TouchData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8757E6262330B500B775AE /* UITouch+TouchData.swift */; };
 		ACA1B3F026184C1C004F210F /* FirebasePathsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA1B3EF26184C1C004F210F /* FirebasePathsTests.swift */; };
-		ACA1B3FA26184F4B004F210F /* GameConnectionHandlerStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA1B3F926184F4B004F210F /* GameConnectionHandlerStub.swift */; };
 		ACA1B41626187FEA004F210F /* CodableEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA1B41526187FEA004F210F /* CodableEvent.swift */; };
 		ACB3607225F661620016E240 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB3607125F661620016E240 /* AppDelegate.swift */; };
 		ACB3607825F661620016E240 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB3607725F661620016E240 /* GameScene.swift */; };
@@ -426,7 +425,6 @@
 		AC5F0B7B2601130500E28D49 /* PlayerBrushAttackLeft.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = PlayerBrushAttackLeft.atlas; sourceTree = "<group>"; };
 		AC8757E6262330B500B775AE /* UITouch+TouchData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITouch+TouchData.swift"; sourceTree = "<group>"; };
 		ACA1B3EF26184C1C004F210F /* FirebasePathsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebasePathsTests.swift; sourceTree = "<group>"; };
-		ACA1B3F926184F4B004F210F /* GameConnectionHandlerStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameConnectionHandlerStub.swift; sourceTree = "<group>"; };
 		ACA1B41526187FEA004F210F /* CodableEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableEvent.swift; sourceTree = "<group>"; };
 		ACB3606E25F661620016E240 /* paintsplash.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = paintsplash.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACB3607125F661620016E240 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -782,7 +780,6 @@
 		846D4FAF26023F2F0079720F /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				ACA1B3F926184F4B004F210F /* GameConnectionHandlerStub.swift */,
 				846D4FB026023F2F0079720F /* Projectile+getColor.swift */,
 				846D4FB126023F2F0079720F /* AmmoHelper.swift */,
 				D5553DAB26071C0100C1862E /* MockRenderSystem.swift */,
@@ -2265,7 +2262,6 @@
 				84CF593826186100008FB1A7 /* BidirectionalMapTests.swift in Sources */,
 				840A336A2606256F007BC34D /* LevelTests.swift in Sources */,
 				D5553DC62607279800C1862E /* CanvasRenderableTests.swift in Sources */,
-				ACA1B3FA26184F4B004F210F /* GameConnectionHandlerStub.swift in Sources */,
 				8421CC612618A8B000932F5B /* AnimationComponentTests.swift in Sources */,
 				84CF593E2618660C008FB1A7 /* MathTests.swift in Sources */,
 				848E3F5926188DE300C43EEB /* SpaceConverterTests.swift in Sources */,
