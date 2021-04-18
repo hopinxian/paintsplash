@@ -24,8 +24,7 @@ class FirebaseMPServerNetworkHandler: MPServerNetworkHandler {
 
     func sendGameState(uiEntities: Set<GameEntity>, entities: Set<GameEntity>,
                        renderSystem: RenderSystem, animationSystem: AnimationSystem) {
-        sendGameStateToDatabase(uiEntities: uiEntities, entities: entities,
-                                renderSystem: renderSystem, animationSystem: animationSystem)
+        sendGameStateToDatabase()
     }
 
     /// Allow the server to send player events to the database for clients to observe
@@ -189,19 +188,27 @@ extension FirebaseMPServerNetworkHandler {
         }
 
         let clientId = data.entityData.entities[0]
-        if let client = entities.first(where: { $0.id.id == clientId.id }) as? Player,
-            let transformComponent = data.renderSystemData?.renderables[clientId]?.transformComponent,
-            let animationComponent = data.animationSystemData?.animatables[clientId]?.animationComponent,
-            let renderComponent = data.renderSystemData?.renderables[clientId]?.renderComponent {
-            let boundedComponent = BoundedTransformComponent(
-                position: transformComponent.worldPosition,
-                rotation: transformComponent.rotation,
-                size: transformComponent.size,
-                bounds: Constants.PLAYER_MOVEMENT_BOUNDS)
-            client.transformComponent = boundedComponent
-            client.renderComponent = renderComponent
-            client.animationComponent = animationComponent
+        if let client = entities.first(where: { $0.id.id == clientId.id }) as? Player {
+            setClientRender(data, client)
         }
+    }
+
+    private func setClientRender(_ data: SystemData, _ client: Player) {
+        let clientId = client.id
+
+        guard !client.isDead,
+              let transformComponent = data.renderSystemData?.renderables[clientId]?.transformComponent,
+              let renderComponent = data.renderSystemData?.renderables[clientId]?.renderComponent else {
+            return
+        }
+
+        let boundedComponent = BoundedTransformComponent (
+            position: transformComponent.worldPosition,
+            rotation: transformComponent.rotation,
+            size: transformComponent.size,
+            bounds: Constants.PLAYER_MOVEMENT_BOUNDS)
+        client.transformComponent = boundedComponent
+        client.renderComponent = renderComponent
     }
 
 }

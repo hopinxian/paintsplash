@@ -34,6 +34,8 @@ class Player: GameEntity,
 
     let connectionHander = FirebaseConnectionHandler()
 
+    var aimGuide: AimGuide?
+
     var isDead: Bool {
         healthComponent.currentHealth <= 0
     }
@@ -74,12 +76,10 @@ class Player: GameEntity,
 
         let paintGun = PaintGun()
         let bucket = Bucket()
-//        let bomb = Bomb()
         let multiWeaponComponent = MultiWeaponComponent(
             weapons: [paintGun, bucket]
         )
         self.multiWeaponComponent = multiWeaponComponent
-//        bomb.ammoSource = multiWeaponComponent
 
         let playerComponent = PlayerComponent()
         self.playableComponent = playerComponent

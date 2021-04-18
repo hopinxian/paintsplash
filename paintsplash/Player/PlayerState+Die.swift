@@ -11,6 +11,7 @@ extension PlayerState {
             player.playableComponent.active = false
             player.collisionComponent.active = false
             player.moveableComponent.speed = 0.0
+            player.aimGuide?.destroy()
             player.animationComponent.animate(
                 animation: PlayerAnimations.playerDie,
                 interupt: true,

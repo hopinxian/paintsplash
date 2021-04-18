@@ -16,4 +16,8 @@ class EventManager<EventType: Event> {
         listeners = listeners.compactMap { $0 }
         listeners.forEach { $0?(event) }
     }
+
+    func reset() {
+        listeners.removeAll()
+    }
 }

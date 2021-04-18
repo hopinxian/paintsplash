@@ -120,8 +120,6 @@ class EnemySpawnerHealthComponent: HealthComponent {
     override func takeDamage(amount: Int) {
         super.takeDamage(amount: amount)
 
-        print("spawner health: \(currentHealth)")
-
         if currentHealth <= 0 {
             die()
             return
@@ -134,7 +132,6 @@ class EnemySpawnerHealthComponent: HealthComponent {
     }
 
     private func die() {
-        print("spawner die")
         guard let spawner = spawner else {
             return
         }

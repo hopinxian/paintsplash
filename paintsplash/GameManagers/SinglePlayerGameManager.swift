@@ -41,6 +41,7 @@ class SinglePlayerGameManager: GameManager {
         let gameInfo = GameInfo(playerPosition: Vector2D.zero)
         self.gameInfoManager = GameInfoManager(gameInfo: gameInfo)
 
+        EventSystem.reset()
         setupEventListeners()
         setupGame()
     }
@@ -251,10 +252,10 @@ class SinglePlayerGameManager: GameManager {
             transformSystem.updateEntities(deltaTime)
             renderSystem.updateEntities(deltaTime)
             animationSystem.updateEntities(deltaTime)
-            userInputSystem.updateEntities(deltaTime)
-
-            entities.forEach({ $0.update(deltaTime) })
         }
+
+        userInputSystem.updateEntities(deltaTime)
+        entities.forEach({ $0.update(deltaTime) })
     }
 
     private func onGameOver(event: GameOverEvent) {

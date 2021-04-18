@@ -59,8 +59,4 @@ class EnemySpawner: GameEntity, StatefulEntity, Transformable, Renderable, Anima
         collisionComp.spawner = self
         healthComp.spawner = self
     }
-
-    deinit {
-        print("deinit spawner")
-    }
 }

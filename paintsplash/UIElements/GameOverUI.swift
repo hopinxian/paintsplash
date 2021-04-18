@@ -71,7 +71,6 @@ class GameOverUI: UIEntity, Renderable {
         func touchUp(event: TouchUpEvent) {
             let myBounds = Rect(from: transformComponent)
             if myBounds.contains(event.location) {
-                print("Exit")
                 onPress()
             }
         }
