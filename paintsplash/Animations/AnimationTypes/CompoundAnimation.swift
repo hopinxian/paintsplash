@@ -4,6 +4,7 @@
 //
 //  Created by Farrell Nah on 20/3/21.
 //
+
 import SpriteKit
 
 class CompoundAnimation: Animation {
@@ -15,6 +16,6 @@ class CompoundAnimation: Animation {
     }
 
     override func getAction() -> SKAction {
-        SKAction.group(animations.compactMap({ $0.getAction() }))
+        SKAction.group(animations.compactMap { $0.getAction() })
     }
 }

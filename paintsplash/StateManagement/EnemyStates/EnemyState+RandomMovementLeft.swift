@@ -14,7 +14,7 @@ extension EnemyState {
 
         init(enemy: Enemy,
              direction: Vector2D =
-                Vector2D.random(xRange: -1.0 ..< -0.9, yRange: -1.0..<1.0).unitVector,
+                 Vector2D.random(xRange: -1.0 ..< -0.9, yRange: -1.0..<1.0).unitVector,
              duration: Double = Double.random(in: 1.0..<3.0)) {
             self.randomMoveLeftTime = duration
             self.startTime = Date()

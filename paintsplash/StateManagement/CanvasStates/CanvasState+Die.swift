@@ -12,7 +12,7 @@ extension CanvasState {
             canvas.animationComponent.animate(
                 animation: CanvasAnimations.canvasDisappear,
                 interupt: true,
-                callBack: { self.canvas.destroy() }
+                callBack: { [weak self] in self?.canvas.destroy() }
             )
 
             EventSystem.audioEvent.playSoundEffectEvent.post(

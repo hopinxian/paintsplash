@@ -13,4 +13,8 @@ class SequenceAnimation: Animation {
         self.animations = animations
         super.init(name: name)
     }
+
+    override func getAction() -> SKAction {
+        SKAction.sequence(animations.map { $0.getAction() })
+    }
 }

@@ -10,11 +10,9 @@ class CallbackAnimation: Animation {
     let animation: Animation
     var completionCallback: (() -> Void)
 
-    init(
-        name: String,
-        animation: Animation,
-        completionCallback: @escaping () -> Void
-    ) {
+    init(name: String, animation: Animation,
+         completionCallback: @escaping () -> Void) {
+
         self.animation = animation
         self.completionCallback = completionCallback
         super.init(name: name)

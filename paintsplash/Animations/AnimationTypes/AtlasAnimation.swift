@@ -24,21 +24,13 @@ class AtlasAnimation: Animation {
 
         // Sorting ensures that animation images are in the correct order
         let sortedTextures = animationAtlas.textureNames.sorted()
-
-        let animationFrames: [SKTexture] = sortedTextures.map({
-            animationAtlas.textureNamed($0)
-        })
+        let animationFrames = sortedTextures.map { animationAtlas.textureNamed($0) }
 
         assert(!animationFrames.isEmpty)
 
         let animationSpeed = animationDuration / Double(animationFrames.count)
-
         let action = SKAction.animate(with: animationFrames, timePerFrame: animationSpeed)
-
-        if isRepeating {
-            return SKAction.repeatForever(action)
-        } else {
-            return action
-        }
+        
+        return isRepeating ? SKAction.repeatForever(action) : action
     }
 }
