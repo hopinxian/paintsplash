@@ -118,6 +118,7 @@ class MultiplayerClient: SinglePlayerGameManager {
             onChange: { [weak self] (event: GameOverEvent) in
                 print("On game over")
                 EventSystem.gameStateEvents.gameOverEvent.post(event: event)
+
                 guard let playerId = self?.playerInfo.playerUUID else {
                     return
                 }

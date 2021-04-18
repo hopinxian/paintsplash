@@ -7,7 +7,6 @@
 
 class PlayerComponent: PlayableComponent {
     weak var player: Player!
-    private var aimGuide: AimGuide?
 
     override func onMove(event: PlayerMoveEvent) {
         guard event.playerId == player.id else {
@@ -33,7 +32,7 @@ class PlayerComponent: PlayableComponent {
     }
 
     private func didAmmoChange() -> Bool {
-        guard let currentGuide = aimGuide as? Colorable,
+        guard let currentGuide = player.aimGuide as? Colorable,
               let nextGuide = player.multiWeaponComponent.activeWeapon.getAimGuide() as? Colorable else {
             return false
         }
@@ -47,12 +46,12 @@ class PlayerComponent: PlayableComponent {
             return
         }
 
-        if aimGuide == nil {
-            aimGuide = player.multiWeaponComponent.getAimGuide()
-            aimGuide?.spawn()
+        if player.aimGuide == nil {
+            player.aimGuide = player.multiWeaponComponent.getAimGuide()
+            player.aimGuide?.spawn()
         }
 
-        aimGuide?.aim(at: event.direction)
+        player.aimGuide?.aim(at: event.direction)
     }
 
     override func onShoot(event: PlayerShootEvent) {
@@ -76,8 +75,8 @@ class PlayerComponent: PlayableComponent {
     }
 
     private func removeAimGuide() {
-        aimGuide?.destroy()
-        aimGuide = nil
+        player.aimGuide?.destroy()
+        player.aimGuide = nil
     }
 
     override func onWeaponChange(event: PlayerChangeWeaponEvent) {
@@ -112,14 +111,14 @@ class PlayerComponent: PlayableComponent {
     }
 
     private func updateAimGuide() {
-        guard let oldGuide = aimGuide else {
+        guard let oldGuide = player.aimGuide else {
             return
         }
 
         let direction = oldGuide.direction
         oldGuide.destroy()
-        aimGuide = player.multiWeaponComponent.getAimGuide()
-        aimGuide?.spawn()
-        aimGuide?.aim(at: direction)
+        player.aimGuide = player.multiWeaponComponent.getAimGuide()
+        player.aimGuide?.spawn()
+        player.aimGuide?.aim(at: direction)
     }
 }
