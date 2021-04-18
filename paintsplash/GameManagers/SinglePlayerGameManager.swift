@@ -19,14 +19,14 @@ class SinglePlayerGameManager: GameManager {
     var currentLevel: Level?
 
     var aiSystem: StateManagerSystem!
-    var audioManager: AudioSystem! = AudioManager()
+    var audioManager: AudioSystem!
     var renderSystem: RenderSystem!
     var animationSystem: AnimationSystem!
     var collisionSystem: CollisionSystem!
-    var movementSystem: MovementSystem! = FrameMovementSystem()
-    var transformSystem: TransformSystem! = WorldTransformSystem()
-    var playerSystem: PlayerSystem! = PaintSplashPlayerSystem()
-    var userInputSystem: UserInputSystem! = SKUserInputSystem()
+    var movementSystem: MovementSystem!
+    var transformSystem: TransformSystem!
+    var playerSystem: PlayerSystem!
+    var userInputSystem: UserInputSystem!
 
     private var collisionDetector: SKCollisionDetector!
 
@@ -107,15 +107,15 @@ class SinglePlayerGameManager: GameManager {
 
         self.aiSystem = GameStateManagerSystem(gameInfo: gameInfoManager.gameInfo)
 
-//        self.audioManager = AudioManager()
-//
-//        self.movementSystem = FrameMovementSystem()
-//
-//        self.transformSystem = WorldTransformSystem()
-//
-//        self.playerSystem = PaintSplashPlayerSystem()
-//
-//        self.userInputSystem = SKUserInputSystem()
+        self.audioManager = AudioManager()
+
+        self.movementSystem = FrameMovementSystem()
+
+        self.transformSystem = WorldTransformSystem()
+
+        self.playerSystem = PaintSplashPlayerSystem()
+
+        self.userInputSystem = SKUserInputSystem()
 
         gameScene.inputSystem = userInputSystem
     }
@@ -223,27 +223,25 @@ class SinglePlayerGameManager: GameManager {
     }
 
     func addObjectToSystems(_ object: GameEntity) {
-        allSystems.forEach { $0.addEntity(object) }
-//        transformSystem.addEntity(object)
-//        renderSystem.addEntity(object)
-//        aiSystem.addEntity(object)
-//        collisionSystem.addEntity(object)
-//        movementSystem.addEntity(object)
-//        animationSystem.addEntity(object)
-//        playerSystem.addEntity(object)
-//        userInputSystem.addEntity(object)
+        transformSystem.addEntity(object)
+        renderSystem.addEntity(object)
+        aiSystem.addEntity(object)
+        collisionSystem.addEntity(object)
+        movementSystem.addEntity(object)
+        animationSystem.addEntity(object)
+        playerSystem.addEntity(object)
+        userInputSystem.addEntity(object)
     }
 
     func removeObjectFromSystems(_ object: GameEntity) {
-        allSystems.forEach { $0.removeEntity(object) }
-//        transformSystem.removeEntity(object)
-//        renderSystem.removeEntity(object)
-//        aiSystem.removeEntity(object)
-//        collisionSystem.removeEntity(object)
-//        movementSystem.removeEntity(object)
-//        animationSystem.removeEntity(object)
-//        playerSystem.removeEntity(object)
-//        userInputSystem.removeEntity(object)
+        transformSystem.removeEntity(object)
+        renderSystem.removeEntity(object)
+        aiSystem.removeEntity(object)
+        collisionSystem.removeEntity(object)
+        movementSystem.removeEntity(object)
+        animationSystem.removeEntity(object)
+        playerSystem.removeEntity(object)
+        userInputSystem.removeEntity(object)
     }
 
     func addObject(_ object: GameEntity) {
@@ -259,14 +257,13 @@ class SinglePlayerGameManager: GameManager {
     func update(_ deltaTime: Double) {
         if !gameIsOver || currentLevel == nil {
             currentLevel?.run(deltaTime)
-//            transformSystem?.updateEntities(deltaTime)
-//            aiSystem?.updateEntities(deltaTime)
-//            renderSystem?.updateEntities(deltaTime)
-//            animationSystem?.updateEntities(deltaTime)
-//            collisionSystem?.updateEntities(deltaTime)
-//            movementSystem?.updateEntities(deltaTime)
-//            playerSystem?.updateEntities(deltaTime)
-            inGameSystems.forEach { $0.updateEntities(deltaTime) }
+            transformSystem?.updateEntities(deltaTime)
+            aiSystem?.updateEntities(deltaTime)
+            renderSystem?.updateEntities(deltaTime)
+            animationSystem?.updateEntities(deltaTime)
+            collisionSystem?.updateEntities(deltaTime)
+            movementSystem?.updateEntities(deltaTime)
+            playerSystem?.updateEntities(deltaTime)
             entities.forEach { $0.update(deltaTime) }
         }
         userInputSystem.updateEntities(deltaTime)
