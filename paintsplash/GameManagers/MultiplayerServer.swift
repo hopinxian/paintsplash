@@ -68,7 +68,6 @@ class MultiplayerServer: SinglePlayerGameManager {
     }
 
     func sendGameState() {
-        serverNetworkHandler.sendGameState(uiEntities: uiEntities, entities: entities,
-                                           renderSystem: renderSystem, animationSystem: animationSystem)
+        serverNetworkHandler.sendGameStateToDatabase()
     }
 }

@@ -24,8 +24,7 @@ class FirebaseMPServerNetworkHandler: MPServerNetworkHandler {
 
     func sendGameState(uiEntities: Set<GameEntity>, entities: Set<GameEntity>,
                        renderSystem: RenderSystem, animationSystem: AnimationSystem) {
-        sendGameStateToDatabase(uiEntities: uiEntities, entities: entities,
-                                renderSystem: renderSystem, animationSystem: animationSystem)
+        sendGameStateToDatabase()
     }
 
     /// Allow the server to send player events to the database for clients to observe
