@@ -64,8 +64,4 @@ class Canvas: GameEntity, StatefulEntity, Renderable, Collidable, Transformable,
         paintedColors.forEach({ $0.destroy() })
         super.destroy()
     }
-
-    deinit {
-        print("canvas deinit")
-    }
 }

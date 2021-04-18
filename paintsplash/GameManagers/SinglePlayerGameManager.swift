@@ -41,6 +41,7 @@ class SinglePlayerGameManager: GameManager {
         let gameInfo = GameInfo(playerPosition: Vector2D.zero)
         self.gameInfoManager = GameInfoManager(gameInfo: gameInfo)
 
+        EventSystem.reset()
         setupEventListeners()
         setupGame()
     }

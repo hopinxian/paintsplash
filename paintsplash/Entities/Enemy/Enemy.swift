@@ -72,8 +72,4 @@ class Enemy: GameEntity, StatefulEntity, Renderable, Animatable, Collidable, Mov
         collisionComp.enemy = self
         healthComp.enemy = self
     }
-
-    deinit {
-        print("removed enemy")
-    }
 }
